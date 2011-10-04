@@ -1,4 +1,5 @@
-public class Dieter {
+public class Dieter
+{
 	public boolean isAwesome() {
 		return false;
 	}
