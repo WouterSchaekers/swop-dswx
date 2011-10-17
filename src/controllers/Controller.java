@@ -6,13 +6,13 @@ import help.FifoQueue;
 public class Controller
 {
 	protected FifoQueue<String> q;
-	MasterController m;
+	Metamanager m;
 
 	public Controller() {
 		q = new FifoQueue<String>();
 	}
 
-	public Controller(MasterController m) {
+	public Controller(Metamanager m) {
 		this();
 		this.m = m;
 	}

@@ -6,7 +6,7 @@ import users.UserManager;
 public class LoginController extends Controller
 {
 	
-	public LoginController(MasterController t) {
+	public LoginController(Metamanager t) {
 		super(t);
 	}
 

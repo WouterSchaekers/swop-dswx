@@ -6,11 +6,11 @@ import java.util.Iterator;
 import java.util.Map;
 import javax.swing.Spring;
 import controllers.LoginController;
-import controllers.MasterController;
+import controllers.Metamanager;
 
 public class UCcontroller
 {
-	MasterController t; // connec
+	Metamanager t; // connec
 	private Spring currentUseCase;
 	private Map<String, Integer> map;
 	private boolean inUseCase = false;
@@ -39,7 +39,7 @@ public class UCcontroller
 		return null;
 	}
 
-	public UCcontroller(MasterController m) {
+	public UCcontroller(Metamanager m) {
 		this.t=m;
 		// every usecase has an activation key, once activated you stay in the usecase till you screw up
 		map = new HashMap<String, Integer>();

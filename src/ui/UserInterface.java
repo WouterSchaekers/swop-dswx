@@ -1,11 +1,11 @@
 package ui;
 import java.util.Scanner;
-import controllers.MasterController;
+import controllers.Metamanager;
 
 public class UserInterface
 {
 	static UCcontroller usecaseController;
-	public UserInterface(MasterController m)
+	public UserInterface(Metamanager m)
 	{
 		usecaseController = new UCcontroller(m);
 	}

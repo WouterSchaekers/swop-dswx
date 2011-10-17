@@ -4,11 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 import users.UserManager;
 
-public class MasterController
+public class Metamanager
 {
 	private Map<String,Controller> controllers;
 	private Map<String,Manager> manager;
-	public MasterController()
+	public Metamanager()
 	{
 		
 	}

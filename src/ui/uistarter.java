@@ -2,12 +2,12 @@ package ui;
 
 import users.UserAlreadyExistsException;
 import users.UserManager;
-import controllers.MasterController;
+import controllers.Metamanager;
 
 public class uistarter
 {
 	public static void main(String[] args) {
-		MasterController m = new MasterController();
+		Metamanager m = new Metamanager();
 		m.intializeSystem();
 		try {
 			((UserManager)m.getManager("UserManager")).CreateDoctor("Joseph");
