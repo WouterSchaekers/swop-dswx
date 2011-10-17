@@ -13,6 +13,7 @@ public class Controller
 	}
 
 	public Controller(MasterController m) {
+		this();
 		this.m = m;
 	}
 
