@@ -1,5 +1,6 @@
 package users;
 
-public class Treatment {
+public class Treatment
+{
 
 }

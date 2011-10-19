@@ -1,5 +1,6 @@
 package users;
 
-public class Surgery extends Treatment{
+public class Surgery extends Treatment
+{
 
 }

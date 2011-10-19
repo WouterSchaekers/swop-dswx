@@ -6,7 +6,7 @@ import controllers.Metamanager;
 
 /**
  * The UI.
- *
+ * 
  */
 public class uistarter
 {
@@ -14,12 +14,12 @@ public class uistarter
 		Metamanager m = new Metamanager();
 
 		try {
-			((UserManager)m.getManager("UserManager")).CreateDoctor("Joseph");
+			((UserManager) m.getManager("UserManager")).CreateDoctor("Joseph");
 		} catch (UserAlreadyExistsException e) {
 			e.printStackTrace();
 		}
 		UserInterface t = new UserInterface(m);
 		t.start();
-		
+
 	}
 }

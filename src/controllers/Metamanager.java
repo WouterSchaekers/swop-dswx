@@ -6,8 +6,9 @@ import users.UserManager;
 
 /**
  * This class manages all the managers used in this software package.
+ * 
  * @author Stefaan, Dieter
- *
+ * 
  */
 public class Metamanager
 {
@@ -23,9 +24,8 @@ public class Metamanager
 
 	/**
 	 * @param name
-	 * the name of the requested controller 
-	 * @return
-	 * returns the requested controller 
+	 *            the name of the requested controller
+	 * @return returns the requested controller
 	 */
 	public Controller getController(String name) {
 		Controller s = controllers.get(name);

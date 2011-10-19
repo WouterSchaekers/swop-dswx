@@ -1,5 +1,6 @@
 package users;
 
-public class Diagnose {
+public class Diagnose
+{
 
 }

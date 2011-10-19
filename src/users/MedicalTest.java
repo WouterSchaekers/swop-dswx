@@ -1,5 +1,6 @@
 package users;
 
-public class MedicalTest {
+public class MedicalTest
+{
 
 }

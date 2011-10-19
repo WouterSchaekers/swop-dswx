@@ -1,5 +1,6 @@
 package users;
 
-public class Machine {
+public class Machine
+{
 
 }

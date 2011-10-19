@@ -1,20 +1,47 @@
 package users;
 
+import java.util.Date;
 import java.util.ArrayList;
 
-public class Doctor extends User{
-	public Doctor(String name, int ssid){
+public class Doctor extends User
+{
+	/**
+	 * Generate a list of maximal amount of appointments. if an appointment is
+	 * not filled, it will be regarded as as "open".
+	 * 
+	 * @param name
+	 * The name of the doctor.
+	 */
+	public Doctor(String name) {
+		super(name);
+		appointments = new ArrayList<Appointment>(14);
+	}
+
+	public Doctor(String name, int ssid) {
 		super(name, ssid);
 		appointments = new ArrayList<Appointment>();
 	}
+
 	public static int slotTime = 30;
-	ArrayList<Appointment> appointments;
-	public void addAppointment(Appointment appointment){
+	private ArrayList<Appointment> appointments;
+
+	public void addAppointment(Appointment appointment) {
 		appointments.add(appointment);
 	}
-	public void getNextSlot(){
-		for(Appointment appointment : appointments){
-			
+
+	public ArrayList<Appointment> getAppointments() {
+		return appointments;
+	}
+
+	/**
+	 * 
+	 * @return null if no more free slots.
+	 */
+	public Date getNextFreeSlot() {
+		for (Appointment appointment : appointments) {
+			if (appointment.isOpen())
+				return appointment.getDate();
 		}
+		return null;
 	}
 }

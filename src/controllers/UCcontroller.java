@@ -6,8 +6,9 @@ import javax.swing.Spring;
 
 /**
  * This class handles the usecases.
+ * 
  * @author Dieter
- *
+ * 
  */
 public class UCcontroller
 {
@@ -29,8 +30,10 @@ public class UCcontroller
 		}
 		switch (choice) {
 		case 0:// login
-			((LoginController) this.t.getController("LoginController")).getUsers();
-			return ((LoginController) this.t.getController("LoginController")).response();
+			((LoginController) this.t.getController("LoginController"))
+					.getUsers();
+			return ((LoginController) this.t.getController("LoginController"))
+					.response();
 		case 1:
 			break;
 		case Integer.MIN_VALUE:
