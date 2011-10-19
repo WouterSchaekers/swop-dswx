@@ -11,9 +11,10 @@ public class LoginController extends Controller
 	}
 
 	public void getUsers() {
+		q.push("Available Users: \n");
 		for (User u : ((UserManager) this.m.getManager("UserManager"))
 				.getAllusers())
-			q.push(u.getName());
+			q.push("* " + u.getName());
 
 	}
 
