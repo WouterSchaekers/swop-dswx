@@ -1,13 +1,14 @@
-package ui;
+package controllers;
 
-import help.FifoQueue;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import javax.swing.Spring;
-import controllers.LoginController;
-import controllers.Metamanager;
 
+/**
+ * This class handles the usecases.
+ * @author Dieter
+ *
+ */
 public class UCcontroller
 {
 	Metamanager t; // connec
@@ -23,14 +24,13 @@ public class UCcontroller
 				choice = Integer.MIN_VALUE;
 			else
 				choice = a;
-		}else
-		{
+		} else {
 			choice = map.get(currentUseCase);
 		}
 		switch (choice) {
 		case 0:// login
-			((LoginController)this.t.getController("LoginController")).getUsers();
-			return ((LoginController)this.t.getController("LoginController")).response();
+			((LoginController) this.t.getController("LoginController")).getUsers();
+			return ((LoginController) this.t.getController("LoginController")).response();
 		case 1:
 			break;
 		case Integer.MIN_VALUE:
@@ -40,8 +40,9 @@ public class UCcontroller
 	}
 
 	public UCcontroller(Metamanager m) {
-		this.t=m;
-		// every usecase has an activation key, once activated you stay in the usecase till you screw up
+		this.t = m;
+		// every usecase has an activation key, once activated you stay in the
+		// usecase till you screw up
 		map = new HashMap<String, Integer>();
 		map.put("login", 0);
 		map.put("Login", 0);
