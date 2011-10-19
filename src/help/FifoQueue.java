@@ -2,6 +2,14 @@ package help;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+
+/**
+ * A very basic and simple FIFO queue
+ * @author Stefaan
+ *
+ * @param <T>
+ * The type of the elements in the FIFO queue
+ */
 public class FifoQueue<T> implements Iterable<T>, Iterator<T>
 {
     private ArrayList<T> queue = new ArrayList<T>();
