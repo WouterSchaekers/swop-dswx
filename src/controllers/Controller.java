@@ -11,11 +11,9 @@ import help.FifoQueue;
  */
 public class Controller
 {
-	protected FifoQueue<String> q;
 	Metamanager m;
 
 	public Controller() {
-		q = new FifoQueue<String>();
 	}
 
 	public Controller(Metamanager m) {
@@ -23,18 +21,5 @@ public class Controller
 		this.m = m;
 	}
 
-	/**
-	 * Used to iterate over responses from the user.
-	 * 
-	 * @return An iterable set of strings.
-	 */
-	public Iterable<String> response() {
-		return new Iterable<String>()
-		{
-			@Override
-			public Iterator<String> iterator() {
-				return q.iterator();
-			}
-		};
-	}
+
 }

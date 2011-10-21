@@ -46,6 +46,7 @@ public class UserManager implements Manager
 	}
 
 	public void login(String name) {
+		//XXX:test if existsa
 		loggedin.put(users.get(name), true);
 	}
 	public void logout(User u)
