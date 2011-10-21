@@ -1,15 +1,16 @@
 package users;
 
+import patient.PatientManager;
+
 public abstract class User
 {
-	public User(String name) {
+	PatientManager patientm;
+	
+	protected String title;
+	protected User(String name) {
 		this.name = name;
 	}
 
-	public User(String name, int ssid) {
-		this.name = name;
-		this.ssid = ssid;
-	}
 
 	protected String name;
 

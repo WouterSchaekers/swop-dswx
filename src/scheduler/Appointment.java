@@ -1,6 +1,8 @@
-package users;
+package scheduler;
 
 import java.util.Date;
+import patient.Patient;
+import users.Doctor;
 
 public class Appointment
 {
