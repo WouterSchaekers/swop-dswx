@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class Doctor extends User
 {
 	/**
+	 * 
 	 * Generate a list of maximal amount of appointments. if an appointment is
 	 * not filled, it will be regarded as as "open".
 	 * 
@@ -16,7 +17,7 @@ public class Doctor extends User
 		super(name);
 		appointments = new ArrayList<Appointment>(14);
 	}
-
+					
 	public Doctor(String name, int ssid) {
 		super(name, ssid);
 		appointments = new ArrayList<Appointment>();

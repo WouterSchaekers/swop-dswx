@@ -7,6 +7,10 @@ import controllers.Manager;
 
 public class UserManager implements Manager
 {
+
+	private Map<String, User> users;
+	private Map<User, Boolean> loggedin;
+
 	/**
 	 * This method is used to add users, ensures valid adding etc.
 	 * 
@@ -19,17 +23,15 @@ public class UserManager implements Manager
 		this.users.put(newUser.name, newUser);
 	}
 
-	public void CreateDoctor(String name) throws UserAlreadyExistsException {
-		User newUser = new Doctor(name);
+	public Doctor CreateDoctor(String name) throws UserAlreadyExistsException {
+		Doctor newUser = new Doctor(name);
 		AddUser(newUser);
+		return newUser;
 	}
 
 	public void DeleteUser(User u) {
-
+		this.users.remove(u.name);
 	}
-
-	private Map<String, User> users;
-	private Map<User, Boolean> loggedin;
 
 	public UserManager() {
 		users = new HashMap<String, User>();
@@ -46,7 +48,10 @@ public class UserManager implements Manager
 	public void login(String name) {
 		loggedin.put(users.get(name), true);
 	}
-
+	public void logout(User u)
+	{
+		loggedin.put(u, false);
+	}
 	public User getUser(String name) {
 		return users.get(name);
 

@@ -31,7 +31,7 @@ public class UCcontroller
 		switch (choice) {
 		case 0:// login
 			((LoginController) this.t.getController("LoginController"))
-					.getUsers();
+					.getUsernames();
 			return ((LoginController) this.t.getController("LoginController"))
 					.response();
 		case 1:

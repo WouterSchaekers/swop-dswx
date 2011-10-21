@@ -10,7 +10,7 @@ public class LoginController extends Controller
 		super(t);
 	}
 
-	public void getUsers() {
+	public void getUsernames() {
 		q.push("Available Users: \n");
 		for (User u : ((UserManager) this.m.getManager("UserManager"))
 				.getAllusers())
