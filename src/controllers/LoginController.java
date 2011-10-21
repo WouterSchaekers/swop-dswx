@@ -23,6 +23,5 @@ public class LoginController extends Controller
 
 	public Collection<String> login(String name) {
 		this.m.getUserManager().login(name);
-		return ;
 	}
 }
