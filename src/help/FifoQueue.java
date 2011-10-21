@@ -2,6 +2,7 @@ package help;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 /**
  * A very basic and simple FIFO queue
@@ -13,7 +14,7 @@ import java.util.Iterator;
  */
 public class FifoQueue<T> implements Iterable<T>, Iterator<T>
 {
-	private ArrayList<T> queue = new ArrayList<T>();
+	private LinkedList<T> queue = new LinkedList<T>();
 
 	/**
 	 * Adds element to queue.
@@ -29,7 +30,7 @@ public class FifoQueue<T> implements Iterable<T>, Iterator<T>
 	 * Removes first element from queue and returns that element.
 	 */
 	public T next() {
-		return queue.remove(0);
+		return queue.getFirst();
 	}
 
 	/**
@@ -54,7 +55,7 @@ public class FifoQueue<T> implements Iterable<T>, Iterator<T>
 
 	@Override
 	public void remove() {
-		queue.remove(0);
+		queue.removeFirst();
 	}
 
 }
