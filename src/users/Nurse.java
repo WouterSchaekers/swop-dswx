@@ -13,7 +13,7 @@ public class Nurse extends User
 
 	public void registerPatient(Patient patient) {
 		
-		Database.addPatient(patient);
+		//Database.addPatient(patient);
 	}
 
 	public Appointment makeAppointment(Patient patient, Doctor doctor) {
