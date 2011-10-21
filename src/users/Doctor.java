@@ -2,6 +2,7 @@ package users;
 
 import java.util.Date;
 import java.util.ArrayList;
+import scheduler.Appointment;
 
 public class Doctor extends User
 {
@@ -18,11 +19,6 @@ public class Doctor extends User
 		appointments = new ArrayList<Appointment>(14);
 	}
 					
-	public Doctor(String name, int ssid) {
-		super(name, ssid);
-		appointments = new ArrayList<Appointment>();
-	}
-
 	public static int slotTime = 30;
 	private ArrayList<Appointment> appointments;
 
