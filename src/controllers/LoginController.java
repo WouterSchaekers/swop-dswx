@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import users.User;
 import users.UserManager;
 
@@ -10,16 +12,17 @@ public class LoginController extends Controller
 		super(t);
 	}
 
-	public void getUsernames() {
-		q.push("Available Users: \n");
-		for (User u : ((UserManager) this.m.getManager("UserManager"))
-				.getAllusers())
-			q.push("* " + u.getName());
-
+	public Collection<String> getUserNames() {
+		Collection<String> result = new ArrayList<String>();
+		result.add("Available Users: \n");
+		Collection<User> users= this.m.getUserManager().getAllusers();
+		for (User u : users)
+				result.add(u.getName());
+		return result;
 	}
 
-	public void login(String name) {
-		((UserManager) this.m.getManager("UserManager")).login(name);
-		q.push(" was succesfully logged in");
+	public Collection<String> login(String name) {
+		this.m.getUserManager().login(name);
+		return ;
 	}
 }

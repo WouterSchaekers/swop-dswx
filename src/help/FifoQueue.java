@@ -14,7 +14,7 @@ import java.util.LinkedList;
  */
 public class FifoQueue<T> implements Iterable<T>, Iterator<T>
 {
-	private LinkedList<T> queue = new LinkedList<T>();
+	private ArrayList<T> queue = new ArrayList<T>();
 
 	/**
 	 * Adds element to queue.
@@ -30,7 +30,7 @@ public class FifoQueue<T> implements Iterable<T>, Iterator<T>
 	 * Removes first element from queue and returns that element.
 	 */
 	public T next() {
-		return queue.getFirst();
+		return queue.remove(0);
 	}
 
 	/**
@@ -55,7 +55,7 @@ public class FifoQueue<T> implements Iterable<T>, Iterator<T>
 
 	@Override
 	public void remove() {
-		queue.removeFirst();
+		queue.remove(0);
 	}
 
 }

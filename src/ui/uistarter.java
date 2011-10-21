@@ -14,11 +14,12 @@ public class uistarter
 		Metamanager m = new Metamanager();
 
 		System.out.println("Hi, what would you like to do?");
+		UserManager u = m.getUserManager();
 		try {
-			((UserManager) m.getManager("UserManager")).CreateDoctor("Joseph");
-			((UserManager) m.getManager("UserManager")).CreateDoctor("Willy");
-			((UserManager) m.getManager("UserManager")).CreateDoctor("Greg");
-			((UserManager) m.getManager("UserManager")).CreateDoctor("Jeffrey");
+			u.CreateDoctor("Joseph");
+			u.CreateDoctor("Willy");
+			u.CreateDoctor("Greg");
+			u.CreateDoctor("Jeffrey");
 		} catch (UserAlreadyExistsException e) {
 			e.printStackTrace();
 		}
