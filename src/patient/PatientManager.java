@@ -14,4 +14,9 @@ public class PatientManager
 	{
 		
 	}
+	
+	
+	public boolean doctorHasFileOpened(User user, PatientFile file) {
+		return false;
+	}
 }
