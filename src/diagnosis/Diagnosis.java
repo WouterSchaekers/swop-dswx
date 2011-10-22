@@ -51,34 +51,33 @@ public class Diagnosis
 	 *       must be executed!
 	 * 
 	 */
-	public String updateDiag(Doctor changer, String diag, PatientFile patientfile) throws IllegalStateException, IllegalAccessException {
+	public String updateDiag(Doctor changer, String diag, PatientFile patientfile) 
+		throws IllegalStateException, IllegalAccessException {
 
-		boolean fileOpened = (new PatientManager()).doctorHasFileOpened(changer, patientfile);
-				
 		// check if the changer has the patientfile open
-		if (fileOpened) { 
-			// see if the attending doctor has already been filled in.
-			this.attending = (this.getAttending() == null)? changer : this.attending;
+		if (!new PatientManager().doctorHasFileOpened(changer, patientfile))
+			throw new IllegalStateException("Diagnosis not updated! Doctor has not opened the associated patientfile!");
+		// see if the attending doctor has already been filled in.
+		this.attending = (this.getAttending() == null) ? changer : this.attending;
 
-			// if changer is not the attending doctor, that means he's giving a second opinion.
-			if(!this.getAttending().equals(changer))
-				return giveSecOp(diag, changer, patientfile);
-				
-			if (!this.isApproved()) { // diagnosis hasn't been approved yet -> allow change
-				this.diag = diag;
-				return "The diagnosis has been updated. Would you like to flag it for second opinion?";
-				// if "n" -> this.approve()
-				// else -> this.markForSecOp()
-			} else { // diagnosis has already been approved; ask for confirmation
-				this.disapprove();
-				return "The current diagnosis '"
-						+ this.getDiagnosis()
-						+ "' has already been approved.\nAre you sure you want to update it? ";
-				// if "y" -> run this.disapprove() and run function again with the correct params.
-				// else -> no-op
-			}
+		// if changer is not the attending doctor, that means he's giving a second opinion.
+		if (!this.getAttending().equals(changer))
+			return giveSecOp(diag, changer, patientfile);
+
+		if (!this.isApproved()) { // diagnosis hasn't been approved yet -> allow change
+			this.diag = diag;
+			return "The diagnosis has been updated. Would you like to flag it for second opinion?";
+			// if "n" -> this.approve()
+			// else -> this.markForSecOp()
+		} else { // diagnosis has already been approved; ask for confirmation
+			this.disapprove();
+			return "The current diagnosis '"
+					+ this.getDiagnosis()
+					+ "' has already been approved.\nAre you sure you want to update it? ";
+			// if "y" -> run this.disapprove() and run function again with the correct params.
+			// else -> no-op
 		}
-		throw new IllegalStateException("Diagnosis not updated! Doctor has not opened the associated patientfile!");
+
 	}
 
 	/**
@@ -95,17 +94,22 @@ public class Diagnosis
 	 *             if the doctor attempting to give a second opinion is the
 	 *             attending doctor on this case, or if this case does not need
 	 *             a second opinion
+	 * @throws IllegalStateException
+	 *             if the doctor attemtping to give a second opionion has not
+	 *             opened the patient file
 	 * @return A string containing useful information for the user.
 	 * @post If the second opinion is not exactly equal (ignore case) to the
-	 *       original diagnosis, then <b>updateDiag()</b> should be called by the
-	 *       attending doctor to change the diagnosis. This diagnosis will be
-	 *       marked for second opinion.
+	 *       original diagnosis, then <b>updateDiag()</b> should be called by
+	 *       the attending doctor to change the diagnosis. This diagnosis will
+	 *       be marked for second opinion.
 	 */
-	public String giveSecOp(String secOp, Doctor doc, PatientFile patientfile) throws IllegalAccessException {
+	public String giveSecOp(String secOp, Doctor doc, PatientFile patientfile) throws IllegalAccessException, IllegalStateException {
 		// the attending doctor cannot give a second opinion on his own diagnosis
 		if (this.getAttending() == doc) throw new IllegalAccessException("Doctor of the second opinion cannot be the attending doctor!");
 		// this diagnosis needs to marked for second opinion before one can be given
 		if(!this.isMarkedForSecOp()) throw new IllegalAccessException("This diagnosis does not need a second opinion!");
+		// the patientfile needs to be opened by the doctor
+		if(!new PatientManager().doctorHasFileOpened(doc, patientfile)) throw new IllegalStateException("Diagnosis not updated! Doctor has not opened the associated patientfile!");
 		
 		if (secOp.equalsIgnoreCase(this.getDiagnosis())) {
 			// the second opinion is the same as the first opinion -> approve diagnosis and unflag for second opinion
