@@ -30,8 +30,8 @@ public class Diagnosis
 	 *            The doctor responsible for the change.
 	 * @param diag
 	 *            The new diagnosis for the patient.
-	 * @param patient
-	 *            The patient whose diagnosis needs to be updated.
+	 * @param patientfile
+	 *            The patientfile of which the diagnosis needs to be updated.
 	 * @param secOp
 	 * @throws IllegalStateException
 	 *             If the doctor trying to update the diagnosis of a patient has
@@ -51,9 +51,9 @@ public class Diagnosis
 	 *       must be executed!
 	 * 
 	 */
-	public String updateDiag(Doctor changer, String diag, Patient patient) throws IllegalStateException, IllegalAccessException {
+	public String updateDiag(Doctor changer, String diag, PatientFile patientfile) throws IllegalStateException, IllegalAccessException {
 
-		boolean fileOpened = (new PatientManager()).doctorHasFileOpened(changer, patient.getFile());
+		boolean fileOpened = (new PatientManager()).doctorHasFileOpened(changer, patientfile);
 				
 		// check if the changer has the patientfile open
 		if (fileOpened) { 
@@ -62,7 +62,7 @@ public class Diagnosis
 
 			// if changer is not the attending doctor, that means he's giving a second opinion.
 			if(!this.getAttending().equals(changer))
-				return giveSecOp(diag, changer, patient);
+				return giveSecOp(diag, changer, patientfile);
 				
 			if (!this.isApproved()) { // diagnosis hasn't been approved yet -> allow change
 				this.diag = diag;
@@ -89,8 +89,8 @@ public class Diagnosis
 	 *            The diagnosis of the second opinion.
 	 * @param doc
 	 *            The doctor giving the second opinion.
-	 * @param patient
-	 *            The patient who's diagnosis needs approval.
+	 * @param patientfile
+	 *            The patient file of which diagnosis needs approval.
 	 * @throws IllegalAccessException
 	 *             if the doctor attempting to give a second opinion is the
 	 *             attending doctor on this case, or if this case does not need
@@ -101,7 +101,7 @@ public class Diagnosis
 	 *       attending doctor to change the diagnosis. This diagnosis will be
 	 *       marked for second opinion.
 	 */
-	public String giveSecOp(String secOp, Doctor doc, Patient patient) throws IllegalAccessException {
+	public String giveSecOp(String secOp, Doctor doc, PatientFile patientfile) throws IllegalAccessException {
 		// the attending doctor cannot give a second opinion on his own diagnosis
 		if (this.getAttending() == doc) throw new IllegalAccessException("Doctor of the second opinion cannot be the attending doctor!");
 		// this diagnosis needs to marked for second opinion before one can be given
@@ -114,7 +114,7 @@ public class Diagnosis
 			return "Original diagnosis was successfully approved by second opinion!";
 		}
 		this.disapprove();
-		this.updateDiag(this.getAttending(), this.getDiagnosis() + "/" + secOp + " by " + this.getAttending().toString() + "/" + doc.toString(), patient);
+		this.updateDiag(this.getAttending(), this.getDiagnosis() + "/" + secOp + " by " + this.getAttending().toString() + "/" + doc.toString(), patientfile);
 		this.markForSecOp();
 		return "Original diagnosis was not the same as the second opinion.\nDiagnosis was not approved.\nDiagnosis has been adjusted accordingly.\nDiagnosis has been marked for second opinion.";
 	}
