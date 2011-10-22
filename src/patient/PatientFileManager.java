@@ -1,6 +1,5 @@
 package patient;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import users.Doctor;
 
@@ -72,9 +71,14 @@ public class PatientFileManager
 	public PatientFile getPatientFile(String name) {
 		return patientFiles.get(name);
 	}
-	
-	public String createPatientFile(String name) {
-		return "Patient file successfully created!";
+
+	/**
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public void addPatientFile(PatientFile pf) {
+		patientFiles.put(pf.getName(), pf);
 	}
 	
 }
