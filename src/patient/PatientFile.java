@@ -12,6 +12,7 @@ public class PatientFile
 	/**
 	 * Default constructor is NOT allowed!
 	 */
+	@SuppressWarnings("unused")
 	private PatientFile(){throw new IllegalStateException("FATAL SYSTEM ERROR!");}
 	
 	/**
