@@ -1,5 +1,6 @@
 package patient;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import users.Doctor;
 
@@ -11,6 +12,7 @@ import users.Doctor;
 public class PatientFileManager
 {
 	public static HashMap<Doctor,PatientFile> openFiles = new HashMap<Doctor,PatientFile>();
+	public static ArrayList<PatientFile> patientFiles = new ArrayList<PatientFile>();
 	
 	/**
 	 * This function allows a doctor to open a patient file.
@@ -59,4 +61,16 @@ public class PatientFileManager
 	public boolean doctorHasFileOpened(Doctor doc, PatientFile file) {
 		return openFiles.containsKey(doc) && openFiles.get(doc).equals(file);
 	}
+	
+	/**
+	 * This function allows someone to request the patient file of a patient.
+	 * 
+	 * @param name
+	 *            The name of the patient.
+	 * @return The patient file of that patient.
+	 */
+	public PatientFile getPatientFile(String name) {
+		return null;
+	}
+	
 }
