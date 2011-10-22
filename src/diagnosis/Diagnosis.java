@@ -14,10 +14,6 @@ import users.Doctor;
 public class Diagnosis
 {
 
-	public Diagnosis() {
-
-	}
-
 	private String diag = "";
 	private boolean approved = false;
 	private boolean secOpFlag = false;
