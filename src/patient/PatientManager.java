@@ -5,7 +5,7 @@ import users.User;
 public class PatientManager
 {	
 	
-	public PatientFile openPatientFile(User u,Patient p)
+	public PatientFile openPatientFile(User u)
 	{
 		return null;
 		

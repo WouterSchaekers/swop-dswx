@@ -1,24 +1,24 @@
 package scheduler;
 
 import java.util.Date;
-import patient.Patient;
+import patient.PatientFile;
 import users.Doctor;
 
 public class Appointment
 {
-	public Appointment(Patient patient, Doctor doctor, Date date) {
-		setPatient(patient);
+	public Appointment(PatientFile patient, Doctor doctor, Date date) {
+		setPatientFile(patient);
 		setDoctor(doctor);
 		setDate(date);
 	}
 
-	private Patient patient;
+	private PatientFile patient;
 
-	public void setPatient(Patient patient) {
+	public void setPatientFile(PatientFile patient) {
 		this.patient = patient;
 	}
 
-	public Patient getPatient() {
+	public PatientFile getPatientFile() {
 		return patient;
 	}
 

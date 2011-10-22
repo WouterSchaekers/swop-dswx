@@ -2,7 +2,6 @@ package help;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 
 /**
  * A very basic and simple FIFO queue
