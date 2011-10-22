@@ -8,7 +8,7 @@ import users.Doctor;
  * @author Stefaan
  *
  */
-public class PatientManager
+public class PatientFileManager
 {
 	public static HashMap<Doctor,PatientFile> openFiles = new HashMap<Doctor,PatientFile>();
 	

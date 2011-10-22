@@ -51,7 +51,7 @@ public class Diagnosis
 		throws IllegalStateException, IllegalAccessException {
 
 		// check if the changer has the patientfile open
-		if (!new PatientManager().doctorHasFileOpened(changer, patientfile))
+		if (!new PatientFileManager().doctorHasFileOpened(changer, patientfile))
 			throw new IllegalStateException("Diagnosis not updated! Doctor has not opened the associated patientfile!");
 		// see if the attending doctor has already been filled in.
 		this.attending = (this.getAttending() == null) ? changer : this.attending;
@@ -105,7 +105,7 @@ public class Diagnosis
 		// this diagnosis needs to marked for second opinion before one can be given
 		if(!this.isMarkedForSecOp()) throw new IllegalAccessException("This diagnosis does not need a second opinion!");
 		// the patientfile needs to be opened by the doctor
-		if(!new PatientManager().doctorHasFileOpened(doc, patientfile)) throw new IllegalStateException("Diagnosis not updated! Doctor has not opened the associated patientfile!");
+		if(!new PatientFileManager().doctorHasFileOpened(doc, patientfile)) throw new IllegalStateException("Diagnosis not updated! Doctor has not opened the associated patientfile!");
 		
 		if (secOp.equalsIgnoreCase(this.getDiagnosis())) {
 			// the second opinion is the same as the first opinion -> approve diagnosis and unflag for second opinion
