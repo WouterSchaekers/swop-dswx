@@ -8,7 +8,7 @@ import users.Doctor;
  * diagnosis of a certain patient. It can mark a diagnosis for second opinion
  * and remembers if the diagnosis has been approved or not.
  * 
- * @author Stefaan Truijen
+ * @author Stefaan
  * 
  */
 public class Diagnosis
