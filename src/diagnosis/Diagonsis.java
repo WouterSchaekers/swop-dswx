@@ -20,13 +20,10 @@ public class Diagonsis
 		PatientFile pf = this.getPatient().getFile();
 		
 		if(p.doctorHasFileOpened(changer, pf)) { // the changer has the patientfile open
-			if (!isValid && !secOpFlag) { // diagnosis hasn't been approved yet && does not need 2nd opionion-> allow change
+			if (!isValid) { // diagnosis hasn't been approved -> allow change
 				this.diag = newDiag;
 				this.isValid = true; // the diagnosis is valid.
-			} else if (secOpFlag) { // is not valid and needs 2nd op
-				
-			}
-				
+			}			
 		} else {
 			throw new IllegalStateException("Doctor has not opened the associated patientfile!");
 		}
