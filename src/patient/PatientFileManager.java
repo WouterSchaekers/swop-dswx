@@ -12,7 +12,7 @@ import users.Doctor;
 public class PatientFileManager
 {
 	public static HashMap<Doctor,PatientFile> openFiles = new HashMap<Doctor,PatientFile>();
-	public static ArrayList<PatientFile> patientFiles = new ArrayList<PatientFile>();
+	public static HashMap<String,PatientFile> patientFiles = new HashMap<String,PatientFile>();
 	
 	/**
 	 * This function allows a doctor to open a patient file.
@@ -70,7 +70,11 @@ public class PatientFileManager
 	 * @return The patient file of that patient.
 	 */
 	public PatientFile getPatientFile(String name) {
-		return null;
+		return patientFiles.get(name);
+	}
+	
+	public String createPatientFile(String name) {
+		return "Patient file successfully created!";
 	}
 	
 }
