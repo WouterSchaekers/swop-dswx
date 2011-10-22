@@ -1,10 +1,10 @@
 package users;
 
-import patient.PatientManager;
+import patient.PatientFileManager;
 
 public abstract class User
 {
-	PatientManager patientm;
+	PatientFileManager patientm;
 	
 	protected String title;
 	protected User(String name) {
