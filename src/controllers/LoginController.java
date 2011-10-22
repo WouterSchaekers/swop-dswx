@@ -3,7 +3,6 @@ package controllers;
 import java.util.ArrayList;
 import java.util.Collection;
 import users.User;
-import users.UserManager;
 
 public class LoginController extends Controller
 {
@@ -21,7 +20,9 @@ public class LoginController extends Controller
 		return result;
 	}
 
+	//TODO
 	public Collection<String> login(String name) {
 		this.m.getUserManager().login(name);
+		return null;
 	}
 }

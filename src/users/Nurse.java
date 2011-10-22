@@ -1,7 +1,6 @@
 package users;
 
-import java.util.ArrayList;
-import patient.Patient;
+import patient.PatientFile;
 import scheduler.Appointment;
 
 public class Nurse extends User
@@ -11,12 +10,12 @@ public class Nurse extends User
 	}
 
 
-	public void registerPatient(Patient patient) {
+	public void registerPatient(PatientFile patient) {
 		
 		//Database.addPatient(patient);
 	}
 
-	public Appointment makeAppointment(Patient patient, Doctor doctor) {
+	public Appointment makeAppointment(PatientFile patient, Doctor doctor) {
 		return null;
 
 	}
