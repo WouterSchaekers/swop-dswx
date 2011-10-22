@@ -7,14 +7,24 @@ public class PatientFile
 
 	private String name = "";
 	private Diagnosis diagnosis = new Diagnosis();
-
+	private PatientFileManager pfm;
+	
+	/**
+	 * Default constructor is NOT allowed!
+	 */
+	private PatientFile(){throw new IllegalStateException("FATAL SYSTEM ERROR!");}
+	
 	/**
 	 * 
 	 * @param patient
 	 *            The name of the patient to whom this file belongs to.
+	 * @param pfm
+	 * 			  The patient file manager for this patient file.
 	 */
-	public PatientFile(String patientname) {
+	public PatientFile(String patientname, PatientFileManager pfm) {
+		this.pfm = pfm;
 		this.name = patientname;
+		pfm.addPatientFile(this);
 	}
 
 	/**
@@ -31,6 +41,10 @@ public class PatientFile
 	 */
 	public Diagnosis getDiagnosis() {
 		return this.diagnosis;
+	}
+	
+	public PatientFileManager getPfm() {
+		return pfm;
 	}
 
 }
