@@ -1,7 +1,7 @@
 package medicaltest;
 
 
-public class BloodAnalysis extends Medicaltest
+public class BloodAnalysis extends MedicalTest
 {
 
 }

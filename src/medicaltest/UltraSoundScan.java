@@ -1,6 +1,6 @@
 package medicaltest;
 
-public class UltraSoundScan extends Medicaltest
+public class UltraSoundScan extends MedicalTest
 {
 
 }

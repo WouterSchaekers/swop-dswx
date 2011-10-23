@@ -16,10 +16,11 @@ public class AppointmentScheduler
 	private HashMap<Doctor, ArrayList<Appointment>> appointments;
 	private static int appointmentDuration = 30;
 	
-	public void addAppointment(PatientFile patient, Doctor doctor){
+	public Appointment addAppointment(PatientFile patient, Doctor doctor){
 		Date nextDate = getNextAppointmentMoment(doctor);
 		Appointment appointment = new Appointment(patient, doctor, nextDate);
 		appointments.get(doctor).add(appointment);
+		return appointment;
 	}
 	
 	public ArrayList<Appointment> getAppointments(Doctor doctor){

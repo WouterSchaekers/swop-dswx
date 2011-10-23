@@ -1,6 +1,6 @@
 package medicaltest;
 
-public class XRayScan extends Medicaltest
+public class XRayScan extends MedicalTest
 {
 
 }
