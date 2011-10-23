@@ -1,6 +1,6 @@
 package treatment;
 
-public class Cast extends Treatement
+public class Cast extends Treatment
 {
 
 }

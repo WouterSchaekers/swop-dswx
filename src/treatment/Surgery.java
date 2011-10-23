@@ -1,6 +1,6 @@
 package treatment;
 
-public class Surgery extends Treatement
+public class Surgery extends Treatment
 {
 
 }

@@ -1,13 +1,16 @@
 package patient;
 
+import treatment.Treatment;
 import diagnosis.Diagnosis;
+
 
 public class PatientFile
 {
 
 	private String name = "";
-	private Diagnosis diagnosis = new Diagnosis();
+	private Diagnosis diagnosis;
 	private PatientFileManager pfm;
+	private Treatment treatment;
 	
 	/**
 	 * Default constructor is NOT allowed!
