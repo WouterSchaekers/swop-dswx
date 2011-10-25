@@ -31,12 +31,12 @@ public class UCHandler
 		}
 		switch (choice) {
 		case 0:// login
-			LoginController lc = new LoginController(t);
-			
-			return lc.getUserNames();
-			
+				// LoginController lc = new LoginController(t);
+
+			// return lc.getUserNames();
+
 		case 1:
-			ArrayList<String>s= new ArrayList<String>();
+			ArrayList<String> s = new ArrayList<String>();
 			s.add("faal");
 			return s;
 		case Integer.MIN_VALUE:
