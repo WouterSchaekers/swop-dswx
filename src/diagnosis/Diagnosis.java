@@ -18,62 +18,36 @@ public class Diagnosis
 	private boolean approved = false;
 	private boolean secOpFlag = false;
 	private Doctor attending = null;
+	private Doctor secopDoc = null;
 
+	// TODO: update docu
 	/**
 	 * This function allows to update or insert the diagnosis of a patient.
 	 * 
-	 * @param changer
+	 * @param doc
 	 *            The doctor responsible for the change.
 	 * @param diag
 	 *            The new diagnosis for the patient.
 	 * @param patientfile
 	 *            The patientfile of which the diagnosis needs to be updated.
 	 * @param secOp
-	 * @throws IllegalStateException
-	 *             If the doctor trying to update the diagnosis of a patient has
-	 *             not openend the patient file.
 	 * @return Returns a string containing some information for the user: e.g.
 	 *         "diagnosis updated".
-	 * @post A couple of important notes for the UCHandler: If the diagnosis has
-	 *       already been approved, the function will ask for confirmation. <br>
-	 *       A positive answer to that <u><b>MUST</b></u> be followed up with a
-	 *       <b>this.disapprove()</b>. <br>
-	 * <br>
-	 *       The function will also ask if the user needs a <i>second
-	 *       opinion</i> on this diagnosis. <br>
-	 *       If the changer needs this, <b>this.markForSecOp()</b> needs to be
-	 *       executed! <br>
-	 *       If, however, the answer is negative, then <b>this.approve()</b>
-	 *       must be executed!
 	 * 
 	 */
-	public String updateDiag(Doctor changer, String diag, PatientFile patientfile) 
-		throws IllegalStateException, IllegalAccessException {
+	public Diagnosis createDiag(Doctor doc, String diag, PatientFile patientfile) {
 
-		// check if the changer has the patientfile open
-		if (!new PatientFileManager().doctorHasFileOpened(changer, patientfile))
-			throw new IllegalStateException("Diagnosis not updated! Doctor has not opened the associated patientfile!");
-		// see if the attending doctor has already been filled in.
-		this.attending = (this.getAttending() == null) ? changer : this.attending;
+		if (doc == null)
+			throw new IllegalArgumentException("Doctor is null!");
+		if (diag.equals(""))
+			throw new IllegalArgumentException("Diagnosis is empty!");
+		if (patientfile == null)
+			throw new IllegalArgumentException("Patientfile is null!");
 
-		// if changer is not the attending doctor, that means he's giving a second opinion.
-		if (!this.getAttending().equals(changer))
-			return giveSecOp(diag, changer, patientfile);
-
-		if (!this.isApproved()) { // diagnosis hasn't been approved yet -> allow change
-			this.diag = diag;
-			return "The diagnosis has been updated. Would you like to flag it for second opinion?";
-			// if "n" -> this.approve()
-			// else -> this.markForSecOp()
-		} else { // diagnosis has already been approved; ask for confirmation
-			this.disapprove();
-			return "The current diagnosis '"
-					+ this.getDiagnosis()
-					+ "' has already been approved.\nAre you sure you want to update it? ";
-			// if "y" -> run this.disapprove() and run function again with the correct params.
-			// else -> no-op
-		}
-
+		Diagnosis returnval = new Diagnosis();
+		this.attending = doc;
+		this.diag = diag;
+		return returnval;
 	}
 
 	/**
@@ -99,41 +73,28 @@ public class Diagnosis
 	 *       the attending doctor to change the diagnosis. This diagnosis will
 	 *       be marked for second opinion.
 	 */
-	public String giveSecOp(String secOp, Doctor doc, PatientFile patientfile) throws IllegalAccessException, IllegalStateException {
-		// the attending doctor cannot give a second opinion on his own diagnosis
-		if (this.getAttending() == doc) throw new IllegalAccessException("Doctor of the second opinion cannot be the attending doctor!");
-		// this diagnosis needs to marked for second opinion before one can be given
-		if(!this.isMarkedForSecOp()) throw new IllegalAccessException("This diagnosis does not need a second opinion!");
-		// the patientfile needs to be opened by the doctor
-		if(!new PatientFileManager().doctorHasFileOpened(doc, patientfile)) throw new IllegalStateException("Diagnosis not updated! Doctor has not opened the associated patientfile!");
-		
-		if (secOp.equalsIgnoreCase(this.getDiagnosis())) {
-			// the second opinion is the same as the first opinion -> approve diagnosis and unflag for second opinion
-			this.approve();
-			this.unmarkForSecOp();
-			return "Original diagnosis was successfully approved by second opinion!";
-		}
-		this.disapprove();
-		this.updateDiag(this.getAttending(), this.getDiagnosis() + "/" + secOp + " by " + this.getAttending().toString() + "/" + doc.toString(), patientfile);
-		this.markForSecOp();
-		return "Original diagnosis was not the same as the second opinion.\nDiagnosis was not approved.\nDiagnosis has been adjusted accordingly.\nDiagnosis has been marked for second opinion.";
+	public void giveSecOp(boolean validity) {
+		this.approved = validity;
 	}
 
 	/**
 	 * This function marks this diagnosis for review by a second opinion.
+	 * 
 	 * @return A string containing useful information for the user.
 	 */
-	public String markForSecOp() {
+	public String markForSecOp(Doctor from) {
 		this.secOpFlag = true;
 		this.disapprove();
+		secopDoc = from;
 		return "Diagnosis has been successfully marked for second opinion. The diagnosis has been disapproved.";
 	}
-	
+
 	/**
 	 * Unmarks this diagnosis for second opinion.
 	 */
 	private void unmarkForSecOp() {
 		this.secOpFlag = false;
+		this.secopDoc = null;
 	}
 
 	/**
@@ -152,18 +113,18 @@ public class Diagnosis
 
 	/**
 	 * Approves this diagnosis.
+	 * 
 	 * @return A string containing useful information for the user.
 	 */
-	public String approve() {
+	public void approve() {
 		this.approved = true;
 		this.unmarkForSecOp();
-		return "Diagnosis sucessfully approved!";
 	}
 
 	/**
 	 * Disapproves this diagnosis.
 	 */
-	public void disapprove() {
+	private void disapprove() {
 		this.approved = false;
 	}
 
@@ -180,7 +141,7 @@ public class Diagnosis
 	public Doctor getAttending() {
 		return this.attending;
 	}
-	
+
 	@Override
 	public String toString() {
 		return this.getDiagnosis();
