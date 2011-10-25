@@ -68,8 +68,12 @@ public class PatientFileManager
 	 *            The name of the patient.
 	 * @return The patient file of that patient.
 	 */
-	public PatientFile getPatientFile(String name) {
-		return patientFiles.get(name);
+	public PatientFile getPatientFile(String name) throws NullPointerException{
+		PatientFile patientFile = patientFiles.get(name);
+		if(patientFile == null){
+			throw new NullPointerException();
+		}
+		return patientFile;
 	}
 
 	/**
@@ -79,6 +83,19 @@ public class PatientFileManager
 	 */
 	public void addPatientFile(PatientFile pf) {
 		patientFiles.put(pf.getName(), pf);
+	}
+	
+	public String getPatienfFiles(){
+		String stringOfPatientFiles = "";
+		for(int i = 0; i < patientFiles.size(); i++){
+			String patientFile = patientFiles.get(i).toString();
+			stringOfPatientFiles = stringOfPatientFiles.concat(i+1 + ". " + patientFile + "\n");
+		}
+		return stringOfPatientFiles;
+	}
+	
+	public int getPatientFileSize(){
+		return patientFiles.size();
 	}
 	
 }

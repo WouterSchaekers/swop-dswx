@@ -7,7 +7,6 @@ import controllers.Manager;
 
 public class UserManager implements Manager
 {
-
 	private Map<String, User> users;
 	private Map<User, Boolean> loggedin;
 
@@ -55,7 +54,24 @@ public class UserManager implements Manager
 	}
 	public User getUser(String name) {
 		return users.get(name);
-
+	}
+	
+	public Doctor getDoctor(String name) throws NullPointerException{
+		User doctor = users.get(name);
+		if(doctor == null || !doctor.getTitle().equals(Doctor.TITLE)){
+			throw new NullPointerException("This user is not a doctor in this hospital.");
+		}
+		return (Doctor) doctor;
+	}
+	
+	public String getDoctors(){
+		String stringOfDoctors = "";
+		int counter = 1;
+		for(int i = 0; i < users.size() && users.get(i).getTitle().equals(Doctor.TITLE); i++){
+			String doctor = users.get(i).toString();
+			stringOfDoctors = stringOfDoctors.concat(counter++ + ". " + doctor + "\n");
+		}
+		return stringOfDoctors;
 	}
 
 }
