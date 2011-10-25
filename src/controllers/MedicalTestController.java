@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.Collection;
 import java.util.Scanner;
 import scheduler.TreatmentAndMedicalTestScheduler;
 import users.Doctor;
