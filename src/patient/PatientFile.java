@@ -1,5 +1,6 @@
 package patient;
 
+import java.util.ArrayList;
 import treatment.Treatment;
 import diagnosis.Diagnosis;
 
@@ -11,6 +12,7 @@ public class PatientFile
 	private Diagnosis diagnosis;
 	private PatientFileManager pfm;
 	private Treatment treatment;
+	private static ArrayList<PatientFile> pf = new ArrayList<PatientFile>();
 	
 	/**
 	 * Default constructor is NOT allowed!
@@ -50,5 +52,18 @@ public class PatientFile
 	public PatientFileManager getPfm() {
 		return pfm;
 	}
-
+	
+	public static ArrayList<PatientFile> getPatientList(){
+		return pf;
+	}
+	
+	public void addPatientFile(PatientFile p){
+		pf.add(p);
+	}
+	
+	public String toString(){
+		return name;
+	}
+	
+	
 }

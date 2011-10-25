@@ -7,8 +7,9 @@ public abstract class User
 	PatientFileManager patientm;
 	
 	protected String title;
-	protected User(String name) {
+	protected User(String name, String title) {
 		this.name = name;
+		this.title = title;
 	}
 
 
@@ -22,5 +23,9 @@ public abstract class User
 
 	public int getSsid() {
 		return ssid;
+	}
+	
+	public String getTitle(){
+		return title;
 	}
 }
