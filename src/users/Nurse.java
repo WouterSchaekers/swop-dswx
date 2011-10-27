@@ -7,22 +7,28 @@ import scheduler.AppointmentScheduler;
 
 public class Nurse extends User
 {
-	public Nurse(String name) {
+	private PatientFileManager pfm;
+	public Nurse(String name, PatientFileManager pfm) {
 		super(name, "Nurse");
+		this.pfm = pfm;
 	}
 
-	public void registerPatient(PatientFile patient) {
-		patient.addPatientFile(patient);
+	/**
+	 * 
+	 * @param patient
+	 */
+	public void registerPatient(String name) {
+		pfm.registerPatient(name);
 	}
 	
-	public String getPatients(PatientFileManager pfm){
-		String patientFiles = pfm.getPatienfFiles();
+	public String getPatients(){
+		String patientFiles = pfm.getPatientFilesAsString();
 		patientFiles = patientFiles.concat(pfm.getPatientFileSize() + ". The patient is not registered yet.");
 		return patientFiles;
 	}
 	
 	public PatientFile selectPatient(PatientFileManager pfm, String patient) throws NullPointerException{
-		return pfm.getPatientFile(patient);
+		return pfm.openPatientFile(patient);
 	}
 	
 	public String getDoctors(UserManager usm){

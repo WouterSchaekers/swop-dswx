@@ -23,6 +23,7 @@ public class AppointmentScheduler
 		return appointment;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public ArrayList<Appointment> getAppointments(Doctor doctor){
 		return (ArrayList<Appointment>) appointments.get(doctor).clone();
 	}
