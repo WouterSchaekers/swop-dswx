@@ -7,9 +7,6 @@ import users.Doctor;
  * This class represents a diagnosis. It can insert, update and read the
  * diagnosis of a certain patient. It can mark a diagnosis for second opinion
  * and remembers if the diagnosis has been approved or not.
- * 
- * @author Stefaan
- * 
  */
 public class Diagnosis
 {
@@ -20,20 +17,16 @@ public class Diagnosis
 	private Doctor attending = null;
 	private Doctor secopDoc = null;
 
-	// TODO: update docu
 	/**
-	 * This function allows to update or insert the diagnosis of a patient.
+	 * This function allow a diagnosis to be created.
 	 * 
 	 * @param doc
-	 *            The doctor responsible for the change.
+	 *            The doctor who made the diagnosis.
 	 * @param diag
-	 *            The new diagnosis for the patient.
+	 *            The diagnosis made by the doctor.
 	 * @param patientfile
-	 *            The patientfile of which the diagnosis needs to be updated.
-	 * @param secOp
-	 * @return Returns a string containing some information for the user: e.g.
-	 *         "diagnosis updated".
-	 * 
+	 *            The file of the patient who has been diagnosed.
+	 * @return This diagnosis.
 	 */
 	public Diagnosis createDiag(Doctor doc, String diag, PatientFile patientfile) {
 
@@ -51,27 +44,12 @@ public class Diagnosis
 	}
 
 	/**
-	 * This function allows a doctor (doc) to give a second opinion on this
-	 * diagnosis. of a patient.
+	 * This function approves or disapproves this diagnosis after second
+	 * opinion.
 	 * 
-	 * @param secOp
-	 *            The diagnosis of the second opinion.
-	 * @param doc
-	 *            The doctor giving the second opinion.
-	 * @param patientfile
-	 *            The patient file of which diagnosis needs approval.
-	 * @throws IllegalAccessException
-	 *             if the doctor attempting to give a second opinion is the
-	 *             attending doctor on this case, or if this case does not need
-	 *             a second opinion
-	 * @throws IllegalStateException
-	 *             if the doctor attemtping to give a second opionion has not
-	 *             opened the patient file
-	 * @return A string containing useful information for the user.
-	 * @post If the second opinion is not exactly equal (ignore case) to the
-	 *       original diagnosis, then <b>updateDiag()</b> should be called by
-	 *       the attending doctor to change the diagnosis. This diagnosis will
-	 *       be marked for second opinion.
+	 * @param validity
+	 *            Should be true when the second opinion and the original
+	 *            diagnosis match.
 	 */
 	public void giveSecOp(boolean validity) {
 		this.approved = validity;
@@ -98,6 +76,8 @@ public class Diagnosis
 	}
 
 	/**
+	 * This function checks if this diagnosis needs a second opinion.
+	 * 
 	 * @return True if this diagnosis needs a second opinion before approval.
 	 */
 	public boolean isMarkedForSecOp() {
@@ -105,6 +85,8 @@ public class Diagnosis
 	}
 
 	/**
+	 * This function checks if this diagnosis has been approved.
+	 * 
 	 * @return True if this diagnosis has been approved already.
 	 */
 	public boolean isApproved() {
@@ -145,5 +127,13 @@ public class Diagnosis
 	@Override
 	public String toString() {
 		return this.getDiagnosis();
+	}
+
+	/**
+	 * @return The doctor assigned by the attending to give a second opinion on
+	 *         this diagnosis.
+	 */
+	public Doctor needsSecOpFrom() {
+		return this.secopDoc;
 	}
 }
