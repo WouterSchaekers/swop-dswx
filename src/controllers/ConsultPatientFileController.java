@@ -13,11 +13,11 @@ public class ConsultPatientFileController
 	private PatientFile file;
 	private PatientFileManager pfm;
 
-	public ConsultPatientFileController(PatientFileManager tette, User u) {
+	public ConsultPatientFileController(PatientFileManager pfm, User u) {
 		if (!(u instanceof Doctor))
 			throw new IllegalArgumentException("User" + u.getName()
 					+ " is not a doctor");
-		this.pfm = tette;
+		this.pfm = pfm;
 	}
 
 	/**
@@ -40,7 +40,7 @@ public class ConsultPatientFileController
 	}
 
 	public Collection<Result> getAllResults() {
-		return this.file.getAllResults();
+		return this.pfm.getAllResults();
 
 	}
 

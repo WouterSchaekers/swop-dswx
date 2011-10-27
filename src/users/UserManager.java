@@ -58,4 +58,14 @@ public class UserManager implements Manager
 
 	}
 
+	public String getDoctors() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Doctor getDoctor(String doctorName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
