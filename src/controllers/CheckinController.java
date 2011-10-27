@@ -5,6 +5,9 @@ import patient.PatientFile;
 import patient.PatientFileManager;
 import users.Nurse;
 
+/**
+ * 
+ */
 public class CheckinController extends superController
 {
 	private PatientFileManager pfm = null;
