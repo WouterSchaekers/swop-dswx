@@ -6,10 +6,8 @@ public abstract class User
 {
 	PatientFileManager patientm;
 	
-	protected String title;
-	protected User(String name, String title) {
+	protected User(String name) {
 		this.name = name;
-		this.title = title;
 	}
 
 
@@ -17,9 +15,5 @@ public abstract class User
 
 	public String getName() {
 		return name;
-	}
-	
-	public String getTitle(){
-		return title;
 	}
 }
