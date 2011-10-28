@@ -3,7 +3,7 @@ package users;
 import patient.PatientFile;
 import patient.PatientFileManager;
 import scheduler.Appointment;
-import scheduler.AppointmentScheduler;
+import scheduler.Scheduler;
 
 public class Nurse extends User
 {
@@ -39,7 +39,7 @@ public class Nurse extends User
 		return usm.getDoctor(doctorName);
 	}
 
-	public Appointment makeAppointment(PatientFile patient, Doctor doctor, AppointmentScheduler appointmentScheduler) {
+	public Appointment makeAppointment(PatientFile patient, Doctor doctor, Scheduler appointmentScheduler) {
 		Appointment appointment = appointmentScheduler.addAppointment(patient, doctor);
 		return appointment;
 	}
