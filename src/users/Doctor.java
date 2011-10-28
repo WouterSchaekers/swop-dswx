@@ -43,4 +43,8 @@ public class Doctor extends User
 		}
 		return null;
 	}
+	
+	public void orderMedicalTest(){
+		
+	}
 }
