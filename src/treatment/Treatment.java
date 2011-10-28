@@ -11,9 +11,9 @@ public abstract class Treatment
 	private final String treatmentName;
 	private int duration = 0;
 	public static Collection<Treatment> availableTreatments() {
-		Cast cast = new Cast();
+		Cast cast = new Cast("", 0);
 		Medication medication = new Medication(null, false);
-		Surgery surgery = new Surgery();
+		Surgery surgery = new Surgery("");
 		treatments.add(cast);
 		treatments.add(medication);
 		treatments.add(surgery);

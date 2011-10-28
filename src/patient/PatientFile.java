@@ -3,7 +3,6 @@ package patient;
 import java.util.Collection;
 import medicaltest.Result;
 import treatment.Treatment;
-import diagnosis.Diagnosis;
 
 /**
  * This class represents the patient file of a patient. It contains all the

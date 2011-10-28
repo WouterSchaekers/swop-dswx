@@ -1,16 +1,16 @@
 package controllers;
 
 import java.util.Collection;
-import scheduler.TreatmentAndMedicalTestScheduler;
+import scheduler.Scheduler;
 import users.Doctor;
 import medicaltest.MedicalTest;
 
 public class MedicalTestController extends super0Controller
 {
-	private TreatmentAndMedicalTestScheduler s;
+	private Scheduler s;
 
 	public MedicalTestController(LoginController lc,
-			ConsultPatientFileController cpf, TreatmentAndMedicalTestScheduler s)
+			ConsultPatientFileController cpf, Scheduler s)
 			throws IllegalArgumentException {
 		super(lc, cpf);
 		this.s = s;

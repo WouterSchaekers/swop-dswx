@@ -1,4 +1,4 @@
-package diagnosis;
+package patient;
 
 import patient.*;
 import users.Doctor;
