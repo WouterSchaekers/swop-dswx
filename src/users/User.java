@@ -18,12 +18,6 @@ public abstract class User
 	public String getName() {
 		return name;
 	}
-
-	protected int ssid;
-
-	public int getSsid() {
-		return ssid;
-	}
 	
 	public String getTitle(){
 		return title;
