@@ -14,10 +14,9 @@ public class Doctor extends User
 	 * @param name
 	 * The name of the doctor.
 	 */
-	public final static String TITLE = "Doctor";
 	
 	public Doctor(String name) {
-		super(name, TITLE);
+		super(name);
 		appointments = new ArrayList<Appointment>(14);
 	}
 					
