@@ -9,6 +9,7 @@ public abstract class Treatment
 	private static ArrayList<Treatment> treatments = new ArrayList<Treatment>();
 	
 	private final String treatmentName;
+	private int duration = 0;
 	public static Collection<Treatment> availableTreatments() {
 		Cast cast = new Cast();
 		Medication medication = new Medication(null, false);
@@ -32,5 +33,13 @@ public abstract class Treatment
 			result = result.concat(i + 1 + ". " + treatments.get(i).getTreatmentName() + "\n");
 		}
 		return result;
+	}
+	
+	public int getDuration(){
+		return duration;
+	}
+	
+	public void setDuration(int duration){
+		this.duration = duration;
 	}
 }
