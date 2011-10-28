@@ -2,7 +2,7 @@ package controllers;
 
 import java.util.Collection;
 import medicaltest.Result;
-import diagnosis.Diagnosis;
+import patient.Diagnosis;
 import patient.PatientFile;
 import patient.PatientFileManager;
 import users.Doctor;
@@ -25,10 +25,8 @@ public class ConsultPatientFileController
 	 * @param name
 	 * @return
 	 */
-	public PatientFile ConsultPatientFile(String name) {
-		PatientFile t = pfm.openPatientFile(name);
-		this.file = t;
-		return t;
+	public void ConsultPatientFile(PatientFile patientFile) {
+		this.file = patientFile;
 	}
 
 	public PatientFile getPatientFile() {

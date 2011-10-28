@@ -17,18 +17,14 @@ public class Nurse extends User
 	 * 
 	 * @param patient
 	 */
-	public void registerPatient(String name) {
-		pfm.registerPatient(name);
+	public void registerPatient(PatientFile patientFile) {
+		pfm.registerPatient(patientFile);
 	}
 	
 	public String getPatients(){
 		String patientFiles = pfm.getPatientFilesAsString();
 		patientFiles = patientFiles.concat(pfm.getPatientFileSize() + ". The patient is not registered yet.");
 		return patientFiles;
-	}
-	
-	public PatientFile selectPatient(PatientFileManager pfm, String patient) throws NullPointerException{
-		return pfm.openPatientFile(patient);
 	}
 	
 	public String getDoctors(UserManager usm){

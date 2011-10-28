@@ -3,6 +3,7 @@ package patient;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import medicaltest.Result;
 
 /**
@@ -13,17 +14,7 @@ import medicaltest.Result;
  */
 public class PatientFileManager
 {
-	private HashMap<String, PatientFile> patientFiles = new HashMap<String, PatientFile>();
-
-	/**
-	 * This function allows a doctor to open a patient file.
-	 * 
-	 * @param name
-	 *            name of the patient
-	 */
-	public PatientFile openPatientFile(String name) {
-		return patientFiles.get(name);
-	}
+	private HashMap<PatientFile, Boolean> patientFiles = new HashMap<PatientFile, Boolean>();
 
 	/**
 	 * This method adds a patientfile to the database of this manager.
@@ -31,8 +22,17 @@ public class PatientFileManager
 	 * @param pf
 	 *            The patientfile that needs to be added.
 	 */
-	public void addPatientFile(PatientFile pf) {
-		patientFiles.put(pf.getName(), pf);
+	
+	public void openPatientFile(){
+		
+	}
+	
+	public void checkIn(PatientFile patientFile){
+		this.patientFiles.put(patientFile, true);
+	}
+	
+	public void checkOut(PatientFile patientFile){
+		this.patientFiles.put(patientFile, false);
 	}
 	
 	/**
@@ -42,31 +42,20 @@ public class PatientFileManager
 	 *            The name of the new patient.
 	 * @return The patientfile for the new patient.
 	 */
-	public PatientFile registerPatient(String name) {
-		PatientFile returnval = new PatientFile(name, this);
-		returnval.checkin();
-		patientFiles.put(name, returnval);
-		return new PatientFile(name, this);
-	}
-
-	/**
-	 * This method checks a patient, who's been already registered, in.
-	 * 
-	 * @param name
-	 *            The name of the patient.
-	 * @return The patientfile of the patient.
-	 */
-	public PatientFile checkin(String name) {
-		PatientFile returnval = openPatientFile(name);
-		returnval.checkin();
-		return returnval;
+	public void registerPatient(PatientFile patientFile) {
+		patientFiles.put(patientFile, false);
 	}
 	
 	/**
 	 * @return All the patientfiles this patientfilemanager manages.
 	 */
-	public Collection<PatientFile> getAllPatientFiles() {
-		return patientFiles.values();
+	public ArrayList<PatientFile> getAllPatientFiles() {
+		ArrayList<PatientFile> allPatientFiles = new ArrayList<PatientFile>();
+		Collection<PatientFile> patientFilesCollection = this.patientFiles.keySet();
+		for(PatientFile patientFile : patientFilesCollection){
+			allPatientFiles.add(patientFile);
+		}
+		return allPatientFiles;
 	}
 
 	/**
@@ -76,19 +65,25 @@ public class PatientFileManager
 	 *            The name of the patient.
 	 * @return True if the file exists.
 	 */
-	public boolean containsFileOf(String name) {
-		return patientFiles.containsKey(name);
+	public boolean containsFileOf(PatientFile patientFile) {
+		boolean contains = false;
+		Collection<PatientFile> patientFilesCollection = this.patientFiles.keySet();
+		for(PatientFile currentPatientFile : patientFilesCollection){
+			if(patientFile == currentPatientFile){
+				contains = true;
+			}
+		}
+		return contains;
 	}
 
 	/**
 	 * @return A list of all patients (as String)
 	 */
 	public String getPatientFilesAsString() {
-		Collection<PatientFile> cpf = this.patientFiles.values();
 		String returnval = "";
-
-		for (PatientFile pf : cpf)
-			returnval += "* " + pf + "\n";
+		Collection<PatientFile> patientFilesCollection = this.patientFiles.keySet();
+		for (PatientFile patientFile : patientFilesCollection)
+			returnval += "* " + patientFile.toString() + "\n";
 
 		return returnval;
 	}
@@ -123,8 +118,8 @@ public class PatientFileManager
 	 *            The name of the patient.
 	 * @return A collection of all the testresults of this patient.
 	 */
-	public Collection<Result> getAllResultsFrom(String name) {
-		return patientFiles.get(name).getAllResults();
+	public Collection<Result> getAllResultsFrom(PatientFile patientFile) {
+		return patientFile.getAllResults();
 	}
 	
 }

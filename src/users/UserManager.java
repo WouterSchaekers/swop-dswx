@@ -3,9 +3,8 @@ package users;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import controllers.Manager;
 
-public class UserManager implements Manager
+public class UserManager
 {
 
 	private Map<String, User> users;

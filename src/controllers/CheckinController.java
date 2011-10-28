@@ -24,12 +24,12 @@ public class CheckinController extends superController
 		return pfm.getAllPatientFiles();
 	}
 
-	public void checkin(String name) {
-		pfm.checkin(name);
+	public void checkin(PatientFile patientFile) {
+		pfm.checkIn(patientFile);
 	}
 
-	public void signUpNewPatient(String name) {
-		pfm.registerPatient(name);
+	public void signUpNewPatient(PatientFile patientFile) {
+		pfm.registerPatient(patientFile);
 	}
 
 }
