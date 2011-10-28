@@ -4,20 +4,19 @@ public class Medication extends Treatment
 {
 	private String description = " "; 
 	private boolean sensitive = false;
-	private int duration = 0;
-	public static final String TESTNAME = "Medication";
+	public static final String TREATMENTNAME = "Medication";
 	public Medication(String description, boolean sensitive){
-		super(TESTNAME);
+		super(TREATMENTNAME);
 		setDescription(description);
 		setSensitive(sensitive);
+		if(isSensitive())
+			super.setDuration(20);
+		else 
+			super.setDuration(10);
 	}
 	
 	public String information(){
-		return toString()+ ": " + getDescription() + " " + sensitiveText() + " ";
-	}
-	
-	public String toString(){
-		return "Medication";
+		return TREATMENTNAME + ": " + getDescription() + " " + sensitiveText() + " this medication treatment takes " + super.getDuration() + " min.";
 	}
 
 	public String getDescription() {
@@ -41,16 +40,5 @@ public class Medication extends Treatment
 
 	public void setSensitive(boolean sensitive) {
 		this.sensitive = sensitive;
-	}
-	
-	public int getDuration(){
-		return duration;
-	}
-	
-	public void setDuration(){
-		if(isSensitive())
-			duration = 20;
-		else 
-			duration = 10;
 	}
 }
