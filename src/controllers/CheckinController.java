@@ -24,7 +24,7 @@ public class CheckinController extends superController
 		return pfm.getAllPatientFiles();
 	}
 
-	public void checkin(PatientFile patientFile) {
+	public void checkIn(PatientFile patientFile) {
 		pfm.checkIn(patientFile);
 	}
 
