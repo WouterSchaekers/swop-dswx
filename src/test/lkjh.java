@@ -1,4 +1,4 @@
-package system;
+package test;
 
 public class lkjh
 {
