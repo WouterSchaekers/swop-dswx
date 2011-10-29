@@ -6,14 +6,14 @@ import patient.PatientFileManager;
 import users.Nurse;
 
 /**
- * This class is used to interact with a patientfilemanager.
+ * This class is used to register and check in patients in the hospital.
  */
 public class CheckinController extends superController
 {
 	private PatientFileManager pfm = null; // the pfm for this checkincontroller 
 
 	/**
-	 * Use of empty constructor <B>NOT</B> allowed!
+	 * Use of empty constructor is <B>NOT</B> allowed!
 	 */
 	private CheckinController() {super(null);}
 	
