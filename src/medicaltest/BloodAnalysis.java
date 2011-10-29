@@ -9,14 +9,10 @@ public class BloodAnalysis extends MedicalTest
 	public static final String TESTNAME = "BloodAnalysis"; 
 	
 	/**
-	 * Default constructor.
+	 * Default constructor. Will call MedicalTest("BloodAnalysis")
 	 */
 	public BloodAnalysis(){
 		super(TESTNAME);
 	}
-	
-	@Override
-	public String getTestName() {
-		return TESTNAME;
-	}
+
 }

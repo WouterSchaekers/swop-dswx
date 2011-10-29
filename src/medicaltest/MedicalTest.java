@@ -8,8 +8,12 @@ import java.util.Collection;
  */
 public abstract class MedicalTest
 {	
+	// all available medical tests.
 	private Collection<MedicalTest> medicalTests;
-	private String testName = "";
+
+	// all childclasses will have their names be final and static and will use this var to store that information in.
+	protected String testName = "";
+	
 	/**
 	 * Default constructor.
 	 * Will initialise all available medical tests.
@@ -36,9 +40,7 @@ public abstract class MedicalTest
 		return this.medicalTests;
 	}
 
-	/**
-	 * @return The name of the medical test.
-	 */
-	public abstract String getTestName();
-	
+	public String getTestName(){
+		return this.testName;
+	}
 }
