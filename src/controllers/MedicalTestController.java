@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.Collection;
 import scheduler.Scheduler;
+import patient.PatientFile;
 import users.Doctor;
 import medicaltest.MedicalTest;
 import medicaltest.Result;
@@ -43,8 +44,9 @@ public class MedicalTestController extends super0Controller
 	 * @param m
 	 * The test being ordered.
 	 */
-	public void orderMedicalTest(Doctor d, MedicalTest m) {
-		
+	public void orderMedicalTest(Doctor d, MedicalTest m, PatientFile p) {
+		//TODO: implement properly.
+		s.addMedicalTest(p, m);
 	}
 
 	/**
