@@ -1,6 +1,5 @@
 package controllers;
 
-import java.util.Collection;
 import patient.PatientFile;
 import patient.PatientFileManager;
 import users.Nurse;
