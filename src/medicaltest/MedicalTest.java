@@ -68,7 +68,7 @@ public abstract class MedicalTest
 		return this.patientFile;
 	}
 	
-	public int getDuration(){
+	public int getTestDuration(){
 		return duration;
 	}
 }

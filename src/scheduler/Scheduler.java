@@ -27,7 +27,14 @@ public class Scheduler
 		Date nextDate = getNextAppointmentMoment(doctor);
 		Appointment appointment = new Appointment(patient, doctor, nextDate,
 				appointmentDuration);
-		appointments.get(doctor).add(appointment);
+		if(this.appointments.get(nextDate) == null){
+			ArrayList<Appointment> newArrayList = new ArrayList<Appointment>();
+			newArrayList.add(appointment);
+			this.appointments.put(nextDate, newArrayList);
+		}
+		else{
+			this.appointments.get(nextDate).add(appointment);
+		}
 		return appointment;
 	}
 
@@ -52,7 +59,7 @@ public class Scheduler
 		Date latestDate = null;
 		for (Appointment appointment : doctorAppointments) {
 			Date currentDate = appointment.getDate();
-			if(latestDate == null || currentDate.after(latestDate)) {
+			if (latestDate == null || currentDate.after(latestDate)) {
 				latestDate = currentDate;
 				latestAppointment = appointment;
 			}
@@ -68,19 +75,31 @@ public class Scheduler
 		return newDate;
 	}
 
-	public void addMedicalTest(MedicalTest medicalTest) {
+	public MedicalTest addMedicalTest(MedicalTest medicalTest) {
+		Date nextDate = getNextMedicalTestMoment(medicalTest);
+		medicalTest.setDate(nextDate);
+		if(medicalTests.get(nextDate) == null){
+			ArrayList<MedicalTest> newArrayList = new ArrayList<MedicalTest>();
+			newArrayList.add(medicalTest);
+			this.medicalTests.put(nextDate, newArrayList);
+		}
+		else{
+			this.medicalTests.get(nextDate).add(medicalTest);
+		}
+		return medicalTest;
 	}
-	
-	private MedicalTest getLatestMedicalTest(MedicalTest medicalTest){
+
+	private MedicalTest getLatestMedicalTest(MedicalTest medicalTest) {
 		Collection<Date> dates = this.medicalTests.keySet();
 		MedicalTest latestMedicalTest = null;
 		Date latestDate = null;
 		for (Date date : dates) {
-			ArrayList<MedicalTest> curMedicalTests = medicalTests.get(date);
-			for (MedicalTest curMedicalTest : curMedicalTests){
-				if(curMedicalTest.getTestName().equals(medicalTest.getTestName())){
+			ArrayList<MedicalTest> curMedicalTests = this.medicalTests.get(date);
+			for (MedicalTest curMedicalTest : curMedicalTests) {
+				if (curMedicalTest.getTestName().equals(
+						medicalTest.getTestName())) {
 					Date curDate = curMedicalTest.getDate();
-					if(latestDate == null || curDate.after(latestDate)){
+					if (latestDate == null || curDate.after(latestDate)) {
 						latestDate = curDate;
 						latestMedicalTest = curMedicalTest;
 					}
@@ -89,8 +108,12 @@ public class Scheduler
 		}
 		return latestMedicalTest;
 	}
-	
-	private Date getNextMedicalTestMoment(MedicalTest medicalTest){
-		return null;
+
+	private Date getNextMedicalTestMoment(MedicalTest medicalTest) {
+		MedicalTest latestMedicalTest = getLatestMedicalTest(medicalTest);
+		Date latestDate = latestMedicalTest.getDate();
+		int timeToAdd = latestMedicalTest.getTestDuration();
+		Date newDate = DateCalculator.addTimeToDate(latestDate, timeToAdd);
+		return newDate;
 	}
 }
