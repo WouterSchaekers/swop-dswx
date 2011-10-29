@@ -7,10 +7,11 @@ import javax.swing.Spring;
 
 /**
  * This class handles the usecases and manages in- and output.
- * 
  */
 public class UCHandler
 {
+	
+	//TODO: FROM SCRATCH!
 	private Spring currentUseCase;
 	private Map<String, Integer> map;
 	private boolean inUseCase = false;
