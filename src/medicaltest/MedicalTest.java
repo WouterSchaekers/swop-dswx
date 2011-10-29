@@ -16,6 +16,7 @@ public abstract class MedicalTest
 
 	// all childclasses will have their names be final and static and will use this var to store that information in.
 	private String testName = "";
+	private int duration;
 	private PatientFile patientFile;
 	private Date date;
 	
@@ -24,9 +25,10 @@ public abstract class MedicalTest
 	 * @param name
 	 * The name of this medical test.
 	 */
-	public MedicalTest(String name, PatientFile patientFile) {
+	public MedicalTest(String name, int duration, PatientFile patientFile) {
 		this.testName = name;
 		this.patientFile = patientFile;
+		this.duration = duration;
 	}
 
 	/**
@@ -64,5 +66,9 @@ public abstract class MedicalTest
 	 */
 	public PatientFile getPatientFile() {
 		return this.patientFile;
+	}
+	
+	public int getDuration(){
+		return duration;
 	}
 }
