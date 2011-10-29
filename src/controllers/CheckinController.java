@@ -6,7 +6,7 @@ import patient.PatientFileManager;
 import users.Nurse;
 
 /**
- * 
+ * This class is used to interact with a patientfilemanager.
  */
 public class CheckinController extends superController
 {

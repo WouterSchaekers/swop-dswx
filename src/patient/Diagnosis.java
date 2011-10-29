@@ -1,6 +1,5 @@
 package patient;
 
-import patient.*;
 import users.Doctor;
 
 /**
@@ -11,11 +10,11 @@ import users.Doctor;
 public class Diagnosis
 {
 
-	private String diag = "";
-	private boolean approved = false;
-	private boolean secOpFlag = false;
-	private Doctor attending = null;
-	private Doctor secopDoc = null;
+	private String diag = ""; // the diagnosis
+	private boolean approved = false; // whether or not this diag has been approved
+	private boolean secOpFlag = false; // flag for second opinion
+	private Doctor attending = null; // the attending doctor
+	private Doctor secopDoc = null; // the doctor to give second opinion
 
 	/**
 	 * This function allow a diagnosis to be created.

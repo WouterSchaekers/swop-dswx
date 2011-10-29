@@ -3,17 +3,18 @@ package patient;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import medicaltest.Result;
 
 /**
  * This class can be used to manage and interact with patient files.
- * 
- * @author Stefaan
- * 
  */
 public class PatientFileManager
 {
+	/**
+	 * We use this hashmap to keep track of all patientfiles.
+	 * Key: the patientfile
+	 * Value: boolean: open or not(?)
+	 */
 	private HashMap<PatientFile, Boolean> patientFiles = new HashMap<PatientFile, Boolean>();
 
 	/**
@@ -22,7 +23,7 @@ public class PatientFileManager
 	 * @param pf
 	 *            The patientfile that needs to be added.
 	 */
-	
+	//TODO
 	public void openPatientFile(){
 		
 	}
