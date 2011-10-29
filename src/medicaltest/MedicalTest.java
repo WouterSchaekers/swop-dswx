@@ -9,7 +9,7 @@ import java.util.Collection;
 public abstract class MedicalTest
 {	
 	// all available medical tests.
-	private Collection<MedicalTest> medicalTests;
+	private static Collection<MedicalTest> medicalTests;
 
 	// all childclasses will have their names be final and static and will use this var to store that information in.
 	protected String testName = "";
@@ -36,8 +36,8 @@ public abstract class MedicalTest
 	/**
 	 * @return all available tests.
 	 */
-	public Collection<MedicalTest> availableTests() {
-		return this.medicalTests;
+	public static Collection<MedicalTest> availableTests() {
+		return medicalTests;
 	}
  
 	public String getTestName(){
