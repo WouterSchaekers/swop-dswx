@@ -6,10 +6,11 @@ import users.Doctor;
 
 public class Appointment
 {
-	public Appointment(PatientFile patient, Doctor doctor, Date date) {
+	public Appointment(PatientFile patient, Doctor doctor, Date date, int appointmentDuration) {
 		setPatientFile(patient);
 		setDoctor(doctor);
 		setDate(date);
+		setAppointmentDuration(appointmentDuration);
 	}
 
 	private PatientFile patient;
@@ -44,5 +45,15 @@ public class Appointment
 	
 	public boolean isOpen() {
 		return false;
+	}
+	
+	private int appointmentDuration;
+
+	public int getAppointmentDuration() {
+		return appointmentDuration;
+	}
+
+	public void setAppointmentDuration(int appointmentDuration) {
+		this.appointmentDuration = appointmentDuration;
 	}
 }

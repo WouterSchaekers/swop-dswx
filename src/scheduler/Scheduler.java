@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import machine.Machine;
 import medicaltest.MedicalTest;
 import patient.PatientFile;
@@ -22,17 +21,16 @@ public class Scheduler
 	private HashMap<Date, ArrayList<Appointment>> appointments;
 	private HashMap<Date, ArrayList<MedicalTest>> medicalTests;
 	private HashMap<Date, ArrayList<Machine>> treatments;
-	private static int appointmentDuration = 30;
 
-	public Appointment addAppointment(PatientFile patient, Doctor doctor) {
+	public Appointment addAppointment(PatientFile patient, Doctor doctor, int appointmentDuration) {
 		Date nextDate = getNextAppointmentMoment(doctor);
-		Appointment appointment = new Appointment(patient, doctor, nextDate);
+		Appointment appointment = new Appointment(patient, doctor, nextDate, appointmentDuration);
 		appointments.get(doctor).add(appointment);
 		return appointment;
 	}
 
 	@SuppressWarnings("unchecked")
-	public ArrayList<Appointment> getAppointments(Doctor doctor) {
+	private ArrayList<Appointment> getAppointments(Doctor doctor) {
 		ArrayList<Appointment> doctorAppointments = new ArrayList<Appointment>();
 		Collection<Date> allDates = this.appointments.keySet();
 		for (Date curDate : allDates) {
@@ -47,22 +45,27 @@ public class Scheduler
 		return doctorAppointments;
 	}
 
-	public Date getLatestAppointmentMoment(Doctor doctor) {
-		Date latestDate = null;
+	private Appointment getLatestAppointmentMoment(Doctor doctor) {
 		ArrayList<Appointment> doctorAppointments = getAppointments(doctor);
+		if(doctorAppointments.size() == 0){
+			return null;
+		}
+		Appointment latestAppointment = doctorAppointments.get(0);
+		Date latestDate = latestAppointment.getDate();
 		for (Appointment appointment : doctorAppointments) {
 			Date currentDate = appointment.getDate();
 			if (currentDate.after(latestDate)) {
 				latestDate = currentDate;
 			}
 		}
-		return latestDate;
+		return latestAppointment;
 	}
 
 	public Date getNextAppointmentMoment(Doctor doctor) {
-		Date latestDate = getLatestAppointmentMoment(doctor);
-		Date newDate = DateCalculator.addTimeToDate(latestDate,
-				appointmentDuration * 60);
+		Appointment latestAppointment = getLatestAppointmentMoment(doctor);
+		Date latestDate = latestAppointment.getDate();
+		int timeToAdd = latestAppointment.getAppointmentDuration();
+		Date newDate = DateCalculator.addTimeToDate(latestDate, timeToAdd);
 		return newDate;
 	}
 
