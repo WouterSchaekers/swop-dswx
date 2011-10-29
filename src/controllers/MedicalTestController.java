@@ -46,7 +46,6 @@ public class MedicalTestController extends super0Controller
 	 */
 	public void orderMedicalTest(Doctor d, MedicalTest m, PatientFile p) {
 		//TODO: implement properly.
-		s.addMedicalTest(p, m);
 	}
 
 	/**
