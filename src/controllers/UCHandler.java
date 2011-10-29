@@ -10,8 +10,8 @@ import javax.swing.Spring;
  */
 public class UCHandler
 {
-	
-	//TODO: FROM SCRATCH!
+
+	// TODO: FROM SCRATCH!
 	private Spring currentUseCase;
 	private Map<String, Integer> map;
 	private boolean inUseCase = false;

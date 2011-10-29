@@ -20,15 +20,16 @@ public class ConsultPatientFileController
 	 * Use of empty constructor is <B>NOT</B> allowed!
 	 */
 	@SuppressWarnings("unused")
-	private ConsultPatientFileController() {}
-	
-	
+	private ConsultPatientFileController() {
+	}
+
 	/**
 	 * Default constructor.
+	 * 
 	 * @param pfm
-	 * The patientfilemanager for this controller.
+	 *            The patientfilemanager for this controller.
 	 * @param u
-	 * The user to whom this controller belongs to.
+	 *            The user to whom this controller belongs to.
 	 */
 	public ConsultPatientFileController(PatientFileManager pfm, User u) {
 		if (!(u instanceof Doctor))
@@ -37,7 +38,7 @@ public class ConsultPatientFileController
 		this.pfm = pfm;
 	}
 
-	/** 
+	/**
 	 * @return The patientfile of this controller.
 	 */
 	public PatientFile getPatientFile() {
@@ -65,10 +66,10 @@ public class ConsultPatientFileController
 	public void closeFile() {
 		this.file = null;
 	}
-	
 
 	/**
-	 * @return all registered patients in the patientfilemanager of this checkincontroller.
+	 * @return all registered patients in the patientfilemanager of this
+	 *         checkincontroller.
 	 */
 	public Collection<PatientFile> getAllRegisteredPatients() {
 		return pfm.getAllPatientFiles();

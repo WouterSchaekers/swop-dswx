@@ -17,47 +17,56 @@ public class MedicalTestController extends super0Controller
 	/**
 	 * Use of empty constructor is <B>NOT</B> allowed!
 	 */
-	private MedicalTestController(){super(null,null);}
-	
+	private MedicalTestController() {
+		super(null, null);
+	}
+
 	/**
 	 * Default constructor.
+	 * 
 	 * @param lc
-	 * The logincontroller of the user whom this controller is to be assigned to.
+	 *            The logincontroller of the user whom this controller is to be
+	 *            assigned to.
 	 * @param cpf
-	 * The consultpatientfilecontroller of the user whom this controller is to be assigned to.
+	 *            The consultpatientfilecontroller of the user whom this
+	 *            controller is to be assigned to.
 	 * @param s
-	 * The scheduler of the user whom this controller is to be assigned to.
+	 *            The scheduler of the user whom this controller is to be
+	 *            assigned to.
 	 * @throws IllegalArgumentException
-	 * if one of the parameters is null.
+	 *             if one of the parameters is null.
 	 */
-	public MedicalTestController(LoginController lc, ConsultPatientFileController cpf, Scheduler s)
+	public MedicalTestController(LoginController lc,
+			ConsultPatientFileController cpf, Scheduler s)
 			throws IllegalArgumentException {
 		super(lc, cpf);
-		if (s.equals(null)) throw new IllegalArgumentException("Scheduler can't be null!!");
+		if (s.equals(null))
+			throw new IllegalArgumentException("Scheduler can't be null!!");
 		this.s = s;
 	}
 
 	/**
 	 * This method is used to schedule a medical test.
+	 * 
 	 * @param d
-	 * The doctor who orders the test.
+	 *            The doctor who orders the test.
 	 * @param m
-	 * The test being ordered.
+	 *            The test being ordered.
 	 */
 	public void orderMedicalTest(Doctor d, MedicalTest m, PatientFile p) {
-		//TODO: implement properly.
+		// TODO: implement properly.
 	}
 
 	/**
 	 * @param m
-	 * The medicaltest whose result needs to be fetched.
+	 *            The medicaltest whose result needs to be fetched.
 	 * @return The result of an executed medical test.
 	 */
 	public Result getResultsFrom(MedicalTest m) {
-		//TODO: implement
+		// TODO: implement
 		return null;
 	}
-	
+
 	/**
 	 * @return All available medical tests.
 	 */
