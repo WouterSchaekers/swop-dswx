@@ -32,13 +32,6 @@ public class CheckinController extends superController
 	}
 
 	/**
-	 * @return all registered patients in the patientfilemanager of this checkincontroller.
-	 */
-	public Collection<PatientFile> getAllRegisteredPatients() {
-		return pfm.getAllPatientFiles();
-	}
-
-	/**
 	 * This method can be used to check a patient in that's already been registered in the past.
 	 * @param patientFile
 	 * The patient to be checked in.
