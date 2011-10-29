@@ -14,14 +14,14 @@ import users.Doctor;
 public class Scheduler
 {
 	public Scheduler(){
-		appointments = new HashMap<Doctor, ArrayList<Appointment>>();
-		medicalTests = new HashMap<PatientFile, ArrayList<MedicalTest>>();
-		treatments = new HashMap<PatientFile, ArrayList<Machine>>();
+		appointments = new HashMap<Date, ArrayList<Appointment>>();
+		medicalTests = new HashMap<Date, ArrayList<MedicalTest>>();
+		treatments = new HashMap<Date, ArrayList<Machine>>();
 	}
 	
-	private HashMap<Doctor, ArrayList<Appointment>> appointments;
-	private HashMap<PatientFile, ArrayList<MedicalTest>> medicalTests;
-	private HashMap<PatientFile, ArrayList<Machine>> treatments;
+	private HashMap<Date, ArrayList<Appointment>> appointments;
+	private HashMap<Date, ArrayList<MedicalTest>> medicalTests;
+	private HashMap<Date, ArrayList<Machine>> treatments;
 	private static int appointmentDuration = 30;
 	
 	public Appointment addAppointment(PatientFile patient, Doctor doctor){
@@ -33,12 +33,22 @@ public class Scheduler
 	
 	@SuppressWarnings("unchecked")
 	public ArrayList<Appointment> getAppointments(Doctor doctor){
-		return (ArrayList<Appointment>) appointments.get(doctor).clone();
+		ArrayList<Appointment> doctorAppointments = new ArrayList<Appointment>();
+		Collection<Date> allDates = this.appointments.keySet();
+		for(Date curDate : allDates){
+			ArrayList<Appointment> curAppointments = this.appointments.get(curDate);
+			for(Appointment appointment : curAppointments){
+				if(appointment.getDoctor() == doctor){
+					doctorAppointments.add(appointment);
+				}
+			}
+		}
+		return doctorAppointments;
 	}
 	
 	public Date getLatestAppointmentMoment(Doctor doctor){
 		Date latestDate = null;
-		ArrayList<Appointment> doctorAppointments = appointments.get(doctor);
+		ArrayList<Appointment> doctorAppointments = getAppointments(doctor);
 		for(Appointment appointment : doctorAppointments){
 			Date currentDate = appointment.getDate();
 			if(currentDate.after(latestDate)){
@@ -54,13 +64,14 @@ public class Scheduler
 		return newDate;
 	}
 
-	public void addMedicalTest(PatientFile patient, MedicalTest medicalTest) {
-		Collection<PatientFile> patientFileCollection = medicalTests.keySet();
-		Iterator<PatientFile> patientFileIterator = patientFileCollection.iterator();
-		while (patientFileIterator.hasNext()) {
-			PatientFile currentPatient = (PatientFile) patientFileIterator.next();
-
-		}
+//	public void addMedicalTest(PatientFile patient, MedicalTest medicalTest){
+//		
+//		Collection<PatientFile> patientFileCollection = medicalTests.keySet();
+//		Iterator<PatientFile> patientFileIterator = patientFileCollection.iterator();
+//		while (patientFileIterator.hasNext()) {
+//			PatientFile currentPatient = (PatientFile) patientFileIterator.next();
+//
+//		}
 		// To be implemented
-	}
+//	}
 }
