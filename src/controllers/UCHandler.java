@@ -6,9 +6,7 @@ import java.util.Map;
 import javax.swing.Spring;
 
 /**
- * This class handles the usecases.
- * 
- * @author Dieter
+ * This class handles the usecases and manages in- and output.
  * 
  */
 public class UCHandler
