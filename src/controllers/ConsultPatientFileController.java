@@ -65,4 +65,13 @@ public class ConsultPatientFileController
 	public void closeFile() {
 		this.file = null;
 	}
+	
+
+	/**
+	 * @return all registered patients in the patientfilemanager of this checkincontroller.
+	 */
+	public Collection<PatientFile> getAllRegisteredPatients() {
+		return pfm.getAllPatientFiles();
+	}
+
 }
