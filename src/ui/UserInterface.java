@@ -1,15 +1,14 @@
 package ui;
 
 import java.util.Scanner;
-import controllers.Metamanager;
 import controllers.UCHandler;
 
 public class UserInterface
 {
 	static UCHandler usecaseController;
 
-	public UserInterface(Metamanager m) {
-		usecaseController = new UCHandler(m);
+	public UserInterface() {
+		usecaseController = new UCHandler();
 	}
 
 	public void start() {
