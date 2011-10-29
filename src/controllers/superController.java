@@ -33,7 +33,7 @@ public class superController
 	 * The logincontroller to check.
 	 * @return True if lc is a valid logincontroller.
 	 */
-	public static boolean validLoginController(LoginController lc) {
+	public boolean validLoginController(LoginController lc) {
 		return lc != null && lc.loggedIn();
 	}
 }
