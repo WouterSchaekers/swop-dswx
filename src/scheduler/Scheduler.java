@@ -29,7 +29,6 @@ public class Scheduler
 		return appointment;
 	}
 
-	@SuppressWarnings("unchecked")
 	private ArrayList<Appointment> getAppointments(Doctor doctor) {
 		ArrayList<Appointment> doctorAppointments = new ArrayList<Appointment>();
 		Collection<Date> allDates = this.appointments.keySet();
@@ -69,15 +68,14 @@ public class Scheduler
 		return newDate;
 	}
 
-	// public void addMedicalTest(PatientFile patient, MedicalTest medicalTest){
-	//
-	// Collection<PatientFile> patientFileCollection = medicalTests.keySet();
-	// Iterator<PatientFile> patientFileIterator =
-	// patientFileCollection.iterator();
-	// while (patientFileIterator.hasNext()) {
-	// PatientFile currentPatient = (PatientFile) patientFileIterator.next();
-	//
-	// }
-	// To be implemented
-	// }
+//	 public void addMedicalTest(PatientFile patient, MedicalTest medicalTest){
+//		 Collection<Date> patientFileCollection = medicalTests.keySet();
+//		 Iterator<PatientFile> patientFileIterator =
+//		 patientFileCollection.iterator();
+//		 while (patientFileIterator.hasNext()) {
+//		 PatientFile currentPatient = (PatientFile) patientFileIterator.next();
+//		
+//		 }
+//		 To be implemented
+//	 }
 }

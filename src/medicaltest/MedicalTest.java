@@ -3,6 +3,7 @@ package medicaltest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import patient.PatientFile;
 
 /**
  * This class represents a medical test.
@@ -10,18 +11,20 @@ import java.util.Collection;
 public abstract class MedicalTest
 {	
 	// all available medical tests.
-	private static Collection<MedicalTest> medicalTests = new ArrayList<MedicalTest>(Arrays.asList(new BloodAnalysis(),new UltraSoundScan(), new XRayScan()));
+	private static Collection<MedicalTest> medicalTests = new ArrayList<MedicalTest>(Arrays.asList(new BloodAnalysis(null),new UltraSoundScan(null), new XRayScan(null)));
 
 	// all childclasses will have their names be final and static and will use this var to store that information in.
-	protected String testName = "";
+	private String testName = "";
+	private PatientFile patientFile;
 	
 	/**
 	 * Default constructor.
 	 * @param name
 	 * The name of this medical test.
 	 */
-	public MedicalTest(String name) {
+	public MedicalTest(String name, PatientFile patientFile) {
 		this.testName = name;
+		this.patientFile = patientFile;
 	}
 
 	/**

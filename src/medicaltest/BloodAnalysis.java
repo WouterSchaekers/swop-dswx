@@ -1,5 +1,7 @@
 package medicaltest;
 
+import patient.PatientFile;
+
 /**
  * This class represents a bloodanalysis test.
  */
@@ -11,8 +13,8 @@ public class BloodAnalysis extends MedicalTest
 	/**
 	 * Default constructor. Will call MedicalTest("BloodAnalysis")
 	 */
-	public BloodAnalysis(){
-		super(TESTNAME);
+	public BloodAnalysis(PatientFile patientFile){
+		super(TESTNAME, patientFile);
 	}
 
 }
