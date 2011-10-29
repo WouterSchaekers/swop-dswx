@@ -10,24 +10,48 @@ import users.Nurse;
  */
 public class CheckinController extends superController
 {
-	private PatientFileManager pfm = null;
+	private PatientFileManager pfm = null; // the pfm for this checkincontroller 
 
+	/**
+	 * Use of empty constructor <B>NOT</B> allowed!
+	 */
+	private CheckinController() {super(null);}
+	
+	/**
+	 * Default constructor.
+	 * @param lc
+	 * The logincontroller for this checkincontroller.
+	 * @param pfm
+	 * The patientfilemanager for this checkincontroller.
+	 */
 	public CheckinController(LoginController lc, PatientFileManager pfm) {
 		super(lc);
 		if (!(lc.getUser() instanceof Nurse))
-			throw new IllegalArgumentException(
-					"User registering the patient is not a nurse!");
+			throw new IllegalArgumentException("User registering the patient is not a nurse!");
 		this.pfm = pfm;
 	}
 
+	/**
+	 * @return all registered patients in the patientfilemanager of this checkincontroller.
+	 */
 	public Collection<PatientFile> getAllRegisteredPatients() {
 		return pfm.getAllPatientFiles();
 	}
 
+	/**
+	 * This method can be used to check a patient in that's already been registered in the past.
+	 * @param patientFile
+	 * The patient to be checked in.
+	 */
 	public void checkIn(PatientFile patientFile) {
 		pfm.checkIn(patientFile);
 	}
 
+	/**
+	 * This method can be used to register a new patient.
+	 * @param patientFile
+	 * The new patient.
+	 */
 	public void signUpNewPatient(PatientFile patientFile) {
 		pfm.registerPatient(patientFile);
 	}
