@@ -3,6 +3,7 @@ package patient;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import users.Doctor;
 import medicaltest.Result;
 
 /**
@@ -13,9 +14,9 @@ public class PatientFileManager
 	/**
 	 * We use this hashmap to keep track of all patientfiles.
 	 * Key: the patientfile
-	 * Value: boolean: open or not(?)
+	 * Value: Collection of Doctor objects who have the key patientfile opened.
 	 */
-	private HashMap<PatientFile, Boolean> patientFiles = new HashMap<PatientFile, Boolean>();
+	private HashMap<PatientFile, Collection<Doctor>> patientFiles = new HashMap<PatientFile, Collection<Doctor>>();
 
 	/**
 	 * This method adds a patientfile to the database of this manager.
@@ -23,17 +24,45 @@ public class PatientFileManager
 	 * @param pf
 	 *            The patientfile that needs to be added.
 	 */
-	//TODO
-	public void openPatientFile(){
-		
+	
+	/**
+	 * This method will associate doc with pf as to indicate doc has pf open.
+	 */
+	public void openPatientFile(PatientFile pf, Doctor doc){
+		Collection<Doctor> c = this.patientFiles.get(pf);
+		if(c.equals(null))
+			c = (Collection<Doctor>) (new ArrayList<Doctor>());
+		c.add(doc);
+		this.patientFiles.put(pf, c);		
 	}
 	
+	/**
+	 * This method will disassociate doc with pf.
+	 * We assume there will be no illegal access of this function. In other words:
+	 * doc will ALWAYS be in the collection of the patientfile.
+	 */
+	public void closePatientFile(PatientFile pf, Doctor doc){
+		Collection<Doctor> c = this.patientFiles.get(pf);
+		c.remove(doc);
+		this.patientFiles.put(pf, c);		
+	}
+	
+	/**
+	 * This method will check a patient in into the system.
+	 * @param patientFile
+	 * The patientfile of the patient who needs to be checked in.
+	 */
 	public void checkIn(PatientFile patientFile){
-		this.patientFiles.put(patientFile, true);
+		patientFile.checkIn();
 	}
 	
+	/**
+	 * This method will checkout and discharge a patient.
+	 * @param patientFile
+	 * The patientfile of the patient who is checking out.
+	 */
 	public void checkOut(PatientFile patientFile){
-		this.patientFiles.put(patientFile, false);
+		patientFile.discharge();
 	}
 	
 	/**
@@ -44,7 +73,7 @@ public class PatientFileManager
 	 * @return The patientfile for the new patient.
 	 */
 	public void registerPatient(PatientFile patientFile) {
-		patientFiles.put(patientFile, false);
+		patientFiles.put(patientFile, null);
 	}
 	
 	/**
@@ -62,19 +91,18 @@ public class PatientFileManager
 	/**
 	 * This method checks if the patientfile of a certain patient exists.
 	 * 
-	 * @param name
-	 *            The name of the patient.
+	 * @param patientFile
+	 * the patientfile to check for existence.
 	 * @return True if the file exists.
 	 */
 	public boolean containsFileOf(PatientFile patientFile) {
-		boolean contains = false;
 		Collection<PatientFile> patientFilesCollection = this.patientFiles.keySet();
-		for(PatientFile currentPatientFile : patientFilesCollection){
-			if(patientFile == currentPatientFile){
-				contains = true;
-			}
-		}
-		return contains;
+		
+		for(PatientFile curpf : patientFilesCollection)
+			if(patientFile.equals(curpf))
+				return true;
+			
+		return false;
 	}
 
 	/**
@@ -83,6 +111,7 @@ public class PatientFileManager
 	public String getPatientFilesAsString() {
 		String returnval = "";
 		Collection<PatientFile> patientFilesCollection = this.patientFiles.keySet();
+		
 		for (PatientFile patientFile : patientFilesCollection)
 			returnval += "* " + patientFile.toString() + "\n";
 

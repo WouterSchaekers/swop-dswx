@@ -63,7 +63,7 @@ public class PatientFile
 	/**
 	 * This function checks in an already registered patient in the hospital.
 	 */
-	public void checkin() {
+	public void checkIn() {
 		this.discharged = false;
 	}
 
