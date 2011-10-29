@@ -13,7 +13,6 @@ import javax.swing.Spring;
  */
 public class UCHandler
 {
-	private Metamanager t; // connec
 	private Spring currentUseCase;
 	private Map<String, Integer> map;
 	private boolean inUseCase = false;
@@ -45,8 +44,7 @@ public class UCHandler
 		return null;
 	}
 
-	public UCHandler(Metamanager m) {
-		this.t = m;
+	public UCHandler() {
 		// every usecase has an activation key, once activated you stay in the
 		// usecase till you screw up
 		map = new HashMap<String, Integer>();
