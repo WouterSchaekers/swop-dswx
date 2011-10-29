@@ -37,28 +37,31 @@ public class ConsultPatientFileController
 		this.pfm = pfm;
 	}
 
-	/**
-	 * @pre pfm contains name
-	 * @param name
-	 * @return
+	/** 
+	 * @return The patientfile of this controller.
 	 */
-	public void ConsultPatientFile(PatientFile patientFile) {
-		this.file = patientFile;
-	}
-
 	public PatientFile getPatientFile() {
 		return this.file;
 	}
 
+	/**
+	 * @return The diagnosis of the patientfile of this controller.
+	 */
 	public Collection<Diagnosis> getDiagnosis() {
 		return file.getDiagnosis();
 	}
 
+	/**
+	 * @return The testresults of the patientfile of this controller.
+	 */
 	public Collection<Result> getAllResults() {
 		return this.pfm.getAllResults();
 
 	}
 
+	/**
+	 * This method disassociates this controller with its current patientfile.
+	 */
 	public void closeFile() {
 		this.file = null;
 	}
