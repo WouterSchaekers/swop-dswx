@@ -18,6 +18,7 @@ public class LoginController
 	/**
 	 * Use of empty constructor is <B>NOT</B> allowed!
 	 */
+	@SuppressWarnings("unused")
 	private LoginController(){}
 	
 	/**
