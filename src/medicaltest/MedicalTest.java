@@ -39,7 +39,7 @@ public abstract class MedicalTest
 	public Collection<MedicalTest> availableTests() {
 		return this.medicalTests;
 	}
-
+ 
 	public String getTestName(){
 		return this.testName;
 	}
