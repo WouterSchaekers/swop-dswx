@@ -36,15 +36,33 @@ public abstract class MedicalTest
 		return medicalTests;
 	}
  
+	/**
+	 * @return The name of this medical test.
+	 */
 	public String getTestName(){
 		return this.testName;
 	}
 
+	/**
+	 * @return The date this test is scheduled to.
+	 */
 	public Date getDate() {
 		return date;
 	}
 
+	/**
+	 * This method can change the date a medical test needs to take place.
+	 * @param date 
+	 * The new date for this medical test.
+	 */
 	public void setDate(Date date) {
 		this.date = date;
+	}
+	
+	/**
+	 * @return The patientfile to whom this medical test belongs to.
+	 */
+	public PatientFile getPatientFile() {
+		return this.patientFile;
 	}
 }
