@@ -36,7 +36,9 @@ public abstract class MedicalTest
 		return this.medicalTests;
 	}
 
-	public String getTestName() {
-		return this.testName;
-	}
+	/**
+	 * @return The name of the medical test.
+	 */
+	public abstract String getTestName();
+	
 }
