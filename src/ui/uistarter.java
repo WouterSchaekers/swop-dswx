@@ -2,7 +2,6 @@ package ui;
 
 import users.UserAlreadyExistsException;
 import users.UserManager;
-import controllers.Metamanager;
 
 /**
  * The UI.
@@ -11,10 +10,9 @@ import controllers.Metamanager;
 public class uistarter
 {
 	public static void main(String[] args) {
-		Metamanager m = new Metamanager();
 
 		System.out.println("Hi, what would you like to do?");
-		UserManager u = m.getUserManager();
+		UserManager u = new UserManager();
 		try {
 			u.CreateDoctor("Joseph");
 			u.CreateDoctor("Willy");
@@ -23,7 +21,7 @@ public class uistarter
 		} catch (UserAlreadyExistsException e) {
 			e.printStackTrace();
 		}
-		UserInterface t = new UserInterface(m);
+		UserInterface t = new UserInterface();
 		t.start();
 
 	}
