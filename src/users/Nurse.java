@@ -19,8 +19,8 @@ public class Nurse extends User
 		pfm.registerPatient(patientFile);
 	}
 
-	public Appointment makeAppointment(PatientFile patient, Doctor doctor, Scheduler appointmentScheduler) {
-		Appointment appointment = appointmentScheduler.addAppointment(patient, doctor);
+	public Appointment makeAppointment(PatientFile patient, Doctor doctor, int appointmentDuration, Scheduler appointmentScheduler) {
+		Appointment appointment = appointmentScheduler.addAppointment(patient, doctor, appointmentDuration);
 		return appointment;
 	}
 }

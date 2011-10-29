@@ -3,6 +3,7 @@ package medicaltest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
 import patient.PatientFile;
 
 /**
@@ -16,6 +17,7 @@ public abstract class MedicalTest
 	// all childclasses will have their names be final and static and will use this var to store that information in.
 	private String testName = "";
 	private PatientFile patientFile;
+	private Date date;
 	
 	/**
 	 * Default constructor.
@@ -36,5 +38,13 @@ public abstract class MedicalTest
  
 	public String getTestName(){
 		return this.testName;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 }
