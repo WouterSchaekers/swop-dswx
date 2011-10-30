@@ -95,6 +95,15 @@ public class Scheduler
 			}
 		}
 	}
+	
+	/**
+	 * Maybe only for testing purposes.
+	 * @param date
+	 */
+	public Collection<User> getScheduledStaff(Date date){
+		Collection<User> users = dateOfStaff.get(date);
+		return users;
+	}
 
 //	private HashMap<Date, ArrayList<Appointment>> appointments;
 //	private HashMap<Date, ArrayList<MedicalTest>> medicalTests;

@@ -1,10 +1,12 @@
 package scheduler;
 
 import static org.junit.Assert.*;
+import java.util.Collection;
 import java.util.Date;
 import org.junit.Test;
 import users.Doctor;
 import users.Nurse;
+import users.User;
 import users.UserAlreadyExistsException;
 import users.UserManager;
 
@@ -25,6 +27,16 @@ public class SchedulerTest
 		scheduler.changeNextScheduledDate(date2);
 		System.out.println(scheduler.getNextScheduledDate().getTime());
 		assertTrue(scheduler.getNextScheduledDate().getTime() == 60000);
+	}
+	
+	public void test2() throws UserAlreadyExistsException{
+		Collection<User> users = usm.getAllUsers();
+		for(User user : users){
+			scheduler.addHospitalStaff(user);
+		}
+		for(User user : users){
+			//TODO
+		}
 	}
 
 }
