@@ -73,8 +73,8 @@ public class PatientFileManager
 	 *            The name of the new patient.
 	 * @return The patientfile for the new patient.
 	 */
-	public void registerPatient(PatientFile patientFile) {
-		patientFiles.put(patientFile, null);
+	public void registerPatient(String name) {
+		patientFiles.put(new PatientFile(name), null);
 	}
 	
 	/**
@@ -152,5 +152,6 @@ public class PatientFileManager
 	public Collection<Result> getAllResultsFrom(PatientFile patientFile) {
 		return patientFile.getAllResults();
 	}
+	
 	
 }
