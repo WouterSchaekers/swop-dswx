@@ -32,6 +32,10 @@ public class Scheduler
 //		treatments = new HashMap<Date, ArrayList<Machine>>();
 	}
 	
+	public Date getNextScheduledDate(){
+		return this.nextScheduledDate;
+	}
+	
 	public void addHospitalStaff(User user) throws UserAlreadyExistsException{
 		Collection<Date> allDates = this.dateOfStaff.keySet();
 		for(Date date : allDates){
