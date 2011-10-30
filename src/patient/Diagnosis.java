@@ -28,7 +28,7 @@ public class Diagnosis
 	 * @return This diagnosis.
 	 */
 	public Diagnosis createDiag(Doctor doc, String diag, PatientFile patientfile) {
-
+		
 		if (doc == null)
 			throw new IllegalArgumentException("Doctor is null!");
 		if (diag.equals(""))

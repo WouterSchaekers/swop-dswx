@@ -16,6 +16,7 @@ public class PatientFileManager
 	 * Key: the patientfile
 	 * Value: Collection of Doctor objects who have the key patientfile opened.
 	 */
+	//XXX: waarom houden we deze dingen expliciet bij?
 	private HashMap<PatientFile, Collection<Doctor>> patientFiles = new HashMap<PatientFile, Collection<Doctor>>();
 
 	/**

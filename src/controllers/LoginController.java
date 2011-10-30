@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import users.User;
 import users.UserManager;
@@ -14,14 +15,16 @@ public class LoginController
 	private UserManager um; // the usermanager for this controller.
 	private boolean loggedIn = false; // true if the user of this controller is
 										// logged in.
-	private User user = null; // the user this controller has logged in.
-
+	private USERDTO user = null; // the user this controller has logged in.
+	public USERDTO getUserDTO(){
+		return user;
+	}
 	/**
 	 * Use of empty constructor is <B>NOT</B> allowed!
 	 */
 	@SuppressWarnings("unused")
 	private LoginController() {
-	}
+	} 
 
 	/**
 	 * Default constructor.
@@ -29,9 +32,8 @@ public class LoginController
 	 * @param m
 	 *            The usermanager associated with this logincontroller.
 	 */
-	public LoginController(UserManager m, User u) {
-		this.um = m;
-		this.user = u;
+	public LoginController(DataPasser data) {
+		this.um = data.getUserManager();
 	}
 
 	/**
@@ -40,11 +42,17 @@ public class LoginController
 	public Collection<User> getAllUsers() {
 		return um.getAllUsers();
 	}
-
+	public Collection<USERDTO>getAllUsers2(){
+		Collection<USERDTO> RV = new ArrayList<USERDTO>();
+		for(User u:um.getAllUsers())
+			RV.add(new USERDTO(u));
+		return RV;
+	}
 	/**
 	 * This method will log the user of this logincontroller in.
 	 */
-	public void logIn() {
+	public void logIn(USERDTO user) {
+		this.user = user;
 		loggedIn = true;
 	}
 
@@ -58,7 +66,7 @@ public class LoginController
 	/**
 	 * @return The user of this logincontroller.
 	 */
-	public User getUser() {
-		return this.user;
+	User getUser() {
+		return this.user.getUser();
 	}
 }

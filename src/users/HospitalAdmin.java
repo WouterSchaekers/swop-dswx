@@ -8,4 +8,10 @@ public class HospitalAdmin extends User
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public usertype type() {
+		// TODO Auto-generated method stub
+		return usertype.HospitalAdmin;
+	}
+
 }
