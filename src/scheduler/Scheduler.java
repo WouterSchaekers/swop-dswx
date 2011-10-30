@@ -13,47 +13,65 @@ import users.*;
 
 public class Scheduler
 {
-	private TreeMap<Date, Collection<User>> staff = new TreeMap<Date, Collection<User>>();
-	private TreeMap<Date, PatientFile> patients = new TreeMap<Date, PatientFile>();
-	private TreeMap<Date, MedicalTest> medicalTests = new TreeMap<Date, MedicalTest>();
-	private TreeMap<Date, Machine> machines = new TreeMap<Date, Machine>();
+	private UserManager usm;
+	private TreeMap<Date, Collection<User>> dateOfStaff;
+	private TreeMap<Date, MedicalTest> dateOfMedicalTests;
+	private TreeMap<Date, Machine> dateOfMachines;
 	private Date nextScheduledDate;
 	private final int DAYBUFFER = 30;
 	private final int INTERVALTIME = 1;
 	
-	public Scheduler(Date nextScheduledDate) {
+	public Scheduler(Date nextScheduledDate, UserManager usm) {
+		this.usm = usm;
+		dateOfStaff = new TreeMap<Date, Collection<User>>();
+		dateOfMedicalTests = new TreeMap<Date, MedicalTest>();
+		dateOfMachines = new TreeMap<Date, Machine>();
+		this.nextScheduledDate = nextScheduledDate;
 //		appointments = new HashMap<Date, ArrayList<Appointment>>();
 //		medicalTests = new HashMap<Date, ArrayList<MedicalTest>>();
 //		treatments = new HashMap<Date, ArrayList<Machine>>();
-		this.nextScheduledDate = nextScheduledDate;
 	}
 	
 	public void addHospitalStaff(User user) throws UserAlreadyExistsException{
-		Collection<Date> allDates = this.staff.keySet();
+		Collection<Date> allDates = this.dateOfStaff.keySet();
 		for(Date date : allDates){
-			if(this.staff.get(date) == user){
+			if(this.dateOfStaff.get(date) == user){
 				throw new UserAlreadyExistsException(user.getName());
 			}
 		}
 		Date endDate = new Date(nextScheduledDate.getTime() + DAYBUFFER*24*60*60*1000);
 		Date thisDate = this.nextScheduledDate;
 		while(endDate.after(thisDate)){
-			Collection<User> dateUsers = staff.get(thisDate);
+			Collection<User> dateUsers = dateOfStaff.get(thisDate);
 			dateUsers.add(user);
-			staff.put(thisDate, dateUsers);
+			dateOfStaff.put(thisDate, dateUsers);
 			thisDate = new Date(thisDate.getTime() + this.INTERVALTIME*60*1000);
 		}
 	}
 	
 	public void changeNextScheduledDate(Date newNextScheduledDate){
 		Date realNewNextScheduledDate = getNextScheduledDate(newNextScheduledDate);
-		Collection<Date> allDates = this.staff.keySet();
-		for(Date date : allDates){
-			if(realNewNextScheduledDate.after(date)){
-				this.staff.remove(date);
+		if(realNewNextScheduledDate != nextScheduledDate){
+			Collection<Date> allDates = this.dateOfStaff.keySet();
+			for(Date date : allDates){
+				if(realNewNextScheduledDate.after(date)){
+					this.dateOfStaff.remove(date);
+				}
 			}
+			Date endDate = new Date(nextScheduledDate.getTime() + DAYBUFFER*24*60*60*1000);
+			Date newEndDate = new Date(realNewNextScheduledDate.getTime() + DAYBUFFER*24*60*60*1000);
+			Date thisDate = endDate;
+			while(newEndDate.after(thisDate)){
+				Collection<User> staff = usm.getAllUsers();
+				for(User user : staff){
+					Collection<User> usersToAdd = new ArrayList<User>();
+					usersToAdd.add(user);
+					dateOfStaff.put(thisDate, usersToAdd);
+				}
+				thisDate = new Date(thisDate.getTime() + this.INTERVALTIME*60*1000);
+			}
+			nextScheduledDate = realNewNextScheduledDate;
 		}
-		nextScheduledDate = realNewNextScheduledDate;
 	}
 	
 	private Date getNextScheduledDate(Date date){
