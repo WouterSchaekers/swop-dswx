@@ -1,5 +1,7 @@
-package ui;
+package ui.loginchain;
 
+import ui.DataBlob;
+import ui.usecase;
 import controllers.LoginController;
 
 public class createLoginController extends usecase
@@ -12,7 +14,7 @@ public class createLoginController extends usecase
 
 	@Override
 	public usecase Execute() {
-			data.logingc=new LoginController(data.data);
+			data.setLoginc(new LoginController(data.getDataPasser()));
 		return new displayAllNames(data);
 	}
 

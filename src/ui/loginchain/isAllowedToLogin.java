@@ -1,4 +1,8 @@
-package ui;
+package ui.loginchain;
+
+import ui.DataBlob;
+import ui.SelectUsecase;
+import ui.usecase;
 
 public class isAllowedToLogin extends usecase
 {
@@ -10,7 +14,7 @@ public class isAllowedToLogin extends usecase
 
 	@Override
 	public usecase Execute() {
-		if(data.logingc==null||!data.logingc.loggedIn())
+		if(data.getLoginController()==null||!data.getLoginController().loggedIn())
 			return new createLoginController(data);
 		return new SelectUsecase(data);
 	}

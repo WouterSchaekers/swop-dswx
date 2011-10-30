@@ -18,4 +18,7 @@ public class PatientFileDTO
 	PatientFile getPatientFile(){
 		return file;
 	}
+	public String getName() {
+		return name();
+	}
 }

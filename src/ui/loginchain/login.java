@@ -1,12 +1,14 @@
-package ui;
+package ui.loginchain;
 
 import java.util.Map;
-import controllers.USERDTO;
+import ui.DataBlob;
+import ui.usecase;
+import controllers.UserDTO;
 
 public class login extends usecase
 {
-	Map<String, USERDTO> map;
-	public login(DataBlob data,Map<String,USERDTO> nameUserMap) {
+	Map<String, UserDTO> map;
+	public login(DataBlob data,Map<String,UserDTO> nameUserMap) {
 		super(data);
 		this.map=nameUserMap;
 		// TODO Auto-generated constructor stub
