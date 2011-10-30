@@ -15,9 +15,6 @@ public class Nurse extends User
 	 * 
 	 * @param patient
 	 */
-	public void registerPatient(PatientFile patientFile, PatientFileManager pfm) {
-		pfm.registerPatient(patientFile);
-	}
 
 //	public Appointment makeAppointment(PatientFile patient, Doctor doctor, int appointmentDuration, Scheduler appointmentScheduler) {
 //		Appointment appointment = appointmentScheduler.addAppointment(patient, doctor, appointmentDuration);

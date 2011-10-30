@@ -51,8 +51,8 @@ public class CheckinController extends superController
 	 * @param patientFile
 	 *            The new patient.
 	 */
-	public void signUpNewPatient(PatientFile patientFile) {
-		pfm.registerPatient(patientFile);
+	public void signUpNewPatient(String name) {
+		pfm.registerPatient(name);
 	}
 
 }
