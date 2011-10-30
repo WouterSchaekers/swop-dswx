@@ -46,4 +46,10 @@ public class Doctor extends User
 	public void orderMedicalTest(){
 		
 	}
+
+	@Override
+	public usertype type() {
+		// TODO Auto-generated method stub
+		return usertype.Doctor;
+	}
 }

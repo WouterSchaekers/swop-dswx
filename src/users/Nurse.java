@@ -23,4 +23,10 @@ public class Nurse extends User
 		Appointment appointment = appointmentScheduler.addAppointment(patient, doctor, appointmentDuration);
 		return appointment;
 	}
+
+	@Override
+	public usertype type() {
+		// TODO Auto-generated method stub
+		return usertype.Nurse;
+	}
 }
