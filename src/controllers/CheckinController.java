@@ -7,7 +7,7 @@ import users.Nurse;
 /**
  * This class is used to register and check in patients in the hospital.
  */
-public class CheckinController extends SuperController
+public class CheckinController extends superController
 {
 	private PatientFileManager pfm = null; // the pfm for this checkincontroller
 
