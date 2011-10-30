@@ -1,11 +1,11 @@
 package controllers;
 
 import java.util.Collection;
+import resources.MedicalTest;
+import resources.Result;
 import scheduler.Scheduler;
 import patient.PatientFile;
 import users.Doctor;
-import medicaltest.MedicalTest;
-import medicaltest.Result;
 
 /**
  * This class can be used to do schedule medical tests etc...

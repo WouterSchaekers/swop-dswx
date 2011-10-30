@@ -3,8 +3,8 @@ package patient;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import resources.Result;
 import users.Doctor;
-import medicaltest.Result;
 
 /**
  * This class can be used to manage and interact with patient files.

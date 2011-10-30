@@ -1,4 +1,4 @@
-package treatment;
+package resources;
 
 /**
  * This class represent treatment by medication.
@@ -10,10 +10,6 @@ public class Medication extends Treatment
 	private String description = ""; // the description of the meds
 	private boolean sensitive = false; // whether or not if the medication is sensitive
 	
-	/**
-	 * Use of empty constructor is <B>NOT</B> allowed!
-	 */
-	private Medication() {super(TREATMENTNAME);}
 	
 	/**
 	 * Default constructor.
@@ -23,10 +19,10 @@ public class Medication extends Treatment
 	 * Whether or not the meds are sensitive.
 	 */
 	public Medication(String description, boolean sensitive){
-		super(TREATMENTNAME);
+		super(TREATMENTNAME, (sensitive)?20 : 10);
 		setDescription(description);
 		setSensitive(sensitive);
-		super.setDuration((isSensitive())?20 : 10);
+
 	}
 	
 	/**
