@@ -1,6 +1,9 @@
-package ui;
+package ui.registerpatientchain;
 
 import controllers.RegisterPatientController;
+import ui.DataBlob;
+import ui.SelectUsecase;
+import ui.usecase;
 import users.User.usertype;
 
 public class CreateRegisterController extends usecase
@@ -15,10 +18,14 @@ public class CreateRegisterController extends usecase
 	public usecase Execute() {
 		RegisterPatientController reg ;
 		try{
-			reg = new RegisterPatientController(data.logingc, data.data);
+			reg = new RegisterPatientController(data.getLoginController(), data.getDataPasser());
 		}catch(IllegalArgumentException illegal)
 		{
-			System.out.println(data.logingc.getUserDTO().getName()+illegal.getMessage());
+			System.out.println(illegal.getMessage());
+			return new SelectUsecase(data);
+		}catch(Exception e)
+		{
+			System.out.println("Illegal argument");
 			return new SelectUsecase(data);
 		}
 		return new displayAllPatients(data,reg);

@@ -2,7 +2,7 @@ package ui;
 
 import java.util.Scanner;
 
-abstract class usecase
+public abstract class usecase
 {
 	protected static Scanner input;
 	public static void setScanner(Scanner s)

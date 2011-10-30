@@ -1,8 +1,10 @@
-package ui;
+package ui.loginchain;
 
 import java.util.HashMap;
 import java.util.Map;
-import controllers.USERDTO;
+import ui.DataBlob;
+import ui.usecase;
+import controllers.UserDTO;
 
 public class displayAllNames extends usecase
 {
@@ -15,8 +17,8 @@ public class displayAllNames extends usecase
 	@Override
 	public usecase Execute() {
 		System.out.println("All users in the system:");
-		Map<String, USERDTO> nameUserMap=new HashMap<String, USERDTO>();
-		for(USERDTO u:data.logingc.getAllUsers2())
+		Map<String, UserDTO> nameUserMap=new HashMap<String, UserDTO>();
+		for(UserDTO u:data.getLoginController().getAllUsers2())
 		{
 			System.out.println(u.getName());
 			nameUserMap.put(u.getName(), u);

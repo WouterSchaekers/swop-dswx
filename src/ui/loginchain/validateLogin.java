@@ -1,13 +1,15 @@
-package ui;
+package ui.loginchain;
 
 import java.util.Map;
-import controllers.USERDTO;
+import ui.DataBlob;
+import ui.usecase;
+import controllers.UserDTO;
 
 public class validateLogin extends usecase
 {
-	Map<String, USERDTO> map;
+	Map<String, UserDTO> map;
 	String name;
-	public validateLogin(DataBlob data,Map<String,USERDTO> map,String name) {
+	public validateLogin(DataBlob data,Map<String,UserDTO> map,String name) {
 		super(data);
 		this.map=map;
 		this.name=name;

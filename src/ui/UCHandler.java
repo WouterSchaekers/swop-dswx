@@ -1,16 +1,7 @@
 package ui;
 
-import help.FifoQueue;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
-import java.util.Stack;
-import javax.swing.Spring;
-import controllers.DataPasser;
-import controllers.LoginController;
-import controllers.USERDTO;
+
 
 /**
  * This class handles the usecases and manages in- and output.

@@ -6,12 +6,12 @@ import users.Nurse;
 import users.User;
 import users.User.usertype;
 
-public class USERDTO
+public class UserDTO
 {
 	private User u;
 	private String name;
 
-	public USERDTO(User u) {
+	public UserDTO(User u) {
 		this.u = u;
 		this.name = u.getName();
 

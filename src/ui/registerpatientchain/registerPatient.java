@@ -1,4 +1,7 @@
-package ui;
+package ui.registerpatientchain;
+
+import ui.DataBlob;
+import ui.usecase;
 
 public class registerPatient extends usecase
 {

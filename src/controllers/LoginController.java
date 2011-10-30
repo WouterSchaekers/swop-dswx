@@ -15,8 +15,8 @@ public class LoginController
 	private UserManager um; // the usermanager for this controller.
 	private boolean loggedIn = false; // true if the user of this controller is
 										// logged in.
-	private USERDTO user = null; // the user this controller has logged in.
-	public USERDTO getUserDTO(){
+	private UserDTO user = null; // the user this controller has logged in.
+	public UserDTO getUserDTO(){
 		return user;
 	}
 	/**
@@ -42,16 +42,16 @@ public class LoginController
 	public Collection<User> getAllUsers() {
 		return um.getAllUsers();
 	}
-	public Collection<USERDTO>getAllUsers2(){
-		Collection<USERDTO> RV = new ArrayList<USERDTO>();
+	public Collection<UserDTO>getAllUsers2(){
+		Collection<UserDTO> RV = new ArrayList<UserDTO>();
 		for(User u:um.getAllUsers())
-			RV.add(new USERDTO(u));
+			RV.add(new UserDTO(u));
 		return RV;
 	}
 	/**
 	 * This method will log the user of this logincontroller in.
 	 */
-	public void logIn(USERDTO user) {
+	public void logIn(UserDTO user) {
 		this.user = user;
 		loggedIn = true;
 	}
