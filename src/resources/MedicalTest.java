@@ -1,4 +1,4 @@
-package medicaltest;
+package resources;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,14 +9,13 @@ import patient.PatientFile;
 /**
  * This class represents a medical test.
  */
-public abstract class MedicalTest
+public abstract class MedicalTest extends Resource
 {	
 	// all available medical tests.
 	private static Collection<MedicalTest> medicalTests = new ArrayList<MedicalTest>(Arrays.asList(new BloodAnalysis(null),new UltraSoundScan(null), new XRayScan(null)));
 
 	// all childclasses will have their names be final and static and will use this var to store that information in.
 	private String testName = "";
-	private int duration;
 	private PatientFile patientFile;
 	private Date date;
 	
@@ -26,9 +25,10 @@ public abstract class MedicalTest
 	 * The name of this medical test.
 	 */
 	public MedicalTest(String name, int duration, PatientFile patientFile) {
+		super(duration);
 		this.testName = name;
 		this.patientFile = patientFile;
-		this.duration = duration;
+		
 	}
 
 	/**
@@ -66,9 +66,5 @@ public abstract class MedicalTest
 	 */
 	public PatientFile getPatientFile() {
 		return this.patientFile;
-	}
-	
-	public int getTestDuration(){
-		return duration;
 	}
 }

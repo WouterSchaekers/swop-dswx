@@ -1,4 +1,4 @@
-package treatment;
+package resources;
 
 /**
  * This class represents a surgical treatment.
@@ -8,19 +8,14 @@ public class Surgery extends Treatment
 	// the name of each treatment will be final and will be used later on to determine which treatment a Treatment is.
 	public static final String TREATMENTNAME = "Surgery";
 	private String description; // a description of the surgery
-	/**
-	 * Use of empty constructor is <B>NOT</B> allowed!
-	 */
-	private Surgery() {super(TREATMENTNAME);}
-	
+
 	/**
 	 * Default constructor.
 	 * @param description
 	 * The description of this surgery.
 	 */
 	public Surgery(String description){
-		super(TREATMENTNAME);
-		setDescription(description);
+		super(TREATMENTNAME, 180);
 	}
 
 	/**

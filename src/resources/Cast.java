@@ -1,4 +1,4 @@
-package treatment;
+package resources;
 
 /**
  * This class represents a treatment by cast.
@@ -11,11 +11,6 @@ public class Cast extends Treatment
 	private int length; // the length of the cast.
 	
 	/**
-	 * Use of empty constructor is <B>NOT</B> allowed!
-	 */
-	private Cast() {super(TREATMENTNAME);}
-	
-	/**
 	 * Default constructor.
 	 * @param bodyPart
 	 * The bodypart on which the cast needs to be cast onto.
@@ -23,8 +18,7 @@ public class Cast extends Treatment
 	 * The lengths of the cast.
 	 */
 	public Cast(String bodyPart, int length){
-		super(TREATMENTNAME);
-		super.setDuration(120);
+		super(TREATMENTNAME, 120);
 	}
 
 	/**

@@ -1,4 +1,4 @@
-package treatment;
+package resources;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,7 +7,7 @@ import java.util.Collection;
 /**
  * This class is the superclass of all treatments
  */
-public abstract class Treatment
+public abstract class Treatment extends Resource
 {
 	// a static arraylist of all treatments available.
 	private static ArrayList<Treatment> treatments = new ArrayList<Treatment>(Arrays.asList(new Cast("", 0), new Medication(null, false), new Surgery("")));
@@ -16,17 +16,12 @@ public abstract class Treatment
 	protected int duration = 0; // the duration of the treatment 
 	
 	/**
-	 * Use of the empty constructor is <B>NOT</B> allowed!
-	 */
-	@SuppressWarnings("unused")
-	private Treatment() {treatmentName = "error";}
-	
-	/**
 	 * Default constructor. 
 	 * @param treatmentName
 	 * The name of this treatment.
 	 */
-	public Treatment(String treatmentName){
+	public Treatment(String treatmentName, int duration){
+		super(duration);
 		this.treatmentName = treatmentName;
 	}
 	

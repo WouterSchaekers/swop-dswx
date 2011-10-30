@@ -1,4 +1,4 @@
-package medicaltest;
+package resources;
 
 import patient.PatientFile;
 
