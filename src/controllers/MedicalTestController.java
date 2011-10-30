@@ -10,7 +10,7 @@ import medicaltest.Result;
 /**
  * This class can be used to do schedule medical tests etc...
  */
-public class MedicalTestController extends super0Controller
+public class MedicalTestController extends MedicalSuperController
 {
 	private Scheduler s; // the scheduler for this controller
 
