@@ -5,7 +5,7 @@ package controllers;
  * the normal supercontroller.
  * 
  */
-public class super0Controller extends superController
+public class MedicalSuperController extends superController
 {
 	private ConsultPatientFileController cpf; // the cpf for this
 												// supercontroller
@@ -13,7 +13,7 @@ public class super0Controller extends superController
 	/**
 	 * Use of empty constructor is <B>NOT</B> allowed!
 	 */
-	private super0Controller() {
+	private MedicalSuperController() {
 		super(null);
 	}
 
@@ -27,7 +27,7 @@ public class super0Controller extends superController
 	 * @throws IllegalArgumentException
 	 *             if the logincontroller or cpf are null.
 	 */
-	public super0Controller(LoginController lc, ConsultPatientFileController cpf)
+	public MedicalSuperController(LoginController lc, ConsultPatientFileController cpf)
 			throws IllegalArgumentException {
 		super(lc);
 		if (cpf.equals(null))
