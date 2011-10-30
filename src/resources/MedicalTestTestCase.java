@@ -11,8 +11,8 @@ public class MedicalTestTestCase
 	@Test
 	public void CreateMedicalTest()
 	{
-		PatientFileManager t = new PatientFileManager();
-		PatientFile file = new PatientFile("jonathan", t);
+//		PatientFileManager t = new PatientFileManager();
+		PatientFile file = new PatientFile("jonathan");
 		MedicalTest one = new BloodAnalysis(file);
 		one.getTestName().replace("B","C");
 		assertTrue(one.getTestName().equals("BloodAnalysis"));
