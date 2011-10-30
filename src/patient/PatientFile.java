@@ -14,17 +14,8 @@ public class PatientFile
 	private String name = ""; // the name of the patient
 	private Collection<Diagnosis> diagnosis = null; // all diags for this patient
 	private Collection<Result> results = null; // all testresults for this patient
-	private PatientFileManager pfm = null; // the patientfilemanager of this patientfile
 	private Treatment treatment = null; // the treatment this patient is currently on
 	private boolean discharged = false; // whether or not this patient has been discharged
-
-	/**
-	 * Use of default constructor is NOT allowed!
-	 */
-	@SuppressWarnings("unused")
-	private PatientFile() {
-		throw new IllegalStateException("FATAL SYSTEM ERROR!");
-	}
 
 	/**
 	 * Obligatory alternative constructor.
@@ -34,8 +25,7 @@ public class PatientFile
 	 * @param pfm
 	 *            The patient file manager for this patient file.
 	 */
-	public PatientFile(String patientname, PatientFileManager pfm) {
-		this.pfm = pfm;
+	public PatientFile(String patientname) {
 		this.name = patientname;
 	}
 
@@ -53,13 +43,6 @@ public class PatientFile
 		return this.diagnosis;
 	}
 	
-	/**
-	 * @return The patient file manager for this patient file
-	 */
-	public PatientFileManager getPfm() {
-		return pfm;
-	}
-
 	/**
 	 * This function checks in an already registered patient in the hospital.
 	 */
