@@ -25,7 +25,6 @@ public abstract class MedicalTest extends Resource
 	 * The name of this medical test.
 	 */
 	public MedicalTest(String name, int duration, PatientFile patientFile) {
-		super(duration);
 		this.testName = name;
 		this.patientFile = patientFile;
 		

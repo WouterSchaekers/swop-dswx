@@ -1,22 +1,10 @@
 package resources;
-import java.util.Collection;
 
+/**
+ * This class is a superclass of all resources.
+ * It's only use is for typechecks and generalisations.
+ */
 public abstract class Resource
 {
-	private int duration;
-
-	public Resource(int duration) {
-
-	}
-
-	public int getDuration() {
-		return duration;
-	}
-
-	public void setDuration(int duration) {
-		this.duration = duration;
-	}
-
-	public abstract Collection<Resource> getType();
 
 }
