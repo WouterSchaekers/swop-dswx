@@ -76,7 +76,7 @@ public class Scheduler
 	 * @return The first free slot for an appointment of duration duration.
 	 */
 	private TimePoint findFreeSlot(Collection<Resource> res, int duration) {
-		Collection<Date> allDates = this.resources.keySet();
+		Collection<TimePoint> allTimePoints = this.resources.keySet();
 		
 		return null;
 	}
