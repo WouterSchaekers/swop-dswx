@@ -66,4 +66,15 @@ public abstract class Treatment extends Resource
 		this.duration = duration;
 	}
 	
+	/**
+	 * @return This method will get all
+	 */
+	public Collection<Resource> getType() {
+		Collection<Resource> c = new ArrayList<Resource>();
+		for (Resource r: treatments) {
+			c.add(r);
+		}
+		return c;
+	}
+	
 }
