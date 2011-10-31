@@ -21,7 +21,6 @@ public abstract class Treatment extends Resource
 	 * The name of this treatment.
 	 */
 	public Treatment(String treatmentName, int duration){
-		super(duration);
 		this.treatmentName = treatmentName;
 	}
 	
