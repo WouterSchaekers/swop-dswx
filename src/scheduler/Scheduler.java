@@ -12,7 +12,7 @@ import patient.PatientFile;
 public class Scheduler
 {
 	// all scheduled resources
-	private TreeMap<TimePoint, Collection<Appointment>> resources;
+	private TreeMap<TimePoint, Collection<Appointment>> timeTable;
 	// all available resources
 	private Collection<Resource> availableResources;
 	// 1 hour after admission <...>
@@ -23,7 +23,7 @@ public class Scheduler
 	 * Default constructor will initialise all fields.
 	 */
 	public Scheduler() {
-		resources = new TreeMap<TimePoint, Collection<Appointment>>();
+		timeTable = new TreeMap<TimePoint, Collection<Appointment>>();
 		availableResources = new ArrayList<Resource>();
 		curDate = new GregorianCalendar(2011, 11, 8, 8, 0);
 	}
@@ -36,7 +36,7 @@ public class Scheduler
 	}
 
 	/**
-	 * Will add an appointment to the time table.
+	 * Will add an appointment to the time table in the correct slot.
 	 * 
 	 * @param patient
 	 *            The patient who the appointment is for.
@@ -54,14 +54,14 @@ public class Scheduler
 		TimePoint stopPoint = new TimePoint(stoptype, endDate);
 		
 		Appointment newAppointment = new Appointment(patient, res, startPointFree, stopPoint);
-		Collection<Appointment> oldAppointments = this.resources.get(startPointFree);
+		Collection<Appointment> oldAppointments = this.timeTable.get(startPointFree);
 
 		if (oldAppointments == null) {
 			oldAppointments = new ArrayList<Appointment>();
 		}
 
 		oldAppointments.add(newAppointment);
-		this.resources.put(startPointFree, oldAppointments);
+		this.timeTable.put(startPointFree, oldAppointments);
 		return newAppointment;
 	}
 
@@ -76,7 +76,8 @@ public class Scheduler
 	 * @return The first free slot for an appointment of duration duration.
 	 */
 	private TimePoint findFreeSlot(Collection<Resource> res, int duration) {
-		Collection<TimePoint> allTimePoints = this.resources.keySet();
+		this.cleanUp();
+		Collection<TimePoint> allTimePoints = this.timeTable.keySet();
 		
 		return null;
 	}
@@ -87,6 +88,26 @@ public class Scheduler
 	 */
 	public int getTimeBuffer() {
 		return TIMEAFTERCURRENTDATE;
+	}
+	
+	/**
+	 * This method can end an appointment after it has taken place.
+	 * @param appointment
+	 * The appointment to be ended.
+	 */
+	public void endAppointment(Appointment appointment) {
+		this.timeTable.remove(appointment.getStart());
+	}
+	
+	/**
+	 * This method will clean up the timetable = remove expired appointments.
+	 */
+	private void cleanUp() {
+		
+	}
+	
+	private Collection<Resource> getResources() {
+		
 	}
 
 }
