@@ -2,7 +2,7 @@ package ui.registerpatientchain;
 
 import java.util.HashMap;
 import java.util.Map;
-import ui.DataBlob;
+import ui.UserinterfaceData;
 import ui.usecase;
 import controllers.PatientFileDTO;
 import controllers.RegisterPatientController;
@@ -11,7 +11,7 @@ public class displayAllPatients extends usecase
 {
 	Map<String,PatientFileDTO> namePatientMap;
 	RegisterPatientController rpc;
-	public displayAllPatients(DataBlob data,RegisterPatientController registerpatientcontroller) {
+	public displayAllPatients(UserinterfaceData data,RegisterPatientController registerpatientcontroller) {
 		super(data);
 		this.rpc=registerpatientcontroller;
 		namePatientMap = new HashMap<String, PatientFileDTO>();

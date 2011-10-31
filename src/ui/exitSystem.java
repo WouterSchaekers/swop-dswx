@@ -3,7 +3,7 @@ package ui;
 public class exitSystem extends usecase
 {
 
-	public exitSystem(DataBlob data) {
+	public exitSystem(UserinterfaceData data) {
 		super(data);
 		// TODO Auto-generated constructor stub
 	}

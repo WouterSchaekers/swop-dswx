@@ -1,7 +1,7 @@
 package ui.registerpatientchain;
 
 import controllers.RegisterPatientController;
-import ui.DataBlob;
+import ui.UserinterfaceData;
 import ui.SelectUsecase;
 import ui.usecase;
 import users.User.usertype;
@@ -9,7 +9,7 @@ import users.User.usertype;
 public class CreateRegisterController extends usecase
 {
 
-	public CreateRegisterController(DataBlob data) {
+	public CreateRegisterController(UserinterfaceData data) {
 		super(data);
 		// TODO Auto-generated constructor stub
 	}

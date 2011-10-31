@@ -1,16 +1,16 @@
 package ui.openpatientfile;
 
 import controllers.PatientFileOpenController;
-import ui.DataBlob;
+import ui.UserinterfaceData;
 import ui.SelectUsecase;
 import ui.usecase;
 import users.User.usertype;
 
 public class ListUndischargedPatients extends usecase
 {
-	DataBlob data;
+	UserinterfaceData data;
 	ConsutlPatientFileData patfiledata;
-	public ListUndischargedPatients(DataBlob data, ConsutlPatientFileData d) {
+	public ListUndischargedPatients(UserinterfaceData data, ConsutlPatientFileData d) {
 		super(data);
 	}
 

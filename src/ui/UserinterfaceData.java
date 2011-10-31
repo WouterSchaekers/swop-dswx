@@ -7,7 +7,12 @@ import controllers.DataPasser;
 import controllers.LoginController;
 import controllers.RegisterPatientController;
 
-public class DataBlob
+
+/**
+ * This class keeps the information that the user interface needs. 
+ */
+
+public class UserinterfaceData
 {
 	public void setLoginc(LoginController loginc) {
 		this.loginc = loginc;
@@ -31,7 +36,7 @@ public class DataBlob
 	public RegisterPatientController getRegisterPatientController(){
 		return regpatctrl;
 	}
-	public DataBlob(DataPasser data) {
+	public UserinterfaceData(DataPasser data) {
 		this.data=data;
 	}
 

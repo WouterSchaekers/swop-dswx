@@ -9,8 +9,8 @@ public abstract class usecase
 	{
 		input=s;
 	}
-	final protected DataBlob data;
-	public usecase(DataBlob data){
+	final protected UserinterfaceData data;
+	public usecase(UserinterfaceData data){
 		this.data=data;
 	}
 	public abstract usecase Execute();
