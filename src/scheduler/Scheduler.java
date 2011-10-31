@@ -74,7 +74,7 @@ public class Scheduler
 	 */
 	private Date findFreeSlot(Collection<Resource> res, int duration) {
 		Collection<Date> allDates = this.resources.keySet();
-		// XXX: implement
+		
 		return null;
 	}
 
