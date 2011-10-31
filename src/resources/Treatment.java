@@ -65,4 +65,5 @@ public abstract class Treatment extends Resource
 	public void setDuration(int duration){
 		this.duration = duration;
 	}
+	
 }
