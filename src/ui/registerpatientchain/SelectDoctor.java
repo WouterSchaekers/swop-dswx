@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import scheduler.Appointment;
-import ui.DataBlob;
+import ui.UserinterfaceData;
 import ui.usecase;
 import users.User.usertype;
 import controllers.AppointmentDTO;
@@ -17,7 +17,7 @@ public class SelectDoctor extends usecase
 	PatientFileDTO pfile;
 	RegisterPatientController rpc;
 
-	public SelectDoctor(DataBlob data, PatientFileDTO patientFileDTO,
+	public SelectDoctor(UserinterfaceData data, PatientFileDTO patientFileDTO,
 			RegisterPatientController rpc) {
 		super(data);
 		this.pfile = patientFileDTO;

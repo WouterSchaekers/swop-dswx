@@ -1,13 +1,13 @@
 package ui.logoutchain;
 
-import ui.DataBlob;
+import ui.UserinterfaceData;
 import ui.SelectUsecase;
 import ui.usecase;
 
 public class logOut extends usecase
 {
 
-	public logOut(DataBlob data) {
+	public logOut(UserinterfaceData data) {
 		super(data);
 		// TODO Auto-generated constructor stub
 	}

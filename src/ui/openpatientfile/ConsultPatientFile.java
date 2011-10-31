@@ -1,12 +1,12 @@
 package ui.openpatientfile;
 
-import ui.DataBlob;
+import ui.UserinterfaceData;
 import ui.usecase;
 
 public class ConsultPatientFile extends usecase
 {
 
-	public ConsultPatientFile(DataBlob data) {
+	public ConsultPatientFile(UserinterfaceData data) {
 		super(data);
 		// TODO Auto-generated constructor stub
 	}

@@ -1,7 +1,7 @@
 package ui.registerpatientchain;
 
 import java.util.Map;
-import ui.DataBlob;
+import ui.UserinterfaceData;
 import ui.usecase;
 import controllers.PatientFileDTO;
 import controllers.RegisterPatientController;
@@ -11,7 +11,7 @@ public class validatePatientName extends usecase
 	String name;
 	RegisterPatientController rpc;
 	Map<String,PatientFileDTO>	 namePatientFileMap;
-	public validatePatientName(DataBlob data, RegisterPatientController rpc,
+	public validatePatientName(UserinterfaceData data, RegisterPatientController rpc,
 			Map<String, PatientFileDTO> namePatientMap, String in) {
 		super(data);
 		this.rpc= rpc;

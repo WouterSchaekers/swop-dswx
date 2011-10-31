@@ -1,13 +1,13 @@
 package ui.registerpatientchain;
 
 import controllers.RegisterPatientController;
-import ui.DataBlob;
+import ui.UserinterfaceData;
 import ui.usecase;
 
 public class CreateNewPatient extends usecase
 {
 	RegisterPatientController rpc;
-	public CreateNewPatient(DataBlob data, RegisterPatientController rpc) {
+	public CreateNewPatient(UserinterfaceData data, RegisterPatientController rpc) {
 		super(data);
 		this.rpc=rpc;
 		// TODO Auto-generated constructor stub
