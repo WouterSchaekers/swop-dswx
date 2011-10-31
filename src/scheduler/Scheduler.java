@@ -106,8 +106,11 @@ public class Scheduler
 		
 	}
 	
+	/**
+	 * @return All unscheduled (= available) resources.
+	 */
 	private Collection<Resource> getResources() {
-		
+		return availableResources;
 	}
 
 }
