@@ -67,4 +67,14 @@ public abstract class MedicalTest extends Resource
 	public PatientFile getPatientFile() {
 		return this.patientFile;
 	}
+	
+	/**
+	 * @return The types of medical tests that are available. 
+	 */
+	public Collection<Resource> getTypes() {
+		Collection<Resource> c = new ArrayList<Resource>();
+		for(Resource r: medicalTests)
+			c.add(r);
+		return c;
+	}
 }
