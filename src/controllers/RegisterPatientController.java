@@ -46,8 +46,7 @@ public class RegisterPatientController
 			throw new IllegalStateException("No patientfile has been opened yet");
 		if(pfile.getPatientFile().isDischarged())
 			throw new IllegalArgumentException(pfile.getName()+" is not checked in");
-		return new AppointmentDTO(dataPasser.getScheduler().addAppointment(
-				pfile.getPatientFile(), (Doctor)userDTO.getUser(), 60));
+		return new AppointmentDTO(dataPasser.getScheduler().addAppointment(pfile.getPatientFile(), (Doctor)userDTO.getUser(), 60));
 	}
 
 	public void createNewPatient(DataPasser dataPasser2, String name) {
