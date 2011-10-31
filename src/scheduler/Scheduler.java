@@ -1,8 +1,10 @@
 package scheduler;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.TreeMap;
 import javax.annotation.Resource;
 import patient.PatientFile;
@@ -17,12 +19,20 @@ public class Scheduler
 	private Collection<Resource> availableResources;
 	private Date currentDate;
 	private final int TIMEAFTERCURRENTDATE = 60*60*1000;
+	private Calendar startDate;
+		
+
 
 	public Scheduler() {
 		appointments = new TreeMap<Date, Collection<Appointment>>();
 		resources = new TreeMap<Date, Collection<Resource>>();
 		availableResources = new ArrayList<Resource>();
 		currentDate = new Date(0);
+		startDate = new GregorianCalendar(2011, 11, 8, 8, 0);
+	}
+	
+	public long getTime(){
+		return startDate.getTimeInMillis();
 	}
 	
 	public Appointment addAppointment(PatientFile patient, Doctor doctor, int duration){
