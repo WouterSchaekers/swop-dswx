@@ -8,8 +8,6 @@ import java.util.GregorianCalendar;
 import java.util.TreeMap;
 import resources.Resource;
 import patient.PatientFile;
-import users.Doctor;
-import users.Nurse;
 
 public class Scheduler
 {
@@ -39,77 +37,53 @@ public class Scheduler
 
 	/**
 	 * Will add an appointment to the time table.
+	 * 
 	 * @param patient
-	 * The patient who the appointment is for.
+	 *            The patient who the appointment is for.
 	 * @param res
-	 * The resource scheduled for the appointment
+	 *            The resource scheduled for the appointment
 	 * @param duration
-	 * The length of the appointment
+	 *            The length of the appointment
 	 * @return The appointment.
 	 */
-	public Appointment addAppointment(PatientFile patient, Collection<Resource> res, int duration) {
-		Date freeDate = getFirstDate(res, duration);
-		Appointment newAppointment = new Appointment(patient, res, freeDate, duration);
+	public Appointment addAppointment(PatientFile patient,
+			Collection<Resource> res, int duration) {
+		Date freeDate = findFreeSlot(res, duration);
+		Appointment newAppointment = new Appointment(patient, res, freeDate,
+				duration);
 		Collection<Appointment> oldAppointments = this.resources.get(freeDate);
-		
+
 		if (oldAppointments == null) {
 			oldAppointments = new ArrayList<Appointment>();
 		}
-		
+
 		oldAppointments.add(newAppointment);
 		this.resources.put(freeDate, oldAppointments);
 		return newAppointment;
 	}
 
 	/**
+	 * This function will get the first free slot for an appointment.
 	 * 
-	 * @param doctor
+	 * @param res
+	 *            All the resources that should be in the time table (incl new
+	 *            resource)
 	 * @param duration
-	 * @return
+	 *            Length of the reservation.
+	 * @return The first free slot for an appointment of duration duration.
 	 */
-	private Date getFirstDate(Doctor doctor, int duration) {
-		Collection<Date> allDates = this.appointments.keySet();
-		for (Date curDate : allDates) {
-			Collection<Appointment> colAppointments = this.appointments
-					.get(curDate);
-			for (Appointment curAppointment : colAppointments) {
-				Date endDate = new Date(curAppointment.getDate().getTime()
-						+ curAppointment.getAppointmentDuration());
-				if (curAppointment.getDoctor() == doctor
-						&& isFree(doctor, duration, endDate)) {
-					return endDate;
-				}
-			}
-		}
+	private Date findFreeSlot(Collection<Resource> res, int duration) {
+		Collection<Date> allDates = this.resources.keySet();
+		// XXX: implement
 		return null;
 	}
 
-	private boolean isFree(Doctor doctor, int duration, Date date) {
-		Collection<Date> allDates = this.appointments.keySet();
-		Date endDate = new Date(date.getTime() + duration);
-		for (Date curDate : allDates) {
-			if (date.after(curDate)) {
-				Collection<Appointment> colAppointments = this.appointments
-						.get(curDate);
-				for (Appointment curAppointment : colAppointments) {
-					Date endCurDate = new Date(curDate.getTime()
-							+ curAppointment.getAppointmentDuration());
-					if (curAppointment.getDoctor() == doctor
-							&& endCurDate.after(date)) {
-						return false;
-					}
-				}
-			} else if (curDate.after(date) && endDate.after(curDate)) {
-				Collection<Appointment> colAppointments = this.appointments
-						.get(curDate);
-				for (Appointment curAppointment : colAppointments) {
-					if (curAppointment.getDoctor() == doctor) {
-						return false;
-					}
-				}
-			}
-
-		}
-		return true;
+	/**
+	 * @return The minimum amount of time that needs to be between the admission
+	 *         and execution of an appointment.
+	 */
+	public int getTimeBuffer() {
+		return TIMEAFTERCURRENTDATE;
 	}
+
 }
