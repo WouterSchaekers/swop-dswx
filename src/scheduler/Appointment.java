@@ -2,13 +2,14 @@ package scheduler;
 
 import java.util.Date;
 import patient.PatientFile;
-import users.Doctor;
+import resources.Resource;
+import java.util.Collection;
 
 public class Appointment
 {
-	public Appointment(PatientFile patient, Doctor doctor, Date date, int appointmentDuration) {
+	public Appointment(PatientFile patient, Collection<Resource> res, Date date, int appointmentDuration) {
 		setPatientFile(patient);
-		setDoctor(doctor);
+		setResource(res);
 		setDate(date);
 		setAppointmentDuration(appointmentDuration);
 	}
@@ -23,14 +24,14 @@ public class Appointment
 		return patient;
 	}
 
-	private Doctor doctor;
+	private Collection<Resource> resources;
 
-	public void setDoctor(Doctor doctor) {
-		this.doctor = doctor;
+	public void setResource(Collection<Resource> res) {
+		this.resources = res;
 	}
 
-	public Doctor getDoctor() {
-		return doctor;
+	public Collection<Resource> getResource() {
+		return this.resources;
 	}
 
 	private Date date;
