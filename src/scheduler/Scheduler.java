@@ -18,10 +18,8 @@ public class Scheduler
 	private TreeMap<Date, Collection<Resource>> resources;
 	private Collection<Resource> availableResources;
 	private Date currentDate;
-	private final int TIMEAFTERCURRENTDATE = 60*60*1000;
+	private final int TIMEAFTERCURRENTDATE = 60 * 60 * 1000;
 	private Calendar startDate;
-		
-
 
 	public Scheduler() {
 		appointments = new TreeMap<Date, Collection<Appointment>>();
@@ -30,68 +28,78 @@ public class Scheduler
 		currentDate = new Date(0);
 		startDate = new GregorianCalendar(2011, 11, 8, 8, 0);
 	}
-	
-	public long getTime(){
+
+	public long getTime() {
 		return startDate.getTimeInMillis();
 	}
-	
-	public Appointment addAppointment(PatientFile patient, Doctor doctor, int duration){
+
+	public Appointment addAppointment(PatientFile patient, Doctor doctor,
+			int duration) {
 		Date freeDate = getFirstDate(doctor, duration);
-		Appointment newAppointment = new Appointment(patient, doctor, freeDate, duration);
+		Appointment newAppointment = new Appointment(patient, doctor, freeDate,
+				duration);
 		Collection<Appointment> oldAppointments = appointments.get(freeDate);
-		if(oldAppointments == null){
+		if (oldAppointments == null) {
 			oldAppointments = new ArrayList<Appointment>();
 		}
 		oldAppointments.add(newAppointment);
 		appointments.put(freeDate, oldAppointments);
 		return newAppointment;
 	}
-	
-	public void addAppointment(PatientFile patient, Nurse nurse, Resource resource, int duration){
+
+	public void addAppointment(PatientFile patient, Nurse nurse,
+			Resource resource, int duration) {
 		Date freeDate = getFreeDate(nurse, resource);
 	}
-	
-	private Date getFreeDate(Nurse nurse, Resource resource){
-		
+
+	private Date getFreeDate(Nurse nurse, Resource resource) {
+
 		return null;
 	}
-	//TODO: implement current date as first option
-	private Date getFirstDate(Doctor doctor, int duration){
+
+	// TODO: implement current date as first option
+	private Date getFirstDate(Doctor doctor, int duration) {
 		Collection<Date> allDates = this.appointments.keySet();
-		for(Date curDate : allDates){
-			Collection<Appointment> colAppointments = this.appointments.get(curDate);
-			for(Appointment curAppointment : colAppointments){
-				Date endDate = new Date(curAppointment.getDate().getTime()+curAppointment.getAppointmentDuration());
-				if(curAppointment.getDoctor() == doctor && isFree(doctor, duration, endDate)){
+		for (Date curDate : allDates) {
+			Collection<Appointment> colAppointments = this.appointments
+					.get(curDate);
+			for (Appointment curAppointment : colAppointments) {
+				Date endDate = new Date(curAppointment.getDate().getTime()
+						+ curAppointment.getAppointmentDuration());
+				if (curAppointment.getDoctor() == doctor
+						&& isFree(doctor, duration, endDate)) {
 					return endDate;
 				}
 			}
 		}
 		return null;
 	}
-	
-	private boolean isFree(Doctor doctor, int duration, Date date){
+
+	private boolean isFree(Doctor doctor, int duration, Date date) {
 		Collection<Date> allDates = this.appointments.keySet();
 		Date endDate = new Date(date.getTime() + duration);
-		for(Date curDate : allDates){
-			if(date.after(curDate)){
-				Collection<Appointment> colAppointments = this.appointments.get(curDate);
-				for(Appointment curAppointment : colAppointments){
-					Date endCurDate = new Date(curDate.getTime() + curAppointment.getAppointmentDuration());
-					if(curAppointment.getDoctor() == doctor && endCurDate.after(date)){
+		for (Date curDate : allDates) {
+			if (date.after(curDate)) {
+				Collection<Appointment> colAppointments = this.appointments
+						.get(curDate);
+				for (Appointment curAppointment : colAppointments) {
+					Date endCurDate = new Date(curDate.getTime()
+							+ curAppointment.getAppointmentDuration());
+					if (curAppointment.getDoctor() == doctor
+							&& endCurDate.after(date)) {
+						return false;
+					}
+				}
+			} else if (curDate.after(date) && endDate.after(curDate)) {
+				Collection<Appointment> colAppointments = this.appointments
+						.get(curDate);
+				for (Appointment curAppointment : colAppointments) {
+					if (curAppointment.getDoctor() == doctor) {
 						return false;
 					}
 				}
 			}
-			else if(curDate.after(date) && endDate.after(curDate)){
-				Collection<Appointment> colAppointments = this.appointments.get(curDate);
-				for(Appointment curAppointment : colAppointments){
-					if(curAppointment.getDoctor() == doctor){
-						return false;
-					}
-				}
-			}
-			
+
 		}
 		return true;
 	}
