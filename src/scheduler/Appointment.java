@@ -13,7 +13,7 @@ public class Appointment
 	private TimePoint stop;
 	private PatientFile patient;
 	private Collection<Resource> resources;
-
+	private long dur;
 	
 	/**
 	 * Default constructor.
@@ -29,6 +29,7 @@ public class Appointment
 	public Appointment(PatientFile patient, Collection<Resource> res, TimePoint start, TimePoint stop) {
 		setPatientFile(patient);
 		setResource(res);
+		this.dur = start.getDate().getTime() - stop.getDate().getTime();
 	}
 	
 	/**
@@ -67,35 +68,21 @@ public class Appointment
 	 * @return The start timepoint of this appointment.
 	 */
 	public TimePoint getStart() {
-		return stop;
+		return start;
 	}
 
 	/**
 	 * @return The stop timepoint of this appointment.
 	 */
-	public TimePoint setStop() {
+	public TimePoint getStop() {
 		return stop;
-	}
-	
-	/**
-	 * This method changes the start time of this appointment.
-	 */
-	public void setSart(TimePoint s) {
-		this.start = s;
-	}
-	
-	/**
-	 * This method changes the stop time of this appointment.
-	 */
-	public void setStop(TimePoint s) {
-		this.stop = s;
 	}
 	
 	/**
 	 * @return The duration of this appointment.
 	 */
 	public long getAppointmentDuration() {
-		return start.getDate().getTime() - stop.getDate().getTime(); 
+		return dur; 
 	}
 
 }

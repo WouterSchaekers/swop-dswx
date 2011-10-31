@@ -12,7 +12,7 @@ import patient.PatientFile;
 public class Scheduler
 {
 	// all scheduled resources
-	private TreeMap<Date, Collection<Appointment>> resources;
+	private TreeMap<TimePoint, Collection<Appointment>> resources;
 	// all available resources
 	private Collection<Resource> availableResources;
 	// 1 hour after admission <...>
@@ -23,7 +23,7 @@ public class Scheduler
 	 * Default constructor will initialise all fields.
 	 */
 	public Scheduler() {
-		resources = new TreeMap<Date, Collection<Appointment>>();
+		resources = new TreeMap<TimePoint, Collection<Appointment>>();
 		availableResources = new ArrayList<Resource>();
 		curDate = new GregorianCalendar(2011, 11, 8, 8, 0);
 	}
@@ -46,19 +46,22 @@ public class Scheduler
 	 *            The length of the appointment
 	 * @return The appointment.
 	 */
-	public Appointment addAppointment(PatientFile patient,
-			Collection<Resource> res, int duration) {
-		Date freeDate = findFreeSlot(res, duration);
-		Appointment newAppointment = new Appointment(patient, res, freeDate,
-				duration);
-		Collection<Appointment> oldAppointments = this.resources.get(freeDate);
+	public Appointment addAppointment(PatientFile patient, Collection<Resource> res, int duration) {
+		TimePoint startPointFree = findFreeSlot(res, duration);
+		
+		Date endDate = new Date(startPointFree.getDate().getTime() + duration);
+		TimeType stoptype = TimeType.stop;
+		TimePoint stopPoint = new TimePoint(stoptype, endDate);
+		
+		Appointment newAppointment = new Appointment(patient, res, startPointFree, stopPoint);
+		Collection<Appointment> oldAppointments = this.resources.get(startPointFree);
 
 		if (oldAppointments == null) {
 			oldAppointments = new ArrayList<Appointment>();
 		}
 
 		oldAppointments.add(newAppointment);
-		this.resources.put(freeDate, oldAppointments);
+		this.resources.put(startPointFree, oldAppointments);
 		return newAppointment;
 	}
 
@@ -72,7 +75,7 @@ public class Scheduler
 	 *            Length of the reservation.
 	 * @return The first free slot for an appointment of duration duration.
 	 */
-	private Date findFreeSlot(Collection<Resource> res, int duration) {
+	private TimePoint findFreeSlot(Collection<Resource> res, int duration) {
 		Collection<Date> allDates = this.resources.keySet();
 		
 		return null;
