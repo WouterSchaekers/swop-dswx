@@ -12,7 +12,7 @@ public class isAllowedToLogin extends LoginCommand
 {
 
 	public isAllowedToLogin(UserinterfaceData uiData, UserinterfaceData loginData) {
-		super(uiData,loginData);
+		super(uiData,loginsfdgData);
 	}
 	
 	/**
