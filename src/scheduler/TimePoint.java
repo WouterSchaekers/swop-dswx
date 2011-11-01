@@ -33,5 +33,9 @@ public class TimePoint
 	public Date getDate() {
 		return this.date;
 	}
+	
+	public long getTime(){
+		return this.date.getTime();
+	}
 
 }
