@@ -28,7 +28,7 @@ public class SelectDoctor extends usecase
 	public usecase Execute() {
 		ArrayList<DTOUser> docters = new ArrayList<DTOUser>();
 		System.out.println("Select a doctor from  the list of doctors:");
-		for (DTOUser u : data.getLoginController().getAllUsers2()) {
+		for (DTOUser u : data.getLoginController().getAllUsers()) {
 			if (u.type() == usertype.Doctor)
 				docters.add(u);
 		}
