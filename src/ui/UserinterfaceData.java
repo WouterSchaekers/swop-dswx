@@ -2,7 +2,7 @@ package ui;
 
 import controllers.DataPasser;
 import controllers.LoginController;
-import controllers.RegisterPatientController;
+import controllers.PatientFileOpenController;
 
 /**
  * This class keeps the information that the user interface needs.
@@ -10,7 +10,7 @@ import controllers.RegisterPatientController;
 public class UserinterfaceData
 {
 	private LoginController loginc;
-	private RegisterPatientController regpatctrl;
+	private PatientFileOpenController regpatctrl;
 	private DataPasser data;
 
 	/**
@@ -37,7 +37,7 @@ public class UserinterfaceData
 	 * @param regpatctrl
 	 * The registerpatientfilecontroller.
 	 */
-	public void setRegpatctrl(RegisterPatientController regpatctrl) {
+	public void setRegpatctrl(PatientFileOpenController regpatctrl) {
 		this.regpatctrl = regpatctrl;
 	}
 
@@ -68,7 +68,7 @@ public class UserinterfaceData
 	/**
 	 * @return The RegisterPatientFileController of this dataobject.
 	 */
-	public RegisterPatientController getRegisterPatientController() {
+	public PatientFileOpenController getPatientFileOpenController() {
 		return regpatctrl;
 	}
 
