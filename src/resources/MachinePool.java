@@ -1,5 +1,6 @@
 package resources;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -7,7 +8,7 @@ import java.util.Collection;
  */
 public class MachinePool
 {
-	private Collection<Machine> allMachines;
+	private Collection<Machine> allMachines=new ArrayList<Machine>();
 
 	public void addMachine(Machine m) {
 		allMachines.add(m);
