@@ -91,9 +91,8 @@ public class Scheduler
 	 */
 	public ScheduledElement findFreeSlot(Collection<Requirement> required,
 			int duration) throws ImpossibleToScheduleException {
-		Date now = now();
-		Date firstAfterNow = new Date(now.getTime() + TIMEAFTERCURRENTDATE);
-		TimePoint potentialmatch = null;
+		Date firstAfterNow = new Date(now().getTime() + TIMEAFTERCURRENTDATE);
+		Date potentialMatch = firstAfterNow;
 		Collection<Resource> availableNow = getResources();
 		Collection<Resource> scheduledNow = getAllScheduledAt(firstAfterNow);
 		for (Resource r : scheduledNow)
@@ -111,8 +110,7 @@ public class Scheduler
 						"There are not enough resources available for these requirements.");
 			}
 		}
-		while (potentialmatch == null
-				|| !(timeDifference(potentialmatch, traverser) < duration)) {
+		while (!(timeDifference(potentialMatch, traverser.getDate()) < duration)) {
 			switch (traverser.getType()) {
 			case start:
 				availableNow.remove(timeTable.get(traverser));
@@ -132,7 +130,7 @@ public class Scheduler
 			if (traverser == null) {
 				Date nextDate = closedHourOfDate(firstAfterNow);
 				if (satisfied(availableNow, required, scheduledElements)) {
-					break;
+					return new ScheduledElement(scheduledElements, nextDate);
 				} else {
 					throw new ImpossibleToScheduleException(
 							"There are not enough resources available for these requirements.");
@@ -153,13 +151,11 @@ public class Scheduler
 		}
 	}
 
-	private long timeDifference(TimePoint potentialmatch, TimePoint traverser) {
-		if (potentialmatch == null)
-			return 0;
-		if (potentialmatch.getTime() > traverser.getTime())
-			return potentialmatch.getTime() - traverser.getTime();
+	private long timeDifference(Date date1, Date date2) {
+		if (date1.getTime() > date2.getTime())
+			return date1.getTime() - date2.getTime();
 		else
-			return traverser.getTime() - potentialmatch.getTime();
+			return date2.getTime() - date1.getTime();
 	}
 
 	private boolean satisfied(Collection<Resource> availableNow,
