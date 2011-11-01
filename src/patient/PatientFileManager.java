@@ -154,4 +154,19 @@ public class PatientFileManager
 	}
 	
 	
+	/**
+	 * This method will fetch the patientfile from a certain patient.
+	 * @param name
+	 * The name of the patient.
+	 * @return The patientfile of the requested patient
+	 * or null if no such patient is found.
+	 */
+	public PatientFile getPatientFileFrom(String name) {
+		Collection<PatientFile> c = patientFiles.keySet();
+		
+		for(PatientFile pf: c) 
+			if (pf.getName().equalsIgnoreCase(name))
+				return pf;
+		return null;
+	}
 }
