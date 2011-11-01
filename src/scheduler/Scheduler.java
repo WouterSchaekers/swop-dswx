@@ -115,7 +115,8 @@ public class Scheduler
 			if (satisfied(availableNow, required, scheduledElements)) {
 				// XXX: fixed the not adding to the tree
 				for (Resource r : scheduledElements) {
-					timeTable.put(new TimePoint(TimeType.stop, new Date(nextDate.getTime()+duration)), r);
+					timeTable.put(new TimePoint(TimeType.stop, new Date(
+							nextDate.getTime() + duration)), r);
 					timeTable.put(new TimePoint(TimeType.start, nextDate), r);
 				}
 				return new ScheduledElement(scheduledElements, nextDate);
@@ -178,7 +179,7 @@ public class Scheduler
 			Collection<Resource> scheduledElements) {
 		Collection<Resource> resourcesAv = availableNow;
 		for (Requirement r : required)
-			// TODO: complete isMetBy and removeUsedResoursesFrom
+			// XXX: complete isMetBy and removeUsedResoursesFrom
 			if (r.isMetBy(availableNow)) {
 				r.removeUsedResoursesFrom(resourcesAv, scheduledElements);
 			} else {
@@ -193,7 +194,7 @@ public class Scheduler
 		if (timeTable.size() == 0)
 			return scheduledResources;
 		TimePoint traverser = timeTable.firstKey();
-		while (traverser!=null&&now.after(traverser.getDate())) {
+		while (traverser != null && now.after(traverser.getDate())) {
 			switch (traverser.getType()) {
 			case start:
 				scheduledResources.add(timeTable.get(traverser));
@@ -202,7 +203,7 @@ public class Scheduler
 				scheduledResources.remove(timeTable.get(traverser));
 				break;
 			}
-			traverser=timeTable.higherKey(traverser);
+			traverser = timeTable.higherKey(traverser);
 		}
 		return scheduledResources;
 	}
@@ -233,19 +234,18 @@ public class Scheduler
 		}
 	}
 
-	// XXX: Worst implementation ever!
-	// public void endAppointment(Appointment appointment) {
-	// this.timeTable.remove(appointment.getStart());
-	// }
-
 	/**
 	 * This method will clean up the timetable = remove expired appointments.
 	 */
 	private void cleanUp() {
 		Date curDate = now();
-		TimePoint curTimePoint = timeTable.firstKey();
+		TimePoint curTimePoint = null;
+		try {
+			curTimePoint = timeTable.firstKey();
+		} catch (NoSuchElementException e) {
+		}
 		HashMap<Resource, TimePoint> startResources = new HashMap<Resource, TimePoint>();
-		while (curTimePoint.getDate().before(curDate)) {
+		while (curTimePoint != null && curTimePoint.getDate().before(curDate)) {
 			Resource curResource = timeTable.get(curTimePoint);
 			if (curTimePoint.getType() == TimeType.start) {
 				startResources.put(curResource, curTimePoint);
@@ -259,6 +259,10 @@ public class Scheduler
 			}
 			curTimePoint = timeTable.higherKey(curTimePoint);
 		}
+	}
+
+	public int getAmountOfElementsScheduled(){
+		return timeTable.size();
 	}
 
 	/**

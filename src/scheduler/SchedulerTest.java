@@ -1,9 +1,11 @@
 package scheduler;
 
+import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import org.junit.Before;
 import org.junit.Test;
+import patient.PatientFile;
 import resources.MachinePool;
 import resources.XRayScanner;
 import users.UserManager;
@@ -42,4 +44,16 @@ public class SchedulerTest
 		System.out.println(s.toString());
 		System.out.println("done");
 	}
+	
+	@Test
+	public void ScheduleTenThings() throws ImpossibleToScheduleException{
+		Collection<Requirement> requirements = new ArrayList<Requirement>();
+		PatientFile patient = new PatientFile("Jos");
+		for(int i = 0; i < 10; i++){
+			requirements.add(new XRayScannerRequirement());
+			scheduler.addAppointment(patient, requirements, 100);
+		}
+		assertTrue(true);
+	}
+	
 }
