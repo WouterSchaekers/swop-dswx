@@ -5,7 +5,7 @@ package resources;
  */
 public class Machine
 {
-	
+	private static int serialNow=0;
 	private int serial = -1;
 	private String location = "";
 	
@@ -14,8 +14,8 @@ public class Machine
 	 * @param serial
 	 * The serial of this machine.
 	 */
-	public Machine(int serial, String location) {
-		this.serial = serial;
+	public Machine(String location) {
+		this.serial = serialNow++;
 		this.location = location;
 	}
 	
