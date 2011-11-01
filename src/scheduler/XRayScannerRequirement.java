@@ -1,5 +1,6 @@
 package scheduler;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import resources.Resource;
 import resources.XRayScanner;
@@ -19,12 +20,17 @@ public class XRayScannerRequirement extends Requirement
 	@Override
 	public void removeUsedResoursesFrom(Collection<Resource> availableNow,
 			Collection<Resource> scheduledElements) {
-
+		Collection<Resource> newAvailableNow = new ArrayList<Resource>();
+		Collection<Resource> newScheduledElements = new ArrayList<Resource>();
 		for (Resource r : availableNow)
 			if (r instanceof XrayScannerResource) {
-				scheduledElements.add(r);
-				availableNow.remove(r);
+				newScheduledElements.add(r);
 			}
+			else{
+				newAvailableNow.add(r);
+			}
+		availableNow = newAvailableNow;
+		scheduledElements = newScheduledElements;
 	}
 
 }
