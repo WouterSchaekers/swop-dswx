@@ -1,9 +1,7 @@
 package ui.loginchain;
 
-import java.util.Map;
 import ui.UserinterfaceData;
 import ui.usecase;
-import controllers.DTOUser;
 
 /**
  * In this class the user can give his name to log in. 
@@ -15,11 +13,8 @@ public class login extends LoginCommand
 	 * Constructor of the class where the map with all registered users is copied to map.
 	 * 		|this.map = nameUserMap;
 	 */
-	Map<String, DTOUser> map;
-	public login(UserinterfaceData data,Map<String,DTOUser> nameUserMap) {
-		super(data);
-		this.map=nameUserMap;
-		// TODO Auto-generated constructor stub
+	public login(UserinterfaceData uiData, LoginData loginData) {
+		super(uiData, loginData);
 	}
 
 	/**
@@ -30,7 +25,7 @@ public class login extends LoginCommand
 	public usecase Execute() {
 		System.out.println("Enter User name:");
 		String name = input.nextLine();
-		return new validateLogin(data,map,name);
+		return new validateLogin(data,loginData, name);
 	}
 
 }

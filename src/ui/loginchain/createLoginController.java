@@ -18,11 +18,11 @@ public class createLoginController extends LoginCommand
 	 * Creation of the login controller 
 	 * Returns the next step of the chain, where all the names of the system are displayed.
 	 */
-
 	@Override
 	public usecase Execute() {
-			data.setLoginc(new LoginController(data.getDataPasser()));
-		return new displayAllNames(data);
+		data.setLoginc(new LoginController(data.getDataPasser()));
+		loginData.setLoginController(data.getLoginController());
+		return new displayAllNames(data, loginData);
 	}
 
 }

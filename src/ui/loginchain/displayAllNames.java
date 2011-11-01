@@ -1,7 +1,6 @@
 package ui.loginchain;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Collection;
 import ui.UserinterfaceData;
 import ui.usecase;
 import controllers.DTOUser;
@@ -13,7 +12,7 @@ import controllers.DTOUser;
  */
 public class displayAllNames extends LoginCommand
 {
-	public displayAllNames(UserinterfaceData uiData, UserinterfaceData loginData) {
+	public displayAllNames(UserinterfaceData uiData, LoginData loginData) {
 		super(uiData,loginData);
 	}
 
@@ -25,14 +24,14 @@ public class displayAllNames extends LoginCommand
 	 */
 	@Override
 	public usecase Execute() {
-		System.out.println("All users in the system:");
-		Map<String, DTOUser> nameUserMap=new HashMap<String, DTOUser>();
-		for(DTOUser u:data.getLoginController().getAllUsers())
-		{
-			System.out.println(u.getName());
-			nameUserMap.put(u.getName(), u);
+		System.out.println("All users registered in the system:");
+		Collection<DTOUser> userCol = data.getLoginController().getAllUsers();
+		
+		for(DTOUser u: userCol) {
+			System.out.println("* " + u.getName() + "\n");
 		}
-		return new login(data,nameUserMap);
+		
+		return new login(data,loginData);
 	}
 
 }
