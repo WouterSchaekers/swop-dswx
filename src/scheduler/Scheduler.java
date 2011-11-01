@@ -83,19 +83,19 @@ public class Scheduler
 			throws ImpossibleToScheduleException {
 		cleanUp();
 		ScheduledElement startPointFree = findFreeSlot(res, duration);
-		Collection<Resource> scheduledElements = startPointFree.getResources();
-		Date goodDate = startPointFree.getDate();
-		TimePoint start = new TimePoint(TimeType.start, goodDate);
-		TimePoint stop = new TimePoint(TimeType.stop, new Date(
-				goodDate.getTime() + duration));
-		for (Resource element : scheduledElements) {
-			timeTable.put(new TimePoint(TimeType.start, goodDate), element);
-			timeTable.put(
-					new TimePoint(TimeType.stop, new Date(goodDate.getTime()
-							+ duration)), element);
+		Collection<Resource> elementsToSchedule = startPointFree.getResources();
+		Date freeDate = startPointFree.getDate();
+		HashMap<TimePoint, Resource> scheduledElements = new HashMap<TimePoint, Resource>();
+		for (Resource element : elementsToSchedule) {
+			TimePoint startPoint = new TimePoint(TimeType.start, freeDate);
+			TimePoint endPoint = new TimePoint(TimeType.stop, new Date(
+					freeDate.getTime() + duration));
+			timeTable.put(startPoint, element);
+			timeTable.put(endPoint, element);
+			scheduledElements.put(startPoint, element);
+			scheduledElements.put(endPoint, element);
 		}
-		Appointment appointment = new Appointment(patient, scheduledElements,
-				start, stop);
+		Appointment appointment = new Appointment(patient, scheduledElements, freeDate, duration);
 		appointments.add(appointment);
 		return appointment;
 	}
@@ -231,10 +231,10 @@ public class Scheduler
 	 * @param appointment
 	 *            The appointment to be ended.
 	 */
-	//XXX: Worst implementation ever!
-	public void endAppointment(Appointment appointment) {
-		this.timeTable.remove(appointment.getStart());
-	}
+	// XXX: Worst implementation ever!
+//	public void endAppointment(Appointment appointment) {
+//		this.timeTable.remove(appointment.getStart());
+//	}
 
 	/**
 	 * This method will clean up the timetable = remove expired appointments.
@@ -243,14 +243,14 @@ public class Scheduler
 		Date curDate = now();
 		TimePoint curTimePoint = timeTable.firstKey();
 		HashMap<Resource, TimePoint> startResources = new HashMap<Resource, TimePoint>();
-		while(curTimePoint.getDate().before(curDate)){
+		while (curTimePoint.getDate().before(curDate)) {
 			Resource curResource = timeTable.get(curTimePoint);
-			if(curTimePoint.getType() == TimeType.start){
+			if (curTimePoint.getType() == TimeType.start) {
 				startResources.put(curResource, curTimePoint);
-			}
-			else{
-				if(startResources.containsKey(curResource)){
-					TimePoint correspondingTimePoint = startResources.get(curResource);
+			} else {
+				if (startResources.containsKey(curResource)) {
+					TimePoint correspondingTimePoint = startResources
+							.get(curResource);
 					timeTable.remove(curTimePoint);
 					timeTable.remove(correspondingTimePoint);
 				}
