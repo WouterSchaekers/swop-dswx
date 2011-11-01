@@ -25,5 +25,12 @@ public class LoginData
 	public LoginController getLoginController() {
 		return this.lc;
 	}
+	
+	/**
+	 * @return the logincontroller stored in this logindata object.
+	 */
+	public void setLoginController(LoginController lc) {
+		this.lc = lc;
+	}
 
 }

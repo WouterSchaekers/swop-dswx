@@ -15,11 +15,10 @@ public class loginToSystem extends LoginCommand
 	public loginToSystem(UserinterfaceData data,DTOUser user) {
 		super(data);
 		this.user=user;
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * This method will log in the current user in to the system.
+	 * 
 	 */
 	@Override
 	public usecase Execute() {
