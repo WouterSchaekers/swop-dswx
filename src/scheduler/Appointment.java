@@ -3,17 +3,18 @@ package scheduler;
 import patient.PatientFile;
 import resources.Resource;
 import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
 
 /**
  * This class will represent an appointment (== a scheduled resource)
  */
 public class Appointment
 {
-	private TimePoint start;
-	private TimePoint stop;
 	private PatientFile patient;
-	private Collection<Resource> resources;
-	private long dur;
+	private HashMap<TimePoint, Resource> resources;
+	private Date date;
+	private long duration;
 	
 	/**
 	 * Default constructor.
@@ -26,10 +27,11 @@ public class Appointment
 	 * @param date
 	 *            The date and time on which this appointment is to take place.
 	 */
-	public Appointment(PatientFile patient, Collection<Resource> res, TimePoint start, TimePoint stop) {
+	public Appointment(PatientFile patient, HashMap<TimePoint, Resource> res, Date date, long dur) {
 		setPatientFile(patient);
-		setResource(res);
-		this.dur = start.getDate().getTime() - stop.getDate().getTime();
+		this.resources = res;
+		this.date = date;
+		this.duration = dur;
 	}
 	
 	/**
@@ -49,40 +51,17 @@ public class Appointment
 	}
 
 	/**
-	 * This method allows to change the associated resource of this appointment.
-	 * @param res
-	 * The new resources for this appointment.
-	 */	
-	public void setResource(Collection<Resource> res) {
-		this.resources = res;
-	}
-
-	/**
 	 * @return The resource of this appointment.
 	 */
 	public Collection<Resource> getResource() {
-		return this.resources;
-	}
-
-	/**
-	 * @return The start timepoint of this appointment.
-	 */
-	public TimePoint getStart() {
-		return start;
-	}
-
-	/**
-	 * @return The stop timepoint of this appointment.
-	 */
-	public TimePoint getStop() {
-		return stop;
+		return this.resources.values();
 	}
 	
 	/**
 	 * @return The duration of this appointment.
 	 */
 	public long getAppointmentDuration() {
-		return dur; 
+		return duration; 
 	}
 
 }
