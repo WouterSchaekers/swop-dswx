@@ -232,6 +232,7 @@ public class Scheduler
 		for (TimePoint timePoint : resources.keySet()) {
 			timeTable.remove(timePoint);
 		}
+		appointments.remove(appointment);
 	}
 
 	/**
