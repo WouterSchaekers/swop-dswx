@@ -8,7 +8,7 @@ import controllers.DTOUser;
 /**
  * This class will see if the name entered by the current user is allowed to log in.
  */
-public class validateLogin extends usecase
+public class validateLogin extends LoginCommand
 {
 	/**
 	 * Constructor where hashmap of registered users is copied to map.

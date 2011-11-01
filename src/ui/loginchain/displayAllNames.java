@@ -11,11 +11,10 @@ import controllers.DTOUser;
  * When this is done the system proceeds to the next step of the chain. 
  *
  */
-public class displayAllNames extends usecase
+public class displayAllNames extends LoginCommand
 {
-	public displayAllNames(UserinterfaceData data) {
-		super(data);
-		// TODO Auto-generated constructor stub
+	public displayAllNames(UserinterfaceData uiData, UserinterfaceData loginData) {
+		super(uiData,loginData);
 	}
 
 	/**

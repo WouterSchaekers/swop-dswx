@@ -9,7 +9,7 @@ import controllers.DTOUser;
  * In this class the user can give his name to log in. 
  * When this is done the system will proceed to the next step of the chain to see if this user can is validated to log in. 
  */
-public class login extends usecase
+public class login extends LoginCommand
 {
 	/**
 	 * Constructor of the class where the map with all registered users is copied to map.

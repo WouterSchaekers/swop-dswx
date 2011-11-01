@@ -9,7 +9,7 @@ import controllers.DTOUser;
  * In this class the current user will log in to the system.
  *
  */
-public class loginToSystem extends usecase
+public class loginToSystem extends LoginCommand
 {
 	DTOUser user;
 	public loginToSystem(UserinterfaceData data,DTOUser user) {
