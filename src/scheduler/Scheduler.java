@@ -1,38 +1,55 @@
 package scheduler;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.TreeMap;
+import javax.lang.model.element.Element;
+import resources.BloodAnalyser;
+import resources.Machine;
+import resources.MachinePool;
 import resources.Resource;
+import resources.UltraSoundScanner;
+import resources.XRayScanner;
+import users.Doctor;
+import users.HospitalAdmin;
+import users.Nurse;
+import users.User;
+import users.UserManager;
 import patient.PatientFile;
-
+/**
+ * 
+ * @author Stefaan is een fucking noob
+ *
+ */
+//TODO: Fix this class and test it thoroughly
 public class Scheduler
 {
 	// all scheduled resources
-	private TreeMap<TimePoint, Collection<Appointment>> timeTable;
-	// all available resources
-	private Collection<Resource> availableResources;
+	private TreeMap<TimePoint, Resource> timeTable;
 	// 1 hour after admission <...>
 	private final int TIMEAFTERCURRENTDATE = 60 * 60 * 1000;
-	private Calendar curDate;
+	private UserManager userManager;
+	private MachinePool machinePool;
 
 	/**
 	 * Default constructor will initialise all fields.
 	 */
-	public Scheduler() {
-		timeTable = new TreeMap<TimePoint, Collection<Appointment>>();
-		availableResources = new ArrayList<Resource>();
-		curDate = new GregorianCalendar(2011, 11, 8, 8, 0);
+	public Scheduler(UserManager usermanager, MachinePool machinepool) {
+		this.userManager = usermanager;
+		this.machinePool = machinepool;
+		timeTable = new TreeMap<TimePoint, Resource>();
 	}
 
 	/**
 	 * @return The current system time in millis.
 	 */
-	public long getTime() {
-		return curDate.getTimeInMillis();
+	public Date getTime() {
+		return now();
 	}
 
 	/**
@@ -45,24 +62,12 @@ public class Scheduler
 	 * @param duration
 	 *            The length of the appointment
 	 * @return The appointment.
+	 * @throws ImpossibleToScheduleException 
 	 */
-	public Appointment addAppointment(PatientFile patient, Collection<Resource> res, int duration) {
-		TimePoint startPointFree = findFreeSlot(res, duration);
-		
-		Date endDate = new Date(startPointFree.getDate().getTime() + duration);
-		TimeType stoptype = TimeType.stop;
-		TimePoint stopPoint = new TimePoint(stoptype, endDate);
-		
-		Appointment newAppointment = new Appointment(patient, res, startPointFree, stopPoint);
-		Collection<Appointment> oldAppointments = this.timeTable.get(startPointFree);
-
-		if (oldAppointments == null) {
-			oldAppointments = new ArrayList<Appointment>();
-		}
-
-		oldAppointments.add(newAppointment);
-		this.timeTable.put(startPointFree, oldAppointments);
-		return newAppointment;
+	public Appointment addAppointment(PatientFile patient,
+			Collection<Requirement> res, int duration) throws ImpossibleToScheduleException {
+		ScheduledElement startPointFree = findFreeSlot(res, duration);
+		return null;
 	}
 
 	/**
@@ -74,12 +79,81 @@ public class Scheduler
 	 * @param duration
 	 *            Length of the reservation.
 	 * @return The first free slot for an appointment of duration duration.
+	 * @throws ImpossibleToScheduleException
 	 */
-	private TimePoint findFreeSlot(Collection<Resource> res, int duration) {
-		this.cleanUp();
-		Collection<TimePoint> allTimePoints = this.timeTable.keySet();
-		
+	public ScheduledElement findFreeSlot(Collection<Requirement> required,
+			int duration) throws ImpossibleToScheduleException {
+		Date now = now();
+		TimePoint potentialmatch = null;
+		Collection<Resource> availableNow = getResources();
+		Collection<Resource> scheduledNow = getAllScheduledAt(now);
+		for (Resource r : scheduledNow)
+			availableNow.remove(r);
+		TimePoint point = new TimePoint(TimeType.start, now);
+		TimePoint traverser = timeTable.higherKey(point);
+		if (traverser == null)
+			throw new ImpossibleToScheduleException(
+					"Something went horribly horribly wrong");
+		Collection<Resource> scheduledElements = new ArrayList<Resource>();
+		while (!(timedifference(potentialmatch, traverser) < duration)) {
+			switch (traverser.getType()) {
+			case start:
+				availableNow.remove(timeTable.get(traverser));
+				break;
+			case stop:
+				availableNow.add(timeTable.get(traverser));
+				break;
+			}
+			if (satisfied(availableNow, required, scheduledElements)
+					&& potentialmatch == null) {
+				potentialmatch = traverser;
+			} else {
+				traverser = timeTable.higherKey(potentialmatch);
+			}
+
+			traverser = timeTable.higherKey(traverser);
+			if (traverser == null)
+				throw new ImpossibleToScheduleException(
+						"Something went horribly horribly wrong");
+
+		}
+		for (Resource element : scheduledElements) {
+			timeTable.put(potentialmatch, element);
+			timeTable.put(new TimePoint(TimeType.stop, new Date(potentialmatch
+					.getDate().getTime() + duration)), element);
+		}
+		return new ScheduledElement();
+	}
+
+	private int timedifference(TimePoint potentialmatch, TimePoint traverser) {
+		if (potentialmatch == null)
+			return 0;
+		return 0;
+	}
+
+	private boolean satisfied(Collection<Resource> availableNow,
+			Collection<Requirement> required,
+			Collection<Resource> scheduledElements) {
+		Collection<Resource> resourcesAv = availableNow;
+		for (Requirement r : required)
+			if (r.isMetBy(availableNow)) {
+				r.removeUsedResoursesFrom(resourcesAv, scheduledElements);
+			} else {
+				scheduledElements.clear();
+				return false;
+			}
+
+		return true;
+	}
+
+	private Collection<Resource> getAllScheduledAt(Date now) {
+		// TODO Auto-generated method stub
 		return null;
+	}
+
+	private Date now() {
+		// TODO Auto-generated method stub
+		return new Date();
 	}
 
 	/**
@@ -89,28 +163,48 @@ public class Scheduler
 	public int getTimeBuffer() {
 		return TIMEAFTERCURRENTDATE;
 	}
-	
+
 	/**
 	 * This method can end an appointment after it has taken place.
+	 * 
 	 * @param appointment
-	 * The appointment to be ended.
+	 *            The appointment to be ended.
 	 */
 	public void endAppointment(Appointment appointment) {
 		this.timeTable.remove(appointment.getStart());
 	}
-	
+
 	/**
 	 * This method will clean up the timetable = remove expired appointments.
+	 * 
+	 * @throws Exception
 	 */
-	private void cleanUp() {
-		
-	}
-	
-	/**
-	 * @return All unscheduled (= available) resources.
-	 */
-	private Collection<Resource> getResources() {
-		return availableResources;
+	private void cleanUp() throws Exception {
+		// TODO: implement
+		throw new Exception("not implemented yet");
 	}
 
+	/**
+	 * @return All possible resources.
+	 */
+	private Collection<Resource> getResources() {
+		ArrayList<Resource> RV = new ArrayList<Resource>();
+		for (User u : userManager.getAllUsers()) {
+			if (u instanceof Nurse)
+				RV.add(new NurseResource((Nurse) u));
+			if (u instanceof Doctor)
+				RV.add(new DoctorResource((Doctor) u));
+			if (u instanceof HospitalAdmin)
+				RV.add(new HospitalAdminResource((HospitalAdmin) u));
+		}
+		for (Machine M : machinePool.getAllMachines()) {
+			if (M instanceof BloodAnalyser)
+				RV.add(new BloodAnalyzerResource((BloodAnalyser) M));
+			if (M instanceof UltraSoundScanner)
+				RV.add(new UltraSoundScannerResource((UltraSoundScanner) M));
+			if (M instanceof XRayScanner)
+				RV.add(new XrayScannerResource((XRayScanner) M));
+		}
+		return RV;
+	}
 }
