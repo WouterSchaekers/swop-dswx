@@ -7,7 +7,6 @@ import patient.PatientFileManager;
 import scheduler.Scheduler;
 import users.*;
 
-@SuppressWarnings("unused")
 public class LoginControllerTests
 {
 	UserManager um;

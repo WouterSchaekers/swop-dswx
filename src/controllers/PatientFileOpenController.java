@@ -3,7 +3,6 @@ package controllers;
 import java.util.ArrayList;
 import java.util.Collection;
 import patient.PatientFile;
-import users.Doctor;
 import users.User.usertype;
 
 public class PatientFileOpenController
