@@ -10,13 +10,13 @@ public class orderMedicalTest extends MedicalTestCommand
 
 	public orderMedicalTest(UserinterfaceData data) {
 		super(data);
-		// TODO Auto-generated constructor stub
+		this.medData = new MedicalTestData();
 	}
 
 	@Override
 	public usecase Execute() {
 		if (data.getLoginController().getUserDTO().type() == usertype.Doctor) {
-			return new PatientFileOpenChecker(data);
+			return new PatientFileOpenChecker(data, medData);
 		} else {
 			System.out.println(data.getLoginController().getUserDTO().getName()
 					+ " is not a doctor in this hospital");
