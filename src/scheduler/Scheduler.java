@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.TreeMap;
 import resources.BloodAnalyser;
 import resources.Machine;
@@ -49,18 +50,15 @@ public class Scheduler
 					@Override
 					public int compare(TimePoint arg0, TimePoint arg1) {
 						int t = arg0.compareTo(arg1);
-						if (t == 0){
-							if(arg0.getid() - arg1.getid() < 0){
+						if (t == 0) {
+							if (arg0.getid() - arg1.getid() < 0) {
 								t = -1;
-							}
-							else if(arg0.getid() - arg1.getid() > 0){
+							} else if (arg0.getid() - arg1.getid() > 0) {
 								t = 1;
-							}
-							else{
+							} else {
 								t = 0;
 							}
 						}
-						// TODO Auto-generated method stub
 						return t;
 					}
 				});
@@ -83,6 +81,7 @@ public class Scheduler
 	public Appointment addAppointment(PatientFile patient,
 			Collection<Requirement> res, int duration)
 			throws ImpossibleToScheduleException {
+		cleanUp();
 		ScheduledElement startPointFree = findFreeSlot(res, duration);
 		Collection<Resource> scheduledElements = startPointFree.getResources();
 		Date goodDate = startPointFree.getDate();
@@ -123,7 +122,6 @@ public class Scheduler
 		TimePoint point = new TimePoint(TimeType.start, firstAfterNow);
 		TimePoint traverser = timeTable.higherKey(point);
 		Collection<Resource> scheduledElements = new ArrayList<Resource>();
-		// TODO: Denk! -> Done.
 		if (traverser == null) {
 			Date nextDate = closedHourOfDate(firstAfterNow);
 			scheduledElements.clear();
@@ -233,18 +231,32 @@ public class Scheduler
 	 * @param appointment
 	 *            The appointment to be ended.
 	 */
+	//XXX: Worst implementation ever!
 	public void endAppointment(Appointment appointment) {
 		this.timeTable.remove(appointment.getStart());
 	}
 
 	/**
 	 * This method will clean up the timetable = remove expired appointments.
-	 * 
-	 * @throws Exception
 	 */
-	private void cleanUp() throws Exception {
-		// TODO: implement
-		throw new Exception("not implemented yet");
+	private void cleanUp() {
+		Date curDate = now();
+		TimePoint curTimePoint = timeTable.firstKey();
+		HashMap<Resource, TimePoint> startResources = new HashMap<Resource, TimePoint>();
+		while(curTimePoint.getDate().before(curDate)){
+			Resource curResource = timeTable.get(curTimePoint);
+			if(curTimePoint.getType() == TimeType.start){
+				startResources.put(curResource, curTimePoint);
+			}
+			else{
+				if(startResources.containsKey(curResource)){
+					TimePoint correspondingTimePoint = startResources.get(curResource);
+					timeTable.remove(curTimePoint);
+					timeTable.remove(correspondingTimePoint);
+				}
+			}
+			curTimePoint = timeTable.higherKey(curTimePoint);
+		}
 	}
 
 	/**
@@ -279,39 +291,33 @@ public class Scheduler
 					@Override
 					public int compare(TimePoint arg0, TimePoint arg1) {
 						int t = arg0.compareTo(arg1);
-						if (t == 0){
-							if(arg0.getid() - arg1.getid() < 0){
+						if (t == 0) {
+							if (arg0.getid() - arg1.getid() < 0) {
 								t = -1;
-							}
-							else if(arg0.getid() - arg1.getid() > 0){
+							} else if (arg0.getid() - arg1.getid() > 0) {
 								t = 1;
-							}
-							else{
+							} else {
 								t = 0;
 							}
 						}
-						// TODO Auto-generated method stub
 						return t;
 					}
 				});
-		Comparator<TimePoint> comp =new Comparator<TimePoint>()
-				{
+		Comparator<TimePoint> comp = new Comparator<TimePoint>()
+		{
 
 			@Override
 			public int compare(TimePoint arg0, TimePoint arg1) {
 				int t = arg0.compareTo(arg1);
-				if (t == 0){
-					if(arg0.getid() - arg1.getid() < 0){
+				if (t == 0) {
+					if (arg0.getid() - arg1.getid() < 0) {
 						t = -1;
-					}
-					else if(arg0.getid() - arg1.getid() > 0){
+					} else if (arg0.getid() - arg1.getid() > 0) {
 						t = 1;
-					}
-					else{
+					} else {
 						t = 0;
 					}
 				}
-				// TODO Auto-generated method stub
 				return t;
 			}
 		};
@@ -322,11 +328,11 @@ public class Scheduler
 		String sb = "blob";
 		map.put(ta, sa);
 		map.put(tb, sb);
-		if(comp.compare( tb,ta)>0)
+		if (comp.compare(tb, ta) > 0)
 			System.out.println("check");
 		System.out.println(map.size());
 		System.out.println(map.get(ta));
 		System.out.println(map.get(map.higherKey(ta)));
-		
+
 	}
 }
