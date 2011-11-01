@@ -12,6 +12,7 @@ public class ScheduledElement
 		this.resources = resources;
 		this.date = date;
 	}
+	
 	public Collection<Resource> getResources(){
 		return resources;
 	}
