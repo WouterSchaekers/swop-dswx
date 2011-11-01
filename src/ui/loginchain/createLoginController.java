@@ -21,7 +21,6 @@ public class createLoginController extends LoginCommand
 	@Override
 	public usecase Execute() {
 		data.setLoginc(new LoginController(data.getDataPasser()));
-		loginData.setLoginController(data.getLoginController());
 		return new displayAllNames(data, loginData);
 	}
 

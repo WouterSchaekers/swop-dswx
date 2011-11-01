@@ -1,15 +1,11 @@
 package ui.loginchain;
 
-import controllers.LoginController;
-
 public class LoginData
 {
 	String username;
-	LoginController lc;
 	
-	public LoginData(String username, LoginController lc) {
+	public LoginData(String username) {
 		this.username = username;
-		this.lc = lc;
 	}
 	
 	/**
@@ -19,20 +15,6 @@ public class LoginData
 		return this.username;
 	}
 	
-	/**
-	 * @return the logincontroller stored in this logindata object.
-	 */
-	public LoginController getLoginController() {
-		return this.lc;
-	}
-	
-	/**
-	 * @return the logincontroller stored in this logindata object.
-	 */
-	public void setLoginController(LoginController lc) {
-		this.lc = lc;
-	}
-
 	/**
 	 * This method sets the name for this data.
 	 * @param name
