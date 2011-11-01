@@ -2,6 +2,7 @@ package scheduler;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.TreeMap;
 import resources.BloodAnalyser;
@@ -41,7 +42,28 @@ public class Scheduler
 	public Scheduler(UserManager usermanager, MachinePool machinepool) {
 		this.userManager = usermanager;
 		this.machinePool = machinepool;
-		timeTable = new TreeMap<TimePoint, Resource>();
+		timeTable = new TreeMap<TimePoint, Resource>(
+				new Comparator<TimePoint>()
+				{
+
+					@Override
+					public int compare(TimePoint arg0, TimePoint arg1) {
+						int t = arg0.compareTo(arg1);
+						if (t == 0){
+							if(arg0.getid() - arg1.getid() < 0){
+								t = -1;
+							}
+							else if(arg0.getid() - arg1.getid() > 0){
+								t = 1;
+							}
+							else{
+								t = 0;
+							}
+						}
+						// TODO Auto-generated method stub
+						return t;
+					}
+				});
 		appointments = new ArrayList<Appointment>();
 		startDate = new Date();
 	}
@@ -64,15 +86,14 @@ public class Scheduler
 		ScheduledElement startPointFree = findFreeSlot(res, duration);
 		Collection<Resource> scheduledElements = startPointFree.getResources();
 		Date goodDate = startPointFree.getDate();
-		TimePoint start = new TimePoint(TimeType.start, goodDate, now());
+		TimePoint start = new TimePoint(TimeType.start, goodDate);
 		TimePoint stop = new TimePoint(TimeType.stop, new Date(
-				goodDate.getTime() + duration), now());
+				goodDate.getTime() + duration));
 		for (Resource element : scheduledElements) {
-			timeTable.put(new TimePoint(TimeType.start, goodDate, now()),
-					element);
+			timeTable.put(new TimePoint(TimeType.start, goodDate), element);
 			timeTable.put(
 					new TimePoint(TimeType.stop, new Date(goodDate.getTime()
-							+ duration), now()), element);
+							+ duration)), element);
 		}
 		Appointment appointment = new Appointment(patient, scheduledElements,
 				start, stop);
@@ -93,14 +114,13 @@ public class Scheduler
 	 */
 	public ScheduledElement findFreeSlot(Collection<Requirement> required,
 			int duration) throws ImpossibleToScheduleException {
-		Date zeroDate = new Date(0);
 		Date firstAfterNow = new Date(now().getTime() + TIMEAFTERCURRENTDATE);
 		Date potentialMatch = firstAfterNow;
 		Collection<Resource> availableNow = getResources();
 		Collection<Resource> scheduledNow = getAllScheduledAt(firstAfterNow);
 		for (Resource r : scheduledNow)
 			availableNow.remove(r);
-		TimePoint point = new TimePoint(TimeType.start, firstAfterNow, zeroDate);
+		TimePoint point = new TimePoint(TimeType.start, firstAfterNow);
 		TimePoint traverser = timeTable.higherKey(point);
 		Collection<Resource> scheduledElements = new ArrayList<Resource>();
 		// TODO: Denk! -> Done.
@@ -126,7 +146,7 @@ public class Scheduler
 			if (satisfied(availableNow, required, scheduledElements)) {
 				potentialMatch = new Date(traverser.getTime());
 			} else {
-				point = new TimePoint(TimeType.start, potentialMatch, zeroDate);
+				point = new TimePoint(TimeType.start, potentialMatch);
 				traverser = timeTable.higherKey(point);
 			}
 
@@ -252,8 +272,61 @@ public class Scheduler
 	}
 
 	public static void main(String[] args) {
-		TreeMap<String, String> map = new TreeMap<String, String>();
-		map.put("bla", "blah");
-		map.get(null);
+		TreeMap<TimePoint, String> map = new TreeMap<TimePoint, String>(
+				new Comparator<TimePoint>()
+				{
+
+					@Override
+					public int compare(TimePoint arg0, TimePoint arg1) {
+						int t = arg0.compareTo(arg1);
+						if (t == 0){
+							if(arg0.getid() - arg1.getid() < 0){
+								t = -1;
+							}
+							else if(arg0.getid() - arg1.getid() > 0){
+								t = 1;
+							}
+							else{
+								t = 0;
+							}
+						}
+						// TODO Auto-generated method stub
+						return t;
+					}
+				});
+		Comparator<TimePoint> comp =new Comparator<TimePoint>()
+				{
+
+			@Override
+			public int compare(TimePoint arg0, TimePoint arg1) {
+				int t = arg0.compareTo(arg1);
+				if (t == 0){
+					if(arg0.getid() - arg1.getid() < 0){
+						t = -1;
+					}
+					else if(arg0.getid() - arg1.getid() > 0){
+						t = 1;
+					}
+					else{
+						t = 0;
+					}
+				}
+				// TODO Auto-generated method stub
+				return t;
+			}
+		};
+		Date date = new Date(0);
+		TimePoint ta = new TimePoint(TimeType.start, date);
+		TimePoint tb = new TimePoint(TimeType.start, date);
+		String sa = "bla";
+		String sb = "blob";
+		map.put(ta, sa);
+		map.put(tb, sb);
+		if(comp.compare( tb,ta)>0)
+			System.out.println("check");
+		System.out.println(map.size());
+		System.out.println(map.get(ta));
+		System.out.println(map.get(map.higherKey(ta)));
+		
 	}
 }

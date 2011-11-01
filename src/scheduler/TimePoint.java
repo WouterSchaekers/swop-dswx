@@ -8,17 +8,23 @@ import java.util.Date;
  */
 public class TimePoint implements Comparable<TimePoint>
 {
+	private static long count = 0;
+	private long id;
 	private TimeType type;
 	private Date date;
-	private Date creationDate;
-	
+
+	long getid() {
+		return id;
+	};
+
 	/**
-	 * Default constructor: tell the timepoint what type it is and what it's time is.
+	 * Default constructor: tell the timepoint what type it is and what it's
+	 * time is.
 	 */
-	public TimePoint(TimeType t, Date d, Date creationDate) {
+	public TimePoint(TimeType t, Date d) {
 		this.type = t;
 		this.date = d;
-		this.creationDate = creationDate;
+		id = count++;
 	}
 
 	/**
@@ -27,20 +33,16 @@ public class TimePoint implements Comparable<TimePoint>
 	public TimeType getType() {
 		return this.type;
 	}
-	
+
 	/**
 	 * @return The time of this timepoint.
 	 */
 	public Date getDate() {
 		return this.date;
 	}
-	
-	public long getTime(){
+
+	public long getTime() {
 		return this.date.getTime();
-	}
-	
-	public Date getCreationDate(){
-		return creationDate;
 	}
 
 	@Override
@@ -48,19 +50,11 @@ public class TimePoint implements Comparable<TimePoint>
 		int before = -1;
 		int equals = 0;
 		int after = 1;
-		if(this.getTime() >  tp2.getTime()){
+		if (this.getTime() > tp2.getTime()) {
 			return after;
-		}
-		else if(this.getTime() <  tp2.getTime()){
+		} else if (this.getTime() < tp2.getTime()) {
 			return before;
-		}
-		else if(this.getCreationDate().getTime() > tp2.getCreationDate().getTime()){
-			return after;
-		}
-		else if(this.getCreationDate().getTime() < tp2.getCreationDate().getTime()){
-			return before;
-		}
-		else{
+		} else{
 			return equals;
 		}
 	}
