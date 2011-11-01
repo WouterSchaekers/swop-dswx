@@ -1,9 +1,7 @@
 package controllers;
 
-import java.util.Collection;
 import resources.MedicalTest;
 import resources.Result;
-import scheduler.Scheduler;
 import patient.PatientFile;
 import users.Doctor;
 
@@ -12,7 +10,6 @@ import users.Doctor;
  */
 public class MedicalTestController extends MedicalSuperController
 {
-	private Scheduler s; // the scheduler for this controller
 
 	/**
 	 * Use of empty constructor is <B>NOT</B> allowed!
@@ -40,9 +37,6 @@ public class MedicalTestController extends MedicalSuperController
 			ConsultPatientFileController cpf, DataPasser dp)
 			throws IllegalArgumentException {
 		super(lc, cpf);
-		if (s.equals(null))
-			throw new IllegalArgumentException("Scheduler can't be null!!");
-		this.s = s;
 	}
 
 	/**
@@ -66,4 +60,5 @@ public class MedicalTestController extends MedicalSuperController
 		// TODO: implement
 		return null;
 	}
+	
 }

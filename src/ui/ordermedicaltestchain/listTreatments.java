@@ -12,7 +12,8 @@ public class listTreatments extends MedicalTestCommand
 
 	@Override
 	public usecase Execute() {
-		// TODO Auto-generated method stub
+		System.out.println("Possible treatments are:\n");
+		
 		return null;
 	}
 

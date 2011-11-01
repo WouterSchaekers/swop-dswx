@@ -34,7 +34,8 @@ public class ListUndischargedPatients extends usecase
 			map.put(file.getName(), file);
 			System.out.println(file.getName());
 		}
-		String name = input.nextLine();
+		//String name = input.nextLine();
+		//TODO fix 
 		return new SelectUsecase(data);
 	}
 

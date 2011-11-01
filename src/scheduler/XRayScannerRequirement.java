@@ -3,9 +3,7 @@ package scheduler;
 import java.util.ArrayList;
 import java.util.Collection;
 import resources.Resource;
-import resources.XRayScanner;
 
-//XXX; fix de naam
 public class XRayScannerRequirement extends Requirement
 {
 

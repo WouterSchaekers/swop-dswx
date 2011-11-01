@@ -40,6 +40,7 @@ public class SchedulerTest
 		requirements.add(new XRayScannerRequirement());
 		requirements2.add(new XRayScannerRequirement());
 		ScheduledElement s = scheduler.findFreeSlot(requirements, 10000);
+		@SuppressWarnings("unused")
 		ScheduledElement s2 = scheduler.findFreeSlot(requirements2, 20000);
 		System.out.println(s.toString());
 		System.out.println("done");

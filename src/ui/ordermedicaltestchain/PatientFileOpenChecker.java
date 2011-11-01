@@ -5,7 +5,6 @@ import controllers.LoginController;
 import ui.SelectUsecase;
 import ui.UserinterfaceData;
 import ui.usecase;
-import users.Doctor;
 
 public class PatientFileOpenChecker extends MedicalTestCommand
 {

@@ -2,7 +2,6 @@ package ui.ordermedicaltestchain;
 
 import ui.UserinterfaceData;
 import ui.usecase;
-import ui.loginchain.LoginData;
 
 public abstract class MedicalTestCommand extends usecase
 {

@@ -1,8 +1,5 @@
 package resources;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Date;
 import patient.PatientFile;
 
