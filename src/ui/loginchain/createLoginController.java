@@ -6,12 +6,11 @@ import controllers.LoginController;
 
 /**
  * In this class the logincontroller of the user that is allowed to log in will be created.
- *
  */
 public class createLoginController extends LoginCommand
 {
 
-	public createLoginController(UserinterfaceData uiData, UserinterfaceData loginData) {
+	public createLoginController(UserinterfaceData uiData, LoginData loginData) {
 		super(uiData,loginData);
 	}
 	

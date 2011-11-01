@@ -6,13 +6,13 @@ import ui.usecase;
 public abstract class LoginCommand extends usecase
 {
 	
-	UserinterfaceData loginData;
+	LoginData loginData;
 	
 	public LoginCommand(UserinterfaceData uiData) {
 		super(uiData);
 	}
 	
-	public LoginCommand(UserinterfaceData uiData, UserinterfaceData loginData) {
+	public LoginCommand(UserinterfaceData uiData, LoginData loginData) {
 		super(uiData);
 		this.loginData = loginData;
 	}
