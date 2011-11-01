@@ -3,7 +3,6 @@ package ui.registerpatientchain;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import scheduler.Appointment;
 import ui.UserinterfaceData;
 import ui.usecase;
 import users.User.usertype;

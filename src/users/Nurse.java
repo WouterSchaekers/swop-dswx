@@ -1,10 +1,5 @@
 package users;
 
-import patient.PatientFile;
-import patient.PatientFileManager;
-import scheduler.Appointment;
-import scheduler.Scheduler;
-
 public class Nurse extends User
 {
 	public Nurse(String name) {
