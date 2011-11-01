@@ -1,9 +1,11 @@
 package ui.ordermedicaltestchain;
 
+import ui.SelectUsecase;
 import ui.UserinterfaceData;
 import ui.usecase;
+import users.User.usertype;
 
-public class orderMedicalTest extends usecase
+public class orderMedicalTest extends MedicalTestCommand
 {
 
 	public orderMedicalTest(UserinterfaceData data) {
@@ -13,8 +15,13 @@ public class orderMedicalTest extends usecase
 
 	@Override
 	public usecase Execute() {
-		// TODO Auto-generated method stub
-		return null;
+		if(data.getLoginController().getUserDTO().type() == usertype.Doctor){
+			return new PatientFileOpenChecker(data);
+		}
+		else{
+			System.out.println(data.getLoginController().getUserDTO().getName() + " is not a doctor in this hospital");
+			return new SelectUsecase(data);
+		}
 	}
-
+	
 }
