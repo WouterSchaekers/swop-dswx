@@ -1,22 +1,8 @@
 package scheduler;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.TreeMap;
-import resources.BloodAnalyser;
-import resources.Machine;
-import resources.MachinePool;
-import resources.Resource;
-import resources.UltraSoundScanner;
-import resources.XRayScanner;
-import users.Doctor;
-import users.HospitalAdmin;
-import users.Nurse;
-import users.User;
-import users.UserManager;
+import java.util.*;
+import resources.*;
+import users.*;
 import patient.PatientFile;
 
 /**
