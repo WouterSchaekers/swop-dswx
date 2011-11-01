@@ -231,6 +231,12 @@ public class Scheduler
 	 * @param appointment
 	 *            The appointment to be ended.
 	 */
+	public void removeAppointment(Appointment appointment){
+		HashMap<TimePoint, Resource> resources = appointment.getScheduling();
+		for(TimePoint timePoint : resources.keySet()){
+			timeTable.remove(timePoint);
+		}
+	}
 	// XXX: Worst implementation ever!
 //	public void endAppointment(Appointment appointment) {
 //		this.timeTable.remove(appointment.getStart());
