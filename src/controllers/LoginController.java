@@ -14,19 +14,10 @@ import users.UserManager;
 public class LoginController
 {
 	private UserManager um; // the usermanager for this controller.
-	private boolean loggedIn = false; // true if the user of this controller is
-										// logged in.
+	// true if the user of this controller is logged in.
+	private boolean loggedIn = false; 
 	private DTOUser user = null; // the user this controller has logged in.
-	public DTOUser getUserDTO(){
-		return user;
-	}
-	/**
-	 * Use of empty constructor is <B>NOT</B> allowed!
-	 */
-	@SuppressWarnings("unused")
-	private LoginController() {
-	} 
-
+	
 	/**
 	 * Default constructor.
 	 * 
@@ -36,19 +27,17 @@ public class LoginController
 	public LoginController(DataPasser data) {
 		this.um = data.getUserManager();
 	}
-
+	
 	/**
-	 * @return All users in the system.
+	 * @return A collection of all users currently in the system.
 	 */
-	public Collection<User> getAllUsers() {
-		return um.getAllUsers();
-	}
-	public Collection<DTOUser>getAllUsers2(){
+	public Collection<DTOUser> getAllUsers(){
 		Collection<DTOUser> RV = new ArrayList<DTOUser>();
 		for(User u:um.getAllUsers())
 			RV.add(new DTOUser(u));
 		return RV;
 	}
+	
 	/**
 	 * This method will log the user of this logincontroller in.
 	 */
@@ -70,4 +59,13 @@ public class LoginController
 	User getUser() {
 		return this.user.getUser();
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public DTOUser getUserDTO(){
+		return user;
+	}
+
 }
