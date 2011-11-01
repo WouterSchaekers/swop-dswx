@@ -8,6 +8,7 @@ import java.util.Date;
  */
 public class TimePoint
 {
+
 	/**
 	 * Default constructor: tell the timepoint what type it is and what it's time is.
 	 */
