@@ -1,19 +1,29 @@
 package ui.ordermedicaltestchain;
 
+import controllers.DTOUser;
+import controllers.LoginController;
+import ui.SelectUsecase;
 import ui.UserinterfaceData;
 import ui.usecase;
+import users.Doctor;
 
 public class PatientFileOpenChecker extends MedicalTestCommand
 {
 
-	public PatientFileOpenChecker(UserinterfaceData data) {
-		super(data);
-		// TODO Auto-generated constructor stub
+	public PatientFileOpenChecker(UserinterfaceData data, MedicalTestData medData) {
+		super(data, medData);
 	}
 
 	@Override
 	public usecase Execute() {
-		return null;
+		LoginController lc = data.getLoginController();
+		DTOUser docLc = lc.getUserDTO();
+		DTOUser curDoc = data.getPatientFileOpenController().getDocDTO();
+		
+		if(docLc.equals(curDoc))
+			return new checkPatientStatus(data,medData);
+		return new SelectUsecase(data);
+		
 	}
 
 }
