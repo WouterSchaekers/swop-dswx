@@ -4,22 +4,50 @@ import patient.PatientFileManager;
 import scheduler.Scheduler;
 import users.UserManager;
 
+/**
+ * This class will serve as a datastorage unit.
+ */
 public class DataPasser
 {
 	private final UserManager userm;
 	private final Scheduler scheduler;
 	private final PatientFileManager pfm;
-	public DataPasser(UserManager userm,PatientFileManager pfm,Scheduler scheduler)
-	{
-		this.userm=userm;
-		this.pfm=pfm;
-		this.scheduler=scheduler;
+
+	/**
+	 * Default constructor.
+	 * 
+	 * @param userm
+	 *            a usermanager.
+	 * @param pfm
+	 *            a patientfilemanager.
+	 * @param scheduler
+	 *            a scheduler
+	 */
+	public DataPasser(UserManager userm, PatientFileManager pfm, Scheduler scheduler) {
+		this.userm = userm;
+		this.pfm = pfm;
+		this.scheduler = scheduler;
 	}
-	UserManager getUserManager(){return userm;}
-	PatientFileManager getPatientFileManager(){return pfm;}
+
+	/**
+	 * @return The usermanager stored here.
+	 */
+	UserManager getUserManager() {
+		return userm;
+	}
+
+	/**
+	 * @return The patientfilemanager stored here.
+	 */
+	PatientFileManager getPatientFileManager() {
+		return pfm;
+	}
+
+	/**
+	 * @return The scheduler stored here.
+	 */
 	public Scheduler getScheduler() {
-		// TODO Auto-generated method stub
 		return scheduler;
 	}
-	
+
 }
