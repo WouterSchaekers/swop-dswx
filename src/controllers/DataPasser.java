@@ -5,7 +5,7 @@ import scheduler.Scheduler;
 import users.UserManager;
 
 /**
- * This class will serve as a datastorage unit.
+ * This class will serve as a data transmitter.
  */
 public class DataPasser
 {
