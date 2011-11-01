@@ -2,7 +2,7 @@ package ui;
 
 import ui.loginchain.isAllowedToLogin;
 import ui.logoutchain.logOut;
-import ui.ordermedicaltestchain.OrderMedicalTest;
+import ui.ordermedicaltestchain.orderMedicalTest;
 import ui.registerpatientchain.registerPatient;
 
 /**
