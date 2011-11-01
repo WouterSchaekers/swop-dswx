@@ -91,13 +91,14 @@ public class Scheduler
 	 */
 	public ScheduledElement findFreeSlot(Collection<Requirement> required,
 			int duration) throws ImpossibleToScheduleException {
+		Date zeroDate = new Date(0);
 		Date firstAfterNow = new Date(now().getTime() + TIMEAFTERCURRENTDATE);
 		Date potentialMatch = firstAfterNow;
 		Collection<Resource> availableNow = getResources();
 		Collection<Resource> scheduledNow = getAllScheduledAt(firstAfterNow);
 		for (Resource r : scheduledNow)
 			availableNow.remove(r);
-		TimePoint point = new TimePoint(TimeType.start, firstAfterNow, now());
+		TimePoint point = new TimePoint(TimeType.start, firstAfterNow, zeroDate);
 		TimePoint traverser = timeTable.higherKey(point);
 		Collection<Resource> scheduledElements = new ArrayList<Resource>();
 		// TODO: Denk! -> Done.
@@ -110,7 +111,7 @@ public class Scheduler
 						"There are not enough resources available for these requirements.");
 			}
 		}
-		while (!(timeDifference(potentialMatch, traverser.getDate()) < duration)) {
+		while (timeDifference(potentialMatch, traverser.getDate()) < duration) {
 			switch (traverser.getType()) {
 			case start:
 				availableNow.remove(timeTable.get(traverser));
@@ -119,11 +120,11 @@ public class Scheduler
 				availableNow.add(timeTable.get(traverser));
 				break;
 			}
-			if (satisfied(availableNow, required, scheduledElements)
-					&& potentialmatch == null) {
-				potentialmatch = traverser;
+			if (satisfied(availableNow, required, scheduledElements)) {
+				potentialMatch = new Date(traverser.getTime());
 			} else {
-				traverser = timeTable.higherKey(potentialmatch);
+				point = new TimePoint(TimeType.start, potentialMatch, zeroDate);
+				traverser = timeTable.higherKey(point);
 			}
 
 			traverser = timeTable.higherKey(traverser);
