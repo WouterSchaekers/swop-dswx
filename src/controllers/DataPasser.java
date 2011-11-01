@@ -46,7 +46,7 @@ public class DataPasser
 	/**
 	 * @return The scheduler stored here.
 	 */
-	public Scheduler getScheduler() {
+	Scheduler getScheduler() {
 		return scheduler;
 	}
 

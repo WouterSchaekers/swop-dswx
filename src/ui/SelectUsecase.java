@@ -2,6 +2,7 @@ package ui;
 
 import ui.loginchain.isAllowedToLogin;
 import ui.logoutchain.logOut;
+import ui.ordermedicaltestchain.orderMedicalTest;
 import ui.registerpatientchain.registerPatient;
 
 /**
@@ -26,7 +27,7 @@ public class SelectUsecase extends usecase
 	enum usecases
 	{
 		login("login"), RegisterPatient("register patient"), nothing(
-				"do nothing"),logout("logout"),exitSystem("exit system");
+				"do nothing"),logout("logout"),orderMedicalTest("order medical test"), exitSystem("exit system");
 		String description;
 		
 		/**
@@ -85,6 +86,8 @@ public class SelectUsecase extends usecase
 			return new registerPatient(data);
 		case logout:
 			return new logOut(data);
+		case orderMedicalTest:
+			return new orderMedicalTest(data);
 		case exitSystem:
 			return new exitSystem(data);
 		default:

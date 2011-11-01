@@ -1,13 +1,19 @@
 package ui;
 
+/**
+ * This class terminates the system.
+ */
 public class exitSystem extends usecase
 {
-
+	
 	public exitSystem(UserinterfaceData data) {
 		super(data);
 		// TODO Auto-generated constructor stub
 	}
-
+	
+	/**
+	 * Termination of the system.
+	 */
 	@Override
 	public usecase Execute() {
 		// TODO Auto-generated method stub
