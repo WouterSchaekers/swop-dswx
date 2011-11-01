@@ -3,7 +3,7 @@ package ui.loginchain;
 import java.util.Map;
 import ui.UserinterfaceData;
 import ui.usecase;
-import controllers.UserDTO;
+import controllers.DTOUser;
 
 /**
  * This class will see if the name entered by the current user is allowed to log in.
@@ -16,9 +16,9 @@ public class validateLogin extends usecase
 	 * Name of the current user is copied to name.
 	 * 		|this.name = name
 	 */
-	Map<String, UserDTO> map;
+	Map<String, DTOUser> map;
 	String name;
-	public validateLogin(UserinterfaceData data,Map<String,UserDTO> map,String name) {
+	public validateLogin(UserinterfaceData data,Map<String,DTOUser> map,String name) {
 		super(data);
 		this.map=map;
 		this.name=name;

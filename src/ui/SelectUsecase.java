@@ -5,7 +5,7 @@ import ui.logoutchain.logOut;
 import ui.registerpatientchain.registerPatient;
 
 /**
- * This class starts the chain of the system. 
+ * This class represents a menu to select what a user wants to do.
  * You can choose different options that are described in the enumeration below.
  */
 
@@ -19,6 +19,8 @@ public class SelectUsecase extends usecase
 	 * Nothing: Returns immediatly to the select usecase.
 	 * Logout: a user can log out from the system.
 	 * Exit System: The system will be closed. 
+	 *
+	 *
 	 *
 	 */
 	enum usecases
@@ -59,7 +61,7 @@ public class SelectUsecase extends usecase
 	}
 
 	/**
-	 * In this method the initial chain is started. You can choose the different use cases. 
+	 * In this method the initial chain is started. You can choose the different use cases.
 	 */
 	@Override
 	public usecase Execute() {

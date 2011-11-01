@@ -4,24 +4,24 @@ import java.util.HashMap;
 import java.util.Map;
 import ui.UserinterfaceData;
 import ui.usecase;
-import controllers.PatientFileDTO;
+import controllers.DTOPatientFile;
 import controllers.RegisterPatientController;
 
 public class displayAllPatients extends usecase
 {
-	Map<String,PatientFileDTO> namePatientMap;
+	Map<String,DTOPatientFile> namePatientMap;
 	RegisterPatientController rpc;
 	public displayAllPatients(UserinterfaceData data,RegisterPatientController registerpatientcontroller) {
 		super(data);
 		this.rpc=registerpatientcontroller;
-		namePatientMap = new HashMap<String, PatientFileDTO>();
+		namePatientMap = new HashMap<String, DTOPatientFile>();
 		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
 	public usecase Execute() {
 		System.out.println("List of all patients:");
-		for(PatientFileDTO patient:rpc.getAllPatients()){
+		for(DTOPatientFile patient:rpc.getAllPatients()){
 			namePatientMap.put(patient.getName(), patient);
 			System.out.println(patient.getName());
 		}

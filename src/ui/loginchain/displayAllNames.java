@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import ui.UserinterfaceData;
 import ui.usecase;
-import controllers.UserDTO;
+import controllers.DTOUser;
 
 /**
  * This class prints all the names of the users that are logged in in the system. 
@@ -27,8 +27,8 @@ public class displayAllNames extends usecase
 	@Override
 	public usecase Execute() {
 		System.out.println("All users in the system:");
-		Map<String, UserDTO> nameUserMap=new HashMap<String, UserDTO>();
-		for(UserDTO u:data.getLoginController().getAllUsers2())
+		Map<String, DTOUser> nameUserMap=new HashMap<String, DTOUser>();
+		for(DTOUser u:data.getLoginController().getAllUsers2())
 		{
 			System.out.println(u.getName());
 			nameUserMap.put(u.getName(), u);
