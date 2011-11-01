@@ -20,8 +20,7 @@ public class ConsultPatientFileController
 	 * Use of empty constructor is <B>NOT</B> allowed!
 	 */
 	@SuppressWarnings("unused")
-	private ConsultPatientFileController() {
-	}
+	private ConsultPatientFileController() {}
 
 	/**
 	 * Default constructor.
