@@ -3,6 +3,7 @@ package scheduler;
 import java.util.ArrayList;
 import java.util.Collection;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import resources.MachinePool;
 import resources.XRayScanner;
@@ -26,6 +27,18 @@ public class SchedulerTest
 		Collection<Requirement> requirements = new ArrayList<Requirement>();
 		requirements.add(new XRayScannerRequirement());
 		ScheduledElement s = scheduler.findFreeSlot(requirements, 10);
+		System.out.println(s.toString());
+		System.out.println("done");
+	}
+	@Test
+	public void ScheduleTwoThings() throws ImpossibleToScheduleException{
+		Collection<Requirement> requirements = new ArrayList<Requirement>();
+		Collection<Requirement> requirements2 = new ArrayList<Requirement>();
+		requirements.add(new XRayScannerRequirement());
+		requirements2.add(new XRayScannerRequirement());
+		ScheduledElement s = scheduler.findFreeSlot(requirements, 10000);
+		ScheduledElement s2=scheduler.findFreeSlot(requirements2, 20000);
+		System.out.println(s.toString());
 		System.out.println("done");
 	}
 }
