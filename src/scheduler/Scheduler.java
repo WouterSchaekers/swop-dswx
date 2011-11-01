@@ -32,7 +32,6 @@ public class Scheduler
 		timeTable = new TreeMap<TimePoint, Resource>(
 				new Comparator<TimePoint>()
 				{
-
 					@Override
 					public int compare(TimePoint arg0, TimePoint arg1) {
 						int t = arg0.compareTo(arg1);
@@ -68,7 +67,6 @@ public class Scheduler
 			Collection<Requirement> res, int duration)
 			throws ImpossibleToScheduleException {
 		cleanUp();
-		
 		ScheduledElement startPointFree = findFreeSlot(res, duration);
 		Collection<Resource> elementsToSchedule = startPointFree.getResources();
 		Date freeDate = startPointFree.getDate();
@@ -118,7 +116,8 @@ public class Scheduler
 				for (Resource r : scheduledElements) {
 					this.timeTable.put(new TimePoint(TimeType.stop, new Date(
 							nextDate.getTime() + duration)), r);
-					this.timeTable.put(new TimePoint(TimeType.start, nextDate), r);
+					this.timeTable.put(new TimePoint(TimeType.start, nextDate),
+							r);
 				}
 				return new ScheduledElement(scheduledElements, nextDate);
 			} else {
@@ -263,7 +262,7 @@ public class Scheduler
 		}
 	}
 
-	public int getAmountOfElementsScheduled(){
+	public int getAmountOfElementsScheduled() {
 		return timeTable.size();
 	}
 

@@ -2,7 +2,7 @@ package ui;
 
 import ui.loginchain.isAllowedToLogin;
 import ui.logoutchain.logOut;
-import ui.ordermedicaltestchain.orderMedicalTest;
+import ui.ordermedicaltestchain.OrderMedicalTest;
 import ui.registerpatientchain.registerPatient;
 
 /**
@@ -87,7 +87,7 @@ public class SelectUsecase extends usecase
 		case logout:
 			return new logOut(data);
 		case orderMedicalTest:
-			return new orderMedicalTest(data);
+			return new OrderMedicalTest(data);
 		case exitSystem:
 			return new exitSystem(data);
 		default:
