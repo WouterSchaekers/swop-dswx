@@ -13,8 +13,8 @@ public class listTreatments extends MedicalTestCommand
 	@Override
 	public usecase Execute() {
 		System.out.println("Possible treatments are:\n");
-		
-		return null;
+		System.out.println(medData.types);
+		return new selectMedicalTest(data,medData);
 	}
 
 }
