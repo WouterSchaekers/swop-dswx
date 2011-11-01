@@ -67,9 +67,10 @@ public class UserManager
 		return null;
 	}
 
-	public void CreateNurse(String string) throws UserAlreadyExistsException {
+	public Nurse CreateNurse(String string) throws UserAlreadyExistsException {
+		Nurse newUser = new Nurse(string);
 		AddUser(new Nurse(string));
-		
+		return newUser;
 	}
 
 }
