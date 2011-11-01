@@ -24,7 +24,8 @@ public class selectMedicalTest extends MedicalTestCommand
 				break;
 			}
 		}
-		
+		//TODO: implement the call of one of 3 followups
+		return null;
 	}
 
 }
