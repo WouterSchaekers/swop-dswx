@@ -12,7 +12,6 @@ import controllers.LoginController;
 public class validateLogin extends LoginCommand
 {
 	private LoginController lc;
-	private String name;
 	/**
 	 * Default constructor.
 	 * @param uiData

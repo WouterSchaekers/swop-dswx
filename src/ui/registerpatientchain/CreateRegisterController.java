@@ -4,7 +4,6 @@ import controllers.RegisterPatientController;
 import ui.UserinterfaceData;
 import ui.SelectUsecase;
 import ui.usecase;
-import users.User.usertype;
 
 /**
  * This class 

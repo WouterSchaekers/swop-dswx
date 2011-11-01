@@ -2,7 +2,6 @@ package scheduler;
 
 import resources.Resource;
 import users.Nurse;
-import users.User;
 
 public class NurseResource extends Resource
 {
