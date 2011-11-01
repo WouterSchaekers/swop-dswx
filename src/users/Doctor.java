@@ -1,6 +1,5 @@
 package users;
 
-import java.util.Date;
 import java.util.ArrayList;
 import scheduler.Appointment;
 
@@ -31,18 +30,6 @@ public class Doctor extends User
 		return appointments;
 	}
 
-	/**
-	 * 
-	 * @return null if no more free slots.
-	 */
-	public Date getNextFreeSlot() {
-		for (Appointment appointment : appointments) {
-			if (appointment.isOpen())
-				return appointment.getDate();
-		}
-		return null;
-	}
-	
 	public void orderMedicalTest(){
 		
 	}
