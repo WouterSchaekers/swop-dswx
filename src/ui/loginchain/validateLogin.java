@@ -4,22 +4,26 @@ import java.util.Map;
 import ui.UserinterfaceData;
 import ui.usecase;
 import controllers.DTOUser;
+import controllers.LoginController;
 
 /**
  * This class will see if the name entered by the current user is allowed to log in.
  */
 public class validateLogin extends LoginCommand
 {
+	private LoginController lc;
+	private String name;
 	/**
-	 * Constructor where hashmap of registered users is copied to map.
-	 * Name of the current user is copied to name.
+	 * Default constructor.
+	 * @param uiData
+	 * The data from the userinterface (contains the username of the user trying to log in!).
+	 * @param loginData
+	 * The data from the logincontroller (contains the logincontroller!).
 	 */
-	Map<String, DTOUser> map;
-	String name;
-	public validateLogin(UserinterfaceData data,Map<String,DTOUser> map,String name) {
-		super(data);
-		this.map=map;
-		this.name=name;
+	public validateLogin(UserinterfaceData uiData,UserinterfaceData loginData) {
+		super(uiData, loginData);
+		lc = loginData.getLoginController();
+		name = uiData.
 	}
 
 	/**
@@ -29,6 +33,7 @@ public class validateLogin extends LoginCommand
 	 */
 	@Override
 	public usecase Execute() {
+		if(lc.getUserDTO().getName().equals())
 		if(map.containsKey(name))
 			return new loginToSystem(data,map.get(name));
 		return new displayAllNames(data);
