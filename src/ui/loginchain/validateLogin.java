@@ -20,10 +20,9 @@ public class validateLogin extends LoginCommand
 	 * @param loginData
 	 * The data from the logincontroller (contains the logincontroller!).
 	 */
-	public validateLogin(UserinterfaceData uiData,LoginData loginData, String name) {
+	public validateLogin(UserinterfaceData uiData,LoginData loginData) {
 		super(uiData, loginData);
 		lc = loginData.getLoginController();
-		this.name = name;
 	}
 
 	/**
@@ -35,7 +34,7 @@ public class validateLogin extends LoginCommand
 	public usecase Execute() {
 		Collection<DTOUser> c = lc.getAllUsers();
 		for(DTOUser u: c)
-			if(u.getName().equalsIgnoreCase(this.name))
+			if(u.getName().equalsIgnoreCase(loginData.getUsername()))
 				return new loginToSystem(data,u);
 		return new displayAllNames(data,loginData);
 	}

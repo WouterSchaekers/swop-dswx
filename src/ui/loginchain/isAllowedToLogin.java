@@ -9,8 +9,8 @@ import ui.usecase;
  */
 public class isAllowedToLogin extends LoginCommand
 {
-	public isAllowedToLogin(UserinterfaceData uiData, LoginData loginData) {
-		super(uiData,loginData);
+	public isAllowedToLogin(UserinterfaceData uiData) {
+		super(uiData,new LoginData("", uiData.getLoginController()));
 	}
 	
 	/**
