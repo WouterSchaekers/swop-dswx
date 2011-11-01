@@ -65,7 +65,8 @@ public class Scheduler
 		Collection<Resource> scheduledElements = startPointFree.getResources();
 		Date goodDate = startPointFree.getDate();
 		TimePoint start = new TimePoint(TimeType.start, goodDate, now());
-		TimePoint stop = new TimePoint(TimeType.stop, new Date(goodDate.getTime() + duration), now());
+		TimePoint stop = new TimePoint(TimeType.stop, new Date(
+				goodDate.getTime() + duration), now());
 		for (Resource element : scheduledElements) {
 			timeTable.put(new TimePoint(TimeType.start, goodDate, now()),
 					element);
@@ -73,7 +74,8 @@ public class Scheduler
 					new TimePoint(TimeType.stop, new Date(goodDate.getTime()
 							+ duration), now()), element);
 		}
-		Appointment appointment = new Appointment(patient, scheduledElements, start, stop);
+		Appointment appointment = new Appointment(patient, scheduledElements,
+				start, stop);
 		appointments.add(appointment);
 		return appointment;
 	}
@@ -104,6 +106,7 @@ public class Scheduler
 		// TODO: Denk! -> Done.
 		if (traverser == null) {
 			Date nextDate = closedHourOfDate(firstAfterNow);
+			scheduledElements.clear();
 			if (satisfied(availableNow, required, scheduledElements)) {
 				return new ScheduledElement(scheduledElements, nextDate);
 			} else {
@@ -130,6 +133,7 @@ public class Scheduler
 			traverser = timeTable.higherKey(traverser);
 			if (traverser == null) {
 				Date nextDate = closedHourOfDate(firstAfterNow);
+				scheduledElements.clear();
 				if (satisfied(availableNow, required, scheduledElements)) {
 					return new ScheduledElement(scheduledElements, nextDate);
 				} else {
