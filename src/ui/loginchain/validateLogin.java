@@ -22,7 +22,7 @@ public class validateLogin extends LoginCommand
 	 */
 	public validateLogin(UserinterfaceData uiData,LoginData loginData) {
 		super(uiData, loginData);
-		lc = loginData.getLoginController();
+		lc = uiData.getLoginController();
 	}
 
 	/**
