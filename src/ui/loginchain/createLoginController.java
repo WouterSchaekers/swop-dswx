@@ -8,12 +8,11 @@ import controllers.LoginController;
  * In this class the logincontroller of the user that is allowed to log in will be created.
  *
  */
-public class createLoginController extends usecase
+public class createLoginController extends LoginCommand
 {
 
-	public createLoginController(UserinterfaceData data) {
-		super(data);
-		// TODO Auto-generated constructor stub
+	public createLoginController(UserinterfaceData uiData, UserinterfaceData loginData) {
+		super(uiData,loginData);
 	}
 	
 	/**

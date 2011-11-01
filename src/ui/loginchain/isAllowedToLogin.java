@@ -8,12 +8,11 @@ import ui.usecase;
  * Class to check whether a person is allowed to log in.
  */
 
-public class isAllowedToLogin extends usecase
+public class isAllowedToLogin extends LoginCommand
 {
 
-	public isAllowedToLogin(UserinterfaceData data) {
-		super(data);
-		// TODO Auto-generated constructor stub
+	public isAllowedToLogin(UserinterfaceData uiData, UserinterfaceData loginData) {
+		super(uiData,loginData);
 	}
 	
 	/**
@@ -26,7 +25,7 @@ public class isAllowedToLogin extends usecase
 	@Override
 	public usecase Execute() {
 		if(data.getLoginController()==null||!data.getLoginController().loggedIn())
-			return new createLoginController(data);
+			return new createLoginController(data, loginData);
 		return new SelectUsecase(data);
 	}
 
