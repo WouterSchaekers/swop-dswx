@@ -3,7 +3,7 @@ package ui.loginchain;
 import ui.UserinterfaceData;
 import ui.SelectUsecase;
 import ui.usecase;
-import controllers.UserDTO;
+import controllers.DTOUser;
 
 /**
  * In this class the current user will log in to the system.
@@ -11,8 +11,8 @@ import controllers.UserDTO;
  */
 public class loginToSystem extends usecase
 {
-	UserDTO user;
-	public loginToSystem(UserinterfaceData data,UserDTO user) {
+	DTOUser user;
+	public loginToSystem(UserinterfaceData data,DTOUser user) {
 		super(data);
 		this.user=user;
 		// TODO Auto-generated constructor stub

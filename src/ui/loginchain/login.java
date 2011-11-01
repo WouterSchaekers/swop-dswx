@@ -3,7 +3,7 @@ package ui.loginchain;
 import java.util.Map;
 import ui.UserinterfaceData;
 import ui.usecase;
-import controllers.UserDTO;
+import controllers.DTOUser;
 
 /**
  * In this class the user can give his name to log in. 
@@ -15,8 +15,8 @@ public class login extends usecase
 	 * Constructor of the class where the map with all registered users is copied to map.
 	 * 		|this.map = nameUserMap;
 	 */
-	Map<String, UserDTO> map;
-	public login(UserinterfaceData data,Map<String,UserDTO> nameUserMap) {
+	Map<String, DTOUser> map;
+	public login(UserinterfaceData data,Map<String,DTOUser> nameUserMap) {
 		super(data);
 		this.map=nameUserMap;
 		// TODO Auto-generated constructor stub

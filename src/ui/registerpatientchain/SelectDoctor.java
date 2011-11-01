@@ -7,17 +7,17 @@ import scheduler.Appointment;
 import ui.UserinterfaceData;
 import ui.usecase;
 import users.User.usertype;
-import controllers.AppointmentDTO;
-import controllers.PatientFileDTO;
+import controllers.DTOAppointment;
+import controllers.DTOPatientFile;
 import controllers.RegisterPatientController;
-import controllers.UserDTO;
+import controllers.DTOUser;
 
 public class SelectDoctor extends usecase
 {
-	PatientFileDTO pfile;
+	DTOPatientFile pfile;
 	RegisterPatientController rpc;
 
-	public SelectDoctor(UserinterfaceData data, PatientFileDTO patientFileDTO,
+	public SelectDoctor(UserinterfaceData data, DTOPatientFile patientFileDTO,
 			RegisterPatientController rpc) {
 		super(data);
 		this.pfile = patientFileDTO;
@@ -26,14 +26,14 @@ public class SelectDoctor extends usecase
 
 	@Override
 	public usecase Execute() {
-		ArrayList<UserDTO> docters = new ArrayList<UserDTO>();
+		ArrayList<DTOUser> docters = new ArrayList<DTOUser>();
 		System.out.println("Select a doctor from  the list of doctors:");
-		for (UserDTO u : data.getLoginController().getAllUsers2()) {
+		for (DTOUser u : data.getLoginController().getAllUsers2()) {
 			if (u.type() == usertype.Doctor)
 				docters.add(u);
 		}
-		Map<String, UserDTO> map = new HashMap<String, UserDTO>();
-		for (UserDTO doctor : docters) {
+		Map<String, DTOUser> map = new HashMap<String, DTOUser>();
+		for (DTOUser doctor : docters) {
 			System.out.println(doctor.getName());
 			map.put(doctor.getName(), doctor);
 		}
@@ -44,7 +44,7 @@ public class SelectDoctor extends usecase
 			return this;
 		}
 
-		AppointmentDTO app= rpc.CreateAppointMent(map.get(name),pfile);
+		DTOAppointment app= rpc.CreateAppointMent(map.get(name),pfile);
 		return new displayAppointment(data,app);
 	}
 

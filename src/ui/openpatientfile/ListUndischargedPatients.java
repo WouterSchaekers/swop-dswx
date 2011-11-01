@@ -1,5 +1,9 @@
 package ui.openpatientfile;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import controllers.DTOPatientFile;
 import controllers.PatientFileOpenController;
 import ui.UserinterfaceData;
 import ui.SelectUsecase;
@@ -22,11 +26,16 @@ public class ListUndischargedPatients extends usecase
 			return new SelectUsecase(data);
 		
 		}
-		patfiledata.setPatientFileOpenController(new PatientFileOpenController(data.getLoginController()));
-		
-		patfiledata.getPatientfileOpenController();
-		
-		return null;
+		patfiledata.setPatientFileOpenController(new PatientFileOpenController(data.getDataPasser(), data.getLoginController()));
+		Map<String,DTOPatientFile> map = new HashMap<String, DTOPatientFile>();
+		Collection<DTOPatientFile> patientfiles =patfiledata.getPatientfileOpenController().getAllPatientFiles();
+		for(DTOPatientFile file:patientfiles)
+		{
+			map.put(file.getName(), file);
+			System.out.println(file.getName());
+		}
+		String name = input.nextLine();
+		return new SelectUsecase(data);
 	}
 
 }
