@@ -12,7 +12,7 @@ public class XRayScannerRequirement extends Requirement
 	@Override
 	public boolean isMetBy(Collection<Resource> availableNow) {
 		for (Resource r : availableNow)
-			if (r instanceof XrayScannerResource)
+			if (r instanceof XRayScannerResource)
 				return true;
 		return false;
 	}
@@ -23,7 +23,7 @@ public class XRayScannerRequirement extends Requirement
 		Collection<Resource> newAvailableNow = new ArrayList<Resource>();
 		Collection<Resource> newScheduledElements = new ArrayList<Resource>();
 		for (Resource r : availableNow)
-			if (r instanceof XrayScannerResource) {
+			if (r instanceof XRayScannerResource) {
 				newScheduledElements.add(r);
 			}
 			else{
