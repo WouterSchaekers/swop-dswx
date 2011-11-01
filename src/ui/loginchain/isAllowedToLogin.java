@@ -7,10 +7,8 @@ import ui.usecase;
 /**
  * Class to check whether a person is allowed to log in.
  */
-
 public class isAllowedToLogin extends LoginCommand
 {
-
 	public isAllowedToLogin(UserinterfaceData uiData, LoginData loginData) {
 		super(uiData,loginData);
 	}
