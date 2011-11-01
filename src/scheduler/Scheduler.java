@@ -31,6 +31,8 @@ public class Scheduler
 	private final int TIMEAFTERCURRENTDATE = 60 * 60 * 1000;
 	private UserManager userManager;
 	private MachinePool machinePool;
+	private Date startDate;
+	private long startupTime = 1320735600000L;
 
 	/**
 	 * Default constructor will initialise all fields.
@@ -39,6 +41,7 @@ public class Scheduler
 		this.userManager = usermanager;
 		this.machinePool = machinepool;
 		timeTable = new TreeMap<TimePoint, Resource>();
+		startDate = new Date();
 	}
 
 	/**
@@ -82,11 +85,19 @@ public class Scheduler
 			availableNow.remove(r);
 		TimePoint point = new TimePoint(TimeType.start, firstAfterNow, now());
 		TimePoint traverser = timeTable.higherKey(point);
-		if (traverser == null)
-			throw new ImpossibleToScheduleException(
-					"Something went horribly horribly wrong. Fuck you Dieter!");
 		Collection<Resource> scheduledElements = new ArrayList<Resource>();
-		while (!(timeDifference(potentialmatch, traverser) < duration)) {
+		// TODO: Denk! -> Done.
+		if (traverser == null) {
+			Date nextDate = closedHourOfDate(firstAfterNow);
+			if (satisfied(availableNow, required, scheduledElements)) {
+				return new ScheduledElement(scheduledElements, nextDate);
+			} else {
+				throw new ImpossibleToScheduleException(
+						"There are not enough resources available for these requirements.");
+			}
+		}
+		while (potentialmatch == null
+				|| !(timeDifference(potentialmatch, traverser) < duration)) {
 			switch (traverser.getType()) {
 			case start:
 				availableNow.remove(timeTable.get(traverser));
@@ -114,7 +125,18 @@ public class Scheduler
 					new TimePoint(TimeType.stop, new Date(potentialmatch
 							.getTime() + duration), now()), element);
 		}
-		return new ScheduledElement();
+		// TODO
+		return new ScheduledElement(null, null);
+	}
+
+	public Date closedHourOfDate(Date date) {
+		long totalTime = date.getTime();
+		long timeToAdd = 60 * 60 * 1000 - totalTime % (60 * 60 * 1000);
+		if (timeToAdd == 60 * 60 * 1000) {
+			return new Date(totalTime);
+		} else {
+			return new Date(timeToAdd + totalTime);
+		}
 	}
 
 	private long timeDifference(TimePoint potentialmatch, TimePoint traverser) {
@@ -157,8 +179,9 @@ public class Scheduler
 		return scheduledResources;
 	}
 
-	private static Date now() {
-		return new Date();
+	private Date now() {
+		return new Date(startupTime + new Date().getTime()
+				- startDate.getTime());
 	}
 
 	/**
@@ -214,29 +237,8 @@ public class Scheduler
 	}
 
 	public static void main(String[] args) {
-		TreeMap<TimePoint, String> map = new TreeMap<TimePoint, String>();
-		Date previous = now();
-		TimePoint ta = new TimePoint(TimeType.start, new Date(1), previous);
-		while (now().getTime() == previous.getTime()) {
-		}
-		TimePoint tb = new TimePoint(TimeType.start, new Date(1), now());
-		TimePoint tc = new TimePoint(TimeType.start, new Date(2), now());
-		TimePoint td;
-		System.out.println(ta.getCreationDate().getTime());
-		System.out.println(tb.getCreationDate().getTime());
-		System.out.println(ta.compareTo(tb));
-		String sa = "bla";
-		String sb = "blob";
-		String sc = "now";
-		map.put(ta, sa);
-		map.put(tb, sb);
-		map.put(tc, sc);
-		td = map.higherKey(ta);
-		TimePoint curPoint = map.firstKey();
-		System.out.println(map.size());
-		System.out.println(map.get(curPoint));
-		System.out.println(map.get(ta));
-		System.out.println(map.get(map.higherKey(ta)));
-		System.out.println(td.getTime());
+		TreeMap<String, String> map = new TreeMap<String, String>();
+		map.put("bla", "blah");
+		map.get(null);
 	}
 }
