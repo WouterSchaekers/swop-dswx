@@ -57,11 +57,19 @@ public class Appointment
 		return this.resources.values();
 	}
 	
+	public HashMap<TimePoint, Resource> getScheduling(){
+		return resources;
+	}
+	
 	/**
 	 * @return The duration of this appointment.
 	 */
 	public long getAppointmentDuration() {
 		return duration; 
+	}
+	
+	public Date getDate(){
+		return date;
 	}
 
 }

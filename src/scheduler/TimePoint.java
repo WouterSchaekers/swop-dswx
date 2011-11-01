@@ -54,7 +54,7 @@ public class TimePoint implements Comparable<TimePoint>
 			return after;
 		} else if (this.getTime() < tp2.getTime()) {
 			return before;
-		} else{
+		} else {
 			return equals;
 		}
 	}
