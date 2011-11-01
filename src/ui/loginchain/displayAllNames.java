@@ -27,7 +27,7 @@ public class displayAllNames extends LoginCommand
 	public usecase Execute() {
 		System.out.println("All users in the system:");
 		Map<String, DTOUser> nameUserMap=new HashMap<String, DTOUser>();
-		for(DTOUser u:data.getLoginController().getAllUsers2())
+		for(DTOUser u:data.getLoginController().getAllUsers())
 		{
 			System.out.println(u.getName());
 			nameUserMap.put(u.getName(), u);
