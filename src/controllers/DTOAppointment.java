@@ -2,11 +2,11 @@ package controllers;
 
 import scheduler.Appointment;
 
-public class AppointmentDTO
+public class DTOAppointment
 {
 	private Appointment app;
 
-	public AppointmentDTO(Appointment addAppointment) {
+	public DTOAppointment(Appointment addAppointment) {
 		this.app=addAppointment;
 	}
 
