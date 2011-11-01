@@ -87,7 +87,7 @@ public class SelectUsecase extends usecase
 		case logout:
 			return new logOut(data);
 		case orderMedicalTest:
-			return new OrderMedicalTest(data);
+			return new orderMedicalTest(data);
 		case exitSystem:
 			return new exitSystem(data);
 		default:
