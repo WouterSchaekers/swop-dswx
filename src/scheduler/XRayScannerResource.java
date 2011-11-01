@@ -3,10 +3,10 @@ package scheduler;
 import resources.Resource;
 import resources.XRayScanner;
 
-public class XrayScannerResource extends Resource
+public class XRayScannerResource extends Resource
 {
 
-	public XrayScannerResource(XRayScanner m) {
+	public XRayScannerResource(XRayScanner m) {
 		// TODO Auto-generated constructor stub
 	}
 

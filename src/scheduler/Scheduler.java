@@ -285,7 +285,7 @@ public class Scheduler
 			if (M instanceof UltraSoundScanner)
 				RV.add(new UltraSoundScannerResource((UltraSoundScanner) M));
 			if (M instanceof XRayScanner)
-				RV.add(new XrayScannerResource((XRayScanner) M));
+				RV.add(new XRayScannerResource((XRayScanner) M));
 		}
 		return RV;
 	}
