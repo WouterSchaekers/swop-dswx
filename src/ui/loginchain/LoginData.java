@@ -33,4 +33,12 @@ public class LoginData
 		this.lc = lc;
 	}
 
+	/**
+	 * This method sets the name for this data.
+	 * @param name
+	 * The new name
+	 */
+	public void setUsername(String name) {
+		this.username = name;
+	}
 }

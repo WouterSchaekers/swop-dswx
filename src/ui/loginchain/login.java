@@ -25,7 +25,8 @@ public class login extends LoginCommand
 	public usecase Execute() {
 		System.out.println("Enter User name:");
 		String name = input.nextLine();
-		return new validateLogin(data,loginData, name);
+		loginData.setUsername(name);
+		return new validateLogin(data,loginData);
 	}
 
 }
