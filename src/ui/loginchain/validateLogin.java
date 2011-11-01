@@ -1,6 +1,6 @@
 package ui.loginchain;
 
-import java.util.Map;
+import java.util.Collection;
 import ui.UserinterfaceData;
 import ui.usecase;
 import controllers.DTOUser;
@@ -20,10 +20,10 @@ public class validateLogin extends LoginCommand
 	 * @param loginData
 	 * The data from the logincontroller (contains the logincontroller!).
 	 */
-	public validateLogin(UserinterfaceData uiData,UserinterfaceData loginData) {
+	public validateLogin(UserinterfaceData uiData,LoginData loginData, String name) {
 		super(uiData, loginData);
 		lc = loginData.getLoginController();
-		name = uiData.
+		this.name = name;
 	}
 
 	/**
@@ -33,10 +33,11 @@ public class validateLogin extends LoginCommand
 	 */
 	@Override
 	public usecase Execute() {
-		if(lc.getUserDTO().getName().equals())
-		if(map.containsKey(name))
-			return new loginToSystem(data,map.get(name));
-		return new displayAllNames(data);
+		Collection<DTOUser> c = lc.getAllUsers();
+		for(DTOUser u: c)
+			if(u.getName().equalsIgnoreCase(this.name))
+				return new loginToSystem(data,u);
+		return new displayAllNames(data,loginData);
 	}
 
 }
