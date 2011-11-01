@@ -5,7 +5,7 @@ import resources.Resource;
 import resources.XRayScanner;
 
 //XXX; fix de naam
-public class aXrayScannerRequirement extends Requirement
+public class XRayScannerRequirement extends Requirement
 {
 
 	@Override
