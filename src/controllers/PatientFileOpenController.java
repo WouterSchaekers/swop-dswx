@@ -9,69 +9,65 @@ import users.User.usertype;
 public class PatientFileOpenController
 {
 	DataPasser data;
-	Doctor doctor;
-	public PatientFileOpenController(DataPasser data,LoginController loginController) {
+	DTOUser doctor;
+	
+	public PatientFileOpenController(DataPasser data, LoginController loginController) {
 		this.data = data;
-		if(loginController == null)
+		if (loginController == null)
 			throw new NullPointerException("Logincontroller is null");
 
-		if(loginController.getUserDTO() == null)
+		if (loginController.getUserDTO() == null)
 			throw new NullPointerException("User is null");
-			
-		if(loginController.getUserDTO().type() == null)
+
+		if (loginController.getUserDTO().type() == null)
 			throw new NullPointerException("Type of user is null");
-		
-		if(loginController.getUserDTO().type() != usertype.Doctor)
+
+		if (loginController.getUserDTO().type() != usertype.Doctor)
 			throw new IllegalArgumentException("This user is not a doctor!");
-		
-		doctor = (Doctor) loginController.getUser();
+
+		doctor = loginController.getUserDTO();
 	}
-	public Collection<DTOPatientFile> getAllPatientFiles(LoginController loginController){
+
+	public Collection<DTOPatientFile> getAllPatientFiles(
+			LoginController loginController) {
 		ArrayList<DTOPatientFile> RV = new ArrayList<DTOPatientFile>();
-		for(PatientFile file :data.getPatientFileManager().getAllPatientFiles())
+		for (PatientFile file : data.getPatientFileManager()
+				.getAllPatientFiles())
 			RV.add(new DTOPatientFile(file));
 		return RV;
 	}
-	
-	public boolean validLoginController(LoginController loginController){
-		if(loginController == null)
+
+	public boolean validLoginController(LoginController loginController) {
+		if (loginController == null)
 			return false;
 
-		if(loginController.getUserDTO() == null)
+		if (loginController.getUserDTO() == null)
 			return false;
-			
-		if(loginController.getUserDTO().type() == null)
-			return false;
-		
-		if(loginController.getUserDTO().type() != usertype.Doctor)
-			return false;
-		
-		if(loginController.getUser() != doctor)
-			return false; 
-		
-		return true;
-	}
-	
-	private boolean validController(LoginController loginController){
-		if(loginController == null)
-			throw new NullPointerException("Logincontroller is null");
 
-		if(loginController.getUserDTO() == null)
-			throw new NullPointerException("User is null");
-			
-		if(loginController.getUserDTO().type() == null)
-			throw new NullPointerException("Type of user is null");
-		
-		if(loginController.getUserDTO().type() != usertype.Doctor)
-			throw new IllegalArgumentException("This user is not a doctor!");
-		
-		if(loginController.getUser() != doctor)
-			throw new IllegalArgumentException("This user is not the same doctor");
+		if (loginController.getUserDTO().type() == null)
+			return false;
+
+		if (loginController.getUserDTO().type() != usertype.Doctor)
+			return false;
+
+		if (loginController.getUserDTO() != doctor)
+			return false;
+
 		return true;
 	}
+
+	PatientFile pf;
+	
 	public void openPatientFile(DTOPatientFile pfdto) {
-		// TODO Auto-generated method stub
-		
+		this.pf = pfdto.getPatientFile();
+	}
+
+	public DTOPatientFile getPatientFile() {
+		return new DTOPatientFile(this.pf);
+	}
+	
+	public DTOUser getDocDTO() {
+		return this.doctor;
 	}
 
 }
