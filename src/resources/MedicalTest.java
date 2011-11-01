@@ -11,9 +11,6 @@ import patient.PatientFile;
  */
 public abstract class MedicalTest extends Resource
 {	
-	// all available medical tests.
-	private static Collection<MedicalTest> medicalTests = new ArrayList<MedicalTest>(Arrays.asList(new BloodAnalysis(null),new UltraSoundScan(null), new XRayScan(null)));
-
 	// all childclasses will have their names be final and static and will use this var to store that information in.
 	private String testName = "";
 	private PatientFile patientFile;
@@ -28,13 +25,6 @@ public abstract class MedicalTest extends Resource
 		this.testName = name;
 		this.patientFile = patientFile;
 		
-	}
-
-	/**
-	 * @return all available tests.
-	 */
-	public static Collection<MedicalTest> availableTests() {
-		return medicalTests;
 	}
  
 	/**

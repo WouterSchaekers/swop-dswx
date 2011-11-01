@@ -66,11 +66,4 @@ public class MedicalTestController extends MedicalSuperController
 		// TODO: implement
 		return null;
 	}
-
-	/**
-	 * @return All available medical tests.
-	 */
-	public Collection<MedicalTest> availableMedicalTests() {
-		return MedicalTest.availableTests();
-	}
 }
