@@ -56,7 +56,7 @@ public class ConsultPatientFileController
 	 * @return The testresults of the patientfile of this controller.
 	 */
 	public Collection<Result> getAllResults() {
-		return this.pfm.getAllResults();
+		return this.pfm.getAllResultsFrom(file);
 
 	}
 
