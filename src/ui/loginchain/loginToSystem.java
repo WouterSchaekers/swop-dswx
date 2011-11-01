@@ -19,7 +19,7 @@ public class loginToSystem extends LoginCommand
 	}
 
 	/**
-	 * 
+	 * This method will log in the current user in to the system.
 	 */
 	@Override
 	public usecase Execute() {

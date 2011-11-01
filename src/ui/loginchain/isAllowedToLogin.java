@@ -16,7 +16,7 @@ public class isAllowedToLogin extends LoginCommand
 	}
 	
 	/**
-	 * If the person hasn't a logincontroller or when the person isn't logged in.
+	 * If nobody is logged in to the system.
 	 * 		Then the person is allowed to log in into the system and goes to the next step in the chain.
 	 * Else 
 	 * 		The person is not allowed to log in and the system will return to the beginning of the chain. 

@@ -12,9 +12,7 @@ public class validateLogin extends LoginCommand
 {
 	/**
 	 * Constructor where hashmap of registered users is copied to map.
-	 * 		|this.map = map
 	 * Name of the current user is copied to name.
-	 * 		|this.name = name
 	 */
 	Map<String, DTOUser> map;
 	String name;

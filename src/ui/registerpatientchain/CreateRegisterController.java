@@ -6,6 +6,10 @@ import ui.SelectUsecase;
 import ui.usecase;
 import users.User.usertype;
 
+/**
+ * This class 
+ *
+ */
 public class CreateRegisterController extends usecase
 {
 
