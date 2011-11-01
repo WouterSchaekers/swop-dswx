@@ -28,7 +28,7 @@ public class ListUndischargedPatients extends usecase
 		}
 		patfiledata.setPatientFileOpenController(new PatientFileOpenController(data.getDataPasser(), data.getLoginController()));
 		Map<String,DTOPatientFile> map = new HashMap<String, DTOPatientFile>();
-		Collection<DTOPatientFile> patientfiles =patfiledata.getPatientfileOpenController().getAllPatientFiles();
+		Collection<DTOPatientFile> patientfiles =patfiledata.getPatientfileOpenController().getAllPatientFiles(data.getLoginController());
 		for(DTOPatientFile file:patientfiles)
 		{
 			map.put(file.getName(), file);
