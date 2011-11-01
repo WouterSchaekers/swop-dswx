@@ -27,6 +27,7 @@ public class Scheduler
 {
 	// all scheduled resources
 	private TreeMap<TimePoint, Resource> timeTable;
+	private Collection<Appointment> appointments;
 	// 1 hour after admission <...>
 	private final int TIMEAFTERCURRENTDATE = 60 * 60 * 1000;
 	private UserManager userManager;
@@ -41,6 +42,7 @@ public class Scheduler
 		this.userManager = usermanager;
 		this.machinePool = machinepool;
 		timeTable = new TreeMap<TimePoint, Resource>();
+		appointments = new ArrayList<Appointment>();
 		startDate = new Date();
 	}
 
@@ -60,7 +62,20 @@ public class Scheduler
 			Collection<Requirement> res, int duration)
 			throws ImpossibleToScheduleException {
 		ScheduledElement startPointFree = findFreeSlot(res, duration);
-		return null;
+		Collection<Resource> scheduledElements = startPointFree.getResources();
+		Date goodDate = startPointFree.getDate();
+		TimePoint start = new TimePoint(TimeType.start, goodDate, now());
+		TimePoint stop = new TimePoint(TimeType.stop, new Date(goodDate.getTime() + duration), now());
+		for (Resource element : scheduledElements) {
+			timeTable.put(new TimePoint(TimeType.start, goodDate, now()),
+					element);
+			timeTable.put(
+					new TimePoint(TimeType.stop, new Date(goodDate.getTime()
+							+ duration), now()), element);
+		}
+		Appointment appointment = new Appointment(patient, scheduledElements, start, stop);
+		appointments.add(appointment);
+		return appointment;
 	}
 
 	/**
@@ -114,19 +129,18 @@ public class Scheduler
 			}
 
 			traverser = timeTable.higherKey(traverser);
-			if (traverser == null)
-				throw new ImpossibleToScheduleException(
-						"Something went horribly horribly wrong. Fuck you Dieter!");
+			if (traverser == null) {
+				Date nextDate = closedHourOfDate(firstAfterNow);
+				if (satisfied(availableNow, required, scheduledElements)) {
+					break;
+				} else {
+					throw new ImpossibleToScheduleException(
+							"There are not enough resources available for these requirements.");
+				}
+			}
 
 		}
-		for (Resource element : scheduledElements) {
-			timeTable.put(potentialmatch, element);
-			timeTable.put(
-					new TimePoint(TimeType.stop, new Date(potentialmatch
-							.getTime() + duration), now()), element);
-		}
-		// TODO
-		return new ScheduledElement(null, null);
+		throw new ImpossibleToScheduleException("The scheduler is broken.");
 	}
 
 	public Date closedHourOfDate(Date date) {
