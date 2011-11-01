@@ -103,4 +103,13 @@ public class PatientFileManager
 				return pf;
 		return null;
 	}
+	
+	/**
+	 * 
+	 * @param pf
+	 * @return
+	 */
+	public boolean patientIsDischarged(PatientFile pf) {
+		return pf.isDischarged();
+	}
 }
