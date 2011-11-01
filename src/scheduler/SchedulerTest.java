@@ -25,7 +25,7 @@ public class SchedulerTest
 	@Test
 	public void ScheduleOneThing() throws ImpossibleToScheduleException{
 		Collection<Requirement> requirements = new ArrayList<Requirement>();
-		requirements.add(new aXrayScannerRequirement());
+		requirements.add(new XRayScannerRequirement());
 		ScheduledElement s = scheduler.findFreeSlot(requirements, 10);
 		System.out.println("done");
 	}
