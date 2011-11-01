@@ -48,6 +48,7 @@ public class UserinterfaceData
 	 */
 	public void setData(DataPasser data) {
 		this.data = data;
+		
 	}
 
 	/**
@@ -71,4 +72,5 @@ public class UserinterfaceData
 		return regpatctrl;
 	}
 
+	
 }
