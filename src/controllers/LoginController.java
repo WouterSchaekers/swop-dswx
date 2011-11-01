@@ -9,14 +9,15 @@ import users.UserManager;
  * This class will be used as a login controller. There will be a 1:1 relation
  * between the amount of logged in users and the amount of controllers. Each
  * logincontroller will remember what user they logged in.
+ * 
  */
 public class LoginController
 {
 	private UserManager um; // the usermanager for this controller.
 	private boolean loggedIn = false; // true if the user of this controller is
 										// logged in.
-	private UserDTO user = null; // the user this controller has logged in.
-	public UserDTO getUserDTO(){
+	private DTOUser user = null; // the user this controller has logged in.
+	public DTOUser getUserDTO(){
 		return user;
 	}
 	/**
@@ -42,16 +43,16 @@ public class LoginController
 	public Collection<User> getAllUsers() {
 		return um.getAllUsers();
 	}
-	public Collection<UserDTO>getAllUsers2(){
-		Collection<UserDTO> RV = new ArrayList<UserDTO>();
+	public Collection<DTOUser>getAllUsers2(){
+		Collection<DTOUser> RV = new ArrayList<DTOUser>();
 		for(User u:um.getAllUsers())
-			RV.add(new UserDTO(u));
+			RV.add(new DTOUser(u));
 		return RV;
 	}
 	/**
 	 * This method will log the user of this logincontroller in.
 	 */
-	public void logIn(UserDTO user) {
+	public void logIn(DTOUser user) {
 		this.user = user;
 		loggedIn = true;
 	}

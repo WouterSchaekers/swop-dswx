@@ -9,7 +9,7 @@ import users.User.usertype;
 
 public class RegisterPatientController
 {
-	PatientFileDTO openPatientFile;
+	DTOPatientFile openPatientFile;
 	DataPasser dataPasser;
 
 	public RegisterPatientController(LoginController loginController,
@@ -21,22 +21,22 @@ public class RegisterPatientController
 		this.dataPasser=dataPasser;
 	}
 
-	public Collection<PatientFileDTO> getAllPatients() {
-		Collection<PatientFileDTO> RV = new ArrayList<PatientFileDTO>();
+	public Collection<DTOPatientFile> getAllPatients() {
+		Collection<DTOPatientFile> RV = new ArrayList<DTOPatientFile>();
 		for (PatientFile file : dataPasser.getPatientFileManager()
 				.getAllPatientFiles())
-			RV.add(new PatientFileDTO(file));
+			RV.add(new DTOPatientFile(file));
 		return RV;
 	}
 
-	public void registerPatient(PatientFileDTO file) {
+	public void registerPatient(DTOPatientFile file) {
 		this.dataPasser.getPatientFileManager().checkIn(file.getPatientFile());
 
 		this.openPatientFile = file;
 	}
 
-	public AppointmentDTO CreateAppointMent(UserDTO userDTO,
-			PatientFileDTO pfile) {
+	public DTOAppointment CreateAppointMent(DTOUser userDTO,
+			DTOPatientFile pfile) {
 		if (userDTO == null || pfile == null)
 			throw new IllegalArgumentException("null objects are illegal");
 		if (userDTO.type() != usertype.Doctor)
@@ -46,7 +46,7 @@ public class RegisterPatientController
 			throw new IllegalStateException("No patientfile has been opened yet");
 		if(pfile.getPatientFile().isDischarged())
 			throw new IllegalArgumentException(pfile.getName()+" is not checked in");
-		return new AppointmentDTO(dataPasser.getScheduler().addAppointment(pfile.getPatientFile(), (Doctor)userDTO.getUser(), 60));
+		return null;// new AppointmentDTO(dataPasser.getScheduler().addAppointment(pfile.getPatientFile(), (Doctor)userDTO.getUser(), 60));
 	}
 
 	public void createNewPatient(DataPasser dataPasser2, String name) {

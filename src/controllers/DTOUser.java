@@ -1,17 +1,14 @@
 package controllers;
 
-import users.Doctor;
-import users.HospitalAdmin;
-import users.Nurse;
 import users.User;
 import users.User.usertype;
 
-public class UserDTO
+public class DTOUser
 {
 	private User u;
 	private String name;
 
-	public UserDTO(User u) {
+	public DTOUser(User u) {
 		this.u = u;
 		this.name = u.getName();
 

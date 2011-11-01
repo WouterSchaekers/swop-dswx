@@ -2,11 +2,11 @@ package controllers;
 
 import patient.PatientFile;
 
-public class PatientFileDTO
+public class DTOPatientFile
 {
 	private PatientFile file;
 	private String name;
-	public PatientFileDTO(PatientFile file)
+	public DTOPatientFile(PatientFile file)
 	{
 		this.file=file;
 		this.name=file.getName();
@@ -20,5 +20,9 @@ public class PatientFileDTO
 	}
 	public String getName() {
 		return name();
+	}
+	public boolean isDischarged() {
+		// TODO Auto-generated method stub
+		return file.isDischarged();
 	}
 }
