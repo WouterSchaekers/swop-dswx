@@ -1,6 +1,5 @@
 package ui.ordermedicaltestchain;
 
-import medicaltest.XRayScan;
 import ui.UserinterfaceData;
 import ui.usecase;
 
@@ -13,7 +12,6 @@ public class orderXRay extends MedicalTestCommand
 
 	@Override
 	public usecase Execute() {
-		XRayScan xray = new XRayScan();
 		String in = "";
 		
 		// ask for some input.
@@ -32,7 +30,7 @@ public class orderXRay extends MedicalTestCommand
 			System.out.println("You specified something numeric and not a bodypart.");
 			return this;
 		}
-		xray.setBodyPart(in); // set the input
+		medData.setBodyPart(in); // set the input
 		
 		// ask for more input.
 		System.out.println("How many images would you like to take? ");
@@ -54,11 +52,31 @@ public class orderXRay extends MedicalTestCommand
 			System.out.println("You specified something non-numeric.");
 			return this;
 		}
-		xray.setAmountOfImages(Integer.parseInt(in)); //set the input
+		medData.setAmount(Integer.parseInt(in)); //set the input
 		
-		medData.setTest(xray); // save the xray in medData
+		// ask for more input.
+		System.out.println("What zoomlevel would you like to be used? (1-3) ");
+		in = (input.nextLine());
+		System.out.println("\n");
+		
+		//check if the input is valid.
+		if (in.isEmpty()) {
+			System.out.println("You did not specify a zoomlevel.");
+			return this;
+		}
+		try {
+			int i = Integer.parseInt(in);
+			if (i<1 || i > 3) {
+				System.out.println("Please specify a valid zoomlevel");
+				return this;
+			}
+		} catch (NumberFormatException e) {
+			System.out.println("You specified an invalid zoomlevel (either non-numeric or not within the range of 1-3).");
+			return this;
+		}
+		medData.setZoomlevel(Integer.parseInt(in));
 	
-		return new retrieveNeededResources(data,medData);
+		return new scheduleXRay(data,medData);
 	}
 
 }
