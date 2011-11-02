@@ -3,11 +3,11 @@ package ui.ordermedicaltestchain;
 import ui.UserinterfaceData;
 import ui.usecase;
 
-public class UltraSoundScanTest extends MedicalTestCommand
+public class retrieveNeededResources extends MedicalTestCommand
 {
 
-	public UltraSoundScanTest(UserinterfaceData data, MedicalTestData medData) {
-		super(data, medData);
+	public retrieveNeededResources(UserinterfaceData uiData, MedicalTestData medData) {
+		super(uiData, medData);
 	}
 
 	@Override
