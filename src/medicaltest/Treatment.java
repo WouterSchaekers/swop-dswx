@@ -3,12 +3,11 @@ package medicaltest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import task.resource.Resource;
 
 /**
  * This class is the superclass of all treatments
  */
-public abstract class Treatment extends Resource
+public abstract class Treatment 
 {
 	// a static arraylist of all treatments available.
 	private static ArrayList<Treatment> treatments = new ArrayList<Treatment>(Arrays.asList(new Cast("", 0), new Medication(null, false), new Surgery("")));
@@ -66,15 +65,6 @@ public abstract class Treatment extends Resource
 		this.duration = duration;
 	}
 	
-	/**
-	 * @return This method will get all
-	 */
-	public Collection<Resource> getType() {
-		Collection<Resource> c = new ArrayList<Resource>();
-		for (Resource r: treatments) {
-			c.add(r);
-		}
-		return c;
-	}
+
 	
 }
