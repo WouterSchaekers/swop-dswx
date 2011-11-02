@@ -88,12 +88,15 @@ public class Scheduler
 		return appointment;
 	}
 
-	public ScheduledElement find(Collection<Requirement> reqs, int duration) {
- 		if (timeTable.isEmpty()) {
+	public ScheduledElement find(Collection<Requirement> reqs, int duration)
+			throws ImpossibleToScheduleException {
+		if (timeTable.isEmpty()) {
 			Date now = closedHourOfDate(new Date(now().getTime()
 					+ getTimeBuffer()));
 			TimePoint t = new TimePoint(TimeType.start, now);
 			Collection<Resource> r = satisfied(getResources(), reqs);
+			if (r.isEmpty())
+				throw new ImpossibleToScheduleException("wtf");
 			for (Resource resource : r) {
 				timeTable.put(new TimePoint(TimeType.start, now), resource);
 				timeTable.put(
@@ -102,13 +105,18 @@ public class Scheduler
 			}
 			return new ScheduledElement(r, now);
 		}
+
 		Date now = new Date(now().getTime() + getTimeBuffer());
-		if (now.before(timeTable.firstEntry().getKey().getDate()))
+		TimePoint traverser;
+		if (now.before(timeTable.firstEntry().getKey().getDate())) {
 			now = timeTable.firstEntry().getKey().getDate();
-		TimePoint traverser = timeTable.higherKey(new TimePoint(TimeType.start, now));
+			traverser = timeTable.firstEntry().getKey();
+		} else {
+			traverser = timeTable.higherKey(new TimePoint(TimeType.start, now));
+		}
 		Collection<Resource> resourcesInSystem = getResources();
 		Collection<Resource> used = null;
-		Cut(resourcesInSystem, getAllScheduledAt(now));
+		Cut(resourcesInSystem, getAllScheduledAt(traverser.getDate()));
 		TimePoint backup = null;
 		Collection<Resource> resourcesbackup = null;
 		while (backup == null
@@ -124,10 +132,10 @@ public class Scheduler
 			used = satisfied(resourcesInSystem, reqs);
 			if (used.isEmpty()) {
 				if (backup != null) {
-					
+
 					traverser = timeTable.higherKey(backup);
-					backup=null;
-					resourcesInSystem=resourcesbackup;
+					backup = null;
+					resourcesInSystem = resourcesbackup;
 					// we have to jump back to where we came from and continue
 					// our search !
 					continue;
@@ -139,7 +147,7 @@ public class Scheduler
 					// backup needs to be maintained and traverser
 				} else {
 					// backup needs to be set now
-					resourcesbackup=new ArrayList<Resource>( resourcesInSystem );
+					resourcesbackup = new ArrayList<Resource>(resourcesInSystem);
 					backup = traverser;
 
 				}
@@ -155,6 +163,8 @@ public class Scheduler
 									+ duration)), resource);
 				}
 				return new ScheduledElement(used, t);
+			} else {
+				//System.out.println("huh");
 			}
 
 		}
