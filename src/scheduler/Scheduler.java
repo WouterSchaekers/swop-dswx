@@ -93,7 +93,6 @@ public class Scheduler
 		if (timeTable.isEmpty()) {
 			Date now = closedHourOfDate(new Date(now().getTime()
 					+ getTimeBuffer()));
-			TimePoint t = new TimePoint(TimeType.start, now);
 			Collection<Resource> r = satisfied(getResources(), reqs);
 			if (r.isEmpty())
 				throw new ImpossibleToScheduleException("wtf");
@@ -306,6 +305,7 @@ public class Scheduler
 	 * 
 	 */
 	// XXX: Fix in next iteration
+	@SuppressWarnings("unused")
 	private void cleanUp() {
 		Date curDate = now();
 		TimePoint curTimePoint = null;
