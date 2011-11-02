@@ -1,7 +1,6 @@
 package ui.ordermedicaltestchain;
 
 import ui.UserinterfaceData;
-import medicaltest.UltraSoundScan;
 import ui.usecase;
 
 public class orderUltraSoundScanTest extends MedicalTestCommand
@@ -14,7 +13,6 @@ public class orderUltraSoundScanTest extends MedicalTestCommand
 
 	@Override
 	public usecase Execute() {
-		UltraSoundScan ultrasound = new UltraSoundScan();
 		String in = "";
 		
 		// ask for some input.
@@ -33,7 +31,7 @@ public class orderUltraSoundScanTest extends MedicalTestCommand
 			System.out.println("You specified something numeric and not a focus.");
 			return this;
 		}
-		ultrasound.setFocus(in); // set the input
+		medData.setFocus(in); // set the input
 		
 		// ask for more input.
 		System.out.println("Would you like to record video?");
@@ -41,9 +39,9 @@ public class orderUltraSoundScanTest extends MedicalTestCommand
 		System.out.println("\n");
 		
 		if(in.matches("[y|Y|j|J|yes|ja"))
-			ultrasound.setVid(true);
+			medData.setVid(true);
 		else if (in.matches("[n|N|no|nee"))
-			ultrasound.setVid(false);
+			medData.setVid(false);
 		else {
 			System.out.println("Invalid answer! Please use Y/y/J/j/yes/N/n/no");
 			return this;
@@ -55,16 +53,15 @@ public class orderUltraSoundScanTest extends MedicalTestCommand
 		System.out.println("\n");
 		
 		if(in.matches("[y|Y|j|J|yes|ja"))
-			ultrasound.setImg(true);
+			medData.setImg(true);
 		else if (in.matches("[n|N|no|nee"))
-			ultrasound.setImg(false);
+			medData.setImg(false);
 		else {
 			System.out.println("Invalid answer! Please use Y/y/J/j/yes/N/n/no");
 			return this;
 		}
-		medData.setTest(ultrasound); // save the bloodanalysis in medData
-	
-		return new retrieveNeededResources(data,medData);
+		
+		return new scheduleUltraSound(data,medData);
 	}
 
 }

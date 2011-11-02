@@ -1,6 +1,5 @@
 package ui.ordermedicaltestchain;
 
-import medicaltest.BloodAnalysis;
 import ui.UserinterfaceData;
 import ui.usecase;
 
@@ -13,7 +12,6 @@ public class orderBloodAnalysis extends MedicalTestCommand
 
 	@Override
 	public usecase Execute() {
-		BloodAnalysis blood = new BloodAnalysis();
 		String in = "";
 		
 		// ask for some input.
@@ -32,7 +30,7 @@ public class orderBloodAnalysis extends MedicalTestCommand
 			System.out.println("You specified something numeric and not a focus.");
 			return this;
 		}
-		blood.setFocus(in); // set the input
+		medData.setFocus(in); // set the input
 		
 		// ask for more input.
 		System.out.println("How many analyses would you like to make? ");
@@ -54,11 +52,9 @@ public class orderBloodAnalysis extends MedicalTestCommand
 			System.out.println("You specified something non-numeric.");
 			return this;
 		}
-		blood.setAmountOfAnalyses(Integer.parseInt(in)); //set the input
-		
-		medData.setTest(blood); // save the bloodanalysis in medData
+		medData.setAmount(Integer.parseInt(in)); //set the input
 	
-		return new retrieveNeededResources(data,medData);
+		return new scheduleBloodAnalysis(data,medData);
 	}
 
 }
