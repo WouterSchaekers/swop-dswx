@@ -25,6 +25,7 @@ public class ScheduledElement
 	/**
 	 * The end time that the scheduler assigned to this set of resources.
 	 */
+	@SuppressWarnings("unused")
 	private Date endTime;
 	/**
 	 * Creates a scheduled element, normally only called in scheduler.
