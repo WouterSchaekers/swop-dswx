@@ -69,7 +69,7 @@ public class UserManager
 
 	public Nurse CreateNurse(String string) throws UserAlreadyExistsException {
 		Nurse newUser = new Nurse(string);
-		AddUser(new Nurse(string));
+		AddUser(newUser);
 		return newUser;
 	}
 
