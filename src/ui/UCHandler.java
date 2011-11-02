@@ -27,6 +27,7 @@ public class UCHandler
 {
 	usecase currentUseCase;
 	UserinterfaceData data;
+	
 	/**
 	 * Initializes the current command to SelectUseCase
 	 * @param data
