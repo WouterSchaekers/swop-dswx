@@ -1,12 +1,12 @@
 package medicaltest;
 
 import java.util.Date;
-import task.resource.Resource;
+import task.Resource;
 
 /**
  * This class represents a medical test.
  */
-public abstract class MedicalTest extends Resource
+public abstract class MedicalTest implements Resource
 {	
 	// all childclasses will have their names be final and static and will use this var to store that information in.
 	private String testName = "";
