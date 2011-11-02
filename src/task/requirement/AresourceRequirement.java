@@ -7,23 +7,24 @@ import task.Resource;
 
 public class AresourceRequirement extends Requirement
 {
-	Class<? extends Resource> type;
+	private Class<? extends Resource> type;
 
 	public AresourceRequirement(Class<? extends Resource> type) {
 		this.type = type;
 	}
 
 	@Override
-	public void removeUsedResoursesFrom(Collection<Resource> resourcesAv,
-			Collection<Resource> scheduledElements) {
+	public Collection<Resource> resourcesNeededFrom(Collection<Resource> resourcesAv) {
 		Collection<Resource> res = new ArrayList<Resource>(resourcesAv);
+		Collection<Resource> usedResources=new ArrayList<Resource>();
 		for (Resource r : res) {
 			if (satifies(r)) {
-				resourcesAv.remove(r);
-				scheduledElements.add(r);
-				return;
+				usedResources.add(r);
+				return usedResources;
 			}
 		}
+		return usedResources;
+		
 
 	}
 
