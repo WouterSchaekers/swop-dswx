@@ -39,9 +39,14 @@ public class SchedulerTest
 	public void ScheduleOneThing() throws ImpossibleToScheduleException {
 		 Collection<Requirement> requirements = new ArrayList<Requirement>();
 		 requirements.add(new AresourceRequirement(XRayScanner.class));
-		 ScheduledElement s = scheduler.find(requirements, 10);
-		 System.out.println(s.toString());
-		 System.out.println("done");
+		 boolean exception = false;
+		 try{
+			 scheduler.addAppointment(patient, requirements, 1000);
+		 }
+		 catch (ImpossibleToScheduleException e){
+			 exception = true;
+		 }
+		 assertFalse(exception);
 	}
 
 	@Test
@@ -49,15 +54,9 @@ public class SchedulerTest
 		Collection<Requirement> requirements = new ArrayList<Requirement>();
 		Collection<Requirement> requirements2 = new ArrayList<Requirement>();
 		Collection<Requirement> requirements3 = new ArrayList<Requirement>();
-		requirements3.add(new AspecificResourceRequirement(testNurse));
 		requirements.add(new AresourceRequirement(XRayScanner.class));
 		requirements2.add(new AresourceRequirement(XRayScanner.class));
-
-		ScheduledElement s = scheduler.find(requirements, 10000);
-		ScheduledElement s2 = scheduler.find(requirements2, 20000);
-		ScheduledElement s3 = scheduler.find(requirements2, 10000);
-		ScheduledElement s4 = scheduler.find(requirements2, 10000);
-		ScheduledElement s5 = scheduler.find(requirements3, 200000);
+		requirements3.add(new AspecificResourceRequirement(testNurse));
 	}
 
 	@Test
@@ -65,11 +64,10 @@ public class SchedulerTest
 		Collection<Requirement> requirements = new ArrayList<Requirement>();
 		requirements.add(new AresourceRequirement(XRayScanner.class));
 		requirements.add(new AresourceRequirement(XRayScanner.class));
-		Collection<Appointment> aps = new ArrayList<Appointment>();
 		boolean exception = false;
 		for (int i = 0; i < 20; i++) {
 			try{
-				aps.add(scheduler.addAppointment(patient, requirements, 10000));
+				scheduler.addAppointment(patient, requirements, 10000);
 			}
 			catch(ImpossibleToScheduleException e){
 				exception = true;
@@ -84,10 +82,9 @@ public class SchedulerTest
 		requirements.add(new AresourceRequirement(XRayScanner.class));
 		requirements.add(new AresourceRequirement(XRayScanner.class));
 		requirements.add(new AresourceRequirement(XRayScanner.class));
-		Collection<Appointment> aps = new ArrayList<Appointment>();
 		boolean exception = false;
 		try {
-			aps.add(scheduler.addAppointment(patient, requirements, 900000));
+			scheduler.addAppointment(patient, requirements, 900000);
 		} catch (ImpossibleToScheduleException e) {
 			exception = true;
 		}
@@ -100,10 +97,9 @@ public class SchedulerTest
 		requirements.add(new AresourceRequirement(XRayScanner.class));
 		requirements.add(new AresourceRequirement(XRayScanner.class));
 		requirements.add(new AresourceRequirement(BloodAnalyser.class));
-		Collection<Appointment> aps = new ArrayList<Appointment>();
 		boolean exception = false;
 		try {
-			aps.add(scheduler.addAppointment(patient, requirements, 900000));
+			scheduler.addAppointment(patient, requirements, 900000);
 		} catch (ImpossibleToScheduleException e) {
 			exception = true;
 		}
