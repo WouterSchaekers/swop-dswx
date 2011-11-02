@@ -1,7 +1,6 @@
 package scheduler;
 
 import java.util.*;
-import java.util.concurrent.ArrayBlockingQueue;
 import patient.PatientFile;
 import machine.MachinePool;
 import task.requirement.Requirement;
@@ -106,6 +105,7 @@ public class Scheduler
 		Date potentialMatch = null;
 		Collection<Resource> availableNow = getResources();
 		Collection<Resource> scheduledNow = getAllScheduledAt(firstAfterNow);
+		//XXX: dieter, fix de warnings plz
 		Collection<Resource> res = new ArrayList<Resource>();
 		Collection<Resource> scheduledAtthisTime = new ArrayList<Resource>();
 		scheduledAtthisTime = satisfied(availableNow, required);

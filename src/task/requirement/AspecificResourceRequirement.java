@@ -12,7 +12,6 @@ public class AspecificResourceRequirement extends Requirement
 		this.r = r;
 	}
 
-	@Override
 	public void removeUsedResoursesFrom(Collection<Resource> resourcesAv,
 			Collection<Resource> scheduledElements) {
 		Collection<Resource> res = new ArrayList<Resource>(resourcesAv);
@@ -33,6 +32,13 @@ public class AspecificResourceRequirement extends Requirement
 			if (r.equals(this.r))
 				return true;
 		return false;
+	}
+
+	@Override
+	public Collection<Resource> resourcesNeededFrom(
+			Collection<Resource> resourcesAv) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

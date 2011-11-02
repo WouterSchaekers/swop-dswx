@@ -2,7 +2,6 @@ package task.requirement;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import machine.XRayScanner;
 import task.Resource;
 
 public class AresourceRequirement extends Requirement
