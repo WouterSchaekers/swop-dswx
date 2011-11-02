@@ -1,7 +1,7 @@
 package controllers;
 
 import scheduler.Appointment;
-import scheduler.TaskManager;
+import task.TaskManager;
 import medicaltest.MedicalTest;
 import medicaltest.Result;
 
