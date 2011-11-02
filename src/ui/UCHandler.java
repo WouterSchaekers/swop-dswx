@@ -43,7 +43,6 @@ public class UCHandler
 	 * then will be executed, until the exitSystem command is returned.
 	 * 
 	 */
-
 	public void start() {
 		while (true) {
 			if ((currentUseCase = currentUseCase.Execute()) instanceof exitSystem)
