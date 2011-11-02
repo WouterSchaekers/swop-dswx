@@ -1,9 +1,11 @@
 package machine;
 
+import task.Resource;
+
 /**
  * This class represents a machine in the hospital.
  */
-public class Machine
+public class Machine implements Resource
 {
 	private static int serialNow=0;
 	private int serial = -1;
@@ -31,5 +33,13 @@ public class Machine
 	 */
 	public String getLocation() {
 		return this.location;
+	}
+	@Override
+	public boolean equals(Object o)
+	{
+		if(o instanceof Machine)
+			return ((Machine)o).serial==this.serial;
+		return false;
+		
 	}
 }
