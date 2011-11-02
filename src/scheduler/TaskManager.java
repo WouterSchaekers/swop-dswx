@@ -9,7 +9,7 @@ public class TaskManager
 	public Appointment scheduldeXRay(String bodypart, int amountOfImages, int zoomlevel) {
 		return null;
 	}
-	public Appointment scheduldeBloodAnalysis(String focus, boolean recVid, boolean recImg) {
+	public Appointment scheduldeBloodAnalysis(String focus, int amountOfAnalyses) {
 		return null;
 	}
 	
