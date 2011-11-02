@@ -69,7 +69,7 @@ public class Scheduler
 			Collection<Requirement> res, int duration)
 			throws ImpossibleToScheduleException {
 		// cleanUp();
-		ScheduledElement startPointFree = findFreeSlot(res, duration);
+		ScheduledElement startPointFree = find(res, duration);
 		Collection<Resource> elementsToSchedule = startPointFree.getResources();
 		Date freeDate = startPointFree.getDate();
 		HashMap<TimePoint, Resource> scheduledElements = new HashMap<TimePoint, Resource>();
@@ -88,6 +88,92 @@ public class Scheduler
 		return appointment;
 	}
 
+	public ScheduledElement find(Collection<Requirement> reqs, int duration) {
+ 		if (timeTable.isEmpty()) {
+			Date now = closedHourOfDate(new Date(now().getTime()
+					+ getTimeBuffer()));
+			TimePoint t = new TimePoint(TimeType.start, now);
+			Collection<Resource> r = satisfied(getResources(), reqs);
+			for (Resource resource : r) {
+				timeTable.put(new TimePoint(TimeType.start, now), resource);
+				timeTable.put(
+						new TimePoint(TimeType.stop, new Date(now.getTime()
+								+ duration)), resource);
+			}
+			return new ScheduledElement(r, now);
+		}
+		Date now = new Date(now().getTime() + getTimeBuffer());
+		if (now.before(timeTable.firstEntry().getKey().getDate()))
+			now = timeTable.firstEntry().getKey().getDate();
+		TimePoint traverser = timeTable.higherKey(new TimePoint(TimeType.start, now));
+		Collection<Resource> resourcesInSystem = getResources();
+		Collection<Resource> used = null;
+		Cut(resourcesInSystem, getAllScheduledAt(now));
+		TimePoint backup = null;
+		Collection<Resource> resourcesbackup = null;
+		while (backup == null
+				|| timeDifference(backup.getDate(), traverser.getDate()) < duration) {
+			switch (traverser.getType()) {
+			case start:
+				resourcesInSystem.remove(timeTable.get(traverser));
+				break;
+			case stop:
+				resourcesInSystem.add(timeTable.get(traverser));
+				break;
+			}
+			used = satisfied(resourcesInSystem, reqs);
+			if (used.isEmpty()) {
+				if (backup != null) {
+					
+					traverser = timeTable.higherKey(backup);
+					backup=null;
+					resourcesInSystem=resourcesbackup;
+					// we have to jump back to where we came from and continue
+					// our search !
+					continue;
+				}
+				// backup == null
+			} else {
+				// used is not empty > if
+				if (backup != null) {
+					// backup needs to be maintained and traverser
+				} else {
+					// backup needs to be set now
+					resourcesbackup=new ArrayList<Resource>( resourcesInSystem );
+					backup = traverser;
+
+				}
+			}
+			traverser = timeTable.higherKey(traverser);
+
+			if (traverser == null) {
+				Date t = timeTable.lastEntry().getKey().getDate();
+				for (Resource resource : used) {
+					timeTable.put(new TimePoint(TimeType.start, t), resource);
+					timeTable.put(
+							new TimePoint(TimeType.stop, new Date(t.getTime()
+									+ duration)), resource);
+				}
+				return new ScheduledElement(used, t);
+			}
+
+		}
+		for (Resource resource : used) {
+			timeTable.put(new TimePoint(TimeType.start, backup.getDate()),
+					resource);
+			timeTable.put(new TimePoint(TimeType.stop, new Date(backup
+					.getDate().getTime() + duration)), resource);
+		}
+		return new ScheduledElement(used, backup.getDate());
+	}
+
+	private void Cut(Collection<Resource> resourcesInSystem,
+			Collection<Resource> allScheduledAt) {
+		for (Resource r : allScheduledAt)
+			resourcesInSystem.remove(r);
+
+	}
+
 	/**
 	 * This function will get the first free slot for an appointment.
 	 * 
@@ -102,38 +188,32 @@ public class Scheduler
 	public ScheduledElement findFreeSlot(Collection<Requirement> required,
 			int duration) throws ImpossibleToScheduleException {
 		Date firstAfterNow = new Date(now().getTime() + getTimeBuffer());
+
+		if (timeTable.firstEntry() != null
+				&& timeTable.firstEntry().getKey().getDate()
+						.before(firstAfterNow))
+			firstAfterNow = timeTable.firstEntry().getKey().getDate();
 		Date potentialMatch = null;
 		Collection<Resource> availableNow = getResources();
 		Collection<Resource> scheduledNow = getAllScheduledAt(firstAfterNow);
-		//XXX: dieter, fix de warnings plz
-		Collection<Resource> res = new ArrayList<Resource>();
+
+		// XXX: dieter, fix de warnings plz
+
 		Collection<Resource> scheduledAtthisTime = new ArrayList<Resource>();
 		scheduledAtthisTime = satisfied(availableNow, required);
 		if (scheduledAtthisTime.isEmpty())
 			throw new ImpossibleToScheduleException(
 					"there are not enough resources in this hopsital to ever meet your requirements, complain to the hospital admin that you need more stuff!");
 
-		res = null;
-		for (Resource r : scheduledNow)
-			availableNow.remove(r);
 		TimePoint point = new TimePoint(TimeType.start, firstAfterNow);
 		TimePoint traverser = this.timeTable.higherKey(point);
-		Collection<Resource> scheduledElements = new ArrayList<Resource>();
 		if (traverser == null) {
 			Date nextDate = closedHourOfDate(firstAfterNow);
 			scheduledAtthisTime = satisfied(availableNow, required);
 			if (!scheduledAtthisTime.isEmpty()) {
-				for (Resource r : scheduledAtthisTime) {
-					this.timeTable.put(new TimePoint(TimeType.stop, new Date(
-							nextDate.getTime() + duration)), r);
-					this.timeTable.put(new TimePoint(TimeType.start, nextDate),
-							r);
-				}
-				return new ScheduledElement(scheduledElements, nextDate);
-			} else {
-				throw new ImpossibleToScheduleException(
-						"There are not enough resources available for these requirements.");
+				schedue(scheduledAtthisTime, nextDate, duration);
 			}
+			return new ScheduledElement(scheduledAtthisTime, nextDate);
 		}
 
 		while (timeDifference(potentialMatch, traverser.getDate()) < duration
@@ -162,6 +242,14 @@ public class Scheduler
 			}
 		}
 
+		schedue(scheduledAtthisTime, potentialMatch, duration);
+
+		return new ScheduledElement(scheduledAtthisTime, new Date(
+				potentialMatch.getTime() + duration));
+	}
+
+	private void schedue(Collection<Resource> scheduledAtthisTime,
+			Date potentialMatch, int duration) {
 		for (Resource r : scheduledAtthisTime) {
 			timeTable.put(new TimePoint(TimeType.start, potentialMatch), r);
 			timeTable.put(
@@ -169,8 +257,6 @@ public class Scheduler
 							.getTime() + duration)), r);
 
 		}
-		return new ScheduledElement(scheduledAtthisTime, new Date(
-				potentialMatch.getTime() + duration));
 	}
 
 	public Date closedHourOfDate(Date date) {
@@ -225,7 +311,7 @@ public class Scheduler
 		if (timeTable.size() == 0)
 			return scheduledResources;
 		TimePoint traverser = timeTable.firstKey();
-		while (traverser != null && !traverser.getDate().before(now)) {
+		while (traverser != null && traverser.getDate().before(now)) {
 			switch (traverser.getType()) {
 			case start:
 				scheduledResources.add(timeTable.get(traverser));
