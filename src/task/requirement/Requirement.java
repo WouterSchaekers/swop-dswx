@@ -5,9 +5,13 @@ import task.Resource;
 
 public abstract   class Requirement
 {
-
-	public  abstract void removeUsedResoursesFrom(Collection<Resource> resourcesAv,
-			Collection<Resource> scheduledElements);
+	/**
+	 * Returns the resources needed for this requirement if the available resources in resourcesAV 
+	 * meet the requirements.
+	 * @param resourcesAv
+	 * @return
+	 */
+	public  abstract Collection<Resource> resourcesNeededFrom(Collection<Resource> resourcesAv);
 
 	public abstract boolean isMetBy(Collection<Resource> availableNow) ;
 
