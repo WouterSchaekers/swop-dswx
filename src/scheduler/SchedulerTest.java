@@ -25,18 +25,23 @@ public class SchedulerTest
 	PatientFile patient;
 
 	@Before
-	public void intialize() throws UserAlreadyExistsException {
+	public void intialize() {
 		machinepool = new MachinePool();
 		usermanager = new UserManager();
-		testNurse = usermanager.CreateNurse("jenny");
-		patient = new PatientFile("Jos");
+		try{
+			testNurse = usermanager.CreateNurse("jenny");
+			patient = new PatientFile("Jos");
+		}
+		catch (UserAlreadyExistsException e){
+			System.out.println("The system is horribly broken. The developpers should cry in the corner and kill themselves.");
+		}
 		machinepool.addMachine(new XRayScanner("Main Hall"));
 		machinepool.addMachine(new XRayScanner("Stefaan's place"));
 		scheduler = new Scheduler(usermanager, machinepool);
 	}
 
 	@Test
-	public void ScheduleOneThing() throws ImpossibleToScheduleException {
+	public void ScheduleOneThing() {
 		 Collection<Requirement> requirements = new ArrayList<Requirement>();
 		 requirements.add(new AresourceRequirement(XRayScanner.class));
 		 boolean exception = false;
@@ -50,7 +55,7 @@ public class SchedulerTest
 	}
 
 	@Test
-	public void ScheduleTwoThings() throws ImpossibleToScheduleException {
+	public void ScheduleTwoThings() {
 		Collection<Requirement> requirements = new ArrayList<Requirement>();
 		Collection<Requirement> requirements2 = new ArrayList<Requirement>();
 		Collection<Requirement> requirements3 = new ArrayList<Requirement>();
@@ -60,7 +65,7 @@ public class SchedulerTest
 	}
 
 	@Test
-	public void ScheduleTwentyThings() throws ImpossibleToScheduleException {
+	public void ScheduleTwentyThings() {
 		Collection<Requirement> requirements = new ArrayList<Requirement>();
 		requirements.add(new AresourceRequirement(XRayScanner.class));
 		requirements.add(new AresourceRequirement(XRayScanner.class));
