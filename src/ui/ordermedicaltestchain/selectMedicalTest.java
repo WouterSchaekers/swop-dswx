@@ -25,11 +25,11 @@ public class selectMedicalTest extends MedicalTestCommand
 		}
 		switch (medData.testOfChoice) {
 		case xrayscan: // xrayscanner case
-			return new XRayScanTest(data,medData);
+			return new orderXRay(data,medData);
 		case ultrasoundscan:
-			return new UltraSoundScanTest(data,medData);
+			return new orderUltraSoundScanTest(data,medData);
 		case bloodanalysis:
-			return new BloodAnalysisTest(data,medData);
+			return new orderBloodAnalysis(data,medData);
 		default:
 			System.out.println("Invalid treatment selected!");
 			return this;
