@@ -58,12 +58,6 @@ public class SchedulerTest
 		ScheduledElement s3 = scheduler.find(requirements2, 10000);
 		ScheduledElement s4 = scheduler.find(requirements2, 10000);
 		ScheduledElement s5 = scheduler.find(requirements3, 200000);
-		System.out.println(s.getDate().toString());
-		System.out.println(s2.getDate().toString());
-		System.out.println(s3.getDate().toString());
-		System.out.println(s4.getDate().toString());
-		System.out.println("Nurse scheduled at: " + s5.getDate().toString());
-		System.out.println("done");
 	}
 
 	@Test
