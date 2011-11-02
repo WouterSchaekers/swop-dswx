@@ -15,6 +15,7 @@ public class PatientFileOpenChecker extends MedicalTestCommand
 
 	@Override
 	public usecase Execute() {
+		// check if the doctor has the patient file opened at this moment.
 		LoginController lc = data.getLoginController();
 		DTOUser docLc = lc.getUserDTO();
 		DTOUser curDoc = data.getPatientFileOpenController().getDocDTO();

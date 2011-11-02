@@ -9,7 +9,6 @@ import medicaltest.MedicalTestTypes;
 public class MedicalTestData
 {
 	ArrayList<MedicalTestTypes> types = new ArrayList<MedicalTestTypes>(Arrays.asList(MedicalTestTypes.values()));
-	MedicalTestTypes testOfChoice;
 	private MedicalTest m;
 	private MedicalTestController mc;
 	private String bodypart;
@@ -49,10 +48,6 @@ public class MedicalTestData
 	
 	public MedicalTestController getMedTestController() {
 		return this.mc;
-	}
-	
-	public void setTestOfChoice(MedicalTestTypes m) {
-		this.testOfChoice = m;
 	}
 	
 	public void setTest(MedicalTest m) {

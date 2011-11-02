@@ -1,5 +1,6 @@
 package ui.ordermedicaltestchain;
 
+import help.ValidUseCaseInputChecker;
 import ui.UserinterfaceData;
 import ui.usecase;
 
@@ -14,64 +15,36 @@ public class orderXRay extends MedicalTestCommand
 	public usecase Execute() {
 		String in = "";
 		
-		// ask for some input.
+		// BODYPART
 		System.out.println("Which bodypart would you like to xrayscan? ");	
 		in = input.nextLine();
 		System.out.println("\n");
-		
-		// check if the input is valid.
-		if (in.isEmpty()) {
-			System.out.println("You did not specify any body parts.");
+	
+		if(ValidUseCaseInputChecker.isValidStringResponse(in))
+			medData.setBodyPart(in); // set bodypart
+		else {
+			System.out.println("Invalid bodypart!");
 			return this;
 		}
-		try {
-			Integer.parseInt(in);
-		} catch (NumberFormatException e) {
-			System.out.println("You specified something numeric and not a bodypart.");
-			return this;
-		}
-		medData.setBodyPart(in); // set the input
 		
-		// ask for more input.
+		// AMOUNT OF IMAGES
 		System.out.println("How many images would you like to take? ");
 		in = (input.nextLine());
 		System.out.println("\n");
-		
-		//check if the input is valid.
-		if (in.isEmpty()) {
-			System.out.println("You did not specify an amount of images.");
+
+		if (!ValidUseCaseInputChecker.isNumeric(in)) {
+			System.out.println("You did not specify a valid amount of images.");
 			return this;
 		}
-		try {
-			int i = Integer.parseInt(in);
-			if (i<=0) {
-				System.out.println("Please specify an amount > 0");
-				return this;
-			}
-		} catch (NumberFormatException e) {
-			System.out.println("You specified something non-numeric.");
-			return this;
-		}
-		medData.setAmount(Integer.parseInt(in)); //set the input
+		medData.setAmount(Integer.parseInt(in));
 		
-		// ask for more input.
+		// ZOOMLEVEL
 		System.out.println("What zoomlevel would you like to be used? (1-3) ");
 		in = (input.nextLine());
 		System.out.println("\n");
-		
-		//check if the input is valid.
-		if (in.isEmpty()) {
-			System.out.println("You did not specify a zoomlevel.");
-			return this;
-		}
-		try {
-			int i = Integer.parseInt(in);
-			if (i<1 || i > 3) {
-				System.out.println("Please specify a valid zoomlevel");
-				return this;
-			}
-		} catch (NumberFormatException e) {
-			System.out.println("You specified an invalid zoomlevel (either non-numeric or not within the range of 1-3).");
+
+		if (!(ValidUseCaseInputChecker.isNumeric(in) && Integer.parseInt(in) >= 1 && Integer.parseInt(in) <= 3)) {
+			System.out.println("You did not specify a valid zoomlevel.");
 			return this;
 		}
 		medData.setZoomlevel(Integer.parseInt(in));
