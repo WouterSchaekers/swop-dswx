@@ -1,6 +1,6 @@
 package ui.ordermedicaltestchain;
 
-import resources.MedicalTestTypes;
+import medicaltest.MedicalTestTypes;
 import ui.UserinterfaceData;
 import ui.usecase;
 
