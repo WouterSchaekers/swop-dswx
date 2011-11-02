@@ -1,7 +1,7 @@
 package controllers;
 
-import resources.MedicalTest;
-import resources.Result;
+import medicaltest.MedicalTest;
+import medicaltest.Result;
 import patient.PatientFile;
 import users.Doctor;
 

@@ -1,7 +1,7 @@
 package scheduler;
 
-import resources.Resource;
-import resources.UltraSoundScanner;
+import machine.UltraSoundScanner;
+import task.resource.Resource;
 
 public class UltraSoundScannerResource extends Resource
 {

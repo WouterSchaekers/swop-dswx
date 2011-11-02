@@ -1,8 +1,8 @@
 package system;
 
+import machine.MachinePool;
 import controllers.DataPasser;
 import patient.PatientFileManager;
-import resources.MachinePool;
 import scheduler.Scheduler;
 import ui.UserInterface;
 import users.UserAlreadyExistsException;

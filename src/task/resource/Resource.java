@@ -1,4 +1,4 @@
-package resources;
+package task.resource;
 
 /**
  * This class is a superclass of all resources.

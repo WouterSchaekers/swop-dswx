@@ -1,4 +1,4 @@
-package resources;
+package medicaltest;
 
 /**
  * This class represent treatment by medication.

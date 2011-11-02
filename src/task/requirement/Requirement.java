@@ -1,4 +1,4 @@
-package scheduler;
+package task.requirement;
 
 import java.util.Collection;
 import task.resource.Resource;

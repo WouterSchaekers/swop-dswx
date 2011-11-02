@@ -1,7 +1,8 @@
-package resources;
+package medicaltest;
 
 import java.util.Date;
 import patient.PatientFile;
+import task.resource.Resource;
 
 /**
  * This class represents a medical test.

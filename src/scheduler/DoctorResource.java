@@ -1,6 +1,6 @@
 package scheduler;
 
-import resources.Resource;
+import task.resource.Resource;
 import users.Doctor;
 
 public class DoctorResource extends Resource

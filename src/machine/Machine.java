@@ -1,4 +1,4 @@
-package resources;
+package machine;
 
 /**
  * This class represents a machine in the hospital.

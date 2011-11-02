@@ -1,7 +1,7 @@
 package scheduler;
 
-import resources.Resource;
-import resources.XRayScanner;
+import machine.XRayScanner;
+import task.resource.Resource;
 
 public class XRayScannerResource extends Resource
 {

@@ -2,7 +2,7 @@ package scheduler;
 
 import java.util.Collection;
 import java.util.Date;
-import resources.Resource;
+import task.resource.Resource;
 
 public class ScheduledElement
 {

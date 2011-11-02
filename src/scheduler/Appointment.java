@@ -1,7 +1,7 @@
 package scheduler;
 
 import patient.PatientFile;
-import resources.Resource;
+import task.resource.Resource;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;

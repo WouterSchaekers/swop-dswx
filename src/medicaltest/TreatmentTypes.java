@@ -1,4 +1,4 @@
-package resources;
+package medicaltest;
 
 public enum TreatmentTypes
 {

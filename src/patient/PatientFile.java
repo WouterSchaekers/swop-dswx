@@ -1,8 +1,8 @@
 package patient;
 
 import java.util.Collection;
-import resources.Result;
-import resources.Treatment;
+import medicaltest.Result;
+import medicaltest.Treatment;
 
 /**
  * This class represents the patient file of a patient. It contains all the
