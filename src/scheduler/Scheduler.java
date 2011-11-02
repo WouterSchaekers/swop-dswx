@@ -6,8 +6,7 @@ import machine.Machine;
 import machine.MachinePool;
 import machine.UltraSoundScanner;
 import machine.XRayScanner;
-import resources.*;
-import task.requirement.Requirement;
+import scheduler.Requirement;
 import task.resource.Resource;
 import users.*;
 import patient.PatientFile;
@@ -119,6 +118,7 @@ public class Scheduler
 			Date nextDate = closedHourOfDate(firstAfterNow);
 			scheduledElements.clear();
 			if (satisfied(availableNow, required, scheduledElements)) {
+				System.out.println("satisfied");
 				// XXX: fixed the not adding to the tree
 				for (Resource r : scheduledElements) {
 					this.timeTable.put(new TimePoint(TimeType.stop, new Date(
@@ -186,9 +186,12 @@ public class Scheduler
 			Collection<Resource> scheduledElements) {
 		Collection<Resource> resourcesAv = availableNow;
 		for (Requirement r : required)
-			// XXX: complete isMetBy and removeUsedResoursesFrom
-			if (r.isMetBy(availableNow)) {
-				r.removeUsedResoursesFrom(resourcesAv, scheduledElements);
+			if (r.isMetBy(resourcesAv)) {
+				System.out.println("before: " + resourcesAv.size());
+				ArrayList<ArrayList<Resource>> returnedResources = r.removeUsedResoursesFrom(resourcesAv, scheduledElements);
+				resourcesAv = returnedResources.get(0);
+				scheduledElements = returnedResources.get(1);
+				System.out.println("after: " + resourcesAv.size());
 			} else {
 				scheduledElements.clear();
 				return false;

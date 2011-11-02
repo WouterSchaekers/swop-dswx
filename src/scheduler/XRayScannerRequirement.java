@@ -2,10 +2,9 @@ package scheduler;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import task.requirement.Requirement;
 import task.resource.Resource;
 
-public class XRayScannerRequirement extends Requirement
+public class XRayScannerRequirement extends scheduler.Requirement
 {
 
 	@Override
@@ -17,19 +16,26 @@ public class XRayScannerRequirement extends Requirement
 	}
 
 	@Override
-	public void removeUsedResoursesFrom(Collection<Resource> availableNow,
+	public ArrayList<ArrayList<Resource>> removeUsedResoursesFrom(Collection<Resource> availableNow,
 			Collection<Resource> scheduledElements) {
-		Collection<Resource> newAvailableNow = new ArrayList<Resource>();
-		Collection<Resource> newScheduledElements = new ArrayList<Resource>();
+		ArrayList<Resource> newAvailableNow = new ArrayList<Resource>();
+		ArrayList<Resource> newScheduledElements = new ArrayList<Resource>();
+		boolean removed = false;
 		for (Resource r : availableNow)
-			if (r instanceof XRayScannerResource) {
+			if (r instanceof XRayScannerResource && !removed) {
 				newScheduledElements.add(r);
+				removed = true;
 			}
 			else{
 				newAvailableNow.add(r);
 			}
 		availableNow = newAvailableNow;
 		scheduledElements = newScheduledElements;
+		ArrayList<ArrayList<Resource>> resourcesToReturn = new ArrayList<ArrayList<Resource>>();
+		resourcesToReturn.add(newAvailableNow);
+		resourcesToReturn.add(newScheduledElements);
+		System.out.println("Available after xrayrequirement: " + availableNow.size());
+		return resourcesToReturn;
 	}
 
 }

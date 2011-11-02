@@ -8,7 +8,7 @@ import machine.XRayScanner;
 import org.junit.Before;
 import org.junit.Test;
 import patient.PatientFile;
-import task.requirement.Requirement;
+import scheduler.Requirement;
 import users.UserManager;
 
 public class SchedulerTest
@@ -53,9 +53,8 @@ public class SchedulerTest
 		PatientFile patient = new PatientFile("Jos");
 		for(int i = 0; i < 10; i++){
 			requirements.add(new XRayScannerRequirement());
-			scheduler.addAppointment(patient, requirements, 100);
 		}
-		assertTrue(true);
+		scheduler.addAppointment(patient, requirements, 100);
 	}
 	
 }
