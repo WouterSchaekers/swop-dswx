@@ -12,19 +12,7 @@ public class AspecificResourceRequirement extends Requirement
 		this.r = r;
 	}
 
-	public void removeUsedResoursesFrom(Collection<Resource> resourcesAv,
-			Collection<Resource> scheduledElements) {
-		Collection<Resource> res = new ArrayList<Resource>(resourcesAv);
 
-		for (Resource r : res) {
-			if (r.equals(this.r)) {
-				scheduledElements.add(r);
-				resourcesAv.remove(r);
-			}
-		}
-		return;
-
-	}
 
 	@Override
 	public boolean isMetBy(Collection<Resource> availableNow) {
@@ -37,8 +25,15 @@ public class AspecificResourceRequirement extends Requirement
 	@Override
 	public Collection<Resource> resourcesNeededFrom(
 			Collection<Resource> resourcesAv) {
-		// TODO Auto-generated method stub
-		return null;
+		Collection<Resource> res = new ArrayList<Resource>(resourcesAv);
+		Collection<Resource> usedResources=new ArrayList<Resource>();
+		for (Resource r : res) {
+			if (r.equals(this.r)) {
+				usedResources.add(r);
+				return usedResources;
+			}
+		}
+		return usedResources;
 	}
 
 }
