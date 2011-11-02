@@ -59,7 +59,7 @@ public class SchedulerTest
 		System.out.println(s2.getDate().toString());
 		System.out.println(s3.getDate().toString());
 		System.out.println(s4.getDate().toString());
-		System.out.println("Nurse scheduled at :"+s5.getDate().toString());
+		System.out.println("Nurse scheduled at: " + s5.getDate().toString());
 		System.out.println("done");
 	}
 	
