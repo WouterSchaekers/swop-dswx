@@ -1,6 +1,6 @@
 package ui.ordermedicaltestchain;
 
-import medicaltest.MedicalTestTypes;
+import resources.MedicalTestTypes;
 import ui.UserinterfaceData;
 import ui.usecase;
 
@@ -15,7 +15,6 @@ public class selectMedicalTest extends MedicalTestCommand
 	public usecase Execute() {
 		System.out.println("\nWhich one would you like to order? (please type the name as it appears on your screen)\n");
 		String s = input.nextLine();
-		
 		MedicalTestTypes[] testtypes = MedicalTestTypes.values();
 		
 		for(int i = 0; i < testtypes.length;i++) {
@@ -24,8 +23,17 @@ public class selectMedicalTest extends MedicalTestCommand
 				break;
 			}
 		}
-		//TODO: implement the call of one of 3 followups
-		return null;
+		switch (medData.testOfChoice) {
+		case xrayscan: // xrayscanner case
+			return new XRayScanTest(data,medData);
+		case ultrasoundscan:
+			return new UltraSoundScanTest(data,medData);
+		case bloodanalysis:
+			return new BloodAnalysisTest(data,medData);
+		default:
+			System.out.println("Invalid treatment selected!");
+			return this;
+		}
 	}
 
 }
