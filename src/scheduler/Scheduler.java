@@ -153,7 +153,18 @@ public class Scheduler
 				}
 			}
 			traverser = timeTable.higherKey(traverser);
-
+			used = satisfied( resourcesInSystem, reqs);
+			if(!used.isEmpty()&&traverser==null)
+			{
+				// yeya hotfix
+				for(Resource r : used)
+				{
+					timeTable.put(new TimePoint(TimeType.start, backup.getDate()),r);
+					timeTable.put(new TimePoint(TimeType.start,new Date( backup.getDate().getTime()+duration)),r);
+					
+				}
+				return new ScheduledElement(used, backup.getDate());
+			}
 			if (traverser == null) {
 				Date t = timeTable.lastEntry().getKey().getDate();
 				for (Resource resource : used) {
