@@ -1,7 +1,5 @@
 package medicaltest;
 
-import patient.PatientFile;
-
 public class XRayScan extends MedicalTest
 {
 	// the name of the test, used to determine what kind of test it was later on.
@@ -9,10 +7,12 @@ public class XRayScan extends MedicalTest
 	public static final int DURATION = 15;
 	
 	/**
-	 * Default constructor. Will call MedicalTest("XRayScan")
+	 * Default constructor. Will call MedicalTest("XRayScan",15,patientFile)
 	 */
-	public XRayScan(PatientFile patientFile){
-		super(TESTNAME, DURATION, patientFile);
+	public XRayScan(){
+		super(TESTNAME, DURATION);
 	}
+	
+}
 	
 }
