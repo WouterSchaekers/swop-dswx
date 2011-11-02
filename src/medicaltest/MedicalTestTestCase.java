@@ -1,4 +1,4 @@
-package resources;
+package medicaltest;
 
 import static org.junit.Assert.*;
 import org.junit.Test;

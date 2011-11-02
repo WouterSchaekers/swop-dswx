@@ -1,8 +1,9 @@
-package resources;
+package medicaltest;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import task.resource.Resource;
 
 /**
  * This class is the superclass of all treatments

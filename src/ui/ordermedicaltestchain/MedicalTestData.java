@@ -2,7 +2,7 @@ package ui.ordermedicaltestchain;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import resources.MedicalTestTypes;
+import medicaltest.MedicalTestTypes;
 
 public class MedicalTestData
 {

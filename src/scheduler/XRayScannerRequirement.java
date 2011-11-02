@@ -2,7 +2,8 @@ package scheduler;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import resources.Resource;
+import task.requirement.Requirement;
+import task.resource.Resource;
 
 public class XRayScannerRequirement extends Requirement
 {

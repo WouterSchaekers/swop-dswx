@@ -3,11 +3,12 @@ package scheduler;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import machine.MachinePool;
+import machine.XRayScanner;
 import org.junit.Before;
 import org.junit.Test;
 import patient.PatientFile;
-import resources.MachinePool;
-import resources.XRayScanner;
+import task.requirement.Requirement;
 import users.UserManager;
 
 public class SchedulerTest

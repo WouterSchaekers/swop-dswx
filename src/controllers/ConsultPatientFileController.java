@@ -1,10 +1,10 @@
 package controllers;
 
 import java.util.Collection;
+import medicaltest.Result;
 import patient.Diagnosis;
 import patient.PatientFile;
 import patient.PatientFileManager;
-import resources.Result;
 import users.Doctor;
 import users.User;
 

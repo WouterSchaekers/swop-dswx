@@ -1,7 +1,7 @@
 package scheduler;
 
-import resources.BloodAnalyser;
-import resources.Resource;
+import machine.BloodAnalyser;
+import task.resource.Resource;
 
 public class BloodAnalyzerResource extends Resource
 {

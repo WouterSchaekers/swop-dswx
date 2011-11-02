@@ -1,4 +1,4 @@
-package resources;
+package medicaltest;
 
 /**
  * This class represents a surgical treatment.

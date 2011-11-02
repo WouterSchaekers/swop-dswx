@@ -1,7 +1,14 @@
 package scheduler;
 
 import java.util.*;
+import machine.BloodAnalyser;
+import machine.Machine;
+import machine.MachinePool;
+import machine.UltraSoundScanner;
+import machine.XRayScanner;
 import resources.*;
+import task.requirement.Requirement;
+import task.resource.Resource;
 import users.*;
 import patient.PatientFile;
 

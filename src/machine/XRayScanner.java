@@ -1,4 +1,4 @@
-package resources;
+package machine;
 
 public class XRayScanner extends Machine
 {

@@ -1,4 +1,4 @@
-package resources;
+package medicaltest;
 
 import java.util.Collection;
 

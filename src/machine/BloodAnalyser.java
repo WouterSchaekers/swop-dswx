@@ -1,4 +1,4 @@
-package resources;
+package machine;
 
 public class BloodAnalyser extends Machine
 {
