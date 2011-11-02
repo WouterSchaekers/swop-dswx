@@ -23,16 +23,17 @@ public class SchedulerTest
 		machinepool = new MachinePool();
 		usermanager = new UserManager();
 		machinepool.addMachine(new XRayScanner("main hall"));
+		//machinepool.addMachine(new XRayScanner("main Abra"));
 		scheduler = new Scheduler(usermanager, machinepool);
 	}
 
 	@Test
 	public void ScheduleOneThing() throws ImpossibleToScheduleException {
-		Collection<Requirement> requirements = new ArrayList<Requirement>();
-		requirements.add(new AresourceRequirement(XRayScanner.class));
-		ScheduledElement s = scheduler.find(requirements, 10);
-		System.out.println(s.toString());
-		System.out.println("done");
+//		Collection<Requirement> requirements = new ArrayList<Requirement>();
+//		requirements.add(new AresourceRequirement(XRayScanner.class));
+//		ScheduledElement s = scheduler.find(requirements, 10);
+//		System.out.println(s.toString());
+//		System.out.println("done");
 	}
 
 	@Test
@@ -42,12 +43,13 @@ public class SchedulerTest
 		requirements.add(new AresourceRequirement(XRayScanner.class));
 		requirements2.add(new AresourceRequirement(XRayScanner.class));
 		ScheduledElement s = scheduler.find(requirements, 10000);
-		@SuppressWarnings("unused")
 		ScheduledElement s2 = scheduler.find(requirements2, 20000);
 		ScheduledElement s3 = scheduler.find(requirements2, 10000);
+		ScheduledElement s4 = scheduler.find(requirements2, 10000);
 		System.out.println(s.getDate().toString());
 		System.out.println(s2.getDate().toString());
 		System.out.println(s3.getDate().toString());
+		System.out.println(s4.getDate().toString());
 		System.out.println("done");
 	}
 	
