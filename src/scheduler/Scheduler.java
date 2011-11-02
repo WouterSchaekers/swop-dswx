@@ -23,7 +23,7 @@ public class Scheduler
 	private UserManager userManager;
 	private MachinePool machinePool;
 	private Date startDate;
-	private long startupTime = 1320735600000L;
+	private long startupTime = 1320735600001L;
 
 	/**
 	 * Default constructor will initialise all fields.
@@ -271,12 +271,10 @@ public class Scheduler
 
 	public Date closedHourOfDate(Date date) {
 		long totalTime = date.getTime();
-		long timeToAdd = 60 * 60 * 1000 - totalTime % (60 * 60 * 1000);
-		if (timeToAdd == 60 * 60 * 1000) {
-			return new Date(totalTime);
-		} else {
-			return new Date(timeToAdd + totalTime);
+		while(totalTime % 3600000 != 0){
+			totalTime++;
 		}
+		return new Date(totalTime);
 	}
 
 	private long timeDifference(Date date1, Date date2) {
@@ -336,8 +334,10 @@ public class Scheduler
 	}
 
 	private Date now() {
-		return new Date(startupTime + new Date().getTime()
-				- startDate.getTime());
+		long returntime = startupTime + new Date().getTime()
+				- startDate.getTime();
+//		System.out.println(returntime);
+		return new Date(returntime);
 	}
 
 	/**
