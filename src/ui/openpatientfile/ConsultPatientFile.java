@@ -8,7 +8,6 @@ public class ConsultPatientFile extends usecase
 
 	public ConsultPatientFile(UserinterfaceData data) {
 		super(data);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

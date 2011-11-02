@@ -12,7 +12,6 @@ public class registerPatient extends usecase
 
 	public registerPatient(UserinterfaceData data) {
 		super(data);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -20,7 +19,6 @@ public class registerPatient extends usecase
 	 */
 	@Override
 	public usecase Execute() {
-		// TODO Auto-generated method stub
 		return new CreateRegisterController(data);
 	}
 

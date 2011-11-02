@@ -18,7 +18,6 @@ public class Nurse extends User
 
 	@Override
 	public usertype type() {
-		// TODO Auto-generated method stub
 		return usertype.Nurse;
 	}
 }

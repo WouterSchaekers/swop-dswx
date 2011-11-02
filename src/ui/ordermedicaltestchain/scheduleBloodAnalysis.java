@@ -12,7 +12,6 @@ public class scheduleBloodAnalysis extends MedicalTestCommand
 	public scheduleBloodAnalysis(UserinterfaceData uiData,
 			MedicalTestData medData) {
 		super(uiData, medData);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

@@ -15,7 +15,6 @@ public class displayAllPatients extends usecase
 		super(data);
 		this.rpc=registerpatientcontroller;
 		namePatientMap = new HashMap<String, DTOPatientFile>();
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
