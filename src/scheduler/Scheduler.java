@@ -1,6 +1,7 @@
 package scheduler;
 
 import java.util.*;
+import java.util.concurrent.ArrayBlockingQueue;
 import patient.PatientFile;
 import machine.MachinePool;
 import task.requirement.Requirement;
@@ -68,7 +69,7 @@ public class Scheduler
 	public Appointment addAppointment(PatientFile patient,
 			Collection<Requirement> res, int duration)
 			throws ImpossibleToScheduleException {
-		cleanUp();
+		// cleanUp();
 		ScheduledElement startPointFree = findFreeSlot(res, duration);
 		Collection<Resource> elementsToSchedule = startPointFree.getResources();
 		Date freeDate = startPointFree.getDate();
@@ -106,12 +107,13 @@ public class Scheduler
 		Collection<Resource> availableNow = getResources();
 		Collection<Resource> scheduledNow = getAllScheduledAt(firstAfterNow);
 		Collection<Resource> res = new ArrayList<Resource>();
-		if (!satisfied(availableNow, required, res))
+		Collection<Resource> scheduledAtthisTime = new ArrayList<Resource>();
+		scheduledAtthisTime = satisfied(availableNow, required);
+		if (scheduledAtthisTime.isEmpty())
 			throw new ImpossibleToScheduleException(
 					"there are not enough resources in this hopsital to ever meet your requirements, complain to the hospital admin that you need more stuff!");
-		for(Resource r :res)
-			availableNow.add(r);
-		res=null;
+
+		res = null;
 		for (Resource r : scheduledNow)
 			availableNow.remove(r);
 		TimePoint point = new TimePoint(TimeType.start, firstAfterNow);
@@ -119,10 +121,9 @@ public class Scheduler
 		Collection<Resource> scheduledElements = new ArrayList<Resource>();
 		if (traverser == null) {
 			Date nextDate = closedHourOfDate(firstAfterNow);
-			scheduledElements.clear();
-			if (satisfied(availableNow, required, scheduledElements)) {
-				// XXX: fixed the not adding to the tree
-				for (Resource r : scheduledElements) {
+			scheduledAtthisTime = satisfied(availableNow, required);
+			if (!scheduledAtthisTime.isEmpty()) {
+				for (Resource r : scheduledAtthisTime) {
 					this.timeTable.put(new TimePoint(TimeType.stop, new Date(
 							nextDate.getTime() + duration)), r);
 					this.timeTable.put(new TimePoint(TimeType.start, nextDate),
@@ -135,7 +136,8 @@ public class Scheduler
 			}
 		}
 
-		while (timeDifference(potentialMatch, traverser.getDate()) < duration) {
+		while (timeDifference(potentialMatch, traverser.getDate()) < duration
+				|| traverser != null) {
 			switch (traverser.getType()) {
 			case start:
 				availableNow.remove(this.timeTable.get(traverser));
@@ -144,39 +146,31 @@ public class Scheduler
 				availableNow.add(this.timeTable.get(traverser));
 				break;
 			}
-			if (satisfied(availableNow, required, scheduledElements)) {
-				if (potentialMatch == null) 
-				{
+			scheduledAtthisTime = satisfied(availableNow, required);
+			if (!scheduledAtthisTime.isEmpty()) {
+				if (potentialMatch == null)
 					potentialMatch = new Date(traverser.getTime());
-					traverser = this.timeTable.higherKey(traverser);
-				}else
-				{
-					
-				}
-			} else 
-			{
-				for (Resource resource : scheduledElements) {
-					availableNow.add(resource);
-				}
-				scheduledElements.clear();
-				point = new TimePoint(TimeType.start, potentialMatch);
+				traverser = this.timeTable.higherKey(traverser);
+
+			} else {
+				if (potentialMatch != null)
+					point = new TimePoint(TimeType.start, potentialMatch);
+				else
+					point = traverser;
 				traverser = this.timeTable.higherKey(point);
 				potentialMatch = null;
 			}
+		}
 
-			if (traverser == null) {
-				Date nextDate = closedHourOfDate(firstAfterNow);
-				scheduledElements.clear();
-				if (satisfied(availableNow, required, scheduledElements)) {
-					return new ScheduledElement(scheduledElements, nextDate);
-				} else {
-					throw new ImpossibleToScheduleException(
-							"There are not enough resources available for these requirements.");
-				}
-			}
+		for (Resource r : scheduledAtthisTime) {
+			timeTable.put(new TimePoint(TimeType.start, potentialMatch), r);
+			timeTable.put(
+					new TimePoint(TimeType.stop, new Date(potentialMatch
+							.getTime() + duration)), r);
 
 		}
-		throw new ImpossibleToScheduleException("The scheduler is broken.");
+		return new ScheduledElement(scheduledAtthisTime, new Date(
+				potentialMatch.getTime() + duration));
 	}
 
 	public Date closedHourOfDate(Date date) {
@@ -190,7 +184,7 @@ public class Scheduler
 	}
 
 	private long timeDifference(Date date1, Date date2) {
-		if(date1==null)
+		if (date1 == null)
 			return Long.MIN_VALUE;
 		if (date1.getTime() > date2.getTime())
 			return date1.getTime() - date2.getTime();
@@ -198,19 +192,32 @@ public class Scheduler
 			return date2.getTime() - date1.getTime();
 	}
 
-	private boolean satisfied(Collection<Resource> availableNow,
-			Collection<Requirement> required,
-			Collection<Resource> scheduledElements) {
-		Collection<Resource> resourcesAv = availableNow;
-		for (Requirement r : required)
-			// XXX: complete isMetBy and removeUsedResoursesFrom
-			if (r.isMetBy(availableNow)) {
-				r.removeUsedResoursesFrom(resourcesAv, scheduledElements);
+	/**
+	 * Returns true if the requested resources can be satisfied by the set of
+	 * currently available resources. This method returns the elements that are
+	 * required to schedule those resources.
+	 * 
+	 * @param availableNow
+	 * @param required
+	 * @return empty collection if the requirements can not be met a collection
+	 *         with all the needed resources for the given requirements
+	 */
+	private Collection<Resource> satisfied(Collection<Resource> availableNow,
+			Collection<Requirement> required) {
+		Collection<Resource> avResHere = new ArrayList<Resource>(availableNow);
+		Collection<Resource> scheduledElementsTemp = new ArrayList<Resource>();
+		for (Requirement r : required) {
+			if (r.isMetBy(avResHere)) {
+				for (Resource s : r.resourcesNeededFrom(avResHere)) {
+					scheduledElementsTemp.add(s);
+					avResHere.remove(s);
+				}
 			} else {
-				scheduledElements.clear();
-				return false;
+				scheduledElementsTemp.clear();
+				return scheduledElementsTemp;
 			}
-		return true;
+		}
+		return scheduledElementsTemp;
 	}
 
 	private Collection<Resource> getAllScheduledAt(Date now) {
@@ -218,8 +225,7 @@ public class Scheduler
 		if (timeTable.size() == 0)
 			return scheduledResources;
 		TimePoint traverser = timeTable.firstKey();
-		while (traverser != null && now.after(traverser.getDate())) 
-		{
+		while (traverser != null && !traverser.getDate().before(now)) {
 			switch (traverser.getType()) {
 			case start:
 				scheduledResources.add(timeTable.get(traverser));
@@ -275,11 +281,10 @@ public class Scheduler
 			Resource curResource = timeTable.get(curTimePoint);
 			if (curTimePoint.getType() == TimeType.start) {
 				startResources.put(curResource, curTimePoint);
-			} else 
-			{
-				if (startResources.containsKey(curResource)) 
-				{
-					TimePoint correspondingTimePoint = startResources.get(curResource);
+			} else {
+				if (startResources.containsKey(curResource)) {
+					TimePoint correspondingTimePoint = startResources
+							.get(curResource);
 					timeTable.remove(curTimePoint);
 					timeTable.remove(correspondingTimePoint);
 				}
