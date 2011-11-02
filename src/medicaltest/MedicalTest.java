@@ -11,7 +11,6 @@ public abstract class MedicalTest extends Resource
 {	
 	// all childclasses will have their names be final and static and will use this var to store that information in.
 	private String testName = "";
-	private PatientFile patientFile;
 	private Date date;
 	
 	/**
@@ -19,10 +18,8 @@ public abstract class MedicalTest extends Resource
 	 * @param name
 	 * The name of this medical test.
 	 */
-	public MedicalTest(String name, int duration, PatientFile patientFile) {
-		this.testName = name;
-		this.patientFile = patientFile;
-		
+	public MedicalTest(String name, int duration) {
+		this.testName = name;		
 	}
  
 	/**
@@ -46,13 +43,6 @@ public abstract class MedicalTest extends Resource
 	 */
 	public void setDate(Date date) {
 		this.date = date;
-	}
-	
-	/**
-	 * @return The patientfile to whom this medical test belongs to.
-	 */
-	public PatientFile getPatientFile() {
-		return this.patientFile;
 	}
 	
 }
