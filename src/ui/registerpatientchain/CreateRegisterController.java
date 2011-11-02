@@ -14,7 +14,6 @@ public class CreateRegisterController extends usecase
 
 	public CreateRegisterController(UserinterfaceData data) {
 		super(data);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

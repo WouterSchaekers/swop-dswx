@@ -22,7 +22,6 @@ public class DTOPatientFile
 		return name();
 	}
 	public boolean isDischarged() {
-		// TODO Auto-generated method stub
 		return file.isDischarged();
 	}
 }

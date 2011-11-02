@@ -10,7 +10,6 @@ public class CreateNewPatient extends usecase
 	public CreateNewPatient(UserinterfaceData data, RegisterPatientController rpc) {
 		super(data);
 		this.rpc=rpc;
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

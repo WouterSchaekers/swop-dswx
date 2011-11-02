@@ -17,7 +17,6 @@ public class EnterPatientName extends usecase
 		super(data);
 		this.namePatientMap = namePatientMap;
 		this.rpc = rpc;
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -44,7 +43,6 @@ public class EnterPatientName extends usecase
 		default:
 				
 		}
-		// TODO Auto-generated method stub
 		return this;
 	}
 }

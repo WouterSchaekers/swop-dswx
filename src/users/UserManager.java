@@ -58,12 +58,10 @@ public class UserManager
 	}
 
 	public String getDoctors() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	public Doctor getDoctor(String doctorName) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
