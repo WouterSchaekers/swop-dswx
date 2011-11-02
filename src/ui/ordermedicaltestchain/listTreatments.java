@@ -12,6 +12,7 @@ public class listTreatments extends MedicalTestCommand
 
 	@Override
 	public usecase Execute() {
+		// list all treatments and continue
 		System.out.println("Possible treatments are:\n");
 		System.out.println(medData.types);
 		return new selectMedicalTest(data,medData);

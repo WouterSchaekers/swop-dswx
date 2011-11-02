@@ -15,6 +15,7 @@ public class checkPatientStatus extends MedicalTestCommand
 
 	@Override
 	public usecase Execute() {
+		// check if the patient is not discharged at this moment.
 		PatientFileOpenController pfoc = data.getPatientFileOpenController();
 		DTOPatientFile pf = pfoc.getPatientFile();
 		if(!pf.isDischarged())

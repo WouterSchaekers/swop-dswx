@@ -15,6 +15,7 @@ public class orderMedicalTest extends MedicalTestCommand
 
 	@Override
 	public usecase Execute() {
+		// check if the person initiating this chain is allowed to.
 		if (data.getLoginController().getUserDTO().type() == usertype.Doctor) {
 			return new PatientFileOpenChecker(data, medData);
 		} else {

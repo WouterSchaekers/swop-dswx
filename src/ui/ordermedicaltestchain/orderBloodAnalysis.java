@@ -1,5 +1,6 @@
 package ui.ordermedicaltestchain;
 
+import help.ValidUseCaseInputChecker;
 import ui.UserinterfaceData;
 import ui.usecase;
 
@@ -14,45 +15,29 @@ public class orderBloodAnalysis extends MedicalTestCommand
 	public usecase Execute() {
 		String in = "";
 		
-		// ask for some input.
+		// FOCUS
 		System.out.println("What would you like to focus on in the tests? ");	
 		in = input.nextLine();
 		System.out.println("\n");
 		
-		// check if the input is valid.
-		if (in.isEmpty()) {
-			System.out.println("You did not specify any focusses.");
+		if(ValidUseCaseInputChecker.isValidStringResponse(in))
+			medData.setFocus(in);
+		else {
+			System.out.println("You did not specify a valid focus!");
 			return this;
 		}
-		try {
-			Integer.parseInt(in);
-		} catch (NumberFormatException e) {
-			System.out.println("You specified something numeric and not a focus.");
-			return this;
-		}
-		medData.setFocus(in); // set the input
-		
-		// ask for more input.
+				
+		// AMOUNT OF ANALYSIS
 		System.out.println("How many analyses would you like to make? ");
 		in = (input.nextLine());
 		System.out.println("\n");
 		
-		//check if the input is valid.
-		if (in.isEmpty()) {
-			System.out.println("You did not specify an amount of analyses.");
+		if(ValidUseCaseInputChecker.isNumeric(in))
+			medData.setAmount(Integer.parseInt(in));
+		else {
+			System.out.println("Invalid amount of analyses!");
 			return this;
 		}
-		try {
-			int i = Integer.parseInt(in);
-			if (i<=0) {
-				System.out.println("Please specify an amount > 0");
-				return this;
-			}
-		} catch (NumberFormatException e) {
-			System.out.println("You specified something non-numeric.");
-			return this;
-		}
-		medData.setAmount(Integer.parseInt(in)); //set the input
 	
 		return new scheduleBloodAnalysis(data,medData);
 	}
