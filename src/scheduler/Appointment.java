@@ -71,5 +71,8 @@ public class Appointment
 	public Date getDate(){
 		return date;
 	}
-
+	@Override
+	public String toString(){
+		return "Appointment: start at: " +this.date.toString();
+	}
 }

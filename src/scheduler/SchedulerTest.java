@@ -55,7 +55,13 @@ public class SchedulerTest
 		PatientFile patient = new PatientFile("Jos");
 		requirements.add(new AresourceRequirement(XRayScanner.class));
 		requirements.add(new AresourceRequirement(XRayScanner.class));
-		scheduler.addAppointment(patient, requirements, 100);
+		Collection<Appointment> aps=new ArrayList<Appointment>();
+		for(int i = 0; i < 20;i++)
+		{
+			aps.add(scheduler.addAppointment(patient, requirements, 100));
+		}
+		for(Appointment a : aps)
+			System.out.println(a);
 		
 		assertTrue(true);
 	}
