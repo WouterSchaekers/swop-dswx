@@ -37,8 +37,10 @@ public class PatientFileManager
 	 *            The name of the new patient.
 	 * @return The patientfile for the new patient.
 	 */
-	public void registerPatient(String name) {
-		patientFiles.add(new PatientFile(name));
+	public PatientFile registerPatient(String name) {
+		PatientFile pf = new PatientFile(name);
+		patientFiles.add(pf);
+		return pf;
 	}
 	
 	/**
@@ -104,12 +106,10 @@ public class PatientFileManager
 		return null;
 	}
 	
-	/**
-	 * 
-	 * @param pf
-	 * @return
-	 */
+
 	public boolean patientIsDischarged(PatientFile pf) {
-		return pf.isDischarged();
+		if(this.containsFileOf(pf))
+			return pf.isDischarged();
+		else throw new IllegalStateException("PatientFile not in pfm!");
 	}
 }
