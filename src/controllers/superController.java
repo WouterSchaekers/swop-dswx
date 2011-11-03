@@ -6,15 +6,7 @@ package controllers;
 public class superController
 {
 
-	protected LoginController lc; // the logincontroller for this
-									// supercontroller and it's children.
-
-	/**
-	 * Use of empty consturctor is <B>NOT</B> allowed!
-	 */
-	@SuppressWarnings("unused")
-	private superController() {
-	}
+	protected LoginController lc; // the logincontroller for this supercontroller and it's children.
 
 	/**
 	 * Default constructor.

@@ -1,28 +1,13 @@
-/**
- * 
- */
 package controllers;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import machine.MachinePool;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import patient.PatientFile;
 import patient.PatientFileManager;
 import scheduler.Scheduler;
-import users.Nurse;
-import users.User;
-import users.UserAlreadyExistsException;
-import users.UserManager;
-import users.User.usertype;
+import users.*;
 
-/**
- * @author Logan
- *
- */
 public class CheckinControllerTests
 {
 
@@ -36,9 +21,7 @@ public class CheckinControllerTests
 	private MachinePool mp;
 	private DataPasser data;
 	private PatientFile pf;
-	/**
-	 * @throws java.lang.Exception
-	 */
+	
 	@Before
 	public void setUp() {
 		pfm = new PatientFileManager();
@@ -87,9 +70,6 @@ public class CheckinControllerTests
 		cic = new CheckinController(lc, pfm);
 	}
 	
-	
-	
-	
 	@Test
 	public void checkInSucces(){
 
@@ -108,7 +88,25 @@ public class CheckinControllerTests
 		assertTrue(!pf.isDischarged());
 	}
 	
+	@Test(expected = IllegalStateException.class)
 	public void checkInFail(){
+		pfm = new PatientFileManager();
+		um = new UserManager();
+		mp = new MachinePool();
+		s = new Scheduler(um, mp);
+		data = new DataPasser(um, pfm, s);
+		lc = new LoginController(data);
+		
+		n = new Nurse("Nina");
+		uDTO = new DTOUser(n);
+		lc.logIn(uDTO);
+		pf = new PatientFile("Katrien");
+		cic = new CheckinController(lc, pfm);
+		pfm.patientIsDischarged(pf);
+	}
+	
+	@Test
+	public void checkInNewPatientSucces(){
 		pfm = new PatientFileManager();
 		um = new UserManager();
 		mp = new MachinePool();
@@ -118,24 +116,13 @@ public class CheckinControllerTests
 		n = new Nurse("Nina");
 		uDTO = new DTOUser(n);
 		lc.logIn(uDTO);
-		pf = new PatientFile("Katrien");
+		
 		cic = new CheckinController(lc, pfm);
-		assertTrue(pf.isDischarged());
-	}
-
-	public void checkInNewPatientSucces(){
-		pfm = new PatientFileManager();
-		um = new UserManager();
-		mp = new MachinePool();
-		s = new Scheduler(um, mp);
-		data = new DataPasser(um, pfm, s);
-		lc = new LoginController(data);
-		cic = new CheckinController(lc, pfm);
-		pf = new PatientFile("Katrien");
-		cic.signUpNewPatient("Katrien");
-		assertTrue(pfm.containsFileOf(pf));
+		PatientFile p = cic.signUpNewPatient("Katrien");
+		assertTrue(pfm.containsFileOf(p) && !pfm.patientIsDischarged(p));
 	}
 	
+	@Test(expected = IllegalStateException.class)
 	public void CheckInNewPatientFail(){
 		pfm = new PatientFileManager();
 		um = new UserManager();
@@ -143,9 +130,13 @@ public class CheckinControllerTests
 		s = new Scheduler(um, mp);
 		data = new DataPasser(um, pfm, s);
 		lc = new LoginController(data);
+		n = new Nurse("Nina");
+		uDTO = new DTOUser(n);
+		lc.logIn(uDTO);
+		
 		cic = new CheckinController(lc, pfm);
-		cic.signUpNewPatient("Katrien");
 		PatientFile pf2 = new PatientFile("Stefaan");
-		assertTrue(pfm.containsFileOf(pf2));
+		pfm.patientIsDischarged(pf2);
 	}
+
 }
