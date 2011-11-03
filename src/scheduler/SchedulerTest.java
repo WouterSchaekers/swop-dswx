@@ -1,12 +1,8 @@
 package scheduler;
 
 import static org.junit.Assert.*;
-import java.sql.Array;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Map;
 import machine.BloodAnalyser;
 import machine.MachinePool;
 import machine.XRayScanner;
@@ -14,7 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 import patient.PatientFile;
 import task.requirement.AresourceRequirement;
-import task.requirement.AspecificResourceRequirement;
 import task.requirement.Requirement;
 import users.Nurse;
 import users.UserAlreadyExistsException;
@@ -32,12 +27,12 @@ public class SchedulerTest
 	public void intialize() {
 		machinepool = new MachinePool();
 		usermanager = new UserManager();
-		try{
+		try {
 			testNurse = usermanager.CreateNurse("jenny");
 			patient = new PatientFile("Jos");
-		}
-		catch (UserAlreadyExistsException e){
-			System.out.println("The system is horribly broken. The developpers should cry in the corner and kill themselves.");
+		} catch (UserAlreadyExistsException e) {
+			System.out
+					.println("The system is horribly broken. The developpers should cry in the corner and kill themselves.");
 		}
 		machinepool.addMachine(new XRayScanner("Main Hall"));
 		machinepool.addMachine(new XRayScanner("Stefaan's place"));
@@ -46,9 +41,9 @@ public class SchedulerTest
 
 	@Test
 	public void ScheduleOneThing() throws ImpossibleToScheduleException {
-		 Collection<Requirement> requirements = new ArrayList<Requirement>();
-		 requirements.add(new AresourceRequirement(XRayScanner.class));
-		 scheduler.addAppointment(patient, requirements, 1000);
+		Collection<Requirement> requirements = new ArrayList<Requirement>();
+		requirements.add(new AresourceRequirement(XRayScanner.class));
+		scheduler.addAppointment(patient, requirements, 1000);
 	}
 
 	@Test
@@ -69,7 +64,8 @@ public class SchedulerTest
 		}
 	}
 
-	@Test(expected = ImpossibleToScheduleException.class)
+	@Test(
+			expected = ImpossibleToScheduleException.class)
 	public void TooMuchXRayRequirements() throws ImpossibleToScheduleException {
 		Collection<Requirement> requirements = new ArrayList<Requirement>();
 		requirements.add(new AresourceRequirement(XRayScanner.class));
@@ -78,7 +74,8 @@ public class SchedulerTest
 		scheduler.addAppointment(patient, requirements, 1000);
 	}
 
-	@Test(expected = ImpossibleToScheduleException.class)
+	@Test(
+			expected = ImpossibleToScheduleException.class)
 	public void UnavailableRequirement() throws ImpossibleToScheduleException {
 		Collection<Requirement> requirements = new ArrayList<Requirement>();
 		requirements.add(new AresourceRequirement(XRayScanner.class));
@@ -86,22 +83,26 @@ public class SchedulerTest
 		requirements.add(new AresourceRequirement(BloodAnalyser.class));
 		scheduler.addAppointment(patient, requirements, 1000);
 	}
-	
-	@Test(expected = NullPointerException.class)
-	public void ScheduleNullObjects() throws ImpossibleToScheduleException{
+
+	@Test(
+			expected = NullPointerException.class)
+	public void ScheduleNullObjects() throws ImpossibleToScheduleException {
 		Collection<Requirement> requirements = new ArrayList<Requirement>();
 		requirements.add(null);
 		scheduler.addAppointment(patient, requirements, 1000);
 	}
-	
+
 	@Test
-	public void scheduleSameDuration() throws ImpossibleToScheduleException{
+	public void scheduleSameDuration() throws ImpossibleToScheduleException {
 		Collection<Requirement> requirements = new ArrayList<Requirement>();
 		requirements.add(new AresourceRequirement(XRayScanner.class));
 		requirements.add(new AresourceRequirement(XRayScanner.class));
-		Appointment appointment1 = scheduler.addAppointment(patient, requirements, 1000);
-		Appointment appointment2 = scheduler.addAppointment(patient, requirements, 1000);
-		assertTrue(appointment1.getDate().getTime() == appointment2.getDate().getTime() - 1000);
+		Appointment appointment1 = scheduler.addAppointment(patient,
+				requirements, 1000);
+		Appointment appointment2 = scheduler.addAppointment(patient,
+				requirements, 1000);
+		assertTrue(appointment1.getDate().getTime() == appointment2.getDate()
+				.getTime() - 1000);
 	}
 
 }
