@@ -3,12 +3,14 @@
  */
 package controllers;
 
+import static org.junit.Assert.assertTrue;
 import machine.MachinePool;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import patient.PatientFile;
 import patient.PatientFileManager;
 import scheduler.Scheduler;
 import users.Nurse;
@@ -24,15 +26,16 @@ import users.User.usertype;
 public class CheckinControllerTests
 {
 
-	PatientFileManager pfm;
-	CheckinController cic;
-	UserManager um;
-	LoginController lc;
-	DataPasser d;
-	PatientFileManager p;
-	Scheduler s;
-	Nurse n;
-	UserDTO uDTO;
+	private PatientFileManager pfm;
+	private CheckinController cic;
+	private UserManager um;
+	private LoginController lc;
+	private Scheduler s;
+	private Nurse n;
+	private DTOUser uDTO;
+	private MachinePool mp;
+	private DataPasser data;
+	private PatientFile pf;
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -71,17 +74,16 @@ public class CheckinControllerTests
 	}
 	
 	@Test
-	public void creationSucces() throws UserAlreadyExistsException{
+	public void creationSucces() {
 		um = new UserManager();
 		pfm = new PatientFileManager();
 		n = new Nurse("Nina");
-		uDTO = new UserDTO(n);
+		uDTO = new DTOUser(n);
 		MachinePool mp = new MachinePool();
 		s = new Scheduler(um, mp);
 		DataPasser data = new DataPasser(um, pfm, s);
 		lc = new LoginController(data);
 		lc.logIn(uDTO);
-		System.out.println(lc.getUser().type());
 		cic = new CheckinController(lc, pfm);
 	}
 	
@@ -89,9 +91,61 @@ public class CheckinControllerTests
 	
 	
 	@Test
+	public void checkInSucces(){
+
+		pfm = new PatientFileManager();
+		um = new UserManager();
+		mp = new MachinePool();
+		s = new Scheduler(um, mp);
+		data = new DataPasser(um, pfm, s);
+		lc = new LoginController(data);
+		n = new Nurse("Nina");
+		uDTO = new DTOUser(n);
+		lc.logIn(uDTO);
+		pf = new PatientFile("Katrien");
+		cic = new CheckinController(lc, pfm);
+		cic.checkIn(pf);
+		assertTrue(!pf.isDischarged());
+	}
+	
 	public void checkInFail(){
 		pfm = new PatientFileManager();
-		
+		um = new UserManager();
+		mp = new MachinePool();
+		s = new Scheduler(um, mp);
+		data = new DataPasser(um, pfm, s);
+		lc = new LoginController(data);
+		n = new Nurse("Nina");
+		uDTO = new DTOUser(n);
+		lc.logIn(uDTO);
+		pf = new PatientFile("Katrien");
+		cic = new CheckinController(lc, pfm);
+		assertTrue(pf.isDischarged());
 	}
 
+	public void checkInNewPatientSucces(){
+		pfm = new PatientFileManager();
+		um = new UserManager();
+		mp = new MachinePool();
+		s = new Scheduler(um, mp);
+		data = new DataPasser(um, pfm, s);
+		lc = new LoginController(data);
+		cic = new CheckinController(lc, pfm);
+		pf = new PatientFile("Katrien");
+		cic.signUpNewPatient("Katrien");
+		assertTrue(pfm.containsFileOf(pf));
+	}
+	
+	public void CheckInNewPatientFail(){
+		pfm = new PatientFileManager();
+		um = new UserManager();
+		mp = new MachinePool();
+		s = new Scheduler(um, mp);
+		data = new DataPasser(um, pfm, s);
+		lc = new LoginController(data);
+		cic = new CheckinController(lc, pfm);
+		cic.signUpNewPatient("Katrien");
+		PatientFile pf2 = new PatientFile("Stefaan");
+		assertTrue(pfm.containsFileOf(pf2));
+	}
 }
