@@ -30,7 +30,7 @@ public class MedicalSuperController extends superController
 	public MedicalSuperController(LoginController lc, ConsultPatientFileController cpf)
 			throws IllegalArgumentException {
 		super(lc);
-		if (cpf.equals(null))
+		if (cpf == null)
 			throw new IllegalArgumentException("cpf is null!");
 		this.cpf = cpf;
 	}
