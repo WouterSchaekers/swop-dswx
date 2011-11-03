@@ -1,8 +1,12 @@
 package scheduler;
 
 import static org.junit.Assert.*;
+import java.sql.Array;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 import machine.BloodAnalyser;
 import machine.MachinePool;
 import machine.XRayScanner;
@@ -88,6 +92,16 @@ public class SchedulerTest
 		Collection<Requirement> requirements = new ArrayList<Requirement>();
 		requirements.add(null);
 		scheduler.addAppointment(patient, requirements, 1000);
+	}
+	
+	@Test
+	public void scheduleSameDuration() throws ImpossibleToScheduleException{
+		Collection<Requirement> requirements = new ArrayList<Requirement>();
+		requirements.add(new AresourceRequirement(XRayScanner.class));
+		requirements.add(new AresourceRequirement(XRayScanner.class));
+		Appointment appointment1 = scheduler.addAppointment(patient, requirements, 1000);
+		Appointment appointment2 = scheduler.addAppointment(patient, requirements, 1000);
+		assertTrue(appointment1.getDate().getTime() == appointment2.getDate().getTime() - 1000);
 	}
 
 }
