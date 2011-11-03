@@ -41,74 +41,46 @@ public class SchedulerTest
 	}
 
 	@Test
-	public void ScheduleOneThing() {
+	public void ScheduleOneThing() throws ImpossibleToScheduleException {
 		 Collection<Requirement> requirements = new ArrayList<Requirement>();
 		 requirements.add(new AresourceRequirement(XRayScanner.class));
-		 boolean exception = false;
-		 try{
-			 scheduler.addAppointment(patient, requirements, 1000);
-		 }
-		 catch (ImpossibleToScheduleException e){
-			 exception = true;
-		 }
-		 assertFalse(exception);
+		 scheduler.addAppointment(patient, requirements, 1000);
 	}
 
 	@Test
-	public void ScheduleTwoThings() {
+	public void ScheduleTwoThings() throws ImpossibleToScheduleException {
 		Collection<Requirement> requirements = new ArrayList<Requirement>();
-		Collection<Requirement> requirements2 = new ArrayList<Requirement>();
-		Collection<Requirement> requirements3 = new ArrayList<Requirement>();
 		requirements.add(new AresourceRequirement(XRayScanner.class));
-		requirements2.add(new AresourceRequirement(XRayScanner.class));
-		requirements3.add(new AspecificResourceRequirement(testNurse));
+		requirements.add(new AresourceRequirement(XRayScanner.class));
+		scheduler.addAppointment(patient, requirements, 1000);
 	}
 
 	@Test
-	public void ScheduleTwentyThings() {
+	public void ScheduleTwentyThings() throws ImpossibleToScheduleException {
 		Collection<Requirement> requirements = new ArrayList<Requirement>();
 		requirements.add(new AresourceRequirement(XRayScanner.class));
 		requirements.add(new AresourceRequirement(XRayScanner.class));
-		boolean exception = false;
 		for (int i = 0; i < 20; i++) {
-			try{
-				scheduler.addAppointment(patient, requirements, 10000);
-			}
-			catch(ImpossibleToScheduleException e){
-				exception = true;
-			}
+			scheduler.addAppointment(patient, requirements, 1000);
 		}
-		assertFalse(exception);
 	}
 
-	@Test
-	public void TooMuchXRayRequirements() {
+	@Test(expected = ImpossibleToScheduleException.class)
+	public void TooMuchXRayRequirements() throws ImpossibleToScheduleException {
 		Collection<Requirement> requirements = new ArrayList<Requirement>();
 		requirements.add(new AresourceRequirement(XRayScanner.class));
 		requirements.add(new AresourceRequirement(XRayScanner.class));
 		requirements.add(new AresourceRequirement(XRayScanner.class));
-		boolean exception = false;
-		try {
-			scheduler.addAppointment(patient, requirements, 900000);
-		} catch (ImpossibleToScheduleException e) {
-			exception = true;
-		}
-		assertTrue(exception);
+		scheduler.addAppointment(patient, requirements, 900000);
 	}
 
-	@Test
-	public void UnavailableRequirement() {
+	@Test(expected = ImpossibleToScheduleException.class)
+	public void UnavailableRequirement() throws ImpossibleToScheduleException {
 		Collection<Requirement> requirements = new ArrayList<Requirement>();
 		requirements.add(new AresourceRequirement(XRayScanner.class));
 		requirements.add(new AresourceRequirement(XRayScanner.class));
 		requirements.add(new AresourceRequirement(BloodAnalyser.class));
-		boolean exception = false;
-		try {
-			scheduler.addAppointment(patient, requirements, 900000);
-		} catch (ImpossibleToScheduleException e) {
-			exception = true;
-		}
-		assertTrue(exception);
+		scheduler.addAppointment(patient, requirements, 900000);
 	}
 
 }
