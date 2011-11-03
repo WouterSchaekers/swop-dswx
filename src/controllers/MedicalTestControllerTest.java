@@ -18,9 +18,9 @@ public class MedicalTestControllerTest
 	PatientFileManager pfm;
 	Scheduler scheduler;
 	TaskManager tm;
-	
+
 	@Before
-	public void setUp(){
+	public void setUp() {
 		usm = new UserManager();
 		mp = new MachinePool();
 		u = new Doctor("Dude");
@@ -29,89 +29,98 @@ public class MedicalTestControllerTest
 		scheduler = new Scheduler(usm, mp);
 		tm = new TaskManager(scheduler);
 	}
-	
-	@Test(expected = IllegalArgumentException.class)
-	public void creationFail() throws IllegalArgumentException{
+
+	@Test(
+			expected = IllegalArgumentException.class)
+	public void creationFail() throws IllegalArgumentException {
 		Scheduler scheduler = new Scheduler(usm, mp);
 		DataPasser dp = new DataPasser(usm, pfm, scheduler);
 		LoginController lc = new LoginController(dp);
 		lc.logIn(dtouser);
 		new MedicalTestController(lc, null, dp, tm);
 	}
-	
-	@Test(expected = IllegalArgumentException.class)
-	public void creationFail2() throws IllegalArgumentException{
+
+	@Test(
+			expected = IllegalArgumentException.class)
+	public void creationFail2() throws IllegalArgumentException {
 		DataPasser dp = new DataPasser(usm, pfm, scheduler);
 		LoginController lc = new LoginController(dp);
 		lc.logIn(dtouser);
 		PatientFileOpenController pfoc = new PatientFileOpenController(dp, lc);
-		ConsultPatientFileController cpfc = new ConsultPatientFileController(pfm, u, lc, pfoc);
+		ConsultPatientFileController cpfc = new ConsultPatientFileController(
+				pfm, u, lc, pfoc);
 		new MedicalTestController(null, cpfc, dp, tm);
 	}
-	
-	@Test(expected = NullPointerException.class)
-	public void creationFail3() throws IllegalArgumentException{
+
+	@Test(
+			expected = NullPointerException.class)
+	public void creationFail3() throws IllegalArgumentException {
 		Scheduler scheduler = new Scheduler(usm, mp);
 		DataPasser dp = new DataPasser(usm, pfm, scheduler);
 		LoginController lc = new LoginController(dp);
 		PatientFileOpenController pfoc = new PatientFileOpenController(dp, lc);
-		ConsultPatientFileController cpfc = new ConsultPatientFileController(pfm, u, lc, pfoc);
+		ConsultPatientFileController cpfc = new ConsultPatientFileController(
+				pfm, u, lc, pfoc);
 		new MedicalTestController(lc, cpfc, dp, tm);
 	}
-	
+
 	@Test
-	public void creationSuccess(){
+	public void creationSuccess() {
 		Scheduler scheduler = new Scheduler(usm, mp);
 		DataPasser dp = new DataPasser(usm, pfm, scheduler);
 		LoginController lc = new LoginController(dp);
 		lc.logIn(dtouser);
 		PatientFileOpenController pfoc = new PatientFileOpenController(dp, lc);
-		ConsultPatientFileController cpfc = new ConsultPatientFileController(pfm, u, lc, pfoc);
+		ConsultPatientFileController cpfc = new ConsultPatientFileController(
+				pfm, u, lc, pfoc);
 		new MedicalTestController(lc, cpfc, dp, tm);
 	}
-	
+
 	@Test
-	public void orderXRay(){
+	public void orderXRay() {
 		Scheduler scheduler = new Scheduler(usm, mp);
 		DataPasser dp = new DataPasser(usm, pfm, scheduler);
 		LoginController lc = new LoginController(dp);
 		lc.logIn(dtouser);
 		PatientFileOpenController pfoc = new PatientFileOpenController(dp, lc);
-		ConsultPatientFileController cpfc = new ConsultPatientFileController(pfm, u, lc, pfoc);
+		ConsultPatientFileController cpfc = new ConsultPatientFileController(
+				pfm, u, lc, pfoc);
 		MedicalTestController mtc = new MedicalTestController(lc, cpfc, dp, tm);
 		String bodypart = "Bionic eye";
 		int amountOfImages = 666;
 		int zoomLevel = 100;
 		mtc.orderXRay(bodypart, amountOfImages, zoomLevel);
 	}
-	
+
 	@Test
-	public void orderUltraSound(){
+	public void orderUltraSound() {
 		Scheduler scheduler = new Scheduler(usm, mp);
 		DataPasser dp = new DataPasser(usm, pfm, scheduler);
 		LoginController lc = new LoginController(dp);
 		lc.logIn(dtouser);
 		PatientFileOpenController pfoc = new PatientFileOpenController(dp, lc);
-		ConsultPatientFileController cpfc = new ConsultPatientFileController(pfm, u, lc, pfoc);
+		ConsultPatientFileController cpfc = new ConsultPatientFileController(
+				pfm, u, lc, pfoc);
 		MedicalTestController mtc = new MedicalTestController(lc, cpfc, dp, tm);
 		String focus = "Bionic eye";
 		boolean recVid = false;
 		boolean recImg = false;
 		mtc.orderUltraSound(focus, recVid, recImg);
 	}
-	
+
 	@Test
-	public void orderBloodAnalysis(){
+	public void orderBloodAnalysis() {
 		Scheduler scheduler = new Scheduler(usm, mp);
 		DataPasser dp = new DataPasser(usm, pfm, scheduler);
 		LoginController lc = new LoginController(dp);
 		lc.logIn(dtouser);
 		PatientFileOpenController pfoc = new PatientFileOpenController(dp, lc);
-		ConsultPatientFileController cpfc = new ConsultPatientFileController(pfm, u, lc, pfoc);
+		ConsultPatientFileController cpfc = new ConsultPatientFileController(
+				pfm, u, lc, pfoc);
 		MedicalTestController mtc = new MedicalTestController(lc, cpfc, dp, tm);
 		String focus = "Bionic eye";
 		int amount = 100;
 		mtc.orderBloodAnalysis(focus, amount);
 	}
-	
+
 }
