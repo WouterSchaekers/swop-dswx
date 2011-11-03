@@ -48,7 +48,7 @@ public class MedicalTestControllerTest
 		new MedicalTestController(null, cpfc, dp);
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = NullPointerException.class)
 	public void creationFail3() throws IllegalArgumentException{
 		Scheduler scheduler = new Scheduler(usm, mp);
 		DataPasser dp = new DataPasser(usm, pfm, scheduler);
