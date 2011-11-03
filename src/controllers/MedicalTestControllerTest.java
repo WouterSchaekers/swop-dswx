@@ -30,8 +30,7 @@ public class MedicalTestControllerTest
 		tm = new TaskManager(scheduler);
 	}
 
-	@Test(
-			expected = IllegalArgumentException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void creationFail() throws IllegalArgumentException {
 		Scheduler scheduler = new Scheduler(usm, mp);
 		DataPasser dp = new DataPasser(usm, pfm, scheduler);
@@ -40,8 +39,7 @@ public class MedicalTestControllerTest
 		new MedicalTestController(lc, null, dp, tm);
 	}
 
-	@Test(
-			expected = IllegalArgumentException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void creationFail2() throws IllegalArgumentException {
 		DataPasser dp = new DataPasser(usm, pfm, scheduler);
 		LoginController lc = new LoginController(dp);
@@ -52,8 +50,7 @@ public class MedicalTestControllerTest
 		new MedicalTestController(null, cpfc, dp, tm);
 	}
 
-	@Test(
-			expected = NullPointerException.class)
+	@Test(expected = NullPointerException.class)
 	public void creationFail3() throws IllegalArgumentException {
 		Scheduler scheduler = new Scheduler(usm, mp);
 		DataPasser dp = new DataPasser(usm, pfm, scheduler);
