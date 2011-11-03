@@ -10,17 +10,8 @@ import medicaltest.Result;
  */
 public class MedicalTestController extends MedicalSuperController
 {
-
 	private TaskManager t;
 	
-	/**
-	 * Use of empty constructor is <B>NOT</B> allowed!
-	 */
-	private MedicalTestController(TaskManager t) {
-		super(null, null);
-		this.t = t;
-	}
-
 	/**
 	 * Default constructor.
 	 * 
@@ -64,16 +55,6 @@ public class MedicalTestController extends MedicalSuperController
 	 */
 	public Appointment orderBloodAnalysis(String focus, int amountOfAnalyses) {
 		return t.scheduldeBloodAnalysis(focus, amountOfAnalyses);
-	}
-	
-	/**
-	 * @param m
-	 *            The medicaltest whose result needs to be fetched.
-	 * @return The result of an executed medical test.
-	 */
-	public Result getResultsFrom(MedicalTest m) {
-		// TODO: implement
-		return null;
 	}
 	
 }
