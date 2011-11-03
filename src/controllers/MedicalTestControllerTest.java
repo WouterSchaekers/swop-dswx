@@ -69,4 +69,19 @@ public class MedicalTestControllerTest
 		new MedicalTestController(lc, cpfc, dp);
 	}
 	
+	@Test
+	public void orderXRay(){
+		Scheduler scheduler = new Scheduler(usm, mp);
+		DataPasser dp = new DataPasser(usm, pfm, scheduler);
+		LoginController lc = new LoginController(dp);
+		lc.logIn(dtouser);
+		PatientFileOpenController pfoc = new PatientFileOpenController(dp, lc);
+		ConsultPatientFileController cpfc = new ConsultPatientFileController(pfm, u, lc, pfoc);
+		MedicalTestController mtc = new MedicalTestController(lc, cpfc, dp);
+		String bodypart = "Bionic eye";
+		int amountOfImages = 666;
+		int zoomLevel = 100;
+		mtc.orderXRay(bodypart, amountOfImages, zoomLevel);
+	}
+	
 }
