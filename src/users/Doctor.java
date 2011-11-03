@@ -12,19 +12,6 @@ public class Doctor extends User
 		appointments = new ArrayList<Appointment>(14);
 	}
 
-	public void addAppointment(Appointment appointment) {
-		appointments.add(appointment);
-	}
-
-	public ArrayList<Appointment> getAppointments() {
-		return appointments;
-	}
-
-	public void orderMedicalTest(){
-		
-	}
-
-	
 	@Override
 	public usertype type() {
 		return usertype.Doctor;
