@@ -1,8 +1,6 @@
 package controllers;
 
 import java.util.Collection;
-import medicaltest.Result;
-import patient.Diagnosis;
 import patient.PatientFile;
 import patient.PatientFileManager;
 import users.Doctor;
@@ -13,7 +11,7 @@ import users.User;
  */
 public class ConsultPatientFileController
 {
-	private PatientFile file; // the patientfile associated with this controller
+	private PatientFileOpenController pfoc; // the patientfile associated with this controller
 	private PatientFileManager pfm; // the pfm of this controller
 
 	/**
@@ -24,41 +22,19 @@ public class ConsultPatientFileController
 	 * @param u
 	 *            The user to whom this controller belongs to.
 	 */
-	public ConsultPatientFileController(PatientFileManager pfm, User u) {
+	public ConsultPatientFileController(PatientFileManager pfm, User u, LoginController lc, PatientFileOpenController pfoc) {
 		if (!(u instanceof Doctor))
 			throw new IllegalArgumentException("User" + u.getName()
 					+ " is not a doctor");
+		if(!(pfoc.getLoginController().getUserDTO().equals(lc.getUserDTO())))
+				throw new IllegalStateException("Invalid acces!");
 		
 		this.pfm = pfm;
+		this.pfoc = pfoc;
 	}
 
-	/**
-	 * @return The patientfile of this controller.
-	 */
-	public PatientFile getOpenPatientFile() {
-		return this.file;
-	}
-
-	/**
-	 * @return The diagnosis of the patientfile of this controller.
-	 */
-	public Collection<Diagnosis> getDiagnosis() {
-		return file.getDiagnosis();
-	}
-
-	/**
-	 * @return The testresults of the patientfile of this controller.
-	 */
-	public Collection<Result> getAllResults() {
-		return this.pfm.getAllResultsFrom(file);
-
-	}
-
-	/**
-	 * This method disassociates this controller with its current patientfile.
-	 */
-	public void closeFile() {
-		this.file = null;
+	public PatientFileOpenController getPfoc() {
+		return this.pfoc;
 	}
 
 	/**

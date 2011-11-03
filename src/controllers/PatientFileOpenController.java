@@ -9,6 +9,7 @@ public class PatientFileOpenController
 {
 	DataPasser data;
 	DTOUser doctor;
+	LoginController lc;
 	
 	public PatientFileOpenController(DataPasser data, LoginController loginController) {
 		this.data = data;
@@ -24,9 +25,14 @@ public class PatientFileOpenController
 		if (loginController.getUserDTO().type() != usertype.Doctor)
 			throw new IllegalArgumentException("This user is not a doctor!");
 
+		this.lc = loginController;
 		doctor = loginController.getUserDTO();
 	}
 
+	public LoginController getLoginController() {
+		return this.lc;
+	}
+	
 	public Collection<DTOPatientFile> getAllPatientFiles(
 			LoginController loginController) {
 		ArrayList<DTOPatientFile> RV = new ArrayList<DTOPatientFile>();
