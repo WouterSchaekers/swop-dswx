@@ -26,9 +26,10 @@ public class MedicalTestController extends MedicalSuperController
 	 *             if one of the parameters is null.
 	 */
 	public MedicalTestController(LoginController lc,
-			ConsultPatientFileController cpf, DataPasser dp)
+			ConsultPatientFileController cpf, DataPasser dp, TaskManager t)
 			throws IllegalArgumentException {
 		super(lc, cpf);
+		this.t = t;
 	}
 
 	/**
