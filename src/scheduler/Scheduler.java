@@ -1,7 +1,9 @@
 package scheduler;
 
 import java.util.*;
+import org.hamcrest.core.IsSame;
 import patient.PatientFile;
+import machine.BloodAnalyser;
 import machine.MachinePool;
 import machine.XRayScanner;
 import task.requirement.AresourceRequirement;
@@ -71,155 +73,160 @@ public class Scheduler
 			Collection<Requirement> res, long duration)
 			throws ImpossibleToScheduleException {
 		// cleanUp();
-//		ScheduledElement startPointFree = find(res, duration);
-//		Collection<Resource> elementsToSchedule = startPointFree.getResources();
-//		Date freeDate = startPointFree.getStartTime();
-//		HashMap<TimePoint, Resource> scheduledElements = new HashMap<TimePoint, Resource>();
-//		for (Resource element : elementsToSchedule) {
-//			TimePoint startPoint = new TimePoint(TimeType.start, freeDate);
-//			TimePoint endPoint = new TimePoint(TimeType.stop, new Date(
-//					freeDate.getTime() + duration));
-//			timeTable.put(startPoint, element);
-//			timeTable.put(endPoint, element);
-//			scheduledElements.put(startPoint, element);
-//			scheduledElements.put(endPoint, element);
-//		}
-//		Appointment appointment = new Appointment(patient, scheduledElements,
-//				freeDate, duration);
-//		appointments.add(appointment);
-//		return appointment;
+		// ScheduledElement startPointFree = find(res, duration);
+		// Collection<Resource> elementsToSchedule =
+		// startPointFree.getResources();
+		// Date freeDate = startPointFree.getStartTime();
+		// HashMap<TimePoint, Resource> scheduledElements = new
+		// HashMap<TimePoint, Resource>();
+		// for (Resource element : elementsToSchedule) {
+		// TimePoint startPoint = new TimePoint(TimeType.start, freeDate);
+		// TimePoint endPoint = new TimePoint(TimeType.stop, new Date(
+		// freeDate.getTime() + duration));
+		// timeTable.put(startPoint, element);
+		// timeTable.put(endPoint, element);
+		// scheduledElements.put(startPoint, element);
+		// scheduledElements.put(endPoint, element);
+		// }
+		// Appointment appointment = new Appointment(patient, scheduledElements,
+		// freeDate, duration);
+		// appointments.add(appointment);
+		// return appointment;
 		return null;
 	}
-	
-	public ScheduledElement find(){//Collection<Requirement> requirements, long duration){
-		//candyDate: hehe, little joke
+
+	public ScheduledElement find(Collection<Requirement> requirements,
+			long duration) {
 		Collection<Resource> availableResources = getResources();
-		if(timeTable.size() == 0){
-			
+		Date firstDateThatMayBeScheduled = closedRoundedHour(now());
+		if (timeTable.size() == 0) {
+			Collection<Resource> scheduledResources = satisfied(
+					availableResources, requirements);
+			System.out.println(scheduledResources.size());
 			return null;
 		}
+		// candyDate: hehe, little joke
 		Date candyDate = timeTable.firstKey().getDate();
-		Date firstDateThatMayBeScheduled = closedRoundedHour(now());
-		if(firstDateThatMayBeScheduled.after(candyDate)){
+		if (firstDateThatMayBeScheduled.after(candyDate)) {
 			candyDate = firstDateThatMayBeScheduled;
 		}
 		Date traverser = candyDate;
 		System.out.println(availableResources.size());
 		TimePoint traverseTimePoint = timeTable.firstKey();
-		while(traverseTimePoint.getDate().before(candyDate)){
-			switch(traverseTimePoint.getType()){
+		while (traverseTimePoint.getDate().before(candyDate)) {
+			switch (traverseTimePoint.getType()) {
 			case start:
 				availableResources.remove(timeTable.get(traverseTimePoint));
 			case stop:
 				availableResources.add(timeTable.get(traverseTimePoint));
 			}
 		}
-//		while(timeDifference(candyDate, traverser) < duration){
-//			
-//		}
+		// while(timeDifference(candyDate, traverser) < duration){
+		//
+		// }
 		return null;
 	}
 
-//	public ScheduledElement find(Collection<Requirement> reqs, int duration)
-//			throws ImpossibleToScheduleException {
-//		if (timeTable.isEmpty()) {
-//			Date now = closedHourOfDate(new Date(now().getTime()
-//					+ getTimeBuffer()));
-//			Collection<Resource> r = satisfied(getResources(), reqs);
-//			if (r.isEmpty())
-//				throw new ImpossibleToScheduleException("wtf");
-//			for (Resource resource : r) {
-//				timeTable.put(new TimePoint(TimeType.start, now), resource);
-//				timeTable.put(
-//						new TimePoint(TimeType.stop, new Date(now.getTime()
-//								+ duration)), resource);
-//			}
-//			return new ScheduledElement(r, now, new Date(now.getTime()
-//					+ duration));
-//		}
-//
-//		Date now = new Date(now().getTime() + getTimeBuffer());
-//		TimePoint traverser;
-//		if (now.before(timeTable.firstEntry().getKey().getDate())) {
-//			now = timeTable.firstEntry().getKey().getDate();
-//			traverser = timeTable.firstEntry().getKey();
-//		} else {
-//			traverser = timeTable.higherKey(new TimePoint(TimeType.start, now));
-//		}
-//		Collection<Resource> resourcesInSystem = getResources();
-//		Collection<Resource> used = null;
-//		Cut(resourcesInSystem, getAllScheduledAt(traverser.getDate()));
-//		TimePoint backup = null;
-//		Collection<Resource> resourcesbackup = null;
-//		while (backup == null
-//				|| timeDifference(backup.getDate(), traverser.getDate()) < duration) {
-//			switch (traverser.getType()) {
-//			case start:
-//				resourcesInSystem.remove(timeTable.get(traverser));
-//				break;
-//			case stop:
-//				resourcesInSystem.add(timeTable.get(traverser));
-//				break;
-//			}
-//			used = satisfied(resourcesInSystem, reqs);
-//			if (used.isEmpty()) {
-//				if (backup != null) {
-//
-//					traverser = timeTable.higherKey(backup);
-//					backup = null;
-//					resourcesInSystem = resourcesbackup;
-//					// we have to jump back to where we came from and continue
-//					// our search !
-//					continue;
-//				}
-//				// backup == null
-//			} else {
-//				// used is not empty > if
-//				if (backup != null) {
-//					// backup needs to be maintained and traverser
-//				} else {
-//					// backup needs to be set now
-//					resourcesbackup = new ArrayList<Resource>(resourcesInSystem);
-//					backup = traverser;
-//
-//				}
-//			}
-//			traverser = timeTable.higherKey(traverser);
-//			used = satisfied(resourcesInSystem, reqs);
-//			if (!used.isEmpty() && traverser == null) {
-//				// yeya hotfix
-//				for (Resource r : used) {
-//					timeTable.put(
-//							new TimePoint(TimeType.start, backup.getDate()), r);
-//					timeTable.put(new TimePoint(TimeType.start, new Date(backup
-//							.getDate().getTime() + duration)), r);
-//
-//				}
-//				return new ScheduledElement(used, backup.getDate(), new Date(
-//						backup.getDate().getTime() + duration));
-//			}
-//			if (traverser == null) {
-//				Date t = timeTable.lastEntry().getKey().getDate();
-//				for (Resource resource : used) {
-//					timeTable.put(new TimePoint(TimeType.start, t), resource);
-//					timeTable.put(
-//							new TimePoint(TimeType.stop, new Date(t.getTime()
-//									+ duration)), resource);
-//				}
-//				return new ScheduledElement(used, t, new Date(t.getTime()
-//						+ duration));
-//			}
-//
-//		}
-//		for (Resource resource : used) {
-//			timeTable.put(new TimePoint(TimeType.start, backup.getDate()),
-//					resource);
-//			timeTable.put(new TimePoint(TimeType.stop, new Date(backup
-//					.getDate().getTime() + duration)), resource);
-//		}
-//		return new ScheduledElement(used, backup.getDate(), new Date(
-//				backup.getTime() + duration));
-//	}
+	// public ScheduledElement find(Collection<Requirement> reqs, int duration)
+	// throws ImpossibleToScheduleException {
+	// if (timeTable.isEmpty()) {
+	// Date now = closedHourOfDate(new Date(now().getTime()
+	// + getTimeBuffer()));
+	// Collection<Resource> r = satisfied(getResources(), reqs);
+	// if (r.isEmpty())
+	// throw new ImpossibleToScheduleException("wtf");
+	// for (Resource resource : r) {
+	// timeTable.put(new TimePoint(TimeType.start, now), resource);
+	// timeTable.put(
+	// new TimePoint(TimeType.stop, new Date(now.getTime()
+	// + duration)), resource);
+	// }
+	// return new ScheduledElement(r, now, new Date(now.getTime()
+	// + duration));
+	// }
+	//
+	// Date now = new Date(now().getTime() + getTimeBuffer());
+	// TimePoint traverser;
+	// if (now.before(timeTable.firstEntry().getKey().getDate())) {
+	// now = timeTable.firstEntry().getKey().getDate();
+	// traverser = timeTable.firstEntry().getKey();
+	// } else {
+	// traverser = timeTable.higherKey(new TimePoint(TimeType.start, now));
+	// }
+	// Collection<Resource> resourcesInSystem = getResources();
+	// Collection<Resource> used = null;
+	// Cut(resourcesInSystem, getAllScheduledAt(traverser.getDate()));
+	// TimePoint backup = null;
+	// Collection<Resource> resourcesbackup = null;
+	// while (backup == null
+	// || timeDifference(backup.getDate(), traverser.getDate()) < duration) {
+	// switch (traverser.getType()) {
+	// case start:
+	// resourcesInSystem.remove(timeTable.get(traverser));
+	// break;
+	// case stop:
+	// resourcesInSystem.add(timeTable.get(traverser));
+	// break;
+	// }
+	// used = satisfied(resourcesInSystem, reqs);
+	// if (used.isEmpty()) {
+	// if (backup != null) {
+	//
+	// traverser = timeTable.higherKey(backup);
+	// backup = null;
+	// resourcesInSystem = resourcesbackup;
+	// // we have to jump back to where we came from and continue
+	// // our search !
+	// continue;
+	// }
+	// // backup == null
+	// } else {
+	// // used is not empty > if
+	// if (backup != null) {
+	// // backup needs to be maintained and traverser
+	// } else {
+	// // backup needs to be set now
+	// resourcesbackup = new ArrayList<Resource>(resourcesInSystem);
+	// backup = traverser;
+	//
+	// }
+	// }
+	// traverser = timeTable.higherKey(traverser);
+	// used = satisfied(resourcesInSystem, reqs);
+	// if (!used.isEmpty() && traverser == null) {
+	// // yeya hotfix
+	// for (Resource r : used) {
+	// timeTable.put(
+	// new TimePoint(TimeType.start, backup.getDate()), r);
+	// timeTable.put(new TimePoint(TimeType.start, new Date(backup
+	// .getDate().getTime() + duration)), r);
+	//
+	// }
+	// return new ScheduledElement(used, backup.getDate(), new Date(
+	// backup.getDate().getTime() + duration));
+	// }
+	// if (traverser == null) {
+	// Date t = timeTable.lastEntry().getKey().getDate();
+	// for (Resource resource : used) {
+	// timeTable.put(new TimePoint(TimeType.start, t), resource);
+	// timeTable.put(
+	// new TimePoint(TimeType.stop, new Date(t.getTime()
+	// + duration)), resource);
+	// }
+	// return new ScheduledElement(used, t, new Date(t.getTime()
+	// + duration));
+	// }
+	//
+	// }
+	// for (Resource resource : used) {
+	// timeTable.put(new TimePoint(TimeType.start, backup.getDate()),
+	// resource);
+	// timeTable.put(new TimePoint(TimeType.stop, new Date(backup
+	// .getDate().getTime() + duration)), resource);
+	// }
+	// return new ScheduledElement(used, backup.getDate(), new Date(
+	// backup.getTime() + duration));
+	// }
 
 	private void Cut(Collection<Resource> resourcesInSystem,
 			Collection<Resource> allScheduledAt) {
@@ -377,13 +384,24 @@ public class Scheduler
 		}
 		return RV;
 	}
-	
-	public static void main(String[] argsfuckedupstupidname){
+
+	public static void main(String[] argsfuckedupstupidname) {
 		UserManager usm = new UserManager();
 		MachinePool mp = new MachinePool();
 		Scheduler scheduler = new Scheduler(usm, mp);
-		Requirement XRayRequirement1 = new AresourceRequirement(XRayScanner.class);
-		Requirement XRayRequirement2 = new AresourceRequirement(XRayScanner.class);
-		scheduler.find();
+		Requirement xRayRequirement1 = new AresourceRequirement(
+				XRayScanner.class);
+		Requirement xRayRequirement2 = new AresourceRequirement(
+				XRayScanner.class);
+		Requirement bloodAnalyzerRequirement = new AresourceRequirement(
+				BloodAnalyser.class);
+		mp.addMachine(new XRayScanner("The galaxy and beyond."));
+		mp.addMachine(new XRayScanner("Stefan's ass."));
+		Collection<Requirement> requirements = new ArrayList<Requirement>();
+		requirements.add(xRayRequirement1);
+		requirements.add(xRayRequirement2);
+		// Add this to fail the find method.
+		// requirements.add(bloodAnalyzerRequirement);
+		scheduler.find(requirements, 0);
 	}
 }
