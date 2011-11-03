@@ -2,8 +2,6 @@ package controllers;
 
 import scheduler.Appointment;
 import task.TaskManager;
-import medicaltest.MedicalTest;
-import medicaltest.Result;
 
 /**
  * This class can be used to do schedule medical tests etc...
