@@ -8,16 +8,19 @@ public class UserManager
 {
 
 	private Map<String, User> users;
-	private Map<User, Boolean> loggedin;
 
+	public UserManager() {
+		users = new HashMap<String, User>();
+	}
+	
 	/**
-	 * This method is used to add users, ensures valid adding etc.
+	 * This method is used to add users to the system, ensures valid adding etc.
 	 * 
 	 * @param newUser
 	 * @throws UserAlreadyExistsException
 	 */
 	private void AddUser(User newUser) throws UserAlreadyExistsException {
-		if (users.containsKey(newUser))
+		if (users.containsKey(newUser) || newUser == null)
 			throw new UserAlreadyExistsException(newUser.name);
 		this.users.put(newUser.name, newUser);
 	}
@@ -28,41 +31,8 @@ public class UserManager
 		return newUser;
 	}
 
-	public void DeleteUser(User u) {
-		this.users.remove(u.name);
-	}
-
-	public UserManager() {
-		users = new HashMap<String, User>();
-	}
-
 	public Collection<User> getAllUsers() {
 		return users.values();
-	}
-
-	public boolean loggedIn(User u) {
-		return loggedIn(u);
-	}
-
-	public void login(String name) {
-		//XXX:test if existsa
-		loggedin.put(users.get(name), true);
-	}
-	public void logout(User u)
-	{
-		loggedin.put(u, false);
-	}
-	public User getUser(String name) {
-		return users.get(name);
-
-	}
-
-	public String getDoctors() {
-		return null;
-	}
-
-	public Doctor getDoctor(String doctorName) {
-		return null;
 	}
 
 	public Nurse CreateNurse(String string) throws UserAlreadyExistsException {
