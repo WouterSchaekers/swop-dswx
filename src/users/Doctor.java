@@ -5,8 +5,6 @@ import scheduler.Appointment;
 
 public class Doctor extends User
 {
-	private ArrayList<Appointment> appointments;
-	
 	public Doctor(String name) {
 		super(name);
 		appointments = new ArrayList<Appointment>(14);
