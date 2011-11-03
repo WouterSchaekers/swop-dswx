@@ -7,7 +7,6 @@ public class Doctor extends User
 {
 	public Doctor(String name) {
 		super(name);
-		appointments = new ArrayList<Appointment>(14);
 	}
 
 	@Override
