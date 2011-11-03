@@ -30,7 +30,6 @@ public class RegisterPatientController
 
 	public void registerPatient(DTOPatientFile file) {
 		this.dataPasser.getPatientFileManager().checkIn(file.getPatientFile());
-
 		this.openPatientFile = file;
 	}
 
