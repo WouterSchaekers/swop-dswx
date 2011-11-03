@@ -47,12 +47,10 @@ public class CheckinController extends superController
 
 	/**
 	 * This method can be used to register a new patient.
-	 * 
-	 * @param patientFile
-	 *            The new patient.
+	 * @return the patientfile
 	 */
-	public void signUpNewPatient(String name) {
-		pfm.registerPatient(name);
+	public PatientFile signUpNewPatient(String name) {
+		return pfm.registerPatient(name);
 	}
 
 }
