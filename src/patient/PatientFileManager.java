@@ -3,6 +3,7 @@ package patient;
 import java.util.ArrayList;
 import java.util.Collection;
 import medicaltest.Result;
+import medicaltest.Treatment;
 
 /**
  * This class can be used to manage and interact with patient files.
@@ -111,5 +112,24 @@ public class PatientFileManager
 		if(this.containsFileOf(pf))
 			return pf.isDischarged();
 		else throw new IllegalStateException("PatientFile not in pfm!");
+	}
+	public void addDiagnosis(Diagnosis D,PatientFile file)
+	{
+		file.addDiagnosis(D);
+	}
+	/**
+	 * 
+	 * @param D
+	 * @param T
+	 */
+	public boolean addDiagnosisTreatmentPair(Diagnosis D, Treatment T,PatientFile file)
+	{
+		if(file.getDiagnosis().contains(D))
+		{	file.addDiagTreatPair(D, T);
+		return true;}return false;
+	}
+	public void addTreatmentResultPair(Treatment T,Result R)
+	{
+		
 	}
 }

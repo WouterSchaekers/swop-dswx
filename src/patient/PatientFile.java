@@ -1,6 +1,9 @@
 package patient;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import medicaltest.Result;
 import medicaltest.Treatment;
 
@@ -12,11 +15,23 @@ public class PatientFile
 {
 
 	private String name = ""; // the name of the patient
-	private Collection<Diagnosis> diagnosis = null; // all diags for this patient
-	private Collection<Result> results = null; // all testresults for this patient
+	private Collection<Diagnosis> diagnosis = new ArrayList<Diagnosis>(); // all diags for this patient
+	private Map<Diagnosis,Treatment> diagToTreatment = new HashMap<Diagnosis, Treatment>();
+	private Map<Treatment,Result> treatToResult = new HashMap<Treatment, Result>();
 	private Treatment treatment = null; // the treatment this patient is currently on
 	private boolean discharged = false; // whether or not this patient has been discharged
-
+	public void addDiagnosis(Diagnosis D){
+		this.diagnosis.add(D);
+	}
+	/**
+	 *  
+	 * @param D
+	 * @param T
+	 */
+	public void addDiagTreatPair(Diagnosis D,Treatment T)
+	{
+		diagToTreatment.put(D, T);
+	}
 	/**
 	 * Obligatory alternative constructor.
 	 * 
