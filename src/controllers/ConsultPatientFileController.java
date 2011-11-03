@@ -17,12 +17,6 @@ public class ConsultPatientFileController
 	private PatientFileManager pfm; // the pfm of this controller
 
 	/**
-	 * Use of empty constructor is <B>NOT</B> allowed!
-	 */
-	@SuppressWarnings("unused")
-	private ConsultPatientFileController() {}
-
-	/**
 	 * Default constructor.
 	 * 
 	 * @param pfm
@@ -34,13 +28,14 @@ public class ConsultPatientFileController
 		if (!(u instanceof Doctor))
 			throw new IllegalArgumentException("User" + u.getName()
 					+ " is not a doctor");
+		
 		this.pfm = pfm;
 	}
 
 	/**
 	 * @return The patientfile of this controller.
 	 */
-	public PatientFile getPatientFile() {
+	public PatientFile getOpenPatientFile() {
 		return this.file;
 	}
 
