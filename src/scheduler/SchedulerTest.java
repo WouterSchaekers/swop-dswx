@@ -71,7 +71,7 @@ public class SchedulerTest
 		requirements.add(new AresourceRequirement(XRayScanner.class));
 		requirements.add(new AresourceRequirement(XRayScanner.class));
 		requirements.add(new AresourceRequirement(XRayScanner.class));
-		scheduler.addAppointment(patient, requirements, 900000);
+		scheduler.addAppointment(patient, requirements, 1000);
 	}
 
 	@Test(expected = ImpossibleToScheduleException.class)
@@ -80,7 +80,14 @@ public class SchedulerTest
 		requirements.add(new AresourceRequirement(XRayScanner.class));
 		requirements.add(new AresourceRequirement(XRayScanner.class));
 		requirements.add(new AresourceRequirement(BloodAnalyser.class));
-		scheduler.addAppointment(patient, requirements, 900000);
+		scheduler.addAppointment(patient, requirements, 1000);
+	}
+	
+	@Test(expected = NullPointerException.class)
+	public void ScheduleNullObjects() throws ImpossibleToScheduleException{
+		Collection<Requirement> requirements = new ArrayList<Requirement>();
+		requirements.add(null);
+		scheduler.addAppointment(patient, requirements, 1000);
 	}
 
 }
