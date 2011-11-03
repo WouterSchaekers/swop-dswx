@@ -12,13 +12,6 @@ public class CheckinController extends superController
 	private PatientFileManager pfm = null; // the pfm for this checkincontroller
 
 	/**
-	 * Use of empty constructor is <B>NOT</B> allowed!
-	 */
-	private CheckinController() {
-		super(null);
-	}
-
-	/**
 	 * Default constructor.
 	 * 
 	 * @param lc
