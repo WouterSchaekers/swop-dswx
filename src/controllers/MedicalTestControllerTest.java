@@ -64,10 +64,9 @@ public class MedicalTestControllerTest
 		DataPasser dp = new DataPasser(usm, pfm, scheduler);
 		LoginController lc = new LoginController(dp);
 		lc.logIn(dtouser);
-		TaskManager tsm = new TaskManager(scheduler);
 		PatientFileOpenController pfoc = new PatientFileOpenController(dp, lc);
 		ConsultPatientFileController cpfc = new ConsultPatientFileController(pfm, u, lc, pfoc);
-		MedicalTestController mtc = new MedicalTestController(lc, cpfc, dp);
+		new MedicalTestController(lc, cpfc, dp);
 	}
 	
 }
