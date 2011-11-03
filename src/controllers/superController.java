@@ -28,7 +28,8 @@ public class superController
 	public superController(LoginController lc) throws IllegalArgumentException {
 		if (this.validLoginController(lc))
 			this.lc = lc;
-		throw new IllegalArgumentException("Logincontroller is invalid!");
+		else 
+			throw new IllegalArgumentException("Logincontroller is invalid!");
 	}
 
 	/**
