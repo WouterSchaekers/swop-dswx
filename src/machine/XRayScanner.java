@@ -3,8 +3,8 @@ package machine;
 public class XRayScanner extends Machine
 {
 
-	public XRayScanner( String location) {
-		super(location);
+	public XRayScanner( int serial,String location) {
+		super(serial, location);
 	}
 
 }

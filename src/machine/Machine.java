@@ -7,8 +7,8 @@ import task.Resource;
  */
 public class Machine implements Resource
 {
-	private static int serialNow=0;
-	private int serial = -1;
+
+	private final int serial ;
 	private String location = "";
 	
 	/**
@@ -16,8 +16,8 @@ public class Machine implements Resource
 	 * @param serial
 	 * The serial of this machine.
 	 */
-	public Machine(String location) {
-		this.serial = serialNow++;
+	public Machine(int serial ,String location) {
+		this.serial = serial;
 		this.location = location;
 	}
 	

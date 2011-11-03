@@ -4,7 +4,7 @@ public class UltraSoundScanner extends Machine
 {
 
 	public UltraSoundScanner(int serial, String location) {
-		super( location);
+		super( serial, location);
 	}
 
 }
