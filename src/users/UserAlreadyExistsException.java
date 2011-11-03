@@ -8,9 +8,6 @@ public class UserAlreadyExistsException extends Exception
 		this.name = name;
 	}
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 }
