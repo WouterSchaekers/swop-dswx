@@ -105,6 +105,7 @@ public class SchedulerTest
 				.getTime() - 1000);
 	}
 
+	//XXX: Fix this.
 	@Test
 	public void scheduleDifferentDuration()
 			throws ImpossibleToScheduleException {
