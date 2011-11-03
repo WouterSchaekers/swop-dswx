@@ -20,6 +20,7 @@ public class PatientFile
 	private Map<Treatment,Result> treatToResult = new HashMap<Treatment, Result>();
 	private Treatment treatment = null; // the treatment this patient is currently on
 	private boolean discharged = false; // whether or not this patient has been discharged
+	Collection<Result> results; 
 	public void addDiagnosis(Diagnosis D){
 		this.diagnosis.add(D);
 	}
