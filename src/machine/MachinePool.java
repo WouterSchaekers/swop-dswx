@@ -21,4 +21,19 @@ public class MachinePool
 	public Collection<Machine> getAllMachines() {
 		return this.allMachines;
 	}
+
+	public void addXrayScanner(int id, String location) {
+		this.addMachine(new XRayScanner(id,location));
+		
+	}
+
+	public void addBloodAnalyzer(int id, String location) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void addUltraSoundScanner(int id, String location) {
+		// TODO Auto-generated method stub
+		
+	}
 }
