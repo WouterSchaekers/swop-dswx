@@ -34,8 +34,9 @@ public class SchedulerTest
 			System.out
 					.println("The system is horribly broken. The developpers should cry in the corner and kill themselves.");
 		}
-		machinepool.addMachine(new XRayScanner("Main Hall"));
-		machinepool.addMachine(new XRayScanner("Stefaan's place"));
+		//TODO: fix
+		//machinepool.addMachine(new XRayScanner());
+		//machinepool.addMachine(new XRayScanner());
 		scheduler = new Scheduler(usermanager, machinepool);
 	}
 
