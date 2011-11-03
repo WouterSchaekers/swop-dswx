@@ -6,10 +6,8 @@ import patient.PatientFileManager;
 import scheduler.Scheduler;
 import task.TaskManager;
 import users.Doctor;
-import users.Nurse;
 import users.User;
 import users.UserManager;
-import users.User.usertype;
 
 public class MedicalTestControllerTest
 {
