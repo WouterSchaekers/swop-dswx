@@ -92,6 +92,8 @@ public class Scheduler
 		return appointment;
 	}
 
+	
+	//DO NOT TOUCH, OR I KILL YOU!!!
 	// public ScheduledElement find(Collection<Requirement> requirements,
 	// long duration) {
 	// Collection<Resource> availableResources = getResources();
