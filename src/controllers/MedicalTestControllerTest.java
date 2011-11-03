@@ -18,6 +18,8 @@ public class MedicalTestControllerTest
 	User u;
 	DTOUser dtouser;
 	PatientFileManager pfm;
+	Scheduler scheduler;
+	TaskManager tm;
 	
 	@Before
 	public void setUp(){
@@ -26,6 +28,8 @@ public class MedicalTestControllerTest
 		u = new Doctor("Dude");
 		dtouser = new DTOUser(u);
 		pfm = new PatientFileManager();
+		scheduler = new Scheduler(usm, mp);
+		tm = new TaskManager(scheduler);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
@@ -34,18 +38,17 @@ public class MedicalTestControllerTest
 		DataPasser dp = new DataPasser(usm, pfm, scheduler);
 		LoginController lc = new LoginController(dp);
 		lc.logIn(dtouser);
-		new MedicalTestController(lc, null, dp);
+		new MedicalTestController(lc, null, dp, tm);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void creationFail2() throws IllegalArgumentException{
-		Scheduler scheduler = new Scheduler(usm, mp);
 		DataPasser dp = new DataPasser(usm, pfm, scheduler);
 		LoginController lc = new LoginController(dp);
 		lc.logIn(dtouser);
 		PatientFileOpenController pfoc = new PatientFileOpenController(dp, lc);
 		ConsultPatientFileController cpfc = new ConsultPatientFileController(pfm, u, lc, pfoc);
-		new MedicalTestController(null, cpfc, dp);
+		new MedicalTestController(null, cpfc, dp, tm);
 	}
 	
 	@Test(expected = NullPointerException.class)
@@ -55,7 +58,7 @@ public class MedicalTestControllerTest
 		LoginController lc = new LoginController(dp);
 		PatientFileOpenController pfoc = new PatientFileOpenController(dp, lc);
 		ConsultPatientFileController cpfc = new ConsultPatientFileController(pfm, u, lc, pfoc);
-		new MedicalTestController(lc, cpfc, dp);
+		new MedicalTestController(lc, cpfc, dp, tm);
 	}
 	
 	@Test
@@ -66,7 +69,7 @@ public class MedicalTestControllerTest
 		lc.logIn(dtouser);
 		PatientFileOpenController pfoc = new PatientFileOpenController(dp, lc);
 		ConsultPatientFileController cpfc = new ConsultPatientFileController(pfm, u, lc, pfoc);
-		new MedicalTestController(lc, cpfc, dp);
+		new MedicalTestController(lc, cpfc, dp, tm);
 	}
 	
 	@Test
@@ -77,11 +80,40 @@ public class MedicalTestControllerTest
 		lc.logIn(dtouser);
 		PatientFileOpenController pfoc = new PatientFileOpenController(dp, lc);
 		ConsultPatientFileController cpfc = new ConsultPatientFileController(pfm, u, lc, pfoc);
-		MedicalTestController mtc = new MedicalTestController(lc, cpfc, dp);
+		MedicalTestController mtc = new MedicalTestController(lc, cpfc, dp, tm);
 		String bodypart = "Bionic eye";
 		int amountOfImages = 666;
 		int zoomLevel = 100;
 		mtc.orderXRay(bodypart, amountOfImages, zoomLevel);
+	}
+	
+	@Test
+	public void orderUltraSound(){
+		Scheduler scheduler = new Scheduler(usm, mp);
+		DataPasser dp = new DataPasser(usm, pfm, scheduler);
+		LoginController lc = new LoginController(dp);
+		lc.logIn(dtouser);
+		PatientFileOpenController pfoc = new PatientFileOpenController(dp, lc);
+		ConsultPatientFileController cpfc = new ConsultPatientFileController(pfm, u, lc, pfoc);
+		MedicalTestController mtc = new MedicalTestController(lc, cpfc, dp, tm);
+		String focus = "Bionic eye";
+		boolean recVid = false;
+		boolean recImg = false;
+		mtc.orderUltraSound(focus, recVid, recImg);
+	}
+	
+	@Test
+	public void orderBloodAnalysis(){
+		Scheduler scheduler = new Scheduler(usm, mp);
+		DataPasser dp = new DataPasser(usm, pfm, scheduler);
+		LoginController lc = new LoginController(dp);
+		lc.logIn(dtouser);
+		PatientFileOpenController pfoc = new PatientFileOpenController(dp, lc);
+		ConsultPatientFileController cpfc = new ConsultPatientFileController(pfm, u, lc, pfoc);
+		MedicalTestController mtc = new MedicalTestController(lc, cpfc, dp, tm);
+		String focus = "Bionic eye";
+		int amount = 100;
+		mtc.orderBloodAnalysis(focus, amount);
 	}
 	
 }
