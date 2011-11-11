@@ -2,6 +2,9 @@
 
 = dependency issue =
 We hebben 2 keuzes.
-
-* Diagnosis houdt treatments bij
-* patientfile houdt diagnosis en treatments zelf bij.
+The following is:
+  * A list
+  * Of bulleted items
+    # This is a numbered sublist
+    # Which is done by indenting further
+  * And back to the main bulleted list
