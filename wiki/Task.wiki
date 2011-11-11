@@ -8,6 +8,7 @@ Blabla.
 = Details =
 
 Tasks zijn sowieso unsceduled. Dat wordt geregeld in de TaskManager.
+Tasks houden de requirements bij (aspecificresourcerequirement/aresourcerequirement)
 
 
 
