@@ -1,5 +1,6 @@
 package medicaltest;
 
+import be.kuleuven.cs.som.annotate.*;
 /**
  * This class represents a bloodanalysis test.
  */
@@ -34,6 +35,7 @@ public class BloodAnalysis extends MedicalTest
 		this.focus = focus;
 	}
 
+	@Basic
 	public String getFocus() {
 		String rv = "" + focus;
 		return rv;
