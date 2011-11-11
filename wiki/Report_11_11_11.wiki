@@ -4,6 +4,8 @@
 = Introduction =
 In een geplande swop-sessie op 11/11/11 hebben we een aantal designbeslissingen gemaakt. Het resultaat en een algemeen overzicht daarvan vind je hieronder.
 
+#sidebar TableOfContents
+
 = Patientfile, diagnosis en treatments =
 In verband met het bijhouden van diagnosis en treatment hebben we 2 opties:
   * Diagnosis houdt treatments bij
