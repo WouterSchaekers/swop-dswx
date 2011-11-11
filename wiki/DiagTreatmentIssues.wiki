@@ -1,6 +1,7 @@
 #summary Deze pagina gaat over de twee opties die we hebben ivm diag & treat; wie wie bijhoudt.
 
 = dependency issue =
+We hebben 2 keuzes.
 
-*   Diagnosis houdt treatments bij
-*   patientfile houdt diagnosis en treatments zelf bij.
+* Diagnosis houdt treatments bij
+* patientfile houdt diagnosis en treatments zelf bij.
