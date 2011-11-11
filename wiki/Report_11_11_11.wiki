@@ -58,3 +58,5 @@ Treatment extend resource niet meer.
 <br>
 <br>Result: maak string; is beter dan overal strings bij te houden. 
 <br>     Argument: als er later meer dingen moeten bijkomen is het beter aanpasbaar.
+<br>
+<p>Zie ook DomainProtection & Task.
