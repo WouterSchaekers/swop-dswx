@@ -1,1 +1,22 @@
 Domain protection (deep equals && read only ingehackt)
+
+Optie 1: DTOs maken voor alle klasses die we teruggeven
+	+: extreem veilig
+	-: DTOs hebben minder functionaliteit als oorspr objecten, minder inutitief, moeilijker mee te werken
+	-: verdubbeling in workload en # aantal klasses
+	
+Optie 2: Clone & deep copy maken
+	+: veilig
+	-: niet na te gaan of de inkomende kloons inconsistent zijn of niet
+		(vb: bestaat de patientfile die je terugkrijgt?)
+
+Optie 3: read only objecten teruggeven
+	+: veilig
+	+: alle functionaliteiten blijven behouden
+	+: zekerheid over consistentie
+	+: objecten die bij de controller binnenkomen zijn sowieso niet aangepast
+	-: opletten bij het implementeren dat er geen onregelmatigheden gebeuren
+		Dingen die triviaal lijken moeten extensief getest worden.
+	-: side-effecten mogelijk
+	
+Optie 4: 
