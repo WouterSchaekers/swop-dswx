@@ -1,10 +1,7 @@
 #summary Deze pagina gaat over de twee opties die we hebben ivm diag & treat; wie wie bijhoudt.
 
 = dependency issue =
-We hebben 2 keuzes.
-The following is:
-  * A list
-  * Of bulleted items
-    # This is a numbered sublist
-    # Which is done by indenting further
-  * And back to the main bulleted list
+We hebben 2 keuzes:
+
+  * diag houdt treats bij.
+  * pf houdt treat & diag bij
