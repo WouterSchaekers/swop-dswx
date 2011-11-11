@@ -1,11 +1,9 @@
 package medicaltest;
 
-import task.Resource;
-
 /**
  * This class represents a medical test.
  */
-public abstract class MedicalTest implements Resource
+public abstract class MedicalTest
 {	
 	// all childclasses will have their names be final and static and will use this var to store that information in.
 	private String testName = "";
