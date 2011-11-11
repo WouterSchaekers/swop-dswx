@@ -7,6 +7,11 @@ Blabla.
 
 = Details =
 
+Tasks zijn sowieso unsceduled. Dat wordt geregeld in de TaskManager.
+
+
+
+
 Add your content here.  Format your content with:
   * Text in *bold* or _italic_
   * Headings, paragraphs, and lists
