@@ -1,22 +1,17 @@
-Domain protection (deep equals && read only ingehackt)
+= Domain protection =
+== Probleemstelling ==
+Hoe kunnen we een consistent domain behouden als er interactie gebeurt tuseen de user en objecten?
 
-Optie 1: DTOs maken voor alle klasses die we teruggeven
-	+: extreem veilig
-	-: DTOs hebben minder functionaliteit als oorspr objecten, minder inutitief, moeilijker mee te werken
-	-: verdubbeling in workload en # aantal klasses
+== Oplossingsopties ==
+=== Optie 1: DTOs maken voor alle klasses die we teruggeven ===
+<br>*Voordelen:* extreem veilig
+<br>*Nadelen:* DTOs hebben minder functionaliteit als oorspr objecten, minder inutitief, moeilijker mee te werken, verdubbeling van workload en # aantal klasses 
 	
-Optie 2: Clone & deep copy maken
-	+: veilig
-	-: niet na te gaan of de inkomende kloons inconsistent zijn of niet
-		(vb: bestaat de patientfile die je terugkrijgt?)
+=== Optie 2: Clone & deep copy maken ===
+<br>*Voordelen:* veilig
+<br>*Nadelen:* niet na te gaan of de inkomende kloons inconsistent zijn of niet
+<br>	(vb: bestaat de patientfile die je terugkrijgt?)
 
-Optie 3: read only objecten teruggeven
-	+: veilig
-	+: alle functionaliteiten blijven behouden
-	+: zekerheid over consistentie
-	+: objecten die bij de controller binnenkomen zijn sowieso niet aangepast
-	-: opletten bij het implementeren dat er geen onregelmatigheden gebeuren
-		Dingen die triviaal lijken moeten extensief getest worden.
-	-: niet vergeten: dingen zoals PFM.get(PF).enterDiag(...)
-	
-Optie 4: 
+=== Optie 3: read only objecten teruggeven ===
+<br>*Voordelen:* veilig, alle functionaliteiten blijven behouden, zekerheid over consistentie,  objecten die bij de controller binnenkomen zijn sowieso niet aangepast
+<br>*Nadelen:* opletten bij het implementeren dat er geen onregelmatigheden gebeuren (Dingen die triviaal lijken moeten extensief getest worden.), niet vergeten: dingen zoals PFM.get(PF).enterDiag(...) 
