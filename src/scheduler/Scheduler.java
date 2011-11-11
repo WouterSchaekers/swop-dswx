@@ -1,21 +1,12 @@
 package scheduler;
 
 import java.util.*;
-import org.hamcrest.core.IsSame;
 import patient.PatientFile;
-import machine.BloodAnalyser;
 import machine.MachinePool;
-import machine.XRayScanner;
-import task.requirement.AresourceRequirement;
 import task.requirement.Requirement;
 import users.UserManager;
 import task.Resource;
 
-/**
- * 
- * @author Stefaan is een fucking noob
- * 
- */
 // TODO: Fix this class and test it thoroughly
 public class Scheduler
 {
@@ -350,7 +341,6 @@ public class Scheduler
 	 * 
 	 */
 	// XXX: Fix in next iteration
-	@SuppressWarnings("unused")
 	private void cleanUp() {
 		Date curDate = now();
 		TimePoint curTimePoint = null;
