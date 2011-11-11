@@ -3,6 +3,8 @@
 Hoe kunnen we een consistent domain behouden als er interactie gebeurt tuseen de user en objecten?
 
 == Oplossingsopties ==
+We zien momenteel een 3-tal opties om dit probleem op te lossen.
+<br>
 === Optie 1: DTOs maken voor alle klasses die we teruggeven ===
 <br>*Voordelen:* extreem veilig
 <br>*Nadelen:* DTOs hebben minder functionaliteit als oorspr objecten, minder inutitief, moeilijker mee te werken, verdubbeling van workload en # aantal klasses 
