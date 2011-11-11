@@ -17,7 +17,6 @@ public class PatientFile
 	private String name = ""; // the name of the patient
 	private Collection<Diagnosis> diagnosis = new ArrayList<Diagnosis>(); // all diags for this patient
 	private Map<Diagnosis,Treatment> diagToTreatment = new HashMap<Diagnosis, Treatment>();
-	private Map<Treatment,Result> treatToResult = new HashMap<Treatment, Result>();
 	private Treatment treatment = null; // the treatment this patient is currently on
 	private boolean discharged = false; // whether or not this patient has been discharged
 	Collection<Result> results; 

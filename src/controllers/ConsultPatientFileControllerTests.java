@@ -3,7 +3,6 @@ package controllers;
 import machine.MachinePool;
 import org.junit.Before;
 import org.junit.Test;
-import patient.PatientFile;
 import patient.PatientFileManager;
 import scheduler.Scheduler;
 import users.Doctor;
@@ -24,6 +23,7 @@ public class ConsultPatientFileControllerTests
 	private Scheduler s;
 	private MachinePool mp;
 	private DTOUser u;
+	@SuppressWarnings("unused")
 	private ConsultPatientFileController cpfc;
 
 	

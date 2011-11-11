@@ -3,7 +3,6 @@ package controllers;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-import patient.PatientFile;
 import patient.PatientFileManager;
 import users.Doctor;
 import users.UserAlreadyExistsException;
@@ -20,8 +19,7 @@ public class PatientFileOpenControllerTest
 	private Doctor d;
 	private Nurse n;
 	private DTOUser u;
-	private DTOPatientFile dtopf;
-	private PatientFile pf;
+
 
 	@Before
 	public void setUp() throws Exception {

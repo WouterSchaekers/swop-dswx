@@ -19,6 +19,7 @@ public class DTOPatientFileTest
 	
 	@Test
 	public void creationSuccess() {
+		@SuppressWarnings("unused")
 		DTOPatientFile dtoPatientFile = new DTOPatientFile(file);
 	}
 	
