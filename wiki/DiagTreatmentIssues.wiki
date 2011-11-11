@@ -1,6 +1,0 @@
-#summary Deze pagina gaat over de twee opties die we hebben ivm diag & treat; wie wie bijhoudt.
-
-= dependency issue =
-We hebben 2 keuzes:
-  * diag houdt treats bij.
-  * pf houdt treat & diag bij
