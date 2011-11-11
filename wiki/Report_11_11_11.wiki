@@ -43,7 +43,11 @@ We maken een medicaltestfactory-interface die meerdere instances heeft die elks 
 <br>*Nadelen:* nog steeds gehardcode; er kan name collision voorkomen bij het maken van medical tests @ startime; grote if-else-block; moeilijk maintainbaar; gaat veel op factory lijken.
 
 === Oplossing 4: 1 factory ===
-Er is slechts één factorysoort die alle medicaltests aanmaakt. De medical test houdt zelf bij welk type hij is.
+Er is slechts één factorysoort die alle medicaltests aanmaakt. De medical test houdt zelf bij welk type hij is. Is in se hetzelfde als 3, maar medicaltest wordt volledig generisch.
+<br>
+<br> De factory: 
+<br>*IN*: De blueprints van de medical test.
+<br>*OUT*: een medical test die aan de blueprints voldoet.
 <p>
 *Voordelen:* At runtime kunnen er zelfs nieuwe medical tests gecreëerd worden.
 <br>*Nadelen:* Strings worden altijd op Strings of Objects gemapt...
