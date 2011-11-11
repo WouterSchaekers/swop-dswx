@@ -2,6 +2,5 @@
 
 = dependency issue =
 We hebben 2 keuzes:
-
   * diag houdt treats bij.
   * pf houdt treat & diag bij
