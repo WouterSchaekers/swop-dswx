@@ -12,6 +12,7 @@ Tilbaut zet de prentjes op de goeie plaats op de wiki!
 
 = mail =
 Om in de mail te zetten:
+
 * De stuff op de wiki
 
 
