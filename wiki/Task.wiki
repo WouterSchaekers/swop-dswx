@@ -6,13 +6,5 @@ Blabla.
 
 = Details =
 
-Tasks zijn sowieso unsceduled. Dat wordt geregeld in de TaskManager.
+Tasks zijn sowieso unscheduled. Dat wordt geregeld in de TaskManager.
 Tasks houden de requirements bij (aspecificresourcerequirement/aresourcerequirement).
-
-
-
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
