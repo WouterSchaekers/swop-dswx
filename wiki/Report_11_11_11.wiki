@@ -23,7 +23,8 @@ Elke medicaltest houdt een enum bij om te weten welk type hij is.
 === Oplossing 1: generic class + reflection ===
 We gaan geen enum meer gebruiken.
 <br>We gaan nu ook een generische klasse aanmaken en met reflection werken om dynamisch (en zonder Strings) te kunnen ophalen welke soort medical tests er zijn.
-<br><br><a href="http://geekswithblogs.net/marcel/archive/2007/03/24/109722.aspx" target=_blank>klikje!</a>
+
+<br><br><a href="http://geekswithblogs.net/marcel/archive/2007/03/24/109722.aspx" target="_blank"> klikje! </a>
 <p>
 *Nadelen:* We moeten zeker zijn dat we alles type safe maken.
 <br>*Voordelen:* We werken hardcoden de types niet meer en het is een oplossing voor het probleem die niet al te moeilijk te implementeren is.
