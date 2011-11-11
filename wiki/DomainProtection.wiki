@@ -17,6 +17,6 @@ Optie 3: read only objecten teruggeven
 	+: objecten die bij de controller binnenkomen zijn sowieso niet aangepast
 	-: opletten bij het implementeren dat er geen onregelmatigheden gebeuren
 		Dingen die triviaal lijken moeten extensief getest worden.
-	-: side-effecten mogelijk
+	-: niet vergeten: dingen zoals PFM.get(PF).enterDiag(...)
 	
 Optie 4: 
