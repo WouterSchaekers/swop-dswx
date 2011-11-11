@@ -16,20 +16,20 @@ Hoe kan je te weten komen welke types van tests er zijn?
 
 === Oplossing 0: enum ===
 Elke medicaltest houdt een enum bij om te weten welk type hij is.
-*Nadelen:* Gehardcode types.
-*Voordelen:* 
+<br>*Nadelen:* Gehardcode types.
+<br>*Voordelen:* het is een oplossing voor het probleem.
 
 === Oplossing 1: generic class + reflection ===
 We gaan geen enum meer gebruiken.
-We gaan nu ook een generische klasse aanmaken en met reflection werken om dynamisch (en zonder Strings) te kunnen ophalen welke soort medical tests er zijn.
-<a href="http://geekswithblogs.net/marcel/archive/2007/03/24/109722.aspx" target=_blank>klikje!</a>
-
+<br>We gaan nu ook een generische klasse aanmaken en met reflection werken om dynamisch (en zonder Strings) te kunnen ophalen welke soort medical tests er zijn.
+<br><br><a href="http://geekswithblogs.net/marcel/archive/2007/03/24/109722.aspx" target=_blank>klikje!</a>
+<p>
 *Nadelen:* We moeten zeker zijn dat we alles type safe maken.
-*Voordelen:* We werken hardcoden de types niet meer en het is een oplossing voor het probleem die niet al te moeilijk te implementeren is.
-
+<br>*Voordelen:* We werken hardcoden de types niet meer en het is een oplossing voor het probleem die niet al te moeilijk te implementeren is.
+</p>
 === Oplossing 2: een medical test factory ===
 We maken een medicaltestfactory-interface die meerdere instances heeft die elks een specifieke medical test aanmaken.
-We blijven met een enum werken.
-
+<br>We blijven met een enum werken.
+<p>
 *Nadelen:* minder uitbreidbaar en... te ingewikkeld?
-*Voordelen:* het is een oplossing voor het probleem en we werken niet meer met gehardcode types.
+<br>*Voordelen:* het is een oplossing voor het probleem en we werken niet meer met gehardcode types.</p>
