@@ -2,5 +2,5 @@
 
 = dependency issue =
 
-- Diagnosis houdt treatments bij
-- patientfile houdt diagnosis en treatments zelf bij.
+*   Diagnosis houdt treatments bij
+*   patientfile houdt diagnosis en treatments zelf bij.
