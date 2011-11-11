@@ -3,12 +3,12 @@
 = Introduction =
 In een geplande swop-sessie op 11/11/11 hebben we een aantal designbeslissingen gemaakt. Het resultaat en een algemeen overzicht daarvan vind je hieronder.
 
-= PatientFile =
+= Patientfiles =
 In verband met het bijhouden van diagnosis en treatment hebben we 2 opties:
 * Diagnosis houdt treatments bij
 * patientfile houdt diagnosis en treatments zelf bij.
 
-= MedicalTest =
+= Medicaltests =
 _Todo:_ Medical tests moeten hun details nog apart bijhouden. 
 
 == Het type-probleem == 
@@ -26,10 +26,10 @@ We gaan geen enum meer gebruiken.
 <p>
 *Nadelen:* We moeten zeker zijn dat we alles type safe maken.
 <br>*Voordelen:* We werken hardcoden de types niet meer en het is een oplossing voor het probleem die niet al te moeilijk te implementeren is.
-</p>
+
 === Oplossing 2: een medical test factory ===
 We maken een medicaltestfactory-interface die meerdere instances heeft die elks een specifieke medical test aanmaken.
 <br>We blijven met een enum werken.
 <p>
 *Nadelen:* minder uitbreidbaar en... te ingewikkeld?
-<br>*Voordelen:* het is een oplossing voor het probleem en we werken niet meer met gehardcode types.</p>
+<br>*Voordelen:* het is een oplossing voor het probleem en we werken niet meer met gehardcode types.
