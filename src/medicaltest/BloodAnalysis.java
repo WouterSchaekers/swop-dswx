@@ -7,9 +7,6 @@ import be.kuleuven.cs.som.annotate.*;
 public class BloodAnalysis extends MedicalTest
 {
 	// the name of the test is used to determine what kind of test it was later on.
-	public static final String TESTNAME = "BloodAnalysis"; 
-	public static final int DURATION = 45;
-
 	private int amount;
 	private String focus;
 	
@@ -17,7 +14,7 @@ public class BloodAnalysis extends MedicalTest
 	 * Default constructor. Will call MedicalTest("BloodAnalysis")
 	 */
 	public BloodAnalysis(){
-		super(TESTNAME, DURATION);
+		super("BloodAnalysis", 45);
 	}
 
 	@Basic
