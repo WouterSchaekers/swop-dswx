@@ -1,4 +1,4 @@
-package medicaltest;
+package patient;
 
 public class Result
 {

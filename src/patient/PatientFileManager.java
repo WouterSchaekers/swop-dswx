@@ -2,8 +2,7 @@ package patient;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import medicaltest.Result;
-import medicaltest.Treatment;
+import treatment.Treatment;
 
 /**
  * This class can be used to manage and interact with patient files.
