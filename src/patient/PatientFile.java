@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import medicaltest.Result;
-import medicaltest.Treatment;
+import treatment.Treatment;
 
 /**
  * This class represents the patient file of a patient. It contains all the

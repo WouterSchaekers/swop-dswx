@@ -3,9 +3,6 @@ package treatment;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import medicaltest.Cast;
-import medicaltest.Medication;
-import medicaltest.Surgery;
 
 /**
  * This class is the superclass of all treatments

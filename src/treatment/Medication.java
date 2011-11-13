@@ -1,4 +1,5 @@
-package medicaltest;
+package treatment;
+
 
 /**
  * This class represent treatment by medication.
