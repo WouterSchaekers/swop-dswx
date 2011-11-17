@@ -1,16 +1,10 @@
-#verslag, notes,... na de meeting van 16 november.
-
-= Introduction =
-
-Add your content here.
+Beste opties voor het medicaltest probleem: factory.
+Nog steeds een mogelijk alternatief: enum.
 
 
-= Details =
+Scheduler: We moeten de scheduler over meer klasses verdelen en herdesignen: 1 colossale klasse die alles doet wordt enorm complex, zeker vanaf het moment dat er constraints bij komen kijken.
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+-> Constraints op Resource niveau bijhouden.
 
 
-// TODO
+Read-only objecten kunnen we implementeren aan de hand van interfaces die alleen getters hebben.
