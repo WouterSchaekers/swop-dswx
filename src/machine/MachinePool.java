@@ -10,8 +10,12 @@ import exceptions.InvalidSerialException;
  */
 public class MachinePool
 {
-	private Collection<Machine> allMachines=new ArrayList<Machine>();
+	private Collection<Machine> allMachines;
 
+	public MachinePool(){
+		allMachines = new ArrayList<Machine>();
+	}
+	
 	public void addMachine(Machine m) {
 		allMachines.add(m);
 	}
@@ -29,13 +33,12 @@ public class MachinePool
 		
 	}
 
-	public void addBloodAnalyzer(int id, String location) {
-		// TODO Auto-generated method stub
+	public void addBloodAnalyzer(int id, String location) throws InvalidLocationException, InvalidSerialException{
+		this.addMachine(new BloodAnalyser(id, location));
 		
 	}
 
-	public void addUltraSoundScanner(int id, String location) {
-		// TODO Auto-generated method stub
-		
+	public void addUltraSoundScanner(int id, String location) throws InvalidLocationException, InvalidSerialException{
+		this.addMachine(new UltraSoundScanner(id, location));
 	}
 }

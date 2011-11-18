@@ -21,7 +21,7 @@ public class Machine implements Resource
 	 */
 	public Machine(int serial, String location) throws InvalidLocationException, InvalidSerialException{
 		if(location == null || location == ""){
-			throw new InvalidLocationException("Location is not set or is empty.");
+			throw new InvalidLocationException("Location is not set or empty.");
 		}
 		if(serial == 0){
 			throw new InvalidSerialException("Serial must be different from zero.");

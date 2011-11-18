@@ -1,5 +1,8 @@
 package medicaltest;
 
+import exceptions.InvalidDurationException;
+import exceptions.InvalidNameException;
+
 public class UltraSoundScan extends MedicalTest
 {
 	// the name of the test, used to determine what kind of test it was later on.
@@ -9,7 +12,7 @@ public class UltraSoundScan extends MedicalTest
 	/**
 	 * Default constructor. Will call MedicalTest("UltraSoundScan")
 	 */
-	public UltraSoundScan(){
+	public UltraSoundScan() throws InvalidNameException, InvalidDurationException{
 		super(TESTNAME, DURATION);
 	}
 	
