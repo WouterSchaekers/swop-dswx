@@ -2,7 +2,6 @@ package controllers;
 
 import machine.MachinePool;
 import org.junit.*;
-import exceptions.InvalidDoctorException;
 import exceptions.InvalidSchedulerException;
 import patient.PatientFileManager;
 import scheduler.Scheduler;
