@@ -19,7 +19,7 @@ public class Cast extends Treatment
 	 * The lengths of the cast.
 	 */
 	public Cast(String bodyPart, int length){
-		super(TREATMENTNAME, 120);
+		super(TREATMENTNAME);
 	}
 
 	/**

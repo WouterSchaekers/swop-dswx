@@ -13,14 +13,13 @@ public abstract class Treatment
 	private static ArrayList<Treatment> treatments = new ArrayList<Treatment>(Arrays.asList(new Cast("", 0), new Medication(null, false), new Surgery("")));
 	// all childclasses will have their names be final and static and will use this var to store that information in.
 	protected final String treatmentName;
-	protected int duration = 0; // the duration of the treatment 
 	
 	/**
 	 * Default constructor. 
 	 * @param treatmentName
 	 * The name of this treatment.
 	 */
-	public Treatment(String treatmentName, int duration){
+	public Treatment(String treatmentName){
 		this.treatmentName = treatmentName;
 	}
 	
@@ -48,23 +47,4 @@ public abstract class Treatment
 		}
 		return result;
 	}
-	
-	/**
-	 * @return The duration of this treatment.
-	 */
-	public int getDuration(){
-		return duration;
-	}
-	
-	/**
-	 * This method allows to change the duration of this treatment.
-	 * @param duration
-	 * The new duration of this treatment.
-	 */
-	public void setDuration(int duration){
-		this.duration = duration;
-	}
-	
-
-	
 }
