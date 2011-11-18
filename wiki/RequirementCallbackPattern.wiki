@@ -4,7 +4,7 @@
 
 The idea is as follows there is a collection of requirements that have to be met, when they are met a callback has to be made. An example of when this can be used is a warehouse stock that automatically must notify the system when it has been updated.
 
-{{
+<code>
 abstract class Requirement()
 {
 Requiree req;
@@ -54,8 +54,7 @@ public void notify()
 
 
 }
-}}
-
+</code>
 
 = Details =
 
