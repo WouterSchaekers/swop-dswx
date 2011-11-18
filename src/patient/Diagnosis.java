@@ -1,5 +1,6 @@
 package patient;
 
+import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.*;
 import users.Doctor;
 
@@ -18,24 +19,24 @@ public class Diagnosis
 	private Doctor secopDoc = null; // the doctor to give second opinion
 
 	/**
-	 * This function allow a diagnosis to be created.
+	 * This function allows a diagnosis to be created.
 	 * 
 	 * @param doc
 	 *            The doctor who made the diagnosis.
 	 * @param diag
 	 *            The diagnosis made by the doctor.
-	 * @param patientfile
-	 *            The file of the patient who has been diagnosed.
-	 * @return This diagnosis.
-	 * @throws InvalidDoctorException 
+	 * @return The created diagnosis.
+	 * @throws InvalidDoctorException
+	 *             If !isValidDoc(doc)
+	 * @throws InvalidDiagnoseException
+	 *             if !isValidDiagnosis(diag)
 	 */
-	public Diagnosis createDiag(Doctor doc, String diag, PatientFile patientfile) throws InvalidDoctorException {
-		if (doc == null)
-			throw new InvalidDoctorException("Doctor is null!");
-		if (diag.equals(""))
-			throw new IllegalArgumentException("Diagnosis is empty!");
-		if (patientfile == null)
-			throw new IllegalArgumentException("Patientfile is null!");
+	public Diagnosis createDiag(Doctor doc, String diag)
+			throws InvalidDoctorException, InvalidDiagnoseException {
+		if (!this.canHaveAsDoctor(doc))
+			throw new InvalidDoctorException("Doctor is invalid!");
+		if (!this.isValidDiagnosis(diag))
+			throw new InvalidDiagnoseException("Diagnosis is invalid!");
 
 		Diagnosis returnval = new Diagnosis();
 		this.attending = doc;
@@ -47,24 +48,51 @@ public class Diagnosis
 	 * This function approves or disapproves this diagnosis after second
 	 * opinion.
 	 * 
-	 * @param validity
-	 *            Should be true when the second opinion and the original
-	 *            diagnosis match.
+	 * @param from
+	 *            The doctor trying to give a second opinion on this diagnosis.
+	 * @param diag
+	 *            The second opinion this doctor is giving.
+	 * @throws InvalidDoctorException
+	 *             if (!canGvieSecondOpionion(from))
+	 * @throws InvalidDiagnoseException
+	 *             if (!isValidDiagnosis(diag))
 	 */
-	public void giveSecOp(boolean validity) {
-		this.approved = validity;
+	public void giveSecOp(Doctor from, String diag)
+			throws InvalidDoctorException, InvalidDiagnoseException {
+		if (!canGiveSecondOpinion(from))
+			throw new InvalidDoctorException(
+					"The associated doctor cannot give a second opinion on the selected diagnose as he's not been asked to do so.");
+		if (!isValidDiagnosis(diag))
+			throw new InvalidDiagnoseException(
+					"Invalid diagnosis for second opinion!");
+		if (evaluateSecOp(diag))
+			this.approve();
+		else
+			this.disapprove();
 	}
 
 	/**
 	 * This function marks this diagnosis for review by a second opinion.
 	 * 
-	 * @return A string containing useful information for the user.
+	 * @param from
+	 *            The doctor that needs to give the second opinion.
+	 * @throws InvalidDoctorException
+	 *             if !canHaveAsDoctor(from)
 	 */
-	public String markForSecOp(Doctor from) {
+	public void markForSecOp(Doctor from) throws InvalidDoctorException {
+		if (!canHaveAsDoctor(from))
+			throw new InvalidDoctorException("Invalid doctor given to mark for second opinion!");
 		this.secOpFlag = true;
 		this.disapprove();
 		secopDoc = from;
-		return "Diagnosis has been successfully marked for second opinion. The diagnosis has been disapproved.";
+	}
+
+	/**
+	 * @return The doctor assigned by the attending to give a second opinion on
+	 *         this diagnosis.
+	 */
+	public Doctor needsSecOpFrom() {
+		return this.secopDoc;
 	}
 
 	/**
@@ -73,24 +101,6 @@ public class Diagnosis
 	private void unmarkForSecOp() {
 		this.secOpFlag = false;
 		this.secopDoc = null;
-	}
-
-	/**
-	 * This function checks if this diagnosis needs a second opinion.
-	 * 
-	 * @return True if this diagnosis needs a second opinion before approval.
-	 */
-	public boolean isMarkedForSecOp() {
-		return this.secOpFlag;
-	}
-
-	/**
-	 * This function checks if this diagnosis has been approved.
-	 * 
-	 * @return True if this diagnosis has been approved already.
-	 */
-	public boolean isApproved() {
-		return this.approved;
 	}
 
 	/**
@@ -110,16 +120,45 @@ public class Diagnosis
 		this.approved = false;
 	}
 
+	@Basic
+	public boolean isMarkedForSecOp() {
+		return this.secOpFlag;
+	}
+
+	@Basic
+	public boolean isApproved() {
+		return this.approved;
+	}
+
+	private boolean canHaveAsDoctor(Doctor doc) {
+		return !(doc.equals(null));
+	}
+
+	private boolean isValidDiagnosis(String diag) {
+		if (diag.equals(""))
+			return false;
+		return true;
+	}
+
+	private boolean canGiveSecondOpinion(Doctor doc) {
+		return doc.equals(this.needsSecOpFrom());
+	}
+
 	/**
-	 * @return The current diagnosis.
+	 * 
+	 * @param secOp
+	 * @return true if secOp.equals(this.getDiagnosis())
 	 */
+	private boolean evaluateSecOp(String secOp) {
+		return secOp.equalsIgnoreCase(this.getDiagnosis());
+	}
+
+	@Basic
 	public String getDiagnosis() {
 		return diag;
 	}
 
-	/**
-	 * @return The attending doctor on this diagnosis.
-	 */
+	@Basic
 	public Doctor getAttending() {
 		return this.attending;
 	}
@@ -127,13 +166,5 @@ public class Diagnosis
 	@Override
 	public String toString() {
 		return this.getDiagnosis();
-	}
-
-	/**
-	 * @return The doctor assigned by the attending to give a second opinion on
-	 *         this diagnosis.
-	 */
-	public Doctor needsSecOpFrom() {
-		return this.secopDoc;
 	}
 }
