@@ -2,6 +2,11 @@ package exceptions;
 
 public class InvalidSerialException extends Exception
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 285854807634956619L;
+
 	public InvalidSerialException() {
 	}
 
