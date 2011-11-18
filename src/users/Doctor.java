@@ -1,6 +1,6 @@
 package users;
 
-public class Doctor extends User
+public class Doctor extends User implements IDoctor
 {
 	public Doctor(String name) {
 		super(name);
@@ -10,4 +10,5 @@ public class Doctor extends User
 	public usertype type() {
 		return usertype.Doctor;
 	}
+
 }
