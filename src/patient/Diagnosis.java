@@ -1,8 +1,12 @@
 package patient;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.*;
+import treatment.Treatment;
 import users.Doctor;
+import users.IDoctor;
 
 /**
  * This class represents a diagnosis. It can insert, update and read the
@@ -17,6 +21,7 @@ public class Diagnosis
 	private boolean secOpFlag = false; // flag for second opinion
 	private Doctor attending = null; // the attending doctor
 	private Doctor secopDoc = null; // the doctor to give second opinion
+	private Collection<Treatment> treatments = new ArrayList<Treatment>(); // the treatments associated with this diagnosis
 
 	/**
 	 * This function allows a diagnosis to be created.
@@ -91,8 +96,9 @@ public class Diagnosis
 	 * @return The doctor assigned by the attending to give a second opinion on
 	 *         this diagnosis.
 	 */
-	public Doctor needsSecOpFrom() {
-		return this.secopDoc;
+	public IDoctor needsSecOpFrom() {
+		IDoctor rv = this.secopDoc;
+		return rv;
 	}
 
 	/**
@@ -152,7 +158,12 @@ public class Diagnosis
 	private boolean evaluateSecOp(String secOp) {
 		return secOp.equalsIgnoreCase(this.getDiagnosis());
 	}
-
+	
+	public void prescribeTreatment(Treatment t) throws InvalidTreatmentException {
+		if(!isValidTreatment(t)) throw new InvalidTreatmentException("Trying to associate an invalid treatment for a diagnosis!");
+		treatments.add(t);
+	}
+	
 	@Basic
 	public String getDiagnosis() {
 		return diag;
@@ -163,8 +174,17 @@ public class Diagnosis
 		return this.attending;
 	}
 
+	public Collection<Treatment> getTreatments() {
+		Collection<Treatment> rv = new ArrayList<Treatment>(treatments);
+		return rv;
+	}
+	
 	@Override
 	public String toString() {
 		return this.getDiagnosis();
+	}
+	
+	private boolean isValidTreatment(Treatment t) {
+		return t != null;
 	}
 }
