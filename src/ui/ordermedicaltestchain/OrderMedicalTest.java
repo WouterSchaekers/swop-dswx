@@ -2,19 +2,19 @@ package ui.ordermedicaltestchain;
 
 import ui.SelectUsecase;
 import ui.UserinterfaceData;
-import ui.usecase;
+import ui.Usecase;
 import users.User.usertype;
 
-public class orderMedicalTest extends MedicalTestCommand
+public class OrderMedicalTest extends MedicalTestCommand
 {
 
-	public orderMedicalTest(UserinterfaceData data) {
+	public OrderMedicalTest(UserinterfaceData data) {
 		super(data);
 		this.medData = new MedicalTestData();
 	}
 
 	@Override
-	public usecase Execute() {
+	public Usecase Execute() {
 		// check if the person initiating this chain is allowed to.
 		if (data.getLoginController().getUserDTO().type() == usertype.Doctor) {
 			return new PatientFileOpenChecker(data, medData);

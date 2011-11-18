@@ -3,13 +3,13 @@ package ui.registerpatientchain;
 import controllers.RegisterPatientController;
 import ui.UserinterfaceData;
 import ui.SelectUsecase;
-import ui.usecase;
+import ui.Usecase;
 
 /**
  * This class 
  *
  */
-public class CreateRegisterController extends usecase
+public class CreateRegisterController extends Usecase
 {
 
 	public CreateRegisterController(UserinterfaceData data) {
@@ -17,7 +17,7 @@ public class CreateRegisterController extends usecase
 	}
 
 	@Override
-	public usecase Execute() {
+	public Usecase Execute() {
 		RegisterPatientController reg ;
 		try{
 			reg = new RegisterPatientController(data.getLoginController(), data.getDataPasser());
@@ -30,7 +30,7 @@ public class CreateRegisterController extends usecase
 			System.out.println("Illegal argument");
 			return new SelectUsecase(data);
 		}
-		return new displayAllPatients(data,reg);
+		return new DisplayAllPatients(data,reg);
 	}
 
 }

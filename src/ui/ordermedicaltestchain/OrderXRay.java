@@ -2,17 +2,17 @@ package ui.ordermedicaltestchain;
 
 import help.ValidUseCaseInputChecker;
 import ui.UserinterfaceData;
-import ui.usecase;
+import ui.Usecase;
 
-public class orderXRay extends MedicalTestCommand
+public class OrderXRay extends MedicalTestCommand
 {
 
-	public orderXRay(UserinterfaceData data, MedicalTestData medData) {
+	public OrderXRay(UserinterfaceData data, MedicalTestData medData) {
 		super(data,medData);
 	}
 
 	@Override
-	public usecase Execute() {
+	public Usecase Execute() {
 		String in = "";
 		
 		// BODYPART
@@ -49,7 +49,7 @@ public class orderXRay extends MedicalTestCommand
 		}
 		medData.setZoomlevel(Integer.parseInt(in));
 	
-		return new scheduleXRay(data,medData);
+		return new ScheduleXRay(data,medData);
 	}
 
 }

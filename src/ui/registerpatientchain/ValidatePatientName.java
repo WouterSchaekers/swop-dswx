@@ -2,16 +2,16 @@ package ui.registerpatientchain;
 
 import java.util.Map;
 import ui.UserinterfaceData;
-import ui.usecase;
+import ui.Usecase;
 import controllers.DTOPatientFile;
 import controllers.RegisterPatientController;
 
-public class validatePatientName extends usecase
+public class ValidatePatientName extends Usecase
 {
 	String name;
 	RegisterPatientController rpc;
 	Map<String,DTOPatientFile>	 namePatientFileMap;
-	public validatePatientName(UserinterfaceData data, RegisterPatientController rpc,
+	public ValidatePatientName(UserinterfaceData data, RegisterPatientController rpc,
 			Map<String, DTOPatientFile> namePatientMap, String in) {
 		super(data);
 		this.rpc= rpc;
@@ -20,10 +20,10 @@ public class validatePatientName extends usecase
 	}
 
 	@Override
-	public usecase Execute() {
+	public Usecase Execute() {
 		if(namePatientFileMap.containsKey(name))
 			return new RegisterCheckin(data,rpc,namePatientFileMap,name);
-		return new displayAllPatients(data, rpc);
+		return new DisplayAllPatients(data, rpc);
 	}
 
 }

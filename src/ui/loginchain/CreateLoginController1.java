@@ -1,16 +1,16 @@
 package ui.loginchain;
 
 import ui.UserinterfaceData;
-import ui.usecase;
+import ui.Usecase;
 import controllers.LoginController;
 
 /**
  * In this class the logincontroller of the user that is allowed to log in will be created.
  */
-public class createLoginController extends LoginCommand
+public class CreateLoginController1 extends LoginCommand
 {
 
-	public createLoginController(UserinterfaceData uiData, LoginData loginData) {
+	public CreateLoginController1(UserinterfaceData uiData, LoginData loginData) {
 		super(uiData,loginData);
 	}
 	
@@ -19,9 +19,9 @@ public class createLoginController extends LoginCommand
 	 * Returns the next step of the chain, where all the names of the system are displayed.
 	 */
 	@Override
-	public usecase Execute() {
+	public Usecase Execute() {
 		data.setLoginc(new LoginController(data.getDataPasser()));
-		return new displayAllNames(data, loginData);
+		return new DisplayAllNames(data, loginData);
 	}
 
 }

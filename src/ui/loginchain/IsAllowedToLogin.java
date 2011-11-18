@@ -2,14 +2,14 @@ package ui.loginchain;
 
 import ui.UserinterfaceData;
 import ui.SelectUsecase;
-import ui.usecase;
+import ui.Usecase;
 
 /**
  * Class to check whether a person is allowed to log in.
  */
-public class isAllowedToLogin extends LoginCommand
+public class IsAllowedToLogin extends LoginCommand
 {
-	public isAllowedToLogin(UserinterfaceData uiData) {
+	public IsAllowedToLogin(UserinterfaceData uiData) {
 		super(uiData,new LoginData(""));
 	}
 	
@@ -20,9 +20,9 @@ public class isAllowedToLogin extends LoginCommand
 	 * 		The person is not allowed to log in and the system will return to the beginning of the chain. 
 	 */
 	@Override
-	public usecase Execute() {
+	public Usecase Execute() {
 		if(data.getLoginController()==null)
-			return new createLoginController(data, loginData);
+			return new CreateLoginController1(data, loginData);
 		return new SelectUsecase(data);
 	}
 

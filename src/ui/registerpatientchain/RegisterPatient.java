@@ -1,16 +1,16 @@
 package ui.registerpatientchain;
 
 import ui.UserinterfaceData;
-import ui.usecase;
+import ui.Usecase;
 
 /**
  * This class registers a patient for the use case and proceeds to the next step in the chain.
  *
  */
-public class registerPatient extends usecase
+public class RegisterPatient extends Usecase
 {
 
-	public registerPatient(UserinterfaceData data) {
+	public RegisterPatient(UserinterfaceData data) {
 		super(data);
 	}
 
@@ -18,7 +18,7 @@ public class registerPatient extends usecase
 	 * Returns a new CreateRegisterController, goes to the next step in the chain.
 	 */
 	@Override
-	public usecase Execute() {
+	public Usecase Execute() {
 		return new CreateRegisterController(data);
 	}
 

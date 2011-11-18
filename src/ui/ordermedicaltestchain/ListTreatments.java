@@ -1,21 +1,21 @@
 package ui.ordermedicaltestchain;
 
 import ui.UserinterfaceData;
-import ui.usecase;
+import ui.Usecase;
 
-public class listTreatments extends MedicalTestCommand
+public class ListTreatments extends MedicalTestCommand
 {
 
-	public listTreatments(UserinterfaceData uiData, MedicalTestData medData) {
+	public ListTreatments(UserinterfaceData uiData, MedicalTestData medData) {
 		super(uiData, medData);
 	}
 
 	@Override
-	public usecase Execute() {
+	public Usecase Execute() {
 		// list all treatments and continue
 		System.out.println("Possible treatments are:\n");
 		System.out.println(medData.types);
-		return new selectMedicalTest(data,medData);
+		return new SelectMedicalTest(data,medData);
 	}
 
 }

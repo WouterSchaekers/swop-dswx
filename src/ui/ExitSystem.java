@@ -3,10 +3,10 @@ package ui;
 /**
  * This class terminates the system.
  */
-public class exitSystem extends usecase
+public class ExitSystem extends Usecase
 {
 	
-	public exitSystem(UserinterfaceData data) {
+	public ExitSystem(UserinterfaceData data) {
 		super(data);
 	}
 	
@@ -14,7 +14,7 @@ public class exitSystem extends usecase
 	 * Termination of the system.
 	 */
 	@Override
-	public usecase Execute() {
+	public Usecase Execute() {
 		return null;
 	}
 

@@ -1,9 +1,9 @@
 package ui.ordermedicaltestchain;
 
 import ui.UserinterfaceData;
-import ui.usecase;
+import ui.Usecase;
 
-public abstract class MedicalTestCommand extends usecase
+public abstract class MedicalTestCommand extends Usecase
 {
 	MedicalTestData medData;
 
@@ -12,7 +12,7 @@ public abstract class MedicalTestCommand extends usecase
 	}
 
 	@Override
-	public abstract usecase Execute();
+	public abstract Usecase Execute();
 	
 	public MedicalTestCommand(UserinterfaceData uiData, MedicalTestData medData) {
 		super(uiData);

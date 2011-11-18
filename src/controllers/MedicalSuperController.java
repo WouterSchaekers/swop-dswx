@@ -5,7 +5,7 @@ package controllers;
  * the normal supercontroller.
  * 
  */
-public class MedicalSuperController extends superController
+public class MedicalSuperController extends SuperController
 {
 	private ConsultPatientFileController cpf; // the cpf for this
 												// supercontroller

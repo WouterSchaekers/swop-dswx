@@ -1,9 +1,9 @@
 package ui.loginchain;
 
 import ui.UserinterfaceData;
-import ui.usecase;
+import ui.Usecase;
 
-public abstract class LoginCommand extends usecase
+public abstract class LoginCommand extends Usecase
 {
 	
 	LoginData loginData;

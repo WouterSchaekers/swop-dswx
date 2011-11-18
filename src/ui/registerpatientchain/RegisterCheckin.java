@@ -2,11 +2,11 @@ package ui.registerpatientchain;
 
 import java.util.Map;
 import ui.UserinterfaceData;
-import ui.usecase;
+import ui.Usecase;
 import controllers.DTOPatientFile;
 import controllers.RegisterPatientController;
 
-public class RegisterCheckin extends usecase
+public class RegisterCheckin extends Usecase
 {
 	RegisterPatientController rpc;
 	String name;
@@ -20,7 +20,7 @@ public class RegisterCheckin extends usecase
 	}
 
 	@Override
-	public usecase Execute() {
+	public Usecase Execute() {
 		rpc.registerPatient(nameMap.get(name));
 		System.out.println(name+" has been checked in");
 		return new SelectDoctor(data,nameMap.get(name),rpc);

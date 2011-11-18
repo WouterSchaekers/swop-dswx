@@ -4,7 +4,7 @@ import controllers.DTOUser;
 import controllers.LoginController;
 import ui.SelectUsecase;
 import ui.UserinterfaceData;
-import ui.usecase;
+import ui.Usecase;
 
 public class PatientFileOpenChecker extends MedicalTestCommand
 {
@@ -14,14 +14,14 @@ public class PatientFileOpenChecker extends MedicalTestCommand
 	}
 
 	@Override
-	public usecase Execute() {
+	public Usecase Execute() {
 		// check if the doctor has the patient file opened at this moment.
 		LoginController lc = data.getLoginController();
 		DTOUser docLc = lc.getUserDTO();
 		DTOUser curDoc = data.getPatientFileOpenController().getDocDTO();
 		
 		if(docLc.equals(curDoc))
-			return new checkPatientStatus(data,medData);
+			return new CheckPatientStatus(data,medData);
 		return new SelectUsecase(data);
 		
 	}

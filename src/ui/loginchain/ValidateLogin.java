@@ -2,14 +2,14 @@ package ui.loginchain;
 
 import java.util.Collection;
 import ui.UserinterfaceData;
-import ui.usecase;
+import ui.Usecase;
 import controllers.DTOUser;
 import controllers.LoginController;
 
 /**
  * This class will see if the name entered by the current user is allowed to log in.
  */
-public class validateLogin extends LoginCommand
+public class ValidateLogin extends LoginCommand
 {
 	private LoginController lc;
 	/**
@@ -19,7 +19,7 @@ public class validateLogin extends LoginCommand
 	 * @param loginData
 	 * The data from the logincontroller (contains the logincontroller!).
 	 */
-	public validateLogin(UserinterfaceData uiData,LoginData loginData) {
+	public ValidateLogin(UserinterfaceData uiData,LoginData loginData) {
 		super(uiData, loginData);
 		lc = uiData.getLoginController();
 	}
@@ -30,12 +30,12 @@ public class validateLogin extends LoginCommand
 	 * If the map contains the name of the current user, the system will proceed to the next step in the chain. 
 	 */
 	@Override
-	public usecase Execute() {
+	public Usecase Execute() {
 		Collection<DTOUser> c = lc.getAllUsers();
 		for(DTOUser u: c)
 			if(u.getName().equalsIgnoreCase(loginData.getUsername()))
-				return new loginToSystem(data,u);
-		return new displayAllNames(data,loginData);
+				return new LoginToSystem(data,u);
+		return new DisplayAllNames(data,loginData);
 	}
 
 }
