@@ -2,15 +2,15 @@ package ui.logoutchain;
 
 import ui.UserinterfaceData;
 import ui.SelectUsecase;
-import ui.usecase;
+import ui.Usecase;
 
 /**
  * This class will log out the current user of the system.
  */
-public class logOut extends usecase
+public class LogOut extends Usecase
 {
 	
-	public logOut(UserinterfaceData data) {
+	public LogOut(UserinterfaceData data) {
 		super(data);
 	}
 
@@ -20,7 +20,7 @@ public class logOut extends usecase
 	 * At the end of this method the end of the chain is achieved, the system will return to the beginning of the chain.
 	 */
 	@Override
-	public usecase Execute() {
+	public Usecase Execute() {
 		if (data.getLoginController() != null)
 			System.out.println(data.getLoginController().getUserDTO().getName()
 					+ "succesfully logged out.");

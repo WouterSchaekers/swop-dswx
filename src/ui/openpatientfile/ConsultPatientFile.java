@@ -1,9 +1,9 @@
 package ui.openpatientfile;
 
 import ui.UserinterfaceData;
-import ui.usecase;
+import ui.Usecase;
 
-public class ConsultPatientFile extends usecase
+public class ConsultPatientFile extends Usecase
 {
 
 	public ConsultPatientFile(UserinterfaceData data) {
@@ -11,7 +11,7 @@ public class ConsultPatientFile extends usecase
 	}
 
 	@Override
-	public usecase Execute() {
+	public Usecase Execute() {
 		ConsutlPatientFileData d= new ConsutlPatientFileData();
 		return new ListUndischargedPatients(data,d);
 	}

@@ -2,17 +2,17 @@ package ui.ordermedicaltestchain;
 
 import help.ValidUseCaseInputChecker;
 import ui.UserinterfaceData;
-import ui.usecase;
+import ui.Usecase;
 
-public class orderBloodAnalysis extends MedicalTestCommand
+public class OrderBloodAnalysis extends MedicalTestCommand
 {
 
-	public orderBloodAnalysis(UserinterfaceData data, MedicalTestData medData) {
+	public OrderBloodAnalysis(UserinterfaceData data, MedicalTestData medData) {
 		super(data,medData);
 	}
 
 	@Override
-	public usecase Execute() {
+	public Usecase Execute() {
 		String in = "";
 		
 		// FOCUS
@@ -39,7 +39,7 @@ public class orderBloodAnalysis extends MedicalTestCommand
 			return this;
 		}
 	
-		return new scheduleBloodAnalysis(data,medData);
+		return new ScheduleBloodAnalysis(data,medData);
 	}
 
 }

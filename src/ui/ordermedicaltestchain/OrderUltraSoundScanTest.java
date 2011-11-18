@@ -2,18 +2,18 @@ package ui.ordermedicaltestchain;
 
 import help.ValidUseCaseInputChecker;
 import ui.UserinterfaceData;
-import ui.usecase;
+import ui.Usecase;
 
-public class orderUltraSoundScanTest extends MedicalTestCommand
+public class OrderUltraSoundScanTest extends MedicalTestCommand
 {
 
-	public orderUltraSoundScanTest(UserinterfaceData data,
+	public OrderUltraSoundScanTest(UserinterfaceData data,
 			MedicalTestData medData) {
 		super(data, medData);
 	}
 
 	@Override
-	public usecase Execute() {
+	public Usecase Execute() {
 		String in = "";
 		
 		// FOCUS
@@ -52,7 +52,7 @@ public class orderUltraSoundScanTest extends MedicalTestCommand
 				return this;
 			}
 		
-		return new scheduleUltraSound(data,medData);
+		return new ScheduleUltraSound(data,medData);
 	}
 
 }

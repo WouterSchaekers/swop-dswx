@@ -3,22 +3,22 @@ package ui.registerpatientchain;
 import java.util.HashMap;
 import java.util.Map;
 import ui.UserinterfaceData;
-import ui.usecase;
+import ui.Usecase;
 import controllers.DTOPatientFile;
 import controllers.RegisterPatientController;
 
-public class displayAllPatients extends usecase
+public class DisplayAllPatients extends Usecase
 {
 	Map<String,DTOPatientFile> namePatientMap;
 	RegisterPatientController rpc;
-	public displayAllPatients(UserinterfaceData data,RegisterPatientController registerpatientcontroller) {
+	public DisplayAllPatients(UserinterfaceData data,RegisterPatientController registerpatientcontroller) {
 		super(data);
 		this.rpc=registerpatientcontroller;
 		namePatientMap = new HashMap<String, DTOPatientFile>();
 	}
 	
 	@Override
-	public usecase Execute() {
+	public Usecase Execute() {
 		System.out.println("List of all patients:");
 		for(DTOPatientFile patient:rpc.getAllPatients()){
 			namePatientMap.put(patient.getName(), patient);

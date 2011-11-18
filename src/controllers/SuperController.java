@@ -3,7 +3,7 @@ package controllers;
 /**
  * This is the supercontroller for the checkin- and medicaltestcontroller.
  */
-public class superController
+public class SuperController
 {
 
 	protected LoginController lc; // the logincontroller for this supercontroller and it's children.
@@ -17,7 +17,7 @@ public class superController
 	 * @throws IllegalArgumentException
 	 *             if the logincontroller is invalid.
 	 */
-	public superController(LoginController lc) throws IllegalArgumentException {
+	public SuperController(LoginController lc) throws IllegalArgumentException {
 		if (this.validLoginController(lc))
 			this.lc = lc;
 		else 

@@ -1,16 +1,16 @@
 package ui;
 
-import ui.loginchain.isAllowedToLogin;
-import ui.logoutchain.logOut;
-import ui.ordermedicaltestchain.orderMedicalTest;
-import ui.registerpatientchain.registerPatient;
+import ui.loginchain.IsAllowedToLogin;
+import ui.logoutchain.LogOut;
+import ui.ordermedicaltestchain.OrderMedicalTest;
+import ui.registerpatientchain.RegisterPatient;
 
 /**
  * This class represents a menu to select what a user wants to do.
  * You can choose different options that are described in the enumeration below.
  */
 
-public class SelectUsecase extends usecase
+public class SelectUsecase extends Usecase
 {
 	/**
 	 * This enumeration is created to simplify the different use cases.
@@ -65,7 +65,7 @@ public class SelectUsecase extends usecase
 	 * In this method the initial chain is started. You can choose the different use cases.
 	 */
 	@Override
-	public usecase Execute() {
+	public Usecase Execute() {
 		System.out.println("Select what you would like to do: ");
 		System.out.println("type the number of the new usecase");
 		for (usecases u : usecases.values())
@@ -81,15 +81,15 @@ public class SelectUsecase extends usecase
 		usecases u = usecases.fromInt(i);
 		switch (u) {
 		case login:
-			return new isAllowedToLogin(data);
+			return new IsAllowedToLogin(data);
 		case RegisterPatient:
-			return new registerPatient(data);
+			return new RegisterPatient(data);
 		case logout:
-			return new logOut(data);
+			return new LogOut(data);
 		case orderMedicalTest:
-			return new orderMedicalTest(data);
+			return new OrderMedicalTest(data);
 		case exitSystem:
-			return new exitSystem(data);
+			return new ExitSystem(data);
 		default:
 			break;
 		}

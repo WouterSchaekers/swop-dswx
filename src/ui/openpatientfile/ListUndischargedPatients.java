@@ -7,10 +7,10 @@ import controllers.DTOPatientFile;
 import controllers.PatientFileOpenController;
 import ui.UserinterfaceData;
 import ui.SelectUsecase;
-import ui.usecase;
+import ui.Usecase;
 import users.User.usertype;
 
-public class ListUndischargedPatients extends usecase
+public class ListUndischargedPatients extends Usecase
 {
 	UserinterfaceData data;
 	ConsutlPatientFileData patfiledata;
@@ -19,7 +19,7 @@ public class ListUndischargedPatients extends usecase
 	}
 
 	@Override
-	public usecase Execute() {
+	public Usecase Execute() {
 		if(data.getLoginController().getUserDTO().type()!=usertype.Doctor)
 		{
 			System.out.println(data.getLoginController().getUserDTO().getName()+" is not a Doctor");

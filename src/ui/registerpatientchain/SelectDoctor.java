@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import ui.UserinterfaceData;
-import ui.usecase;
+import ui.Usecase;
 import users.User.usertype;
 import controllers.DTOAppointment;
 import controllers.DTOPatientFile;
 import controllers.RegisterPatientController;
 import controllers.DTOUser;
 
-public class SelectDoctor extends usecase
+public class SelectDoctor extends Usecase
 {
 	DTOPatientFile pfile;
 	RegisterPatientController rpc;
@@ -24,7 +24,7 @@ public class SelectDoctor extends usecase
 	}
 
 	@Override
-	public usecase Execute() {
+	public Usecase Execute() {
 		ArrayList<DTOUser> docters = new ArrayList<DTOUser>();
 		System.out.println("Select a doctor from  the list of doctors:");
 		for (DTOUser u : data.getLoginController().getAllUsers()) {
@@ -44,7 +44,7 @@ public class SelectDoctor extends usecase
 		}
 
 		DTOAppointment app= rpc.CreateAppointMent(map.get(name),pfile);
-		return new displayAppointment(data,app);
+		return new DisplayAppointment(data,app);
 	}
 
 }

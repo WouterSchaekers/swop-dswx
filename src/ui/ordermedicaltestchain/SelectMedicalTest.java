@@ -2,17 +2,17 @@ package ui.ordermedicaltestchain;
 
 import medicaltest.MedicalTestTypes;
 import ui.UserinterfaceData;
-import ui.usecase;
+import ui.Usecase;
 
-public class selectMedicalTest extends MedicalTestCommand
+public class SelectMedicalTest extends MedicalTestCommand
 {
 
-	public selectMedicalTest(UserinterfaceData uiData, MedicalTestData medData) {
+	public SelectMedicalTest(UserinterfaceData uiData, MedicalTestData medData) {
 		super(uiData, medData);
 	}
 	
 	@Override
-	public usecase Execute() {
+	public Usecase Execute() {
 		System.out.println("\nWhich one would you like to order? (please type the name as it appears on your screen)\n");
 		String s = input.nextLine();
 		MedicalTestTypes[] testtypes = MedicalTestTypes.values();
@@ -32,11 +32,11 @@ public class selectMedicalTest extends MedicalTestCommand
 		
 		switch (testOfChoice) {
 		case xrayscan: 
-			return new orderXRay(data,medData);
+			return new OrderXRay(data,medData);
 		case ultrasoundscan:
-			return new orderUltraSoundScanTest(data,medData);
+			return new OrderUltraSoundScanTest(data,medData);
 		case bloodanalysis:
-			return new orderBloodAnalysis(data,medData);
+			return new OrderBloodAnalysis(data,medData);
 		default: throw new IllegalStateException("This is not supposed to happen...");
 		}
 	}

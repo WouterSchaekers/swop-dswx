@@ -25,7 +25,7 @@ import java.util.Scanner;
  * */
 public class UCHandler
 {
-	usecase currentUseCase;
+	Usecase currentUseCase;
 	UserinterfaceData data;
 	
 	/**
@@ -35,7 +35,7 @@ public class UCHandler
 	public UCHandler(UserinterfaceData data) {
 		this.data = data;
 		currentUseCase = new SelectUsecase(data);
-		usecase.setScanner(new Scanner(System.in));
+		Usecase.setScanner(new Scanner(System.in));
 	}
 
 	/**
@@ -45,7 +45,7 @@ public class UCHandler
 	 */
 	public void start() {
 		while (true) {
-			if ((currentUseCase = currentUseCase.Execute()) instanceof exitSystem)
+			if ((currentUseCase = currentUseCase.Execute()) instanceof ExitSystem)
 				return;
 		}
 

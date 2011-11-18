@@ -2,9 +2,9 @@ package ui.registerpatientchain;
 
 import controllers.RegisterPatientController;
 import ui.UserinterfaceData;
-import ui.usecase;
+import ui.Usecase;
 
-public class CreateNewPatient extends usecase
+public class CreateNewPatient extends Usecase
 {
 	RegisterPatientController rpc;
 	public CreateNewPatient(UserinterfaceData data, RegisterPatientController rpc) {
@@ -13,12 +13,12 @@ public class CreateNewPatient extends usecase
 	}
 
 	@Override
-	public usecase Execute() {
+	public Usecase Execute() {
 		System.out.println("Create a new Patient in the database");
 		System.out.println("enter name:");
 		String name = input.nextLine();
 		rpc.createNewPatient(data.getDataPasser(),name);
-		return new displayAllPatients(data, rpc);
+		return new DisplayAllPatients(data, rpc);
 	}
 
 }

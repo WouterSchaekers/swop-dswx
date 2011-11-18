@@ -2,7 +2,7 @@ package ui.loginchain;
 
 import java.util.Collection;
 import ui.UserinterfaceData;
-import ui.usecase;
+import ui.Usecase;
 import controllers.DTOUser;
 
 /**
@@ -10,9 +10,9 @@ import controllers.DTOUser;
  * When this is done the system proceeds to the next step of the chain. 
  *
  */
-public class displayAllNames extends LoginCommand
+public class DisplayAllNames extends LoginCommand
 {
-	public displayAllNames(UserinterfaceData uiData, LoginData loginData) {
+	public DisplayAllNames(UserinterfaceData uiData, LoginData loginData) {
 		super(uiData,loginData);
 	}
 
@@ -23,7 +23,7 @@ public class displayAllNames extends LoginCommand
 	 * The data of the user and the created hashmap with all users in are given to the next use case in the chain.
 	 */
 	@Override
-	public usecase Execute() {
+	public Usecase Execute() {
 		System.out.println("All users registered in the system:");
 		Collection<DTOUser> userCol = data.getLoginController().getAllUsers();
 		
@@ -31,7 +31,7 @@ public class displayAllNames extends LoginCommand
 			System.out.println("* " + u.getName() + "\n");
 		}
 		
-		return new login(data,loginData);
+		return new Login(data,loginData);
 	}
 
 }
