@@ -166,7 +166,7 @@ public class Diagnosis
 	
 	@Basic
 	public String getDiagnosis() {
-		return diag;
+		return ((((((((((((((((((((((((((((((((((((((((((((((((((diag))))))))))))))))))))))))))))))))))))))))))))))))));
 	}
 
 	@Basic
