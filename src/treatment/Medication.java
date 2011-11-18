@@ -20,7 +20,7 @@ public class Medication extends Treatment
 	 * Whether or not the meds are sensitive.
 	 */
 	public Medication(String description, boolean sensitive){
-		super(TREATMENTNAME, (sensitive)?20 : 10);
+		super(TREATMENTNAME);
 		setDescription(description);
 		setSensitive(sensitive);
 
@@ -30,7 +30,7 @@ public class Medication extends Treatment
 	 * @return Information about this medicinal treatment.
 	 */
 	public String information(){
-		return TREATMENTNAME + ": " + getDescription() + " " + sensitiveText() + " this medication treatment takes " + super.getDuration() + " min.";
+		return TREATMENTNAME + ": " + getDescription() + " " + sensitiveText() + ".";
 	}
 
 	/**

@@ -16,7 +16,7 @@ public class Surgery extends Treatment
 	 * The description of this surgery.
 	 */
 	public Surgery(String description){
-		super(TREATMENTNAME, 180);
+		super(TREATMENTNAME);
 	}
 
 	/**
