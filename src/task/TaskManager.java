@@ -2,6 +2,7 @@ package task;
 
 import java.util.HashMap;
 import java.util.Map;
+import exceptions.InvalidTaskException;
 import patient.PatientFile;
 import scheduler.Appointment;
 import scheduler.Scheduler;
@@ -16,12 +17,17 @@ public class TaskManager
 		this.scheduler = scheduler;
 		this.resourceToTasks=new HashMap<Resource, Task>();
 	}
-	public Task getTaskBy(Resource resource)
+	public Task getTaskBy(Resource resource) throws InvalidTaskException
 	{
-		return this.resourceToTasks.get(resource);
+		Task task = resourceToTasks.get(resource);
+		if(task == null){
+			throw new InvalidTaskException("Task does not exist.");
+		}
+		else{
+			return task;
+		}
 	}
 	public Task createAppointMent(Doctor doctor,PatientFile file){
-		
 		return null;
 	}
 	
