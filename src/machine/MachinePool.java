@@ -2,6 +2,8 @@ package machine;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import exceptions.InvalidLocationException;
+import exceptions.InvalidSerialException;
 
 /**
  * This class is merely a collection of all machines in existence.
@@ -22,7 +24,7 @@ public class MachinePool
 		return this.allMachines;
 	}
 
-	public void addXrayScanner(int id, String location) {
+	public void addXrayScanner(int id, String location) throws InvalidLocationException, InvalidSerialException{
 		this.addMachine(new XRayScanner(id,location));
 		
 	}
