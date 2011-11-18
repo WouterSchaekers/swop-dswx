@@ -1,5 +1,7 @@
 package medicaltest;
 
+import exceptions.InvalidDurationException;
+import exceptions.InvalidNameException;
 import be.kuleuven.cs.som.annotate.*;
 /**
  * This class represents a bloodanalysis test.
@@ -13,7 +15,7 @@ public class BloodAnalysis extends MedicalTest
 	/**
 	 * Default constructor. Will call MedicalTest("BloodAnalysis")
 	 */
-	public BloodAnalysis(){
+	public BloodAnalysis() throws InvalidNameException, InvalidDurationException{
 		super("BloodAnalysis", 45);
 	}
 
