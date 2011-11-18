@@ -1,5 +1,6 @@
 package patient;
 
+import exceptions.*;
 import users.Doctor;
 
 /**
@@ -26,11 +27,11 @@ public class Diagnosis
 	 * @param patientfile
 	 *            The file of the patient who has been diagnosed.
 	 * @return This diagnosis.
+	 * @throws InvalidDoctorException 
 	 */
-	public Diagnosis createDiag(Doctor doc, String diag, PatientFile patientfile) {
-		
+	public Diagnosis createDiag(Doctor doc, String diag, PatientFile patientfile) throws InvalidDoctorException {
 		if (doc == null)
-			throw new IllegalArgumentException("Doctor is null!");
+			throw new InvalidDoctorException("Doctor is null!");
 		if (diag.equals(""))
 			throw new IllegalArgumentException("Diagnosis is empty!");
 		if (patientfile == null)
