@@ -1,5 +1,7 @@
 package machine;
 
+import exceptions.InvalidLocationException;
+import exceptions.InvalidSerialException;
 import task.Resource;
 
 /**
@@ -8,19 +10,26 @@ import task.Resource;
 public class Machine implements Resource
 {
 
-	private final int serial ;
+	private final int serial;
 	private String location = "";
-	
+
 	/**
 	 * Default constructor.
+	 * 
 	 * @param serial
-	 * The serial of this machine.
+	 *            The serial of this machine.
 	 */
-	public Machine(int serial ,String location) {
+	public Machine(int serial, String location) throws InvalidLocationException, InvalidSerialException{
+		if(location == null || location == ""){
+			throw new InvalidLocationException("Location is not set or is empty.");
+		}
+		if(serial == 0){
+			throw new InvalidSerialException("Serial must be different from zero.");
+		}
 		this.serial = serial;
 		this.location = location;
 	}
-	
+
 	/**
 	 * @return The serial of this machine.
 	 */
@@ -34,12 +43,12 @@ public class Machine implements Resource
 	public String getLocation() {
 		return this.location;
 	}
+
 	@Override
-	public boolean equals(Object o)
-	{
-		if(o instanceof Machine)
-			return ((Machine)o).serial==this.serial;
+	public boolean equals(Object o) {
+		if (o instanceof Machine)
+			return ((Machine) o).serial == this.serial;
 		return false;
-		
+
 	}
 }
