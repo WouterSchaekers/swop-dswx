@@ -13,7 +13,7 @@ interface state
 
 {{{
 while( currentState != null)
-    {
+     {
      currentState = currentState.execute();
      }
 }}}
@@ -21,56 +21,63 @@ An example of how this works is given in the following piece of code that querie
 {{{
 class MainMenu extends state
 {
-  state[] menu_options = new state[1];
-  public MainMenu()
-  {
-   state[0]=new AskName();
-   state[1]=null;
-  }
-  public state execute()
-{
-  print("Select the menu option you want to take");
-  print("Option 1, input name");
-  print("Option 2, quit");
-  int i = readInteger();
-  return menu_options[i];
-  }
+    state[] menu_options = new state[1];
+    public MainMenu()
+    {
+       state[0]=new AskName();
+       state[1]=null;
+    }
+    
+    public state execute()
+    {
+        print("Select the menu option you want to take");
+        print("Option 1, input name");
+        print("Option 2, quit");
+        int i = readInteger();// error checking ommited for breverity
+        return menu_options[i];
+    }
 }
+
 class AskName extends state
 {
-  public void execute()
-{
-  print("Enter your name: (more then 4 letters)");
-  strint name = readLine();
-  return new CheckForValidName(name);
-  }
+    public void execute()
+    {
+        print("Enter your name: (more then 4 letters)");
+        strint name = readLine();
+        return new CheckForValidName(name);
+    }
 }
+
 class CheckForValidName extends state
 {
-  string name;
-  public CheckForValidName(string name)
-  {
-  this.name=name;
-  }
-  public void execute(){
-  if(validName(name))
-    return new NameSuccesfullyEntered(name);
-  else
+    string name;
+    public CheckForValidName(string name)
     {
-     print("invalid name please enter new name");
-     return new AskName(); 
+        this.name=name;
     }
-  }
-  private boolean validName(string name){
-  if(!validLength(name))
-    return false;
-  return true;
-  }
-  private boolean validLength(String name)
-  {
-     if(name.length() < 4)
-       return false;
+
+    public void execute(){
+        if(validName(name))
+        {
+            return new NameSuccesfullyEntered(name);
+        }    
+        else
+        {
+            print("invalid name please enter new name");
+            return new AskName(); 
+        }
+    }
+
+    private boolean validName(string name){
+    if(!validLength(name))
+        return false;
     return true;
+    }
+    private boolean validLength(String name)
+    {
+        if(name.length() < 4)
+            return false;
+      return true;
   }
 }
 class NameSuccesfllyEntered 
