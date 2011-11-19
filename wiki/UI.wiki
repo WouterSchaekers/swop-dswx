@@ -13,6 +13,7 @@ while( currentState != null)
 An example of how this works is given in the following piece of code that queries a user for his or her name and if the name has less then 4 characters the name will be querried again. 
 
 <code>
+
 class MainMenu extends state
 {
   state[] menu_options = new state[1];
