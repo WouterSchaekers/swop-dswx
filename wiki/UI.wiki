@@ -86,11 +86,11 @@ class NameSuccesfllyEntered
 
 = Advantages =
 
-  * UI is easy to debug, write
-  * UI has a clear flow and every state has it's own use 
-  * the user interface is well structured.
+  * UI is easy to debug and write.
+  * UI has a clear flow and every state has it's own use.
+  * The user interface is well structured.
 = Disadvantages =
 
-  * User interface has a million billion classes
+  * User interface has a million billion classes.
   * Not that easy to understand.
-  * Drawings are required to follow the state transitions
+  * Drawings are required to follow the state transitions.
