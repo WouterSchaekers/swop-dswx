@@ -40,7 +40,7 @@ class MainMenu extends state
 
 class AskName extends state
 {
-    public void execute()
+    public state execute()
     {
         print("Enter your name: (more then 4 letters)");
         string name = readLine();
@@ -56,7 +56,7 @@ class CheckForValidName extends state
         this.name=name;
     }
 
-    public void execute(){
+    public stat execute(){
         if(validName(name))
         {
             return new NameSuccesfullyEntered(name);
