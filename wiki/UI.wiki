@@ -2,7 +2,14 @@
 
 = Introduction =
 
-The user interface is based on the command and the state pattern, all the code gets run by the following lines of code.
+The user interface is based on the command and the state pattern. All the states implement the following interface: 
+
+{{{
+interface state
+{
+   state execute();
+}
+}}}
 
 {{{
 while( currentState != null)
@@ -70,9 +77,13 @@ class NameSuccesfllyEntered
 // omitted for breverity
 }}}
 
-= Details =
+= Advantages =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+  * UI is easy to debug, write
+  * UI has a clear flow and every state has it's own use 
+  * the user interface is well structured.
+= Disadvantages =
+
+  * User interface has a million billion classes
+  * Not that easy to understand.
+  * Drawings are required to follow the state transitions
