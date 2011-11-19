@@ -20,7 +20,8 @@ class MainMenu extends state
    state[0]=new AskName();
    state[1]=null;
   }
-  public state execute(){
+  public state execute()
+{
   print("Select the menu option you want to take");
   print("Option 1, input name");
   print("Option 2, quit");
@@ -30,7 +31,8 @@ class MainMenu extends state
 }
 class AskName extends state
 {
-  public void execute(){
+  public void execute()
+{
   print("Enter your name: (more then 4 letters)");
   strint name = readLine();
   return new CheckForValidName(name);
@@ -64,6 +66,8 @@ class CheckForValidName extends state
     return true;
   }
 }
+class NameSuccesfllyEntered 
+// omitted for breverity
 }}}
 
 = Details =
