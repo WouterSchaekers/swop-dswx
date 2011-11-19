@@ -12,10 +12,10 @@ interface state
 }}}
 
 {{{
-while( currentState != null)
-     {
-     currentState = currentState.execute();
-     }
+while( currentState != null )
+    {
+        currentState = currentState.execute();
+    }
 }}}
 An example of how this works is given in the following piece of code, it queries a user for his or her name and if the name has less then 4 characters the name will be queried again. 
 {{{
