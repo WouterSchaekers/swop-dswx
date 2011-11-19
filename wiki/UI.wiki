@@ -7,7 +7,7 @@ The user interface is based on the Command pattern and the State pattern. All th
 {{{
 interface state
 {
-   state execute();
+   public state execute();
 }
 }}}
 
