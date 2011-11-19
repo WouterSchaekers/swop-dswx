@@ -1,4 +1,4 @@
-#Description of the user interface
+#Description of how the user interface works
 
 = Introduction =
 
