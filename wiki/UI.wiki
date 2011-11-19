@@ -43,7 +43,7 @@ class AskName extends state
     public void execute()
     {
         print("Enter your name: (more then 4 letters)");
-        strint name = readLine();
+        string name = readLine();
         return new CheckForValidName(name);
     }
 }
