@@ -2,7 +2,7 @@
 
 = Introduction =
 
-The user interface is based on the command and the state pattern. All the states implement the following interface: 
+The user interface is based on the Command pattern and the State pattern. All the states implement the following interface: 
 
 {{{
 interface state
