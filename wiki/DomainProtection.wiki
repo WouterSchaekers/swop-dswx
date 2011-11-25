@@ -27,7 +27,7 @@ class Appointment implements IAppointment
     public IDate getStartDate()
         return startDate;
     }
-    //omitted for brevity
+    // rest omitted for brevity
     
 }
 }}}
