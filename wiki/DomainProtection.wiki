@@ -2,6 +2,36 @@
 == Probleemstelling ==
 Hoe kunnen we een consistent domain behouden als er interactie gebeurt tuseen de user en objecten?
 
+== Class Interfaces ==
+We want to avoid that objects returned from the controllers have setters so our solution is to write interfaces for all objects that are returned from our domain. 
+
+An example would be the following piece of code : 
+{{{
+interface IAppointment
+{
+    IDoctor  getDoctor();
+    IDate    getStartDate(); 
+    IDate    betEndDate(); 
+}
+
+class Appointment implements IAppointment
+{
+    Doctor doctor;
+    Date startDate;
+    Date endDate;
+    @Override
+    public IDoctor getDoctor()
+        return doctor;
+    }
+    @Override
+    public IDate getStartDate()
+        return startDate;
+    }
+    //omitted for brevity
+    
+}
+}}}
+
 == Oplossingsopties ==
 We zien momenteel een 3-tal opties om dit probleem op te lossen.
 <br>
