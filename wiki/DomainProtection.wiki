@@ -11,7 +11,7 @@ interface IAppointment
 {
     IDoctor  getDoctor();
     IDate    getStartDate(); 
-    IDate    betEndDate(); 
+    IDate    getEndDate(); 
 }
 
 class Appointment implements IAppointment
