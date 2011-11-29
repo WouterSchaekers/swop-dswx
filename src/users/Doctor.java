@@ -1,6 +1,8 @@
 package users;
 
-public class Doctor extends User implements IDoctor
+import controllers.interfaces.DoctorIN;
+
+public class Doctor extends User implements DoctorIN
 {
 	public Doctor(String name) {
 		super(name);

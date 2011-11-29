@@ -23,7 +23,7 @@ public class LogOut extends Usecase
 	@Override
 	public Usecase Execute() {
 		if (data.getLoginController() != null)
-			System.out.println(data.getLoginController().getUserDTO().getName()
+			System.out.println(data.getLoginController().getUserIN().getName()
 					+ "succesfully logged out.");
 		this.data.setLoginc(null);
 		return new SelectUsecase(data);

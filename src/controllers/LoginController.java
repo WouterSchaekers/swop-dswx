@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import controllers.interfaces.UserIN;
 import users.User;
 import users.UserManager;
 
@@ -16,7 +17,7 @@ public class LoginController
 	private UserManager um; // the usermanager for this controller.
 	// true if the user of this controller is logged in.
 	private boolean loggedIn = false;
-	private DTOUser user = null; // the user this controller has logged in.
+	private User user = null; // the user this controller has logged in.
 
 	/**
 	 * Default constructor.
@@ -46,11 +47,12 @@ public class LoginController
 	/**
 	 * @return A collection of all users currently in the system.
 	 */
-	public Collection<DTOUser> getAllUsers() {
-		Collection<DTOUser> RV = new ArrayList<DTOUser>();
-		for (User u : um.getAllUsers())
-			RV.add(new DTOUser(u));
-		return RV;
+	public Collection<UserIN> getAllUsers() {
+		ArrayList<UserIN> users= new ArrayList<UserIN>();
+		for(User u:um.getAllUsers())
+				users.add(u);
+		return users;
+		
 	}
 
 	/**
@@ -59,10 +61,10 @@ public class LoginController
 	 * @throws IllegalArgumentException
 	 *             if the user == null
 	 */
-	public void logIn(DTOUser user) throws IllegalArgumentException {
-		if (!isValidUser(user))
+	public void logIn(UserIN user) throws IllegalArgumentException {
+		if (!isValidUser((User)user))
 			throw new IllegalArgumentException("The given user is null!");
-		this.user = user;
+		this.user = (User)user;
 		loggedIn = true;
 	}
 
@@ -74,7 +76,7 @@ public class LoginController
 	 *            The user.
 	 * @return True if u == null;
 	 */
-	private boolean isValidUser(DTOUser u) {
+	private boolean isValidUser(User u) {
 		return !(u == null);
 	}
 
@@ -89,14 +91,14 @@ public class LoginController
 	 * @return The user of this logincontroller.
 	 */
 	User getUser() {
-		return this.user.getUser();
+		return this.user;
 	}
 
 	/**
 	 * 
 	 * @return
 	 */
-	public DTOUser getUserDTO() {
+	public UserIN getUserIN() {
 		return user;
 	}
 

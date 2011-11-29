@@ -6,8 +6,6 @@ import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.*;
 import treatment.Treatment;
 import users.Doctor;
-import users.IDoctor;
-
 /**
  * This class represents a diagnosis. It can insert, update and read the
  * diagnosis of a certain patient. It can mark a diagnosis for second opinion
@@ -103,8 +101,8 @@ public class Diagnosis
 	 * @return The doctor assigned by the attending to give a second opinion on
 	 *         this diagnosis.
 	 */
-	public IDoctor needsSecOpFrom() {
-		IDoctor rv = this.secopDoc;
+	public Doctor needsSecOpFrom() {
+		Doctor rv = this.secopDoc;
 		return rv;
 	}
 

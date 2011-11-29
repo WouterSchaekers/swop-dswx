@@ -3,8 +3,8 @@ package ui.loginchain;
 import java.util.Collection;
 import ui.UserinterfaceData;
 import ui.Usecase;
-import controllers.DTOUser;
 import controllers.LoginController;
+import controllers.interfaces.UserIN;
 
 /**
  * This class will see if the name entered by the current user is allowed to log
@@ -38,8 +38,8 @@ public class ValidateLogin extends LoginCommand
 	 */
 	@Override
 	public Usecase Execute() {
-		Collection<DTOUser> c = lc.getAllUsers();
-		for (DTOUser u : c)
+		Collection<UserIN> c = lc.getAllUsers();
+		for (UserIN u : c)
 			if (u.getName().equalsIgnoreCase(loginData.getUsername()))
 				return new LoginToSystem(data, u);
 		return new DisplayAllNames(data, loginData);

@@ -3,7 +3,7 @@ package ui.loginchain;
 import java.util.Collection;
 import ui.UserinterfaceData;
 import ui.Usecase;
-import controllers.DTOUser;
+import controllers.interfaces.UserIN;
 
 /**
  * This class prints all the names of the users that are logged in in the
@@ -26,9 +26,9 @@ public class DisplayAllNames extends LoginCommand
 	@Override
 	public Usecase Execute() {
 		System.out.println("All users registered in the system:");
-		Collection<DTOUser> userCol = data.getLoginController().getAllUsers();
+		Collection<UserIN> userCol = data.getLoginController().getAllUsers();
 
-		for (DTOUser u : userCol) {
+		for (UserIN u : userCol) {
 			System.out.println("* " + u.getName() + "\n");
 		}
 
