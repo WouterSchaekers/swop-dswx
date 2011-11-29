@@ -28,7 +28,7 @@ public class ConsultPatientFileController
 		if (!(u instanceof Doctor))
 			throw new IllegalArgumentException("User" + u.getName()
 					+ " is not a doctor");
-		if (!(pfoc.getLoginController().getUserDTO().equals(lc.getUserDTO())))
+		if (!(pfoc.getLoginController().getUser().equals(lc.getUser())))
 			throw new IllegalStateException("Invalid acces!");
 
 		this.pfm = pfm;

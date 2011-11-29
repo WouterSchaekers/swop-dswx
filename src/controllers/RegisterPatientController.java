@@ -2,13 +2,18 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import controllers.interfaces.AppointmentIN;
+import controllers.interfaces.PatientFileIN;
+import controllers.interfaces.UserIN;
 import patient.PatientFile;
+import scheduler.Appointment;
 import users.Nurse;
+import users.User;
 import users.User.usertype;
 
 public class RegisterPatientController
 {
-	DTOPatientFile openPatientFile;
+	PatientFile openPatientFile;
 	DataPasser dataPasser;
 
 	public RegisterPatientController(LoginController loginController,
@@ -20,31 +25,50 @@ public class RegisterPatientController
 		this.dataPasser = dataPasser;
 	}
 
-	public Collection<DTOPatientFile> getAllPatients() {
-		Collection<DTOPatientFile> RV = new ArrayList<DTOPatientFile>();
+	public Collection<PatientFileIN> getAllPatients() {
+		Collection<PatientFileIN> RV = new ArrayList<PatientFileIN>();
 		for (PatientFile file : dataPasser.getPatientFileManager()
 				.getAllPatientFiles())
-			RV.add(new DTOPatientFile(file));
+			RV.add(file);
 		return RV;
 	}
 
-	public void registerPatient(DTOPatientFile file) {
-		this.dataPasser.getPatientFileManager().checkIn(file.getPatientFile());
-		this.openPatientFile = file;
+	public void registerPatient(PatientFileIN file) {
+		PatientFile f;
+			
+		if(file instanceof PatientFile)
+			f=(PatientFile)file;
+		else
+			throw new IllegalArgumentException(file + " is not a valid patientfile");
+		
+		this.dataPasser.getPatientFileManager().checkIn(f);
+		this.openPatientFile = f;
 	}
 
-	public DTOAppointment CreateAppointMent(DTOUser userDTO,
-			DTOPatientFile pfile) {
-		if (userDTO == null || pfile == null)
+	public AppointmentIN CreateAppointMent(UserIN user,
+			PatientFileIN pfile) {
+		User u;
+		PatientFile f;
+		if(user instanceof User)
+			u=(User)user;
+		else
+			throw new IllegalArgumentException();
+		if(pfile instanceof PatientFile)
+			f=(PatientFile)pfile;
+		else
+			throw new IllegalArgumentException();
+		
+			
+		if (u == null || f == null)
 			throw new IllegalArgumentException("null objects are illegal");
-		if (userDTO.type() != usertype.Doctor)
-			throw new IllegalArgumentException(userDTO.getName()
+		if (u.type() != usertype.Doctor)
+			throw new IllegalArgumentException(u.getName()
 					+ "is not a doctor");
 		if (this.openPatientFile == null)
 			throw new IllegalStateException(
 					"No patientfile has been opened yet");
-		if (pfile.getPatientFile().isDischarged())
-			throw new IllegalArgumentException(pfile.getName()
+		if (f.isDischarged())
+			throw new IllegalArgumentException(f.getName()
 					+ " is not checked in");
 		return null;// new
 					// AppointmentDTO(dataPasser.getScheduler().addAppointment(pfile.getPatientFile(),

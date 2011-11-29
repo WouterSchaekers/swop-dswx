@@ -1,8 +1,9 @@
 package users;
 
+import controllers.interfaces.UserIN;
 import task.Resource;
 
-public abstract class User implements Resource
+public abstract class User implements Resource,UserIN
 {
 	public abstract usertype type();
 

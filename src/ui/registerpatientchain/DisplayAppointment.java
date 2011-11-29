@@ -3,13 +3,13 @@ package ui.registerpatientchain;
 import ui.UserinterfaceData;
 import ui.SelectUsecase;
 import ui.Usecase;
-import controllers.DTOAppointment;
+import controllers.interfaces.AppointmentIN;
 
 public class DisplayAppointment extends Usecase
 {
-	private DTOAppointment app;
+	private AppointmentIN app;
 
-	public DisplayAppointment(UserinterfaceData data, DTOAppointment app) {
+	public DisplayAppointment(UserinterfaceData data, AppointmentIN app) {
 		super(data);
 		this.app = app;
 	}

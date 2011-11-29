@@ -16,10 +16,10 @@ public class OrderMedicalTest extends MedicalTestCommand
 	@Override
 	public Usecase Execute() {
 		// check if the person initiating this chain is allowed to.
-		if (data.getLoginController().getUserDTO().type() == usertype.Doctor) {
+		if (data.getLoginController().getUserIN().type() == usertype.Doctor) {
 			return new PatientFileOpenChecker(data, medData);
 		} else {
-			System.out.println(data.getLoginController().getUserDTO().getName()
+			System.out.println(data.getLoginController().getUserIN().getName()
 					+ " is not a doctor in this hospital");
 			return new SelectUsecase(data);
 		}

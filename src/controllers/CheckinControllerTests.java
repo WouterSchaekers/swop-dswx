@@ -17,7 +17,7 @@ public class CheckinControllerTests
 	private LoginController lc;
 	private Scheduler s;
 	private Nurse n;
-	private DTOUser uDTO;
+	private User uDTO;
 	private MachinePool mp;
 	private DataPasser data;
 	private PatientFile pf;

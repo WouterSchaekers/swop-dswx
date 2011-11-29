@@ -3,16 +3,16 @@ package ui.registerpatientchain;
 import java.util.Map;
 import ui.UserinterfaceData;
 import ui.Usecase;
-import controllers.DTOPatientFile;
 import controllers.RegisterPatientController;
+import controllers.interfaces.PatientFileIN;
 
 public class EnterPatientName extends Usecase
 {
-	private Map<String, DTOPatientFile> namePatientMap;
+	private Map<String, PatientFileIN> namePatientMap;
 	private RegisterPatientController rpc;
 
 	public EnterPatientName(UserinterfaceData data,
-			Map<String, DTOPatientFile> namePatientMap,
+			Map<String, PatientFileIN> namePatientMap,
 			RegisterPatientController rpc) {
 		super(data);
 		this.namePatientMap = namePatientMap;

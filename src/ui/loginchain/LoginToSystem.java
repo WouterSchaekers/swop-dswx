@@ -1,9 +1,9 @@
 package ui.loginchain;
 
+import controllers.interfaces.UserIN;
 import ui.UserinterfaceData;
 import ui.SelectUsecase;
 import ui.Usecase;
-import controllers.DTOUser;
 
 /**
  * In this class the current user will log in to the system.
@@ -11,9 +11,9 @@ import controllers.DTOUser;
  */
 public class LoginToSystem extends LoginCommand
 {
-	DTOUser user;
+	UserIN user;
 
-	public LoginToSystem(UserinterfaceData data, DTOUser user) {
+	public LoginToSystem(UserinterfaceData data, UserIN user) {
 		super(data);
 		this.user = user;
 	}

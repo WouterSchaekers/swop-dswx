@@ -2,12 +2,13 @@ package patient;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import controllers.interfaces.PatientFileIN;
 
 /**
  * This class represents the patient file of a patient. It contains all the
  * information on a certain patient e.g.: name, diagnosis, treatment,...
  */
-public class PatientFile
+public class PatientFile implements PatientFileIN 
 {
 
 	private String name = ""; // the name of the patient

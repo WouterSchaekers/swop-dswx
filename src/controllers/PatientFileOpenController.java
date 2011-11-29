@@ -2,13 +2,16 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import controllers.interfaces.DoctorIN;
+import controllers.interfaces.PatientFileIN;
+import controllers.interfaces.UserIN;
 import patient.PatientFile;
 import users.User.usertype;
 
 public class PatientFileOpenController
 {
 	DataPasser data;
-	DTOUser doctor;
+	DoctorIN doctor;
 	LoginController lc;
 
 	public PatientFileOpenController(DataPasser data,
@@ -17,29 +20,29 @@ public class PatientFileOpenController
 		if (loginController == null)
 			throw new NullPointerException("Logincontroller is null");
 
-		if (loginController.getUserDTO() == null)
+		if (loginController.getUser() == null)
 			throw new NullPointerException("User is null");
 
-		if (loginController.getUserDTO().type() == null)
+		if (loginController.getUser().type() == null)
 			throw new NullPointerException("Type of user is null");
 
-		if (loginController.getUserDTO().type() != usertype.Doctor)
+		if (loginController.getUser().type() != usertype.Doctor)
 			throw new IllegalArgumentException("This user is not a doctor!");
 
 		this.lc = loginController;
-		doctor = loginController.getUserDTO();
+		doctor = (DoctorIN) loginController.getUser();
 	}
 
 	public LoginController getLoginController() {
 		return this.lc;
 	}
 
-	public Collection<DTOPatientFile> getAllPatientFiles(
+	public Collection<PatientFileIN> getAllPatientFiles(
 			LoginController loginController) {
-		ArrayList<DTOPatientFile> RV = new ArrayList<DTOPatientFile>();
+		ArrayList<PatientFileIN> RV = new ArrayList<PatientFileIN>();
 		for (PatientFile file : data.getPatientFileManager()
 				.getAllPatientFiles())
-			RV.add(new DTOPatientFile(file));
+			RV.add(file);
 		return RV;
 	}
 
@@ -47,16 +50,16 @@ public class PatientFileOpenController
 		if (loginController == null)
 			return false;
 
-		if (loginController.getUserDTO() == null)
+		if (loginController.getUser() == null)
 			return false;
 
-		if (loginController.getUserDTO().type() == null)
+		if (loginController.getUser().type() == null)
 			return false;
 
-		if (loginController.getUserDTO().type() != usertype.Doctor)
+		if (loginController.getUser().type() != usertype.Doctor)
 			return false;
 
-		if (loginController.getUserDTO() != doctor)
+		if (loginController.getUser() != doctor)
 			return false;
 
 		return true;
@@ -64,15 +67,18 @@ public class PatientFileOpenController
 
 	PatientFile pf;
 
-	public void openPatientFile(DTOPatientFile pfdto) {
-		this.pf = pfdto.getPatientFile();
+	public void openPatientFile(PatientFileIN pfdto) {
+		if(pfdto instanceof PatientFile)
+			this.pf = (PatientFile) pfdto;
+		else
+			throw new IllegalArgumentException(pfdto+" is not a valid patient file");
 	}
 
-	public DTOPatientFile getPatientFile() {
-		return new DTOPatientFile(this.pf);
+	public PatientFileIN getPatientFile() {
+		return this.pf;
 	}
 
-	public DTOUser getDocDTO() {
+	public UserIN getDocIN() {
 		return this.doctor;
 	}
 
