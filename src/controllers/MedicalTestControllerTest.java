@@ -2,6 +2,7 @@ package controllers;
 
 import machine.MachinePool;
 import org.junit.*;
+import controllers.interfaces.UserIN;
 import exceptions.InvalidSchedulerException;
 import patient.PatientFileManager;
 import scheduler.Scheduler;
@@ -15,7 +16,7 @@ public class MedicalTestControllerTest
 	UserManager usm;
 	MachinePool mp;
 	User u;
-	DTOUser dtouser;
+	UserIN dtouser;
 	PatientFileManager pfm;
 	Scheduler scheduler;
 	TaskManager tm;
@@ -25,7 +26,7 @@ public class MedicalTestControllerTest
 		usm = new UserManager();
 		mp = new MachinePool();
 		u = new Doctor("Dude");
-		dtouser = new DTOUser(u);
+		dtouser = u;
 		pfm = new PatientFileManager();
 		scheduler = new Scheduler(usm, mp);
 		try {

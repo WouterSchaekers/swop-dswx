@@ -3,6 +3,7 @@ package controllers;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
+import controllers.interfaces.UserIN;
 import patient.PatientFileManager;
 import users.Doctor;
 import users.UserAlreadyExistsException;
@@ -18,7 +19,7 @@ public class PatientFileOpenControllerTest
 	private LoginController lc;
 	private Doctor d;
 	private Nurse n;
-	private DTOUser u;
+	private UserIN u;
 
 	@Before
 	public void setUp() throws Exception {
@@ -33,7 +34,7 @@ public class PatientFileOpenControllerTest
 			throws UserAlreadyExistsException {
 		lc = new LoginController(data);
 		d = um.CreateDoctor("Jef");
-		u = new DTOUser(d);
+		u = d;
 		lc.logIn(u);
 		pfoc = new PatientFileOpenController(data, lc);
 	}
@@ -50,7 +51,7 @@ public class PatientFileOpenControllerTest
 	public void testGetLoginControllerFail2() throws UserAlreadyExistsException {
 		lc = new LoginController(data);
 		n = um.CreateNurse("Sandrien");
-		u = new DTOUser(n);
+		u = n;
 		pfoc = new PatientFileOpenController(data, lc);
 	}
 
@@ -59,7 +60,7 @@ public class PatientFileOpenControllerTest
 			throws UserAlreadyExistsException {
 		lc = new LoginController(data);
 		d = um.CreateDoctor("Jef");
-		u = new DTOUser(d);
+		u = d;
 		lc.logIn(u);
 		pfoc = new PatientFileOpenController(data, lc);
 		assertTrue(pfoc.validLoginController(lc));
@@ -71,7 +72,7 @@ public class PatientFileOpenControllerTest
 			throws UserAlreadyExistsException {
 		lc = new LoginController(data);
 		n = um.CreateNurse("Margo");
-		u = new DTOUser(n);
+		u = n;
 		lc.logIn(u);
 		pfoc = new PatientFileOpenController(data, lc);
 	}
