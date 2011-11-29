@@ -6,8 +6,8 @@ import ui.ordermedicaltestchain.OrderMedicalTest;
 import ui.registerpatientchain.RegisterPatient;
 
 /**
- * This class represents a menu to select what a user wants to do.
- * You can choose different options that are described in the enumeration below.
+ * This class represents a menu to select what a user wants to do. You can
+ * choose different options that are described in the enumeration below.
  */
 
 public class SelectUsecase extends Usecase
@@ -15,21 +15,21 @@ public class SelectUsecase extends Usecase
 	/**
 	 * This enumeration is created to simplify the different use cases.
 	 * 
-	 * Login: a user logs in to the system.
-	 * RegisterPatient: The nurse logs the new patient in to the system.
-	 * Nothing: Returns immediatly to the select usecase.
-	 * Logout: a user can log out from the system.
-	 * Exit System: The system will be closed. 
-	 *
-	 *
-	 *
+	 * Login: a user logs in to the system. RegisterPatient: The nurse logs the
+	 * new patient in to the system. Nothing: Returns immediatly to the select
+	 * usecase. Logout: a user can log out from the system. Exit System: The
+	 * system will be closed.
+	 * 
+	 * 
+	 * 
 	 */
 	enum usecases
 	{
 		login("login"), RegisterPatient("register patient"), nothing(
-				"do nothing"),logout("logout"),orderMedicalTest("order medical test"), exitSystem("exit system");
+				"do nothing"), logout("logout"), orderMedicalTest(
+				"order medical test"), exitSystem("exit system");
 		String description;
-		
+
 		/**
 		 * Gives a description of each different use case
 		 */
@@ -39,10 +39,10 @@ public class SelectUsecase extends Usecase
 
 		/**
 		 * 
-		 * @param i 
-		 * 		Represents the number associated with the use case.
-		 * @return The use case analogue to his number.
-		 * 			If a wrong number is given the system does nothing
+		 * @param i
+		 *            Represents the number associated with the use case.
+		 * @return The use case analogue to his number. If a wrong number is
+		 *         given the system does nothing
 		 */
 		public static usecases fromInt(int i) {
 			for (usecases u : usecases.values())
@@ -51,18 +51,22 @@ public class SelectUsecase extends Usecase
 			return nothing;
 		}
 	}
-/**
- * Initiates a new use case with data given.
- * @param data
- * 			Data is the information that the user interface must past, requires to create controllers and retains state information.
- */
-	
+
+	/**
+	 * Initiates a new use case with data given.
+	 * 
+	 * @param data
+	 *            Data is the information that the user interface must past,
+	 *            requires to create controllers and retains state information.
+	 */
+
 	public SelectUsecase(UserinterfaceData data) {
 		super(data);
 	}
 
 	/**
-	 * In this method the initial chain is started. You can choose the different use cases.
+	 * In this method the initial chain is started. You can choose the different
+	 * use cases.
 	 */
 	@Override
 	public Usecase Execute() {

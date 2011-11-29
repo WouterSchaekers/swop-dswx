@@ -20,7 +20,6 @@ public class PatientFileOpenControllerTest
 	private Nurse n;
 	private DTOUser u;
 
-
 	@Before
 	public void setUp() throws Exception {
 		um = new UserManager();
@@ -30,7 +29,8 @@ public class PatientFileOpenControllerTest
 	}
 
 	@Test
-	public void testPatientFileOpenControllerSucces() throws UserAlreadyExistsException {
+	public void testPatientFileOpenControllerSucces()
+			throws UserAlreadyExistsException {
 		lc = new LoginController(data);
 		d = um.CreateDoctor("Jef");
 		u = new DTOUser(d);
@@ -38,13 +38,15 @@ public class PatientFileOpenControllerTest
 		pfoc = new PatientFileOpenController(data, lc);
 	}
 
-	@Test(expected = NullPointerException.class)
+	@Test(
+			expected = NullPointerException.class)
 	public void testGetLoginControllerFail() {
 		lc = new LoginController(data);
 		pfoc = new PatientFileOpenController(data, null);
 	}
 
-	@Test(expected = NullPointerException.class)
+	@Test(
+			expected = NullPointerException.class)
 	public void testGetLoginControllerFail2() throws UserAlreadyExistsException {
 		lc = new LoginController(data);
 		n = um.CreateNurse("Sandrien");
@@ -53,7 +55,8 @@ public class PatientFileOpenControllerTest
 	}
 
 	@Test
-	public void testValidLoginControllerSucces() throws UserAlreadyExistsException {
+	public void testValidLoginControllerSucces()
+			throws UserAlreadyExistsException {
 		lc = new LoginController(data);
 		d = um.CreateDoctor("Jef");
 		u = new DTOUser(d);
@@ -61,9 +64,11 @@ public class PatientFileOpenControllerTest
 		pfoc = new PatientFileOpenController(data, lc);
 		assertTrue(pfoc.validLoginController(lc));
 	}
-	
-	@Test(expected = IllegalArgumentException.class)
-	public void testValidLoginControllerFail() throws UserAlreadyExistsException{
+
+	@Test(
+			expected = IllegalArgumentException.class)
+	public void testValidLoginControllerFail()
+			throws UserAlreadyExistsException {
 		lc = new LoginController(data);
 		n = um.CreateNurse("Margo");
 		u = new DTOUser(n);

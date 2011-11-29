@@ -10,33 +10,33 @@ public class DTOPatientFileTest
 
 	String name;
 	PatientFile file;
-	
+
 	@Before
-	public void setUp(){
+	public void setUp() {
 		name = "Inspiration is killed";
 		file = new PatientFile(name);
 	}
-	
+
 	@Test
 	public void creationSuccess() {
 		@SuppressWarnings("unused")
 		DTOPatientFile dtoPatientFile = new DTOPatientFile(file);
 	}
-	
+
 	@Test
-	public void getName(){
+	public void getName() {
 		DTOPatientFile dtoPatientFile = new DTOPatientFile(file);
 		assertTrue(dtoPatientFile.getName().equals(name));
 	}
-	
+
 	@Test
-	public void getPatientFile(){
+	public void getPatientFile() {
 		DTOPatientFile dtoPatientFile = new DTOPatientFile(file);
 		assertTrue(dtoPatientFile.getPatientFile() == file);
 	}
-	
+
 	@Test
-	public void isDischarged(){
+	public void isDischarged() {
 		DTOPatientFile dtoPatientFile = new DTOPatientFile(file);
 		file.discharge();
 		assertTrue(dtoPatientFile.isDischarged());

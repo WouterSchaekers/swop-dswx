@@ -23,7 +23,8 @@ public class DataPasser
 	 * @param scheduler
 	 *            a scheduler
 	 */
-	public DataPasser(UserManager userm, PatientFileManager pfm, Scheduler scheduler) {
+	public DataPasser(UserManager userm, PatientFileManager pfm,
+			Scheduler scheduler) {
 		this.userm = userm;
 		this.pfm = pfm;
 		this.scheduler = scheduler;

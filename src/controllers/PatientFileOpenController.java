@@ -10,8 +10,9 @@ public class PatientFileOpenController
 	DataPasser data;
 	DTOUser doctor;
 	LoginController lc;
-	
-	public PatientFileOpenController(DataPasser data, LoginController loginController) {
+
+	public PatientFileOpenController(DataPasser data,
+			LoginController loginController) {
 		this.data = data;
 		if (loginController == null)
 			throw new NullPointerException("Logincontroller is null");
@@ -32,7 +33,7 @@ public class PatientFileOpenController
 	public LoginController getLoginController() {
 		return this.lc;
 	}
-	
+
 	public Collection<DTOPatientFile> getAllPatientFiles(
 			LoginController loginController) {
 		ArrayList<DTOPatientFile> RV = new ArrayList<DTOPatientFile>();
@@ -62,7 +63,7 @@ public class PatientFileOpenController
 	}
 
 	PatientFile pf;
-	
+
 	public void openPatientFile(DTOPatientFile pfdto) {
 		this.pf = pfdto.getPatientFile();
 	}
@@ -70,7 +71,7 @@ public class PatientFileOpenController
 	public DTOPatientFile getPatientFile() {
 		return new DTOPatientFile(this.pf);
 	}
-	
+
 	public DTOUser getDocDTO() {
 		return this.doctor;
 	}

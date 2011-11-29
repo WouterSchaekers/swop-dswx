@@ -3,19 +3,22 @@ package medicaltest;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidNameException;
 import be.kuleuven.cs.som.annotate.*;
+
 /**
  * This class represents a bloodanalysis test.
  */
 public class BloodAnalysis extends MedicalTest
 {
-	// the name of the test is used to determine what kind of test it was later on.
+	// the name of the test is used to determine what kind of test it was later
+	// on.
 	private int amount;
 	private String focus;
-	
+
 	/**
 	 * Default constructor. Will call MedicalTest("BloodAnalysis")
 	 */
-	public BloodAnalysis() throws InvalidNameException, InvalidDurationException{
+	public BloodAnalysis() throws InvalidNameException,
+			InvalidDurationException {
 		super("BloodAnalysis", 45);
 	}
 
@@ -39,5 +42,5 @@ public class BloodAnalysis extends MedicalTest
 		String rv = "" + focus;
 		return rv;
 	}
-	
+
 }

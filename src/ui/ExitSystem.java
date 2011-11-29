@@ -5,11 +5,11 @@ package ui;
  */
 public class ExitSystem extends Usecase
 {
-	
+
 	public ExitSystem(UserinterfaceData data) {
 		super(data);
 	}
-	
+
 	/**
 	 * Termination of the system.
 	 */

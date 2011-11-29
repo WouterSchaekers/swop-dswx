@@ -18,18 +18,18 @@ public class DTOAppointmentTest
 	Appointment appointment;
 	Date date;
 	long duration;
-	
+
 	@Before
-	public void setUp(){
+	public void setUp() {
 		date = new Date(0);
 		duration = 15;
 		resources = new HashMap<TimePoint, Resource>();
 		resources.put(new TimePoint(TimeType.start, date), new Nurse("Janine"));
 		appointment = new Appointment(patient, resources, date, duration);
 	}
-	
+
 	@Test
-	public void getAppointment(){
+	public void getAppointment() {
 		DTOAppointment dtoAppointment = new DTOAppointment(appointment);
 		assertTrue(dtoAppointment.getAppointment().getResource().size() == 1);
 		assertTrue(dtoAppointment.getAppointment().getDate().getTime() == 0);

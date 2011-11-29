@@ -15,7 +15,7 @@ public class ListTreatments extends MedicalTestCommand
 		// list all treatments and continue
 		System.out.println("Possible treatments are:\n");
 		System.out.println(medData.types);
-		return new SelectMedicalTest(data,medData);
+		return new SelectMedicalTest(data, medData);
 	}
 
 }

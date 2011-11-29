@@ -21,12 +21,14 @@ public abstract class MedicalTest
 	 * @param name
 	 *            The name of this medical test.
 	 */
-	public MedicalTest(String name, int duration) throws InvalidNameException, InvalidDurationException{
-		if(name == null || name == ""){
+	public MedicalTest(String name, int duration) throws InvalidNameException,
+			InvalidDurationException {
+		if (name == null || name == "") {
 			throw new InvalidNameException("Name is not set or empty");
 		}
-		if(duration <= 0){
-			throw new InvalidDurationException("The duration must be strickt positive.");
+		if (duration <= 0) {
+			throw new InvalidDurationException(
+					"The duration must be strickt positive.");
 		}
 		this.TESTNAME = name;
 		this.DURATION = duration;

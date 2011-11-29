@@ -9,7 +9,8 @@ import ui.Usecase;
 public class PatientFileOpenChecker extends MedicalTestCommand
 {
 
-	public PatientFileOpenChecker(UserinterfaceData data, MedicalTestData medData) {
+	public PatientFileOpenChecker(UserinterfaceData data,
+			MedicalTestData medData) {
 		super(data, medData);
 	}
 
@@ -19,11 +20,11 @@ public class PatientFileOpenChecker extends MedicalTestCommand
 		LoginController lc = data.getLoginController();
 		DTOUser docLc = lc.getUserDTO();
 		DTOUser curDoc = data.getPatientFileOpenController().getDocDTO();
-		
-		if(docLc.equals(curDoc))
-			return new CheckPatientStatus(data,medData);
+
+		if (docLc.equals(curDoc))
+			return new CheckPatientStatus(data, medData);
 		return new SelectUsecase(data);
-		
+
 	}
 
 }

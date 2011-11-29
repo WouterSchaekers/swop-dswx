@@ -25,23 +25,21 @@ public class EnterPatientName extends Usecase
 		System.out.println("0: Enter existing patient name:");
 		System.out.println("1: Create new patient in the database");
 		int choice;
-		try{
+		try {
 			choice = new Integer(input.nextLine());
-		}catch(NumberFormatException Num)
-		{
+		} catch (NumberFormatException Num) {
 			System.out.println("Not a valid number");
 			return this;
 		}
-		switch(choice)
-		{
+		switch (choice) {
 		case 0:
 			System.out.println("Enter patients name:");
 			String in = input.nextLine();
-			return new ValidatePatientName(data,rpc,namePatientMap,in);
+			return new ValidatePatientName(data, rpc, namePatientMap, in);
 		case 1:
-			return new CreateNewPatient(data,rpc);
+			return new CreateNewPatient(data, rpc);
 		default:
-				
+
 		}
 		return this;
 	}

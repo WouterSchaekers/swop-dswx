@@ -21,22 +21,23 @@ public class MedicalTestControllerTest
 	TaskManager tm;
 
 	@Before
-	public void setUp(){
+	public void setUp() {
 		usm = new UserManager();
 		mp = new MachinePool();
 		u = new Doctor("Dude");
 		dtouser = new DTOUser(u);
 		pfm = new PatientFileManager();
 		scheduler = new Scheduler(usm, mp);
-		try{
+		try {
 			tm = new TaskManager(scheduler);
-		}
-		catch(InvalidSchedulerException e){
-			System.out.println(e.getMessage() + " Check the Setup in MedicalTestController.");
+		} catch (InvalidSchedulerException e) {
+			System.out.println(e.getMessage()
+					+ " Check the Setup in MedicalTestController.");
 		}
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(
+			expected = IllegalArgumentException.class)
 	public void creationFail() throws IllegalArgumentException {
 		Scheduler scheduler = new Scheduler(usm, mp);
 		DataPasser dp = new DataPasser(usm, pfm, scheduler);
@@ -45,7 +46,8 @@ public class MedicalTestControllerTest
 		new MedicalTestController(lc, null, dp, tm);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(
+			expected = IllegalArgumentException.class)
 	public void creationFail2() throws IllegalArgumentException {
 		DataPasser dp = new DataPasser(usm, pfm, scheduler);
 		LoginController lc = new LoginController(dp);
@@ -56,7 +58,8 @@ public class MedicalTestControllerTest
 		new MedicalTestController(null, cpfc, dp, tm);
 	}
 
-	@Test(expected = NullPointerException.class)
+	@Test(
+			expected = NullPointerException.class)
 	public void creationFail3() throws IllegalArgumentException {
 		Scheduler scheduler = new Scheduler(usm, mp);
 		DataPasser dp = new DataPasser(usm, pfm, scheduler);

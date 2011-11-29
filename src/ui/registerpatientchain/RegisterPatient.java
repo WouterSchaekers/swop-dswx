@@ -4,8 +4,9 @@ import ui.UserinterfaceData;
 import ui.Usecase;
 
 /**
- * This class registers a patient for the use case and proceeds to the next step in the chain.
- *
+ * This class registers a patient for the use case and proceeds to the next step
+ * in the chain.
+ * 
  */
 public class RegisterPatient extends Usecase
 {
@@ -15,7 +16,8 @@ public class RegisterPatient extends Usecase
 	}
 
 	/**
-	 * Returns a new CreateRegisterController, goes to the next step in the chain.
+	 * Returns a new CreateRegisterController, goes to the next step in the
+	 * chain.
 	 */
 	@Override
 	public Usecase Execute() {

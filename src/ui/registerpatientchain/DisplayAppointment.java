@@ -11,7 +11,7 @@ public class DisplayAppointment extends Usecase
 
 	public DisplayAppointment(UserinterfaceData data, DTOAppointment app) {
 		super(data);
-		this.app=app;
+		this.app = app;
 	}
 
 	@Override

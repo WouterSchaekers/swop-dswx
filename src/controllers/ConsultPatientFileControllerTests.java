@@ -26,35 +26,32 @@ public class ConsultPatientFileControllerTests
 	@SuppressWarnings("unused")
 	private ConsultPatientFileController cpfc;
 
-	
 	@Before
 	public void setUp() throws Exception {
 
 		pfm = new PatientFileManager();
-		mp = new MachinePool(); 
+		mp = new MachinePool();
 		s = new Scheduler(um, mp);
-		}
-	
+	}
+
 	@Test
-	public void creationSucces() throws UserAlreadyExistsException{
+	public void creationSucces() throws UserAlreadyExistsException {
 		um = new UserManager();
 		d = um.CreateDoctor("Jef");
 		u = new DTOUser(d);
-		data = new DataPasser(um, pfm, s); 
-		lc = new LoginController(data);	
+		data = new DataPasser(um, pfm, s);
+		lc = new LoginController(data);
 		lc.logIn(u);
 		pfoc = new PatientFileOpenController(data, lc);
-		cpfc = new ConsultPatientFileController(pfm, d,lc, pfoc);
+		cpfc = new ConsultPatientFileController(pfm, d, lc, pfoc);
 	}
-	
-	@Test (expected = IllegalArgumentException.class) 
-	public void creationFail() throws UserAlreadyExistsException{
+
+	@Test(
+			expected = IllegalArgumentException.class)
+	public void creationFail() throws UserAlreadyExistsException {
 		um = new UserManager();
 		n = um.CreateNurse("Janine");
 		cpfc = new ConsultPatientFileController(pfm, n, lc, pfoc);
 	}
 
 }
-	
-	
-	

@@ -12,8 +12,6 @@ public class AspecificResourceRequirement extends Requirement
 		this.r = r;
 	}
 
-
-
 	@Override
 	public boolean isMetBy(Collection<Resource> availableNow) {
 		for (Resource r : availableNow)
@@ -26,7 +24,7 @@ public class AspecificResourceRequirement extends Requirement
 	public Collection<Resource> resourcesNeededFrom(
 			Collection<Resource> resourcesAv) {
 		Collection<Resource> res = new ArrayList<Resource>(resourcesAv);
-		Collection<Resource> usedResources=new ArrayList<Resource>();
+		Collection<Resource> usedResources = new ArrayList<Resource>();
 		for (Resource r : res) {
 			if (r.equals(this.r)) {
 				usedResources.add(r);

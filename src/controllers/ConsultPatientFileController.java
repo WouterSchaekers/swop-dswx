@@ -11,7 +11,8 @@ import users.User;
  */
 public class ConsultPatientFileController
 {
-	private PatientFileOpenController pfoc; // the patientfile associated with this controller
+	private PatientFileOpenController pfoc; // the patientfile associated with
+											// this controller
 	private PatientFileManager pfm; // the pfm of this controller
 
 	/**
@@ -22,13 +23,14 @@ public class ConsultPatientFileController
 	 * @param u
 	 *            The user to whom this controller belongs to.
 	 */
-	public ConsultPatientFileController(PatientFileManager pfm, User u, LoginController lc, PatientFileOpenController pfoc) {
+	public ConsultPatientFileController(PatientFileManager pfm, User u,
+			LoginController lc, PatientFileOpenController pfoc) {
 		if (!(u instanceof Doctor))
 			throw new IllegalArgumentException("User" + u.getName()
 					+ " is not a doctor");
-		if(!(pfoc.getLoginController().getUserDTO().equals(lc.getUserDTO())))
-				throw new IllegalStateException("Invalid acces!");
-		
+		if (!(pfoc.getLoginController().getUserDTO().equals(lc.getUserDTO())))
+			throw new IllegalStateException("Invalid acces!");
+
 		this.pfm = pfm;
 		this.pfoc = pfoc;
 	}

@@ -14,28 +14,32 @@ public class ListUndischargedPatients extends Usecase
 {
 	UserinterfaceData data;
 	ConsutlPatientFileData patfiledata;
-	public ListUndischargedPatients(UserinterfaceData data, ConsutlPatientFileData d) {
+
+	public ListUndischargedPatients(UserinterfaceData data,
+			ConsutlPatientFileData d) {
 		super(data);
 	}
 
 	@Override
 	public Usecase Execute() {
-		if(data.getLoginController().getUserDTO().type()!=usertype.Doctor)
-		{
-			System.out.println(data.getLoginController().getUserDTO().getName()+" is not a Doctor");
+		if (data.getLoginController().getUserDTO().type() != usertype.Doctor) {
+			System.out.println(data.getLoginController().getUserDTO().getName()
+					+ " is not a Doctor");
 			return new SelectUsecase(data);
-		
+
 		}
-		patfiledata.setPatientFileOpenController(new PatientFileOpenController(data.getDataPasser(), data.getLoginController()));
-		Map<String,DTOPatientFile> map = new HashMap<String, DTOPatientFile>();
-		Collection<DTOPatientFile> patientfiles =patfiledata.getPatientfileOpenController().getAllPatientFiles(data.getLoginController());
-		for(DTOPatientFile file:patientfiles)
-		{
+		patfiledata.setPatientFileOpenController(new PatientFileOpenController(
+				data.getDataPasser(), data.getLoginController()));
+		Map<String, DTOPatientFile> map = new HashMap<String, DTOPatientFile>();
+		Collection<DTOPatientFile> patientfiles = patfiledata
+				.getPatientfileOpenController().getAllPatientFiles(
+						data.getLoginController());
+		for (DTOPatientFile file : patientfiles) {
 			map.put(file.getName(), file);
 			System.out.println(file.getName());
 		}
-		//String name = input.nextLine();
-		//TODO fix 
+		// String name = input.nextLine();
+		// TODO fix
 		return new SelectUsecase(data);
 	}
 

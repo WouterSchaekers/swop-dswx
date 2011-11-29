@@ -27,8 +27,8 @@ public class MedicalSuperController extends SuperController
 	 * @throws IllegalArgumentException
 	 *             if the logincontroller or cpf are null.
 	 */
-	public MedicalSuperController(LoginController lc, ConsultPatientFileController cpf)
-			throws IllegalArgumentException {
+	public MedicalSuperController(LoginController lc,
+			ConsultPatientFileController cpf) throws IllegalArgumentException {
 		super(lc);
 		if (cpf == null)
 			throw new IllegalArgumentException("cpf is null!");

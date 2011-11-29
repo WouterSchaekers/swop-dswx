@@ -17,7 +17,7 @@ public class RegisterPatientController
 			throw new IllegalArgumentException(loginController.getUser()
 					.getName() + " is not a Nurse.");
 		}
-		this.dataPasser=dataPasser;
+		this.dataPasser = dataPasser;
 	}
 
 	public Collection<DTOPatientFile> getAllPatients() {
@@ -40,16 +40,20 @@ public class RegisterPatientController
 		if (userDTO.type() != usertype.Doctor)
 			throw new IllegalArgumentException(userDTO.getName()
 					+ "is not a doctor");
-		if(this.openPatientFile == null)
-			throw new IllegalStateException("No patientfile has been opened yet");
-		if(pfile.getPatientFile().isDischarged())
-			throw new IllegalArgumentException(pfile.getName()+" is not checked in");
-		return null;// new AppointmentDTO(dataPasser.getScheduler().addAppointment(pfile.getPatientFile(), (Doctor)userDTO.getUser(), 60));
+		if (this.openPatientFile == null)
+			throw new IllegalStateException(
+					"No patientfile has been opened yet");
+		if (pfile.getPatientFile().isDischarged())
+			throw new IllegalArgumentException(pfile.getName()
+					+ " is not checked in");
+		return null;// new
+					// AppointmentDTO(dataPasser.getScheduler().addAppointment(pfile.getPatientFile(),
+					// (Doctor)userDTO.getUser(), 60));
 	}
 
 	public void createNewPatient(DataPasser dataPasser2, String name) {
 		dataPasser2.getPatientFileManager().registerPatient(name);
-		
+
 	}
 
 }

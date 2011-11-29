@@ -6,8 +6,8 @@ import ui.SelectUsecase;
 import ui.Usecase;
 
 /**
- * This class 
- *
+ * This class
+ * 
  */
 public class CreateRegisterController extends Usecase
 {
@@ -18,19 +18,18 @@ public class CreateRegisterController extends Usecase
 
 	@Override
 	public Usecase Execute() {
-		RegisterPatientController reg ;
-		try{
-			reg = new RegisterPatientController(data.getLoginController(), data.getDataPasser());
-		}catch(IllegalArgumentException illegal)
-		{
+		RegisterPatientController reg;
+		try {
+			reg = new RegisterPatientController(data.getLoginController(),
+					data.getDataPasser());
+		} catch (IllegalArgumentException illegal) {
 			System.out.println(illegal.getMessage());
 			return new SelectUsecase(data);
-		}catch(Exception e)
-		{
+		} catch (Exception e) {
 			System.out.println("Illegal argument");
 			return new SelectUsecase(data);
 		}
-		return new DisplayAllPatients(data,reg);
+		return new DisplayAllPatients(data, reg);
 	}
 
 }

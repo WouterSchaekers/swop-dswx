@@ -16,7 +16,7 @@ public class TreatmentPool
 	public void removeTreatment(Treatment m) {
 		allTreatments.remove(m);
 	}
-	
+
 	public Collection<Treatment> getAllTreatments() {
 		return this.allTreatments;
 	}

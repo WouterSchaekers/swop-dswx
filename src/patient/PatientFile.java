@@ -2,9 +2,6 @@ package patient;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import treatment.Treatment;
 
 /**
  * This class represents the patient file of a patient. It contains all the
@@ -14,25 +11,18 @@ public class PatientFile
 {
 
 	private String name = ""; // the name of the patient
-	private Collection<Diagnosis> diagnosis = new ArrayList<Diagnosis>(); // all diags for this patient
-	private Map<Diagnosis,Treatment> diagToTreatment = new HashMap<Diagnosis, Treatment>();
-	private Treatment treatment = null; // the treatment this patient is currently on
-	private boolean discharged = false; // whether or not this patient has been discharged
-	Collection<Result> results; 
-		
-	public void addDiagnosis(Diagnosis D){
+	private Collection<Diagnosis> diagnosis = new ArrayList<Diagnosis>(); // all
+																			// diags
+																			// for
+																			// this
+																			// patient
+	private boolean discharged = false; // whether or not this patient has been
+										// discharged
+
+	public void addDiagnosis(Diagnosis D) {
 		this.diagnosis.add(D);
 	}
-	
-	/**
-	 *  
-	 * @param D
-	 * @param T
-	 */
-	public void addDiagTreatPair(Diagnosis D,Treatment T)
-	{
-		diagToTreatment.put(D, T);
-	}
+
 	/**
 	 * Obligatory alternative constructor.
 	 * 
@@ -58,7 +48,7 @@ public class PatientFile
 	public Collection<Diagnosis> getDiagnosis() {
 		return this.diagnosis;
 	}
-	
+
 	/**
 	 * This function checks in an already registered patient in the hospital.
 	 */
@@ -88,17 +78,7 @@ public class PatientFile
 	}
 
 	/**
-	 * @return All testresults of this patient.
-	 */
-	public Collection<Result> getAllResults() {
-		return this.results;
-	}
-
-	/**
 	 * @return The treatment this patient is currently receiving.
 	 */
-	public Treatment getTreatment() {
-		return this.treatment;
-	}
-	
+
 }

@@ -17,11 +17,17 @@ public class Diagnosis
 {
 
 	private String diag = ""; // the diagnosis
-	private boolean approved = false; // whether or not this diag has been approved
+	private boolean approved = false; // whether or not this diag has been
+										// approved
 	private boolean secOpFlag = false; // flag for second opinion
 	private Doctor attending = null; // the attending doctor
 	private Doctor secopDoc = null; // the doctor to give second opinion
-	private Collection<Treatment> treatments = new ArrayList<Treatment>(); // the treatments associated with this diagnosis
+	private Collection<Treatment> treatments = new ArrayList<Treatment>(); // the
+																			// treatments
+																			// associated
+																			// with
+																			// this
+																			// diagnosis
 
 	/**
 	 * This function allows a diagnosis to be created.
@@ -86,7 +92,8 @@ public class Diagnosis
 	 */
 	public void markForSecOp(Doctor from) throws InvalidDoctorException {
 		if (!canHaveAsDoctor(from))
-			throw new InvalidDoctorException("Invalid doctor given to mark for second opinion!");
+			throw new InvalidDoctorException(
+					"Invalid doctor given to mark for second opinion!");
 		this.secOpFlag = true;
 		this.disapprove();
 		secopDoc = from;
@@ -158,12 +165,15 @@ public class Diagnosis
 	private boolean evaluateSecOp(String secOp) {
 		return secOp.equalsIgnoreCase(this.getDiagnosis());
 	}
-	
-	public void prescribeTreatment(Treatment t) throws InvalidTreatmentException {
-		if(!isValidTreatment(t)) throw new InvalidTreatmentException("Trying to associate an invalid treatment for a diagnosis!");
+
+	public void prescribeTreatment(Treatment t)
+			throws InvalidTreatmentException {
+		if (!isValidTreatment(t))
+			throw new InvalidTreatmentException(
+					"Trying to associate an invalid treatment for a diagnosis!");
 		treatments.add(t);
 	}
-	
+
 	@Basic
 	public String getDiagnosis() {
 		return ((((((((((((((((((((((((((((((((((((((((((((((((((diag))))))))))))))))))))))))))))))))))))))))))))))))));
@@ -178,12 +188,12 @@ public class Diagnosis
 		Collection<Treatment> rv = new ArrayList<Treatment>(treatments);
 		return rv;
 	}
-	
+
 	@Override
 	public String toString() {
 		return this.getDiagnosis();
 	}
-	
+
 	private boolean isValidTreatment(Treatment t) {
 		return t != null;
 	}

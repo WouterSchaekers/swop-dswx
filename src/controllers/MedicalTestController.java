@@ -9,7 +9,7 @@ import task.TaskManager;
 public class MedicalTestController extends MedicalSuperController
 {
 	private TaskManager t;
-	
+
 	/**
 	 * Default constructor.
 	 * 
@@ -34,26 +34,31 @@ public class MedicalTestController extends MedicalSuperController
 
 	/**
 	 * This method is used to schedule an XRayscan.
+	 * 
 	 * @return The appointment made.
 	 */
-	public Appointment orderXRay(String bodypart, int amountOfImages, int zoomLevel) {
+	public Appointment orderXRay(String bodypart, int amountOfImages,
+			int zoomLevel) {
 		return t.scheduldeXRay(bodypart, amountOfImages, zoomLevel);
 	}
-	
+
 	/**
 	 * This method is used to schedule an UltraSoundScan.
+	 * 
 	 * @return The appointment made.
 	 */
-	public Appointment orderUltraSound(String focus, boolean recVid, boolean recImg) {
+	public Appointment orderUltraSound(String focus, boolean recVid,
+			boolean recImg) {
 		return t.scheduldeUltraSound(focus, recVid, recImg);
 	}
-	
+
 	/**
 	 * This method is used to schedule a BloodAnalysis.
+	 * 
 	 * @return The appointment made.
 	 */
 	public Appointment orderBloodAnalysis(String focus, int amountOfAnalyses) {
 		return t.scheduldeBloodAnalysis(focus, amountOfAnalyses);
 	}
-	
+
 }
