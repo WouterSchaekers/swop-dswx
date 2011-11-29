@@ -3,6 +3,7 @@ package controllers;
 import machine.MachinePool;
 import org.junit.Before;
 import org.junit.Test;
+import controllers.interfaces.UserIN;
 import patient.PatientFileManager;
 import scheduler.Scheduler;
 import users.Doctor;
@@ -22,7 +23,7 @@ public class ConsultPatientFileControllerTests
 	private DataPasser data;
 	private Scheduler s;
 	private MachinePool mp;
-	private DTOUser u;
+	private UserIN u;
 	@SuppressWarnings("unused")
 	private ConsultPatientFileController cpfc;
 
@@ -38,7 +39,7 @@ public class ConsultPatientFileControllerTests
 	public void creationSucces() throws UserAlreadyExistsException {
 		um = new UserManager();
 		d = um.CreateDoctor("Jef");
-		u = new DTOUser(d);
+		u = d;
 		data = new DataPasser(um, pfm, s);
 		lc = new LoginController(data);
 		lc.logIn(u);

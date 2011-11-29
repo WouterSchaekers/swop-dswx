@@ -6,7 +6,6 @@ import controllers.interfaces.AppointmentIN;
 import controllers.interfaces.PatientFileIN;
 import controllers.interfaces.UserIN;
 import patient.PatientFile;
-import scheduler.Appointment;
 import users.Nurse;
 import users.User;
 import users.User.usertype;

@@ -3,6 +3,7 @@ package controllers;
 import static org.junit.Assert.*;
 import java.util.*;
 import org.junit.*;
+import controllers.interfaces.UserIN;
 import patient.PatientFileManager;
 import scheduler.Scheduler;
 import users.*;
@@ -78,7 +79,7 @@ public class LoginControllerTests
 		d = new DataPasser(um, null, null);
 		lc = new LoginController(d);
 
-		ArrayList<DTOUser> col = (ArrayList<DTOUser>) lc.getAllUsers();
+		ArrayList<UserIN> col = (ArrayList<UserIN>) lc.getAllUsers();
 		Collection<String> names = new ArrayList<String>();
 
 		for (int i = 0; i < 4; i++)
@@ -99,11 +100,11 @@ public class LoginControllerTests
 		d = new DataPasser(um, null, null);
 		lc = new LoginController(d);
 
-		ArrayList<DTOUser> col = (ArrayList<DTOUser>) lc.getAllUsers();
+		ArrayList<UserIN> col = (ArrayList<UserIN>) lc.getAllUsers();
 		Collection<String> names = new ArrayList<String>();
 		Collection<String> usernames = new ArrayList<String>();
 
-		for (DTOUser s : col)
+		for (UserIN s : col)
 			names.add(s.getName());
 
 		for (User s : users)
@@ -127,11 +128,11 @@ public class LoginControllerTests
 		d = new DataPasser(um, null, null);
 		lc = new LoginController(d);
 		Doctor doc = new Doctor("Jef");
-		DTOUser u = new DTOUser(doc);
+		UserIN u = doc;
 		lc.logIn(u);
 		assertTrue(lc.loggedIn());
 		assertTrue(lc.getUser().equals(doc));
-		assertTrue(lc.getUserDTO().equals(u));
+		assertTrue(lc.getUserIN().equals(u));
 	}
 
 }

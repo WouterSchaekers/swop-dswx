@@ -64,7 +64,7 @@ public class CheckinControllerTests
 		um = new UserManager();
 		pfm = new PatientFileManager();
 		n = new Nurse("Nina");
-		uDTO = new DTOUser(n);
+		uDTO = n;
 		MachinePool mp = new MachinePool();
 		s = new Scheduler(um, mp);
 		DataPasser data = new DataPasser(um, pfm, s);
@@ -83,7 +83,7 @@ public class CheckinControllerTests
 		data = new DataPasser(um, pfm, s);
 		lc = new LoginController(data);
 		n = new Nurse("Nina");
-		uDTO = new DTOUser(n);
+		uDTO = n;
 		lc.logIn(uDTO);
 		pf = new PatientFile("Katrien");
 		cic = new CheckinController(lc, pfm);
@@ -102,7 +102,7 @@ public class CheckinControllerTests
 		lc = new LoginController(data);
 
 		n = new Nurse("Nina");
-		uDTO = new DTOUser(n);
+		uDTO = n;
 		lc.logIn(uDTO);
 		pf = new PatientFile("Katrien");
 		cic = new CheckinController(lc, pfm);
@@ -118,7 +118,7 @@ public class CheckinControllerTests
 		data = new DataPasser(um, pfm, s);
 		lc = new LoginController(data);
 		n = new Nurse("Nina");
-		uDTO = new DTOUser(n);
+		uDTO = n;
 		lc.logIn(uDTO);
 
 		cic = new CheckinController(lc, pfm);
@@ -136,7 +136,7 @@ public class CheckinControllerTests
 		data = new DataPasser(um, pfm, s);
 		lc = new LoginController(data);
 		n = new Nurse("Nina");
-		uDTO = new DTOUser(n);
+		uDTO = n;
 		lc.logIn(uDTO);
 
 		cic = new CheckinController(lc, pfm);
