@@ -13,9 +13,10 @@ public class AresourceRequirement extends Requirement
 	}
 
 	@Override
-	public Collection<Resource> resourcesNeededFrom(Collection<Resource> resourcesAv) {
+	public Collection<Resource> resourcesNeededFrom(
+			Collection<Resource> resourcesAv) {
 		Collection<Resource> res = new ArrayList<Resource>(resourcesAv);
-		Collection<Resource> usedResources=new ArrayList<Resource>();
+		Collection<Resource> usedResources = new ArrayList<Resource>();
 		for (Resource r : res) {
 			if (satifies(r)) {
 				usedResources.add(r);
@@ -23,7 +24,6 @@ public class AresourceRequirement extends Requirement
 			}
 		}
 		return usedResources;
-		
 
 	}
 
@@ -41,6 +41,5 @@ public class AresourceRequirement extends Requirement
 		}
 		return false;
 	}
-	
 
 }

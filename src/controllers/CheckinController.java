@@ -8,7 +8,7 @@ import users.Nurse;
  * This class is used to register and check in patients in the hospital.
  */
 public class CheckinController extends SuperController
-{ 
+{
 	private PatientFileManager pfm = null; // the pfm for this checkincontroller
 
 	/**
@@ -40,6 +40,7 @@ public class CheckinController extends SuperController
 
 	/**
 	 * This method can be used to register a new patient.
+	 * 
 	 * @return the patientfile
 	 */
 	public PatientFile signUpNewPatient(String name) {

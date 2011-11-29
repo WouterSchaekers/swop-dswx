@@ -6,7 +6,8 @@ package controllers;
 public class SuperController
 {
 
-	protected LoginController lc; // the logincontroller for this supercontroller and it's children.
+	protected LoginController lc; // the logincontroller for this
+									// supercontroller and it's children.
 
 	/**
 	 * Default constructor.
@@ -20,7 +21,7 @@ public class SuperController
 	public SuperController(LoginController lc) throws IllegalArgumentException {
 		if (this.validLoginController(lc))
 			this.lc = lc;
-		else 
+		else
 			throw new IllegalArgumentException("Logincontroller is invalid!");
 	}
 

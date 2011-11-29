@@ -13,12 +13,14 @@ public class SystemStarter
 	// things that are needed in the system
 	static PatientFileManager patientfmanager = new PatientFileManager();
 	static UserManager usermanager = new UserManager();
-	static MachinePool machinepool= new MachinePool();
+	static MachinePool machinepool = new MachinePool();
 	static Scheduler scheduler = new Scheduler(usermanager, machinepool);
+
 	public static void main(String[] args) throws UserAlreadyExistsException {
 		usermanager.CreateDoctor("jonathan");
 		usermanager.CreateNurse("jenny");
-		DataPasser data = new DataPasser(usermanager, patientfmanager, scheduler);
+		DataPasser data = new DataPasser(usermanager, patientfmanager,
+				scheduler);
 		UserInterface T = new UserInterface(data);
 		T.start();
 	}

@@ -5,12 +5,14 @@ import controllers.PatientFileOpenController;
 class ConsutlPatientFileData
 {
 	PatientFileOpenController pfoc;
+
 	public void setPatientFileOpenController(
 			PatientFileOpenController patientFileOpenController) {
-	this.pfoc=patientFileOpenController;	
+		this.pfoc = patientFileOpenController;
 	}
-	public PatientFileOpenController getPatientfileOpenController(){
+
+	public PatientFileOpenController getPatientfileOpenController() {
 		return pfoc;
 	}
-	
+
 }

@@ -6,7 +6,6 @@ import ui.SelectUsecase;
 import ui.UserinterfaceData;
 import ui.Usecase;
 
-
 public class ScheduleUltraSound extends MedicalTestCommand
 {
 	public ScheduleUltraSound(UserinterfaceData uiData, MedicalTestData medData) {
@@ -16,8 +15,9 @@ public class ScheduleUltraSound extends MedicalTestCommand
 	@Override
 	public Usecase Execute() {
 		MedicalTestController mc = medData.getMedTestController();
-		
-		Appointment app = mc.orderUltraSound(medData.getFocus(), medData.getVid(), medData.getImg());
+
+		Appointment app = mc.orderUltraSound(medData.getFocus(),
+				medData.getVid(), medData.getImg());
 		System.out.println("The appointment was made at " + app.toString());
 		return new SelectUsecase(data);
 	}

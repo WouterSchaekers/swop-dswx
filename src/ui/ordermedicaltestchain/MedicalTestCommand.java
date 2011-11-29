@@ -13,10 +13,10 @@ public abstract class MedicalTestCommand extends Usecase
 
 	@Override
 	public abstract Usecase Execute();
-	
+
 	public MedicalTestCommand(UserinterfaceData uiData, MedicalTestData medData) {
 		super(uiData);
-		this.medData= medData;
+		this.medData = medData;
 	}
 
 }

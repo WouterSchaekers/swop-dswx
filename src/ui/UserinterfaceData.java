@@ -14,14 +14,15 @@ public class UserinterfaceData
 	private DataPasser data;
 
 	/**
-	 * Default constructor. 
+	 * Default constructor.
+	 * 
 	 * @param data
-	 * The datapasser for this dataobject.
+	 *            The datapasser for this dataobject.
 	 */
 	public UserinterfaceData(DataPasser data) {
 		this.data = data;
 	}
-	
+
 	/**
 	 * This method will set the logincontroller of this dataobject.
 	 * 
@@ -33,9 +34,11 @@ public class UserinterfaceData
 	}
 
 	/**
-	 * This method will set the register patient file controller for this dataobject.
+	 * This method will set the register patient file controller for this
+	 * dataobject.
+	 * 
 	 * @param regpatctrl
-	 * The registerpatientfilecontroller.
+	 *            The registerpatientfilecontroller.
 	 */
 	public void setRegpatctrl(PatientFileOpenController regpatctrl) {
 		this.regpatctrl = regpatctrl;
@@ -43,12 +46,13 @@ public class UserinterfaceData
 
 	/**
 	 * This method will set the data passer for this dataobject.
+	 * 
 	 * @param data
-	 * The datapasser.
+	 *            The datapasser.
 	 */
 	public void setData(DataPasser data) {
 		this.data = data;
-		
+
 	}
 
 	/**
@@ -72,5 +76,4 @@ public class UserinterfaceData
 		return regpatctrl;
 	}
 
-	
 }

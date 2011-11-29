@@ -34,9 +34,9 @@ public class SchedulerTest
 			System.out
 					.println("The system is horribly broken. The developpers should cry in the corner and kill themselves.");
 		}
-		//TODO: fix
-		//machinepool.addMachine(new XRayScanner());
-		//machinepool.addMachine(new XRayScanner());
+		// TODO: fix
+		// machinepool.addMachine(new XRayScanner());
+		// machinepool.addMachine(new XRayScanner());
 		scheduler = new Scheduler(usermanager, machinepool);
 	}
 
@@ -106,22 +106,25 @@ public class SchedulerTest
 				.getTime() - 1000);
 	}
 
-	//XXX: Fix this.
-//	@Test
-//	public void scheduleDifferentDuration()
-//			throws ImpossibleToScheduleException {
-//		Collection<Requirement> requirements1 = new ArrayList<Requirement>();
-//		Collection<Requirement> requirements2 = new ArrayList<Requirement>();
-//		Collection<Requirement> requirements3 = new ArrayList<Requirement>();
-//		requirements1.add(new AresourceRequirement(XRayScanner.class));
-//		requirements2.add(new AresourceRequirement(XRayScanner.class));
-//		requirements2.add(new AresourceRequirement(XRayScanner.class));
-//		Appointment appointment1 = scheduler.addAppointment(patient, requirements1, 1000);
-//		Appointment appointment2 = scheduler.addAppointment(patient, requirements2, 100000);
-//		Appointment appointment3 = scheduler.addAppointment(patient, requirements1, 10000);
-//		System.out.println(appointment1.getDate().getTime());
-//		System.out.println(appointment2.getDate().getTime());
-//		System.out.println(appointment3.getDate().getTime());
-//	}
+	// XXX: Fix this.
+	// @Test
+	// public void scheduleDifferentDuration()
+	// throws ImpossibleToScheduleException {
+	// Collection<Requirement> requirements1 = new ArrayList<Requirement>();
+	// Collection<Requirement> requirements2 = new ArrayList<Requirement>();
+	// Collection<Requirement> requirements3 = new ArrayList<Requirement>();
+	// requirements1.add(new AresourceRequirement(XRayScanner.class));
+	// requirements2.add(new AresourceRequirement(XRayScanner.class));
+	// requirements2.add(new AresourceRequirement(XRayScanner.class));
+	// Appointment appointment1 = scheduler.addAppointment(patient,
+	// requirements1, 1000);
+	// Appointment appointment2 = scheduler.addAppointment(patient,
+	// requirements2, 100000);
+	// Appointment appointment3 = scheduler.addAppointment(patient,
+	// requirements1, 10000);
+	// System.out.println(appointment1.getDate().getTime());
+	// System.out.println(appointment2.getDate().getTime());
+	// System.out.println(appointment3.getDate().getTime());
+	// }
 
 }

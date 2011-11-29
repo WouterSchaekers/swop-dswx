@@ -13,23 +13,24 @@ import java.util.Scanner;
  * requests the information he needs and returns a new state that either gets
  * more information or processes the given information.
  * 
- * Every usecase is represented by us as a chain of usecase commands, 
- * EX: the loginchain is started by selecting login in select usecase
- * it will then go to the isallowedtologin command wich returns select usecase if you are not(there already is a login
- * controller in the userinterface or someone else is already logged in.
- * If you are allowed to login you will return a new CreatLoginController.
- * This object creates a logincontroller and returns a new displayallnames object.
- * This object displays all names when executed and returns a login object that queries the user 
- * for his name. etc...
+ * Every usecase is represented by us as a chain of usecase commands, EX: the
+ * loginchain is started by selecting login in select usecase it will then go to
+ * the isallowedtologin command wich returns select usecase if you are not(there
+ * already is a login controller in the userinterface or someone else is already
+ * logged in. If you are allowed to login you will return a new
+ * CreatLoginController. This object creates a logincontroller and returns a new
+ * displayallnames object. This object displays all names when executed and
+ * returns a login object that queries the user for his name. etc...
  * 
  * */
 public class UCHandler
 {
 	Usecase currentUseCase;
 	UserinterfaceData data;
-	
+
 	/**
 	 * Initializes the current command to SelectUseCase
+	 * 
 	 * @param data
 	 */
 	public UCHandler(UserinterfaceData data) {

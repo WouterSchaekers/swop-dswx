@@ -15,7 +15,7 @@ public class Appointment
 	private HashMap<TimePoint, Resource> resources;
 	private Date date;
 	private long duration;
-	
+
 	/**
 	 * Default constructor.
 	 * 
@@ -27,17 +27,20 @@ public class Appointment
 	 * @param date
 	 *            The date and time on which this appointment is to take place.
 	 */
-	public Appointment(PatientFile patient, HashMap<TimePoint, Resource> res, Date date, long dur) {
+	public Appointment(PatientFile patient, HashMap<TimePoint, Resource> res,
+			Date date, long dur) {
 		setPatientFile(patient);
 		this.resources = res;
 		this.date = date;
 		this.duration = dur;
 	}
-	
+
 	/**
-	 * This method allows to change the associated patientfile of this appointment.
+	 * This method allows to change the associated patientfile of this
+	 * appointment.
+	 * 
 	 * @param patient
-	 * The new patientfile for this appointment.
+	 *            The new patientfile for this appointment.
 	 */
 	public void setPatientFile(PatientFile patient) {
 		this.patient = patient;
@@ -56,23 +59,24 @@ public class Appointment
 	public Collection<Resource> getResource() {
 		return this.resources.values();
 	}
-	
-	public HashMap<TimePoint, Resource> getScheduling(){
+
+	public HashMap<TimePoint, Resource> getScheduling() {
 		return resources;
 	}
-	
+
 	/**
 	 * @return The duration of this appointment.
 	 */
 	public long getAppointmentDuration() {
-		return duration; 
+		return duration;
 	}
-	
-	public Date getDate(){
+
+	public Date getDate() {
 		return date;
 	}
+
 	@Override
-	public String toString(){
-		return "Appointment: start at: " +this.date.toString();
+	public String toString() {
+		return "Appointment: start at: " + this.date.toString();
 	}
 }

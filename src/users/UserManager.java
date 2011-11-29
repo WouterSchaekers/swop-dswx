@@ -12,7 +12,7 @@ public class UserManager
 	public UserManager() {
 		users = new HashMap<String, User>();
 	}
-	
+
 	/**
 	 * This method is used to add users to the system, ensures valid adding etc.
 	 * 

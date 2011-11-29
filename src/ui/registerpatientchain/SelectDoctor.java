@@ -37,14 +37,13 @@ public class SelectDoctor extends Usecase
 			map.put(doctor.getName(), doctor);
 		}
 		String name = input.nextLine();
-		if(!map.containsKey(name))
-		{
-			System.out.println(name+" is not a valid doctor.");
+		if (!map.containsKey(name)) {
+			System.out.println(name + " is not a valid doctor.");
 			return this;
 		}
 
-		DTOAppointment app= rpc.CreateAppointMent(map.get(name),pfile);
-		return new DisplayAppointment(data,app);
+		DTOAppointment app = rpc.CreateAppointMent(map.get(name), pfile);
+		return new DisplayAppointment(data, app);
 	}
 
 }

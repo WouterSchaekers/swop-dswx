@@ -19,12 +19,14 @@ public class Machine implements Resource
 	 * @param serial
 	 *            The serial of this machine.
 	 */
-	public Machine(int serial, String location) throws InvalidLocationException, InvalidSerialException{
-		if(location == null || location == ""){
+	public Machine(int serial, String location)
+			throws InvalidLocationException, InvalidSerialException {
+		if (location == null || location == "") {
 			throw new InvalidLocationException("Location is not set or empty.");
 		}
-		if(serial == 0){
-			throw new InvalidSerialException("Serial must be different from zero.");
+		if (serial == 0) {
+			throw new InvalidSerialException(
+					"Serial must be different from zero.");
 		}
 		this.serial = serial;
 		this.location = location;

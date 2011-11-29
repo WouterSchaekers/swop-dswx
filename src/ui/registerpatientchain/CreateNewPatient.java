@@ -7,9 +7,11 @@ import ui.Usecase;
 public class CreateNewPatient extends Usecase
 {
 	RegisterPatientController rpc;
-	public CreateNewPatient(UserinterfaceData data, RegisterPatientController rpc) {
+
+	public CreateNewPatient(UserinterfaceData data,
+			RegisterPatientController rpc) {
 		super(data);
-		this.rpc=rpc;
+		this.rpc = rpc;
 	}
 
 	@Override
@@ -17,7 +19,7 @@ public class CreateNewPatient extends Usecase
 		System.out.println("Create a new Patient in the database");
 		System.out.println("enter name:");
 		String name = input.nextLine();
-		rpc.createNewPatient(data.getDataPasser(),name);
+		rpc.createNewPatient(data.getDataPasser(), name);
 		return new DisplayAllPatients(data, rpc);
 	}
 

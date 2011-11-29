@@ -2,5 +2,5 @@ package treatment;
 
 public enum TreatmentTypes
 {
-medication,surgery,cast
+	medication, surgery, cast
 }

@@ -8,19 +8,16 @@ import exceptions.InvalidNameException;
 public class MedicalTestTestCase
 {
 	@Test
-	public void CreateMedicalTest()
-	{
+	public void CreateMedicalTest() {
 		MedicalTest one = null;
-		try{
+		try {
 			one = new BloodAnalysis();
-		}
-		catch(InvalidNameException e){
+		} catch (InvalidNameException e) {
+			System.out.println(e.getMessage());
+		} catch (InvalidDurationException e) {
 			System.out.println(e.getMessage());
 		}
-		catch(InvalidDurationException e){
-			System.out.println(e.getMessage());
-		}
-		one.getTestName().replace("B","C");
+		one.getTestName().replace("B", "C");
 		assertTrue(one.getTestName().equals("BloodAnalysis"));
 	}
 }
