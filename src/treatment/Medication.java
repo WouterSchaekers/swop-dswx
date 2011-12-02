@@ -3,7 +3,7 @@ package treatment;
 /**
  * This class represent treatment by medication.
  */
-public class Medication extends Treatment
+public abstract class Medication extends Treatment
 {
 	// the name of each treatment will be final and will be used later on to
 	// determine which treatment a Treatment is.
