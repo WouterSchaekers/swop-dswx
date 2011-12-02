@@ -49,7 +49,7 @@ public class ScheduledElement
 	}
 
 	/**
-	 * A collection of resoources that have been scheduled and are contained in
+	 * A collection of resources that have been scheduled and are contained in
 	 * this Object.
 	 * 
 	 * @return
