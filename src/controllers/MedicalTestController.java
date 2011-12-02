@@ -1,6 +1,5 @@
 package controllers;
 
-import scheduler.Appointment;
 import task.TaskManager;
 
 /**
@@ -31,34 +30,5 @@ public class MedicalTestController extends MedicalSuperController
 		super(lc, cpf);
 		this.t = t;
 	}
-
-	/**
-	 * This method is used to schedule an XRayscan.
-	 * 
-	 * @return The appointment made.
-	 */
-	public Appointment orderXRay(String bodypart, int amountOfImages,
-			int zoomLevel) {
-		return t.scheduldeXRay(bodypart, amountOfImages, zoomLevel);
-	}
-
-	/**
-	 * This method is used to schedule an UltraSoundScan.
-	 * 
-	 * @return The appointment made.
-	 */
-	public Appointment orderUltraSound(String focus, boolean recVid,
-			boolean recImg) {
-		return t.scheduldeUltraSound(focus, recVid, recImg);
-	}
-
-	/**
-	 * This method is used to schedule a BloodAnalysis.
-	 * 
-	 * @return The appointment made.
-	 */
-	public Appointment orderBloodAnalysis(String focus, int amountOfAnalyses) {
-		return t.scheduldeBloodAnalysis(focus, amountOfAnalyses);
-	}
-
+	
 }
