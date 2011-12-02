@@ -1,5 +1,6 @@
 package depot;
 
+import java.util.Date;
 import treatment.Treatment;
 
 /**
@@ -13,6 +14,7 @@ public abstract class Medication extends Treatment
 	private String description = ""; // the description of the meds
 	private boolean sensitive = false; // whether or not if the medication is
 										// sensitive
+	public final Date expirationDate;
 
 	/**
 	 * Default constructor.
@@ -22,11 +24,11 @@ public abstract class Medication extends Treatment
 	 * @param sensitive
 	 *            Whether or not the meds are sensitive.
 	 */
-	public Medication(String description, boolean sensitive) {
+	public Medication(String description, boolean sensitive, Date expirationDate) {
 		super(TREATMENTNAME);
 		setDescription(description);
 		setSensitive(sensitive);
-
+		this.expirationDate = expirationDate;
 	}
 
 	/**
@@ -77,5 +79,9 @@ public abstract class Medication extends Treatment
 	 */
 	public void setSensitive(boolean sensitive) {
 		this.sensitive = sensitive;
+	}
+	
+	public Date getExpirationDate(){
+		return this.expirationDate;
 	}
 }
