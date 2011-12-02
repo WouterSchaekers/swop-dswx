@@ -5,8 +5,11 @@ import java.util.Collection;
 import task.Resource;
 import task.requirement.Requirement;
 
+
 public class ConstraintProcessor
 {
+
+	//XXX: fix... de methode is maar effe gecopy-paste zodat scheduler half gefixt kon worde ^^
 	public Collection<Resource> satisfied(Collection<Resource> availableNow, Collection<Requirement> required) {
 		Collection<Resource> avResHere = new ArrayList<Resource>(availableNow);
 		Collection<Resource> scheduledElementsTemp = new ArrayList<Resource>();
