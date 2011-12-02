@@ -1,0 +1,4 @@
+= Scheduling en constraintprocessing =
+We pushen ALLE constraint processing naar de ConstraintProcessor! De Scheduler moet alleen maar schedulen als de constraints in orde zijn :)
+
+<img src="http://www.imgdumper.nl/uploads5/4ed8ef83840a2/4ed8ef837eea1-SchedulerPlanversie8.jpg">
