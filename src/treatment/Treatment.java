@@ -11,10 +11,10 @@ import patient.Result;
 public abstract class Treatment
 {
 	// a static arraylist of all treatments available.
-	// TODO: is this realy what we want?
-	private static ArrayList<Treatment> treatments = new ArrayList<Treatment>(
-			Arrays.asList(new Cast("", 0), new Medication(null, false),
-					new Surgery("")));
+	// TODO: is this realy what we want? -> NO
+//	private static ArrayList<Treatment> treatments = new ArrayList<Treatment>(
+//			Arrays.asList(new Cast("", 0), new Medication(null, false),
+//					new Surgery("")));
 	private Collection<Result> results = new ArrayList<Result>();
 	// all childclasses will have their names be final and static and will use
 	// this var to store that information in.
@@ -33,9 +33,9 @@ public abstract class Treatment
 	/**
 	 * @return All available treaments.
 	 */
-	public static Collection<Treatment> availableTreatments() {
-		return treatments;
-	}
+//	public static Collection<Treatment> availableTreatments() {
+//		return treatments;
+//	}
 
 	/**
 	 * @return the name of this treatment.
