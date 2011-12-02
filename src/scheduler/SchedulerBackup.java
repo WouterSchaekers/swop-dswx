@@ -225,11 +225,9 @@ public class SchedulerBackup
 				backup.getTime() + duration));
 	}
 
-	private void Cut(Collection<Resource> resourcesInSystem,
-			Collection<Resource> allScheduledAt) {
+	private void Cut(Collection<Resource> resourcesInSystem, Collection<Resource> allScheduledAt) {
 		for (Resource r : allScheduledAt)
 			resourcesInSystem.remove(r);
-
 	}
 
 	/**
@@ -270,8 +268,7 @@ public class SchedulerBackup
 	 * @return empty collection if the requirements can not be met a collection
 	 *         with all the needed resources for the given requirements
 	 */
-	private Collection<Resource> satisfied(Collection<Resource> availableNow,
-			Collection<Requirement> required) {
+	private Collection<Resource> satisfied(Collection<Resource> availableNow, Collection<Requirement> required) {
 		Collection<Resource> avResHere = new ArrayList<Resource>(availableNow);
 		Collection<Resource> scheduledElementsTemp = new ArrayList<Resource>();
 		for (Requirement r : required) {
