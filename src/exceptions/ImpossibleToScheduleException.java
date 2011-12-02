@@ -1,4 +1,4 @@
-package scheduler;
+package exceptions;
 
 public class ImpossibleToScheduleException extends Exception
 {

@@ -8,6 +8,7 @@ import machine.MachinePool;
 import machine.XRayScanner;
 import org.junit.Before;
 import org.junit.Test;
+import exceptions.ImpossibleToScheduleException;
 import patient.PatientFile;
 import task.requirement.AresourceRequirement;
 import task.requirement.Requirement;
