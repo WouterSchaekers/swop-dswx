@@ -1,6 +1,7 @@
 package scheduler;
 
 import java.util.*;
+import exceptions.ImpossibleToScheduleException;
 import patient.PatientFile;
 import machine.MachinePool;
 import task.requirement.Requirement;
