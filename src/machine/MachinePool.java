@@ -10,38 +10,31 @@ import exceptions.InvalidSerialException;
  */
 public class MachinePool
 {
-	private Collection<Machine> allMachines;
+	private Collection<Machine> allMachines = new ArrayList<Machine>();;
 
-	public MachinePool() {
-		allMachines = new ArrayList<Machine>();
-	}
-
+	/**
+	 * Adds a machine to  the machine pool
+	 * @param m
+	 */
 	public void addMachine(Machine m) {
 		allMachines.add(m);
 	}
 
+	/**
+	 * Removes a machine from the machine pool
+	 * @param m
+	 */
 	public void removeMachine(Machine m) {
 		allMachines.remove(m);
 	}
 
+	/**
+	 * Returns a copy of the collection of all the machines in our hospital.
+	 * @return
+	 */
 	public Collection<Machine> getAllMachines() {
-		return this.allMachines;
+		return new ArrayList<Machine>(this.allMachines);
 	}
 
-	public void addXrayScanner(int id, String location)
-			throws InvalidLocationException, InvalidSerialException {
-		this.addMachine(new XRayScanner(id, location));
-
-	}
-
-	public void addBloodAnalyzer(int id, String location)
-			throws InvalidLocationException, InvalidSerialException {
-		this.addMachine(new BloodAnalyser(id, location));
-
-	}
-
-	public void addUltraSoundScanner(int id, String location)
-			throws InvalidLocationException, InvalidSerialException {
-		this.addMachine(new UltraSoundScanner(id, location));
-	}
+ 
 }
