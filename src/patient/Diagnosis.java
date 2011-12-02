@@ -20,12 +20,8 @@ public class Diagnosis
 	private boolean secOpFlag = false; // flag for second opinion
 	private Doctor attending = null; // the attending doctor
 	private Doctor secopDoc = null; // the doctor to give second opinion
-	private Collection<Treatment> treatments = new ArrayList<Treatment>(); // the
-																			// treatments
-																			// associated
-																			// with
-																			// this
-																			// diagnosis
+	// the  treatments associated with this  diagnosis
+	private Collection<Treatment> treatments = new ArrayList<Treatment>(); 
 
 	/**
 	 * This function allows a diagnosis to be created.
