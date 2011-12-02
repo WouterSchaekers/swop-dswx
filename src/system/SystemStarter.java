@@ -1,5 +1,6 @@
 package system;
 
+import java.util.Date;
 import machine.MachinePool;
 import controllers.DataPasser;
 import patient.PatientFileManager;
@@ -14,7 +15,7 @@ public class SystemStarter
 	static PatientFileManager patientfmanager = new PatientFileManager();
 	static UserManager usermanager = new UserManager();
 	static MachinePool machinepool = new MachinePool();
-	static Scheduler scheduler = new Scheduler(usermanager, machinepool);
+	static Scheduler scheduler = new Scheduler(usermanager, machinepool, new Date());
 
 	public static void main(String[] args) throws UserAlreadyExistsException {
 		usermanager.CreateDoctor("jonathan");
