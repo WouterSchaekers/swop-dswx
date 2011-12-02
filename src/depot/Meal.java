@@ -2,16 +2,26 @@ package depot;
 
 import java.util.Date;
 
-public class Meal implements CanExpireObject
+public class Meal implements Expirable
 {
-	private final Date expirationDate;
-	public Meal(Date expirationDate) {
-		this.expirationDate = expirationDate;
+	private final Date expiryDate;
+	public Meal(Date expiryDate) {
+		this.expiryDate = expiryDate;
 	}
 	
 	@Override
 	public Date getExpiryDate() {
-		return this.expirationDate;
+		return this.expiryDate;
+	}
+
+	@Override
+	public boolean hasPassedDate(Date date){
+		if(this.expiryDate.before(date)){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 
 }
