@@ -1,53 +1,59 @@
 package task;
 
-import java.util.HashMap;
-import java.util.Map;
-import exceptions.InvalidResourceException;
-import exceptions.InvalidSchedulerException;
-import patient.PatientFile;
-import scheduler.Appointment;
+import java.util.*;
+import be.kuleuven.cs.som.annotate.*;
+import exceptions.*;
 import scheduler.Scheduler;
-import users.Doctor;
 
+/**
+ * This class will notify a Scheduler when it gets an incoming signal from an
+ * Observer. Also it will keep a record of scheduled and unscheduled Tasks.
+ */
 public class TaskManager
 {
-	private Scheduler scheduler;
-	private Map<Resource, Task> resourceToTasks;
+	private Scheduler scheduler; // the scheduler associated with this TM
+	private Collection<Task> unscheduledTasks = new ArrayList<Task>();
+	private Collection<Task> scheduledTasks = new ArrayList<Task>();
 
+	/**
+	 * Default Constructor.
+	 * 
+	 * @param scheduler
+	 *            The scheduler to associated with this TM
+	 * @throws InvalidSchedulerException
+	 *             If(!canHaveAsScheduler(scheduler)
+	 */
 	public TaskManager(Scheduler scheduler) throws InvalidSchedulerException {
-		if (scheduler == null) {
+		if (!this.canHaveAsScheduler(scheduler)) {
 			throw new InvalidSchedulerException(
-					"Scheduler is not initialized yet.");
+					"Given scheduler is not a valid scheduler for this TM.");
 		}
 		this.scheduler = scheduler;
-		this.resourceToTasks = new HashMap<Resource, Task>();
 	}
 
-	public Task getTaskBy(Resource resource) throws InvalidResourceException {
-		Task task = resourceToTasks.get(resource);
-		if (task == null) {
-			throw new InvalidResourceException("Resource does not exist.");
-		}
-		return task;
+	/**
+	 * @return true if s is a valid scheduler for this TM.
+	 */
+	public boolean canHaveAsScheduler(Scheduler s) {
+		return scheduler != null;
 	}
 
-	public Task createAppointMent(Doctor doctor, PatientFile file) {
-		return null;
+	/**
+	 * This method will notify the associated Scheduler of this TM that
+	 * something has changed and that it needs to re-evaluate all constraints.
+	 */
+	public void notifyScheduler() {
+		
+	}
+	
+	@Basic
+	public Collection<Task> getUnscheduledTasks() {
+		return new ArrayList<Task>(unscheduledTasks);
 	}
 
-	public Appointment scheduldeUltraSound(String focus, boolean recVid,
-			boolean recImg) {
-		scheduler.toString();
-		return null;
-	}
-
-	public Appointment scheduldeXRay(String bodypart, int amountOfImages,
-			int zoomlevel) {
-		return null;
-	}
-
-	public Appointment scheduldeBloodAnalysis(String focus, int amountOfAnalyses) {
-		return null;
+	@Basic
+	public Collection<Task> getScheduledTasks() {
+		return new ArrayList<Task>(scheduledTasks);
 	}
 
 }
