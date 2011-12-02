@@ -1,4 +1,4 @@
-package treatment;
+package depot;
 
 public class Misc extends Medication
 {
