@@ -6,7 +6,7 @@ import treatment.Treatment;
 /**
  * This class represent treatment by medication.
  */
-public abstract class Medication extends Treatment
+public abstract class Medication extends Treatment implements Expirable
 {
 	// the name of each treatment will be final and will be used later on to
 	// determine which treatment a Treatment is.
@@ -14,7 +14,7 @@ public abstract class Medication extends Treatment
 	private String description = ""; // the description of the meds
 	private boolean sensitive = false; // whether or not if the medication is
 										// sensitive
-	public final Date expirationDate;
+	public final Date expiryDate;
 
 	/**
 	 * Default constructor.
@@ -24,11 +24,11 @@ public abstract class Medication extends Treatment
 	 * @param sensitive
 	 *            Whether or not the meds are sensitive.
 	 */
-	public Medication(String description, boolean sensitive, Date expirationDate) {
+	public Medication(String description, boolean sensitive, Date expiryDate) {
 		super(TREATMENTNAME);
 		setDescription(description);
 		setSensitive(sensitive);
-		this.expirationDate = expirationDate;
+		this.expiryDate = expiryDate;
 	}
 
 	/**
@@ -81,7 +81,16 @@ public abstract class Medication extends Treatment
 		this.sensitive = sensitive;
 	}
 	
-	public Date getExpirationDate(){
-		return this.expirationDate;
+	public Date getExpiryDate(){
+		return this.expiryDate;
+	}
+	
+	public boolean hasPassedDate(Date date){
+		if(this.expiryDate.before(date)){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 }
