@@ -21,6 +21,7 @@ public class Scheduler
 	
 	private Date curInternalDate;
 	private Collection<Resource> allResources = new ArrayList<Resource>();
+	private ConstraintProcessor constrProc = new ConstraintProcessor();
 
 	/**
 	 * Default constructor; will initilize all fields.
@@ -68,12 +69,12 @@ public class Scheduler
 
 	public ScheduledElement find(Collection<Requirement> reqs, long duration)
 			throws ImpossibleToScheduleException {
+		
 		if (timeTable.isEmpty()) {
-			Date now = nextRoundHour(new Date(now().getTime()
-					+ getTimeBuffer()));
-			Collection<Resource> r = satisfied(getResources(), reqs);
-			if (r.isEmpty())
-				throw new ImpossibleToScheduleException("wtf");
+			Date now = nextRoundHour(new Date(this.curInternalDate.getTime() + getTimeBuffer()));
+			
+			// check de constraints
+			Collection<Resource> r = constrProc.satisfied(getResources(), reqs);
 			for (Resource resource : r) {
 				timeTable.put(new TimePoint(TimeType.start, now), resource);
 				timeTable.put(
@@ -84,7 +85,7 @@ public class Scheduler
 					+ duration));
 		}
 
-		Date now = new Date(now().getTime() + getTimeBuffer());
+		Date now = new Date(this.curInternalDate.getTime() + getTimeBuffer());
 		TimePoint traverser;
 		if (now.before(timeTable.firstEntry().getKey().getDate())) {
 			now = timeTable.firstEntry().getKey().getDate();
@@ -107,7 +108,7 @@ public class Scheduler
 				resourcesInSystem.add(timeTable.get(traverser));
 				break;
 			}
-			used = satisfied(resourcesInSystem, reqs);
+			used = constrProc.satisfied(resourcesInSystem, reqs);
 			if (used.isEmpty()) {
 				if (backup != null) {
 
@@ -131,7 +132,7 @@ public class Scheduler
 				}
 			}
 			traverser = timeTable.higherKey(traverser);
-			used = satisfied(resourcesInSystem, reqs);
+			used = constrProc.satisfied(resourcesInSystem, reqs);
 			if (!used.isEmpty() && traverser == null) {
 				// yeya hotfix
 				for (Resource r : used) {
@@ -167,20 +168,12 @@ public class Scheduler
 				backup.getTime() + duration));
 	}
 
-	/**
-	 * This method will return all resources that are currently in use for some
-	 * Appointment.
-	 * 
-	 * @return A collection of all resources currently being used.
-	 */
-	private Collection<Resource> getAllCurrentlyActiveResources() {
+	private Collection<Resource> getAllScheduledAt(Date now) {
 		Collection<Resource> scheduledResources = new ArrayList<Resource>();
-		
 		if (timeTable.size() == 0)
 			return scheduledResources;
-		
 		TimePoint traverser = timeTable.firstKey();
-		while (traverser != null && traverser.getDate().before(this.curInternalDate)) {
+		while (traverser != null && traverser.getDate().before(now)) {
 			switch (traverser.getType()) {
 			case start:
 				scheduledResources.add(timeTable.get(traverser));
@@ -241,5 +234,10 @@ public class Scheduler
 			return date1.getTime() - date2.getTime();
 		else
 			return date2.getTime() - date1.getTime();
+	}
+	
+	private void Cut(Collection<Resource> resourcesInSystem, Collection<Resource> allScheduledAt) {
+		for (Resource r : allScheduledAt)
+			resourcesInSystem.remove(r);
 	}
 }
