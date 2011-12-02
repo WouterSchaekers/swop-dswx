@@ -1,4 +1,6 @@
-package treatment;
+package depot;
+
+import treatment.Treatment;
 
 /**
  * This class represent treatment by medication.

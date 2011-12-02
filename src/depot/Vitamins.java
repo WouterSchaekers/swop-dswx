@@ -1,4 +1,4 @@
-package treatment;
+package depot;
 
 public class Vitamins extends Medication
 {
