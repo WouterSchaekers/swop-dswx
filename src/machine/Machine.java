@@ -2,6 +2,7 @@ package machine;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidSerialException;
 import task.Schedulable;
@@ -11,7 +12,7 @@ import task.Schedulable;
  * @Invar serial is unique for every machine object	
  */
 
-public class Machine implements Schedulable
+public abstract class Machine implements Schedulable
 {
 
 	private final int serial;
@@ -64,4 +65,7 @@ public class Machine implements Schedulable
 		return false;
 
 	}
+
+	@Override
+	public abstract boolean canBeScheduledOn(Date start, Date stop);
 }
