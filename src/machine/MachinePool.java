@@ -2,8 +2,6 @@ package machine;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import exceptions.InvalidLocationException;
-import exceptions.InvalidSerialException;
 
 /**
  * This class is merely a collection of all machines in existence.
