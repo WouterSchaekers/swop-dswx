@@ -8,11 +8,11 @@ import machine.XRayScanner;
 import org.junit.Before;
 import org.junit.Test;
 import exceptions.ImpossibleToScheduleException;
+import exceptions.UserAlreadyExistsException;
 import patient.PatientFile;
 import task.requirement.AresourceRequirement;
 import task.requirement.Requirement;
 import users.Nurse;
-import users.UserAlreadyExistsException;
 import users.UserManager;
 
 public class SchedulerTest

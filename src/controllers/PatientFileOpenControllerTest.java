@@ -4,9 +4,9 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import controllers.interfaces.UserIN;
+import exceptions.UserAlreadyExistsException;
 import patient.PatientFileManager;
 import users.Doctor;
-import users.UserAlreadyExistsException;
 import users.UserManager;
 import users.Nurse;
 
