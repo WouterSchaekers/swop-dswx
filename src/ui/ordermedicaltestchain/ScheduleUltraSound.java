@@ -16,8 +16,9 @@ public class ScheduleUltraSound extends MedicalTestCommand
 	public Usecase Execute() {
 		MedicalTestController mc = medData.getMedTestController();
 
-		Appointment app = mc.orderUltraSound(medData.getFocus(),
-				medData.getVid(), medData.getImg());
+		//TOOO: FIX
+		//Appointment app = mc.orderUltraSound(medData.getFocus(), medData.getVid(), medData.getImg());
+		Appointment app = null;
 		System.out.println("The appointment was made at " + app.toString());
 		return new SelectUsecase(data);
 	}

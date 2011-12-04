@@ -18,8 +18,9 @@ public class ScheduleBloodAnalysis extends MedicalTestCommand
 	public Usecase Execute() {
 		MedicalTestController mc = medData.getMedTestController();
 
-		Appointment app = mc.orderBloodAnalysis(medData.getFocus(),
-				medData.getAmount());
+		//TODO
+		//Appointment app = mc.orderBloodAnalysis(medData.getFocus(),medData.getAmount());
+		Appointment app = null;
 		System.out.println("The appointment was made at " + app.toString());
 		return new SelectUsecase(data);
 	}
