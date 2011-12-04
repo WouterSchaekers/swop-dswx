@@ -6,11 +6,11 @@ public class TimeSlot
 	private TimePoint t2;
 	public TimeSlot(TimePoint t1,TimePoint t2){
 		if(t1.isEnd())
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Invalid TimePoint 1!");
 		if(t2.isStart())
-			throw new IllegalArgumentException();		
+			throw new IllegalArgumentException("Invalid TimePoint 2!");		
 		if(t1.compareTo(t2)>1)
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Invalid TimePoints! start < stop!");
 		this.t1=t1;
 		this.t2=t2;
 		
