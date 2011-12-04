@@ -21,8 +21,10 @@ public class SystemStarter
 	public static void main(String[] args) throws UserAlreadyExistsException {
 		usermanager.CreateDoctor("jonathan");
 		usermanager.CreateNurse("jenny");
-		DataPasser data = new DataPasser(usermanager, patientfmanager,
-				scheduler);
+		//TODO: fix
+		// DataPasser data = new DataPasser(usermanager, patientfmanager,scheduler);
+				DataPasser data = new DataPasser(usermanager, patientfmanager,
+						new Scheduler());
 		UserInterface T = new UserInterface(data);
 		T.start();
 	}
