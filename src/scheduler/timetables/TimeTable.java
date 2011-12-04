@@ -63,8 +63,8 @@ public class TimeTable
 	 * @return
 	 */
 	public TimeTable getUnion(TimeTable that) {
-		TimePoint[] allPoints = new TimePoint[this.timeSlots.length*2
-				+ that.timeSlots.length*2 ];
+		TimePoint[] allPoints = new TimePoint[this.timeSlots.length * 2
+				+ that.timeSlots.length * 2];
 		ArrayList<TimeSlot> rv = new ArrayList<TimeSlot>();
 		int i = 0;
 		for (TimeSlot t : this.timeSlots) {
@@ -94,11 +94,46 @@ public class TimeTable
 		}
 		return new TimeTable(rv);
 	}
-	
-	public String toString()
-	{
+
+	public TimeTable intersect(TimeTable that) {
+		TimePoint[] one = new TimePoint[this.timeSlots.length*2];
+		TimePoint[] two = new TimePoint[that.timeSlots.length*2];
+		ArrayList<TimeSlot> rv = new ArrayList<TimeSlot>();
+		int i = 0;
+		for (TimeSlot t : this.timeSlots) {
+			one[i++] = t.getT1();
+			one[i++] = t.getT2();
+		}
+		i = 0;
+		for (TimeSlot t : that.timeSlots) {
+			two[i++] = t.getT1();
+			two[i++] = t.getT2();
+		}
+		Arrays.sort(one);
+		Arrays.sort(two);
+		i = 0;
+		
+		while (i < allPoints.length) {
+			TimeSlot t = new TimeSlot(TimePoint.L1, TimePoint.L2);
+			t.setT1(allPoints[i]);
+			int endcount = 1;
+			while (endcount > 0) {
+				i++;
+				if (allPoints[i].isStart()) {
+					endcount++;
+				} else {
+					endcount--;
+				}
+			}
+			t.setT2(allPoints[i++]);
+			rv.add(t);
+		}
+		return new TimeTable(rv);
+	}
+
+	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		for(TimeSlot slot : timeSlots)
+		for (TimeSlot slot : timeSlots)
 			builder.append(slot.toString());
 		return builder.toString();
 	}
