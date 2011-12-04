@@ -49,12 +49,6 @@ public class TimeTable
 		return null;
 	}
 
-	public TimeTable getIntersect(TimeTable line) {
-
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	/**
 	 * The union of 2 timetables is this, the union of time slots, Ex : union
 	 * {(1,9),(21,55)} with {(3,15)} is {(1,15),(21,55)} Thus where both
@@ -67,7 +61,6 @@ public class TimeTable
 				+ that.timeSlots.length * 2];
 		ArrayList<TimeSlot> rv = new ArrayList<TimeSlot>();
 		int i = 0;
-
 		for (TimeSlot t : this.timeSlots) {
 			allPoints[i++] = t.getT1();
 			allPoints[i++] = t.getT2();
@@ -99,7 +92,7 @@ public class TimeTable
 		return new TimeTable(rv);
 	}
 
-	public TimeTable intersect(TimeTable that) {
+	public TimeTable getIntersect(TimeTable that) {
 		TimePoint[] one = new TimePoint[this.timeSlots.length * 2];
 		TimePoint[] two = new TimePoint[that.timeSlots.length * 2];
 		ArrayList<TimeSlot> rv = new ArrayList<TimeSlot>();
@@ -113,38 +106,37 @@ public class TimeTable
 			two[i++] = t.getT1();
 			two[i++] = t.getT2();
 		}
-		i = 0;
-		int _1 = 0;
-		int _2 = 0;
-		while (_1 < one.length - 1 && _2 < two.length - 1) {
-			while (_1 < one.length - 1 && _2 < two.length - 1) {
-				if (!(one[_1].compareTo(two[_2]) < 0 && one[_1 + 1]
-						.compareTo(two[_2]) > 0)
-						|| !(two[_2].compareTo(one[_1]) < 0 && two[_2 + 1]
-								.compareTo(one[_1]) > 0)) {
-					if (one[_1].compareTo(two[_2]) > 0) {
-						_2 = _2 + 2;
+		int first = 0;
+		int second = 0;
+		while (first < one.length - 1 && second < two.length - 1) {
+			while (first < one.length - 1 && second < two.length - 1) {
+				if (!(one[first].compareTo(two[second]) < 0 && one[first + 1]
+						.compareTo(two[second]) > 0)
+						|| !(two[second].compareTo(one[first]) < 0 && two[second + 1]
+								.compareTo(one[first]) > 0)) {
+					if (one[first].compareTo(two[second]) > 0) {
+						second = second + 2;
 					} else {
-						_1 = _1 + 1;
+						first = first + 1;
 					}
 				}
 			}
-			if (!(_1 < one.length - 1 && _2 < two.length - 1)) {
+			if (!(first < one.length - 1 && second < two.length - 1)) {
 				break;
 			}
 			TimePoint startPoint;
-			if (one[_1].compareTo(two[_2]) > 0) {
-				startPoint = one[_1];
+			if (one[first].compareTo(two[second]) > 0) {
+				startPoint = one[first];
 			} else {
-				startPoint = two[_2];
+				startPoint = two[second];
 			}
 			TimePoint endPoint;
-			if (one[_1 + 1].compareTo(two[_2 + 1]) > 0) {
-				endPoint = two[_2 + 1];
-				_2 = _2 + 2;
+			if (one[first + 1].compareTo(two[second + 1]) > 0) {
+				endPoint = two[second + 1];
+				second = second + 2;
 			} else {
-				endPoint = one[_1 + 1];
-				_1 = _1 + 2;
+				endPoint = one[first + 1];
+				first = first + 2;
 			}
 			TimeSlot t = new TimeSlot(startPoint, endPoint);
 			rv.add(t);
