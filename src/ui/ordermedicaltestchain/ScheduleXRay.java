@@ -17,8 +17,9 @@ public class ScheduleXRay extends MedicalTestCommand
 	public Usecase Execute() {
 		MedicalTestController mc = medData.getMedTestController();
 
-		Appointment app = mc.orderXRay(medData.getBodypart(),
-				medData.getAmount(), medData.getZoomlevel());
+		// TODO
+		//Appointment app = mc.orderXRay(medData.getBodypart(),medData.getAmount(), medData.getZoomlevel());
+		Appointment app = null;
 		System.out.println("The appointment was made at " + app.toString());
 		return new SelectUsecase(data);
 	}
