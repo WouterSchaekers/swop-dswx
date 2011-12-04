@@ -6,10 +6,11 @@ import warehouse.Meal;
 import warehouse.Medication;
 import exceptions.DepotOverCapacityException;
 
-public class WarehouseManager
+public class WarehouseManager extends User
 {
 	private Depot depot;
 	public WarehouseManager(Depot depot){
+		super("The Warehouse manager");
 		this.depot = depot;
 	}
 	
@@ -23,5 +24,11 @@ public class WarehouseManager
 	
 	public void addMeals(Collection<Meal> meals) throws DepotOverCapacityException{
 		depot.addMeals(meals);
+	}
+
+	@Override
+	public usertype type() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

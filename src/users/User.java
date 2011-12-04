@@ -3,7 +3,7 @@ package users;
 import controllers.interfaces.UserIN;
 import task.Schedulable;
 
-public abstract class User implements Schedulable,UserIN
+public abstract class User implements UserIN
 {
 	public abstract usertype type();
 

@@ -1,6 +1,9 @@
 package users;
 
-public class Nurse extends User
+import java.util.Date;
+import task.Schedulable;
+
+public class Nurse extends User implements Schedulable
 {
 	public Nurse(String name) {
 		super(name);
@@ -9,5 +12,11 @@ public class Nurse extends User
 	@Override
 	public usertype type() {
 		return usertype.Nurse;
+	}
+
+	@Override
+	public boolean canBeScheduledOn(Date start, Date stop) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
