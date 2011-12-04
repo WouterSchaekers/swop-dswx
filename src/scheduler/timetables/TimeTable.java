@@ -116,13 +116,13 @@ public class TimeTable
 		i = 0;
 		int _1 = 0;
 		int _2 = 0;
-		while (_1 < one.length - 1) {
-			while (one[_1].compareTo(two[_2]) > 1 && _2 < two.length - 1) {
+		while (_1 < one.length - 1 && _2 < two.length - 1) {
+			while (one[_1].compareTo(two[_2]) > 0 && _2 < two.length - 1) {
 				_2 = _2 + 2;
 			}
 			TimePoint startPoint = two[_2];
 			TimePoint endPoint;
-			if (one[_1 + 1].compareTo(two[_2 + 1]) > 1) {
+			if (one[_1 + 1].compareTo(two[_2 + 1]) > 0) {
 				endPoint = two[_2 + 1];
 				_2 = _2 + 2;
 			} else {
