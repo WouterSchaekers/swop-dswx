@@ -5,7 +5,7 @@ import machine.MachinePool;
 import controllers.DataPasser;
 import exceptions.UserAlreadyExistsException;
 import patient.PatientFileManager;
-import scheduler.Scheduler;
+import scheduler.timetables.*;
 import ui.UserInterface;
 import users.UserManager;
 

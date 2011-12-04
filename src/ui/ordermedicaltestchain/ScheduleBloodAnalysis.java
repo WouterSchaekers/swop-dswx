@@ -1,10 +1,7 @@
 package ui.ordermedicaltestchain;
 
 import controllers.MedicalTestController;
-import scheduler.Appointment;
-import ui.SelectUsecase;
-import ui.UserinterfaceData;
-import ui.Usecase;
+import ui.*;
 
 public class ScheduleBloodAnalysis extends MedicalTestCommand
 {
@@ -21,8 +18,8 @@ public class ScheduleBloodAnalysis extends MedicalTestCommand
 		
 		//TODO
 		//Appointment app = mc.orderBloodAnalysis(medData.getFocus(),medData.getAmount());
-		Appointment app = null;
-		System.out.println("The appointment was made at " + app.toString());
+		// Appointment app = null;
+		//System.out.println("The appointment was made at " + app.toString());
 		return new SelectUsecase(data);
 	}
 

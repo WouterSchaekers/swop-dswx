@@ -1,6 +1,7 @@
 package scheduler;
 
 import patient.PatientFile;
+import scheduler.timetables.TimePoint;
 import task.Schedulable;
 import java.util.Collection;
 import java.util.Date;
