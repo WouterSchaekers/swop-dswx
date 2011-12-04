@@ -12,37 +12,37 @@ public class CheckinControllerTests
 {
 
 	//TODO: fix all tests!
-	
-	private PatientFileManager pfm;
-	private CheckinController cic;
-	private UserManager um;
-	private LoginController lc;
-	private Scheduler s;
-	private Nurse n;
-	private User uDTO;
-	private MachinePool mp;
-	private DataPasser data;
-	private PatientFile pf;
-
-	@Before
-	public void setUp() {
-		pfm = new PatientFileManager();
-	}
-
-	@Test(
-			expected = IllegalArgumentException.class)
-	public void creationFail() {
-		cic = new CheckinController(null, null);
-	}
-
-	@Test(
-			expected = IllegalArgumentException.class)
-	public void creationFail2() {
-		LoginController lc = new LoginController(null);
-		cic = new CheckinController(lc, null);
-	}
-
+//	
+//	private PatientFileManager pfm;
+//	private CheckinController cic;
+//	private UserManager um;
+//	private LoginController lc;
+//	private Scheduler s;
+//	private Nurse n;
+//	private User uDTO;
+//	private MachinePool mp;
+//	private DataPasser data;
+//	private PatientFile pf;
+//
+//	@Before
+//	public void setUp() {
+//		pfm = new PatientFileManager();
+//	}
+//
 //	@Test(
+//			expected = IllegalArgumentException.class)
+//	public void creationFail() {
+//		cic = new CheckinController(null, null);
+//	}
+//
+//	@Test(
+//			expected = IllegalArgumentException.class)
+//	public void creationFail2() {
+//		LoginController lc = new LoginController(null);
+//		cic = new CheckinController(lc, null);
+//	}
+//
+////	@Test(
 //			expected = IllegalArgumentException.class)
 //	public void creationFail3() {
 //		um = new UserManager();
