@@ -63,8 +63,8 @@ public class TimeTable
 	 * @return
 	 */
 	public TimeTable getUnion(TimeTable that) {
-		TimePoint[] allPoints = new TimePoint[this.timeSlots.length
-				+ that.timeSlots.length - 1];
+		TimePoint[] allPoints = new TimePoint[this.timeSlots.length*2
+				+ that.timeSlots.length*2 ];
 		ArrayList<TimeSlot> rv = new ArrayList<TimeSlot>();
 		int i = 0;
 		for (TimeSlot t : this.timeSlots) {
@@ -78,7 +78,7 @@ public class TimeTable
 		Arrays.sort(allPoints);
 		i = 0;
 		while (i < allPoints.length) {
-			TimeSlot t = new TimeSlot(null, null);
+			TimeSlot t = new TimeSlot(TimePoint.L1, TimePoint.L2);
 			t.setT1(allPoints[i]);
 			int endcount = 1;
 			while (endcount > 0) {
@@ -89,9 +89,17 @@ public class TimeTable
 					endcount--;
 				}
 			}
-			t.setT2(allPoints[i]);
+			t.setT2(allPoints[i++]);
 			rv.add(t);
 		}
 		return new TimeTable(rv);
+	}
+	
+	public String toString()
+	{
+		StringBuilder builder = new StringBuilder();
+		for(TimeSlot slot : timeSlots)
+			builder.append(slot.toString());
+		return builder.toString();
 	}
 }
