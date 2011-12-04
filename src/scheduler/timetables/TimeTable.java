@@ -1,8 +1,7 @@
 package scheduler.timetables;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.*;
+import scheduler.TimeType;
 
 /***
  * \ A class consisting of timeslots that always have a start and and end moment
@@ -75,7 +74,7 @@ public class TimeTable
 		i = 0;
 
 		while (i < allPoints.length) {
-			TimeSlot t = new TimeSlot(TimePoint.L1, TimePoint.L2);
+			TimeSlot t = new TimeSlot(new TimePoint(new Date(0), TimeType.start), new TimePoint(new Date(3), TimeType.end));
 			t.setT1(allPoints[i]);
 			int endcount = 1;
 			while (endcount > 0) {

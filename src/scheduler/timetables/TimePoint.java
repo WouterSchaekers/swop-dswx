@@ -1,48 +1,71 @@
 package scheduler.timetables;
 
 import java.util.Date;
+import scheduler.TimeType;
 
+/**
+ * This class can be used to schedule appointments. It is either a start- or a
+ * stop point. Useful for finding free appointments.
+ */
 public class TimePoint implements Comparable<TimePoint>
 {
-	enum time_type
-	{
-		start, end;
-	}
-	public static final TimePoint L1 = new TimePoint(new Date(0), time_type.start);
-	public static final TimePoint L2 = new TimePoint(new Date(3), time_type.end);
+	private static long count = 0;
+	private long id;
+	private TimeType type;
+	private Date date;
 
-	public boolean isStart() {
-		return this.type == time_type.start;
+	long getid() {
+		return id;
+	};
+
+	/**
+	 * Default constructor: tell the timepoint what type it is and what it's
+	 * time is.
+	 */
+	public TimePoint(Date d, TimeType t) {
+		this.type = t;
+		this.date = d;
+		id = count++;
 	}
 
-	public boolean isEnd() {
-		return this.type == time_type.end;
+	/**
+	 * @return The type of this timepoint.
+	 */
+	public TimeType getType() {
+		return this.type;
 	}
 
-	public TimePoint(Date time, time_type t) {
-		this.moment = time;
-		this.type = (t);
+	/**
+	 * @return The time of this timepoint.
+	 */
+	public Date getDate() {
+		return this.date;
 	}
 
-	private time_type type;
-	Date moment;
+	public long getTime() {
+		return this.date.getTime();
+	}
 
 	@Override
-	public int compareTo(TimePoint o) {
-		// TODO Auto-generated method stub
-		return moment.compareTo(o.moment);
+	public int compareTo(TimePoint tp2) {
+		int before = -1;
+		int equals = 0;
+		int after = 1;
+		if (this.getTime() > tp2.getTime()) {
+			return after;
+		} else if (this.getTime() < tp2.getTime()) {
+			return before;
+		} else {
+			return equals;
+		}
+	}
+	
+	public boolean isStart() {
+		return this.type == TimeType.start;
+	}
+	
+	public boolean isEnd() {
+		return this.type == TimeType.end;
 	}
 
-	public time_type getType() {
-		return type;
-	}
-
-	public boolean before(TimePoint t1) {
-		return this.compareTo(t1) < 0;
-
-	}
-	public String toString()
-	{
-		return ""+this.moment.getTime();
-	}
 }

@@ -2,5 +2,5 @@ package scheduler;
 
 public enum TimeType
 {
-	start, stop
+	start, end
 }
