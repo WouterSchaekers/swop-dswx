@@ -67,16 +67,20 @@ public class TimeTable
 				+ that.timeSlots.length * 2];
 		ArrayList<TimeSlot> rv = new ArrayList<TimeSlot>();
 		int i = 0;
+		
 		for (TimeSlot t : this.timeSlots) {
 			allPoints[i++] = t.getT1();
 			allPoints[i++] = t.getT2();
 		}
+		
 		for (TimeSlot t : that.timeSlots) {
 			allPoints[i++] = t.getT1();
 			allPoints[i++] = t.getT2();
 		}
+		
 		Arrays.sort(allPoints);
 		i = 0;
+		
 		while (i < allPoints.length) {
 			TimeSlot t = new TimeSlot(TimePoint.L1, TimePoint.L2);
 			t.setT1(allPoints[i]);
@@ -139,6 +143,6 @@ public class TimeTable
 	}
 	
 	public boolean equals(TimeTable t) {
-		return t.timeSlots == this.timeSlots;
+		return this.timeSlots[0].getT1().toString().equals(t.timeSlots[0].getT1().toString()) && this.timeSlots[0].getT2().toString().equals(t.timeSlots[0].getT2().toString()) && this.timeSlots[1].getT1().toString().equals(t.timeSlots[1].getT1().toString()) && this.timeSlots[1].getT2().toString().equals(t.timeSlots[1].getT2().toString());
 	}
 }
