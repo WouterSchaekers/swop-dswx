@@ -11,8 +11,6 @@ import task.Resource;
  * resources scheduled and the resources in this collection will be reserved
  * from startTime to endTime.
  * 
- * @author Dieter
- * 
  */
 public class ScheduledElement
 {
