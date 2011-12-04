@@ -17,8 +17,8 @@ public abstract class Task
 {
 	private ScheduledElement scheduledObject;
 
-	public Collection<Resource> getAllUsedResources() {
-		return new ArrayList<Resource>(scheduledObject.getResources());
+	public Collection<Schedulable> getAllUsedResources() {
+		return new ArrayList<Schedulable>(scheduledObject.getResources());
 	}
 
 	/**

@@ -103,7 +103,7 @@ public class PatientFileManager
 			throw new IllegalStateException("PatientFile not in pfm!");
 	}
 
-	public void addDiagnosis(Diagnosis D, PatientFile file) {
+	public void addDiagnosis(Diagnose D, PatientFile file) {
 		file.addDiagnosis(D);
 	}
 

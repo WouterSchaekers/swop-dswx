@@ -1,9 +1,9 @@
 package users;
 
 import controllers.interfaces.UserIN;
-import task.Resource;
+import task.Schedulable;
 
-public abstract class User implements Resource,UserIN
+public abstract class User implements Schedulable,UserIN
 {
 	public abstract usertype type();
 

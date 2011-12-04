@@ -12,7 +12,7 @@ public class PatientFile implements PatientFileIN
 {
 
 	private String name = ""; // the name of the patient
-	private Collection<Diagnosis> diagnosis = new ArrayList<Diagnosis>(); // all
+	private Collection<Diagnose> diagnosis = new ArrayList<Diagnose>(); // all
 																			// diags
 																			// for
 																			// this
@@ -20,7 +20,7 @@ public class PatientFile implements PatientFileIN
 	private boolean discharged = false; // whether or not this patient has been
 										// discharged
 
-	public void addDiagnosis(Diagnosis D) {
+	public void addDiagnosis(Diagnose D) {
 		this.diagnosis.add(D);
 	}
 
@@ -46,7 +46,7 @@ public class PatientFile implements PatientFileIN
 	/**
 	 * @return The Diagnosis of this patient (has .toString()) -> printfriendly.
 	 */
-	public Collection<Diagnosis> getDiagnosis() {
+	public Collection<Diagnose> getDiagnosis() {
 		return this.diagnosis;
 	}
 

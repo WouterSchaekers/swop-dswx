@@ -1,12 +1,15 @@
-package depot;
+package users;
 
 import java.util.Collection;
+import warehouse.Depot;
+import warehouse.Meal;
+import warehouse.Medication;
 import exceptions.DepotOverCapacityException;
 
-public class DepotManager
+public class WarehouseManager
 {
 	private Depot depot;
-	public DepotManager(Depot depot){
+	public WarehouseManager(Depot depot){
 		this.depot = depot;
 	}
 	

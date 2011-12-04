@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidSerialException;
-import task.Resource;
+import task.Schedulable;
 
 /**
  * This class represents a machine in the hospital.
  * @Invar serial is unique for every machine object	
  */
 
-public class Machine implements Resource
+public class Machine implements Schedulable
 {
 
 	private final int serial;

@@ -1,7 +1,7 @@
 package scheduler;
 
 import patient.PatientFile;
-import task.Resource;
+import task.Schedulable;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -12,7 +12,7 @@ import java.util.HashMap;
 public class Appointment
 {
 	private PatientFile patient;
-	private HashMap<TimePoint, Resource> resources;
+	private HashMap<TimePoint, Schedulable> resources;
 	private Date date;
 	private long duration;
 
@@ -27,7 +27,7 @@ public class Appointment
 	 * @param date
 	 *            The date and time on which this appointment is to take place.
 	 */
-	public Appointment(PatientFile patient, HashMap<TimePoint, Resource> res,
+	public Appointment(PatientFile patient, HashMap<TimePoint, Schedulable> res,
 			Date date, long dur) {
 		setPatientFile(patient);
 		this.resources = res;
@@ -56,11 +56,11 @@ public class Appointment
 	/**
 	 * @return The resource of this appointment.
 	 */
-	public Collection<Resource> getResource() {
+	public Collection<Schedulable> getResource() {
 		return this.resources.values();
 	}
 
-	public HashMap<TimePoint, Resource> getScheduling() {
+	public HashMap<TimePoint, Schedulable> getScheduling() {
 		return resources;
 	}
 

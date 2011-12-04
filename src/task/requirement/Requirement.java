@@ -1,7 +1,7 @@
 package task.requirement;
 
 import java.util.Collection;
-import task.Resource;
+import task.Schedulable;
 
 public abstract class Requirement
 {
@@ -12,9 +12,9 @@ public abstract class Requirement
 	 * @param resourcesAv
 	 * @return
 	 */
-	public abstract Collection<Resource> resourcesNeededFrom(
-			Collection<Resource> resourcesAv);
+	public abstract Collection<Schedulable> resourcesNeededFrom(
+			Collection<Schedulable> resourcesAv);
 
-	public abstract boolean isMetBy(Collection<Resource> availableNow);
+	public abstract boolean isMetBy(Collection<Schedulable> availableNow);
 
 }

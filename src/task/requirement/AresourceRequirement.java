@@ -2,22 +2,22 @@ package task.requirement;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import task.Resource;
+import task.Schedulable;
 
 public class AresourceRequirement extends Requirement
 {
-	private Class<? extends Resource> type;
+	private Class<? extends Schedulable> type;
 
-	public AresourceRequirement(Class<? extends Resource> type) {
+	public AresourceRequirement(Class<? extends Schedulable> type) {
 		this.type = type;
 	}
 
 	@Override
-	public Collection<Resource> resourcesNeededFrom(
-			Collection<Resource> resourcesAv) {
-		Collection<Resource> res = new ArrayList<Resource>(resourcesAv);
-		Collection<Resource> usedResources = new ArrayList<Resource>();
-		for (Resource r : res) {
+	public Collection<Schedulable> resourcesNeededFrom(
+			Collection<Schedulable> resourcesAv) {
+		Collection<Schedulable> res = new ArrayList<Schedulable>(resourcesAv);
+		Collection<Schedulable> usedResources = new ArrayList<Schedulable>();
+		for (Schedulable r : res) {
 			if (satifies(r)) {
 				usedResources.add(r);
 				return usedResources;
@@ -27,15 +27,15 @@ public class AresourceRequirement extends Requirement
 
 	}
 
-	private boolean satifies(Resource r) {
+	private boolean satifies(Schedulable r) {
 		if (r.getClass().equals(type))
 			return true;
 		return false;
 	}
 
 	@Override
-	public boolean isMetBy(Collection<Resource> availableNow) {
-		for (Resource r : availableNow) {
+	public boolean isMetBy(Collection<Schedulable> availableNow) {
+		for (Schedulable r : availableNow) {
 			if (satifies(r))
 				return true;
 		}

@@ -6,13 +6,13 @@ import patient.PatientFile;
 import machine.MachinePool;
 import task.requirement.Requirement;
 import users.UserManager;
-import task.Resource;
+import task.Schedulable;
 
 // TODO: Fix this class and test it thoroughly
 public class SchedulerBackup
 {
 	// all scheduled resources
-	private TreeMap<TimePoint, Resource> timeTable;
+	private TreeMap<TimePoint, Schedulable> timeTable;
 	private Collection<Appointment> appointments;
 	// 1 hour after admission <...>
 	private final long TIMEAFTERCURRENTDATE = 60 * 60 * 1000;
@@ -27,7 +27,7 @@ public class SchedulerBackup
 	public SchedulerBackup(UserManager usermanager, MachinePool machinepool) {
 		this.userManager = usermanager;
 		this.machinePool = machinepool;
-		timeTable = new TreeMap<TimePoint, Resource>(
+		timeTable = new TreeMap<TimePoint, Schedulable>(
 				new Comparator<TimePoint>()
 				{
 					@Override
@@ -66,10 +66,10 @@ public class SchedulerBackup
 			throws ImpossibleToScheduleException {
 		cleanUp();
 		ScheduledElement startPointFree = find(res, duration);
-		Collection<Resource> elementsToSchedule = startPointFree.getResources();
+		Collection<Schedulable> elementsToSchedule = startPointFree.getResources();
 		Date freeDate = startPointFree.getStartTime();
-		HashMap<TimePoint, Resource> scheduledElements = new HashMap<TimePoint, Resource>();
-		for (Resource element : elementsToSchedule) {
+		HashMap<TimePoint, Schedulable> scheduledElements = new HashMap<TimePoint, Schedulable>();
+		for (Schedulable element : elementsToSchedule) {
 			TimePoint startPoint = new TimePoint(TimeType.start, freeDate);
 			TimePoint endPoint = new TimePoint(TimeType.stop, new Date(
 					freeDate.getTime() + duration));
@@ -129,10 +129,10 @@ public class SchedulerBackup
 		if (timeTable.isEmpty()) {
 			Date now = closestRoundHour(new Date(now().getTime()
 					+ getTimeBuffer()));
-			Collection<Resource> r = satisfied(getResources(), reqs);
+			Collection<Schedulable> r = satisfied(getResources(), reqs);
 			if (r.isEmpty())
 				throw new ImpossibleToScheduleException("wtf");
-			for (Resource resource : r) {
+			for (Schedulable resource : r) {
 				timeTable.put(new TimePoint(TimeType.start, now), resource);
 				timeTable.put(
 						new TimePoint(TimeType.stop, new Date(now.getTime()
@@ -150,11 +150,11 @@ public class SchedulerBackup
 		} else {
 			traverser = timeTable.higherKey(new TimePoint(TimeType.start, now));
 		}
-		Collection<Resource> resourcesInSystem = getResources();
-		Collection<Resource> used = null;
+		Collection<Schedulable> resourcesInSystem = getResources();
+		Collection<Schedulable> used = null;
 		Cut(resourcesInSystem, getAllScheduledAt(traverser.getDate()));
 		TimePoint backup = null;
-		Collection<Resource> resourcesbackup = null;
+		Collection<Schedulable> resourcesbackup = null;
 		while (backup == null
 				|| timeDifference(backup.getDate(), traverser.getDate()) < duration) {
 			switch (traverser.getType()) {
@@ -183,7 +183,7 @@ public class SchedulerBackup
 					// backup needs to be maintained and traverser
 				} else {
 					// backup needs to be set now
-					resourcesbackup = new ArrayList<Resource>(resourcesInSystem);
+					resourcesbackup = new ArrayList<Schedulable>(resourcesInSystem);
 					backup = traverser;
 
 				}
@@ -192,7 +192,7 @@ public class SchedulerBackup
 			used = satisfied(resourcesInSystem, reqs);
 			if (!used.isEmpty() && traverser == null) {
 				// yeya hotfix
-				for (Resource r : used) {
+				for (Schedulable r : used) {
 					timeTable.put(
 							new TimePoint(TimeType.start, backup.getDate()), r);
 					timeTable.put(new TimePoint(TimeType.start, new Date(backup
@@ -204,7 +204,7 @@ public class SchedulerBackup
 			}
 			if (traverser == null) {
 				Date t = timeTable.lastEntry().getKey().getDate();
-				for (Resource resource : used) {
+				for (Schedulable resource : used) {
 					timeTable.put(new TimePoint(TimeType.start, t), resource);
 					timeTable.put(
 							new TimePoint(TimeType.stop, new Date(t.getTime()
@@ -215,7 +215,7 @@ public class SchedulerBackup
 			}
 
 		}
-		for (Resource resource : used) {
+		for (Schedulable resource : used) {
 			timeTable.put(new TimePoint(TimeType.start, backup.getDate()),
 					resource);
 			timeTable.put(new TimePoint(TimeType.stop, new Date(backup
@@ -225,8 +225,8 @@ public class SchedulerBackup
 				backup.getTime() + duration));
 	}
 
-	private void Cut(Collection<Resource> resourcesInSystem, Collection<Resource> allScheduledAt) {
-		for (Resource r : allScheduledAt)
+	private void Cut(Collection<Schedulable> resourcesInSystem, Collection<Schedulable> allScheduledAt) {
+		for (Schedulable r : allScheduledAt)
 			resourcesInSystem.remove(r);
 	}
 
@@ -268,12 +268,12 @@ public class SchedulerBackup
 	 * @return empty collection if the requirements can not be met a collection
 	 *         with all the needed resources for the given requirements
 	 */
-	private Collection<Resource> satisfied(Collection<Resource> availableNow, Collection<Requirement> required) {
-		Collection<Resource> avResHere = new ArrayList<Resource>(availableNow);
-		Collection<Resource> scheduledElementsTemp = new ArrayList<Resource>();
+	private Collection<Schedulable> satisfied(Collection<Schedulable> availableNow, Collection<Requirement> required) {
+		Collection<Schedulable> avResHere = new ArrayList<Schedulable>(availableNow);
+		Collection<Schedulable> scheduledElementsTemp = new ArrayList<Schedulable>();
 		for (Requirement r : required) {
 			if (r.isMetBy(avResHere)) {
-				for (Resource s : r.resourcesNeededFrom(avResHere)) {
+				for (Schedulable s : r.resourcesNeededFrom(avResHere)) {
 					scheduledElementsTemp.add(s);
 					avResHere.remove(s);
 				}
@@ -285,8 +285,8 @@ public class SchedulerBackup
 		return scheduledElementsTemp;
 	}
 
-	private Collection<Resource> getAllScheduledAt(Date now) {
-		Collection<Resource> scheduledResources = new ArrayList<Resource>();
+	private Collection<Schedulable> getAllScheduledAt(Date now) {
+		Collection<Schedulable> scheduledResources = new ArrayList<Schedulable>();
 		if (timeTable.size() == 0)
 			return scheduledResources;
 		TimePoint traverser = timeTable.firstKey();
@@ -325,7 +325,7 @@ public class SchedulerBackup
 	 *            The appointment to be ended.
 	 */
 	public void removeAppointment(Appointment appointment) {
-		HashMap<TimePoint, Resource> resources = appointment.getScheduling();
+		HashMap<TimePoint, Schedulable> resources = appointment.getScheduling();
 		for (TimePoint timePoint : resources.keySet()) {
 			timeTable.remove(timePoint);
 		}
@@ -345,9 +345,9 @@ public class SchedulerBackup
 			curTimePoint = timeTable.firstKey();
 		} catch (NoSuchElementException e) {
 		}
-		HashMap<Resource, TimePoint> startResources = new HashMap<Resource, TimePoint>();
+		HashMap<Schedulable, TimePoint> startResources = new HashMap<Schedulable, TimePoint>();
 		while (curTimePoint != null && curTimePoint.getDate().before(curDate)) {
-			Resource curResource = timeTable.get(curTimePoint);
+			Schedulable curResource = timeTable.get(curTimePoint);
 			if (curTimePoint.getType() == TimeType.start) {
 				startResources.put(curResource, curTimePoint);
 			} else {
@@ -365,13 +365,13 @@ public class SchedulerBackup
 	/**
 	 * @return All possible resources.
 	 */
-	private Collection<Resource> getResources() {
-		ArrayList<Resource> RV = new ArrayList<Resource>();
+	private Collection<Schedulable> getResources() {
+		ArrayList<Schedulable> RV = new ArrayList<Schedulable>();
 
-		for (Resource u : userManager.getAllUsers()) {
+		for (Schedulable u : userManager.getAllUsers()) {
 			RV.add(u);
 		}
-		for (Resource M : machinePool.getAllMachines()) {
+		for (Schedulable M : machinePool.getAllMachines()) {
 
 			RV.add(M);
 		}
