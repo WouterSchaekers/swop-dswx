@@ -135,16 +135,16 @@ public class TimeTable
 			TimePoint startPoint;
 			if (one[_1].compareTo(two[_2]) > 0) {
 				startPoint = one[_1];
-			}
-			else{
+			} else {
 				startPoint = two[_2];
 			}
 			TimePoint endPoint;
-			if(one[_1+1].compareTo(two[_2+1]) > 0){
-				endPoint = two[_2+1];
-			}
-			else{
-				endPoint = one[_1+1];
+			if (one[_1 + 1].compareTo(two[_2 + 1]) > 0) {
+				endPoint = two[_2 + 1];
+				_2 = _2 + 2;
+			} else {
+				endPoint = one[_1 + 1];
+				_1 = _1 + 2;
 			}
 			TimeSlot t = new TimeSlot(startPoint, endPoint);
 			rv.add(t);
@@ -160,11 +160,13 @@ public class TimeTable
 	}
 
 	public boolean equals(TimeTable t) {
-		for (int i = 0; i <  t.timeSlots.length;i++) {
-			boolean t1Cond = this.timeSlots[i].getT1().toString().equals(t.timeSlots[i].getT1().toString());
-			boolean t2Cond = this.timeSlots[i].getT2().toString().equals(t.timeSlots[i].getT2().toString());
+		for (int i = 0; i < t.timeSlots.length; i++) {
+			boolean t1Cond = this.timeSlots[i].getT1().toString()
+					.equals(t.timeSlots[i].getT1().toString());
+			boolean t2Cond = this.timeSlots[i].getT2().toString()
+					.equals(t.timeSlots[i].getT2().toString());
 			if (!(t1Cond && t2Cond))
-					return false;
+				return false;
 		}
 		return true;
 	}
