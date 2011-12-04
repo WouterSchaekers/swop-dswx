@@ -67,12 +67,8 @@ public class TimeTableTest
 		System.out.println(res);
 
 	}
-
 	
-	/**
-	 * Deze faalt omdat -5 miliseconden voor -2 miliseconden komt...
-	 */
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void union4TestFaal() {
 		TimeSlot t1 = new TimeSlot(
 				new TimePoint(new Date(-2), time_type.start), new TimePoint(
@@ -87,8 +83,9 @@ public class TimeTableTest
 						new Date(21), time_type.end));
 		TimeTable table = new TimeTable(t1, t2);
 		TimeTable table2 = new TimeTable(t3, t4);
+		@SuppressWarnings("unused")
 		TimeTable res = table.getUnion(table2);
-		System.out.println(res);
-
 	}
+	
+	
 }
