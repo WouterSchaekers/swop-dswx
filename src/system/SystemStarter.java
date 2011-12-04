@@ -3,11 +3,11 @@ package system;
 import java.util.Date;
 import machine.MachinePool;
 import controllers.DataPasser;
+import exceptions.UserAlreadyExistsException;
 import patient.PatientFileManager;
 import scheduler.Scheduler;
 import scheduler.SchedulerBackup;
 import ui.UserInterface;
-import users.UserAlreadyExistsException;
 import users.UserManager;
 
 public class SystemStarter

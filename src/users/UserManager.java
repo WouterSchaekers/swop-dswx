@@ -3,6 +3,7 @@ package users;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import exceptions.UserAlreadyExistsException;
 
 public class UserManager
 {
