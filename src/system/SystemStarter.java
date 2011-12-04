@@ -6,7 +6,7 @@ import controllers.DataPasser;
 import exceptions.UserAlreadyExistsException;
 import patient.PatientFileManager;
 import scheduler.Scheduler;
-import scheduler.DikkeTettenDieterSchedulerBackup;
+import scheduler.DietersDikkeTettenSchedulerBackup;
 import ui.UserInterface;
 import users.UserManager;
 
@@ -16,7 +16,7 @@ public class SystemStarter
 	static PatientFileManager patientfmanager = new PatientFileManager();
 	static UserManager usermanager = new UserManager();
 	static MachinePool machinepool = new MachinePool();
-	static DikkeTettenDieterSchedulerBackup scheduler = new DikkeTettenDieterSchedulerBackup(usermanager, machinepool);
+	static DietersDikkeTettenSchedulerBackup scheduler = new DietersDikkeTettenSchedulerBackup(usermanager, machinepool);
 
 	public static void main(String[] args) throws UserAlreadyExistsException {
 		usermanager.CreateDoctor("jonathan");

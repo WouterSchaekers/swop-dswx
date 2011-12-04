@@ -9,7 +9,7 @@ import users.UserManager;
 import task.Schedulable;
 
 // TODO: Fix this class and test it thoroughly
-public class DikkeTettenDieterSchedulerBackup
+public class DietersDikkeTettenSchedulerBackup
 {
 	// all scheduled resources
 	private TreeMap<TimePoint, Schedulable> timeTable;
@@ -24,7 +24,7 @@ public class DikkeTettenDieterSchedulerBackup
 	/**
 	 * Default constructor will initialise all fields.
 	 */
-	public DikkeTettenDieterSchedulerBackup(UserManager usermanager, MachinePool machinepool) {
+	public DietersDikkeTettenSchedulerBackup(UserManager usermanager, MachinePool machinepool) {
 		this.userManager = usermanager;
 		this.machinePool = machinepool;
 		timeTable = new TreeMap<TimePoint, Schedulable>(
