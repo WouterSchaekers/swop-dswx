@@ -100,8 +100,8 @@ public class TimeTable
 	}
 
 	public TimeTable intersect(TimeTable that) {
-		TimePoint[] one = new TimePoint[this.timeSlots.length*2];
-		TimePoint[] two = new TimePoint[that.timeSlots.length*2];
+		TimePoint[] one = new TimePoint[this.timeSlots.length * 2];
+		TimePoint[] two = new TimePoint[that.timeSlots.length * 2];
 		ArrayList<TimeSlot> rv = new ArrayList<TimeSlot>();
 		int i = 0;
 		for (TimeSlot t : this.timeSlots) {
@@ -113,23 +113,23 @@ public class TimeTable
 			two[i++] = t.getT1();
 			two[i++] = t.getT2();
 		}
-		Arrays.sort(one);
-		Arrays.sort(two);
 		i = 0;
-		
-		while (i < allPoints.length) {
-			TimeSlot t = new TimeSlot(TimePoint.L1, TimePoint.L2);
-			t.setT1(allPoints[i]);
-			int endcount = 1;
-			while (endcount > 0) {
-				i++;
-				if (allPoints[i].isStart()) {
-					endcount++;
-				} else {
-					endcount--;
-				}
+		int _1 = 0;
+		int _2 = 0;
+		while (_1 < one.length - 1) {
+			while (one[_1].compareTo(two[_2]) > 1 && _2 < two.length - 1) {
+				_2 = _2 + 2;
 			}
-			t.setT2(allPoints[i++]);
+			TimePoint startPoint = two[_2];
+			TimePoint endPoint;
+			if (one[_1 + 1].compareTo(two[_2 + 1]) > 1) {
+				endPoint = two[_2 + 1];
+				_2 = _2 + 2;
+			} else {
+				endPoint = one[_1 + 1];
+				_1 = _1 + 2;
+			}
+			TimeSlot t = new TimeSlot(startPoint, endPoint);
 			rv.add(t);
 		}
 		return new TimeTable(rv);
