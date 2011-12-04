@@ -143,6 +143,10 @@ public class TimeTable
 	}
 	
 	public boolean equals(TimeTable t) {
-		return this.timeSlots[0].getT1().toString().equals(t.timeSlots[0].getT1().toString()) && this.timeSlots[0].getT2().toString().equals(t.timeSlots[0].getT2().toString()) && this.timeSlots[1].getT1().toString().equals(t.timeSlots[1].getT1().toString()) && this.timeSlots[1].getT2().toString().equals(t.timeSlots[1].getT2().toString());
+		for (int i = 0; i <  t.timeSlots.length;i++) {
+			if (!(this.timeSlots[i].getT1().toString().equals(t.timeSlots[i].getT1().toString())) && this.timeSlots[i].getT2().toString().equals(t.timeSlots[i].getT2().toString()))
+			return false;
+		}
+		return true;
 	}
 }
