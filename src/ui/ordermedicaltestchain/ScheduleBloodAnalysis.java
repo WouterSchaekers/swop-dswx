@@ -16,8 +16,9 @@ public class ScheduleBloodAnalysis extends MedicalTestCommand
 
 	@Override
 	public Usecase Execute() {
+		@SuppressWarnings("unused")
 		MedicalTestController mc = medData.getMedTestController();
-
+		
 		//TODO
 		//Appointment app = mc.orderBloodAnalysis(medData.getFocus(),medData.getAmount());
 		Appointment app = null;

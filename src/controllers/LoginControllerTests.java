@@ -1,12 +1,12 @@
 package controllers;
 
-import static org.junit.Assert.*;
-import java.util.*;
-import org.junit.*;
-import controllers.interfaces.UserIN;
-import patient.PatientFileManager;
-import scheduler.Scheduler;
-import users.*;
+//import static org.junit.Assert.*;
+//import java.util.*;
+//import org.junit.*;
+//import controllers.interfaces.UserIN;
+//import patient.PatientFileManager;
+//import scheduler.Scheduler;
+//import users.*;
 
 public class LoginControllerTests
 {

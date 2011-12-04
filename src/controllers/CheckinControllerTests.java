@@ -1,12 +1,12 @@
 package controllers;
 
-import static org.junit.Assert.*;
-import machine.MachinePool;
-import org.junit.*;
-import patient.PatientFile;
-import patient.PatientFileManager;
-import scheduler.Scheduler;
-import users.*;
+//import static org.junit.Assert.*;
+//import machine.MachinePool;
+//import org.junit.*;
+//import patient.PatientFile;
+//import patient.PatientFileManager;
+//import scheduler.Scheduler;
+//import users.*;
 
 public class CheckinControllerTests
 {
