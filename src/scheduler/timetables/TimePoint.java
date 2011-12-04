@@ -1,0 +1,47 @@
+package scheduler.timetables;
+
+import java.util.Date;
+
+public class TimePoint implements Comparable<TimePoint>
+{
+	enum time_type
+	{
+		start, end;
+	}
+
+	public boolean isStart() {
+		return this.type == time_type.start;
+	}
+
+	public boolean isEnd() {
+		return this.type == time_type.end;
+	}
+
+	public TimePoint(Date time, time_type t) {
+		this.moment = time;
+		this.type = (t);
+	}
+
+	public TimePoint(TimeTable timeTable) {
+		// TODO Auto-generated constructor stub
+	}
+
+	private time_type type;
+	Date moment;
+
+	@Override
+	public int compareTo(TimePoint o) {
+		// TODO Auto-generated method stub
+		return moment.compareTo(o.moment);
+	}
+
+	public time_type getType() {
+		return type;
+	}
+
+	public boolean before(TimePoint t1) {
+		return this.compareTo(t1) < 0;
+
+	}
+
+}

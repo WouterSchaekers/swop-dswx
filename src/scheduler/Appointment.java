@@ -29,6 +29,11 @@ public class Appointment
 	 */
 	public Appointment(PatientFile patient, HashMap<TimePoint, Schedulable> res,
 			Date date, long dur) {
+		if(patient==null||date==null||res==null)
+			throw new NullPointerException();
+		if(dur<1)
+			throw new IllegalArgumentException("The duration in this appointment cannot be smaller then 1");
+		
 		setPatientFile(patient);
 		this.resources = res;
 		this.date = date;
