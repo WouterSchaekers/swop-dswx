@@ -2,30 +2,30 @@ package task.requirement;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import task.Resource;
+import task.Schedulable;
 
 public class AspecificResourceRequirement extends Requirement
 {
-	Resource r;
+	Schedulable r;
 
-	public AspecificResourceRequirement(Resource r) {
+	public AspecificResourceRequirement(Schedulable r) {
 		this.r = r;
 	}
 
 	@Override
-	public boolean isMetBy(Collection<Resource> availableNow) {
-		for (Resource r : availableNow)
+	public boolean isMetBy(Collection<Schedulable> availableNow) {
+		for (Schedulable r : availableNow)
 			if (r.equals(this.r))
 				return true;
 		return false;
 	}
 
 	@Override
-	public Collection<Resource> resourcesNeededFrom(
-			Collection<Resource> resourcesAv) {
-		Collection<Resource> res = new ArrayList<Resource>(resourcesAv);
-		Collection<Resource> usedResources = new ArrayList<Resource>();
-		for (Resource r : res) {
+	public Collection<Schedulable> resourcesNeededFrom(
+			Collection<Schedulable> resourcesAv) {
+		Collection<Schedulable> res = new ArrayList<Schedulable>(resourcesAv);
+		Collection<Schedulable> usedResources = new ArrayList<Schedulable>();
+		for (Schedulable r : res) {
 			if (r.equals(this.r)) {
 				usedResources.add(r);
 				return usedResources;

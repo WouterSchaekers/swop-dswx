@@ -1,4 +1,4 @@
-package depot;
+package warehouse;
 
 import java.util.Date;
 import treatment.Treatment;

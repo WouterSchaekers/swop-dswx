@@ -3,7 +3,7 @@ package scheduler;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import task.Resource;
+import task.Schedulable;
 
 /**
  * Scheduled element class. This class represents the result of a request to
@@ -17,7 +17,7 @@ public class ScheduledElement
 	/**
 	 * All the resources allocated for this scheduled element.
 	 */
-	private Collection<Resource> resources;
+	private Collection<Schedulable> resources;
 	/**
 	 * The start moment that the scheduler assigned to this set of resources.
 	 */
@@ -39,7 +39,7 @@ public class ScheduledElement
 	 *            The end time, the time at which these resources will no longer
 	 *            be allocated in the scheduler.
 	 */
-	public ScheduledElement(Collection<Resource> resources, Date startTime,
+	public ScheduledElement(Collection<Schedulable> resources, Date startTime,
 			Date endTime) {
 		this.resources = resources;
 		this.startTime = startTime;
@@ -52,8 +52,8 @@ public class ScheduledElement
 	 * 
 	 * @return
 	 */
-	public Collection<Resource> getResources() {
-		return new ArrayList<Resource>(resources);
+	public Collection<Schedulable> getResources() {
+		return new ArrayList<Schedulable>(resources);
 	}
 
 	/**

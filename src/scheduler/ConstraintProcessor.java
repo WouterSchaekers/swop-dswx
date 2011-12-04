@@ -2,7 +2,7 @@ package scheduler;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import task.Resource;
+import task.Schedulable;
 import task.requirement.Requirement;
 
 
@@ -10,12 +10,12 @@ public class ConstraintProcessor
 {
 
 	//XXX: fix... de methode is maar effe gecopy-paste zodat scheduler half gefixt kon worde ^^
-	public Collection<Resource> satisfied(Collection<Resource> availableNow, Collection<Requirement> required) {
-		Collection<Resource> avResHere = new ArrayList<Resource>(availableNow);
-		Collection<Resource> scheduledElementsTemp = new ArrayList<Resource>();
+	public Collection<Schedulable> satisfied(Collection<Schedulable> availableNow, Collection<Requirement> required) {
+		Collection<Schedulable> avResHere = new ArrayList<Schedulable>(availableNow);
+		Collection<Schedulable> scheduledElementsTemp = new ArrayList<Schedulable>();
 		for (Requirement r : required) {
 			if (r.isMetBy(avResHere)) {
-				for (Resource s : r.resourcesNeededFrom(avResHere)) {
+				for (Schedulable s : r.resourcesNeededFrom(avResHere)) {
 					scheduledElementsTemp.add(s);
 					avResHere.remove(s);
 				}

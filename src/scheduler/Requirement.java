@@ -1,15 +1,15 @@
 package scheduler;
 
 import java.util.Collection;
-import task.Resource;
+import task.Schedulable;
 
 public abstract class Requirement
 {
 
-	public abstract boolean isMetBy(Collection<Resource> availableNow);
+	public abstract boolean isMetBy(Collection<Schedulable> availableNow);
 
 	public abstract void removeUsedResoursesFrom(
-			Collection<Resource> availableNow,
-			Collection<Resource> scheduledElements);
+			Collection<Schedulable> availableNow,
+			Collection<Schedulable> scheduledElements);
 
 }

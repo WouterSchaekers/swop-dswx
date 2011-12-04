@@ -1,4 +1,4 @@
-package depot;
+package warehouse;
 
 import java.util.ArrayList;
 import java.util.Collection;

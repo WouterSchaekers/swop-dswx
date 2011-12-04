@@ -11,7 +11,7 @@ import users.Doctor;
  * diagnosis of a certain patient. It can mark a diagnosis for second opinion
  * and remembers if the diagnosis has been approved or not.
  */
-public class Diagnosis
+public class Diagnose
 {
 
 	private String diag = ""; // the diagnosis
@@ -36,14 +36,14 @@ public class Diagnosis
 	 * @throws InvalidDiagnoseException
 	 *             if !isValidDiagnosis(diag)
 	 */
-	public Diagnosis createDiag(Doctor doc, String diag)
+	public Diagnose createDiag(Doctor doc, String diag)
 			throws InvalidDoctorException, InvalidDiagnoseException {
 		if (!this.canHaveAsDoctor(doc))
 			throw new InvalidDoctorException("Doctor is invalid!");
 		if (!this.isValidDiagnosis(diag))
 			throw new InvalidDiagnoseException("Diagnosis is invalid!");
 
-		Diagnosis returnval = new Diagnosis();
+		Diagnose returnval = new Diagnose();
 		this.attending = doc;
 		this.diag = diag;
 		return returnval;
