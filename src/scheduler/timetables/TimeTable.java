@@ -144,8 +144,10 @@ public class TimeTable
 	
 	public boolean equals(TimeTable t) {
 		for (int i = 0; i <  t.timeSlots.length;i++) {
-			if (!(this.timeSlots[i].getT1().toString().equals(t.timeSlots[i].getT1().toString())) && this.timeSlots[i].getT2().toString().equals(t.timeSlots[i].getT2().toString()))
-			return false;
+			boolean t1Cond = this.timeSlots[i].getT1().toString().equals(t.timeSlots[i].getT1().toString());
+			boolean t2Cond = this.timeSlots[i].getT2().toString().equals(t.timeSlots[i].getT2().toString());
+			if (!(t1Cond && t2Cond))
+					return false;
 		}
 		return true;
 	}
