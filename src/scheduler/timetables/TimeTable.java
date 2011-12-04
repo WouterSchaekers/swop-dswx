@@ -67,20 +67,20 @@ public class TimeTable
 				+ that.timeSlots.length * 2];
 		ArrayList<TimeSlot> rv = new ArrayList<TimeSlot>();
 		int i = 0;
-		
+
 		for (TimeSlot t : this.timeSlots) {
 			allPoints[i++] = t.getT1();
 			allPoints[i++] = t.getT2();
 		}
-		
+
 		for (TimeSlot t : that.timeSlots) {
 			allPoints[i++] = t.getT1();
 			allPoints[i++] = t.getT2();
 		}
-		
+
 		Arrays.sort(allPoints);
 		i = 0;
-		
+
 		while (i < allPoints.length) {
 			TimeSlot t = new TimeSlot(TimePoint.L1, TimePoint.L2);
 			t.setT1(allPoints[i]);
@@ -117,17 +117,34 @@ public class TimeTable
 		int _1 = 0;
 		int _2 = 0;
 		while (_1 < one.length - 1 && _2 < two.length - 1) {
-			while (one[_1].compareTo(two[_2]) > 0 && _2 < two.length - 1) {
-				_2 = _2 + 2;
+			while (_1 < one.length - 1 && _2 < two.length - 1) {
+				if (!(one[_1].compareTo(two[_2]) < 0 && one[_1 + 1]
+						.compareTo(two[_2]) > 0)
+						|| !(two[_2].compareTo(one[_1]) < 0 && two[_2 + 1]
+								.compareTo(one[_1]) > 0)) {
+					if (one[_1].compareTo(two[_2]) > 0) {
+						_2 = _2 + 2;
+					} else {
+						_1 = _1 + 1;
+					}
+				}
 			}
-			TimePoint startPoint = two[_2];
+			if (!(_1 < one.length - 1 && _2 < two.length - 1)) {
+				break;
+			}
+			TimePoint startPoint;
+			if (one[_1].compareTo(two[_2]) > 0) {
+				startPoint = one[_1];
+			}
+			else{
+				startPoint = two[_2];
+			}
 			TimePoint endPoint;
-			if (one[_1 + 1].compareTo(two[_2 + 1]) > 0) {
-				endPoint = two[_2 + 1];
-				_2 = _2 + 2;
-			} else {
-				endPoint = one[_1 + 1];
-				_1 = _1 + 2;
+			if(one[_1+1].compareTo(two[_2+1]) > 0){
+				endPoint = two[_2+1];
+			}
+			else{
+				endPoint = one[_1+1];
 			}
 			TimeSlot t = new TimeSlot(startPoint, endPoint);
 			rv.add(t);
@@ -141,7 +158,7 @@ public class TimeTable
 			builder.append(slot.toString());
 		return builder.toString();
 	}
-	
+
 	public boolean equals(TimeTable t) {
 		for (int i = 0; i <  t.timeSlots.length;i++) {
 			boolean t1Cond = this.timeSlots[i].getT1().toString().equals(t.timeSlots[i].getT1().toString());
