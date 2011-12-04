@@ -5,6 +5,7 @@ import machine.MachinePool;
 import controllers.DataPasser;
 import patient.PatientFileManager;
 import scheduler.Scheduler;
+import scheduler.SchedulerBackup;
 import ui.UserInterface;
 import users.UserAlreadyExistsException;
 import users.UserManager;
@@ -15,7 +16,7 @@ public class SystemStarter
 	static PatientFileManager patientfmanager = new PatientFileManager();
 	static UserManager usermanager = new UserManager();
 	static MachinePool machinepool = new MachinePool();
-	static Scheduler scheduler = new Scheduler(usermanager, machinepool, new Date());
+	static SchedulerBackup scheduler = new SchedulerBackup(usermanager, machinepool);
 
 	public static void main(String[] args) throws UserAlreadyExistsException {
 		usermanager.CreateDoctor("jonathan");
