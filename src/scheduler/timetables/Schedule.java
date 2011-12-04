@@ -39,7 +39,7 @@ public class Schedule
 		for (Schedulable s : stillToSchedule[0]) {
 			TimeTable temp = this.timetables.get(s);
 			this.timetables.remove(s);
-			this.timetables.put(s, used.intersect(temp));
+			this.timetables.put(s, used.getIntersect(temp));
 		}
 
 		Schedulable[] Ls = sortAvailableness(stillToSchedule[0]);
