@@ -137,4 +137,8 @@ public class TimeTable
 			builder.append(slot.toString());
 		return builder.toString();
 	}
+	
+	public boolean equals(TimeTable t) {
+		return t.timeSlots == this.timeSlots;
+	}
 }
