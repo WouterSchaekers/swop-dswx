@@ -1,15 +1,15 @@
 package controllers;
 
-import machine.MachinePool;
-import org.junit.Before;
-import org.junit.Test;
-import controllers.interfaces.UserIN;
-import patient.PatientFileManager;
-import scheduler.Scheduler;
-import users.Doctor;
-import users.Nurse;
-import users.UserAlreadyExistsException;
-import users.UserManager;
+//import machine.MachinePool;
+//import org.junit.Before;
+//import org.junit.Test;
+//import controllers.interfaces.UserIN;
+//import patient.PatientFileManager;
+//import scheduler.Scheduler;
+//import users.Doctor;
+//import users.Nurse;
+//import users.UserAlreadyExistsException;
+//import users.UserManager;
 
 public class ConsultPatientFileControllerTests
 {

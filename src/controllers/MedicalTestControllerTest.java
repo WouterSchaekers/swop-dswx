@@ -1,15 +1,15 @@
 package controllers;
 
-import machine.MachinePool;
-import org.junit.*;
-import controllers.interfaces.UserIN;
-import exceptions.InvalidSchedulerException;
-import patient.PatientFileManager;
-import scheduler.Scheduler;
-import task.TaskManager;
-import users.Doctor;
-import users.User;
-import users.UserManager;
+//import machine.MachinePool;
+//import org.junit.*;
+//import controllers.interfaces.UserIN;
+//import exceptions.InvalidSchedulerException;
+//import patient.PatientFileManager;
+//import scheduler.Scheduler;
+//import task.TaskManager;
+//import users.Doctor;
+//import users.User;
+//import users.UserManager;
 
 public class MedicalTestControllerTest
 {

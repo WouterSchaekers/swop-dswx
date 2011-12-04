@@ -7,7 +7,6 @@ import task.TaskManager;
  */
 public class MedicalTestController extends MedicalSuperController
 {
-	private TaskManager t;
 
 	/**
 	 * Default constructor.
@@ -28,7 +27,8 @@ public class MedicalTestController extends MedicalSuperController
 			ConsultPatientFileController cpf, DataPasser dp, TaskManager t)
 			throws IllegalArgumentException {
 		super(lc, cpf);
-		this.t = t;
 	}
+	
+
 	
 }

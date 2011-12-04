@@ -12,8 +12,10 @@ public class ScheduleUltraSound extends MedicalTestCommand
 		super(uiData, medData);
 	}
 
+	@SuppressWarnings("null")
 	@Override
 	public Usecase Execute() {
+		@SuppressWarnings("unused")
 		MedicalTestController mc = medData.getMedTestController();
 
 		//TOOO: FIX
