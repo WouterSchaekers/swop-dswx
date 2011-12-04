@@ -24,10 +24,6 @@ public class TimePoint implements Comparable<TimePoint>
 		this.type = (t);
 	}
 
-	public TimePoint(TimeTable timeTable) {
-		// TODO Auto-generated constructor stub
-	}
-
 	private time_type type;
 	Date moment;
 
