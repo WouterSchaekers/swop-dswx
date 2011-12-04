@@ -1,10 +1,6 @@
 package scheduler.timetables;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.*;
 import task.Schedulable;
 
 public class Schedule
