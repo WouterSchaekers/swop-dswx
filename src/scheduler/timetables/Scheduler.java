@@ -73,7 +73,7 @@ public class Scheduler
 	 */
 	private Date schedule(TimeTable used, long duration) throws QueueException {
 		LinkedList<Schedulable> resourceQueue = getNextResourceQueue();
-		Schedulable[] sortedResources = sortByFirstFreeSlot(resourceQueue);
+		Collection<Schedulable> sortedResources = sortByFirstFreeSlot(resourceQueue);
 		
 		return null;
 	}
@@ -87,14 +87,14 @@ public class Scheduler
 	 * @return Every item in the given collection in an accordingly sorted
 	 *         fashion.
 	 */
-	private Schedulable[] sortByFirstFreeSlot(Collection<Schedulable> collection) {
+	private Collection<Schedulable> sortByFirstFreeSlot(Collection<Schedulable> collection) {
 		Schedulable[] returnValue = new Schedulable[collection.size()];
 		
 		int i = 0;
 		for (Schedulable s : collection)
 			returnValue[i++] = s;
 		Arrays.sort(returnValue, comparatorOfSchedulables);
-		return returnValue;
+		return new LinkedList<Schedulable>(Arrays.asList(returnValue));
 	}
 	
 	@Basic
@@ -107,11 +107,10 @@ public class Scheduler
 	}
 	
 	/**
-	 * @return True if t starts 60 minutes or more after the current system time.
+	 * @return True if t is a valid timeslot for duration amount of time.
 	 */
 	private boolean isValidCandidateSlot(TimeSlot t, long duration) {
-		//TODO: Implement
-		return false;
+		return t.getLength() >= duration && t.getStartPoint().getTime() < currentSystemTime.getTime() + 60 * 1000 * 3600;
 	}
 	
 	/**
@@ -135,15 +134,15 @@ public class Scheduler
 	}
 	
 	/**
-	 * A comparator to compare 2 Schedulables
+	 * A comparator to compare 2 Schedulables.
+	 * Will compare the startpoints.
 	 */
 	Comparator<Schedulable> comparatorOfSchedulables = new Comparator<Schedulable>()
 	{
 		public int compare(Schedulable o1, Schedulable o2) {
-			TimeSlot freeSlotO1 = o1.getTimeTable().getFirstFreeSlot(0);
-			TimeSlot freeSlotO2 = o2.getTimeTable().getFirstFreeSlot(0);
-			if(freeSlotO1.)
-			return 0;
+			TimePoint freeSlotO1 = o1.getTimeTable().getFirstFreeSlot(0).getStartPoint();
+			TimePoint freeSlotO2 = o2.getTimeTable().getFirstFreeSlot(0).getStartPoint();
+			return freeSlotO1.compareTo(freeSlotO2);
 		}
 	};
 }
