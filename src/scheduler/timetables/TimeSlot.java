@@ -48,8 +48,28 @@ public class TimeSlot
 		return "[ " + t1.toString()+","+t2.toString()+" ]";
 	}
 	
+	/**
+	 * @return The length of the timespan that this timeslot covers.
+	 */
 	public long getLength() {
 		return this.getStopPoint().getTime() - this.getStartPoint().getTime();
+	}
+	
+	/**
+	 * This method checks if this timeslot contains another one.
+	 * 
+	 * @return True if this timeslot overlaps with t.
+	 */
+	public boolean containsSlot(TimeSlot t) {
+		// this is true if the start- and endpoint of t are before the endpoint of this timeslot
+		// and after the startpoint of this timeslot.
+		TimePoint tt1 = this.getStartPoint();
+		TimePoint tt2 = this.getStopPoint();
+		TimePoint t1 = t.getStartPoint();
+		TimePoint t2 = t.getStopPoint();
+			
+		return t1.getTimeBetween(tt1) >= 0 && t1.getTimeBetween(tt2) <= 0 
+				&& t2.getTimeBetween(tt1) >= 0 && t2.getTimeBetween(tt2) <= 0;
 	}
 	
 }
