@@ -60,6 +60,7 @@ public class Scheduler
 			this.stillToSchedule.add(resourcesToSchedule[i]);
 		this.schedule(duration, new LinkedList<Schedulable>());
 		return null;
+		// Voor dieter: goto: 79
 	}
 	
 	/**
@@ -75,12 +76,14 @@ public class Scheduler
 	private LinkedList<Schedulable> schedule(long duration, LinkedList<Schedulable> alreadyScheduled) throws QueueException {
 		LinkedList<Schedulable> resourceQueue = getNextResourceQueue();
 		Collection<Schedulable> sortedResources = sortByFirstFreeSlot(resourceQueue);
+		// DIETER AFBLIJVE, TIS NOG NI AF!!
 		
+		// IK ZWEER HET..
 		alreadyScheduled.add(getBestMatch(duration, sortedResources));
 		
 		if(stillToSchedule.isEmpty())
 			return alreadyScheduled;
-		
+		// NEEEEEEEEEEE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		return schedule(duration, alreadyScheduled);
 	}
 	
