@@ -3,16 +3,17 @@ package scheduler.timetables;
 import java.util.*;
 import scheduler.TimeType;
 
-/***
- * A class consisting of timeslots that always have a start- and end moment.
- * The slots stored here represent timeslots from real life.
+/**
+ * A class consisting of timeslots that always have a start- and end moment. The
+ * slots stored here represent timeslots from real life.
  */
 public class TimeTable
 {
 	private TimeSlot[] timeSlots;
 
 	/**
-	 * Alternative constructor where a certain amount of slots can just be given as parameters, not as a collection.
+	 * Alternative constructor where a certain amount of slots can just be given
+	 * as parameters, not as a collection.
 	 */
 	public TimeTable(TimeSlot... slots) {
 		this(new ArrayList<TimeSlot>(Arrays.asList(slots)));
@@ -20,8 +21,9 @@ public class TimeTable
 
 	/**
 	 * Default constructor. Will initialise fields.
+	 * 
 	 * @param slots
-	 * All TimeSlots to be stored in this TimeTable.
+	 *            All TimeSlots to be stored in this TimeTable.
 	 */
 	public TimeTable(Collection<TimeSlot> slots) {
 		TimeSlot[] v = new TimeSlot[slots.size()];
@@ -33,20 +35,31 @@ public class TimeTable
 	}
 
 	/**
-	 * This method will find the first free slot that is 
+	 * This method will find the first free slot that is
+	 * 
 	 * @param timeNeeded
-	 * The minimal amount of time to be reserved. 
-	 * @return
+	 *            The minimal amount of time to be reserved.
+	 * @return The first available timeslot in this timetable.
 	 */
-	public TimeTable getFirstFreeSlot(int timeNeeded) {
+	public TimeSlot getFirstFreeSlot(int timeNeeded) {
 		int amountOfSlots = this.timeSlots.length;
 		TimeSlot[] slot = this.timeSlots;
+		
+		// Compare the start of the later timepoint to 
+		// the stop of the  earlier ones. 
 		for (int i = 1; i < amountOfSlots; i++) {
 			TimePoint curPoint = slot[i].getStartPoint();
-			if(curPoint.getTimeBetween(curPoint, slot[i-1].getStopPoint()))
-				return new TimeTable();
+			TimePoint prevPoint = slot[i - 1].getStopPoint();
+			if (curPoint.getTimeBetween(prevPoint) >= timeNeeded)
+				return new TimeSlot(slot[i-1].getStopPoint(), slot[i].getStartPoint());
 		}
-		return null;
+		
+		Date startDate = slot[amountOfSlots].getStopPoint().getDate();
+		Date stopDate = new Date(slot[amountOfSlots].getStopPoint().getTime() + timeNeeded);
+		TimePoint startFree = new TimePoint(startDate, TimeType.start);
+		TimePoint stopFree = new TimePoint(stopDate, TimeType.end);
+		
+		return new TimeSlot(startFree , stopFree);
 	}
 
 	/**
@@ -57,8 +70,7 @@ public class TimeTable
 	 * @return
 	 */
 	public TimeTable getUnion(TimeTable that) {
-		TimePoint[] allPoints = new TimePoint[this.timeSlots.length * 2
-				+ that.timeSlots.length * 2];
+		TimePoint[] allPoints = new TimePoint[this.timeSlots.length * 2 + that.timeSlots.length * 2];
 		ArrayList<TimeSlot> rv = new ArrayList<TimeSlot>();
 		int i = 0;
 		for (TimeSlot t : this.timeSlots) {
@@ -98,9 +110,8 @@ public class TimeTable
 	 * when both timetables are busy.
 	 * 
 	 * @param that
-	 * The timetable which has to be intersected with this one.
-	 * @return
-	 * A new timetable that has all the busy-slots of both timetables.
+	 *            The timetable which has to be intersected with this one.
+	 * @return A new timetable that has all the busy-slots of both timetables.
 	 */
 	public TimeTable getIntersect(TimeTable that) {
 		TimePoint[] one = new TimePoint[this.timeSlots.length * 2];
@@ -155,11 +166,14 @@ public class TimeTable
 	}
 	
 	/**
-	 * This method will get the intersection of this TimeTable with a lot of other TimeTables.
+	 * This method will get the intersection of this TimeTable with a lot of
+	 * other TimeTables.
+	 * 
 	 * @param tables
-	 * The collection of Tables you would like to get the intersection with.
-	 * @return
-	 * A TimeTable that's the intersection of all given tables and this table. 
+	 *            The collection of Tables you would like to get the
+	 *            intersection with.
+	 * @return A TimeTable that's the intersection of all given tables and this
+	 *         table.
 	 */
 	public TimeTable intersectAll(Collection<TimeTable> tables) {
 		TimeTable rv = this.getIntersect(this);
@@ -178,7 +192,7 @@ public class TimeTable
 	}
 
 	/**
-	 *@return true if t is "busy" at the same moments as this timetable.
+	 * @return true if t is "busy" at the same moments as this timetable.
 	 */
 	public boolean equals(TimeTable t) {
 		for (int i = 0; i < t.timeSlots.length; i++) {
