@@ -11,6 +11,9 @@ public class TimeTable
 {
 	private TimeSlot[] timeSlots;
 
+	/**
+	 * Alternative constructor where a certain amount of slots can just be given as parameters, not as a collection.
+	 */
 	public TimeTable(TimeSlot... slots) {
 		this(new ArrayList<TimeSlot>(Arrays.asList(slots)));
 	}
@@ -30,40 +33,15 @@ public class TimeTable
 	}
 
 	/**
-	 * This method will get the intersection of this TimeTable with a lot of other TimeTables.
-	 * @param tables
-	 * The collection of Tables you would like to get the intersection with.
-	 * @return
-	 * A TimeTable that's the intersection of all given tables and this table. 
-	 */
-	public TimeTable getIntersectionWith(Collection<TimeTable> tables) {
-		TimeTable rv = this.getIntersect(this);
-		for (TimeTable timeTable : tables)
-			rv = timeTable.getIntersect(rv);
-		
-		return rv;
-	}
-
-	/**
-	 * 
-	 * @param time_needed
+	 * This method will find the first free slot that is 
+	 * @param timeNeeded
+	 * The minimal amount of time to be reserved. 
 	 * @return
 	 */
-	public TimeTable getFirstFreeSlot(int time_needed) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-	 * 
-	 * @param head
-	 * @param line
-	 * @return
-	 */
-	public static Collection<TimeTable> intersectAll(
-			Collection<TimeTable> head, TimeTable line) {
-		// TODO Auto-generated method stub
-		return null;
+	public TimeTable getFirstFreeSlot(int timeNeeded) {
+		for (int i = 0; i < array.length; i++) {
+			
+		}
 	}
 
 	/**
@@ -170,6 +148,21 @@ public class TimeTable
 		}
 		return new TimeTable(rv);
 	}
+	
+	/**
+	 * This method will get the intersection of this TimeTable with a lot of other TimeTables.
+	 * @param tables
+	 * The collection of Tables you would like to get the intersection with.
+	 * @return
+	 * A TimeTable that's the intersection of all given tables and this table. 
+	 */
+	public TimeTable intersectAll(Collection<TimeTable> tables) {
+		TimeTable rv = this.getIntersect(this);
+		for (TimeTable timeTable : tables)
+			rv = timeTable.getIntersect(rv);
+		
+		return rv;
+	}
 
 	@Override
 	public String toString() {
@@ -184,10 +177,8 @@ public class TimeTable
 	 */
 	public boolean equals(TimeTable t) {
 		for (int i = 0; i < t.timeSlots.length; i++) {
-			boolean t1Cond = this.timeSlots[i].getT1().toString()
-					.equals(t.timeSlots[i].getT1().toString());
-			boolean t2Cond = this.timeSlots[i].getT2().toString()
-					.equals(t.timeSlots[i].getT2().toString());
+			boolean t1Cond = this.timeSlots[i].getT1().equals(t.timeSlots[i].getT1());
+			boolean t2Cond = this.timeSlots[i].getT2().equals(t.timeSlots[i].getT2());
 			if (!(t1Cond && t2Cond))
 				return false;
 		}
