@@ -58,8 +58,8 @@ public class Scheduler
 	public Date schedule(long duration, Collection<Schedulable>... resourcesToSchedule) throws QueueException {
 		for (int i = 0; i < resourcesToSchedule.length; i++)
 			this.stillToSchedule.add(resourcesToSchedule[i]);
-		this.schedule(duration);
-		return false;
+		this.schedule(duration, new LinkedList<Schedulable>());
+		return null;
 	}
 	
 	/**
@@ -72,14 +72,24 @@ public class Scheduler
 	 * @effect getNextResourceQueue()
 	 * @return The date of the scheduled appointment.
 	 */
-	private boolean schedule(long duration) throws QueueException {
+	private LinkedList<Schedulable> schedule(long duration, LinkedList<Schedulable> alreadyScheduled) throws QueueException {
 		LinkedList<Schedulable> resourceQueue = getNextResourceQueue();
 		Collection<Schedulable> sortedResources = sortByFirstFreeSlot(resourceQueue);
 		
-		Schedulable bestMatch = getBestMatch(duration, sortedResources);
-		return schedule(duration);
+		alreadyScheduled.add(getBestMatch(duration, sortedResources));
+		
+		if(stillToSchedule.isEmpty())
+			return alreadyScheduled;
+		
+		return schedule(duration, alreadyScheduled);
 	}
 	
+	/**
+	 * This method will get the best match of a collection of resources.
+	 * @param duration
+	 * @param sortedResources
+	 * @return
+	 */
 	private Schedulable getBestMatch(long duration, Collection<Schedulable> sortedResources) {
 		boolean found = false;
 		Schedulable match = null;
