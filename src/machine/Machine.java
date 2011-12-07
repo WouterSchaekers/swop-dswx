@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Date;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidSerialException;
+import scheduler.timetables.TimeTable;
 import task.Schedulable;
 
 /**
@@ -17,6 +18,7 @@ public abstract class Machine implements Schedulable
 
 	private final int serial;
 	private String location = "";
+	private TimeTable timeTable;
 	protected static Collection<Integer> usedSerials=new ArrayList<Integer>();
 	/**
 	 * Default constructor.
@@ -40,6 +42,7 @@ public abstract class Machine implements Schedulable
 		usedSerials.add(serial);
 		this.serial = serial;
 		this.location = location;
+		this.timeTable = new TimeTable();
 	}
 
 	/**
@@ -64,6 +67,11 @@ public abstract class Machine implements Schedulable
 			return ((Machine) o).serial == this.serial;
 		return false;
 
+	}
+	
+	@Override
+	public TimeTable getTimeTable(){
+		return this.timeTable;
 	}
 
 	@Override

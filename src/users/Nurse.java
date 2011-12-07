@@ -20,10 +20,4 @@ public class Nurse extends User implements Schedulable
 		// TODO Auto-generated method stub
 		return false;
 	}
-
-	@Override
-	public TimeSlot getTimeTable() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
