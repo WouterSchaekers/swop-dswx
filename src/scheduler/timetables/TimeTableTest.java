@@ -57,7 +57,6 @@ public class TimeTableTest
 		TimeTable table = new TimeTable(t1, t2);
 		TimeTable table2 = new TimeTable(t3, t4);
 		TimeTable res = table.getUnion(table2);
-
 		TimeSlot t6 = new TimeSlot(new TimePoint(new Date(0), TimeType.start),
 				new TimePoint(new Date(21), TimeType.end));
 		assertTrue(res.equals(new TimeTable(t6)));
@@ -71,7 +70,6 @@ public class TimeTableTest
 		TimeSlot t4 = new TimeSlot(new TimePoint(new Date(13), TimeType.start), new TimePoint(new Date(21), TimeType.end));
 		TimeSlot t5= new TimeSlot(new TimePoint(new Date(130), TimeType.start), new TimePoint(new Date(2100), TimeType.end));
 		TimeSlot t6 = new TimeSlot(new TimePoint(new Date(-2), TimeType.start), new TimePoint(new Date(21), TimeType.end));
-		
 		TimeTable table = new TimeTable(t1, t2);
 		TimeTable table2 = new TimeTable(t3, t4);
 		TimeTable res = table.getUnion(table2);
@@ -97,18 +95,16 @@ public class TimeTableTest
 		TimeTable table = new TimeTable(t1, t2);
 		TimeTable table2 = new TimeTable(t3, t4);
 		TimeTable res = table.getUnion(table2);
-		
 		TimeSlot t5 = new TimeSlot(new TimePoint(new Date(-5), TimeType.start), new TimePoint(new Date(-2), TimeType.end));
 		TimeSlot t6 = new TimeSlot(new TimePoint(new Date(2), TimeType.start), new TimePoint(new Date(21), TimeType.end));
 		TimeSlot t7 = new TimeSlot(new TimePoint(new Date(200), TimeType.start), new TimePoint(new Date(900), TimeType.end));
 		assertTrue(res.equals(new TimeTable(t5,t6,t7)));
-	}	
+	}
 	
 	@Test
 	public void unionTestWithOnlyOneTable() {
 		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(1), TimeType.start), new TimePoint(new Date(5), TimeType.end));
 		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(10), TimeType.start), new TimePoint(new Date(15), TimeType.end));
-				
 		TimeTable table = new TimeTable(t1, t2);
 		TimeTable table2 = new TimeTable(t1, t2);
 		TimeTable res = table.getUnion(table);
@@ -116,5 +112,16 @@ public class TimeTableTest
 		assertTrue(res.equals(table));
 	}
 
-	
+	@Test
+	public void intersect1Test() {
+		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(-5), TimeType.start), new TimePoint(new Date(-2), TimeType.end));
+		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(2), TimeType.start), new TimePoint(new Date(15), TimeType.end));
+		TimeSlot t3 = new TimeSlot(new TimePoint(new Date(200), TimeType.start), new TimePoint(new Date(900), TimeType.end));
+		TimeSlot t4 = new TimeSlot(new TimePoint(new Date(13), TimeType.start), new TimePoint(new Date(21), TimeType.end));
+		TimeTable table = new TimeTable(t1, t2);
+		TimeTable table2 = new TimeTable(t3, t4);
+		TimeTable res = table.getIntersect(table2);
+		TimeSlot t5 = new TimeSlot(new TimePoint(new Date(13), TimeType.start), new TimePoint(new Date(15), TimeType.end));
+		assertTrue(res.equals(new TimeTable(t5)));
+	}
 }

@@ -195,6 +195,8 @@ public class TimeTable
 	 * @return true if t is "busy" at the same moments as this timetable.
 	 */
 	public boolean equals(TimeTable t) {
+		if(this.timeSlots.length != t.timeSlots.length)
+			return false;
 		for (int i = 0; i < t.timeSlots.length; i++) {
 			boolean t1Cond = this.timeSlots[i].getStartPoint().equals(t.timeSlots[i].getStartPoint());
 			boolean t2Cond = this.timeSlots[i].getStopPoint().equals(t.timeSlots[i].getStopPoint());
