@@ -58,7 +58,8 @@ public class Scheduler
 	public Date schedule(long duration, Collection<Schedulable>... resourcesToSchedule) throws QueueException {
 		for (int i = 0; i < resourcesToSchedule.length; i++)
 			this.stillToSchedule.add(resourcesToSchedule[i]);
-		return this.schedule(new TimeTable(), duration);
+		this.schedule(duration);
+		return false;
 	}
 	
 	/**
@@ -71,11 +72,29 @@ public class Scheduler
 	 * @effect getNextResourceQueue()
 	 * @return The date of the scheduled appointment.
 	 */
-	private Date schedule(TimeTable used, long duration) throws QueueException {
+	private boolean schedule(long duration) throws QueueException {
 		LinkedList<Schedulable> resourceQueue = getNextResourceQueue();
 		Collection<Schedulable> sortedResources = sortByFirstFreeSlot(resourceQueue);
 		
-		return null;
+		Schedulable bestMatch = getBestMatch(duration, sortedResources);
+		return schedule(duration);
+	}
+	
+	private Schedulable getBestMatch(long duration, Collection<Schedulable> sortedResources) {
+		boolean found = false;
+		Schedulable match = null;
+		
+		while (!found) {
+			for (Schedulable resource : sortedResources) {
+				TimeSlot resFirstFree = resource.getTimeTable().getNextFreeSlot(duration);
+				if (isValidCandidateSlot(resFirstFree, duration)) {
+					match = resource;
+					found = true;
+				}
+			}
+		}
+		
+		return match;
 	}
 
 	/**
