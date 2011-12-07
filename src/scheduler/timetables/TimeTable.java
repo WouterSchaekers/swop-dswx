@@ -10,6 +10,7 @@ import scheduler.TimeType;
 public class TimeTable
 {
 	private TimeSlot[] timeSlots;
+	private int nextSlotToGet = 0;
 
 	/**
 	 * Alternative constructor where a certain amount of slots can just be given
@@ -41,9 +42,10 @@ public class TimeTable
 	 *            The minimal amount of time to be reserved.
 	 * @return The first available timeslot in this timetable.
 	 */
-	public TimeSlot getFirstFreeSlot(int timeNeeded) {
+	public TimeSlot getFirstFreeSlot(long timeNeeded) {
 		int amountOfSlots = this.timeSlots.length;
 		TimeSlot[] slot = this.timeSlots;
+
 		// Compare the start of the later timepoint to
 		// the stop of the earlier ones.
 		for (int i = 1; i < amountOfSlots; i++) {
@@ -54,11 +56,46 @@ public class TimeTable
 						slot[i].getStartPoint());
 		}
 
-		Date startDate = slot[amountOfSlots-1].getStopPoint().getDate();
-		Date stopDate = new Date(slot[amountOfSlots-1].getStopPoint().getTime()
+		// everything has been scheduled back-to-back
+		// --> return the end of the timetable.
+		Date startDate = slot[amountOfSlots].getStopPoint().getDate();
+		Date stopDate = new Date(slot[amountOfSlots].getStopPoint().getTime()
 				+ timeNeeded);
 		TimePoint startFree = new TimePoint(startDate, TimeType.start);
 		TimePoint stopFree = new TimePoint(stopDate, TimeType.end);
+
+		return new TimeSlot(startFree, stopFree);
+	}
+
+	/**
+	 * This method will get the next free slot. 
+	 * @param timeNeeded
+	 * The amount of time needed in the free slot.
+	 * @return The next free slot (next slot is kept by a private field)
+	 */
+	public TimeSlot getNextFreeSlot(long timeNeeded) {
+		int amountOfSlots = this.timeSlots.length;
+		TimeSlot[] slot = this.timeSlots;
+
+		if (nextSlotToGet >= amountOfSlots)
+			nextSlotToGet = 0;
+
+		// analogous to getFirstSlot...
+		for (int i = nextSlotToGet + 1; i < amountOfSlots; i++) {
+			TimePoint curPoint = slot[i].getStartPoint();
+			TimePoint prevPoint = slot[i - 1].getStopPoint();
+			if (curPoint.getTimeBetween(prevPoint) >= timeNeeded) {
+				nextSlotToGet++;
+				return new TimeSlot(slot[i - 1].getStopPoint(),
+						slot[i].getStartPoint());
+			}
+		}
+		Date startDate = slot[amountOfSlots].getStopPoint().getDate();
+		Date stopDate = new Date(slot[amountOfSlots].getStopPoint().getTime()
+				+ timeNeeded);
+		TimePoint startFree = new TimePoint(startDate, TimeType.start);
+		TimePoint stopFree = new TimePoint(stopDate, TimeType.end);
+		nextSlotToGet++;
 		return new TimeSlot(startFree, stopFree);
 	}
 
@@ -141,8 +178,8 @@ public class TimeTable
 			while (first < one.length - 1
 					&& second < two.length - 1
 					&& (!(one[first].compareTo(two[second]) <= 0 && one[first + 1]
-							.compareTo(two[second]) >= 0)
-					&& !(two[second].compareTo(one[first]) <= 0 && two[second + 1]
+							.compareTo(two[second]) >= 0) && !(two[second]
+							.compareTo(one[first]) <= 0 && two[second + 1]
 							.compareTo(one[first]) >= 0))) {
 				if (one[first].compareTo(two[second]) > 0) {
 					second = second + 2;
