@@ -142,10 +142,10 @@ public class TimeTable
 		while (first < one.length - 1 && second < two.length - 1) {
 			while (first < one.length - 1
 					&& second < two.length - 1
-					&& (!(one[first].compareTo(two[second]) < 0 && one[first + 1]
-							.compareTo(two[second]) > 0)
-					&& !(two[second].compareTo(one[first]) < 0 && two[second + 1]
-							.compareTo(one[first]) > 0))) {
+					&& (!(one[first].compareTo(two[second]) <= 0 && one[first + 1]
+							.compareTo(two[second]) >= 0)
+					&& !(two[second].compareTo(one[first]) <= 0 && two[second + 1]
+							.compareTo(one[first]) >= 0))) {
 				if (one[first].compareTo(two[second]) > 0) {
 					second = second + 2;
 				} else {
