@@ -44,35 +44,39 @@ public class TimeTable
 	public TimeSlot getFirstFreeSlot(int timeNeeded) {
 		int amountOfSlots = this.timeSlots.length;
 		TimeSlot[] slot = this.timeSlots;
-		
-		// Compare the start of the later timepoint to 
-		// the stop of the  earlier ones. 
+
+		// Compare the start of the later timepoint to
+		// the stop of the earlier ones.
 		for (int i = 1; i < amountOfSlots; i++) {
 			TimePoint curPoint = slot[i].getStartPoint();
 			TimePoint prevPoint = slot[i - 1].getStopPoint();
 			if (curPoint.getTimeBetween(prevPoint) >= timeNeeded)
-				return new TimeSlot(slot[i-1].getStopPoint(), slot[i].getStartPoint());
+				return new TimeSlot(slot[i - 1].getStopPoint(),
+						slot[i].getStartPoint());
 		}
-		
+
 		Date startDate = slot[amountOfSlots].getStopPoint().getDate();
-		Date stopDate = new Date(slot[amountOfSlots].getStopPoint().getTime() + timeNeeded);
+		Date stopDate = new Date(slot[amountOfSlots].getStopPoint().getTime()
+				+ timeNeeded);
 		TimePoint startFree = new TimePoint(startDate, TimeType.start);
 		TimePoint stopFree = new TimePoint(stopDate, TimeType.end);
-		
-		return new TimeSlot(startFree , stopFree);
+
+		return new TimeSlot(startFree, stopFree);
 	}
 
 	/**
 	 * The union of 2 timetables is this, the union of time slots, Ex : union
 	 * {(1,9),(21,55)} with {(3,15)} is {(1,15),(21,55)} Thus where both
-	 * Timetables are occupied.
+	 * Timetables are occupied. <br>
 	 * <br>
-	 * <br><b>DOES NOT REMOVE DOUBLES!!!</b>
+	 * <b>DOES NOT REMOVE DOUBLES!!!</b>
+	 * 
 	 * @return
 	 */
-	//TODO: remove doubles? -- remove method?
+	// TODO: remove doubles? -- remove method?
 	public TimeTable getUnion(TimeTable that) {
-		TimePoint[] allPoints = new TimePoint[this.timeSlots.length * 2 + that.timeSlots.length * 2];
+		TimePoint[] allPoints = new TimePoint[this.timeSlots.length * 2
+				+ that.timeSlots.length * 2];
 		ArrayList<TimeSlot> rv = new ArrayList<TimeSlot>();
 		int i = 0;
 		for (TimeSlot t : this.timeSlots) {
@@ -89,7 +93,9 @@ public class TimeTable
 		i = 0;
 
 		while (i < allPoints.length) {
-			TimeSlot t = new TimeSlot(new TimePoint(new Date(0), TimeType.start), new TimePoint(new Date(3), TimeType.end));
+			TimeSlot t = new TimeSlot(
+					new TimePoint(new Date(0), TimeType.start), new TimePoint(
+							new Date(3), TimeType.end));
 			t.setStartPoint(allPoints[i]);
 			int endcount = 1;
 			while (endcount > 0) {
@@ -129,19 +135,21 @@ public class TimeTable
 			two[i++] = t.getStartPoint();
 			two[i++] = t.getStopPoint();
 		}
+		Arrays.sort(one);
+		Arrays.sort(two);
 		int first = 0;
 		int second = 0;
 		while (first < one.length - 1 && second < two.length - 1) {
-			while (first < one.length - 1 && second < two.length - 1) {
-				if (!(one[first].compareTo(two[second]) < 0 && one[first + 1]
-						.compareTo(two[second]) > 0)
-						|| !(two[second].compareTo(one[first]) < 0 && two[second + 1]
-								.compareTo(one[first]) > 0)) {
-					if (one[first].compareTo(two[second]) > 0) {
-						second = second + 2;
-					} else {
-						first = first + 1;
-					}
+			while (first < one.length - 1
+					&& second < two.length - 1
+					&& (!(one[first].compareTo(two[second]) < 0 && one[first + 1]
+							.compareTo(two[second]) > 0)
+					&& !(two[second].compareTo(one[first]) < 0 && two[second + 1]
+							.compareTo(one[first]) > 0))) {
+				if (one[first].compareTo(two[second]) > 0) {
+					second = second + 2;
+				} else {
+					first = first + 2;
 				}
 			}
 			if (!(first < one.length - 1 && second < two.length - 1)) {
@@ -166,7 +174,7 @@ public class TimeTable
 		}
 		return new TimeTable(rv);
 	}
-	
+
 	/**
 	 * This method will get the intersection of this TimeTable with a lot of
 	 * other TimeTables.
@@ -181,7 +189,7 @@ public class TimeTable
 		TimeTable rv = this.getIntersect(this);
 		for (TimeTable timeTable : tables)
 			rv = timeTable.getIntersect(rv);
-		
+
 		return rv;
 	}
 
@@ -197,11 +205,13 @@ public class TimeTable
 	 * @return true if t is "busy" at the same moments as this timetable.
 	 */
 	public boolean equals(TimeTable t) {
-		if(this.timeSlots.length != t.timeSlots.length)
+		if (this.timeSlots.length != t.timeSlots.length)
 			return false;
 		for (int i = 0; i < t.timeSlots.length; i++) {
-			boolean t1Cond = this.timeSlots[i].getStartPoint().equals(t.timeSlots[i].getStartPoint());
-			boolean t2Cond = this.timeSlots[i].getStopPoint().equals(t.timeSlots[i].getStopPoint());
+			boolean t1Cond = this.timeSlots[i].getStartPoint().equals(
+					t.timeSlots[i].getStartPoint());
+			boolean t2Cond = this.timeSlots[i].getStopPoint().equals(
+					t.timeSlots[i].getStopPoint());
 			if (!(t1Cond && t2Cond))
 				return false;
 		}
