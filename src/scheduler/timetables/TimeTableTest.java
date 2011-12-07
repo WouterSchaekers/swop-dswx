@@ -2,6 +2,7 @@ package scheduler.timetables;
 
 import static org.junit.Assert.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import org.junit.Test;
@@ -205,6 +206,7 @@ public class TimeTableTest
 		TimeTable result = new TimeTable(tr2,tr3);
 		TimeTable filter = new TimeTable(t1);
 		TimeTable elements = new TimeTable(t2,t3);
-		assertTrue(result.equals(elements.intersectAll(filter,elements)));
+		Collection<TimeTable> ct = new ArrayList<TimeTable>(Arrays.asList(filter,elements));
+		assertTrue(result.equals(elements.intersectAll(ct)));
 	}
 }
