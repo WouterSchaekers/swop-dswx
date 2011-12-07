@@ -44,7 +44,6 @@ public class TimeTable
 	public TimeSlot getFirstFreeSlot(int timeNeeded) {
 		int amountOfSlots = this.timeSlots.length;
 		TimeSlot[] slot = this.timeSlots;
-
 		// Compare the start of the later timepoint to
 		// the stop of the earlier ones.
 		for (int i = 1; i < amountOfSlots; i++) {
@@ -55,12 +54,11 @@ public class TimeTable
 						slot[i].getStartPoint());
 		}
 
-		Date startDate = slot[amountOfSlots].getStopPoint().getDate();
-		Date stopDate = new Date(slot[amountOfSlots].getStopPoint().getTime()
+		Date startDate = slot[amountOfSlots-1].getStopPoint().getDate();
+		Date stopDate = new Date(slot[amountOfSlots-1].getStopPoint().getTime()
 				+ timeNeeded);
 		TimePoint startFree = new TimePoint(startDate, TimeType.start);
 		TimePoint stopFree = new TimePoint(stopDate, TimeType.end);
-
 		return new TimeSlot(startFree, stopFree);
 	}
 
