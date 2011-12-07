@@ -67,5 +67,9 @@ public class TimePoint implements Comparable<TimePoint>
 	public boolean isEnd() {
 		return this.type == TimeType.end;
 	}
+	
+	public boolean equals(TimePoint t) {
+		return t.getType().equals(this.type) && t.compareTo(this) == 0; 
+	}
 
 }
