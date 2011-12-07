@@ -31,16 +31,16 @@ public class TimeTable
 
 	/**
 	 * This method will get the intersection of this TimeTable with a lot of other TimeTables.
-	 * @param table
+	 * @param tables
 	 * The collection of Tables you would like to get the intersection with.
 	 * @return
 	 * A TimeTable that's the intersection of all given tables and this table. 
 	 */
-	public TimeTable getIntersectionWith(Collection<TimeTable> table) {
+	public TimeTable getIntersectionWith(Collection<TimeTable> tables) {
 		TimeTable rv = this.getIntersect(this);
-		for (TimeTable timeTable : table) {
+		for (TimeTable timeTable : tables)
 			rv = timeTable.getIntersect(rv);
-		}
+		
 		return rv;
 	}
 
