@@ -66,9 +66,11 @@ public class TimeTable
 	 * The union of 2 timetables is this, the union of time slots, Ex : union
 	 * {(1,9),(21,55)} with {(3,15)} is {(1,15),(21,55)} Thus where both
 	 * Timetables are occupied.
-	 * 
+	 * <br>
+	 * <br><b>DOES NOT REMOVE DOUBLES!!!</b>
 	 * @return
 	 */
+	//TODO: remove doubles? -- remove method?
 	public TimeTable getUnion(TimeTable that) {
 		TimePoint[] allPoints = new TimePoint[this.timeSlots.length * 2 + that.timeSlots.length * 2];
 		ArrayList<TimeSlot> rv = new ArrayList<TimeSlot>();
