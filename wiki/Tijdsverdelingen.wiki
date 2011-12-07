@@ -10,4 +10,4 @@
 ||04/12/11: 15u00 -> 18u30||3 DSW||3.5||Continuance of discussion concerning the new Scheduler model and implementing the design figured out above||
 ||04/12/11: 19u20 -> 22u00||3 DSW||2.7||Further implementing of Scheduler-design||
 ||04/12/11: 22u00 -> 22u30||2 SW||0.5||Further implemenitng of Scheduler||Dieter wilde LoL doen en moest dus vroeger stoppen||
-||07/12/11: 14u30 -> ||2 SW||Testing the TimeTable class and further implementing of the Scheduler||Dieter wilde P&O doen en kon op 6/12 niet omdat hij een prior commitment had om "LoL te spelen" dat hij daarna afzegde om "toffe dingen doen met Shana voor haar verjaardag".||
+||07/12/11: 14u30 -> ||2 SW|| ||Testing the TimeTable class and further implementing of the Scheduler||Dieter wilde P&O doen en kon op 6/12 niet omdat hij een prior commitment had om "LoL te spelen" dat hij daarna afzegde om "toffe dingen doen met Shana voor haar verjaardag".||
