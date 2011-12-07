@@ -30,17 +30,9 @@ public class Scheduler
 	 *            The wanted current system time.
 	 */
 	public Scheduler (Date systemDate) {
+		if(systemDate == null)
+			throw new IllegalArgumentException("systemDate in constructor of Scheduler is null!");
 		currentSystemTime = systemDate;
-	}
-	
-	/**
-	 * Empty constructor; <b>NOT DEFAULT</b>. Will not initialise the current
-	 * systemtime if it already has been by another Scheduler. If not, it will
-	 * initialise it at System.currentTimeMillis();
-	 */
-	public Scheduler () {
-		if(currentSystemTime == null)
-			currentSystemTime = new Date(System.currentTimeMillis());
 	}
 
 	/**
