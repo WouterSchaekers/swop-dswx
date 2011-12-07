@@ -91,6 +91,16 @@ public class TimeTable
 		return new TimeTable(rv);
 	}
 
+	/**
+	 * This function will calculate the intersection of this timetable with
+	 * another timetable. The result is a new timetable that is marked as "busy"
+	 * when both timetables are busy.
+	 * 
+	 * @param that
+	 * The timetable which has to be intersected with this one.
+	 * @return
+	 * A new timetable that has all the busy-slots of both timetables.
+	 */
 	public TimeTable getIntersect(TimeTable that) {
 		TimePoint[] one = new TimePoint[this.timeSlots.length * 2];
 		TimePoint[] two = new TimePoint[that.timeSlots.length * 2];
@@ -143,6 +153,7 @@ public class TimeTable
 		return new TimeTable(rv);
 	}
 
+	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		for (TimeSlot slot : timeSlots)
@@ -150,6 +161,9 @@ public class TimeTable
 		return builder.toString();
 	}
 
+	/**
+	 *@return true if t is "busy" at the same moments as this timetable.
+	 */
 	public boolean equals(TimeTable t) {
 		for (int i = 0; i < t.timeSlots.length; i++) {
 			boolean t1Cond = this.timeSlots[i].getT1().toString()
