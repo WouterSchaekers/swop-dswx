@@ -2,13 +2,10 @@
 ||09/11/11: 20u00 -> 01u00||4 DSWT||5|| Trying to analyse a couple of high-level problems with our current design||
 ||11/11/11: 11u00 -> 17u00||4 DSWT||6||Trying to bring the current system in a class diagram||
 ||14/11/11: 14u00 -> 15u00||4 DSWT||1||Feedbacksession||
-||16/11/11: 10u45 -> 14u00||3 DSW||3||Evaluation of the feedbacksession and some more updating to the class diagram
-||
-||29/11/11: 21u30 -> 00u30||2 DS||4||Some global high level brainstorming about scheduling, discussing different testing strategies||Wouter moest A&B doen en Thibault ging weg
-||
+||16/11/11: 10u45 -> 14u00||3 DSW||3||Evaluation of the feedbacksession and some more updating to the class diagram||
+||29/11/11: 21u30 -> 00u30||2 DS||4||Some global high level brainstorming about scheduling, discussing different testing strategies||Wouter moest A&B doen en Thibault ging weg||
 ||01/12/11: 20u00 -> 23u00||2 SW||3||Further discussing testing strategies and writing a report on it||Dieter moest LoL doen.||
-||02/12/11: 10u00 -> 17u00||3 DSW||7||specific discussions and design decisions concerning scheduling and constraint processing
-||
+||02/12/11: 10u00 -> 17u00||3 DSW||7||specific discussions and design decisions concerning scheduling and constraint processing||
 ||04/12/11: 11u00 -> 13u30||2 SW||2.5||Complete redesign of the Scheduler and constraintprocessing||Dieter moest P&O doen||
 ||04/12/11: 15u00 -> 18u30||3 DSW||3.5||Continuance of discussion concerning the new Scheduler model and implementing the design figured out above||
 ||04/12/11: 19u20 -> 22u00||3 DSW||2.7||Further implementing of Scheduler-design||
