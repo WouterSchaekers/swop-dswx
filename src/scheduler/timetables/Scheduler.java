@@ -73,7 +73,7 @@ public class Scheduler
 			return null;
 		
 		List<Schedulable> resourceQueue = getNextResourceQueue();
-		Collection<Schedulable> sortedResources = sortByFirstFreeSlot(resourceQueue); // XXX: moet er wel gesort worden?
+		Collection<Schedulable> sortedResources = sortByFirstFreeSlot(resourceQueue);
 		Schedulable firstQueueElement = resourceQueue.remove(0);
 		Collection<TimeTable> allTheTimeTables = new LinkedList<TimeTable>();
 		Iterator<Schedulable> schedIterator = resourceQueue.iterator();
@@ -83,10 +83,10 @@ public class Scheduler
 			resourceQueue.remove(0);
 		}
 		
-		TimeTable curIntersection = firstQueueElement.getTimeTable().intersectAll(resourceQueue);
+		TimeTable curTimeTableIntersection = firstQueueElement.getTimeTable().intersectAll(allTheTimeTables);
+		used.add(curTimeTableIntersection);		
 		
-		
-		return schedule(duration, null);
+		return schedule(duration, used);
 	}
 
 	/**
@@ -133,13 +133,9 @@ public class Scheduler
 	 *             if the to-schedule-queue is empty.
 	 */
 	private LinkedList<Schedulable> getNextResourceQueue() throws QueueException {
-		LinkedList<Schedulable> queue = new LinkedList<Schedulable>();
 		if (!stillToSchedule.isEmpty()) 
 			throw new QueueException("Error while updating resource queue: nothing left to schedule!");
-		
-		Collection<Schedulable> col = stillToSchedule.remove(0);
-		
-		return queue;
+		return (LinkedList<Schedulable>)stillToSchedule.remove(0);
 	}
 	
 	/**
