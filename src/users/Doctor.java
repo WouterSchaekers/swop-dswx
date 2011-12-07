@@ -21,11 +21,4 @@ public class Doctor extends User implements DoctorIN, Schedulable
 		// TODO Auto-generated method stub
 		return false;
 	}
-
-	@Override
-	public TimeSlot getTimeTable() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
