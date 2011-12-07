@@ -1,4 +1,4 @@
-||*Timepoint||Members||Workload||Purpose||Comments*||
+||*Timepoint||Members||Workload||Purpose||Comments||
 ||09/11/11: 20u00 -> 01u00||4 DSWT||5|| Trying to analyse a couple of high-level problems with our current design||
 ||11/11/11: 11u00 -> 17u00||4 DSWT||6||Trying to bring the current system in a class diagram||
 ||14/11/11: 14u00 -> 15u00||4 DSWT||1||Feedbacksession||
