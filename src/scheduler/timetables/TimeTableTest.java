@@ -121,6 +121,7 @@ public class TimeTableTest
 		TimeTable table = new TimeTable(t1, t2);
 		TimeTable table2 = new TimeTable(t3, t4);
 		TimeTable res = table.getIntersect(table2);
+		System.out.println(res.toString());
 		TimeSlot t5 = new TimeSlot(new TimePoint(new Date(13), TimeType.start), new TimePoint(new Date(15), TimeType.end));
 		assertTrue(res.equals(new TimeTable(t5)));
 	}
