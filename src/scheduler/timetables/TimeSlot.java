@@ -48,4 +48,8 @@ public class TimeSlot
 		return "[ " + t1.toString()+","+t2.toString()+" ]";
 	}
 	
+	public long getLength() {
+		return this.getStopPoint().getTime() - this.getStartPoint().getTime();
+	}
+	
 }
