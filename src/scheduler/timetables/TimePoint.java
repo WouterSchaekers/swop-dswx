@@ -12,16 +12,18 @@ public class TimePoint implements Comparable<TimePoint>
 {
 	private TimeType type;
 	private Date date;
-
+	
 	/**
 	 * Default constructor: tell the timepoint what type it is and what it's
 	 * time is.
 	 */
 	public TimePoint(Date d, TimeType t) {
+		if(d == null || t == null)
+			throw new IllegalArgumentException("Invalid date or TimeType in constructor-call of TimePoint!");
 		this.type = t;
 		this.date = d;
 	}
-
+	
 	@Basic
 	public TimeType getType() {
 		return this.type;
@@ -86,6 +88,6 @@ public class TimePoint implements Comparable<TimePoint>
 	 * @return the time between this TimePoint and t.
 	 */
 	public int getTimeBetween(TimePoint t) {
-		return ((this.getTime() - t.getTime()) < 0)? (int) (this.getTime() - t.getTime()) * (-1) : (int) (this.getTime() - t.getTime());
+		return (int) (this.getTime() - t.getTime());
 	}
 }
