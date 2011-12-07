@@ -1,1 +1,2 @@
+||Tijdsverdelingen||
 09/11/11: 20u00 -> 01u00 || 4 DSWT || 5 || Trying to analyse a couple of high-level problems with our current design
