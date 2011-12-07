@@ -3,6 +3,9 @@ package scheduler.timetables;
 import java.util.*;
 import task.Schedulable;
 
+/**
+ * This class will assign all schedulables their timetables.
+ */
 public class Scheduler
 {
 	private HashMap<Schedulable, TimeTable> timetables;
