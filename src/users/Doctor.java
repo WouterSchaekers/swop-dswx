@@ -1,7 +1,6 @@
 package users;
 
 import java.util.Date;
-import scheduler.timetables.TimeSlot;
 import task.Schedulable;
 import controllers.interfaces.DoctorIN;
 

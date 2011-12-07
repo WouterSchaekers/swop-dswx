@@ -1,14 +1,5 @@
 package system;
 
-import java.util.Date;
-import machine.MachinePool;
-import controllers.DataPasser;
-import exceptions.UserAlreadyExistsException;
-import patient.PatientFileManager;
-import scheduler.timetables.*;
-import ui.UserInterface;
-import users.UserManager;
-
 public class SystemStarter
 {
 //	// things that are needed in the system
