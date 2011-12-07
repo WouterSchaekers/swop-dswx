@@ -18,3 +18,7 @@ Stefaan second that.
 = Volgende Dates =
   * Donderdag 8/12 om 20u00 UTC +1 <br>
   * Vrijdag 9/12 om 10u00 UTC +1
+
+= TODOS voor wanneer de scheduler werkt =
+  * Alle methodes dingen laten throwen.
+  * use cases
