@@ -1,7 +1,7 @@
 package scheduler.timetables;
 
 import java.util.*;
-import exceptions.QueueException;
+import exceptions.*;
 import be.kuleuven.cs.som.annotate.Basic;
 import task.Schedulable;
 
@@ -47,7 +47,7 @@ public class Scheduler
 	 *            The wanted length of the reservation of each resource.
 	 * @return The start date of the scheduled appointment.
 	 */
-	public Date schedule(long duration, Collection<Schedulable>... resourcesToSchedule) throws QueueException {
+	public Date schedule(long duration, Collection<Schedulable>... resourcesToSchedule) throws QueueException, InvalidDurationException {
 		for (int i = 0; i < resourcesToSchedule.length; i++)
 			this.stillToSchedule.add(resourcesToSchedule[i]);
 		this.schedule(duration, new LinkedList<TimeTable>());
@@ -65,15 +65,41 @@ public class Scheduler
 	 * @effect getNextResourceQueue()
 	 * @return The date of the scheduled appointment.
 	 */
-	private Date schedule(long duration, LinkedList<TimeTable> used) throws QueueException {
+	private Date schedule(long duration, LinkedList<TimeTable> used) throws QueueException, InvalidDurationException {
 		if (duration < 0) 
-			throw new IllegalArgumentException("Invalid duration parameter in private schedule-method!");
+			throw new InvalidDurationException("Invalid duration in schedule-method!");
 		
-		if(stillToSchedule.isEmpty())
+		if(stillToSchedule.isEmpty()) {
+			// We now have intersected all the time lines of
+			// all the requested types of resources.
+			// The result is that we now, for each requested resourcetype
+			// have a timetable that is only marked as "busy" if all
+			// instances of that resourcetype are busy at that time.
+			//
+			// In other words: if a slot is free in the merged timetable,
+			// there will be at least one instance of that resource type that
+			// can be scheduled at that time.
+			//
+			// The only thing left to do now is to intersect all intersected
+			// timetables with eachother and grab the first free slot that's
+			// available in that timetable.
+			//
+			// Once we have that slot, we can check which one of our resources
+			// is available at that specific time.
+			//
+			// After we have all of those, we only need to tell them to be
+			// Busy at the found free slot and return the time of the start
+			// of that slot to the method calling this method.
+			//
+			// should be easy enough ;)
+			// Stefaan gaat dees dus morgen fixen. wie aan de code komt
+			// zonder zijn permissie krijgt meppen. ^^
+
+			// Collection<Schedulable> sortedResources = sortByFirstFreeSlot(used.);
 			return null;
+		}
 		
 		List<Schedulable> resourceQueue = getNextResourceQueue();
-		Collection<Schedulable> sortedResources = sortByFirstFreeSlot(resourceQueue);
 		Schedulable firstQueueElement = resourceQueue.remove(0);
 		Collection<TimeTable> allTheTimeTables = new LinkedList<TimeTable>();
 		Iterator<Schedulable> schedIterator = resourceQueue.iterator();
