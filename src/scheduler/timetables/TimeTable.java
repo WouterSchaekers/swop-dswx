@@ -39,9 +39,14 @@ public class TimeTable
 	 * @return
 	 */
 	public TimeTable getFirstFreeSlot(int timeNeeded) {
-		for (int i = 0; i < array.length; i++) {
-			
+		int amountOfSlots = this.timeSlots.length;
+		TimeSlot[] slot = this.timeSlots;
+		for (int i = 1; i < amountOfSlots; i++) {
+			TimePoint curPoint = slot[i].getStartPoint();
+			if(curPoint.getTimeBetween(curPoint, slot[i-1].getStopPoint()))
+				return new TimeTable();
 		}
+		return null;
 	}
 
 	/**
@@ -57,13 +62,13 @@ public class TimeTable
 		ArrayList<TimeSlot> rv = new ArrayList<TimeSlot>();
 		int i = 0;
 		for (TimeSlot t : this.timeSlots) {
-			allPoints[i++] = t.getT1();
-			allPoints[i++] = t.getT2();
+			allPoints[i++] = t.getStartPoint();
+			allPoints[i++] = t.getStopPoint();
 		}
 
 		for (TimeSlot t : that.timeSlots) {
-			allPoints[i++] = t.getT1();
-			allPoints[i++] = t.getT2();
+			allPoints[i++] = t.getStartPoint();
+			allPoints[i++] = t.getStopPoint();
 		}
 
 		Arrays.sort(allPoints);
@@ -71,7 +76,7 @@ public class TimeTable
 
 		while (i < allPoints.length) {
 			TimeSlot t = new TimeSlot(new TimePoint(new Date(0), TimeType.start), new TimePoint(new Date(3), TimeType.end));
-			t.setT1(allPoints[i]);
+			t.setStartPoint(allPoints[i]);
 			int endcount = 1;
 			while (endcount > 0) {
 				i++;
@@ -81,7 +86,7 @@ public class TimeTable
 					endcount--;
 				}
 			}
-			t.setT2(allPoints[i++]);
+			t.setStopPoint(allPoints[i++]);
 			rv.add(t);
 		}
 		return new TimeTable(rv);
@@ -103,13 +108,13 @@ public class TimeTable
 		ArrayList<TimeSlot> rv = new ArrayList<TimeSlot>();
 		int i = 0;
 		for (TimeSlot t : this.timeSlots) {
-			one[i++] = t.getT1();
-			one[i++] = t.getT2();
+			one[i++] = t.getStartPoint();
+			one[i++] = t.getStopPoint();
 		}
 		i = 0;
 		for (TimeSlot t : that.timeSlots) {
-			two[i++] = t.getT1();
-			two[i++] = t.getT2();
+			two[i++] = t.getStartPoint();
+			two[i++] = t.getStopPoint();
 		}
 		int first = 0;
 		int second = 0;
@@ -177,8 +182,8 @@ public class TimeTable
 	 */
 	public boolean equals(TimeTable t) {
 		for (int i = 0; i < t.timeSlots.length; i++) {
-			boolean t1Cond = this.timeSlots[i].getT1().equals(t.timeSlots[i].getT1());
-			boolean t2Cond = this.timeSlots[i].getT2().equals(t.timeSlots[i].getT2());
+			boolean t1Cond = this.timeSlots[i].getStartPoint().equals(t.timeSlots[i].getStartPoint());
+			boolean t2Cond = this.timeSlots[i].getStopPoint().equals(t.timeSlots[i].getStopPoint());
 			if (!(t1Cond && t2Cond))
 				return false;
 		}

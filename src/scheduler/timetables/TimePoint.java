@@ -80,5 +80,10 @@ public class TimePoint implements Comparable<TimePoint>
 			return "End " + this.getTime();
 		}
 	}
+	
+	public int getTimeBetween(TimePoint t) {
+		return ((this.getTime() - t.getTime()) < 0)? (int) (this.getTime() - t.getTime()) * (-1) : (int) (this.getTime() - t.getTime());
+	}
+
 
 }
