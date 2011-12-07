@@ -38,7 +38,6 @@ public class Scheduler
 	 * systemtime if it already has been by another Scheduler. If not, it will
 	 * initialise it at System.currentTimeMillis();
 	 */
-	//XXX why define this constructor if not explitcitly defined it will not exist / be in scope
 	public Scheduler () {
 		if(currentSystemTime == null)
 			currentSystemTime = new Date(System.currentTimeMillis());
@@ -59,56 +58,43 @@ public class Scheduler
 	public Date schedule(long duration, Collection<Schedulable>... resourcesToSchedule) throws QueueException {
 		for (int i = 0; i < resourcesToSchedule.length; i++)
 			this.stillToSchedule.add(resourcesToSchedule[i]);
-		this.schedule(duration, new LinkedList<Schedulable>());
+		this.schedule(duration, new LinkedList<TimeTable>());
 		return null;
-		// Voor dieter: goto: 79
 	}
 	
 	/**
 	 * This <b><i>PRIVATE</i></b> method will schedule an appointment
 	 * recursively for every required resource.
 	 * 
+	 * @param duration
+	 * 
 	 * @param used
-	 *            The in-between TimeTable; to be passed through on every
-	 *            recursive call.
+	 * 
 	 * @effect getNextResourceQueue()
 	 * @return The date of the scheduled appointment.
 	 */
-	private LinkedList<Schedulable> schedule(long duration, LinkedList<Schedulable> alreadyScheduled) throws QueueException {
-		LinkedList<Schedulable> resourceQueue = getNextResourceQueue();
-		Collection<Schedulable> sortedResources = sortByFirstFreeSlot(resourceQueue);
-		// DIETER AFBLIJVE, TIS NOG NI AF!!
-		
-		// IK ZWEER HET..
-		alreadyScheduled.add(getBestMatch(duration, sortedResources));
+	private Date schedule(long duration, LinkedList<TimeTable> used) throws QueueException {
+		if (duration < 0) 
+			throw new IllegalArgumentException("Invalid duration parameter in private schedule-method!");
 		
 		if(stillToSchedule.isEmpty())
-			return alreadyScheduled;
-		// NEEEEEEEEEEE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		return schedule(duration, alreadyScheduled);
-	}
-	
-	/**
-	 * This method will get the best match of a collection of resources.
-	 * @param duration
-	 * @param sortedResources
-	 * @return
-	 */
-	private Schedulable getBestMatch(long duration, Collection<Schedulable> sortedResources) {
-		boolean found = false;
-		Schedulable match = null;
+			return null;
 		
-		while (!found) {
-			for (Schedulable resource : sortedResources) {
-				TimeSlot resFirstFree = resource.getTimeTable().getNextFreeSlot(duration);
-				if (isValidCandidateSlot(resFirstFree, duration)) {
-					match = resource;
-					found = true;
-				}
-			}
+		List<Schedulable> resourceQueue = getNextResourceQueue();
+		Collection<Schedulable> sortedResources = sortByFirstFreeSlot(resourceQueue); // XXX: moet er wel gesort worden?
+		Schedulable firstQueueElement = resourceQueue.remove(0);
+		Collection<TimeTable> allTheTimeTables = new LinkedList<TimeTable>();
+		Iterator<Schedulable> schedIterator = resourceQueue.iterator();
+		
+		while(schedIterator.hasNext()) {
+			allTheTimeTables.add(schedIterator.next().getTimeTable());
+			resourceQueue.remove(0);
 		}
 		
-		return match;
+		TimeTable curIntersection = firstQueueElement.getTimeTable().intersectAll(resourceQueue);
+		
+		
+		return schedule(duration, null);
 	}
 
 	/**
@@ -120,7 +106,6 @@ public class Scheduler
 	 * @return Every item in the given collection in an accordingly sorted
 	 *         fashion.
 	 */
-	//XXX: Why not sort by ( comparator as an argument ?)
 	private Collection<Schedulable> sortByFirstFreeSlot(Collection<Schedulable> collection) {
 		Schedulable[] returnValue = new Schedulable[collection.size()];
 		
@@ -144,7 +129,6 @@ public class Scheduler
 	 * @return True if t is a valid timeslot for duration amount of time.
 	 */
 	private boolean isValidCandidateSlot(TimeSlot t, long duration) {
-		//XXX the 2nd && clause is kinda weird, the start point must be before tomorrow
 		return t.getLength() >= duration && t.getStartPoint().getTime() < currentSystemTime.getTime() + 60 * 1000 * 3600;
 	}
 	
@@ -162,10 +146,7 @@ public class Scheduler
 			throw new QueueException("Error while updating resource queue: nothing left to schedule!");
 		
 		Collection<Schedulable> col = stillToSchedule.remove(0);
-		//XXX: maybe just maybe refactor to return new LinkedList<Schedulable>(stillToSchedule.remove(0));
-		for (Schedulable resource : col) {
-			queue.add(resource);
-		}
+		
 		return queue;
 	}
 	
