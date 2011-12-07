@@ -83,6 +83,7 @@ public class TimeTableTest
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void union4TestFaal() {
+		@SuppressWarnings("unused")
 		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(-2), TimeType.start), new TimePoint(new Date(-5), TimeType.end));
 		throw new IllegalStateException("Should not be able to get past all the previous code!!! ");
 	}
