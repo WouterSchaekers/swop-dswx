@@ -108,7 +108,7 @@ public class TimeTable
 	 * 
 	 * @return
 	 */
-	// TODO: remove doubles? -- remove method?
+	// TODO: remove doubles? -- remove method? huh < what does this mean
 	public TimeTable getUnion(TimeTable that) {
 		TimePoint[] allPoints = new TimePoint[this.timeSlots.length * 2
 				+ that.timeSlots.length * 2];
@@ -251,5 +251,12 @@ public class TimeTable
 				return false;
 		}
 		return true;
+	}
+
+	public TimeTable intersectAll(TimeTable... filter) {
+		Collection<TimeTable> c = new ArrayList<TimeTable>();
+		for(TimeTable t : filter)
+			c.add(t);
+		return intersectAll(c);
 	}
 }

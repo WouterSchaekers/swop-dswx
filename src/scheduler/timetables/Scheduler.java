@@ -38,6 +38,7 @@ public class Scheduler
 	 * systemtime if it already has been by another Scheduler. If not, it will
 	 * initialise it at System.currentTimeMillis();
 	 */
+	//XXX why define this constructor if not explitcitly defined it will not exist / be in scope
 	public Scheduler () {
 		if(currentSystemTime == null)
 			currentSystemTime = new Date(System.currentTimeMillis());
@@ -119,6 +120,7 @@ public class Scheduler
 	 * @return Every item in the given collection in an accordingly sorted
 	 *         fashion.
 	 */
+	//XXX: Why not sort by ( comparator as an argument ?)
 	private Collection<Schedulable> sortByFirstFreeSlot(Collection<Schedulable> collection) {
 		Schedulable[] returnValue = new Schedulable[collection.size()];
 		
@@ -142,6 +144,7 @@ public class Scheduler
 	 * @return True if t is a valid timeslot for duration amount of time.
 	 */
 	private boolean isValidCandidateSlot(TimeSlot t, long duration) {
+		//XXX the 2nd && clause is kinda weird, the start point must be before tomorrow
 		return t.getLength() >= duration && t.getStartPoint().getTime() < currentSystemTime.getTime() + 60 * 1000 * 3600;
 	}
 	
@@ -159,6 +162,7 @@ public class Scheduler
 			throw new QueueException("Error while updating resource queue: nothing left to schedule!");
 		
 		Collection<Schedulable> col = stillToSchedule.remove(0);
+		//XXX: maybe just maybe refactor to return new LinkedList<Schedulable>(stillToSchedule.remove(0));
 		for (Schedulable resource : col) {
 			queue.add(resource);
 		}
