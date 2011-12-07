@@ -4,25 +4,22 @@ import java.util.*;
 import scheduler.TimeType;
 
 /***
- * \ A class consisting of timeslots that always have a start and and end moment
- * The slots stored here are time segments that are taken. The union of 2 time
- * tables is the union of the collections of time slots.
- * 
- * @author Dieter
- * 
+ * A class consisting of timeslots that always have a start- and end moment.
+ * The slots stored here represent timeslots from real life.
  */
 public class TimeTable
 {
 	private TimeSlot[] timeSlots;
 
 	public TimeTable(TimeSlot... slots) {
-		TimeSlot[] v = new TimeSlot[slots.length];
-		for (int i = 0; i < v.length; i++) {
-			v[i] = slots[i];
-		}
-		this.timeSlots = v;
+		this(new ArrayList<TimeSlot>(Arrays.asList(slots)));
 	}
 
+	/**
+	 * Default constructor. Will initialise fields.
+	 * @param slots
+	 * All TimeSlots to be stored in this TimeTable.
+	 */
 	public TimeTable(Collection<TimeSlot> slots) {
 		TimeSlot[] v = new TimeSlot[slots.size()];
 		int i = 0;
@@ -32,16 +29,37 @@ public class TimeTable
 		this.timeSlots = v;
 	}
 
+	/**
+	 * This method will get the intersection of this TimeTable with a lot of other TimeTables.
+	 * @param table
+	 * The collection of Tables you would like to get the intersection with.
+	 * @return
+	 * A TimeTable that's the intersection of all given tables and this table. 
+	 */
 	public TimeTable getIntersectionWith(Collection<TimeTable> table) {
-		return null;
-
+		TimeTable rv = this.getIntersect(this);
+		for (TimeTable timeTable : table) {
+			rv = timeTable.getIntersect(rv);
+		}
+		return rv;
 	}
 
+	/**
+	 * 
+	 * @param time_needed
+	 * @return
+	 */
 	public TimeTable getFirstFreeSlot(int time_needed) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	/**
+	 * 
+	 * @param head
+	 * @param line
+	 * @return
+	 */
 	public static Collection<TimeTable> intersectAll(
 			Collection<TimeTable> head, TimeTable line) {
 		// TODO Auto-generated method stub
