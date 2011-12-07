@@ -1,12 +1,29 @@
 package scheduler.timetables;
 
 import static org.junit.Assert.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import org.junit.Test;
 import scheduler.TimeType;
 
 public class TimeTableTest
 {
+	@Test
+	public void equalsTest(){
+		Collection<TimeSlot> timeSlots1 = new ArrayList<TimeSlot>();
+		Collection<TimeSlot> timeSlots2 = new ArrayList<TimeSlot>();
+		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(0), TimeType.start),
+				new TimePoint(new Date(5), TimeType.end));
+		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(0), TimeType.start),
+				new TimePoint(new Date(5), TimeType.end));
+		timeSlots1.add(t1);
+		timeSlots2.add(t2);
+		TimeTable table1 = new TimeTable(timeSlots1);
+		TimeTable table2 = new TimeTable(timeSlots2);
+		assertTrue(table1.equals(table2));
+	}
+	
 	@Test
 	public void unionTest() {
 		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(0), TimeType.start),
