@@ -2,3 +2,8 @@
 We pushen ALLE constraint processing naar de ConstraintProcessor! De Scheduler moet alleen maar schedulen als de constraints in orde zijn :)
 
 <img src="http://www.imgdumper.nl/uploads5/4ed8ef83840a2/4ed8ef837eea1-SchedulerPlanversie8.jpg">
+
+= Na zondag 4/12 =
+We zijn tot de vaststelling gekomen dat het voorlopig nog niet nodig is om constraints op die manier te processen. 
+<br>
+<br>Veel van de constraints worden immers al opgevangen door het feit dat er usecases zijn. De scheduler houdt zich vanaf nu alleen nog maar bezig met time-related constraints.
