@@ -193,4 +193,18 @@ public class TimeTableTest
 		assertTrue(res.equals(table2));
 		assertTrue(res.equals(table));
 	}
+	@Test
+	public void intersectTest123()
+	{
+		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(50), TimeType.start), new TimePoint(new Date(5000), TimeType.end));
+		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(10), TimeType.start), new TimePoint(new Date(60), TimeType.end));
+		TimeSlot t3 = new TimeSlot(new TimePoint(new Date(100), TimeType.start), new TimePoint(new Date(150), TimeType.end));
+		TimeSlot tr2 = new TimeSlot(new TimePoint(new Date(50), TimeType.start), new TimePoint(new Date(60), TimeType.end));
+		TimeSlot tr3 = new TimeSlot(new TimePoint(new Date(100), TimeType.start), new TimePoint(new Date(150), TimeType.end));
+		
+		TimeTable result = new TimeTable(tr2,tr3);
+		TimeTable filter = new TimeTable(t1);
+		TimeTable elements = new TimeTable(t2,t3);
+		assertTrue(result.equals(elements.intersectAll(filter,elements)));
+	}
 }
