@@ -22,6 +22,7 @@ public class Scheduler
 {
 	private static Date currentSystemTime;
 	private LinkedList<Collection<Schedulable>> stillToSchedule = new LinkedList<Collection<Schedulable>>();
+	private LinkedList<Collection<Schedulable>> allTheNeededResources = new LinkedList<Collection<Schedulable>>();
 	
 	/**
 	 * Default constructor; will set current system time.
@@ -47,9 +48,12 @@ public class Scheduler
 	 *            The wanted length of the reservation of each resource.
 	 * @return The start date of the scheduled appointment.
 	 */
-	public Date schedule(long duration, Collection<Schedulable>... resourcesToSchedule) throws QueueException, InvalidDurationException {
-		for (int i = 0; i < resourcesToSchedule.length; i++)
+	public Date schedule(long duration, Collection<Schedulable>... resourcesToSchedule) throws QueueException, InvalidDurationException, InvalidSchedulingRequestException {
+		for (int i = 0; i < resourcesToSchedule.length; i++) {
 			this.stillToSchedule.add(resourcesToSchedule[i]);
+			this.allTheNeededResources.add(resourcesToSchedule[i]);
+		}
+
 		this.schedule(duration, new LinkedList<TimeTable>());
 		return null;
 	}
@@ -59,46 +63,31 @@ public class Scheduler
 	 * recursively for every required resource.
 	 * 
 	 * @param duration
+	 *            The length of the appointment one would like to make.
 	 * 
 	 * @param used
+	 *            Used for recursive purposes. Keeps the current set of all
+	 *            intersected timelines stored.
 	 * 
-	 * @effect getNextResourceQueue()
 	 * @return The date of the scheduled appointment.
 	 */
-	private Date schedule(long duration, LinkedList<TimeTable> used) throws QueueException, InvalidDurationException {
+	private Date schedule(long duration, LinkedList<TimeTable> used) throws QueueException, InvalidDurationException, InvalidSchedulingRequestException {
 		if (duration < 0) 
 			throw new InvalidDurationException("Invalid duration in schedule-method!");
 		
+		// First we check if, in this call, the recursion is in it's final step.
 		if(stillToSchedule.isEmpty()) {
-			// We now have intersected all the time lines of
-			// all the requested types of resources.
-			// The result is that we now, for each requested resourcetype
-			// have a timetable that is only marked as "busy" if all
-			// instances of that resourcetype are busy at that time.
+			// We've calculated the intersected timetable 
+			// of each of the resources in every collection.
 			//
-			// In other words: if a slot is free in the merged timetable,
-			// there will be at least one instance of that resource type that
-			// can be scheduled at that time.
-			//
-			// The only thing left to do now is to intersect all intersected
-			// timetables with eachother and grab the first free slot that's
-			// available in that timetable.
-			//
-			// Once we have that slot, we can check which one of our resources
-			// is available at that specific time.
-			//
-			// After we have all of those, we only need to tell them to be
-			// Busy at the found free slot and return the time of the start
-			// of that slot to the method calling this method.
-			//
-			// should be easy enough ;)
-			// Stefaan gaat dees dus morgen fixen. wie aan de code komt
-			// zonder zijn permissie krijgt meppen. ^^
-
-			// Collection<Schedulable> sortedResources = sortByFirstFreeSlot(used.);
-			return null;
+			// Let's schedule them!
+			return finalSchedulingStep(used, duration);
 		}
 		
+		// If this isn't the final step, we need to intersect all resources of
+		// the next collection of instances of resources of which the best has
+		// to be chosen out of and finally scheduled.
+		// For further info: check the documentation on finalSchedulingStep().
 		List<Schedulable> resourceQueue = getNextResourceQueue();
 		Schedulable firstQueueElement = resourceQueue.remove(0);
 		Collection<TimeTable> allTheTimeTables = new LinkedList<TimeTable>();
@@ -109,45 +98,108 @@ public class Scheduler
 			resourceQueue.remove(0);
 		}
 		
-		TimeTable curTimeTableIntersection = firstQueueElement.getTimeTable().intersectAll(allTheTimeTables);
-		used.add(curTimeTableIntersection);		
+		TimeTable theIntersection = firstQueueElement.getTimeTable().intersectAll(allTheTimeTables);
+		used.add(theIntersection);		
 		
 		return schedule(duration, used);
 	}
-
+	
 	/**
-	 * This method will sort a given collection of schedulables by first
-	 * available slot.
+	 * This method is called as the final step of the recursive private
+	 * scheduling method. Using this method in any other location is
+	 * <b>absolutely</b> forbidden.
+	 * <p>
+	 * Let's talk a bit about what the current situation should be, when this
+	 * method is called, and what this method does.
+	 * </p>
+	 * <p>
+	 * By now, we have intersected all the time lines of all the requested types
+	 * of resources. The result is that we have a timetable for each requested
+	 * resourcetype, that is marked as "busy" if all instances of that
+	 * resourcetype are busy at that time. In other words: if a slot is free in
+	 * that merged timetable, there will be at least one instance of that
+	 * resource type that can be scheduled in that slot.
+	 * </p>
+	 * <p>
+	 * The only thing left to do after that is to unify all intersected
+	 * timetables with eachother and get the free slots from that table.
+	 * </p>
+	 * <p>
+	 * Once we have those slots, we can check which one of the resources is
+	 * available at that specific time.
+	 * </p>
+	 * <p>
+	 * After we have found those, we need to tell them to schedule themselves at
+	 * the found free slot. We can then return the date of the start of that
+	 * free slot.
+	 * </p>
 	 * 
-	 * @param collection
-	 *            The collection of schedulables to be sorted.
-	 * @return Every item in the given collection in an accordingly sorted
-	 *         fashion.
+	 * @param used
+	 *            The linked list of all TimeTables calculated by the private
+	 *            schedule-method.
+	 * @param duration
+	 *            The duration of the requested appointment.
+	 * @return The date at which the appointment has been made.
+	 * @throws InvalidSchedulingRequestException
+	 *             If used.isEmpty();
 	 */
-	private Collection<Schedulable> sortByFirstFreeSlot(Collection<Schedulable> collection) {
-		Schedulable[] returnValue = new Schedulable[collection.size()];
+	private Date finalSchedulingStep(LinkedList<TimeTable> used, long duration) throws InvalidSchedulingRequestException {
+		if (used.isEmpty())
+			throw new InvalidSchedulingRequestException(
+					"Schedule-method called without asking for any resources!");
+
+		// Get all free timeslots
+		LinkedList<TimeTable> freeTables = new LinkedList<TimeTable>();
+		for (TimeTable tt : used)
+			freeTables.add(tt.getAllFreeSlots(duration));
 		
-		int i = 0;
-		for (Schedulable s : collection)
-			returnValue[i++] = s;
-		Arrays.sort(returnValue, comparatorOfSchedulables);
-		return new LinkedList<Schedulable>(Arrays.asList(returnValue));
-	}
-	
-	@Basic
-	public Date getCurrentSystemTime() {
-		return currentSystemTime;
-	}
-	
-	public void setNewSystemTime(Date newTime) {
-		currentSystemTime = newTime;
-	}
-	
-	/**
-	 * @return True if t is a valid timeslot for duration amount of time.
-	 */
-	private boolean isValidCandidateSlot(TimeSlot t, long duration) {
-		return t.getLength() >= duration && t.getStartPoint().getTime() < currentSystemTime.getTime() + 60 * 1000 * 3600;
+		// We now have all the timetables containing the intersection of free
+		// time of every collection of resourcetypes. Let's unify them so we get
+		// one huge table that contains all free times!
+		TimeTable unionOfFreeTime = freeTables.remove(0).unionAll(freeTables);
+
+		// The following command gets all the free slots from the huge table
+		// mentioned above.
+		LinkedList<TimeSlot> freeSlots = unionOfFreeTime.getTimeSlots();
+
+		// Now we have one timetable that is marked as "busy" if
+		// there's at least one instance of each resourcetype 
+		// that is free at that time.
+		//
+		// We now need to check which one of those instances it is
+		// and then tell it to schedule itself.
+		LinkedList<Schedulable> foundResources = null;
+		TimeSlot foundSlot = null;
+
+		for (TimeSlot candidateSlot : freeSlots) {
+			foundResources = new LinkedList<Schedulable>();
+			for (Collection<Schedulable> candidateCol : allTheNeededResources) {
+				for (Schedulable candidate : candidateCol) {
+					if (candidate.canBeScheduledOn(
+							candidateSlot.getStartPoint().getDate(), 
+							candidateSlot.getStopPoint().getDate())) {
+						// We found our match in this collection:
+						// add it to the list of results and
+						// break from the loop.
+						foundResources.add(candidate);
+						break;
+					}
+				}
+			}
+			if (foundResources.size() == allTheNeededResources.size()) {
+				// We've found our appointment slot!
+				foundSlot = candidateSlot;
+				// We can now break from the loop.
+				break;
+			}
+		}
+
+		// Tell the found elements to schedule themselves.
+		for (Schedulable s : foundResources)
+			s.scheduleAt(foundSlot);
+
+		// return the date of the start of appointment
+		return foundSlot.getStartPoint().getDate();
 	}
 	
 	/**
@@ -164,16 +216,12 @@ public class Scheduler
 		return (LinkedList<Schedulable>)stillToSchedule.remove(0);
 	}
 	
-	/**
-	 * A comparator to compare 2 Schedulables.
-	 * Will compare the startpoints.
-	 */
-	Comparator<Schedulable> comparatorOfSchedulables = new Comparator<Schedulable>()
-	{
-		public int compare(Schedulable o1, Schedulable o2) {
-			TimePoint freeSlotO1 = o1.getTimeTable().getFirstFreeSlot(0).getStartPoint();
-			TimePoint freeSlotO2 = o2.getTimeTable().getFirstFreeSlot(0).getStartPoint();
-			return freeSlotO1.compareTo(freeSlotO2);
-		}
-	};
+	@Basic
+	public Date getCurrentSystemTime() {
+		return currentSystemTime;
+	}
+	
+	public void setNewSystemTime(Date newTime) {
+		currentSystemTime = newTime;
+	}
 }
