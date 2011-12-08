@@ -185,6 +185,35 @@ public class TimeTableTest
 	}
 	
 	@Test
+	public void intersect5Test()
+	{
+		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(50), TimeType.start), new TimePoint(new Date(5000), TimeType.end));
+		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(10), TimeType.start), new TimePoint(new Date(60), TimeType.end));
+		TimeSlot t3 = new TimeSlot(new TimePoint(new Date(100), TimeType.start), new TimePoint(new Date(150), TimeType.end));
+		TimeSlot tr2 = new TimeSlot(new TimePoint(new Date(50), TimeType.start), new TimePoint(new Date(60), TimeType.end));
+		TimeSlot tr3 = new TimeSlot(new TimePoint(new Date(100), TimeType.start), new TimePoint(new Date(150), TimeType.end));
+		TimeTable result = new TimeTable(tr2,tr3);
+		TimeTable filter = new TimeTable(t1);
+		TimeTable elements = new TimeTable(t2,t3);
+		Collection<TimeTable> ct = new ArrayList<TimeTable>(Arrays.asList(filter,elements));
+		assertTrue(result.equals(elements.intersectAll(ct)));
+	}
+	
+	@Test
+	public void intersect6Test()
+	{
+		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(0), TimeType.start), new TimePoint(new Date(10), TimeType.end));
+		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(10), TimeType.start), new TimePoint(new Date(20), TimeType.end));
+//		TimeSlot t3 = new TimeSlot(new TimePoint(new Date(10), TimeType.start), new TimePoint(new Date(25), TimeType.end));
+		TimeSlot t4 = new TimeSlot(new TimePoint(new Date(10), TimeType.start), new TimePoint(new Date(20), TimeType.end));
+		TimeSlot t5 = new TimeSlot(new TimePoint(new Date(20), TimeType.start), new TimePoint(new Date(30), TimeType.end));
+		TimeTable table = new TimeTable(t1, t2);
+		TimeTable table2 = new TimeTable(t4, t5);
+		TimeTable res = table.getIntersect(table2);
+		assertTrue(res.equals(new TimeTable(new TimeSlot(new TimePoint(new Date(10), TimeType.start), new TimePoint(new Date(20), TimeType.end)))));
+	}
+	
+	@Test
 	public void intersectTestWithOnlyOneTable() {
 		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(1), TimeType.start), new TimePoint(new Date(5), TimeType.end));
 		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(10), TimeType.start), new TimePoint(new Date(15), TimeType.end));
@@ -194,19 +223,26 @@ public class TimeTableTest
 		assertTrue(res.equals(table2));
 		assertTrue(res.equals(table));
 	}
+	
 	@Test
-	public void intersectTest123()
-	{
-		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(50), TimeType.start), new TimePoint(new Date(5000), TimeType.end));
-		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(10), TimeType.start), new TimePoint(new Date(60), TimeType.end));
-		TimeSlot t3 = new TimeSlot(new TimePoint(new Date(100), TimeType.start), new TimePoint(new Date(150), TimeType.end));
-		TimeSlot tr2 = new TimeSlot(new TimePoint(new Date(50), TimeType.start), new TimePoint(new Date(60), TimeType.end));
-		TimeSlot tr3 = new TimeSlot(new TimePoint(new Date(100), TimeType.start), new TimePoint(new Date(150), TimeType.end));
-		
-		TimeTable result = new TimeTable(tr2,tr3);
-		TimeTable filter = new TimeTable(t1);
-		TimeTable elements = new TimeTable(t2,t3);
-		Collection<TimeTable> ct = new ArrayList<TimeTable>(Arrays.asList(filter,elements));
-		assertTrue(result.equals(elements.intersectAll(ct)));
+	public void eliminateOverlapTest() {
+		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(1), TimeType.start), new TimePoint(new Date(11), TimeType.end));
+		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(10), TimeType.start), new TimePoint(new Date(15), TimeType.end));
+		TimeTable table = new TimeTable(t1, t2);
+		TimePoint[] timePoints = TimeTable.eliminateOverlap(table);
+		assertTrue(timePoints.length == 2);
+		assertTrue(timePoints[0].equals(new TimePoint(new Date(1), TimeType.start)));
+		assertTrue(timePoints[1].equals(new TimePoint(new Date(15), TimeType.end)));
+	}
+	
+	@Test
+	public void eliminateOverlap2Test() {
+		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(1), TimeType.start), new TimePoint(new Date(10), TimeType.end));
+		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(10), TimeType.start), new TimePoint(new Date(15), TimeType.end));
+		TimeTable table = new TimeTable(t1, t2);
+		TimePoint[] timePoints = TimeTable.eliminateOverlap(table);
+		assertTrue(timePoints.length == 2);
+		assertTrue(timePoints[0].equals(new TimePoint(new Date(1), TimeType.start)));
+		assertTrue(timePoints[1].equals(new TimePoint(new Date(15), TimeType.end)));
 	}
 }
