@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Date;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidSerialException;
-import scheduler.timetables.TimeTable;
+import scheduler.TimeTable;
 import task.Schedulable;
 
 /**

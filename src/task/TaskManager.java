@@ -3,6 +3,7 @@ package task;
 import java.util.*;
 import be.kuleuven.cs.som.annotate.*;
 import exceptions.*;
+import scheduler.Scheduler;
 import scheduler.timetables.*;
 
 /**

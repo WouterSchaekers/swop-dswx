@@ -1,4 +1,4 @@
-package scheduler.timetables;
+package scheduler;
 
 import static org.junit.Assert.*;
 import java.util.ArrayList;
@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import org.junit.Test;
-import scheduler.TimeType;
 
 public class TimeTableTest
 {

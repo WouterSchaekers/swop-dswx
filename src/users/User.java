@@ -1,6 +1,6 @@
 package users;
 
-import scheduler.timetables.TimeTable;
+import scheduler.TimeTable;
 import controllers.interfaces.UserIN;
 
 public abstract class User implements UserIN
