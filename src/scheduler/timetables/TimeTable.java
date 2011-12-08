@@ -161,7 +161,6 @@ public class TimeTable
 	 * 
 	 * @return
 	 */
-	// TODO: remove doubles? -- remove method?
 	public TimeTable getUnion(TimeTable that) {
 		TimePoint[] allPoints = new TimePoint[this.timeSlots.length * 2
 				+ that.timeSlots.length * 2];
