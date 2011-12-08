@@ -313,6 +313,22 @@ public class TimeTable
 
 		return rv;
 	}
+	
+	/**
+	 * This method will get the union of this TimeTable with a lot of other
+	 * TimeTables.
+	 * 
+	 * @param tables
+	 *            The collection of Tables you would like to get the union of.
+	 * @return A TimeTable that's the union of all given tables and this table.
+	 */
+	public TimeTable unionAll(Collection<TimeTable> tables) {
+		TimeTable rv = this.getUnion(this);
+		for (TimeTable timeTable : tables)
+			rv = timeTable.getUnion(rv);
+
+		return rv;
+	}
 
 	/**
 	 * This method will give the timeslot at the end of this time table without
