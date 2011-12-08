@@ -2,7 +2,7 @@ package users;
 
 import java.util.Date;
 import scheduler.TimeSlot;
-import task.Schedulable;
+import scheduler.task.Schedulable;
 
 public class Nurse extends User implements Schedulable
 {
