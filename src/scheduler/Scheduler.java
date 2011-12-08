@@ -3,7 +3,7 @@ package scheduler;
 import java.util.*;
 import exceptions.*;
 import be.kuleuven.cs.som.annotate.Basic;
-import task.Schedulable;
+import scheduler.task.Schedulable;
 
 /**
  * This class will assign all schedulables their timetables.
