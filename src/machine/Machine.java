@@ -6,7 +6,7 @@ import java.util.Date;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidSerialException;
 import scheduler.TimeTable;
-import task.Schedulable;
+import scheduler.task.Schedulable;
 
 /**
  * This class represents a machine in the hospital.
