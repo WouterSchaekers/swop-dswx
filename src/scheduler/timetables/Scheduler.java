@@ -221,6 +221,7 @@ public class Scheduler
 		return currentSystemTime;
 	}
 	
+	@Basic
 	public void setNewSystemTime(Date newTime) {
 		currentSystemTime = newTime;
 	}
