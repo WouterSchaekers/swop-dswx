@@ -1,7 +1,7 @@
 package users;
 
 import java.util.Date;
-import scheduler.timetables.TimeSlot;
+import scheduler.TimeSlot;
 import task.Schedulable;
 
 public class Nurse extends User implements Schedulable

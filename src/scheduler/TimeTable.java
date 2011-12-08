@@ -1,8 +1,7 @@
-package scheduler.timetables;
+package scheduler;
 
 import java.util.*;
 import be.kuleuven.cs.som.annotate.Basic;
-import scheduler.TimeType;
 
 /**
  * A class consisting of timeslots that always have a start- and end moment. The

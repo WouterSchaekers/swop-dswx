@@ -1,7 +1,7 @@
 package machine;
 
 import java.util.Date;
-import scheduler.timetables.TimeSlot;
+import scheduler.TimeSlot;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidSerialException;
 

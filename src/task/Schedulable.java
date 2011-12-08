@@ -1,8 +1,8 @@
 package task;
 
 import java.util.Date;
-import scheduler.timetables.TimeTable;
-import scheduler.timetables.TimeSlot;
+import scheduler.TimeSlot;
+import scheduler.TimeTable;
 
 public interface Schedulable
 {

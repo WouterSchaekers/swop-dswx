@@ -1,4 +1,4 @@
-package scheduler.timetables;
+package scheduler;
 
 import java.util.*;
 import exceptions.*;

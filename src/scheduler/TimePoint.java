@@ -1,8 +1,7 @@
-package scheduler.timetables;
+package scheduler;
 
 import java.util.Date;
 import be.kuleuven.cs.som.annotate.Basic;
-import scheduler.TimeType;
 
 /**
  * This class can be used to schedule appointments. It is either a start- or a

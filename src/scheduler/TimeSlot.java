@@ -1,4 +1,4 @@
-package scheduler.timetables;
+package scheduler;
 
 import be.kuleuven.cs.som.annotate.Basic;
 
