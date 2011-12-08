@@ -224,21 +224,7 @@ public class TimeTable
 	public TimeTable getIntersect(TimeTable that) {
 		TimePoint[] one = TimeTable.eliminateOverlap(this);
 		TimePoint[] two = TimeTable.eliminateOverlap(that);
-		// TimePoint[] one = new TimePoint[this.timeSlots.length * 2];
-		// TimePoint[] two = new TimePoint[that.timeSlots.length * 2];
 		ArrayList<TimeSlot> rv = new ArrayList<TimeSlot>();
-		// int i = 0;
-		// for (TimeSlot t : this.timeSlots) {
-		// one[i++] = t.getStartPoint();
-		// one[i++] = t.getStopPoint();
-		// }
-		// i = 0;
-		// for (TimeSlot t : that.timeSlots) {
-		// two[i++] = t.getStartPoint();
-		// two[i++] = t.getStopPoint();
-		// }
-		Arrays.sort(one);
-		Arrays.sort(two);
 		int first = 0;
 		int second = 0;
 		while (first < one.length - 1 && second < two.length - 1) {
@@ -291,12 +277,16 @@ public class TimeTable
 			if (timePoints[i].getType() == TimeType.start) {
 				amount++;
 				if (!(amount > 1)) {
-					simplifiedTimePoints.add(timePoints[i]);
+					if(!(i > 0 && timePoints[i-1].getTime() == timePoints[i].getTime())){
+						simplifiedTimePoints.add(timePoints[i]);
+					}
 				}
 			} else {
 				amount--;
 				if (!(amount > 0)) {
-					simplifiedTimePoints.add(timePoints[i]);
+					if(!(i < timePoints.length-1 && timePoints[i].getTime() == timePoints[i+1].getTime())){
+						simplifiedTimePoints.add(timePoints[i]);
+					}
 				}
 			}
 		}
