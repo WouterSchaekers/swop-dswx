@@ -2,7 +2,7 @@ package controllers;
 
 import patient.PatientFileManager;
 import scheduler.Scheduler;
-import scheduler.timetables.*;
+import scheduler.*;
 import users.UserManager;
 
 /**

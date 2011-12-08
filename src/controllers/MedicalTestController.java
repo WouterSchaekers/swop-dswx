@@ -1,6 +1,6 @@
 package controllers;
 
-import task.TaskManager;
+import scheduler.task.TaskManager;
 
 /**
  * This class can be used to do schedule medical tests etc...
