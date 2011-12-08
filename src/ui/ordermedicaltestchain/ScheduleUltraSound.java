@@ -1,7 +1,6 @@
 package ui.ordermedicaltestchain;
 
 import controllers.MedicalTestController;
-import scheduler.Appointment;
 import ui.SelectUsecase;
 import ui.UserinterfaceData;
 import ui.Usecase;
@@ -12,16 +11,12 @@ public class ScheduleUltraSound extends MedicalTestCommand
 		super(uiData, medData);
 	}
 
-	@SuppressWarnings("null")
 	@Override
 	public Usecase Execute() {
 		@SuppressWarnings("unused")
 		MedicalTestController mc = medData.getMedTestController();
 
-		//TOOO: FIX
-		//Appointment app = mc.orderUltraSound(medData.getFocus(), medData.getVid(), medData.getImg());
-		Appointment app = null;
-		System.out.println("The appointment was made at " + app.toString());
+		//XXX
 		return new SelectUsecase(data);
 	}
 
