@@ -335,7 +335,7 @@ public class TimeTable
 	}
 
 	@Basic
-	public Collection<TimeSlot> getTimeSlots() {
+	public LinkedList<TimeSlot> getTimeSlots() {
 		return new LinkedList<TimeSlot>(Arrays.asList(this.timeSlots));
 	}
 
