@@ -27,3 +27,8 @@
     * ...
   * Documentatie schrijven
   * ...
+
+= Wie is er momenteel waaraan bezig? =
+Dieter: Tests voor TimeTable en TimeSlot.
+Stefaan: Task en Scheduler
+Wouter: 
