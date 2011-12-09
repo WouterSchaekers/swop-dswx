@@ -6,12 +6,14 @@ import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.*;
 import treatment.Treatment;
 import users.Doctor;
+import scheduler.task.Requirement;
+
 /**
  * This class represents a diagnosis. It can insert, update and read the
  * diagnosis of a certain patient. It can mark a diagnosis for second opinion
  * and remembers if the diagnosis has been approved or not.
  */
-public class Diagnose
+public class Diagnose implements Requirement
 {
 
 	private String diag = ""; // the diagnosis
@@ -170,7 +172,7 @@ public class Diagnose
 
 	@Basic
 	public String getDiagnosis() {
-		return ((((((((((((((((((((((((((((((((((((((((((((((((((diag))))))))))))))))))))))))))))))))))))))))))))))))));
+		return this.diag;
 	}
 
 	@Basic
@@ -178,9 +180,9 @@ public class Diagnose
 		return this.attending;
 	}
 
+	@Basic
 	public Collection<Treatment> getTreatments() {
-		Collection<Treatment> rv = new ArrayList<Treatment>(treatments);
-		return rv;
+		return new ArrayList<Treatment>(treatments);
 	}
 
 	@Override
@@ -188,7 +190,15 @@ public class Diagnose
 		return this.getDiagnosis();
 	}
 
+	/**
+	 * @return True if t is a valid treatment for this Diagnose.
+	 */
 	private boolean isValidTreatment(Treatment t) {
 		return t != null;
+	}
+
+	@Override
+	public boolean isReady() {
+		return this.isApproved();
 	}
 }
