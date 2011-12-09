@@ -9,7 +9,7 @@
   * WarehouseAdmin
   * AdvanceTime()
   * Een oplossing voor het system-package en de SystemStarter class
-  * sortByFreeTime; nog eens herbekijken
+  * Nagaan welke klasses Requirements kunnen zijn behalve Diagnose.
   * TEKENINGETJES MAKEN ^^
   * de equals-methodes moeten goed getest worden
   * usecases iteratie 1, en vorige fixen.
@@ -31,7 +31,7 @@
 = Wie is er momenteel waaraan bezig? =
 <p>
 Dieter: Tests voor TimeTable en TimeSlot.<p>
-Stefaan: Task refinen<p>
+Stefaan: <p>
 Wouter: Functies van Schedulable + klassen die ermee te maken hebben (user, machine, treatment, ...)<p>
 
 = Things that have been crossed off = 
@@ -39,3 +39,5 @@ Wouter: Functies van Schedulable + klassen die ermee te maken hebben (user, mach
   * Commentaar voor TimeTable.
   * union tests have been written.
   * Task and TaskManager have been rewritten.
+  * Task has been updated.
+  * Requirement-interface has been added; check javadoc for more info.
