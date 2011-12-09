@@ -88,16 +88,12 @@ public class TimeTableTest
 	@Test
 	public void union3Test() {
 		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(-5), TimeType.start), new TimePoint(new Date(-2), TimeType.stop));
-		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(-2), TimeType.start), new TimePoint(new Date(15), TimeType.stop));
-		TimeSlot t3 = new TimeSlot(new TimePoint(new Date(2), TimeType.start),new TimePoint(new Date(9), TimeType.stop));
-		TimeSlot t4 = new TimeSlot(new TimePoint(new Date(13), TimeType.start), new TimePoint(new Date(21), TimeType.stop));
-		TimeTable table = new TimeTable(t1, t2);
-		TimeTable table2 = new TimeTable(t3, t4);
+		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(-2), TimeType.start), new TimePoint(new Date(21), TimeType.stop));
+		TimeTable table = new TimeTable(t1);
+		TimeTable table2 = new TimeTable(t2);
 		TimeTable res = table.getUnion(table2);
-		TimeSlot t5 = new TimeSlot(new TimePoint(new Date(130), TimeType.start), new TimePoint(new Date(2100), TimeType.stop));
 		TimeSlot t6 = new TimeSlot(new TimePoint(new Date(-5), TimeType.start), new TimePoint(new Date(21), TimeType.stop));
-		assertFalse(table.equals(new TimeTable(t5,t6)));
-		assertFalse(res.equals(new TimeTable(t5,t6)));
+		System.out.println(t6);
 		assertTrue(res.equals(t6));
 	}
 	
