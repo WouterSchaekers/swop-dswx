@@ -4,8 +4,8 @@
   * Scheduler: waar de juiste resource bepaald wordt; checken dat ze nog niet is opgenomen.
   * TimeTableTests voor union (! speciale gevallen kunnen nog problemen geven --> wouter)
   * Task en TaskManager fixen
-	# In de usecases willen we Tasks aanmaken.
-	# Als de Tasks niet onmiddellijk gescheduled kunnen worden, komen ze in de unscheduledTasks-collection van de Taskmanager.
+    * In de usecases willen we Tasks aanmaken.
+    * Als de Tasks niet onmiddellijk gescheduled kunnen worden, komen ze in de unscheduledTasks-collection van de Taskmanager.
 	# Als de taken wel onmiddellijk gescheduled kunnen worden, schedulen we ze.
 	# Een task moet dus gewoon zijn Resources bijhouden.
 	# Task manager moet verwittigd worden om zijn queues te updaten op de gepaste plaatsten in de usecases.
