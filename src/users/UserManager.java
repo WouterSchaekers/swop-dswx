@@ -3,6 +3,7 @@ package users;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import exceptions.InvalidNameException;
 import exceptions.UserAlreadyExistsException;
 
 public class UserManager
@@ -26,7 +27,7 @@ public class UserManager
 		this.users.put(newUser.name, newUser);
 	}
 
-	public Doctor CreateDoctor(String name) throws UserAlreadyExistsException {
+	public Doctor CreateDoctor(String name) throws UserAlreadyExistsException, InvalidNameException {
 		Doctor newUser = new Doctor(name);
 		AddUser(newUser);
 		return newUser;
@@ -36,7 +37,7 @@ public class UserManager
 		return users.values();
 	}
 
-	public Nurse CreateNurse(String string) throws UserAlreadyExistsException {
+	public Nurse CreateNurse(String string) throws UserAlreadyExistsException, InvalidNameException {
 		Nurse newUser = new Nurse(string);
 		AddUser(newUser);
 		return newUser;

@@ -2,6 +2,7 @@ package users;
 
 import java.util.Date;
 import exceptions.ImpossibleToScheduleException;
+import exceptions.InvalidNameException;
 import scheduler.TimeSlot;
 import scheduler.TimeTable;
 import scheduler.task.Schedulable;
@@ -9,7 +10,7 @@ import scheduler.task.Schedulable;
 public abstract class SchedulableUser extends User implements Schedulable
 {
 	protected TimeTable timeTable;
-	protected SchedulableUser(String name) {
+	protected SchedulableUser(String name) throws InvalidNameException {
 		super(name);
 		this.timeTable = new TimeTable();
 	}
