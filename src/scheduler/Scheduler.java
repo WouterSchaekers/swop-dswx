@@ -21,6 +21,8 @@ import scheduler.task.Schedulable;
 public class Scheduler
 {
 	private static Date currentSystemTime;
+	public static final Date START_OF_TIME = new Date(61283235600000l);
+	public static final Date END_OF_TIME = new Date(Long.MAX_VALUE);
 	
 	/**
 	 * This method will schedule one of each resources given in the parameters
@@ -242,19 +244,4 @@ public class Scheduler
 			return t != null;
 		return t != null && t.getTime() > currentSystemTime.getTime();
 	}
-	/**
-	 * start of time
-	 * @return
-	 */
-	public static Date startOfTime() {
-		return new Date(61283235600000l);
-	}
-	/**
-	 * end of time
-	 * @return
-	 */
-	public static Date endOfTime() {
-		return new Date(Long.MAX_VALUE);
-	}
-	
 }
