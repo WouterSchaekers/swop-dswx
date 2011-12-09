@@ -14,10 +14,10 @@
   * TEKENINGETJES MAKEN ^^
   * de equals-methodes moeten goed getest worden
   * usecases iteratie 1, en vorige fixen.
-  * alles defensief maken, zien dat geen interne data structuren worden gelekt.
   * nieuwe usecases van iteratie 2
   * eten
   * warehouse
+  * Result
   * als de tijd vooruit gaat, moeten de volgende dingen gebeuren:
     * Alle TimeTables moeten geupdate worden.
     * Het warehouse moet geupdate worden.
@@ -26,8 +26,6 @@
   * Documentatie schrijven
   * Verslag schrijven
   * De dude mailen met een draft versie van het verslag en de vraag of onze scheduler nu wel objectgericht geprogrammeerd is.
-  * Interne datastructuren niet lekken!
-  * Result
   * ...
 
 = Wie is er momenteel waaraan bezig? =
