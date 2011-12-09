@@ -179,31 +179,17 @@ public class TimeTable
 	 * @return A TimeTable that contains all free slots of this TimeTable.
 	 */
 	public TimeTable getAllFreeSlots(long length) {
-		int amountOfSlots = this.timeSlots.length;
-		Collection<TimeSlot> returnValue = new ArrayList<TimeSlot>(
-				amountOfSlots);
-		TimeSlot[] slots = this.timeSlots;
-
-		for (int i = 1; i < amountOfSlots; i++) {
-			TimePoint curPoint = slots[i].getStartPoint();
-			TimePoint prevPoint = slots[i - 1].getStopPoint();
-			if (curPoint.getTimeBetween(prevPoint) >= length) {
-				// the current timeslot meets all requirements and
-				// can thus be added to the returnvalue
-				TimePoint t1 = new TimePoint(prevPoint.getDate(),
-						prevPoint.getType());
-				TimePoint t2 = new TimePoint(curPoint.getDate(),
-						curPoint.getType());
-				returnValue.add(new TimeSlot(t1, t2));
+		TimeTable x = invert(this);
+		TimeTable rv = new TimeTable();
+		for(TimeSlot t :x.timeSlots)
+		{
+			if(t.getLength()>=length)
+			{
+				rv=rv.getUnion(new TimeTable(t));
 			}
 		}
-		// All scheduled timeslots have been iterated over.
-		// We now need can add a slot at the end of the current timeline aswell
-		// and then return everything in a new TimeTable.
-		returnValue.add(getLastSlotWithLength(length));
-
-		return new TimeTable(returnValue);
-	}
+		return rv;
+		}
 
 	public boolean hasFreeSlotAt(Date startDate, Date stopDate) {
 		return this.hasFreeSlotAt(new TimeSlot(new TimePoint(startDate,
