@@ -1,53 +1,49 @@
 package patient;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
+import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.PatientFileIN;
+import exceptions.*;
 
 /**
- * This class represents the patient file of a patient. It contains all the
- * information on a certain patient e.g.: name, diagnosis, treatment,...
+ * This class represents the patient file of a patient.
  */
 public class PatientFile implements PatientFileIN 
 {
 
-	private String name = ""; // the name of the patient
-	private Collection<Diagnose> diagnosis = new ArrayList<Diagnose>(); // all
-																			// diags
-																			// for
-																			// this
-																			// patient
-	private boolean discharged = false; // whether or not this patient has been
-										// discharged
-
-	public void addDiagnosis(Diagnose D) {
-		this.diagnosis.add(D);
-	}
+	private String name = "";
+	/**
+	 * All the Diagnosis for this patient.
+	 */
+	private Collection<Diagnose> diagnosis = new ArrayList<Diagnose>();
+	private boolean discharged = false;
 
 	/**
-	 * Obligatory alternative constructor.
+	 * Default Constructor.
 	 * 
-	 * @param patient
+	 * @param patientname
 	 *            The name of the patient to whom this patient file belongs to.
-	 * @param pfm
-	 *            The patient file manager for this patient file.
+	 * @throws InvalidNameException
+	 *             if(!isValidName(patientname))
 	 */
-	public PatientFile(String patientname) {
+	public PatientFile(String patientname) throws InvalidNameException {
+		if(!isValidName(patientname))
+			throw new InvalidNameException("The given patientname is not valid!");
 		this.name = patientname;
 	}
-
+	
 	/**
-	 * @return The name of this patient.
+	 * This method will add a Diagnose to this PatientFile.
+	 * 
+	 * @param d
+	 *            The Diagnose to add.
+	 * @throws InvalidDiagnoseException
+	 * if(!isValidDiagnose(d)) 
 	 */
-	public String getName() {
-		return this.name;
-	}
-
-	/**
-	 * @return The Diagnosis of this patient (has .toString()) -> printfriendly.
-	 */
-	public Collection<Diagnose> getDiagnosis() {
-		return this.diagnosis;
+	public void addDiagnosis(Diagnose d) throws InvalidDiagnoseException {
+		if(!isValidDiagnose(d))
+			throw new InvalidDiagnoseException("The given Diagnose is not a valid!");
+		this.diagnosis.add(d);
 	}
 
 	/**
@@ -65,21 +61,36 @@ public class PatientFile implements PatientFileIN
 	}
 
 	/**
-	 * This function checks if this patient has been discharged.
-	 * 
-	 * @return true if the patient has been discharged.
+	 * @return True if d is a valid Diagnose.
 	 */
+	private boolean isValidDiagnose(Diagnose d) {
+		return d != null;
+	}
+	
+	/**
+	 * @return True if d is a valid name.
+	 */
+	private boolean isValidName(String n) {
+		return !n.equals("");
+	}
+	
+	@Basic
 	public boolean isDischarged() {
 		return this.discharged;
+	}
+
+	@Basic
+	public String getName() {
+		return this.name;
+	}
+
+	@Basic
+	public Collection<Diagnose> getDiagnosis() {
+		return new ArrayList<Diagnose>(this.diagnosis);
 	}
 
 	@Override
 	public String toString() {
 		return name;
 	}
-
-	/**
-	 * @return The treatment this patient is currently receiving.
-	 */
-
 }
