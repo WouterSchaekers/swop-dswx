@@ -13,3 +13,4 @@
 ||07/12/11: 14u30 -> 18u30 ||2 SW|| 4 ||Testing the TimeTable class and further implementing of the Scheduler||Dieter wilde P&O doen en kon op 6/12 niet omdat hij een prior commitment had om "LoL te spelen" dat hij daarna afzegde om "toffe dingen doen met Shana voor haar verjaardag".||
 ||07/12/11: 20u30 -> 00u30 ||1 S|| 4 ||Further implementing the Scheduler and the TimeTable ||Dieter had geen zin meer omdat hij net een zware P&O dag had en Wouter moest nog P&O doen. Stefaan deed dus alleen nog wat verder.||
 || 08/12/11: 20u00 -> 23u00 || 2 SW || 3 || Finishing up the implementation of Scheduler; start of debugging TimeTable || Dieter had niet tijdig zijn SMS gelezen. ||
+|| 09/12/11: 14u00 -> 14u40 || 2 DS || 0.75 || Continuance of above || Wouter took a lunchbreak. ||
