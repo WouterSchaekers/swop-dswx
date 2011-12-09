@@ -1,6 +1,3 @@
 package controllers.interfaces;
 
-public interface DoctorIN extends UserIN
-{
-
-}
+public interface DoctorIN extends UserIN{}

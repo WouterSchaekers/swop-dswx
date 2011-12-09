@@ -268,7 +268,8 @@ public class TimeTable
 	 * E.g. A timetable with timeslots from 1 to 5 and from 5 to 9,
 	 * will return the timepoints 1 (start) and 9 (stop).
 	 * 
-	 * @param A certain timetable
+	 * @param timeTable
+	 * 			A certain timetable that has to be simplified
 	 * @return The timePoints of this timetable without overlap
 	 */
 	public static TimePoint[] eliminateOverlap(TimeTable timeTable) {
