@@ -21,9 +21,9 @@
   * eten
   * warehouse
   * als de tijd vooruit gaat, moeten de volgende dingen gebeuren:
-	# Alle TimeTables moeten geupdate worden.
-	# Het warehouse moet geupdate worden.
-	# De TaskManager moet zijn queues updaten, indien er tijdsafhankelijke constraints zijn voor Schedulables.
+    * Alle TimeTables moeten geupdate worden.
+    * Het warehouse moet geupdate worden.
+    * De TaskManager moet zijn queues updaten, indien er tijdsafhankelijke constraints zijn voor Schedulables.
 	- ...
 
   * ...
