@@ -29,6 +29,7 @@
   * ...
 
 = Wie is er momenteel waaraan bezig? =
-Dieter: Tests voor TimeTable en TimeSlot.
-Stefaan: Task en Scheduler
-Wouter: 
+<p>
+Dieter: Tests voor TimeTable en TimeSlot.<p>
+Stefaan: Task en Scheduler<p>
+Wouter: <p>
