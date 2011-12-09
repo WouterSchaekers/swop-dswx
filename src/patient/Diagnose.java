@@ -2,6 +2,7 @@ package patient;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import controllers.interfaces.DoctorIN;
 import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.*;
 import treatment.Treatment;
@@ -9,56 +10,52 @@ import users.Doctor;
 import scheduler.task.Requirement;
 
 /**
- * This class represents a diagnosis. It can insert, update and read the
- * diagnosis of a certain patient. It can mark a diagnosis for second opinion
- * and remembers if the diagnosis has been approved or not.
+ * This class represents a diagnosis that's given to a patient after admission
+ * and examination. It keeps a collections of Treatments to keep track of which
+ * Diagnosis have been treated with which Treatments.
  */
 public class Diagnose implements Requirement
 {
 
-	private String diag = ""; // the diagnosis
-	private boolean approved = false; // whether or not this diag has been
-										// approved
-	private boolean secOpFlag = false; // flag for second opinion
-	private Doctor attending = null; // the attending doctor
-	private Doctor secopDoc = null; // the doctor to give second opinion
-	// the  treatments associated with this  diagnosis
+	private String diag = ""; 
+	private boolean approved = false;
+	private boolean secOpFlag = false;
+	private Doctor attending = null;
+	private Doctor secopDoc = null; 
+	/**
+	 * the  treatments associated with this  diagnosis
+	 */
 	private Collection<Treatment> treatments = new ArrayList<Treatment>(); 
 
 	/**
-	 * This function allows a diagnosis to be created.
+	 * Default constructor. Initialises fields.
 	 * 
 	 * @param doc
 	 *            The doctor who made the diagnosis.
 	 * @param diag
 	 *            The diagnosis made by the doctor.
-	 * @return The created diagnosis.
 	 * @throws InvalidDoctorException
 	 *             If !isValidDoc(doc)
 	 * @throws InvalidDiagnoseException
 	 *             if !isValidDiagnosis(diag)
 	 */
-	public Diagnose createDiag(Doctor doc, String diag)
-			throws InvalidDoctorException, InvalidDiagnoseException {
+	public Diagnose(Doctor doc, String diag) throws InvalidDoctorException,InvalidDiagnoseException {
 		if (!this.canHaveAsDoctor(doc))
 			throw new InvalidDoctorException("Doctor is invalid!");
 		if (!this.isValidDiagnosis(diag))
-			throw new InvalidDiagnoseException("Diagnosis is invalid!");
-
-		Diagnose returnval = new Diagnose();
+			throw new InvalidDiagnoseException("Diagnose in Diagnoseconstructor is invalid!");
 		this.attending = doc;
 		this.diag = diag;
-		return returnval;
 	}
 
 	/**
-	 * This function approves or disapproves this diagnosis after second
-	 * opinion.
+	 * This function allows a Doctor to give second opinion on this Diagnose.
 	 * 
 	 * @param from
-	 *            The doctor trying to give a second opinion on this diagnosis.
+	 *            The Doctor that's trying to give a second opinion on this
+	 *            Diagnose.
 	 * @param diag
-	 *            The second opinion this doctor is giving.
+	 *            The second opinion the Doctor is giving.
 	 * @throws InvalidDoctorException
 	 *             if (!canGvieSecondOpionion(from))
 	 * @throws InvalidDiagnoseException
@@ -68,10 +65,12 @@ public class Diagnose implements Requirement
 			throws InvalidDoctorException, InvalidDiagnoseException {
 		if (!canGiveSecondOpinion(from))
 			throw new InvalidDoctorException(
-					"The associated doctor cannot give a second opinion on the selected diagnose as he's not been asked to do so.");
+					"The given Doctor cannot give a second opinion on the selected Diagnose because he's not been asked to do so!");
 		if (!isValidDiagnosis(diag))
 			throw new InvalidDiagnoseException(
-					"Invalid diagnosis for second opinion!");
+					"Invalid Diagnose for second opinion!");
+
+		// remember: approve does more than just set the field... 
 		if (evaluateSecOp(diag))
 			this.approve();
 		else
@@ -79,7 +78,7 @@ public class Diagnose implements Requirement
 	}
 
 	/**
-	 * This function marks this diagnosis for review by a second opinion.
+	 * This function marks this Diagnose for second opinion.
 	 * 
 	 * @param from
 	 *            The doctor that needs to give the second opinion.
@@ -89,18 +88,15 @@ public class Diagnose implements Requirement
 	public void markForSecOp(Doctor from) throws InvalidDoctorException {
 		if (!canHaveAsDoctor(from))
 			throw new InvalidDoctorException(
-					"Invalid doctor given to mark for second opinion!");
+					"Invalid Doctor given to request for second opinion!");
 		this.secOpFlag = true;
 		this.disapprove();
-		secopDoc = from;
+		this.secopDoc = from;
 	}
 
-	/**
-	 * @return The doctor assigned by the attending to give a second opinion on
-	 *         this diagnosis.
-	 */
-	public Doctor needsSecOpFrom() {
-		Doctor rv = this.secopDoc;
+	@Basic
+	public DoctorIN needsSecOpFrom() {
+		DoctorIN rv = (DoctorIN)(this.secopDoc);
 		return rv;
 	}
 
@@ -114,8 +110,6 @@ public class Diagnose implements Requirement
 
 	/**
 	 * Approves this diagnosis.
-	 * 
-	 * @return A string containing useful information for the user.
 	 */
 	public void approve() {
 		this.approved = true;
@@ -125,6 +119,7 @@ public class Diagnose implements Requirement
 	/**
 	 * Disapproves this diagnosis.
 	 */
+	@Basic
 	private void disapprove() {
 		this.approved = false;
 	}
@@ -139,34 +134,45 @@ public class Diagnose implements Requirement
 		return this.approved;
 	}
 
+	/**
+	 * @return True if doc is a valid doctor for this Diagnose.
+	 */
 	private boolean canHaveAsDoctor(Doctor doc) {
 		return !(doc.equals(null));
 	}
 
+	/**
+	 * @return True if diag is a valid Diagnose description for this Diagnose.
+	 */
 	private boolean isValidDiagnosis(String diag) {
-		if (diag.equals(""))
-			return false;
-		return true;
+		return !diag.equals("");
 	}
 
+	/**
+	 * @return True if doc is the Doctor assigned to be giving a second opinion
+	 *         on this Diagnose.
+	 */
 	private boolean canGiveSecondOpinion(Doctor doc) {
 		return doc.equals(this.needsSecOpFrom());
 	}
 
 	/**
-	 * 
-	 * @param secOp
 	 * @return true if secOp.equals(this.getDiagnosis())
 	 */
 	private boolean evaluateSecOp(String secOp) {
 		return secOp.equalsIgnoreCase(this.getDiagnosis());
 	}
 
-	public void prescribeTreatment(Treatment t)
-			throws InvalidTreatmentException {
+	/**
+	 * This method assigns an extra Treatment to this Diagnose.
+	 * @param t
+	 * The new Treatment.
+	 * @throws InvalidTreatmentException
+	 * if(!isValidTreatment(t))
+	 */
+	public void assignTreatment(Treatment t) throws InvalidTreatmentException {
 		if (!isValidTreatment(t))
-			throw new InvalidTreatmentException(
-					"Trying to associate an invalid treatment for a diagnosis!");
+			throw new InvalidTreatmentException("Trying to associate an invalid treatment for a diagnosis!");
 		treatments.add(t);
 	}
 
