@@ -176,7 +176,8 @@ public class Scheduler
 				for (Schedulable candidate : candidateCol) {
 					if (candidate.canBeScheduledOn(
 							candidateSlot.getStartPoint().getDate(), 
-							candidateSlot.getStopPoint().getDate())) {
+							candidateSlot.getStopPoint().getDate())
+							&& !foundResources.contains(candidateSlot)) {
 						// We found our match in this collection:
 						// add it to the list of results and
 						// break from the loop.
