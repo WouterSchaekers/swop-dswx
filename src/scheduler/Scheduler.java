@@ -233,7 +233,11 @@ public class Scheduler
 	private LinkedList<Schedulable> getNextResourceQueue() throws QueueException {
 		if (stillToSchedule.isEmpty()) 
 			throw new QueueException("Error while updating resource queue: nothing left to schedule!");
-		return (LinkedList<Schedulable>)stillToSchedule.remove(0);
+		LinkedList<Schedulable> queue = new LinkedList<Schedulable>();
+		for(Schedulable s : stillToSchedule.remove(0))
+			queue.add(s);
+		
+		return queue;
 	}
 	
 	@Basic
