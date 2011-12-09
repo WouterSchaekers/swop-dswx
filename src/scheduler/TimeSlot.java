@@ -13,11 +13,15 @@ public class TimeSlot
 	
 	/**
 	 * Default Constructor. Will initialise both time points.
+	 * @throws illegalargumentexception
+	 * 		if t1 is an endpoint or t2 is a startpoint
+	 * 		if t2 is before or at the same time as t2
+	 * 
 	 */
 	public TimeSlot(TimePoint t1,TimePoint t2){
 		if(t1.isEnd()) throw new IllegalArgumentException("Invalid TimePoint 1!");
 		if(t2.isStart()) throw new IllegalArgumentException("Invalid TimePoint 2!");		
-		if(t1.compareTo(t2)>0) throw new IllegalArgumentException("Invalid TimePoints! start < stop!");
+		if(t1.compareTo(t2)>=0) throw new IllegalArgumentException("Invalid TimePoints! start < stop!");
 		this.t1=t1;
 		this.t2=t2;
 	}
