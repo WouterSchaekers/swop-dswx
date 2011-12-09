@@ -58,6 +58,15 @@ public class Scheduler
 	}
 	
 	/**
+	 * @effect schedule(long, collection<schedule>...)
+	 */
+	public Date schedule(long duration, Collection<Collection<Schedulable>> resourcesToSchedule) throws QueueException, InvalidDurationException, InvalidSchedulingRequestException {
+		this.stillToSchedule = new LinkedList<Collection<Schedulable>>(resourcesToSchedule);
+		this.allTheNeededResources = new LinkedList<Collection<Schedulable>>(this.stillToSchedule);
+		return schedule(duration, new LinkedList<TimeTable>());
+	}
+	
+	/**
 	 * This <b><i>PRIVATE</i></b> method will schedule an appointment
 	 * recursively for every required resource.
 	 * 
