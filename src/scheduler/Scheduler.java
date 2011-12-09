@@ -53,9 +53,8 @@ public class Scheduler
 			this.stillToSchedule.add(resourcesToSchedule[i]);
 			this.allTheNeededResources.add(resourcesToSchedule[i]);
 		}
-
-		this.schedule(duration, new LinkedList<TimeTable>());
-		return null;
+		
+		return schedule(duration, new LinkedList<TimeTable>());
 	}
 	
 	/**
