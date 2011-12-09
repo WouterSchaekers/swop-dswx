@@ -109,12 +109,10 @@ public class Scheduler
 		List<Schedulable> resourceQueue = getNextResourceQueue();
 		Schedulable firstQueueElement = resourceQueue.remove(0);
 		Collection<TimeTable> allTheTimeTables = new LinkedList<TimeTable>();
-		Iterator<Schedulable> schedIterator = resourceQueue.iterator();
 		
-		while(schedIterator.hasNext()) {
-			allTheTimeTables.add(schedIterator.next().getTimeTable());
-			resourceQueue.remove(0);
-		}
+		for(Schedulable s: resourceQueue)
+			allTheTimeTables.add(s.getTimeTable());
+		resourceQueue.clear();
 		
 		TimeTable theIntersection = firstQueueElement.getTimeTable().intersectAll(allTheTimeTables);
 		used.add(theIntersection);		
