@@ -20,10 +20,11 @@ public class TimeTable
 	public TimeTable(TimeSlot... slots) {
 		this(new ArrayList<TimeSlot>(Arrays.asList(slots)));
 	}
-	public TimeTable()
-	{
+
+	public TimeTable() {
 		this(new ArrayList<TimeSlot>());
 	}
+
 	/**
 	 * Default constructor. Will initialise all fields.
 	 * 
@@ -139,35 +140,44 @@ public class TimeTable
 
 		return new TimeTable(returnValue);
 	}
+
 	/**
 	 * 
 	 * @param table
 	 * @return
 	 */
-	public TimeTable invert(TimeTable table)
-	{
-		TimeTable returnValue=null;
-		try{
-		//Start of time
-		Date d1 = Scheduler.startOfTime();
-		// the end of time is here :)
-		Date d2 = Scheduler.endOfTime();
-		TimeSlot t = new TimeSlot(new TimePoint(d1, TimeType.start),new TimePoint(d2, TimeType.stop));
-		 returnValue = new TimeTable();
-		TimePoint p1;
-		TimePoint p2;
-		if(timeSlots.length==0)
-			return new TimeTable(t);
-		returnValue.addTimeSlot(new TimeSlot(new TimePoint(d1, TimeType.start),new TimePoint(timeSlots[0].getStartPoint().getDate(), TimeType.stop)));
-		int i =0;
-		for (; i < timeSlots.length-1; i++) 
-		{
-			returnValue.addTimeSlot(new TimeSlot(new TimePoint(timeSlots[i].getStopPoint().getDate(), TimeType.start),new TimePoint(timeSlots[0].getStartPoint().getDate(), TimeType.stop)));		
-		}	
-		returnValue.addTimeSlot(new TimeSlot(new TimePoint(timeSlots[i].getStartPoint().getDate(), TimeType.start),new TimePoint(d2, TimeType.stop)));	
-		}catch(Exception e){}
+	public TimeTable invert(TimeTable table) {
+		TimeTable returnValue = null;
+		try {
+			// Start of time
+			Date d1 = Scheduler.startOfTime();
+			// the end of time is here :)
+			Date d2 = Scheduler.endOfTime();
+			TimeSlot t = new TimeSlot(new TimePoint(d1, TimeType.start),
+					new TimePoint(d2, TimeType.stop));
+			returnValue = new TimeTable();
+			TimePoint p1;
+			TimePoint p2;
+			if (timeSlots.length == 0)
+				return new TimeTable(t);
+			returnValue.addTimeSlot(new TimeSlot(new TimePoint(d1,
+					TimeType.start), new TimePoint(timeSlots[0].getStartPoint()
+					.getDate(), TimeType.stop)));
+			int i = 0;
+			for (; i < timeSlots.length - 1; i++) {
+				returnValue.addTimeSlot(new TimeSlot(new TimePoint(timeSlots[i]
+						.getStopPoint().getDate(), TimeType.start),
+						new TimePoint(timeSlots[0].getStartPoint().getDate(),
+								TimeType.stop)));
+			}
+			returnValue.addTimeSlot(new TimeSlot(new TimePoint(timeSlots[i]
+					.getStartPoint().getDate(), TimeType.start), new TimePoint(
+					d2, TimeType.stop)));
+		} catch (Exception e) {
+		}
 		return returnValue;
 	}
+
 	/**
 	 * This method returns all free slots in this TimeTable with a certain
 	 * minimal certain length.
@@ -181,15 +191,13 @@ public class TimeTable
 	public TimeTable getAllFreeSlots(long length) {
 		TimeTable x = invert(this);
 		TimeTable rv = new TimeTable();
-		for(TimeSlot t :x.timeSlots)
-		{
-			if(t.getLength()>=length)
-			{
-				rv=rv.getUnion(new TimeTable(t));
+		for (TimeSlot t : x.timeSlots) {
+			if (t.getLength() >= length) {
+				rv = rv.getUnion(new TimeTable(t));
 			}
 		}
 		return rv;
-		}
+	}
 
 	public boolean hasFreeSlotAt(Date startDate, Date stopDate) {
 		return this.hasFreeSlotAt(new TimeSlot(new TimePoint(startDate,
@@ -279,8 +287,9 @@ public class TimeTable
 			while (first < one.length - 1
 					&& second < two.length - 1
 					&& !TimeTable.inBetween(two[second], one[first],
-							one[first + 1]) && !TimeTable.inBetween(one[first],
-							two[second], two[second + 1])) {
+							one[first + 1])
+					&& !TimeTable.inBetween(one[first], two[second],
+							two[second + 1])) {
 				if (one[first].compareTo(two[second]) > 0) {
 					second = second + 2;
 				} else {
@@ -312,14 +321,14 @@ public class TimeTable
 
 	/**
 	 * Checks wether the first timepoint lies between the two other timepoints.
+	 * 
 	 * @param timePoint
-	 * 			The timepoint that has to lie between the other two timepoints
+	 *            The timepoint that has to lie between the other two timepoints
 	 * @param before
-	 * 			The timepoint that has to lie before the first timepoint
+	 *            The timepoint that has to lie before the first timepoint
 	 * @param after
-	 * 			The timepoint that has to lie behind the first timepoint
-	 * @return
-	 * 			True if the first timepoint lies between the other two timepoints
+	 *            The timepoint that has to lie behind the first timepoint
+	 * @return True if the first timepoint lies between the other two timepoints
 	 */
 	public static boolean inBetween(TimePoint timePoint, TimePoint before,
 			TimePoint after) {
@@ -421,9 +430,10 @@ public class TimeTable
 	 * @return A timeslot at the end of this timetable of the wanted length.
 	 */
 	private TimeSlot getLastSlotWithLength(long length) {
-		if(this.timeSlots.length==0)
-		{
-			return new TimeSlot(new TimePoint(Scheduler.getCurrentSystemTime(), TimeType.start), new TimePoint(new Date(Scheduler.getCurrentSystemTime().getTime()+length),TimeType.stop ));
+		if (this.timeSlots.length == 0) {
+			return new TimeSlot(new TimePoint(Scheduler.getCurrentSystemTime(),
+					TimeType.start), new TimePoint(new Date(Scheduler
+					.getCurrentSystemTime().getTime() + length), TimeType.stop));
 		}
 		Date startDate = this.timeSlots[this.timeSlots.length - 1]
 				.getStopPoint().getDate();
