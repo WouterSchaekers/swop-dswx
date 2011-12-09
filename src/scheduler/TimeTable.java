@@ -20,7 +20,10 @@ public class TimeTable
 	public TimeTable(TimeSlot... slots) {
 		this(new ArrayList<TimeSlot>(Arrays.asList(slots)));
 	}
-
+	public TimeTable()
+	{
+		this(new ArrayList<TimeSlot>());
+	}
 	/**
 	 * Default constructor. Will initialise all fields.
 	 * 

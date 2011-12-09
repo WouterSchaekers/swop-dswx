@@ -93,8 +93,7 @@ public class TimeTableTest
 		TimeTable table2 = new TimeTable(t2);
 		TimeTable res = table.getUnion(table2);
 		TimeSlot t6 = new TimeSlot(new TimePoint(new Date(-5), TimeType.start), new TimePoint(new Date(21), TimeType.stop));
-		System.out.println(t6);
-		assertTrue(res.equals(t6));
+		assertTrue(res.equals(new TimeTable(t6)));
 	}
 	
 	@Test
