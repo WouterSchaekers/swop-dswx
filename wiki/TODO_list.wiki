@@ -1,11 +1,11 @@
 = TODOs =
   * functies van Schedulable moeten geimplementeerd worden (tests!)
   * scheduler testen (= tests schrijven) - volledig en uitvoerig
-  * Concerning Task and TaskManager
+  * Concerning Task and TaskManager:
     * In de usecases willen we Tasks aanmaken.
-    * Als de Tasks niet onmiddellijk gescheduled kunnen worden, komen ze in de task queue van de Taskmanager.
-    * Als de taken wel onmiddellijk gescheduled kunnen worden, schedulen we ze.
-    * Task manager moet verwittigd worden om zijn queues te updaten op de gepaste plaatsten in de usecases.
+      * Als de Tasks niet onmiddellijk gescheduled kunnen worden, komen ze in de task queue van de Taskmanager.
+      * Als de taken wel onmiddellijk gescheduled kunnen worden, schedulen we ze.
+      * Task manager moet verwittigd worden om zijn queues te updaten op de gepaste plaatsten in de usecases.
   * Factory patronen implementeren voor MedicalTest en Treatment
   * WarehouseAdmin
   * AdvanceTime()
