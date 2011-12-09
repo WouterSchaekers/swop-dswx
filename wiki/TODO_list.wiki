@@ -33,7 +33,7 @@
 <p>
 Dieter: Tests voor TimeTable en TimeSlot.<p>
 Stefaan: Task en TaskManager<p>
-Wouter: Functies van Schedulable<p>
+Wouter: Functies van Schedulable + klassen die ermee te maken hebben (user, machine, treatment, ...)<p>
 
 = Things that have been crossed off = 
   * Scheduler-bugje: waar de juiste resource bepaald wordt: checken dat ze nog niet is opgenomen in de lijst van dingen die al gevonden zijn.<p>
