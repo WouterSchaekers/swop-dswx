@@ -141,4 +141,5 @@ public class TimeTableIntersectTest
 		TimeTable t = table.getIntersect(table2);
 		assertTrue(t.equals(new TimeTable()));
 	}
+	
 }
