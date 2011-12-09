@@ -2,18 +2,16 @@ package treatment;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import exceptions.InvalidResultException;
+import be.kuleuven.cs.som.annotate.Basic;
 import patient.Result;
 
 /**
- * This class is the superclass of all treatments
+ * This class is the superclass of all treatments.
  */
 public abstract class Treatment
 {
-	// a static arraylist of all treatments available.
-	// TODO: is this realy what we want? -> NO
-//	private static ArrayList<Treatment> treatments = new ArrayList<Treatment>(
-//			Arrays.asList(new Cast("", 0), new Medication(null, false),
-//					new Surgery("")));
+
 	private Collection<Result> results = new ArrayList<Result>();
 	// all childclasses will have their names be final and static and will use
 	// this var to store that information in.
@@ -29,32 +27,11 @@ public abstract class Treatment
 		this.treatmentName = treatmentName;
 	}
 
-	/**
-	 * @return All available treaments.
-	 */
-//	public static Collection<Treatment> availableTreatments() {
-//		return treatments;
-//	}
-
-	/**
-	 * @return the name of this treatment.
-	 */
+	@Basic
 	public String getTreatmentName() {
 		return treatmentName;
 	}
 
-	/**
-	 * @return All available treatments as a string.
-	 */
-	// XXX: wa doet dit hier ? was er mis me .toString te callen in ui ? wtf
-	// public String getTreatmentsAsString(){
-	// String result = " ";
-	// for(int i = 0; i < treatments.size(); i++){
-	// result = result.concat(i + 1 + ". " +
-	// treatments.get(i).getTreatmentName() + "\n");
-	// }
-	// return result;
-	// }
 	@Override
 	public String toString() {
 		return this.getTreatmentName();
@@ -62,16 +39,23 @@ public abstract class Treatment
 
 	/**
 	 * Method to add a result to an existing treatment
+	 * @throws InvalidResultException 
+	 * 
 	 */
-	public void addResult(Result r) {
+	public void addResult(Result r) throws InvalidResultException {
+		if(!isValidResult(r))
+			throw new InvalidResultException("Invalid Result in addResult from Treatment");
 		this.results.add(r);
 	}
-
+	
 	/**
-	 * Method to retrieve all results for this treatment.
-	 * 
-	 * @return
+	 * @return True if r is a valid Result.
 	 */
+	private boolean isValidResult(Result r) {
+		return r != null;
+	}
+
+	@Basic
 	public Collection<Result> getAllResults() {
 		return new ArrayList<Result>(results);
 	}
