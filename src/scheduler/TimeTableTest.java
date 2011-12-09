@@ -99,7 +99,6 @@ public class TimeTableTest
 		assertFalse(table.equals(new TimeTable(t5,t6)));
 		assertFalse(res.equals(new TimeTable(t5,t6)));
 		assertTrue(res.equals(new TimeTable(t1,t6)));
-
 	}
 	
 	@Test
