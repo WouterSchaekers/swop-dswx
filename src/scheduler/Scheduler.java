@@ -35,6 +35,13 @@ public class Scheduler
 			throw new IllegalArgumentException("systemDate in constructor of Scheduler is null!");
 		currentSystemTime = systemDate;
 	}
+	
+	/**
+	 * Alternative constructor. Does not initilise system time. Can be used if
+	 * one wants to create a new scheduler without knowing the current system
+	 * time, or having a link to another scheduler.
+	 */
+	public Scheduler() {}
 
 	/**
 	 * This method will schedule one of each resources given in the parameters
