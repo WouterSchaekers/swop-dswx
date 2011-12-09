@@ -40,6 +40,10 @@ public class Task
 		return s != null && !s.isEmpty();
 	}
 	
+	public boolean canBeScheduled() {
+		return false;
+	}
+	
 	@Basic
 	public long getDuration() {
 		return this.duration;
