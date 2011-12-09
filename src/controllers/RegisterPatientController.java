@@ -5,6 +5,7 @@ import java.util.Collection;
 import controllers.interfaces.AppointmentIN;
 import controllers.interfaces.PatientFileIN;
 import controllers.interfaces.UserIN;
+import exceptions.InvalidNameException;
 import patient.PatientFile;
 import users.Nurse;
 import users.User;
@@ -74,7 +75,7 @@ public class RegisterPatientController
 					// (Doctor)userDTO.getUser(), 60));
 	}
 
-	public void createNewPatient(DataPasser dataPasser2, String name) {
+	public void createNewPatient(DataPasser dataPasser2, String name) throws InvalidNameException {
 		dataPasser2.getPatientFileManager().registerPatient(name);
 
 	}

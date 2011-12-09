@@ -1,5 +1,6 @@
 package controllers;
 
+import exceptions.InvalidNameException;
 import patient.PatientFile;
 import patient.PatientFileManager;
 import users.Nurse;
@@ -42,8 +43,9 @@ public class CheckinController extends SuperController
 	 * This method can be used to register a new patient.
 	 * 
 	 * @return the patientfile
+	 * @throws InvalidNameException 
 	 */
-	public PatientFile signUpNewPatient(String name) {
+	public PatientFile signUpNewPatient(String name) throws InvalidNameException {
 		return pfm.registerPatient(name);
 	}
 
