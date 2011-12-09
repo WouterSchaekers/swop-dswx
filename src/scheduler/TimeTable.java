@@ -219,7 +219,7 @@ public class TimeTable
 			allPoints[i++] = t.getStopPoint();
 		}
 
-		Arrays.sort(allPoints);
+		Arrays.sort(allPoints,TimePoint.ComparatorsStartFirst);
 		i = 0;
 
 		while (i < allPoints.length) {
@@ -305,14 +305,16 @@ public class TimeTable
 	 * 			A certain timetable that has to be simplified
 	 * @return The timePoints of this timetable without overlap
 	 */
+	//XXX: maybe 
 	public static TimePoint[] eliminateOverlap(TimeTable timeTable) {
+		
 		TimePoint[] timePoints = new TimePoint[timeTable.timeSlots.length * 2];
 		int i = 0;
 		for (TimeSlot t : timeTable.timeSlots) {
 			timePoints[i++] = t.getStartPoint();
 			timePoints[i++] = t.getStopPoint();
 		}
-		Arrays.sort(timePoints);
+		Arrays.sort(timePoints,TimePoint.ComparatorsEndFirst);
 		Collection<TimePoint> simplifiedTimePoints = new ArrayList<TimePoint>();
 		int amount = 0;
 		for (i = 0; i < timePoints.length; i++) {
