@@ -8,5 +8,11 @@ package scheduler.task;
  */
 public interface Requirement
 {
+	/**
+	 * This method is used to check, from the point of view of a Task, if a
+	 * requirement is met.
+	 * 
+	 * @return True if this requirement is ready to be scheduled.
+	 */
 	public boolean isReady();	
 }
