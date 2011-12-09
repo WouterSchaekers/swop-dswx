@@ -3,56 +3,78 @@ package scheduler.task;
 import java.util.*;
 import be.kuleuven.cs.som.annotate.*;
 import exceptions.*;
+import scheduler.Scheduler;
 
 /**
- * This class will notify a Scheduler when it gets an incoming signal from an
- * Observer. Also it will keep a record of scheduled and unscheduled Tasks.
+ * This class serves as a form of waiting room for unscheduled tasks. If a Task
+ * can't be scheduled at creation, it will be stored in here. Once there's
+ * change to the state of the system, the usecase should notify this class to
+ * update it's pool of "waiting tasks". It then, if needed can tell the
+ * scheduler to schedule tasks if they suddenly do meet the requirements to be
+ * scheduled.
  */
 public class TaskManager
 {
-//	private Scheduler scheduler; // the scheduler associated with this TM
-//	private Collection<Task> unscheduledTasks = new ArrayList<Task>();
-//	private Collection<Task> scheduledTasks = new ArrayList<Task>();
-//
-//	/**
-//	 * Default Constructor.
-//	 * 
-//	 * @param scheduler
-//	 *            The scheduler to associated with this TM
-//	 * @throws InvalidSchedulerException
-//	 *             If(!canHaveAsScheduler(scheduler)
-//	 */
-//	public TaskManager(Scheduler scheduler) throws InvalidSchedulerException {
-//		if (!this.canHaveAsScheduler(scheduler)) {
-//			throw new InvalidSchedulerException(
-//					"Given scheduler is not a valid scheduler for this TM.");
-//		}
-//		this.scheduler = scheduler;
-//	}
-//
-//	/**
-//	 * @return true if s is a valid scheduler for this TM.
-//	 */
-//	public boolean canHaveAsScheduler(Scheduler s) {
-//		return scheduler != null;
-//	}
-//
-//	/**
-//	 * This method will notify the associated Scheduler of this TM that
-//	 * something has changed and that it needs to re-evaluate all constraints.
-//	 */
-//	public void notifyScheduler() {
-//		
-//	}
-//	
-//	@Basic
-//	public Collection<Task> getUnscheduledTasks() {
-//		return new ArrayList<Task>(unscheduledTasks);
-//	}
-//
-//	@Basic
-//	public Collection<Task> getScheduledTasks() {
-//		return new ArrayList<Task>(scheduledTasks);
-//	}
+	private Scheduler scheduler = new Scheduler();
+	private Collection<Task> taskQueue = new LinkedList<Task>();
 
+	/**
+	 * This method has to be called in order to update the Queue at the right
+	 * times in the flow of the program. It will check if any of the Tasks in
+	 * the Queue can be scheduled. If so, it will ask the scheduler to schedule
+	 * them.
+	 * 
+	 * @return A map from Task to Date where the Date is the Date the Task has
+	 *         been scheduled at.
+	 * @throws InvalidSchedulingRequestException
+	 * @throws InvalidDurationException
+	 * @throws QueueException
+	 */
+	public HashMap<Task,Date> updateQueue() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException {
+		HashMap<Task,Date> returnValue = new HashMap<Task, Date>();
+		
+		for(Task curTask: this.taskQueue) {
+			if(curTask.canBeScheduled()) {
+				returnValue.put(curTask, this.scheduler.schedule(curTask.getDuration(), curTask.getResources()));
+				this.removeTask(curTask);
+			}
+		}
+		return returnValue;
+	}
+	
+	/**
+	 * This method will add a Task to this TaskManager's queue.
+	 * @param t
+	 * The task to add.
+	 */
+	public void addTask(Task t) {
+		if (!isValidTask(t))
+			throw new IllegalArgumentException("Task t in addTask of the TaskManager is not a valid queable Task!");
+		this.taskQueue.add(t);
+	}
+
+	/**
+	 * This method will remove Task t from the task queue.
+	 * 
+	 * @param t
+	 *            The task to remove.
+	 * @throws QueueException
+	 *             if(!taskQueue.contains(t))
+	 */
+	private void removeTask(Task t) throws QueueException {
+		if(!this.taskQueue.remove(t))
+			throw new QueueException("Task t is not in taskQueue of TaskManager in removeTask!");
+	}
+	
+	/**
+	 * @return True if t is a valid Task that can be queued in this TM.
+	 */
+	private boolean isValidTask(Task t) {
+		return t != null && !t.getResources().isEmpty();
+	}
+	
+	@Basic
+	public Collection<Task> getTaskQueue() {
+		return new ArrayList<Task>(taskQueue);
+	}
 }
