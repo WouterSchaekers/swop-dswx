@@ -227,6 +227,17 @@ public class Scheduler
 	
 	@Basic
 	public void setNewSystemTime(Date newTime) {
+		if(!isValidSystemTime(newTime))
+			throw new IllegalArgumentException("Invalid new system time given to setNewSystemTime() in Scheduler!");
 		currentSystemTime = newTime;
+	}
+	
+	/**
+	 * @return True if t is a valid new system time.
+	 */
+	private boolean isValidSystemTime(Date t) {
+		if(currentSystemTime == null)
+			return t != null;
+		return t != null && t.getTime() > currentSystemTime.getTime();
 	}
 }
