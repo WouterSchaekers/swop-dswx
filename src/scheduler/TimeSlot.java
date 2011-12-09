@@ -58,7 +58,7 @@ public class TimeSlot
 	/**
 	 * This method checks if this timeslot contains another one.
 	 * 
-	 * @return True if this timeslot overlaps with t.
+	 * @return True if this timeslot contains t.
 	 */
 	public boolean containsSlot(TimeSlot t) {
 		// this is true if the start- and endpoint of t are before the endpoint of this timeslot
