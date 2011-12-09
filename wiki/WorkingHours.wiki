@@ -14,3 +14,4 @@
 ||07/12/11: 20u30 -> 00u30 ||1 S|| 4 ||Further implementing the Scheduler and the TimeTable ||Dieter had geen zin meer omdat hij net een zware P&O dag had en Wouter moest nog P&O doen. Stefaan deed dus alleen nog wat verder.||
 || 08/12/11: 20u00 -> 23u00 || 2 SW || 3 || Finishing up the implementation of Scheduler; start of debugging TimeTable || Dieter had niet tijdig zijn SMS gelezen. ||
 || 09/12/11: 14u00 -> 14u50 || 2 DS || 1 || Continuance of above || Wouter took a lunchbreak. ||
+|| 09/12/11: 14u40 -> 16u10 || 3 DSW || 2.5 || Making everything defensive, more debugging of the scheduler package.||
