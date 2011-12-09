@@ -10,7 +10,7 @@ public class Task
 {
 	private Schedulable myResource = null;
 
-	public Task(Schedulable myResource, ) {
+	public Task(Schedulable myResource) {
 		if(!canHaveAsResource(myResource))
 			throw new IllegalArgumentException("Invalid resource passed to Task constructor!");
 		this.myResource = myResource;
@@ -28,7 +28,7 @@ public class Task
 	 * 
 	 */
 	public Date getStartTime() {
-		
+		return null;
 	}
 
 	/**
@@ -37,7 +37,7 @@ public class Task
 	 * @return The date object representing the end of this task.
 	 */
 	public Date getEndTime() {
-		return new Date(this.scheduledObject.getEndTime().getTime());
+		return null;
 	}
 	
 	private boolean canHaveAsResource(Schedulable s) {
