@@ -15,6 +15,8 @@ public class TimePoint implements Comparable<TimePoint>
 	/**
 	 * Default constructor: tell the timepoint what type it is and what it's
 	 * time is.
+	 * @throws IllegalArgumentException 
+	 * 		if the given date is null or the timetype is null.
 	 */
 	public TimePoint(Date d, TimeType t) {
 		if(d == null || t == null)
