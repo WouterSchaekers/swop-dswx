@@ -1,11 +1,10 @@
 = TODOs =
   * functies van Schedulable moeten geimplementeerd worden (tests!)
   * scheduler testen (= tests schrijven) - volledig en uitvoerig
-  * Task en TaskManager fixen
+  * Concerning Task and TaskManager
     * In de usecases willen we Tasks aanmaken.
-    * Als de Tasks niet onmiddellijk gescheduled kunnen worden, komen ze in de unscheduledTasks-collection van de Taskmanager.
+    * Als de Tasks niet onmiddellijk gescheduled kunnen worden, komen ze in de task queue van de Taskmanager.
     * Als de taken wel onmiddellijk gescheduled kunnen worden, schedulen we ze.
-    * Een task moet dus gewoon zijn Resources bijhouden.
     * Task manager moet verwittigd worden om zijn queues te updaten op de gepaste plaatsten in de usecases.
   * WarehouseAdmin
   * AdvanceTime()
@@ -36,6 +35,7 @@ Stefaan: Task en TaskManager<p>
 Wouter: Functies van Schedulable + klassen die ermee te maken hebben (user, machine, treatment, ...)<p>
 
 = Things that have been crossed off = 
-  * Scheduler-bugje: waar de juiste resource bepaald wordt: checken dat ze nog niet is opgenomen in de lijst van dingen die al gevonden zijn.<p>
-  * Commentaar voor TimeTable
-  * union tests have been written
+  * Scheduler-bugje: waar de juiste resource bepaald wordt: checken dat ze nog niet is opgenomen in de lijst van dingen die al gevonden zijn.
+  * Commentaar voor TimeTable.
+  * union tests have been written.
+  * Task and TaskManager have been rewritten.
