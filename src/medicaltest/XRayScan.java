@@ -11,7 +11,8 @@ public class XRayScan extends MedicalTest
 	public static final int DURATION = 15;
 
 	/**
-	 * Default constructor. Will call MedicalTest("XRayScan",15,patientFile)
+	 * Default constructor. 
+	 * @see MedicalTest("XRayScan",15,patientFile)
 	 */
 	public XRayScan() throws InvalidNameException, InvalidDurationException {
 		super(TESTNAME, DURATION);
