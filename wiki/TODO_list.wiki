@@ -31,8 +31,8 @@
 
 = Wie is er momenteel waaraan bezig? =
 <p>
-Dieter: Tests voor Scheduler.<p>
-Stefaan: Alles defensief maken<p>
+Dieter: Tests en debugging van Scheduler.<p>
+Stefaan: Alles defensief maken en documentatie schrijven en nakijken<p>
 Wouter: Functies van Schedulable + klassen die ermee te maken hebben (user, machine, treatment, ...)<p>
 
 = Things that have been crossed off = 
