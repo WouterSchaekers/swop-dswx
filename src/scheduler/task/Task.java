@@ -1,32 +1,24 @@
 package scheduler.task;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
+import java.util.*;
+import be.kuleuven.cs.som.annotate.Basic;
 
 /**
- * Represents a task in the system through the scheduled element all info about
- * when and what is scheduled can be requested.
- * 
- * @author Dieter de faler ^^
- * 
+ * Represents a task in the system through the Schedulable element.
  */
-public abstract class Task
+public class Task
 {
-	private ScheduledElement scheduledObject;
+	private Schedulable myResource = null;
 
-	public Collection<Schedulable> getAllUsedResources() {
-		return new ArrayList<Schedulable>(scheduledObject.getResources());
+	public Task(Schedulable myResource, ) {
+		if(!canHaveAsResource(myResource))
+			throw new IllegalArgumentException("Invalid resource passed to Task constructor!");
+		this.myResource = myResource;
 	}
-
-	/**
-	 * The time this task takes in ms.
-	 * 
-	 * @return
-	 * 
-	 */
+	
+	@Basic
 	public long duration() {
-		return this.getEndTime().getTime() - this.getStart().getTime();
+		return this.getEndTime().getTime() - this.getStartTime().getTime();
 	}
 
 	/**
@@ -35,8 +27,8 @@ public abstract class Task
 	 * @return
 	 * 
 	 */
-	public Date getStart() {
-		return new Date(this.scheduledObject.getStartTime().getTime());
+	public Date getStartTime() {
+		
 	}
 
 	/**
@@ -47,7 +39,8 @@ public abstract class Task
 	public Date getEndTime() {
 		return new Date(this.scheduledObject.getEndTime().getTime());
 	}
-
-	protected abstract Collection<Requirement> getRequirements();
-
+	
+	private boolean canHaveAsResource(Schedulable s) {
+		return s != null;
+	}
 }
