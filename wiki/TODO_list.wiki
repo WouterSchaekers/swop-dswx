@@ -26,6 +26,7 @@
     * De TaskManager moet zijn queues updaten, indien er tijdsafhankelijke constraints zijn voor Schedulables.
     * ...
   * Documentatie schrijven
+  * Verslag schrijven
   * ...
 
 = Wie is er momenteel waaraan bezig? =
