@@ -24,6 +24,8 @@ public class BloodAnalysis extends MedicalTest
 
 	@Basic
 	public void setAmount(int amount) {
+		if(!canHaveAsAmount(amount))
+			throw new IllegalArgumentException("Invalid amount given to bloodanalysis!");
 		this.amount = amount;
 	}
 
@@ -34,13 +36,28 @@ public class BloodAnalysis extends MedicalTest
 
 	@Basic
 	public void setFocus(String focus) {
+		if(!canHaveAsFocus(focus))
+			throw new IllegalArgumentException("Invalid focus given to setFocus in bloodanalysis!");
 		this.focus = focus;
 	}
 
 	@Basic
 	public String getFocus() {
-		String rv = "" + focus;
-		return rv;
+		return this.focus;
 	}
-
+	
+	/**
+	 * @return True if amount is a valid amount for this bloodanalysis
+	 */
+	private boolean canHaveAsAmount(int amount) {
+		return amount > 0;
+	}
+	
+	/**
+	 * @return True if focus is a valid focus for this bloodtest
+	 */
+	private boolean canHaveAsFocus(String focus) {
+		return !focus.equals("");
+	}
+	
 }
