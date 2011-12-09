@@ -14,7 +14,7 @@
   * TEKENINGETJES MAKEN ^^
   * de equals-methodes moeten goed getest worden
   * usecases iteratie 1, en vorige fixen.
-  * alles nalezen en defensief maken
+  * alles defensief maken, zien dat geen interne data structuren worden gelekt.
   * nieuwe usecases van iteratie 2
   * eten
   * warehouse
