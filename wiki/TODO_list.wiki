@@ -27,6 +27,7 @@
   * Verslag schrijven
   * De dude mailen met een draft versie van het verslag en de vraag of onze scheduler nu wel objectgericht geprogrammeerd is.
   * Interne datastructuren niet lekken!
+  * Result
   * ...
 
 = Wie is er momenteel waaraan bezig? =
