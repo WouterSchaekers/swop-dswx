@@ -259,7 +259,18 @@ public class TimeTable
 		}
 		return new TimeTable(rv);
 	}
-
+	
+	/**
+	 * This function will eliminate all overlap in a given timetable.
+	 * Also all things that are scheduled back to back will be considered as a whole thing.
+	 * E.g. A timetable with timeslots from 1 to 9 and from 5 to 13, 
+	 * will return the timepoints 1 (start) and 13 (stop).
+	 * E.g. A timetable with timeslots from 1 to 5 and from 5 to 9,
+	 * will return the timepoints 1 (start) and 9 (stop).
+	 * 
+	 * @param A certain timetable
+	 * @return The timePoints of this timetable without overlap
+	 */
 	public static TimePoint[] eliminateOverlap(TimeTable timeTable) {
 		TimePoint[] timePoints = new TimePoint[timeTable.timeSlots.length * 2];
 		int i = 0;
@@ -346,12 +357,22 @@ public class TimeTable
 
 		return new TimeSlot(startFree, stopFree);
 	}
-
+	
+	/**
+	 * Returns the timeslots of this timetable as a linked list.
+	 * 
+	 * @return The timeslots of this timetable as a linked list
+	 */
 	@Basic
 	public LinkedList<TimeSlot> getTimeSlots() {
 		return new LinkedList<TimeSlot>(Arrays.asList(this.timeSlots));
 	}
-
+	
+	/**
+	 * Returns a concatination of all timeslots of this timetable.
+	 * 
+	 * @return The concatination of all timeslots of this timetable
+	 */
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
