@@ -109,7 +109,6 @@ public class Scheduler
 		List<Schedulable> resourceQueue = getNextResourceQueue();
 		Schedulable firstQueueElement = resourceQueue.remove(0);
 		Collection<TimeTable> allTheTimeTables = new LinkedList<TimeTable>();
-		
 		for(Schedulable s: resourceQueue)
 			allTheTimeTables.add(s.getTimeTable());
 		resourceQueue.clear();
