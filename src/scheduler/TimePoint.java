@@ -1,5 +1,6 @@
 package scheduler;
 
+import java.util.Comparator;
 import java.util.Date;
 import be.kuleuven.cs.som.annotate.Basic;
 
@@ -11,6 +12,42 @@ public class TimePoint implements Comparable<TimePoint>
 {
 	private TimeType type;
 	private Date date;
+	public static final Comparator<TimePoint> ComparatorsStartFirst = new Comparator<TimePoint>()
+	{
+
+		@Override
+		public int compare(TimePoint o1, TimePoint o2) {
+			if(o1.compareTo(o2)==0)
+			{
+
+				if(o1.type==TimeType.start&&o2.type==TimeType.stop)
+					return -1;
+				if(o1.type==TimeType.stop&&o2.type==TimeType.start)
+					return 1;
+				return 0;
+			}
+				else
+			return o1.compareTo(o2);
+		}
+	};
+	public static final Comparator<TimePoint> ComparatorsEndFirst = new Comparator<TimePoint>()
+	{
+
+		@Override
+		public int compare(TimePoint o1, TimePoint o2) {
+			if(o1.compareTo(o2)==0)
+			{
+
+				if(o1.type==TimeType.start&&o2.type==TimeType.stop)
+					return 1;
+				if(o1.type==TimeType.stop&&o2.type==TimeType.start)
+					return -1;
+				return 0;
+			}
+				else
+			return o1.compareTo(o2);
+		}
+	};
 	
 	/**
 	 * Default constructor: tell the timepoint what type it is and what it's
@@ -50,10 +87,6 @@ public class TimePoint implements Comparable<TimePoint>
 		} else if (this.getTime() < tp2.getTime()) {
 			return before;
 		} else {
-			if(this.type==TimeType.start&&tp2.type==TimeType.stop)
-				return before;
-			if(this.type==TimeType.stop&&tp2.type==TimeType.start)
-				return after;
 			return equals;
 		}
 	}
