@@ -31,7 +31,7 @@
 = Wie is er momenteel waaraan bezig? =
 <p>
 Dieter: Tests voor TimeTable en TimeSlot.<p>
-Stefaan: Task en TaskManager<p>
+Stefaan: Task refinen<p>
 Wouter: Functies van Schedulable + klassen die ermee te maken hebben (user, machine, treatment, ...)<p>
 
 = Things that have been crossed off = 
