@@ -1,2 +1,29 @@
 = TODOs =
-lorum ipsem dolor sit...
+  * functies van Schedulable moeten geimplementeerd worden (tests!)
+  * scheduler testen (= tests schrijven) - volledig en uitvoerig
+  * Scheduler: waar de juiste resource bepaald wordt; checken dat ze nog niet is opgenomen.
+  * TimeTableTests voor union (! speciale gevallen kunnen nog problemen geven --> wouter)
+  * Task en TaskManager fixen
+	# In de usecases willen we Tasks aanmaken.
+	# Als de Tasks niet onmiddellijk gescheduled kunnen worden, komen ze in de unscheduledTasks-collection van de Taskmanager.
+	# Als de taken wel onmiddellijk gescheduled kunnen worden, schedulen we ze.
+	# Een task moet dus gewoon zijn Resources bijhouden.
+	# Task manager moet verwittigd worden om zijn queues te updaten op de gepaste plaatsten in de usecases.
+  * WarehouseAdmin
+  * AdvanceTime()
+  * Een oplossing voor het system-package en de SystemStarter class
+  * sortByFreeTime; nog eens herbekijken
+  * TEKENINGETJES MAKEN ^^
+  * de equals-methodes moeten goed getest worden
+  * usecases iteratie 1, en vorige fixen.
+  * alles nalezen en defensief maken
+  * nieuwe usecases van iteratie 2
+  * eten
+  * warehouse
+  * als de tijd vooruit gaat, moeten de volgende dingen gebeuren:
+	# Alle TimeTables moeten geupdate worden.
+	# Het warehouse moet geupdate worden.
+	# De TaskManager moet zijn queues updaten, indien er tijdsafhankelijke constraints zijn voor Schedulables.
+	- ...
+
+  * ...
