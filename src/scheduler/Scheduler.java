@@ -21,28 +21,7 @@ import scheduler.task.Schedulable;
 public class Scheduler
 {
 	private static Date currentSystemTime;
-	private LinkedList<Collection<Schedulable>> stillToSchedule = new LinkedList<Collection<Schedulable>>();
-	private LinkedList<Collection<Schedulable>> allTheNeededResources = new LinkedList<Collection<Schedulable>>();
 	
-	/**
-	 * Default constructor; will set current system time.
-	 * 
-	 * @param systemDate
-	 *            The wanted current system time.
-	 */
-	public Scheduler (Date systemDate) {
-		if(systemDate == null)
-			throw new IllegalArgumentException("systemDate in constructor of Scheduler is null!");
-		currentSystemTime = systemDate;
-	}
-	
-	/**
-	 * Alternative constructor. Does not initilise system time. Can be used if
-	 * one wants to create a new scheduler without knowing the current system
-	 * time, or having a link to another scheduler.
-	 */
-	public Scheduler() {}
-
 	/**
 	 * This method will schedule one of each resources given in the parameters
 	 * in the first available and valid timeslot.
@@ -57,22 +36,24 @@ public class Scheduler
 	 * @throws ImpossibleToScheduleException 
 	 */
 	public Date schedule(long duration, Collection<Schedulable>... resourcesToSchedule) throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, ImpossibleToScheduleException {
+		LinkedList<Collection<Schedulable>> stillToSchedule = new LinkedList<Collection<Schedulable>>();
+		LinkedList<Collection<Schedulable>> allTheNeededResources = new LinkedList<Collection<Schedulable>>();
 		for (int i = 0; i < resourcesToSchedule.length; i++) {
-			this.stillToSchedule.add(resourcesToSchedule[i]);
-			this.allTheNeededResources.add(resourcesToSchedule[i]);
+			stillToSchedule.add(resourcesToSchedule[i]);
+			allTheNeededResources.add(resourcesToSchedule[i]);
 		}
 		
-		return schedule(duration, new LinkedList<TimeTable>());
+		return schedule(duration, new LinkedList<TimeTable>(), stillToSchedule, allTheNeededResources);
 	}
 	
 	/**
-	 * @throws ImpossibleToScheduleException 
+	 * @throws ImpossibleToScheduleException
 	 * @effect schedule(long, collection<schedule>...)
 	 */
 	public Date schedule(long duration, Collection<Collection<Schedulable>> resourcesToSchedule) throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, ImpossibleToScheduleException {
-		this.stillToSchedule = new LinkedList<Collection<Schedulable>>(resourcesToSchedule);
-		this.allTheNeededResources = new LinkedList<Collection<Schedulable>>(this.stillToSchedule);
-		return schedule(duration, new LinkedList<TimeTable>());
+		LinkedList<Collection<Schedulable>> stillToSchedule = new LinkedList<Collection<Schedulable>>(resourcesToSchedule);
+		LinkedList<Collection<Schedulable>> allTheNeededResources = new LinkedList<Collection<Schedulable>>(stillToSchedule);
+		return schedule(duration, new LinkedList<TimeTable>(),stillToSchedule, allTheNeededResources);
 	}
 	
 	/**
@@ -87,10 +68,14 @@ public class Scheduler
 	 *            intersected timelines stored.
 	 * 
 	 * @return The date of the scheduled appointment.
-	 * @throws ImpossibleToScheduleException 
+	 * @throws ImpossibleToScheduleException
 	 */
-	private Date schedule(long duration, LinkedList<TimeTable> used) throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, ImpossibleToScheduleException {
-		if (duration < 0) 
+	private Date schedule(long duration, LinkedList<TimeTable> used,
+			LinkedList<Collection<Schedulable>> stillToSchedule,
+			LinkedList<Collection<Schedulable>> allTheNeededResources)
+			throws QueueException, InvalidDurationException,
+			InvalidSchedulingRequestException, ImpossibleToScheduleException {
+		if (duration < 0)
 			throw new InvalidDurationException("Invalid duration in schedule-method!");
 		
 		// First we check if, in this call, the recursion is in it's final step.
@@ -99,14 +84,14 @@ public class Scheduler
 			// of each of the resources in every collection.
 			//
 			// Let's schedule them!
-			return finalSchedulingStep(used, duration);
+			return finalSchedulingStep(duration, used, stillToSchedule, allTheNeededResources);
 		}
 		
 		// If this isn't the final step, we need to intersect all resources of
 		// the next collection of instances of resources of which the best has
 		// to be chosen out of and finally scheduled.
 		// For further info: check the documentation on finalSchedulingStep().
-		List<Schedulable> resourceQueue = getNextResourceQueue();
+		List<Schedulable> resourceQueue = getNextResourceQueue(stillToSchedule);
 		Schedulable firstQueueElement = resourceQueue.remove(0);
 		Collection<TimeTable> allTheTimeTables = new LinkedList<TimeTable>();
 		for(Schedulable s: resourceQueue)
@@ -116,7 +101,7 @@ public class Scheduler
 		TimeTable theIntersection = firstQueueElement.getTimeTable().intersectAll(allTheTimeTables);
 		used.add(theIntersection);		
 		
-		return schedule(duration, used);
+		return schedule(duration, used, stillToSchedule, allTheNeededResources);
 	}
 	
 	/**
@@ -159,7 +144,9 @@ public class Scheduler
 	 *             If used.isEmpty();
 	 * @throws ImpossibleToScheduleException 
 	 */
-	private Date finalSchedulingStep(LinkedList<TimeTable> used, long duration) throws InvalidSchedulingRequestException, ImpossibleToScheduleException {
+	private Date finalSchedulingStep(long duration, LinkedList<TimeTable> used,
+			LinkedList<Collection<Schedulable>> stillToSchedule,
+			LinkedList<Collection<Schedulable>> allTheNeededResources) throws InvalidSchedulingRequestException, ImpossibleToScheduleException {
 		if (used.isEmpty())
 			throw new InvalidSchedulingRequestException(
 					"Schedule-method called without asking for any resources!");
@@ -227,7 +214,7 @@ public class Scheduler
 	 * @throws QueueException
 	 *             if the to-schedule-queue is empty.
 	 */
-	private LinkedList<Schedulable> getNextResourceQueue() throws QueueException {
+	private LinkedList<Schedulable> getNextResourceQueue(LinkedList<Collection<Schedulable>> stillToSchedule) throws QueueException {
 		if (stillToSchedule.isEmpty()) 
 			throw new QueueException("Error while updating resource queue: nothing left to schedule!");
 		return new LinkedList<Schedulable>(stillToSchedule.remove(0));
