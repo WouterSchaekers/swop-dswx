@@ -221,7 +221,9 @@ public class Scheduler
 	}
 	
 	@Basic
-	public Date getCurrentSystemTime() {
+	public static Date getCurrentSystemTime() {
+		if(currentSystemTime==null)
+			currentSystemTime=new Date(0);
 		return currentSystemTime;
 	}
 	
@@ -240,4 +242,19 @@ public class Scheduler
 			return t != null;
 		return t != null && t.getTime() > currentSystemTime.getTime();
 	}
+	/**
+	 * start of time
+	 * @return
+	 */
+	public static Date startOfTime() {
+		return new Date(61283235600000l);
+	}
+	/**
+	 * end of time
+	 * @return
+	 */
+	public static Date endOfTime() {
+		return new Date(Long.MAX_VALUE);
+	}
+	
 }

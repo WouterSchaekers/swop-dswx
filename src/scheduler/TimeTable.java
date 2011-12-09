@@ -139,7 +139,35 @@ public class TimeTable
 
 		return new TimeTable(returnValue);
 	}
-
+	/**
+	 * 
+	 * @param table
+	 * @return
+	 */
+	public TimeTable invert(TimeTable table)
+	{
+		TimeTable returnValue=null;
+		try{
+		//Start of time
+		Date d1 = Scheduler.startOfTime();
+		// the end of time is here :)
+		Date d2 = Scheduler.endOfTime();
+		TimeSlot t = new TimeSlot(new TimePoint(d1, TimeType.start),new TimePoint(d2, TimeType.stop));
+		 returnValue = new TimeTable();
+		TimePoint p1;
+		TimePoint p2;
+		if(timeSlots.length==0)
+			return new TimeTable(t);
+		returnValue.addTimeSlot(new TimeSlot(new TimePoint(d1, TimeType.start),new TimePoint(timeSlots[0].getStartPoint().getDate(), TimeType.stop)));
+		int i =0;
+		for (; i < timeSlots.length-1; i++) 
+		{
+			returnValue.addTimeSlot(new TimeSlot(new TimePoint(timeSlots[i].getStopPoint().getDate(), TimeType.start),new TimePoint(timeSlots[0].getStartPoint().getDate(), TimeType.stop)));		
+		}	
+		returnValue.addTimeSlot(new TimeSlot(new TimePoint(timeSlots[i].getStartPoint().getDate(), TimeType.start),new TimePoint(d2, TimeType.stop)));	
+		}catch(Exception e){}
+		return returnValue;
+	}
 	/**
 	 * This method returns all free slots in this TimeTable with a certain
 	 * minimal certain length.
@@ -407,6 +435,10 @@ public class TimeTable
 	 * @return A timeslot at the end of this timetable of the wanted length.
 	 */
 	private TimeSlot getLastSlotWithLength(long length) {
+		if(this.timeSlots.length==0)
+		{
+			return new TimeSlot(new TimePoint(Scheduler.getCurrentSystemTime(), TimeType.start), new TimePoint(new Date(Scheduler.getCurrentSystemTime().getTime()+length),TimeType.stop ));
+		}
 		Date startDate = this.timeSlots[this.timeSlots.length - 1]
 				.getStopPoint().getDate();
 		Date stopDate = new Date(startDate.getTime() + length);
