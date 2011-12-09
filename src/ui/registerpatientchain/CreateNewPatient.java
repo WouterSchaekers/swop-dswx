@@ -1,6 +1,7 @@
 package ui.registerpatientchain;
 
 import controllers.RegisterPatientController;
+import exceptions.InvalidNameException;
 import ui.UserinterfaceData;
 import ui.Usecase;
 
@@ -19,7 +20,13 @@ public class CreateNewPatient extends Usecase
 		System.out.println("Create a new Patient in the database");
 		System.out.println("enter name:");
 		String name = input.nextLine();
-		rpc.createNewPatient(data.getDataPasser(), name);
+		//TODO; fix
+		try {
+			rpc.createNewPatient(data.getDataPasser(), name);
+		} catch (InvalidNameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return new DisplayAllPatients(data, rpc);
 	}
 
