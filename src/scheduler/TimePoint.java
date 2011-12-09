@@ -50,9 +50,9 @@ public class TimePoint implements Comparable<TimePoint>
 		} else if (this.getTime() < tp2.getTime()) {
 			return before;
 		} else {
-			if(this.type==TimeType.start&&tp2.type==TimeType.end)
+			if(this.type==TimeType.start&&tp2.type==TimeType.stop)
 				return before;
-			if(this.type==TimeType.end&&tp2.type==TimeType.start)
+			if(this.type==TimeType.stop&&tp2.type==TimeType.start)
 				return after;
 			return equals;
 		}
@@ -69,7 +69,7 @@ public class TimePoint implements Comparable<TimePoint>
 	 * @return True if this is an end-timepoint
 	 */
 	public boolean isEnd() {
-		return this.type == TimeType.end;
+		return this.type == TimeType.stop;
 	}
 	
 	/**

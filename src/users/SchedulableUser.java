@@ -1,6 +1,7 @@
 package users;
 
 import java.util.Date;
+import exceptions.ImpossibleToScheduleException;
 import scheduler.TimeSlot;
 import scheduler.TimeTable;
 import scheduler.task.Schedulable;
@@ -14,14 +15,13 @@ public abstract class SchedulableUser extends User implements Schedulable
 	}
 	
 	@Override
-	public boolean canBeScheduledOn(Date start, Date stop) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean canBeScheduledOn(Date startDate, Date stopDate) {
+		return timeTable.hasFreeSlotAt(startDate, stopDate);
 	}
 	
 	@Override
-	public void scheduleAt(TimeSlot t) {
-		// TODO Auto-generated method stub
+	public void scheduleAt(TimeSlot timeSlot) throws ImpossibleToScheduleException {
+		this.timeTable.addTimeSlot(timeSlot);
 	}
 	
 	public TimeTable getTimeTable(){

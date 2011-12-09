@@ -29,8 +29,9 @@ public class TaskManager
 	 * @throws InvalidSchedulingRequestException
 	 * @throws InvalidDurationException
 	 * @throws QueueException
+	 * @throws ImpossibleToScheduleException 
 	 */
-	public HashMap<Task,Date> updateQueue() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException {
+	public HashMap<Task,Date> updateQueue() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, ImpossibleToScheduleException {
 		HashMap<Task,Date> returnValue = new HashMap<Task, Date>();
 		
 		for(Task curTask: this.taskQueue) {
