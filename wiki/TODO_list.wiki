@@ -6,9 +6,9 @@
   * Task en TaskManager fixen
     * In de usecases willen we Tasks aanmaken.
     * Als de Tasks niet onmiddellijk gescheduled kunnen worden, komen ze in de unscheduledTasks-collection van de Taskmanager.
-	# Als de taken wel onmiddellijk gescheduled kunnen worden, schedulen we ze.
-	# Een task moet dus gewoon zijn Resources bijhouden.
-	# Task manager moet verwittigd worden om zijn queues te updaten op de gepaste plaatsten in de usecases.
+    * Als de taken wel onmiddellijk gescheduled kunnen worden, schedulen we ze.
+    * Een task moet dus gewoon zijn Resources bijhouden.
+    * Task manager moet verwittigd worden om zijn queues te updaten op de gepaste plaatsten in de usecases.
   * WarehouseAdmin
   * AdvanceTime()
   * Een oplossing voor het system-package en de SystemStarter class
