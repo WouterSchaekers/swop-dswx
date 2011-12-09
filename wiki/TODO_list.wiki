@@ -34,4 +34,4 @@
 <p>
 Dieter: Tests voor TimeTable en TimeSlot.<p>
 Stefaan: Task en Scheduler<p>
-Wouter: <p>
+Wouter: Commentaar voor TimeTable<p>
