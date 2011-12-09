@@ -231,13 +231,9 @@ public class Scheduler
 	 *             if the to-schedule-queue is empty.
 	 */
 	private LinkedList<Schedulable> getNextResourceQueue() throws QueueException {
-		if (stillToSchedule.isEmpty()) 
+		if (!stillToSchedule.isEmpty()) 
 			throw new QueueException("Error while updating resource queue: nothing left to schedule!");
-		LinkedList<Schedulable> queue = new LinkedList<Schedulable>();
-		for(Schedulable s : stillToSchedule.remove(0))
-			queue.add(s);
-		
-		return queue;
+		return new LinkedList<Schedulable>(stillToSchedule.remove(0));
 	}
 	
 	@Basic
