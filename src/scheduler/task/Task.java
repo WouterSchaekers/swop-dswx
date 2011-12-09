@@ -15,7 +15,7 @@ public class Task
 			throw new IllegalArgumentException("Invalid resource passed to Task constructor!");
 		this.myResource = myResource;
 	}
-	
+
 	@Basic
 	public long duration() {
 		return this.getEndTime().getTime() - this.getStartTime().getTime();
