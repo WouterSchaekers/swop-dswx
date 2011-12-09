@@ -1,14 +1,15 @@
 package treatment;
 
+import exceptions.InvalidDescriptionException;
+import be.kuleuven.cs.som.annotate.Basic;
+
 /**
  * This class represents a surgical treatment.
  */
 public class Surgery extends Treatment
 {
-	// the name of each treatment will be final and will be used later on to
-	// determine which treatment a Treatment is.
 	public static final String TREATMENTNAME = "Surgery";
-	private String description; // a description of the surgery
+	private String description = "";
 
 	/**
 	 * Default constructor.
@@ -20,21 +21,23 @@ public class Surgery extends Treatment
 		super(TREATMENTNAME);
 	}
 
-	/**
-	 * @return The description of this surgery.
-	 */
+	@Basic
 	public String getDescription() {
 		return description;
 	}
 
-	/**
-	 * This method can change the description of this surgery.
-	 * 
-	 * @param description
-	 *            The new description of this surgery.
-	 */
-	public void setDescription(String description) {
+	@Basic
+	public void setDescription(String description) throws InvalidDescriptionException {
+		if(!isValidDescription(description))
+			throw new InvalidDescriptionException("Invalid description given in setDescription() of Surgery!");
 		this.description = description;
 	}
 
+	/**
+	 * @return True if b is a valid description.
+	 */
+	private boolean isValidDescription(String d) {
+		return !d.equals("");
+	}
+		
 }
