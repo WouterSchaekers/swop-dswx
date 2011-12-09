@@ -50,6 +50,10 @@ public class TimePoint implements Comparable<TimePoint>
 		} else if (this.getTime() < tp2.getTime()) {
 			return before;
 		} else {
+			if(this.type==TimeType.start&&tp2.type==TimeType.end)
+				return before;
+			if(this.type==TimeType.end&&tp2.type==TimeType.start)
+				return after;
 			return equals;
 		}
 	}
