@@ -6,7 +6,9 @@ import scheduler.*;
 public class TaskController
 {
 	
+	@SuppressWarnings("unused")
 	private TaskManager myTM = null;
+	@SuppressWarnings("unused")
 	private Scheduler myScheduler = null;
 	
 	public TaskController(LoginController lc) {
