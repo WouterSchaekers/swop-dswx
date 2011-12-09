@@ -1,6 +1,7 @@
 package scheduler;
 
 import java.util.*;
+import exceptions.ImpossibleToScheduleException;
 import be.kuleuven.cs.som.annotate.Basic;
 
 /**
@@ -10,6 +11,7 @@ import be.kuleuven.cs.som.annotate.Basic;
 public class TimeTable
 {
 	private TimeSlot[] timeSlots;
+	private int amountOfSlots;
 
 	/**
 	 * Alternative constructor where a certain amount of slots can just be given
@@ -31,10 +33,37 @@ public class TimeTable
 		for (TimeSlot s : slots) {
 			this.timeSlots[i++] = s;
 		}
+		amountOfSlots = slots.size();
 	}
 
 	public TimeSlot[] getArrayTimeSlots() {
 		return this.timeSlots;
+	}
+	
+	/**
+	 * Adds a timeslot to the current table.
+	 * 
+	 * @param timeSlot
+	 * 			The timeslot that has to be added
+	 * @throws ImpossibleToScheduleException
+	 * 			The timeslot cannot be scheduled in this timetable
+	 */
+	public void addTimeSlot(TimeSlot timeSlot) throws ImpossibleToScheduleException{
+		if(!this.hasFreeSlotAt(timeSlot)){
+			throw new ImpossibleToScheduleException("Dieter, you fucking retard!");
+		}
+		int length = this.timeSlots.length;
+		if(amountOfSlots >= length){
+			TimeSlot[] newTimeSlots = new TimeSlot[length*2];
+			for(int i = 0; i < timeSlots.length; i++){
+				newTimeSlots[i] = timeSlots[i];
+			}
+			newTimeSlots[this.amountOfSlots++] = timeSlot;
+			timeSlots = newTimeSlots;
+		}
+		else{
+			this.timeSlots[this.amountOfSlots++] = timeSlot;
+		}
 	}
 
 	/**
@@ -143,6 +172,10 @@ public class TimeTable
 
 		return new TimeTable(returnValue);
 	}
+	
+	public boolean hasFreeSlotAt(Date startDate, Date stopDate){
+		return this.hasFreeSlotAt(new TimeSlot(new TimePoint(startDate, TimeType.start), new TimePoint(stopDate, TimeType.stop)));
+	}
 
 	/**
 	 * This method will check whether or not this TimeTable has a free slot at
@@ -192,7 +225,7 @@ public class TimeTable
 		while (i < allPoints.length) {
 			TimeSlot t = new TimeSlot(
 					new TimePoint(new Date(0), TimeType.start), new TimePoint(
-							new Date(3), TimeType.end));
+							new Date(3), TimeType.stop));
 			t.setStartPoint(allPoints[i]);
 			int endcount = 1;
 			while (endcount > 0) {
@@ -354,7 +387,7 @@ public class TimeTable
 				.getStopPoint().getDate();
 		Date stopDate = new Date(startDate.getTime() + length);
 		TimePoint startFree = new TimePoint(startDate, TimeType.start);
-		TimePoint stopFree = new TimePoint(stopDate, TimeType.end);
+		TimePoint stopFree = new TimePoint(stopDate, TimeType.stop);
 
 		return new TimeSlot(startFree, stopFree);
 	}
