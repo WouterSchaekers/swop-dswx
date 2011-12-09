@@ -33,7 +33,7 @@
 = Wie is er momenteel waaraan bezig? =
 <p>
 Dieter: Tests en debugging van Scheduler.<p>
-Stefaan: Alles defensief maken en documentatie schrijven en nakijken<p>
+Stefaan: BREAKTIME<p>
 Wouter: Functies van Schedulable + klassen die ermee te maken hebben (user, machine, treatment, ...)<p>
 
 = Things that have been crossed off = 
@@ -44,3 +44,4 @@ Wouter: Functies van Schedulable + klassen die ermee te maken hebben (user, mach
   * Task and TaskManager have been rewritten.
   * Task has been updated.
   * Requirement-interface has been added; check javadoc for more info.
+  * Alles defensief maken en documentatie schrijven en nakijken (behalve scheduler package want daar mocht Stefaan niet aankomen).
