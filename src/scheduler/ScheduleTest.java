@@ -1,8 +1,10 @@
 package scheduler;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.Assert.*;
 import exceptions.*;
 import scheduler.task.Schedulable;
 import users.*;
@@ -10,24 +12,32 @@ import users.*;
 public class ScheduleTest
 {
 	UserManager m;
+	Scheduler s;
 
 	@Before
 	public void create() throws UserAlreadyExistsException,	InvalidNameException {
 		m = new UserManager();
-		m.CreateNurse("Jenny");
-		m.CreateNurse("Jill");
-		m.CreateNurse("Johanne");
-		m.CreateNurse("Janet");
+		m.createNurse("Jenny");
+		m.createNurse("Jill");
+		m.createNurse("Johanne");
+		m.createNurse("Janet");
+		m.createDoctor("Jasper");
+		s = new Scheduler();
 	}
 
 	@Test
-	public void schedule1thing() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, ImpossibleToScheduleException {
-		Scheduler s = new Scheduler();
+	public void schedule1Nurse() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, ImpossibleToScheduleException {
 		Collection<Collection<Schedulable>> t =  new ArrayList<Collection<Schedulable>>();
 		Collection<Schedulable> t2 = m.getAllNurses();
 		t.add(t2);
-		s.schedule(20, t);
-		System.out.println("wut the fuuu");
+		
+		//assertTrue(true);
 
 	}
+	
+	public void schedule2Nurses() {
+		
+	}
+	
+	
 }

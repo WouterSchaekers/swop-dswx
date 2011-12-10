@@ -1,6 +1,6 @@
 package scheduler.task;
 
-import java.util.Date;
+import scheduler.Date;
 import exceptions.ImpossibleToScheduleException;
 import scheduler.TimeSlot;
 import scheduler.TimeTable;

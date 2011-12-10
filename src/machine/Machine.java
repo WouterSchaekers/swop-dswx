@@ -2,7 +2,7 @@ package machine;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
+import scheduler.Date;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidSerialException;
 import scheduler.TimeTable;
@@ -75,5 +75,5 @@ public abstract class Machine implements Schedulable
 	}
 
 	@Override
-	public abstract boolean canBeScheduledOn(Date start, Date stop);
+	public abstract boolean canBeScheduledOn(Date startDate, Date stopDate);
 }

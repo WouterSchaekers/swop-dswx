@@ -1,7 +1,7 @@
 package scheduler;
 
 import static org.junit.Assert.*;
-import java.util.Date;
+import scheduler.Date;
 import org.junit.Test;
 
 @SuppressWarnings("unused")

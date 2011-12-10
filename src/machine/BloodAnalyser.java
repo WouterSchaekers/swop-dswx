@@ -1,6 +1,6 @@
 package machine;
 
-import java.util.Date;
+import scheduler.Date;
 import scheduler.TimeSlot;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidSerialException;
@@ -17,14 +17,15 @@ public class BloodAnalyser extends Machine
 	}
 
 	@Override
-	public boolean canBeScheduledOn(Date start, Date stop) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public void scheduleAt(TimeSlot t) {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public boolean canBeScheduledOn(Date startDate, Date stopDate) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

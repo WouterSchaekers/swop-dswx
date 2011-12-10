@@ -3,7 +3,7 @@ package scheduler;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
+import scheduler.Date;
 import java.util.LinkedList;
 import org.junit.Test;
 import exceptions.ImpossibleToScheduleException;
