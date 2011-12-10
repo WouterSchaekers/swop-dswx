@@ -47,11 +47,10 @@ public class TimeTable
 	 * @throws ImpossibleToScheduleException
 	 *             The timeslot cannot be scheduled in this timetable
 	 */
-	public void addTimeSlot(TimeSlot timeSlot)
-			throws ImpossibleToScheduleException {
+	public void addTimeSlot(TimeSlot timeSlot) throws ImpossibleToScheduleException {
 		if (!this.hasFreeSlotAt(timeSlot)) {
 			throw new ImpossibleToScheduleException(
-					"Dieter, you fucking retard!");
+					"Can't schedule at given timeSlot!");
 		}
 		this.timeSlots.add(timeSlot);
 	}
