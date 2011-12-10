@@ -1,23 +1,19 @@
 = TODOs =
-  * functies van Schedulable moeten geimplementeerd worden (tests!)
-  * scheduler testen (= tests schrijven) - volledig en uitvoerig
   * Concerning Task and TaskManager:
     * In de usecases willen we Tasks aanmaken.
       * Als de Tasks niet onmiddellijk gescheduled kunnen worden, komen ze in de task queue van de Taskmanager.
       * Als de taken wel onmiddellijk gescheduled kunnen worden, schedulen we ze.
       * Task manager moet verwittigd worden om zijn queues te updaten op de gepaste plaatsten in de usecases.
   * Factory patronen implementeren voor MedicalTest en Treatment
-  * WarehouseAdmin
-  * AdvanceTime()
-  * Een oplossing voor het system-package en de SystemStarter class
-  * Nagaan welke klasses Requirements kunnen zijn behalve Diagnose.
-  * TEKENINGETJES MAKEN ^^
-  * de equals-methodes moeten goed getest worden
-  * usecases iteratie 1, en vorige fixen.
-  * nieuwe usecases van iteratie 2
   * eten
   * warehouse
   * Result
+  * WarehouseAdmin
+  * AdvanceTime()
+  * Een oplossing voor het system-package en de SystemStarter class
+  * TEKENINGETJES MAKEN ^^
+  * usecases iteratie 1, en vorige fixen.
+  * nieuwe usecases van iteratie 2
   * als de tijd vooruit gaat, moeten de volgende dingen gebeuren:
     * Alle TimeTables moeten geupdate worden.
     * Het warehouse moet geupdate worden.
@@ -25,13 +21,12 @@
     * ...
   * Documentatie schrijven
   * Verslag schrijven
-  * De dude mailen met een draft versie van het verslag en de vraag of onze scheduler nu wel objectgericht geprogrammeerd is.
   * ...
 
 = Wie is er momenteel waaraan bezig? =
 <p>
 Dieter: BREAKTIME<p>
-Stefaan: Scheduler debuggen<p>
+Stefaan: Constraints maken in canBeScheduled()<p>
 Wouter: TimeTable debuggen<p>
 
 = Things that have been crossed off = 
@@ -43,3 +38,5 @@ Wouter: TimeTable debuggen<p>
   * Task has been updated.
   * Requirement-interface has been added; check javadoc for more info.
   * Alles defensief maken en documentatie schrijven en nakijken (behalve scheduler package want daar mocht Stefaan niet aankomen).
+  * Scheduler debuggen
+  * De dude mailen met een draft versie van het verslag en de vraag of onze scheduler nu wel objectgericht geprogrammeerd is.
