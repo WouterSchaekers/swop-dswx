@@ -1,4 +1,7 @@
 = TODOs =
+  * constraints in canBeScheduled
+  * scheduler tests updaten na canBeScheduled
+  * Een klasse maken die gregoriancalendar extend en die gemakkelijke functies heeft om daarop dingen aan te passen en daarna terug te getten. Vervolgens alle Date dingen refactoren.
   * Concerning Task and TaskManager:
     * In de usecases willen we Tasks aanmaken.
       * Als de Tasks niet onmiddellijk gescheduled kunnen worden, komen ze in de task queue van de Taskmanager.
