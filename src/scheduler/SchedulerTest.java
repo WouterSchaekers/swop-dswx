@@ -8,11 +8,7 @@ import exceptions.*;
 import scheduler.task.Schedulable;
 import users.*;
 
-public class SchedulerTest
-{
-	
-	//TODO: when constraints are implemented in canBeScheduledAt()
-	// update ALL the asserts!
+public class SchedulerTest {
 	UserManager m;
 	Scheduler s = new Scheduler();
 	Collection<Collection<Schedulable>> t;
@@ -280,6 +276,7 @@ public class SchedulerTest
 		assertTrue(d2.canBeScheduledOn(endScheduledDate2,new Date(endScheduledDate2.getTime() + 1)));
 	}
 
-//TODO: hybrid of all previous
-	
+	//TODO: hybrid of all previous
+	//TODO: expected: exception
+	//TODO: when constraints are implemented in canBeScheduledAt() update ALL the asserts!
 }
