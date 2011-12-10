@@ -23,7 +23,7 @@ public class SchedulerTest {
 	Schedulable d3;
 
 	@Before
-	public void create() throws UserAlreadyExistsException,	InvalidNameException {
+	public void create() throws UserAlreadyExistsException,	InvalidNameException, InvalidTimeSlotException {
 		m = new UserManager();
 		m.createNurse("Jenny");
 		m.createNurse("Jill");
@@ -50,7 +50,7 @@ public class SchedulerTest {
 	}
 
 	@Test
-	public void scheduleNurseFor1Min() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException {
+	public void scheduleNurseFor1Min() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException {
 		s.setNewSystemTime(Scheduler.START_OF_TIME);
 		
 		long duration = Scheduler.ONE_MINUTE;
@@ -67,7 +67,7 @@ public class SchedulerTest {
 	}
 
 	@Test
-	public void scheduleNurseFor1Hour42Min5Sec() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException {
+	public void scheduleNurseFor1Hour42Min5Sec() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException {
 		long duration = Scheduler.ONE_HOUR + Scheduler.ONE_MINUTE * 42 + Scheduler.ONE_SECOND * 55;
 
 		Date scheduledDate = s.schedule(duration, t);
@@ -83,7 +83,7 @@ public class SchedulerTest {
 	}
 
 	@Test
-	public void schedule2NursesAtTheSameTime() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException {
+	public void schedule2NursesAtTheSameTime() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException {
 		long duration = Scheduler.ONE_MINUTE * 10;
 
 		Date scheduledDate = s.schedule(duration, t);
@@ -106,7 +106,7 @@ public class SchedulerTest {
 	}
 	
 	@Test
-	public void schedule2NursesAtTheSameTimeForTheSameTime() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException {
+	public void schedule2NursesAtTheSameTimeForTheSameTime() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException {
 		long duration = Scheduler.ONE_MINUTE * 10;
 
 		Date scheduledDate = s.schedule(duration, t);
@@ -129,7 +129,7 @@ public class SchedulerTest {
 
 	
 	@Test
-	public void schedule2NursesAtTheSameTimeForDifferentTimes() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException {
+	public void schedule2NursesAtTheSameTimeForDifferentTimes() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException {
 		long duration = Scheduler.ONE_MINUTE * 10;
 		long duration2 = duration * 2;
 
@@ -152,7 +152,7 @@ public class SchedulerTest {
 	}
 	
 	@Test
-	public void scheduleBusyNurseFor1Min() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException {		
+	public void scheduleBusyNurseFor1Min() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException {		
 		long duration = Scheduler.ONE_MINUTE;
 
 		TimeSlot busySlot = new TimeSlot(new TimePoint(new Date(Scheduler.getCurrentSystemTime().getTime()), TimeType.start), new TimePoint(new Date(Scheduler.getCurrentSystemTime().getTime() + Scheduler.ONE_MINUTE), TimeType.stop));
@@ -175,7 +175,7 @@ public class SchedulerTest {
 	}
 	
 	@Test
-	public void scheduleAnotherNurseThanTheBusyOneFor1Min() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException {		
+	public void scheduleAnotherNurseThanTheBusyOneFor1Min() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException {		
 		long duration = Scheduler.ONE_MINUTE;
 
 		TimeSlot busySlot = new TimeSlot(new TimePoint(new Date(Scheduler.getCurrentSystemTime().getTime()), TimeType.start), new TimePoint(new Date(Scheduler.getCurrentSystemTime().getTime() + Scheduler.ONE_MINUTE * 100), TimeType.stop));
@@ -197,7 +197,7 @@ public class SchedulerTest {
 	}
 
 	@Test
-	public void scheduleMoreThingsThanNurses() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException {
+	public void scheduleMoreThingsThanNurses() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException {
 		long duration1 = Scheduler.ONE_MINUTE * 10;
 		long duration2 = Scheduler.ONE_MINUTE * 15;
 		long duration3 = Scheduler.ONE_MINUTE * 20;
@@ -227,7 +227,7 @@ public class SchedulerTest {
 	}
 	
 	@Test
-	public void schedule2DifferentKindsOfSchedulables() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException {		
+	public void schedule2DifferentKindsOfSchedulables() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException {		
 		long duration = Scheduler.ONE_MINUTE;
 		
 		Date scheduledDate = s.schedule(duration, t4);
@@ -245,7 +245,7 @@ public class SchedulerTest {
 	}
 	
 	@Test
-	public void schedule2DifferentKindsOfSchedulablesForDifferentDurations() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException {		
+	public void schedule2DifferentKindsOfSchedulablesForDifferentDurations() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException {		
 		long duration = Scheduler.ONE_MINUTE;
 		long duration2 = Scheduler.ONE_MINUTE * 23;
 		

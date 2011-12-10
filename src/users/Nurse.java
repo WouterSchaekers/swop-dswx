@@ -4,6 +4,7 @@ import java.util.Date;
 import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidNameException;
 import exceptions.InvalidSchedulingRequestException;
+import exceptions.InvalidTimeSlotException;
 
 /**
  * This class represents a Nurse in the hospital.
@@ -16,8 +17,9 @@ public class Nurse extends SchedulableUser
 	 * @param name
 	 *            The name of this Nurse.
 	 * @throws InvalidNameException
+	 * @throws InvalidTimeSlotException 
 	 */
-	public Nurse(String name) throws InvalidNameException {
+	public Nurse(String name) throws InvalidNameException, InvalidTimeSlotException {
 		super(name);
 	}
 
