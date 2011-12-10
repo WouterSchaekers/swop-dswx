@@ -1,6 +1,10 @@
 package scheduler;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.Arrays;
+import java.util.ArrayList;
+
 import exceptions.ImpossibleToScheduleException;
 import be.kuleuven.cs.som.annotate.Basic;
 
@@ -324,7 +328,6 @@ public class TimeTable
 	 *            A certain timetable that has to be simplified
 	 * @return The timePoints of this timetable without overlap
 	 */
-	// XXX: maybe
 	public static TimePoint[] eliminateOverlap(TimeTable timeTable) {
 
 		TimePoint[] timePoints = new TimePoint[timeTable.timeSlots.size() * 2];

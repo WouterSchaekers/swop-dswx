@@ -1,6 +1,6 @@
 package machine;
 
-import java.util.Date;
+import scheduler.Date;
 import scheduler.TimeSlot;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidSerialException;
@@ -17,7 +17,7 @@ public class UltraSoundScanner extends Machine
 	}
 
 	@Override
-	public boolean canBeScheduledOn(Date start, Date stop) {
+	public boolean canBeScheduledOn(Date startDate, Date stopDate) {
 		// TODO Auto-generated method stub
 		return false;
 	}

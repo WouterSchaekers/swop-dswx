@@ -1,8 +1,8 @@
 package users;
 
-import java.util.Date;
 import exceptions.ImpossibleToScheduleException;
 import exceptions.InvalidNameException;
+import scheduler.Date;
 import scheduler.TimeSlot;
 import scheduler.TimeTable;
 import scheduler.task.Schedulable;

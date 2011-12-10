@@ -1,7 +1,6 @@
 package scheduler;
 
 import java.util.Comparator;
-import java.util.Date;
 import be.kuleuven.cs.som.annotate.Basic;
 
 /**

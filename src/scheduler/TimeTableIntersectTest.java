@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Date;
+import scheduler.Date;
 import org.junit.Test;
 
 public class TimeTableIntersectTest
