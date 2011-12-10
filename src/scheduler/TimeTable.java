@@ -146,7 +146,7 @@ public class TimeTable
 	 * @return
 	 * @throws ImpossibleToScheduleException 
 	 */
-	public TimeTable invert(TimeTable table) throws ImpossibleToScheduleException {
+	public TimeTable invert() throws ImpossibleToScheduleException {
 		TimeTable returnValue = null;
 		// Start of time
 		Date d1 = Scheduler.START_OF_TIME;
@@ -187,7 +187,7 @@ public class TimeTable
 	 * @throws ImpossibleToScheduleException 
 	 */
 	public TimeTable getAllFreeSlots(long length) throws ImpossibleToScheduleException {
-		TimeTable x = invert(this);
+		TimeTable x = this.invert();
 		TimeTable rv = new TimeTable();
 		for (TimeSlot t : x.timeSlots) {
 			if (t.getLength() >= length) {
@@ -216,10 +216,10 @@ public class TimeTable
 				.getAllFreeSlots(slotToCheck.getLength());
 		Collection<TimeSlot> slots = freeSlotsTable.getTimeSlots();
 
-		for (TimeSlot thisSlot : slots)
+		for (TimeSlot thisSlot : slots){
 			if (thisSlot.containsSlot(slotToCheck))
 				return true;
-
+		}
 		return false;
 	}
 
