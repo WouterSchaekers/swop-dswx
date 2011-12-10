@@ -20,11 +20,8 @@ public class SchedulerTest
 	@Before
 	public void create() throws UserAlreadyExistsException,	InvalidNameException {
 		m = new UserManager();
-		 m.createNurse("Jenny");
-		n2 = m.createNurse("Jill");
-		m.createNurse("Johanne");
-		m.createNurse("Janet");
-		m.createDoctor("Jasper");
+		m.createNurse("Jenny");
+		m.createNurse("Jill");
 		s = new Scheduler();
 		t =  new ArrayList<Collection<Schedulable>>();
 		t2 = (ArrayList<Schedulable>) m.getAllNurses();
@@ -68,7 +65,7 @@ public class SchedulerTest
 		Date scheduledDate = s.schedule(duration, t);
 		Date scheduledDate2 = s.schedule(duration - 1 * Scheduler.ONE_SECOND, t);
 		Date endScheduledDate = new Date(scheduledDate.getTime() + duration + 1);
-		Date endScheduledDate2 = new Date(scheduledDate2.getTime() + duration + 1);
+		Date endScheduledDate2 = new Date(scheduledDate2.getTime() + duration);
 		
 		assertFalse(n1.canBeScheduledOn(scheduledDate, new Date(scheduledDate.getTime() + 1)));
 		assertFalse(n2.canBeScheduledOn(scheduledDate2, new Date(scheduledDate2.getTime() + 1)));
@@ -85,10 +82,6 @@ public class SchedulerTest
 		Date endScheduledDate = new Date(scheduledDate.getTime() + duration + 1);
 		Date endScheduledDate2 = new Date(scheduledDate2.getTime() + duration + 1);
 		
-		System.out.println("Appointment scheduled on: " + scheduledDate);
-		System.out.println("\n\nNurse1's timetable = " +t2.get(0).getTimeTable());
-		System.out.println("Nurse2's timetable = " +t2.get(1).getTimeTable());
-		
 		assertFalse(n1.canBeScheduledOn(scheduledDate, new Date(scheduledDate.getTime() + 1)));
 		assertFalse(n2.canBeScheduledOn(scheduledDate2, new Date(scheduledDate2.getTime() + 1)));
 		assertTrue(n1.canBeScheduledOn(endScheduledDate,new Date(endScheduledDate.getTime() + 1 )));
@@ -103,11 +96,7 @@ public class SchedulerTest
 		Date scheduledDate = s.schedule(duration, t);
 		Date scheduledDate2 = s.schedule(duration * 2, t);
 		Date endScheduledDate = new Date(scheduledDate.getTime() + duration + 1);
-		Date endScheduledDate2 = new Date(scheduledDate2.getTime() + duration + 1);
-		
-		System.out.println("Appointment scheduled on: " + scheduledDate);
-		System.out.println("\n\nNurse1's timetable = " +t2.get(0).getTimeTable());
-		System.out.println("Nurse2's timetable = " +t2.get(1).getTimeTable());
+		Date endScheduledDate2 = new Date(scheduledDate2.getTime() + duration * 2 + 1);
 		
 		assertFalse(n1.canBeScheduledOn(scheduledDate, new Date(scheduledDate.getTime() + 1)));
 		assertFalse(n2.canBeScheduledOn(scheduledDate2, new Date(scheduledDate2.getTime() + 1)));
@@ -115,5 +104,26 @@ public class SchedulerTest
 		assertTrue(n2.canBeScheduledOn(endScheduledDate2,new Date(endScheduledDate2.getTime() + 1 )));
 	}
 
-	
+	@Test
+	public void scheduleMoreThingsThanNurses() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, ImpossibleToScheduleException {
+		long duration1 = Scheduler.ONE_MINUTE * 10;
+		long duration2 = Scheduler.ONE_MINUTE * 15;
+		long duration3 = Scheduler.ONE_MINUTE * 20;
+
+		Date scheduledDate = s.schedule(duration1, t);
+		Date scheduledDate2 = s.schedule(duration2, t);
+		Date scheduledDate3 = s.schedule(duration3, t);
+		Date endScheduledDate = new Date(scheduledDate.getTime() + duration1 + 1);
+		Date endScheduledDate2 = new Date(scheduledDate2.getTime() + duration2 + 1);
+		Date endScheduledDate3 = new Date(scheduledDate3.getTime() + duration3 + 1);
+		
+		System.out.println("Nurse 1: " + n1.getTimeTable());
+		System.out.println("Nurse 2: " + n2.getTimeTable());
+		
+		assertFalse(n1.canBeScheduledOn(scheduledDate, new Date(scheduledDate.getTime() + 1)));
+		assertFalse(n2.canBeScheduledOn(scheduledDate2, new Date(scheduledDate2.getTime() + 1)));
+		assertTrue(n1.canBeScheduledOn(endScheduledDate,new Date(endScheduledDate.getTime() + 1 )));
+		assertTrue(n2.canBeScheduledOn(endScheduledDate2,new Date(endScheduledDate2.getTime() + 1 )));
+	}
+
 }
