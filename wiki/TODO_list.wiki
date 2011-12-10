@@ -31,7 +31,7 @@
 = Wie is er momenteel waaraan bezig? =
 <p>
 Dieter: BREAKTIME<p>
-Stefaan: BREAKTIME<p>
+Stefaan: Scheduler debuggen<p>
 Wouter: BREAKTIME<p>
 
 = Things that have been crossed off = 
