@@ -71,9 +71,7 @@ public class TimeSlot
 		TimePoint tt2 = this.getStopPoint();
 		TimePoint t1 = t.getStartPoint();
 		TimePoint t2 = t.getStopPoint();
-			
-		return t1.getTimeBetween(tt1) >= 0 && t1.getTimeBetween(tt2) <= 0 
-				&& t2.getTimeBetween(tt1) >= 0 && t2.getTimeBetween(tt2) <= 0;
+		return t1.isBetween(tt1, tt2) && t2.isBetween(tt1, tt2);
 	}
 	
 }

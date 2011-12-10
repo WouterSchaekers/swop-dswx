@@ -170,12 +170,12 @@ public class TimeTableTest
 
 	@Test
 	public void invertTest() throws ImpossibleToScheduleException {
-		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(0), TimeType.start),
-				new TimePoint(new Date(5), TimeType.stop));
-		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(8), TimeType.start),
-				new TimePoint(new Date(15), TimeType.stop));
+		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(61283235600001l), TimeType.start),
+				new TimePoint(new Date(61283235600002l), TimeType.stop));
+		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(61283235600003l), TimeType.start),
+				new TimePoint(new Date(61283235600004l), TimeType.stop));
 		TimeTable table = new TimeTable(t1, t2);
-		TimeTable invertedTable = table.invert(table);
+		TimeTable invertedTable = table.invert();
 		
 	}
 }
