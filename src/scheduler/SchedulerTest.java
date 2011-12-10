@@ -9,7 +9,7 @@ import exceptions.*;
 import scheduler.task.Schedulable;
 import users.*;
 
-public class ScheduleTest
+public class SchedulerTest
 {
 	UserManager m;
 	Scheduler s = new Scheduler();
