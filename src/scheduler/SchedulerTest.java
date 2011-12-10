@@ -103,13 +103,31 @@ public class SchedulerTest
 		assertTrue(n1.canBeScheduledOn(endScheduledDate,new Date(endScheduledDate.getTime() + 1 )));
 		assertTrue(n2.canBeScheduledOn(endScheduledDate2,new Date(endScheduledDate2.getTime() + 1 )));
 	}
+	
+	@Test
+	public void scheduleBusyNurseFor1Min() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, ImpossibleToScheduleException {		
+		long duration = Scheduler.ONE_MINUTE;
+
+		TimeSlot busySlot = new TimeSlot(new TimePoint(new Date(Scheduler.getCurrentSystemTime().getTime()), TimeType.start), new TimePoint(new Date(Scheduler.getCurrentSystemTime().getTime() + Scheduler.ONE_MINUTE * 10), TimeType.stop));
+		n1.scheduleAt(busySlot);
+		
+		Collection<Schedulable> temp = new ArrayList<Schedulable>(Arrays.asList(n1));
+		Collection<Collection<Schedulable>> temp2 = new ArrayList<Collection<Schedulable>>();
+		temp2.add(temp);
+		
+		Date scheduledDate = s.schedule(duration, temp2);
+		Date endScheduledDate = new Date(scheduledDate.getTime() + duration + 1);
+		
+		assertFalse(n1.canBeScheduledOn(scheduledDate, new Date(scheduledDate.getTime() + 1)));
+		assertTrue(n1.canBeScheduledOn(new Date(endScheduledDate.getTime()),new Date(endScheduledDate.getTime() + 1)));
+	}
 
 	@Test
 	public void scheduleMoreThingsThanNurses() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, ImpossibleToScheduleException {
 		long duration1 = Scheduler.ONE_MINUTE * 10;
 		long duration2 = Scheduler.ONE_MINUTE * 15;
 		long duration3 = Scheduler.ONE_MINUTE * 20;
-
+ 
 		Date scheduledDate = s.schedule(duration1, t);
 		Date scheduledDate2 = s.schedule(duration2, t);
 		Date scheduledDate3 = s.schedule(duration3, t);
