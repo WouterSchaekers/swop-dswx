@@ -3,7 +3,6 @@ package scheduler;
 import java.util.*;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.Assert.*;
 import exceptions.*;
 import scheduler.task.Schedulable;
 import users.*;
@@ -22,7 +21,7 @@ public class ScheduleTest
 	}
 
 	@Test
-	public void test() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, ImpossibleToScheduleException {
+	public void schedule1thing() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, ImpossibleToScheduleException {
 		Scheduler s = new Scheduler();
 		Collection<Collection<Schedulable>> t =  new ArrayList<Collection<Schedulable>>();
 		Collection<Schedulable> t2 = m.getAllNurses();
