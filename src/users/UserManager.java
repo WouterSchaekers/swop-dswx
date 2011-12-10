@@ -3,7 +3,6 @@ package users;
 import java.util.*;
 import scheduler.task.Schedulable;
 import be.kuleuven.cs.som.annotate.Basic;
-import controllers.interfaces.*;
 import exceptions.InvalidNameException;
 import exceptions.UserAlreadyExistsException;
 
