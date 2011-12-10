@@ -21,11 +21,12 @@ import scheduler.task.Schedulable;
 public class Scheduler
 {
 	private static Date currentSystemTime;
-	public static final Date START_OF_TIME = new Date(61283235600000l);
+	public static final Date START_OF_TIME = new Date(1320735600000l);
 	public static final Date END_OF_TIME = new Date(Long.MAX_VALUE);
 	public static final long ONE_SECOND = 1000;
 	public static final long ONE_MINUTE = ONE_SECOND * 60;
 	public static final long ONE_HOUR = ONE_MINUTE * 60;
+
 	
 	/**
 	 * This method will schedule one of each resources given in the parameters

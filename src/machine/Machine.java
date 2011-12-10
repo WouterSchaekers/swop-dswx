@@ -1,8 +1,6 @@
 package machine;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import scheduler.Date;
+import java.util.*;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidSerialException;
 import scheduler.TimeTable;

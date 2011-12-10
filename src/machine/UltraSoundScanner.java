@@ -1,6 +1,6 @@
 package machine;
 
-import scheduler.Date;
+import java.util.*;
 import scheduler.TimeSlot;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidSerialException;

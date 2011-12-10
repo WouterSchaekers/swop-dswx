@@ -2,6 +2,7 @@ package scheduler;
 
 import java.util.Comparator;
 import be.kuleuven.cs.som.annotate.Basic;
+import java.util.*;
 
 /**
  * This class can be used to schedule appointments. It is either a start- or a

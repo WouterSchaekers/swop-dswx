@@ -2,10 +2,7 @@ package scheduler;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import scheduler.Date;
+import java.util.*;
 import org.junit.Test;
 
 public class TimeTableIntersectTest
