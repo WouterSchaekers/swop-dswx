@@ -9,7 +9,7 @@ public class Nurse extends SchedulableUser
 	}
 
 	@Override
-	public usertype type() {
-		return usertype.Nurse;
+	public UserType type() {
+		return UserType.Nurse;
 	}
 }

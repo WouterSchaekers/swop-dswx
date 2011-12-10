@@ -5,7 +5,7 @@ import exceptions.InvalidNameException;
 
 public abstract class User implements UserIN
 {
-	public abstract usertype type();
+	public abstract UserType type();
 	protected String name;
 
 	protected User(String name) throws InvalidNameException {
@@ -20,10 +20,5 @@ public abstract class User implements UserIN
 
 	private boolean isValidName(String n) {
 		return !n.equals("");
-	}
-	
-	public enum usertype
-	{
-		Doctor, Nurse, HospitalAdmin;
 	}
 }

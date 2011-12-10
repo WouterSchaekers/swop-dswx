@@ -10,8 +10,8 @@ public class HospitalAdmin extends User
 	}
 
 	@Override
-	public usertype type() {
-		return usertype.HospitalAdmin;
+	public UserType type() {
+		return UserType.HospitalAdmin;
 	}
 
 }
