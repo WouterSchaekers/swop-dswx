@@ -16,7 +16,7 @@ public abstract class SchedulableUser extends User implements Schedulable
 	}
 	
 	@Override
-	public boolean canBeScheduledOn(Date startDate, Date stopDate) throws ImpossibleToScheduleException {
+	public boolean canBeScheduledOn(Date startDate, Date stopDate) throws ImpossibleToScheduleException {;
 		return timeTable.hasFreeSlotAt(startDate, stopDate);
 	}
 	
