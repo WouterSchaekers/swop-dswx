@@ -200,12 +200,13 @@ public class Scheduler
 			if (foundResources.size() == allTheNeededResources.size()) {
 				// We've found our appointment slot!
 				TimePoint endOfAppointment = new TimePoint(new Date(candidateSlot.getStartPoint().getTime() + duration),TimeType.stop);
-				foundSlot = new TimeSlot(candidateSlot.getStartPoint(), endOfAppointment);
+				TimePoint startOfAppointment = candidateSlot.getStartPoint();
+				foundSlot = new TimeSlot(startOfAppointment, endOfAppointment);
 				// We can now break from the loop.
 				break;
 			}
 		}
-
+		System.out.println("\n\nFOUND SLOT !!! " + foundSlot + "\n\n");
 		// Tell the found elements to schedule themselves.
 		for (Schedulable s : foundResources)
 			s.scheduleAt(foundSlot);
