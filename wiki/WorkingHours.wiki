@@ -17,3 +17,4 @@
 || 09/12/11: 10u30 -> 14u00|| 3 DSW || 3.5 || More testing of the scheduler,timetable,timepoint,timeslot,.... scheduler package; writing documentation; making all classes defensive; rewriting Task and TaskManager; debugging scheduler; requirementinterface ||
 || 09/12/11: 14u00 -> 14u50 || 2 DS || 1 || Continuance of above || Wouter took a lunchbreak. ||
 || 09/12/11: 14u40 -> 16u10 || 3 DSW || 2.5 || Making everything defensive, more debugging of the scheduler package.||
+|| 10/12/11: 11u30 -> || 2 SW ||  ||  || We begonnen pas om 11h30, omdat Stefaan een Dieterke deed. ||
