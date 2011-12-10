@@ -37,7 +37,7 @@ public class TimeTable
 		for (TimeSlot s : slots) {
 			this.timeSlots[i++] = s;
 		}
-		amountOfSlots = slots.size();
+		amountOfSlots = slots.size()-1;
 	}
 
 	public TimeSlot[] getArrayTimeSlots() {
@@ -59,15 +59,19 @@ public class TimeTable
 					"Dieter, you fucking retard!");
 		}
 		int length = this.timeSlots.length;
-		if (amountOfSlots >= length) {
-			TimeSlot[] newTimeSlots = new TimeSlot[length * 2];
+		if (amountOfSlots++ >= length) {
+			int newLength = length*2;
+			if(newLength == 0){
+				newLength = 1;
+			}
+			TimeSlot[] newTimeSlots = new TimeSlot[newLength];
 			for (int i = 0; i < timeSlots.length; i++) {
 				newTimeSlots[i] = timeSlots[i];
 			}
-			newTimeSlots[this.amountOfSlots++] = timeSlot;
+			newTimeSlots[this.amountOfSlots] = timeSlot;
 			timeSlots = newTimeSlots;
 		} else {
-			this.timeSlots[this.amountOfSlots++] = timeSlot;
+			this.timeSlots[this.amountOfSlots] = timeSlot;
 		}
 	}
 
