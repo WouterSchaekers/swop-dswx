@@ -168,34 +168,44 @@ public class TimeTableTest
 
 	@Test
 	public void invertTest() throws ImpossibleToScheduleException {
-		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(1320735601000l), TimeType.start),
-				new TimePoint(new Date(1320735602000l), TimeType.stop));
-		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(1320735603000l), TimeType.start),
-				new TimePoint(new Date(1320735604000l), TimeType.stop));
-		TimeSlot t3 = new TimeSlot(new TimePoint(Scheduler.START_OF_TIME, TimeType.start),
-				new TimePoint(new Date(1320735601000l), TimeType.stop));
-		TimeSlot t4 = new TimeSlot(new TimePoint(new Date(1320735602000l), TimeType.start),
-				new TimePoint(new Date(1320735603000l), TimeType.stop));
-		TimeSlot t5 = new TimeSlot(new TimePoint(new Date(1320735604000l), TimeType.start),
-				new TimePoint(Scheduler.END_OF_TIME, TimeType.stop));
+		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(1320735601000l),
+				TimeType.start), new TimePoint(new Date(1320735602000l),
+				TimeType.stop));
+		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(1320735603000l),
+				TimeType.start), new TimePoint(new Date(1320735604000l),
+				TimeType.stop));
+		TimeSlot t3 = new TimeSlot(new TimePoint(Scheduler.START_OF_TIME,
+				TimeType.start), new TimePoint(new Date(1320735601000l),
+				TimeType.stop));
+		TimeSlot t4 = new TimeSlot(new TimePoint(new Date(1320735602000l),
+				TimeType.start), new TimePoint(new Date(1320735603000l),
+				TimeType.stop));
+		TimeSlot t5 = new TimeSlot(new TimePoint(new Date(1320735604000l),
+				TimeType.start), new TimePoint(Scheduler.END_OF_TIME,
+				TimeType.stop));
 		TimeTable table = new TimeTable(t1, t2);
 		TimeTable table2 = new TimeTable(t3, t4, t5);
 		TimeTable invertedTable = table.invert();
 		assertTrue(invertedTable.equals(table2));
 	}
-	
+
 	@Test
 	public void invert2Test() throws ImpossibleToScheduleException {
-		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(1320735601000l), TimeType.start),
-				new TimePoint(new Date(8984651322588l), TimeType.stop));
-		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(12589765845329l), TimeType.start),
-				new TimePoint(new Date(13569856245875l), TimeType.stop));
-		TimeSlot t3 = new TimeSlot(new TimePoint(Scheduler.START_OF_TIME, TimeType.start),
-				new TimePoint(new Date(1320735601000l), TimeType.stop));
-		TimeSlot t4 = new TimeSlot(new TimePoint(new Date(8984651322588l), TimeType.start),
-				new TimePoint(new Date(12589765845329l), TimeType.stop));
-		TimeSlot t5 = new TimeSlot(new TimePoint(new Date(13569856245875l), TimeType.start),
-				new TimePoint(Scheduler.END_OF_TIME, TimeType.stop));
+		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(1320735601000l),
+				TimeType.start), new TimePoint(new Date(8984651322588l),
+				TimeType.stop));
+		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(12589765845329l),
+				TimeType.start), new TimePoint(new Date(13569856245875l),
+				TimeType.stop));
+		TimeSlot t3 = new TimeSlot(new TimePoint(Scheduler.START_OF_TIME,
+				TimeType.start), new TimePoint(new Date(1320735601000l),
+				TimeType.stop));
+		TimeSlot t4 = new TimeSlot(new TimePoint(new Date(8984651322588l),
+				TimeType.start), new TimePoint(new Date(12589765845329l),
+				TimeType.stop));
+		TimeSlot t5 = new TimeSlot(new TimePoint(new Date(13569856245875l),
+				TimeType.start), new TimePoint(Scheduler.END_OF_TIME,
+				TimeType.stop));
 		TimeTable table = new TimeTable(t1, t2);
 		TimeTable table2 = new TimeTable(t3, t4, t5);
 		TimeTable invertedTable = table.invert();

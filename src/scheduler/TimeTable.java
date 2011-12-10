@@ -47,7 +47,8 @@ public class TimeTable
 	 * @throws ImpossibleToScheduleException
 	 *             The timeslot cannot be scheduled in this timetable
 	 */
-	public void addTimeSlot(TimeSlot timeSlot) throws ImpossibleToScheduleException {
+	public void addTimeSlot(TimeSlot timeSlot)
+			throws ImpossibleToScheduleException {
 		if (!this.hasFreeSlotAt(timeSlot)) {
 			throw new ImpossibleToScheduleException(
 					"Can't schedule at given timeSlot!");
@@ -127,7 +128,7 @@ public class TimeTable
 	/**
 	 * @param table
 	 * @return
-	 * @throws ImpossibleToScheduleException 
+	 * @throws ImpossibleToScheduleException
 	 */
 	public TimeTable invert() throws ImpossibleToScheduleException {
 		TimeTable returnValue = null;
@@ -148,11 +149,12 @@ public class TimeTable
 		for (int i = 0; i < timeSlots.size() - 1; i++) {
 			returnValue.addTimeSlot(new TimeSlot(new TimePoint(timeSlots.get(i)
 					.getStopPoint().getDate(), TimeType.start), new TimePoint(
-					timeSlots.get(i+1).getStartPoint().getDate(), TimeType.stop)));
+					timeSlots.get(i + 1).getStartPoint().getDate(),
+					TimeType.stop)));
 		}
-		returnValue.addTimeSlot(new TimeSlot(new TimePoint(timeSlots.get(this.timeSlots.size()-1)
-				.getStopPoint().getDate(), TimeType.start), new TimePoint(d2,
-				TimeType.stop)));
+		returnValue.addTimeSlot(new TimeSlot(new TimePoint(timeSlots
+				.get(this.timeSlots.size() - 1).getStopPoint().getDate(),
+				TimeType.start), new TimePoint(d2, TimeType.stop)));
 		return returnValue;
 	}
 
@@ -165,9 +167,10 @@ public class TimeTable
 	 * @param time
 	 *            The point in time from which to start looking from.
 	 * @return A TimeTable that contains all free slots of this TimeTable.
-	 * @throws ImpossibleToScheduleException 
+	 * @throws ImpossibleToScheduleException
 	 */
-	public TimeTable getAllFreeSlots(long length) throws ImpossibleToScheduleException {
+	public TimeTable getAllFreeSlots(long length)
+			throws ImpossibleToScheduleException {
 		TimeTable x = this.invert();
 		TimeTable rv = new TimeTable();
 		for (TimeSlot t : x.timeSlots) {
@@ -178,7 +181,8 @@ public class TimeTable
 		return rv;
 	}
 
-	public boolean hasFreeSlotAt(Date startDate, Date stopDate) throws ImpossibleToScheduleException {
+	public boolean hasFreeSlotAt(Date startDate, Date stopDate)
+			throws ImpossibleToScheduleException {
 		return this.hasFreeSlotAt(new TimeSlot(new TimePoint(startDate,
 				TimeType.start), new TimePoint(stopDate, TimeType.stop)));
 	}
@@ -189,10 +193,10 @@ public class TimeTable
 	 * 
 	 * @param slotToCheck
 	 *            The TimeSlot to be checked for.
-	 * @return True if this TimeTable is free for the complete given TimeSlot. 
+	 * @return True if this TimeTable is free for the complete given TimeSlot.
 	 */
 	public boolean hasFreeSlotAt(TimeSlot slotToCheck) {
-		for (TimeSlot thisSlot : this.timeSlots){
+		for (TimeSlot thisSlot : this.timeSlots) {
 			if (thisSlot.overlaps(slotToCheck))
 				return false;
 		}
@@ -412,13 +416,12 @@ public class TimeTable
 					.getCurrentSystemTime().getTime() + length), TimeType.stop));
 			return t;
 		}
-		Date startDate = this.timeSlots.getLast()
-				.getStopPoint().getDate();
+		Date startDate = this.timeSlots.getLast().getStopPoint().getDate();
 		Date stopDate = new Date(startDate.getTime() + length);
 		TimePoint startFree = new TimePoint(startDate, TimeType.start);
 		TimePoint stopFree = new TimePoint(stopDate, TimeType.stop);
 
-		t =  new TimeSlot(startFree, stopFree);
+		t = new TimeSlot(startFree, stopFree);
 		System.out.println("TimeSlot allocated: " + t);
 		return t;
 	}
@@ -453,10 +456,10 @@ public class TimeTable
 		if (this.timeSlots.size() != t.timeSlots.size())
 			return false;
 		for (int i = 0; i < t.timeSlots.size(); i++) {
-			boolean t1Cond = this.timeSlots.get(i).getStartPoint().equals(
-					t.timeSlots.get(i).getStartPoint());
-			boolean t2Cond = this.timeSlots.get(i).getStopPoint().equals(
-					t.timeSlots.get(i).getStopPoint());
+			boolean t1Cond = this.timeSlots.get(i).getStartPoint()
+					.equals(t.timeSlots.get(i).getStartPoint());
+			boolean t2Cond = this.timeSlots.get(i).getStopPoint()
+					.equals(t.timeSlots.get(i).getStopPoint());
 			if (!(t1Cond && t2Cond))
 				return false;
 		}

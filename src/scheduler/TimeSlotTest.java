@@ -14,11 +14,9 @@ public class TimeSlotTest
 		assertTrue(s.getLength() == 5);
 	}
 
-	@Test(
-			expected = IllegalArgumentException.class)
-	public void t() {
+	@Test(expected = IllegalArgumentException.class)
+	public void stopBeforeStartTest() {
 		TimeSlot s = new TimeSlot(new TimePoint(new Date(0), TimeType.stop),
 				new TimePoint(new Date(5), TimeType.start));
 	}
-	
 }
