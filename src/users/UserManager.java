@@ -1,6 +1,7 @@
 package users;
 
 import java.util.*;
+import scheduler.task.Schedulable;
 import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.*;
 import exceptions.InvalidNameException;
@@ -57,12 +58,14 @@ public class UserManager
 		return newUser;
 	}
 	
-	@Basic
-	public Collection<NurseIN> getAllNurses() {
-		Collection<NurseIN> rv = new ArrayList<NurseIN>();
+	/**
+	 * @return A collection of all Nurses, casted to Schedulable.
+	 */
+	public Collection<Schedulable> getAllNurses() {
+		Collection<Schedulable> rv = new ArrayList<Schedulable>();
 		for(User u : this.users.values()) {
 			if (u.type().equals(UserType.Nurse))
-				rv.add((NurseIN)u);
+				rv.add((Schedulable)u);
 		}
 		
 		return rv;
