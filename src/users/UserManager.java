@@ -4,6 +4,7 @@ import java.util.*;
 import scheduler.task.Schedulable;
 import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidNameException;
+import exceptions.InvalidTimeSlotException;
 import exceptions.UserAlreadyExistsException;
 
 public class UserManager
@@ -34,8 +35,9 @@ public class UserManager
 	 * @return The created Nurse.
 	 * @throws UserAlreadyExistsException
 	 * @throws InvalidNameException
+	 * @throws InvalidTimeSlotException 
 	 */
-	public Nurse createNurse(String string) throws UserAlreadyExistsException, InvalidNameException {
+	public Nurse createNurse(String string) throws UserAlreadyExistsException, InvalidNameException, InvalidTimeSlotException {
 		Nurse newUser = new Nurse(string);
 		AddUser(newUser);
 		return newUser;
@@ -50,8 +52,9 @@ public class UserManager
 	 * @return The created Doctor.
 	 * @throws UserAlreadyExistsException
 	 * @throws InvalidNameException
+	 * @throws InvalidTimeSlotException 
 	 */
-	public Doctor createDoctor(String name) throws UserAlreadyExistsException, InvalidNameException {
+	public Doctor createDoctor(String name) throws UserAlreadyExistsException, InvalidNameException, InvalidTimeSlotException {
 		Doctor newUser = new Doctor(name);
 		AddUser(newUser);
 		return newUser;

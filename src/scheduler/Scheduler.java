@@ -40,8 +40,9 @@ public class Scheduler
 	 *            The wanted length of the reservation of each resource.
 	 * @return The start date of the scheduled appointment.
 	 * @throws InvalidSchedulingRequestException 
+	 * @throws InvalidTimeSlotException 
 	 */
-	public Date schedule(long duration, Collection<Schedulable>... resourcesToSchedule) throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException {
+	public Date schedule(long duration, Collection<Schedulable>... resourcesToSchedule) throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException {
 		LinkedList<Collection<Schedulable>> stillToSchedule = new LinkedList<Collection<Schedulable>>();
 		LinkedList<Collection<Schedulable>> allTheNeededResources = new LinkedList<Collection<Schedulable>>();
 		for (int i = 0; i < resourcesToSchedule.length; i++) {
@@ -54,9 +55,10 @@ public class Scheduler
 	
 	/**
 	 * @throws InvalidSchedulingRequestException
+	 * @throws InvalidTimeSlotException 
 	 * @effect schedule(long, collection<schedule>...)
 	 */
-	public Date schedule(long duration, Collection<Collection<Schedulable>> resourcesToSchedule) throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException {
+	public Date schedule(long duration, Collection<Collection<Schedulable>> resourcesToSchedule) throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException {
 		LinkedList<Collection<Schedulable>> stillToSchedule = new LinkedList<Collection<Schedulable>>(resourcesToSchedule);
 		LinkedList<Collection<Schedulable>> allTheNeededResources = new LinkedList<Collection<Schedulable>>(stillToSchedule);
 		return schedule(duration, new LinkedList<TimeTable>(),stillToSchedule, allTheNeededResources);
@@ -75,12 +77,13 @@ public class Scheduler
 	 * 
 	 * @return The date of the scheduled appointment.
 	 * @throws InvalidSchedulingRequestException
+	 * @throws InvalidTimeSlotException 
 	 */
 	private Date schedule(long duration, LinkedList<TimeTable> used,
 			LinkedList<Collection<Schedulable>> stillToSchedule,
 			LinkedList<Collection<Schedulable>> allTheNeededResources)
 			throws QueueException, InvalidDurationException,
-			InvalidSchedulingRequestException, InvalidSchedulingRequestException {
+			InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException {
 		if (duration < 0)
 			throw new InvalidDurationException("Invalid duration in schedule-method!");
 		
@@ -150,10 +153,11 @@ public class Scheduler
 	 * @throws InvalidSchedulingRequestException
 	 *             If used.isEmpty();
 	 * @throws InvalidSchedulingRequestException 
+	 * @throws InvalidTimeSlotException 
 	 */
 	private Date finalSchedulingStep(long duration, LinkedList<TimeTable> used,
 			LinkedList<Collection<Schedulable>> stillToSchedule,
-			LinkedList<Collection<Schedulable>> allTheNeededResources) throws InvalidSchedulingRequestException, InvalidSchedulingRequestException {
+			LinkedList<Collection<Schedulable>> allTheNeededResources) throws InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException {
 		if (used.isEmpty())
 			throw new InvalidSchedulingRequestException(
 					"Schedule-method called without asking for any resources!");

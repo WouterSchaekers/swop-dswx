@@ -2,6 +2,7 @@ package users;
 
 import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidNameException;
+import exceptions.InvalidTimeSlotException;
 import java.util.*;
 import scheduler.TimeSlot;
 import scheduler.TimeTable;
@@ -10,7 +11,7 @@ import scheduler.task.Schedulable;
 public abstract class SchedulableUser extends User implements Schedulable
 {
 	protected TimeTable timeTable = new TimeTable();
-	protected SchedulableUser(String name) throws InvalidNameException {
+	protected SchedulableUser(String name) throws InvalidNameException, InvalidTimeSlotException {
 		super(name);
 		this.timeTable = new TimeTable();
 	}
@@ -25,7 +26,7 @@ public abstract class SchedulableUser extends User implements Schedulable
 		this.timeTable.addTimeSlot(timeSlot);
 	}
 	
-	public TimeTable getTimeTable(){
+	public TimeTable getTimeTable() throws InvalidTimeSlotException{
 		return new TimeTable(this.timeTable.getTimeSlots());
 	}
 }

@@ -3,6 +3,7 @@ package machine;
 import java.util.*;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidSerialException;
+import exceptions.InvalidTimeSlotException;
 import scheduler.TimeTable;
 import scheduler.task.Schedulable;
 
@@ -27,9 +28,10 @@ public abstract class Machine implements Schedulable
 	 *		If the serial provided is already contained in the system.
 	 *@throws InvalidLocationException
 	 *		If the location provided is null or an empty string.
+	 * @throws InvalidTimeSlotException 
 	 */
 	public Machine(int serial, String location)
-			throws InvalidLocationException, InvalidSerialException {
+			throws InvalidLocationException, InvalidSerialException, InvalidTimeSlotException {
 		if (location == null || location == "") {
 			throw new InvalidLocationException("Location is not set or empty.");
 		}

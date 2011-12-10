@@ -59,12 +59,38 @@ public class TimeSlot
 		return this.getStopPoint().getTime() - this.getStartPoint().getTime();
 	}
 	
-	public boolean overlaps(TimeSlot t){
+	/**
+	 * Checks wether this timeslot overlaps the given timeslot.
+	 * Back-to-back scheduling is not considered as overlapping.
+	 * 
+	 * @param timeslot
+	 * 			The given timeslot
+	 * @return
+	 * 			true if the given timeslot overlaps this timeslot
+	 */
+	public boolean overlaps(TimeSlot timeslot){
 		TimePoint tt1 = this.getStartPoint();
 		TimePoint tt2 = this.getStopPoint();
-		TimePoint t1 = t.getStartPoint();
-		TimePoint t2 = t.getStopPoint();
+		TimePoint t1 = timeslot.getStartPoint();
+		TimePoint t2 = timeslot.getStopPoint();
 		return t1.isBetweenExcluding(tt1, tt2) || t2.isBetweenExcluding(tt1, tt2) || t1.equals(tt1) || t2.equals(tt2);
 	}
 	
+	/**
+	 * Checks wether the given timeSlot is a valid timeSlot.
+	 * 
+	 * @param timeSlot
+	 * 			The timeslot that has to be checked for consistency
+	 * @return
+	 * 			true is the given timeslot is valid
+	 */
+	public static boolean isValidTimeSlot(TimeSlot timeSlot){
+		if(timeSlot.getStartPoint().getType() == TimeType.stop)
+			return false;
+		if(timeSlot.getStopPoint().getType() == TimeType.start)
+			return false;
+		if(timeSlot.getStartPoint().getTime() > timeSlot.getStopPoint().getTime())
+			return false;
+		return true;
+	}
 }

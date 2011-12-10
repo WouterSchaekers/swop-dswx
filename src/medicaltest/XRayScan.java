@@ -2,6 +2,7 @@ package medicaltest;
 
 import exceptions.InvalidDurationException;
 import exceptions.InvalidNameException;
+import exceptions.InvalidTimeSlotException;
 
 public class XRayScan extends MedicalTest
 {
@@ -12,9 +13,10 @@ public class XRayScan extends MedicalTest
 
 	/**
 	 * Default constructor. 
+	 * @throws InvalidTimeSlotException 
 	 * @see MedicalTest("XRayScan",15,patientFile)
 	 */
-	public XRayScan() throws InvalidNameException, InvalidDurationException {
+	public XRayScan() throws InvalidNameException, InvalidDurationException, InvalidTimeSlotException {
 		super(TESTNAME, DURATION);
 	}
 

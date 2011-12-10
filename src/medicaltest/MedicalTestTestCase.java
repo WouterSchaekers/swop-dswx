@@ -4,11 +4,12 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidNameException;
+import exceptions.InvalidTimeSlotException;
 
 public class MedicalTestTestCase
 {
 	@Test
-	public void CreateMedicalTest() {
+	public void CreateMedicalTest() throws InvalidTimeSlotException {
 		MedicalTest one = null;
 		try {
 			one = new BloodAnalysis();

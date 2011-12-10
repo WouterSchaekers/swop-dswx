@@ -2,6 +2,7 @@ package medicaltest;
 
 import exceptions.InvalidDurationException;
 import exceptions.InvalidNameException;
+import exceptions.InvalidTimeSlotException;
 import be.kuleuven.cs.som.annotate.*;
 
 /**
@@ -16,9 +17,10 @@ public class BloodAnalysis extends MedicalTest
 
 	/**
 	 * Default constructor. Will call MedicalTest("BloodAnalysis")
+	 * @throws InvalidTimeSlotException 
 	 */
 	public BloodAnalysis() throws InvalidNameException,
-			InvalidDurationException {
+			InvalidDurationException, InvalidTimeSlotException {
 		super("BloodAnalysis", 45);
 	}
 

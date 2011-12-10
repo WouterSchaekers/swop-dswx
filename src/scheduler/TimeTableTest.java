@@ -4,12 +4,24 @@ import static org.junit.Assert.*;
 import java.util.*;
 import org.junit.Test;
 import exceptions.InvalidSchedulingRequestException;
+import exceptions.InvalidTimeSlotException;
 
 @SuppressWarnings("unused")
 public class TimeTableTest
 {
 	@Test
-	public void equalsTest() {
+	public void constructor0Test() throws InvalidTimeSlotException{
+		TimeTable t0 = new TimeTable();
+	}
+	
+	@Test
+	public void constructor1Test() throws InvalidTimeSlotException{
+		TimeSlot[] timeSlots = null;
+		TimeTable t0 = new TimeTable(timeSlots);
+	}
+	
+	@Test
+	public void equalsTest() throws InvalidTimeSlotException {
 		LinkedList<TimeSlot> timeSlots1 = new LinkedList<TimeSlot>();
 		LinkedList<TimeSlot> timeSlots2 = new LinkedList<TimeSlot>();
 		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(0), TimeType.start),
@@ -32,7 +44,7 @@ public class TimeTableTest
 	}
 
 	@Test
-	public void union0Test() {
+	public void union0Test() throws InvalidTimeSlotException {
 		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(0), TimeType.start),
 				new TimePoint(new Date(5), TimeType.stop));
 		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(8), TimeType.start),
@@ -52,7 +64,7 @@ public class TimeTableTest
 	}
 
 	@Test
-	public void union1Test() {
+	public void union1Test() throws InvalidTimeSlotException {
 		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(0), TimeType.start),
 				new TimePoint(new Date(5), TimeType.stop));
 		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(8), TimeType.start),
@@ -70,7 +82,7 @@ public class TimeTableTest
 	}
 
 	@Test
-	public void union2Test() {
+	public void union2Test() throws InvalidTimeSlotException {
 		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(-5), TimeType.start),
 				new TimePoint(new Date(-2), TimeType.stop));
 		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(-2), TimeType.start),
@@ -84,7 +96,7 @@ public class TimeTableTest
 	}
 
 	@Test
-	public void union3Test() {
+	public void union3Test() throws InvalidTimeSlotException {
 		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(-5), TimeType.start),
 				new TimePoint(new Date(-2), TimeType.stop));
 		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(2), TimeType.start),
@@ -108,7 +120,7 @@ public class TimeTableTest
 	}
 
 	@Test
-	public void unionTestWithOnlyOneTable() {
+	public void unionTestWithOnlyOneTable() throws InvalidTimeSlotException {
 		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(1), TimeType.start),
 				new TimePoint(new Date(5), TimeType.stop));
 		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(10), TimeType.start),
@@ -121,7 +133,7 @@ public class TimeTableTest
 	}
 	
 	@Test
-	public void unionDoubleRemovalTest() {
+	public void unionDoubleRemovalTest() throws InvalidTimeSlotException {
 		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(0), TimeType.start),
 				new TimePoint(new Date(5), TimeType.stop));
 		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(6), TimeType.start),
@@ -136,7 +148,7 @@ public class TimeTableTest
 	}
 	
 	@Test
-	public void intersect0Test() {
+	public void intersect0Test() throws InvalidTimeSlotException {
 		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(0), TimeType.start),
 				new TimePoint(new Date(5), TimeType.stop));
 		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(8), TimeType.start),
@@ -155,7 +167,7 @@ public class TimeTableTest
 	}
 
 	@Test
-	public void intersect1Test() {
+	public void intersect1Test() throws InvalidTimeSlotException {
 		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(0), TimeType.start),
 				new TimePoint(new Date(5), TimeType.stop));
 		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(8), TimeType.start),
@@ -175,7 +187,7 @@ public class TimeTableTest
 	}
 
 	@Test
-	public void intersect2Test() {
+	public void intersect2Test() throws InvalidTimeSlotException {
 		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(-5), TimeType.start), new TimePoint(new Date(-2), TimeType.stop));
 		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(-2), TimeType.start), new TimePoint(new Date(15), TimeType.stop));
 		TimeSlot t3 = new TimeSlot(new TimePoint(new Date(2), TimeType.start),new TimePoint(new Date(9), TimeType.stop));
@@ -194,7 +206,7 @@ public class TimeTableTest
 	}
 	
 	@Test
-	public void intersect3Test() {
+	public void intersect3Test() throws InvalidTimeSlotException {
 		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(-5), TimeType.start), new TimePoint(new Date(-2), TimeType.stop));
 		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(2), TimeType.start), new TimePoint(new Date(15), TimeType.stop));
 		TimeSlot t3 = new TimeSlot(new TimePoint(new Date(200), TimeType.start), new TimePoint(new Date(900), TimeType.stop));
@@ -207,7 +219,7 @@ public class TimeTableTest
 	}
 	
 	@Test
-	public void intersect4Test()
+	public void intersect4Test() throws InvalidTimeSlotException
 	{
 		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(50), TimeType.start), new TimePoint(new Date(5000), TimeType.stop));
 		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(10), TimeType.start), new TimePoint(new Date(60), TimeType.stop));
@@ -222,7 +234,7 @@ public class TimeTableTest
 	}
 	
 	@Test
-	public void intersect5Test()
+	public void intersect5Test() throws InvalidTimeSlotException
 	{
 		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(0), TimeType.start), new TimePoint(new Date(10), TimeType.stop));
 		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(10), TimeType.start), new TimePoint(new Date(20), TimeType.stop));
@@ -236,7 +248,7 @@ public class TimeTableTest
 	}
 	
 	@Test
-	public void intersectTestWithOnlyOneTable() {
+	public void intersectTestWithOnlyOneTable() throws InvalidTimeSlotException {
 		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(1), TimeType.start), new TimePoint(new Date(5), TimeType.stop));
 		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(10), TimeType.start), new TimePoint(new Date(15), TimeType.stop));
 		TimeTable table = new TimeTable(t1, t2);
@@ -246,7 +258,7 @@ public class TimeTableTest
 		assertTrue(res.equals(table));
 	}
 	@Test
-	public void intersectManythings()
+	public void intersectManythings() throws InvalidTimeSlotException
 	{
 		TimeTable always = new TimeTable(new TimeSlot(new TimePoint(new Date(0), TimeType.start),new TimePoint(new Date(8945890), TimeType.stop)));
 		TimeTable slot = new TimeTable(new TimeSlot(new TimePoint(new Date(0), TimeType.start),new TimePoint(new Date(5), TimeType.stop)));
@@ -256,7 +268,7 @@ public class TimeTableTest
 		assertTrue(slot.equals(slot.getIntersect(always)));
 	}
 	@Test
-	public void intersecAtPoint()
+	public void intersecAtPoint() throws InvalidTimeSlotException
 	{
 		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(1), TimeType.start), new TimePoint(new Date(5), TimeType.stop));
 		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(10), TimeType.start), new TimePoint(new Date(15), TimeType.stop));
@@ -267,7 +279,7 @@ public class TimeTableTest
 	}
 
 	@Test
-	public void eliminateOverlapTest() {
+	public void eliminateOverlapTest() throws InvalidTimeSlotException {
 		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(1), TimeType.start),
 				new TimePoint(new Date(11), TimeType.stop));
 		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(10), TimeType.start),
@@ -282,7 +294,7 @@ public class TimeTableTest
 	}
 
 	@Test
-	public void eliminateOverlap1Test() {
+	public void eliminateOverlap1Test() throws InvalidTimeSlotException {
 		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(1), TimeType.start),
 				new TimePoint(new Date(10), TimeType.stop));
 		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(10), TimeType.start),
@@ -297,7 +309,7 @@ public class TimeTableTest
 	}
 
 	@Test
-	public void invert0Test() throws InvalidSchedulingRequestException {
+	public void invert0Test() throws InvalidSchedulingRequestException, InvalidTimeSlotException {
 		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(1320735601000l),
 				TimeType.start), new TimePoint(new Date(1320735602000l),
 				TimeType.stop));
@@ -320,7 +332,7 @@ public class TimeTableTest
 	}
 
 	@Test
-	public void invert1Test() throws InvalidSchedulingRequestException {
+	public void invert1Test() throws InvalidSchedulingRequestException, InvalidTimeSlotException {
 		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(1320735601000l),
 				TimeType.start), new TimePoint(new Date(8984651322588l),
 				TimeType.stop));
