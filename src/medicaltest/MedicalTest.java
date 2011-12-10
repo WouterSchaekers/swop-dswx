@@ -67,7 +67,7 @@ public abstract class MedicalTest implements Schedulable
 		return d > 0;
 	}
 	
-	public boolean canBeScheduledOn(Date startDate, Date stopDate)throws ImpossibleToScheduleException {
+	public boolean canBeScheduledOn(Date startDate, Date stopDate)throws InvalidSchedulingRequestException {
 		return this.myTimeTable.hasFreeSlotAt(startDate,stopDate);
 	}
 
@@ -76,11 +76,11 @@ public abstract class MedicalTest implements Schedulable
 		return new TimeTable(this.myTimeTable.getTimeSlots());
 	}
 	
-	public void scheduleAt(TimeSlot timeSlot) throws ImpossibleToScheduleException {
-		if(!isValidTimeSlot(timeSlot) {
-			throw new InvalidTimeSlotException("Trying to schedule an invalid TimeSlot!");
-		}
-		this.myTimeTable.addTimeSlot(timeSlot)
+	public void scheduleAt(TimeSlot timeSlot) throws InvalidSchedulingRequestException{
+		if(!isValidTimeSlot(timeSlot)) 
+			throw new InvalidSchedulingRequestException("Trying to schedule an invalid TimeSlot!");
+		
+		this.myTimeTable.addTimeSlot(timeSlot);
 	}
 	
 	private boolean isValidTimeSlot(TimeSlot t){

@@ -72,11 +72,11 @@ public class UserManager
 	}
 	
 	@Basic
-	public Collection<DoctorIN> getAllDoctors() {
-		Collection<DoctorIN> rv = new ArrayList<DoctorIN>();
+	public Collection<Schedulable> getAllDoctors() {
+		Collection<Schedulable> rv = new ArrayList<Schedulable>();
 		for(User u : this.users.values()) {
 			if (u.type().equals(UserType.Doctor))
-				rv.add((DoctorIN)u);
+				rv.add((Schedulable)u);
 		}
 		return rv;
 	}

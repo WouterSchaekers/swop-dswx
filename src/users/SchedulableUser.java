@@ -1,6 +1,6 @@
 package users;
 
-import exceptions.ImpossibleToScheduleException;
+import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidNameException;
 import java.util.*;
 import scheduler.TimeSlot;
@@ -9,23 +9,23 @@ import scheduler.task.Schedulable;
 
 public abstract class SchedulableUser extends User implements Schedulable
 {
-	protected TimeTable timeTable;
+	protected TimeTable timeTable = new TimeTable();
 	protected SchedulableUser(String name) throws InvalidNameException {
 		super(name);
 		this.timeTable = new TimeTable();
 	}
 	
 	@Override
-	public boolean canBeScheduledOn(Date startDate, Date stopDate) throws ImpossibleToScheduleException {;
+	public boolean canBeScheduledOn(Date startDate, Date stopDate) throws InvalidSchedulingRequestException {;
 		return timeTable.hasFreeSlotAt(startDate, stopDate);
 	}
 	
 	@Override
-	public void scheduleAt(TimeSlot timeSlot) throws ImpossibleToScheduleException {
+	public void scheduleAt(TimeSlot timeSlot) throws InvalidSchedulingRequestException {
 		this.timeTable.addTimeSlot(timeSlot);
 	}
 	
 	public TimeTable getTimeTable(){
-		return this.timeTable;
+		return new TimeTable(this.timeTable.getTimeSlots());
 	}
 }

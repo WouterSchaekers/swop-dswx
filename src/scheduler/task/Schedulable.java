@@ -1,17 +1,17 @@
 package scheduler.task;
 
 import java.util.*;
-import exceptions.ImpossibleToScheduleException;
+import exceptions.InvalidSchedulingRequestException;
 import scheduler.TimeSlot;
 import scheduler.TimeTable;
 
 public interface Schedulable
 {
 	
-	public boolean canBeScheduledOn(Date startDate, Date stopDate)throws ImpossibleToScheduleException;
+	public boolean canBeScheduledOn(Date startDate, Date stopDate)throws InvalidSchedulingRequestException;
 
 	public TimeTable getTimeTable();
 	
-	public void scheduleAt(TimeSlot timeSlot) throws ImpossibleToScheduleException;
+	public void scheduleAt(TimeSlot timeSlot) throws InvalidSchedulingRequestException;
 	
 }
