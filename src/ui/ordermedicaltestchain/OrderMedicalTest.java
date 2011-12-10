@@ -3,7 +3,7 @@ package ui.ordermedicaltestchain;
 import ui.SelectUsecase;
 import ui.UserinterfaceData;
 import ui.Usecase;
-import users.User.usertype;
+import users.UserType;
 
 public class OrderMedicalTest extends MedicalTestCommand
 {
@@ -16,7 +16,7 @@ public class OrderMedicalTest extends MedicalTestCommand
 	@Override
 	public Usecase Execute() {
 		// check if the person initiating this chain is allowed to.
-		if (data.getLoginController().getUserIN().type() == usertype.Doctor) {
+		if (data.getLoginController().getUserIN().type() == UserType.Doctor) {
 			return new PatientFileOpenChecker(data, medData);
 		} else {
 			System.out.println(data.getLoginController().getUserIN().getName()
