@@ -151,7 +151,7 @@ public class TimeTableTest
 	}
 
 	@Test
-	public void eliminateOverlap2Test() {
+	public void eliminateOverlap1Test() {
 		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(1), TimeType.start),
 				new TimePoint(new Date(10), TimeType.stop));
 		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(10), TimeType.start),
