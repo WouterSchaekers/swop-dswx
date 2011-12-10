@@ -185,10 +185,9 @@ public class Scheduler
 			foundResources = new LinkedList<Schedulable>();
 			for (Collection<Schedulable> candidateCol : allTheNeededResources) {
 				for (Schedulable candidate : candidateCol) {
-					if (candidate.canBeScheduledOn(
-							candidateSlot.getStartPoint().getDate(), 
-							candidateSlot.getStopPoint().getDate())
-							&& !foundResources.contains(candidateSlot)) {
+					Date startDateSlot =candidateSlot.getStartPoint().getDate();
+					Date stopDateSlot = new Date (candidateSlot.getStartPoint().getDate().getTime() + duration);
+					if (candidate.canBeScheduledOn(startDateSlot, stopDateSlot)	& !foundResources.contains(candidate)) {
 						// We found our match in this collection:
 						// add it to the list of results and
 						// break from the loop.
