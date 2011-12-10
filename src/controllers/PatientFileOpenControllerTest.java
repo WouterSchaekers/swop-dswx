@@ -34,7 +34,7 @@ public class PatientFileOpenControllerTest
 	public void testPatientFileOpenControllerSucces()
 			throws UserAlreadyExistsException, InvalidNameException {
 		lc = new LoginController(data);
-		d = um.CreateDoctor("Jef");
+		d = um.createDoctor("Jef");
 		u = d;
 		lc.logIn(u);
 		pfoc = new PatientFileOpenController(data, lc);
@@ -51,7 +51,7 @@ public class PatientFileOpenControllerTest
 			expected = NullPointerException.class)
 	public void testGetLoginControllerFail2() throws UserAlreadyExistsException, InvalidNameException {
 		lc = new LoginController(data);
-		n = um.CreateNurse("Sandrien");
+		n = um.createNurse("Sandrien");
 		u = n;
 		pfoc = new PatientFileOpenController(data, lc);
 	}
@@ -60,7 +60,7 @@ public class PatientFileOpenControllerTest
 	public void testValidLoginControllerSucces()
 			throws UserAlreadyExistsException, InvalidNameException {
 		lc = new LoginController(data);
-		d = um.CreateDoctor("Jef");
+		d = um.createDoctor("Jef");
 		u = d;
 		lc.logIn(u);
 		pfoc = new PatientFileOpenController(data, lc);
@@ -72,7 +72,7 @@ public class PatientFileOpenControllerTest
 	public void testValidLoginControllerFail()
 			throws UserAlreadyExistsException, InvalidNameException {
 		lc = new LoginController(data);
-		n = um.CreateNurse("Margo");
+		n = um.createNurse("Margo");
 		u = n;
 		lc.logIn(u);
 		pfoc = new PatientFileOpenController(data, lc);
