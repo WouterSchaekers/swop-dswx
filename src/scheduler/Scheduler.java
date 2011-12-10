@@ -39,9 +39,9 @@ public class Scheduler
 	 * @param duration
 	 *            The wanted length of the reservation of each resource.
 	 * @return The start date of the scheduled appointment.
-	 * @throws ImpossibleToScheduleException 
+	 * @throws InvalidSchedulingRequestException 
 	 */
-	public Date schedule(long duration, Collection<Schedulable>... resourcesToSchedule) throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, ImpossibleToScheduleException {
+	public Date schedule(long duration, Collection<Schedulable>... resourcesToSchedule) throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException {
 		LinkedList<Collection<Schedulable>> stillToSchedule = new LinkedList<Collection<Schedulable>>();
 		LinkedList<Collection<Schedulable>> allTheNeededResources = new LinkedList<Collection<Schedulable>>();
 		for (int i = 0; i < resourcesToSchedule.length; i++) {
@@ -53,10 +53,10 @@ public class Scheduler
 	}
 	
 	/**
-	 * @throws ImpossibleToScheduleException
+	 * @throws InvalidSchedulingRequestException
 	 * @effect schedule(long, collection<schedule>...)
 	 */
-	public Date schedule(long duration, Collection<Collection<Schedulable>> resourcesToSchedule) throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, ImpossibleToScheduleException {
+	public Date schedule(long duration, Collection<Collection<Schedulable>> resourcesToSchedule) throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException {
 		LinkedList<Collection<Schedulable>> stillToSchedule = new LinkedList<Collection<Schedulable>>(resourcesToSchedule);
 		LinkedList<Collection<Schedulable>> allTheNeededResources = new LinkedList<Collection<Schedulable>>(stillToSchedule);
 		return schedule(duration, new LinkedList<TimeTable>(),stillToSchedule, allTheNeededResources);
@@ -74,13 +74,13 @@ public class Scheduler
 	 *            intersected timelines stored.
 	 * 
 	 * @return The date of the scheduled appointment.
-	 * @throws ImpossibleToScheduleException
+	 * @throws InvalidSchedulingRequestException
 	 */
 	private Date schedule(long duration, LinkedList<TimeTable> used,
 			LinkedList<Collection<Schedulable>> stillToSchedule,
 			LinkedList<Collection<Schedulable>> allTheNeededResources)
 			throws QueueException, InvalidDurationException,
-			InvalidSchedulingRequestException, ImpossibleToScheduleException {
+			InvalidSchedulingRequestException, InvalidSchedulingRequestException {
 		if (duration < 0)
 			throw new InvalidDurationException("Invalid duration in schedule-method!");
 		
@@ -149,11 +149,11 @@ public class Scheduler
 	 * @return The date at which the appointment has been made.
 	 * @throws InvalidSchedulingRequestException
 	 *             If used.isEmpty();
-	 * @throws ImpossibleToScheduleException 
+	 * @throws InvalidSchedulingRequestException 
 	 */
 	private Date finalSchedulingStep(long duration, LinkedList<TimeTable> used,
 			LinkedList<Collection<Schedulable>> stillToSchedule,
-			LinkedList<Collection<Schedulable>> allTheNeededResources) throws InvalidSchedulingRequestException, ImpossibleToScheduleException {
+			LinkedList<Collection<Schedulable>> allTheNeededResources) throws InvalidSchedulingRequestException, InvalidSchedulingRequestException {
 		if (used.isEmpty())
 			throw new InvalidSchedulingRequestException(
 					"Schedule-method called without asking for any resources!");
