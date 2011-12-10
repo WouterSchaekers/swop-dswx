@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedList;
 import org.junit.Test;
 import exceptions.ImpossibleToScheduleException;
 
@@ -12,8 +13,8 @@ public class TimeTableTest
 {
 	@Test
 	public void equalsTest() {
-		Collection<TimeSlot> timeSlots1 = new ArrayList<TimeSlot>();
-		Collection<TimeSlot> timeSlots2 = new ArrayList<TimeSlot>();
+		LinkedList<TimeSlot> timeSlots1 = new LinkedList<TimeSlot>();
+		LinkedList<TimeSlot> timeSlots2 = new LinkedList<TimeSlot>();
 		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(0), TimeType.start),
 				new TimePoint(new Date(5), TimeType.stop));
 		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(0), TimeType.start),
