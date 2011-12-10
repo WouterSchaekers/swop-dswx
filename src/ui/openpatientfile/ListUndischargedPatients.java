@@ -8,7 +8,7 @@ import controllers.interfaces.PatientFileIN;
 import ui.UserinterfaceData;
 import ui.SelectUsecase;
 import ui.Usecase;
-import users.User.usertype;
+import users.UserType;
 
 public class ListUndischargedPatients extends Usecase
 {
@@ -22,7 +22,7 @@ public class ListUndischargedPatients extends Usecase
 
 	@Override
 	public Usecase Execute() {
-		if (data.getLoginController().getUserIN().type() != usertype.Doctor) {
+		if (data.getLoginController().getUserIN().type() != UserType.Doctor) {
 			System.out.println(data.getLoginController().getUserIN().getName()
 					+ " is not a Doctor");
 			return new SelectUsecase(data);
