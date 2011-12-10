@@ -8,7 +8,7 @@ import scheduler.TimeTable;
 public interface Schedulable
 {
 	
-	public boolean canBeScheduledOn(Date startDate, Date stopDate);
+	public boolean canBeScheduledOn(Date startDate, Date stopDate)throws ImpossibleToScheduleException;
 
 	public TimeTable getTimeTable();
 	

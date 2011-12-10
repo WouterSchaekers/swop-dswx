@@ -2,11 +2,12 @@ package scheduler;
 
 import static org.junit.Assert.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import org.junit.Test;
+import exceptions.ImpossibleToScheduleException;
 
+@SuppressWarnings("unused")
 public class TimeTableTest
 {
 	@Test
@@ -26,7 +27,6 @@ public class TimeTableTest
 
 	@Test(expected = IllegalArgumentException.class)
 	public void argumentTestFail() {
-		@SuppressWarnings("unused")
 		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(-2), TimeType.start),
 				new TimePoint(new Date(-5), TimeType.stop));
 		throw new IllegalStateException(
@@ -169,13 +169,13 @@ public class TimeTableTest
 	}
 
 	@Test
-	public void invertTest() {
+	public void invertTest() throws ImpossibleToScheduleException {
 		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(0), TimeType.start),
 				new TimePoint(new Date(5), TimeType.stop));
 		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(8), TimeType.start),
 				new TimePoint(new Date(15), TimeType.stop));
 		TimeTable table = new TimeTable(t1, t2);
-		TimeTable invertedTable = table.invert();
+		TimeTable invertedTable = table.invert(table);
 		
 	}
 }
