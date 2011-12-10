@@ -3,7 +3,6 @@ package scheduler;
 import static org.junit.Assert.*;
 import java.util.*;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import exceptions.*;
 import scheduler.task.Schedulable;
@@ -13,6 +12,8 @@ public class SchedulerTest
 {
 	UserManager m;
 	Scheduler s = new Scheduler();
+	Collection<Collection<Schedulable>> t;
+	ArrayList<Schedulable> t2;
 
 	@Before
 	public void create() throws UserAlreadyExistsException,	InvalidNameException {
@@ -23,33 +24,30 @@ public class SchedulerTest
 		m.createNurse("Janet");
 		m.createDoctor("Jasper");
 		s = new Scheduler();
+		t =  new ArrayList<Collection<Schedulable>>();
+		t2 = (ArrayList<Schedulable>) m.getAllNurses();
+		t.add(t2);
 	}
 	
-	@BeforeClass
-	public void before() {
-		s.setNewSystemTime(Scheduler.START_OF_TIME);
-	}
+	
 
-	@Test
+	@Test (expected = AssertionError.class)
 	public void scheduleNurseFor1Min5Sec() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, ImpossibleToScheduleException {
+		s.setNewSystemTime(Scheduler.START_OF_TIME);
 		
-		Collection<Collection<Schedulable>> t =  new ArrayList<Collection<Schedulable>>();
-		ArrayList<Schedulable> t2 = (ArrayList<Schedulable>) m.getAllNurses();
-		t.add(t2);
 		long duration = Scheduler.ONE_MINUTE + Scheduler.ONE_SECOND * 5;
 
 		Date scheduledDate = s.schedule(duration, t);
-		System.out.println("Appointment scheduled on: " + scheduledDate);
-		System.out.println("Nurse's timetable = " +t2.get(0).getTimeTable());
+		Date endScheduledDate = new Date(scheduledDate.getTime() + duration + 1);
+		
 		assertFalse(t2.get(0).canBeScheduledOn(scheduledDate, new Date(scheduledDate.getTime() + 1)));
 		assertTrue(t2.get(1).canBeScheduledOn(scheduledDate, new Date(scheduledDate.getTime() + 1)));
+		assertFalse(t2.get(1).canBeScheduledOn(scheduledDate, new Date(scheduledDate.getTime() + 1)));
+		assertTrue(t2.get(0).canBeScheduledOn(endScheduledDate,new Date(endScheduledDate.getTime() + 1 )));
 	}
 
 	@Test
 	public void scheduleNurseFor1Hour42Min5Sec() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, ImpossibleToScheduleException {
-		Collection<Collection<Schedulable>> t =  new ArrayList<Collection<Schedulable>>();
-		ArrayList<Schedulable> t2 = (ArrayList<Schedulable>) m.getAllNurses();
-		t.add(t2);
 		long duration = Scheduler.ONE_MINUTE + Scheduler.ONE_SECOND * 5;
 
 		Date scheduledDate = s.schedule(duration, t);
