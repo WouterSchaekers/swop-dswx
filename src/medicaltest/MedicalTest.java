@@ -1,18 +1,23 @@
 package medicaltest;
 
+import java.util.Date;
+import scheduler.TimeSlot;
+import scheduler.TimeTable;
+import scheduler.task.Schedulable;
 import exceptions.*;
 import be.kuleuven.cs.som.annotate.Basic;
 
 /**
  * This class represents a medical test.
  */
-public abstract class MedicalTest
+public abstract class MedicalTest implements Schedulable
 {
 	// all childclasses will have their names be final and static and will use
 	// this var to store that information in.
 
 	private final String TESTNAME;
 	private final long DURATION;
+	private TimeTable myTimeTable = new TimeTable();
 
 	/**
 	 * Default constructor.
@@ -60,6 +65,27 @@ public abstract class MedicalTest
 	 */
 	private boolean isValidDuration(long d) {
 		return d > 0;
+	}
+	
+	public boolean canBeScheduledOn(Date startDate, Date stopDate)throws ImpossibleToScheduleException {
+		return this.myTimeTable.hasFreeSlotAt(startDate,stopDate);
+	}
+
+	public TimeTable getTimeTable() {
+		
+		return new TimeTable(this.myTimeTable.getTimeSlots());
+	}
+	
+	public void scheduleAt(TimeSlot timeSlot) throws ImpossibleToScheduleException {
+		if(!isValidTimeSlot(timeSlot) {
+			throw new InvalidTimeSlotException("Trying to schedule an invalid TimeSlot!");
+		}
+		this.myTimeTable.addTimeSlot(timeSlot)
+	}
+	
+	private boolean isValidTimeSlot(TimeSlot t){
+		//TODO: Implement
+		return false;
 	}
 
 }
