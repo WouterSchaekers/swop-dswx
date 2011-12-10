@@ -36,7 +36,7 @@ public class UserManager
 	 * @throws UserAlreadyExistsException
 	 * @throws InvalidNameException
 	 */
-	public Nurse CreateNurse(String string) throws UserAlreadyExistsException, InvalidNameException {
+	public Nurse createNurse(String string) throws UserAlreadyExistsException, InvalidNameException {
 		Nurse newUser = new Nurse(string);
 		AddUser(newUser);
 		return newUser;
@@ -52,7 +52,7 @@ public class UserManager
 	 * @throws UserAlreadyExistsException
 	 * @throws InvalidNameException
 	 */
-	public Doctor CreateDoctor(String name) throws UserAlreadyExistsException, InvalidNameException {
+	public Doctor createDoctor(String name) throws UserAlreadyExistsException, InvalidNameException {
 		Doctor newUser = new Doctor(name);
 		AddUser(newUser);
 		return newUser;
