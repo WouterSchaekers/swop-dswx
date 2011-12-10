@@ -206,7 +206,6 @@ public class Scheduler
 				break;
 			}
 		}
-		System.out.println("\n\nFOUND SLOT !!! " + foundSlot + "\n\n");
 		// Tell the found elements to schedule themselves.
 		for (Schedulable s : foundResources)
 			s.scheduleAt(foundSlot);
