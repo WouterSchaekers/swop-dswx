@@ -6,7 +6,7 @@ import controllers.interfaces.DoctorIN;
 import controllers.interfaces.PatientFileIN;
 import controllers.interfaces.UserIN;
 import patient.PatientFile;
-import users.User.usertype;
+import users.UserType;
 
 public class PatientFileOpenController
 {
@@ -26,7 +26,7 @@ public class PatientFileOpenController
 		if (loginController.getUser().type() == null)
 			throw new NullPointerException("Type of user is null");
 
-		if (loginController.getUser().type() != usertype.Doctor)
+		if (loginController.getUser().type() != UserType.Doctor)
 			throw new IllegalArgumentException("This user is not a doctor!");
 
 		this.lc = loginController;
@@ -56,7 +56,7 @@ public class PatientFileOpenController
 		if (loginController.getUser().type() == null)
 			return false;
 
-		if (loginController.getUser().type() != usertype.Doctor)
+		if (loginController.getUser().type() != UserType.Doctor)
 			return false;
 
 		if (loginController.getUser() != doctor)

@@ -1,12 +1,12 @@
 package controllers.interfaces;
 
-import users.User.usertype;
+import users.UserType;
 
 public interface UserIN
 {
 
 	public String getName();
 
-	public usertype type();
+	public UserType type();
 
 }
