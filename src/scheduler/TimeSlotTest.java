@@ -20,5 +20,5 @@ public class TimeSlotTest
 		TimeSlot s = new TimeSlot(new TimePoint(new Date(0), TimeType.stop),
 				new TimePoint(new Date(5), TimeType.start));
 	}
-
+	
 }
