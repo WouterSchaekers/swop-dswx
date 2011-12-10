@@ -1,10 +1,7 @@
 package scheduler;
 
 import static org.junit.Assert.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import scheduler.Date;
-import java.util.LinkedList;
+import java.util.*;
 import org.junit.Test;
 import exceptions.ImpossibleToScheduleException;
 
