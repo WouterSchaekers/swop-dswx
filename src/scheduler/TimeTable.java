@@ -30,6 +30,7 @@ public class TimeTable
 	 * @param slots
 	 *            All TimeSlots to be stored in this TimeTable.
 	 */
+	// XXX
 	public TimeTable(LinkedList<TimeSlot> slots) {
 		this.timeSlots = slots;
 	}
@@ -47,6 +48,7 @@ public class TimeTable
 	 * @throws InvalidSchedulingRequestException
 	 *             The timeslot cannot be scheduled in this timetable
 	 */
+	// XXX
 	public void addTimeSlot(TimeSlot timeSlot)
 			throws InvalidSchedulingRequestException {
 		if (!this.hasFreeSlotAt(timeSlot)) {
@@ -64,6 +66,7 @@ public class TimeTable
 	 *            The minimal amount of time to be reserved.
 	 * @return The first available timeslot in this timetable.
 	 */
+	// XXX
 	public TimeSlot getFirstFreeSlot(long timeNeeded) {
 		int amountOfSlots = this.timeSlots.size();
 		TimeSlot[] slot = this.getArrayTimeSlots();
@@ -93,6 +96,7 @@ public class TimeTable
 	 *            The point in time from which to start looking from.
 	 * @return A TimeTable that contains all free slots of this TimeTable.
 	 */
+	// XXX
 	public TimeTable getFreeTimeSlotsFrom(Date time, long length) {
 		int amountOfSlots = this.timeSlots.size();
 		LinkedList<TimeSlot> returnValue = new LinkedList<TimeSlot>();
@@ -121,7 +125,6 @@ public class TimeTable
 		// We now need can add a slot at the end of the current timeline aswell
 		// and then return everything in a new TimeTable.
 		returnValue.add(getLastSlotWithLength(length));
-
 		return new TimeTable(returnValue);
 	}
 
@@ -170,6 +173,7 @@ public class TimeTable
 	 * @return A TimeTable that contains all free slots of this TimeTable.
 	 * @throws InvalidSchedulingRequestException
 	 */
+	// XXX
 	public TimeTable getAllFreeSlots(long length)
 			throws InvalidSchedulingRequestException {
 		TimeTable x = this.invert();
@@ -182,6 +186,7 @@ public class TimeTable
 		return rv;
 	}
 
+	// XXX
 	public boolean hasFreeSlotAt(Date startDate, Date stopDate)
 			throws InvalidSchedulingRequestException {
 		return this.hasFreeSlotAt(new TimeSlot(new TimePoint(startDate,
@@ -196,6 +201,7 @@ public class TimeTable
 	 *            The TimeSlot to be checked for.
 	 * @return True if this TimeTable is free for the complete given TimeSlot.
 	 */
+	// XXX
 	public boolean hasFreeSlotAt(TimeSlot slotToCheck) {
 		for (TimeSlot thisSlot : this.timeSlots) {
 			if (thisSlot.overlaps(slotToCheck))
@@ -225,7 +231,6 @@ public class TimeTable
 			allPoints[i++] = t.getStartPoint();
 			allPoints[i++] = t.getStopPoint();
 		}
-
 		Arrays.sort(allPoints, TimePoint.ComparatorsStartFirst);
 		i = 0;
 		while (i < allPoints.length) {
@@ -266,9 +271,9 @@ public class TimeTable
 		while (first < one.length - 1 && second < two.length - 1) {
 			while (first < one.length - 1
 					&& second < two.length - 1
-					&& !TimeTable.inBetween(two[second], one[first],
+					&& !two[second].isBetweenIncluding(one[first],
 							one[first + 1])
-					&& !TimeTable.inBetween(one[first], two[second],
+					&& !one[first].isBetweenIncluding(two[second],
 							two[second + 1])) {
 				if (one[first].compareTo(two[second]) > 0) {
 					second = second + 2;
@@ -297,23 +302,6 @@ public class TimeTable
 			rv.add(t);
 		}
 		return new TimeTable(rv);
-	}
-
-	/**
-	 * Checks wether the first timepoint lies between the two other timepoints.
-	 * 
-	 * @param timePoint
-	 *            The timepoint that has to lie between the other two timepoints
-	 * @param before
-	 *            The timepoint that has to lie before the first timepoint
-	 * @param after
-	 *            The timepoint that has to lie behind the first timepoint
-	 * @return True if the first timepoint lies between the other two timepoints
-	 */
-	public static boolean inBetween(TimePoint timePoint, TimePoint before,
-			TimePoint after) {
-		return before.compareTo(timePoint) <= 0
-				&& after.compareTo(timePoint) >= 0;
 	}
 
 	/**

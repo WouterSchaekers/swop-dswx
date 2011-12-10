@@ -129,7 +129,33 @@ public class TimePoint implements Comparable<TimePoint>
 		return t.getTime() - this.getTime();
 	}
 	
-	public boolean isBetween(TimePoint t1, TimePoint t2){
-		return (this.getTime() - t1.getTime() > 0) && (t2.getTime() - this.getTime() > 0);
+	/**
+	 * Checks wether this timepoint lies between the two other timepoints.
+	 * 
+	 * @param timePoint
+	 *            The timepoint that has to lie between the other two timepoints
+	 * @param before
+	 *            The timepoint that has to lie before the first timepoint
+	 * @param after
+	 *            The timepoint that has to lie behind the first timepoint
+	 * @return True if the first timepoint lies between the other two timepoints
+	 */
+	public boolean isBetweenExcluding(TimePoint before, TimePoint after){
+		return (this.getTime() - before.getTime() > 0) && (after.getTime() - this.getTime() > 0);
+	}
+	
+	/**
+	 * Checks wether this timepoint lies between the two other timepoints.
+	 * 
+	 * @param timePoint
+	 *            The timepoint that has to lie between the other two timepoints
+	 * @param before
+	 *            The timepoint that has to lie before the first timepoint
+	 * @param after
+	 *            The timepoint that has to lie behind the first timepoint
+	 * @return True if the first timepoint lies between the other two timepoints
+	 */
+	public boolean isBetweenIncluding(TimePoint before, TimePoint after){
+		return (this.getTime() - before.getTime() >= 0) && (after.getTime() - this.getTime() >= 0);
 	}
 }
