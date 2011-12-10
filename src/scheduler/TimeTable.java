@@ -190,18 +190,14 @@ public class TimeTable
 	 * 
 	 * @param slotToCheck
 	 *            The TimeSlot to be checked for.
-	 * @return True if this TimeTable is free for the complete given TimeSlot.
-	 * @throws ImpossibleToScheduleException 
+	 * @return True if this TimeTable is free for the complete given TimeSlot. 
 	 */
-	public boolean hasFreeSlotAt(TimeSlot slotToCheck) throws ImpossibleToScheduleException {
-		TimeTable freeSlotsTable = this
-				.getAllFreeSlots(slotToCheck.getLength());
-		Collection<TimeSlot> slots = freeSlotsTable.getTimeSlots();
-		for (TimeSlot thisSlot : slots){
-			if (thisSlot.containsSlot(slotToCheck))
-				return true;
+	public boolean hasFreeSlotAt(TimeSlot slotToCheck) {
+		for (TimeSlot thisSlot : this.timeSlots){
+			if (thisSlot.overlaps(slotToCheck))
+				return false;
 		}
-		return false;
+		return true;
 	}
 
 	/**
