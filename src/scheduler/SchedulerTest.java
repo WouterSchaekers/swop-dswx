@@ -10,6 +10,9 @@ import users.*;
 
 public class SchedulerTest
 {
+	
+	//TODO: when constraints are implemented in canBeScheduledAt()
+	// update ALL the asserts!
 	UserManager m;
 	Scheduler s = new Scheduler();
 	Collection<Collection<Schedulable>> t;
@@ -219,13 +222,13 @@ public class SchedulerTest
 		assertFalse(n1.canBeScheduledOn(scheduledDate3, new Date(endScheduledDate3.getTime() - 1)));
 		assertFalse(n1.canBeScheduledOn(scheduledDate3, new Date(endScheduledDate3.getTime())));
 		assertTrue(n1.getTimeTable().getTimeSlots().size() == 2);
-		assertTrue(n1.canBeScheduledOn(endScheduledDate3,new Date(endScheduledDate3.getTime() + 1 )));
+		assertTrue(n1.canBeScheduledOn(endScheduledDate3,new Date(endScheduledDate3.getTime() + 1)));
 				
 		assertFalse(n2.canBeScheduledOn(scheduledDate2, new Date(scheduledDate2.getTime() + 1)));
 		assertFalse(n2.canBeScheduledOn(scheduledDate2, new Date(endScheduledDate2.getTime() - 1)));
 		assertFalse(n2.canBeScheduledOn(scheduledDate2, new Date(endScheduledDate2.getTime())));
 		assertTrue(n2.getTimeTable().getTimeSlots().size() == 1);
-		assertTrue(n2.canBeScheduledOn(endScheduledDate2,new Date(endScheduledDate2.getTime() + 1 )));
+		assertTrue(n2.canBeScheduledOn(endScheduledDate2,new Date(endScheduledDate2.getTime() + 1)));
 	}
 	
 	@Test
@@ -238,30 +241,45 @@ public class SchedulerTest
 		assertFalse(n1.canBeScheduledOn(scheduledDate, new Date(scheduledDate.getTime() + 1)));
 		assertFalse(n1.canBeScheduledOn(scheduledDate, new Date(endScheduledDate.getTime() - 1)));
 		assertFalse(n1.canBeScheduledOn(scheduledDate, new Date(endScheduledDate.getTime())));
-		assertTrue(n1.canBeScheduledOn(endScheduledDate,new Date(endScheduledDate.getTime() + 1 )));
+		assertTrue(n1.canBeScheduledOn(endScheduledDate,new Date(endScheduledDate.getTime() + 1)));
 		
 		assertFalse(d1.canBeScheduledOn(scheduledDate, new Date(scheduledDate.getTime() + 1)));
 		assertFalse(d1.canBeScheduledOn(scheduledDate, new Date(endScheduledDate.getTime() - 1)));
 		assertFalse(d1.canBeScheduledOn(scheduledDate, new Date(endScheduledDate.getTime())));
-		assertTrue(d1.canBeScheduledOn(endScheduledDate,new Date(endScheduledDate.getTime() + 1 )));
+		assertTrue(d1.canBeScheduledOn(endScheduledDate,new Date(endScheduledDate.getTime() + 1)));
 	}
 	
 	@Test
-	public void schedule2DifferentKindsOfSchedulablesForDifferentTimes() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException {		
+	public void schedule2DifferentKindsOfSchedulablesForDifferentDurations() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException {		
 		long duration = Scheduler.ONE_MINUTE;
+		long duration2 = Scheduler.ONE_MINUTE * 23;
 		
 		Date scheduledDate = s.schedule(duration, t4);
+		Date scheduledDate2 = s.schedule(duration2, t4);
 		Date endScheduledDate = new Date(scheduledDate.getTime() + duration);
+		Date endScheduledDate2 = new Date(scheduledDate2.getTime() + duration2);
 		
 		assertFalse(n1.canBeScheduledOn(scheduledDate, new Date(scheduledDate.getTime() + 1)));
 		assertFalse(n1.canBeScheduledOn(scheduledDate, new Date(endScheduledDate.getTime() - 1)));
 		assertFalse(n1.canBeScheduledOn(scheduledDate, new Date(endScheduledDate.getTime())));
-		assertTrue(n1.canBeScheduledOn(endScheduledDate,new Date(endScheduledDate.getTime() + 1 )));
+		assertTrue(n1.canBeScheduledOn(endScheduledDate,new Date(endScheduledDate.getTime() + 1)));
 		
 		assertFalse(d1.canBeScheduledOn(scheduledDate, new Date(scheduledDate.getTime() + 1)));
 		assertFalse(d1.canBeScheduledOn(scheduledDate, new Date(endScheduledDate.getTime() - 1)));
 		assertFalse(d1.canBeScheduledOn(scheduledDate, new Date(endScheduledDate.getTime())));
-		assertTrue(d1.canBeScheduledOn(endScheduledDate,new Date(endScheduledDate.getTime() + 1 )));
+		assertTrue(d1.canBeScheduledOn(endScheduledDate,new Date(endScheduledDate.getTime() + 1)));
+		
+		assertFalse(n2.canBeScheduledOn(scheduledDate2, new Date(scheduledDate2.getTime() + 1)));
+		assertFalse(n2.canBeScheduledOn(scheduledDate2, new Date(endScheduledDate2.getTime() - 1)));
+		assertFalse(n2.canBeScheduledOn(scheduledDate2, new Date(endScheduledDate2.getTime())));
+		assertTrue(n2.canBeScheduledOn(endScheduledDate2,new Date(endScheduledDate2.getTime() + 1)));
+		
+		assertFalse(d2.canBeScheduledOn(scheduledDate2, new Date(scheduledDate2.getTime() + 1)));
+		assertFalse(d2.canBeScheduledOn(scheduledDate2, new Date(endScheduledDate2.getTime() - 1)));
+		assertFalse(d2.canBeScheduledOn(scheduledDate2, new Date(endScheduledDate2.getTime())));
+		assertTrue(d2.canBeScheduledOn(endScheduledDate2,new Date(endScheduledDate2.getTime() + 1)));
 	}
 
+//TODO: hybrid of all previous
+	
 }
