@@ -57,7 +57,6 @@ public class SchedulerTest {
 
 		Date scheduledDate = s.schedule(duration, t);
 		Date endScheduledDate = new Date(scheduledDate.getTime() + duration);
-		
 		assertFalse(n1.canBeScheduledOn(scheduledDate, new Date(scheduledDate.getTime() + 1)));
 		assertFalse(n1.canBeScheduledOn(scheduledDate, new Date(endScheduledDate.getTime() - 1)));
 		assertFalse(n1.canBeScheduledOn(scheduledDate, new Date(endScheduledDate.getTime())));
