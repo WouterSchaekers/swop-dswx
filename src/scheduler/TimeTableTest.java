@@ -3,7 +3,7 @@ package scheduler;
 import static org.junit.Assert.*;
 import java.util.*;
 import org.junit.Test;
-import exceptions.ImpossibleToScheduleException;
+import exceptions.InvalidSchedulingRequestException;
 
 @SuppressWarnings("unused")
 public class TimeTableTest
@@ -297,7 +297,7 @@ public class TimeTableTest
 	}
 
 	@Test
-	public void invert0Test() throws ImpossibleToScheduleException {
+	public void invert0Test() throws InvalidSchedulingRequestException {
 		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(1320735601000l),
 				TimeType.start), new TimePoint(new Date(1320735602000l),
 				TimeType.stop));
@@ -320,7 +320,7 @@ public class TimeTableTest
 	}
 
 	@Test
-	public void invert1Test() throws ImpossibleToScheduleException {
+	public void invert1Test() throws InvalidSchedulingRequestException {
 		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(1320735601000l),
 				TimeType.start), new TimePoint(new Date(8984651322588l),
 				TimeType.stop));

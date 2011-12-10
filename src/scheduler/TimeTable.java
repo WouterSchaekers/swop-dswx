@@ -1,7 +1,7 @@
 package scheduler;
 
 import java.util.*;
-import exceptions.ImpossibleToScheduleException;
+import exceptions.InvalidSchedulingRequestException;
 import be.kuleuven.cs.som.annotate.Basic;
 
 /**
@@ -44,13 +44,13 @@ public class TimeTable
 	 * 
 	 * @param timeSlot
 	 *            The timeslot that has to be added
-	 * @throws ImpossibleToScheduleException
+	 * @throws InvalidSchedulingRequestException
 	 *             The timeslot cannot be scheduled in this timetable
 	 */
 	public void addTimeSlot(TimeSlot timeSlot)
-			throws ImpossibleToScheduleException {
+			throws InvalidSchedulingRequestException {
 		if (!this.hasFreeSlotAt(timeSlot)) {
-			throw new ImpossibleToScheduleException(
+			throw new InvalidSchedulingRequestException(
 					"Can't schedule at given timeSlot!");
 		}
 		this.timeSlots.add(timeSlot);
@@ -128,9 +128,9 @@ public class TimeTable
 	/**
 	 * @param table
 	 * @return
-	 * @throws ImpossibleToScheduleException
+	 * @throws InvalidSchedulingRequestException
 	 */
-	public TimeTable invert() throws ImpossibleToScheduleException {
+	public TimeTable invert() throws InvalidSchedulingRequestException {
 		TimeTable returnValue = null;
 		// Start of time
 		Date d1 = Scheduler.START_OF_TIME;
@@ -168,10 +168,10 @@ public class TimeTable
 	 * @param time
 	 *            The point in time from which to start looking from.
 	 * @return A TimeTable that contains all free slots of this TimeTable.
-	 * @throws ImpossibleToScheduleException
+	 * @throws InvalidSchedulingRequestException
 	 */
 	public TimeTable getAllFreeSlots(long length)
-			throws ImpossibleToScheduleException {
+			throws InvalidSchedulingRequestException {
 		TimeTable x = this.invert();
 		TimeTable rv = new TimeTable();
 		for (TimeSlot t : x.timeSlots) {
@@ -183,7 +183,7 @@ public class TimeTable
 	}
 
 	public boolean hasFreeSlotAt(Date startDate, Date stopDate)
-			throws ImpossibleToScheduleException {
+			throws InvalidSchedulingRequestException {
 		return this.hasFreeSlotAt(new TimeSlot(new TimePoint(startDate,
 				TimeType.start), new TimePoint(stopDate, TimeType.stop)));
 	}
