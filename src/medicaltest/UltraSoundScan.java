@@ -2,6 +2,7 @@ package medicaltest;
 
 import exceptions.InvalidDurationException;
 import exceptions.InvalidNameException;
+import exceptions.InvalidTimeSlotException;
 
 public class UltraSoundScan extends MedicalTest
 {
@@ -12,10 +13,11 @@ public class UltraSoundScan extends MedicalTest
 
 	/**
 	 * Default constructor. 
+	 * @throws InvalidTimeSlotException 
 	 * @see MedicalTest("UltraSoundScan")
 	 */
 	public UltraSoundScan() throws InvalidNameException,
-			InvalidDurationException {
+			InvalidDurationException, InvalidTimeSlotException {
 		super(TESTNAME, DURATION);
 	}
 

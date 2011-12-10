@@ -1,10 +1,11 @@
 package users;
 
 import exceptions.InvalidNameException;
+import exceptions.InvalidTimeSlotException;
 
 public class Nurse extends SchedulableUser
 {
-	public Nurse(String name) throws InvalidNameException {
+	public Nurse(String name) throws InvalidNameException, InvalidTimeSlotException {
 		super(name);
 	}
 

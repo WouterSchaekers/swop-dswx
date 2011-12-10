@@ -4,15 +4,17 @@ import java.util.*;
 import scheduler.TimeSlot;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidSerialException;
+import exceptions.InvalidTimeSlotException;
 
 public class XRayScanner extends Machine
 {
 	/**
 	 * Creates an XRayScanner scanner, exceptions are thrown as in the super class: 
 	 * {@link Machine#Machine(int, String)} 
+	 * @throws InvalidTimeSlotException 
 	 * */
 	public XRayScanner(int serial, String location)
-			throws InvalidLocationException, InvalidSerialException {
+			throws InvalidLocationException, InvalidSerialException, InvalidTimeSlotException {
 		super(serial, location);
 	}
 

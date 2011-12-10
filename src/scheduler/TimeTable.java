@@ -2,6 +2,7 @@ package scheduler;
 
 import java.util.*;
 import exceptions.InvalidSchedulingRequestException;
+import exceptions.InvalidTimeSlotException;
 import be.kuleuven.cs.som.annotate.Basic;
 
 /**
@@ -16,11 +17,11 @@ public class TimeTable
 	 * Alternative constructor where a certain amount of slots can just be given
 	 * as parameters, not as a collection.
 	 */
-	public TimeTable(TimeSlot... slots) {
+	public TimeTable(TimeSlot... slots) throws InvalidTimeSlotException{
 		this(new LinkedList<TimeSlot>(Arrays.asList(slots)));
 	}
 
-	public TimeTable() {
+	public TimeTable() throws InvalidTimeSlotException{
 		this(new LinkedList<TimeSlot>());
 	}
 
@@ -28,11 +29,16 @@ public class TimeTable
 	 * Default constructor. Will initialise all fields.
 	 * 
 	 * @param slots
-	 *            All TimeSlots to be stored in this TimeTable.
+	 * 				All TimeSlots to be stored in this TimeTable.
+	 * @throws InvalidTimeSlotException
+	 * 				
 	 */
 	// XXX
-	public TimeTable(LinkedList<TimeSlot> slots) {
-		this.timeSlots = slots;
+	public TimeTable(LinkedList<TimeSlot> timeSlots) throws InvalidTimeSlotException {
+		if(!TimeTable.isValidTimeSlots(timeSlots)){
+			throw new InvalidTimeSlotException("TimeTable initialized with nullpointer.");
+		}
+		this.timeSlots = timeSlots;
 	}
 
 	public TimeSlot[] getArrayTimeSlots() {
@@ -95,9 +101,10 @@ public class TimeTable
 	 * @param time
 	 *            The point in time from which to start looking from.
 	 * @return A TimeTable that contains all free slots of this TimeTable.
+	 * @throws InvalidTimeSlotException
 	 */
 	// XXX
-	public TimeTable getFreeTimeSlotsFrom(Date time, long length) {
+	public TimeTable getFreeTimeSlotsFrom(Date time, long length) throws InvalidTimeSlotException{
 		int amountOfSlots = this.timeSlots.size();
 		LinkedList<TimeSlot> returnValue = new LinkedList<TimeSlot>();
 		TimeSlot[] slots = this.getArrayTimeSlots();
@@ -132,8 +139,9 @@ public class TimeTable
 	 * @param table
 	 * @return
 	 * @throws InvalidSchedulingRequestException
+	 * @throws InvalidTimeSlotException 
 	 */
-	public TimeTable invert() throws InvalidSchedulingRequestException {
+	public TimeTable invert() throws InvalidSchedulingRequestException, InvalidTimeSlotException {
 		TimeTable returnValue = null;
 		// Start of time
 		Date d1 = Scheduler.START_OF_TIME;
@@ -172,10 +180,11 @@ public class TimeTable
 	 *            The point in time from which to start looking from.
 	 * @return A TimeTable that contains all free slots of this TimeTable.
 	 * @throws InvalidSchedulingRequestException
+	 * @throws InvalidTimeSlotException 
 	 */
 	// XXX
 	public TimeTable getAllFreeSlots(long length)
-			throws InvalidSchedulingRequestException {
+			throws InvalidSchedulingRequestException, InvalidTimeSlotException {
 		TimeTable x = this.invert();
 		TimeTable rv = new TimeTable();
 		for (TimeSlot t : x.timeSlots) {
@@ -216,8 +225,9 @@ public class TimeTable
 	 * Timetables are occupied. <br>
 	 * 
 	 * @return
+	 * @throws InvalidTimeSlotException 
 	 */
-	public TimeTable getUnion(TimeTable that) {
+	public TimeTable getUnion(TimeTable that) throws InvalidTimeSlotException {
 		TimePoint[] allPoints = new TimePoint[this.timeSlots.size() * 2
 				+ that.timeSlots.size() * 2];
 		LinkedList<TimeSlot> rv = new LinkedList<TimeSlot>();
@@ -261,8 +271,9 @@ public class TimeTable
 	 * @param that
 	 *            The timetable which has to be intersected with this one.
 	 * @return A new timetable that has all the busy-slots of both timetables.
+	 * @throws InvalidTimeSlotException 
 	 */
-	public TimeTable getIntersect(TimeTable that) {
+	public TimeTable getIntersect(TimeTable that) throws InvalidTimeSlotException {
 		TimePoint[] one = TimeTable.eliminateOverlap(this);
 		TimePoint[] two = TimeTable.eliminateOverlap(that);
 		LinkedList<TimeSlot> rv = new LinkedList<TimeSlot>();
@@ -317,7 +328,6 @@ public class TimeTable
 	 * @return The timePoints of this timetable without overlap
 	 */
 	public static TimePoint[] eliminateOverlap(TimeTable timeTable) {
-
 		TimePoint[] timePoints = new TimePoint[timeTable.timeSlots.size() * 2];
 		int i = 0;
 		for (TimeSlot t : timeTable.timeSlots) {
@@ -361,8 +371,10 @@ public class TimeTable
 	 *            intersection with.
 	 * @return A TimeTable that's the intersection of all given tables and this
 	 *         table.
+	 * @throws InvalidTimeSlotException 
 	 */
-	public TimeTable intersectAll(Collection<TimeTable> tables) {
+	//XXX
+	public TimeTable intersectAll(Collection<TimeTable> tables) throws InvalidTimeSlotException {
 		TimeTable rv = this.getIntersect(this);
 		for (TimeTable timeTable : tables)
 			rv = timeTable.getIntersect(rv);
@@ -377,9 +389,11 @@ public class TimeTable
 	 * @param tables
 	 *            The collection of Tables you would like to get the union of.
 	 * @return A TimeTable that's the union of all given tables and this table.
+	 * @throws InvalidTimeSlotException 
 	 */
-	public TimeTable unionAll(Collection<TimeTable> tables) {
-		TimeTable rv = this.getUnion(this);
+	//XXX
+	public TimeTable unionAll(Collection<TimeTable> tables) throws InvalidTimeSlotException {
+		TimeTable rv = new TimeTable(this.getTimeSlots());
 		for (TimeTable timeTable : tables)
 			rv = timeTable.getUnion(rv);
 
@@ -396,6 +410,7 @@ public class TimeTable
 	 *            timetable.
 	 * @return A timeslot at the end of this timetable of the wanted length.
 	 */
+	//XXX
 	private TimeSlot getLastSlotWithLength(long length) {
 		TimeSlot t;
 		if (this.timeSlots.size() == 0) {
@@ -437,7 +452,24 @@ public class TimeTable
 			builder.append(slot.toString());
 		return builder.toString();
 	}
-
+	
+	/**
+	 * Checks wether all the given collection of timeslots consists of valid timeslots.
+	 * 
+	 * @param timeSlots
+	 * 			the given collection of timeslots
+	 * @return
+	 * 			true if all timeslots are valid
+	 */
+	public static boolean isValidTimeSlots(LinkedList<TimeSlot> timeSlots){
+		if(timeSlots == null)
+			return false;
+		for(TimeSlot timeSlot : timeSlots)
+			if(!TimeSlot.isValidTimeSlot(timeSlot))
+				return false;
+		return true;
+	}
+	
 	/**
 	 * @return true if t is "busy" at the same moments as this timetable.
 	 */

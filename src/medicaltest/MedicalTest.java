@@ -17,8 +17,8 @@ public abstract class MedicalTest implements Schedulable
 
 	private final String TESTNAME;
 	private final long DURATION;
-	private TimeTable myTimeTable = new TimeTable();
-
+	private TimeTable myTimeTable;
+	
 	/**
 	 * Default constructor.
 	 * 
@@ -30,9 +30,10 @@ public abstract class MedicalTest implements Schedulable
 	 *             If(!isValidName(name))
 	 * @throws InvalidDurationException
 	 *             If(!isValidDuration(duration))
+	 * @throws InvalidTimeSlotException 
 	 */
 	public MedicalTest(String name, long duration) throws InvalidNameException,
-			InvalidDurationException {
+			InvalidDurationException, InvalidTimeSlotException {
 		
 		if (!isValidName(name)) 
 			throw new InvalidNameException("Invalid name in constructor of MedicalTest!");
@@ -41,6 +42,7 @@ public abstract class MedicalTest implements Schedulable
 	
 		this.TESTNAME = name;
 		this.DURATION = duration;
+		this.myTimeTable = new TimeTable();
 	}
 
 	@Basic
@@ -71,7 +73,7 @@ public abstract class MedicalTest implements Schedulable
 		return this.myTimeTable.hasFreeSlotAt(startDate,stopDate);
 	}
 
-	public TimeTable getTimeTable() {
+	public TimeTable getTimeTable() throws InvalidTimeSlotException {
 		return new TimeTable(this.myTimeTable.getTimeSlots());
 	}
 	

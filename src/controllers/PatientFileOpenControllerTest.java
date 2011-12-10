@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import controllers.interfaces.UserIN;
 import exceptions.InvalidNameException;
+import exceptions.InvalidTimeSlotException;
 import exceptions.UserAlreadyExistsException;
 import patient.PatientFileManager;
 import users.Doctor;
@@ -32,7 +33,7 @@ public class PatientFileOpenControllerTest
 
 	@Test
 	public void testPatientFileOpenControllerSucces()
-			throws UserAlreadyExistsException, InvalidNameException {
+			throws UserAlreadyExistsException, InvalidNameException, InvalidTimeSlotException {
 		lc = new LoginController(data);
 		d = um.createDoctor("Jef");
 		u = d;
@@ -49,7 +50,7 @@ public class PatientFileOpenControllerTest
 
 	@Test(
 			expected = NullPointerException.class)
-	public void testGetLoginControllerFail2() throws UserAlreadyExistsException, InvalidNameException {
+	public void testGetLoginControllerFail2() throws UserAlreadyExistsException, InvalidNameException, InvalidTimeSlotException {
 		lc = new LoginController(data);
 		n = um.createNurse("Sandrien");
 		u = n;
@@ -58,7 +59,7 @@ public class PatientFileOpenControllerTest
 
 	@Test
 	public void testValidLoginControllerSucces()
-			throws UserAlreadyExistsException, InvalidNameException {
+			throws UserAlreadyExistsException, InvalidNameException, InvalidTimeSlotException {
 		lc = new LoginController(data);
 		d = um.createDoctor("Jef");
 		u = d;
@@ -70,7 +71,7 @@ public class PatientFileOpenControllerTest
 	@Test(
 			expected = IllegalArgumentException.class)
 	public void testValidLoginControllerFail()
-			throws UserAlreadyExistsException, InvalidNameException {
+			throws UserAlreadyExistsException, InvalidNameException, InvalidTimeSlotException {
 		lc = new LoginController(data);
 		n = um.createNurse("Margo");
 		u = n;
