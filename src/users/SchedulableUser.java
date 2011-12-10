@@ -2,7 +2,7 @@ package users;
 
 import exceptions.ImpossibleToScheduleException;
 import exceptions.InvalidNameException;
-import scheduler.Date;
+import java.util.*;
 import scheduler.TimeSlot;
 import scheduler.TimeTable;
 import scheduler.task.Schedulable;

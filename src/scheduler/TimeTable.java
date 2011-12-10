@@ -1,10 +1,6 @@
 package scheduler;
 
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.Arrays;
-import java.util.ArrayList;
-
+import java.util.*;
 import exceptions.ImpossibleToScheduleException;
 import be.kuleuven.cs.som.annotate.Basic;
 
