@@ -409,10 +409,13 @@ public class TimeTable
 	 * @return A timeslot at the end of this timetable of the wanted length.
 	 */
 	private TimeSlot getLastSlotWithLength(long length) {
+		TimeSlot t;
 		if (this.timeSlots.size() == 0) {
-			return new TimeSlot(new TimePoint(Scheduler.getCurrentSystemTime(),
+			System.out.println("wololo");
+			t = new TimeSlot(new TimePoint(Scheduler.getCurrentSystemTime(),
 					TimeType.start), new TimePoint(new Date(Scheduler
 					.getCurrentSystemTime().getTime() + length), TimeType.stop));
+			return t;
 		}
 		Date startDate = this.timeSlots.getLast()
 				.getStopPoint().getDate();
@@ -420,7 +423,9 @@ public class TimeTable
 		TimePoint startFree = new TimePoint(startDate, TimeType.start);
 		TimePoint stopFree = new TimePoint(stopDate, TimeType.stop);
 
-		return new TimeSlot(startFree, stopFree);
+		t =  new TimeSlot(startFree, stopFree);
+		System.out.println("TimeSlot allocated: " + t);
+		return t;
 	}
 
 	/**

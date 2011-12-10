@@ -114,10 +114,10 @@ public class TimePoint implements Comparable<TimePoint>
 	@Override
 	public String toString(){
 		if(this.type == TimeType.start){
-			return "Start " + this.getTime();
+			return "Start " + this.getDate();
 		}
 		else{
-			return "End " + this.getTime();
+			return "End " + this.getDate();
 		}
 	}
 	

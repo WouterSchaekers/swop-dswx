@@ -23,6 +23,9 @@ public class Scheduler
 	private static Date currentSystemTime;
 	public static final Date START_OF_TIME = new Date(61283235600000l);
 	public static final Date END_OF_TIME = new Date(Long.MAX_VALUE);
+	public static final long ONE_SECOND = 1000;
+	public static final long ONE_MINUTE = ONE_SECOND * 60;
+	public static final long ONE_HOUR = ONE_MINUTE * 60;
 	
 	/**
 	 * This method will schedule one of each resources given in the parameters
@@ -96,6 +99,7 @@ public class Scheduler
 		List<Schedulable> resourceQueue = getNextResourceQueue(stillToSchedule);
 		Schedulable firstQueueElement = resourceQueue.remove(0);
 		Collection<TimeTable> allTheTimeTables = new LinkedList<TimeTable>();
+		
 		for(Schedulable s: resourceQueue)
 			allTheTimeTables.add(s.getTimeTable());
 		resourceQueue.clear();
@@ -194,7 +198,8 @@ public class Scheduler
 			}
 			if (foundResources.size() == allTheNeededResources.size()) {
 				// We've found our appointment slot!
-				foundSlot = candidateSlot;
+				TimePoint endOfAppointment = new TimePoint(new Date(candidateSlot.getStartPoint().getTime() + duration),TimeType.stop);
+				foundSlot = new TimeSlot(candidateSlot.getStartPoint(), endOfAppointment);
 				// We can now break from the loop.
 				break;
 			}
