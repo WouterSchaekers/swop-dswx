@@ -32,7 +32,7 @@ public class TimeTableTest
 	}
 
 	@Test
-	public void unionTest() {
+	public void union0Test() {
 		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(0), TimeType.start),
 				new TimePoint(new Date(5), TimeType.stop));
 		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(8), TimeType.start),
@@ -52,23 +52,7 @@ public class TimeTableTest
 	}
 
 	@Test
-	public void unionDoubleRemovalTest() {
-
-		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(0), TimeType.start),
-				new TimePoint(new Date(5), TimeType.stop));
-		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(6), TimeType.start),
-				new TimePoint(new Date(8), TimeType.stop));
-		TimeSlot t3 = new TimeSlot(new TimePoint(new Date(0), TimeType.start),
-				new TimePoint(new Date(5), TimeType.stop));
-		TimeSlot t4 = new TimeSlot(new TimePoint(new Date(6), TimeType.start),
-				new TimePoint(new Date(8), TimeType.stop));
-		TimeTable table = new TimeTable(t1, t2);
-		TimeTable table2 = new TimeTable(t3, t4);
-		assertTrue(table.getUnion(table2).equals(table));
-	}
-
-	@Test
-	public void union2Test() {
+	public void union1Test() {
 		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(0), TimeType.start),
 				new TimePoint(new Date(5), TimeType.stop));
 		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(8), TimeType.start),
@@ -86,7 +70,7 @@ public class TimeTableTest
 	}
 
 	@Test
-	public void union3Test() {
+	public void union2Test() {
 		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(-5), TimeType.start),
 				new TimePoint(new Date(-2), TimeType.stop));
 		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(-2), TimeType.start),
@@ -100,7 +84,7 @@ public class TimeTableTest
 	}
 
 	@Test
-	public void union4Test() {
+	public void union3Test() {
 		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(-5), TimeType.start),
 				new TimePoint(new Date(-2), TimeType.stop));
 		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(2), TimeType.start),
@@ -135,6 +119,21 @@ public class TimeTableTest
 		assertTrue(res.equals(table2));
 		assertTrue(res.equals(table));
 	}
+	
+	@Test
+	public void unionDoubleRemovalTest() {
+		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(0), TimeType.start),
+				new TimePoint(new Date(5), TimeType.stop));
+		TimeSlot t2 = new TimeSlot(new TimePoint(new Date(6), TimeType.start),
+				new TimePoint(new Date(8), TimeType.stop));
+		TimeSlot t3 = new TimeSlot(new TimePoint(new Date(0), TimeType.start),
+				new TimePoint(new Date(5), TimeType.stop));
+		TimeSlot t4 = new TimeSlot(new TimePoint(new Date(6), TimeType.start),
+				new TimePoint(new Date(8), TimeType.stop));
+		TimeTable table = new TimeTable(t1, t2);
+		TimeTable table2 = new TimeTable(t3, t4);
+		assertTrue(table.getUnion(table2).equals(table));
+	}
 
 	@Test
 	public void eliminateOverlapTest() {
@@ -167,7 +166,7 @@ public class TimeTableTest
 	}
 
 	@Test
-	public void invertTest() throws ImpossibleToScheduleException {
+	public void invert0Test() throws ImpossibleToScheduleException {
 		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(1320735601000l),
 				TimeType.start), new TimePoint(new Date(1320735602000l),
 				TimeType.stop));
@@ -190,7 +189,7 @@ public class TimeTableTest
 	}
 
 	@Test
-	public void invert2Test() throws ImpossibleToScheduleException {
+	public void invert1Test() throws ImpossibleToScheduleException {
 		TimeSlot t1 = new TimeSlot(new TimePoint(new Date(1320735601000l),
 				TimeType.start), new TimePoint(new Date(8984651322588l),
 				TimeType.stop));
