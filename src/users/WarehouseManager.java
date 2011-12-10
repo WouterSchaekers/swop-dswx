@@ -28,7 +28,7 @@ public class WarehouseManager extends User
 	}
 
 	@Override
-	public usertype type() {
+	public UserType type() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -10,7 +10,7 @@ public class Doctor extends SchedulableUser implements DoctorIN
 	}
 	
 	@Override
-	public usertype type() {
-		return usertype.Doctor;
+	public UserType type() {
+		return UserType.Doctor;
 	}
 }
