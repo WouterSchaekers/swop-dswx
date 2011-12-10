@@ -142,39 +142,36 @@ public class TimeTable
 	}
 
 	/**
-	 * 
 	 * @param table
 	 * @return
+	 * @throws ImpossibleToScheduleException 
 	 */
-	public TimeTable invert(TimeTable table) {
+	public TimeTable invert(TimeTable table) throws ImpossibleToScheduleException {
 		TimeTable returnValue = null;
-		try {
-			// Start of time
-			Date d1 = Scheduler.startOfTime();
-			// the end of time is here :)
-			Date d2 = Scheduler.endOfTime();
-			TimeSlot t = new TimeSlot(new TimePoint(d1, TimeType.start),
-					new TimePoint(d2, TimeType.stop));
-			returnValue = new TimeTable();
-			TimePoint p1;
-			TimePoint p2;
-			if (timeSlots.length == 0)
-				return new TimeTable(t);
-			returnValue.addTimeSlot(new TimeSlot(new TimePoint(d1,
-					TimeType.start), new TimePoint(timeSlots[0].getStartPoint()
-					.getDate(), TimeType.stop)));
-			int i = 0;
-			for (; i < timeSlots.length - 1; i++) {
-				returnValue.addTimeSlot(new TimeSlot(new TimePoint(timeSlots[i]
-						.getStopPoint().getDate(), TimeType.start),
-						new TimePoint(timeSlots[0].getStartPoint().getDate(),
-								TimeType.stop)));
-			}
+		// Start of time
+		Date d1 = Scheduler.START_OF_TIME;
+		// the end of time is here :)
+		Date d2 = Scheduler.END_OF_TIME;
+		TimeSlot t = new TimeSlot(new TimePoint(d1, TimeType.start),
+				new TimePoint(d2, TimeType.stop));
+		returnValue = new TimeTable();
+
+		if (timeSlots.length == 0)
+			return new TimeTable(t);
+
+		returnValue.addTimeSlot(new TimeSlot(new TimePoint(d1, TimeType.start),
+				new TimePoint(timeSlots[0].getStartPoint().getDate(),
+						TimeType.stop)));
+
+		int i = 0;
+		for (; i < timeSlots.length - 1; i++) {
 			returnValue.addTimeSlot(new TimeSlot(new TimePoint(timeSlots[i]
-					.getStartPoint().getDate(), TimeType.start), new TimePoint(
-					d2, TimeType.stop)));
-		} catch (Exception e) {
+					.getStopPoint().getDate(), TimeType.start), new TimePoint(
+					timeSlots[0].getStartPoint().getDate(), TimeType.stop)));
 		}
+		returnValue.addTimeSlot(new TimeSlot(new TimePoint(timeSlots[i]
+				.getStartPoint().getDate(), TimeType.start), new TimePoint(d2,
+				TimeType.stop)));
 		return returnValue;
 	}
 
@@ -187,8 +184,9 @@ public class TimeTable
 	 * @param time
 	 *            The point in time from which to start looking from.
 	 * @return A TimeTable that contains all free slots of this TimeTable.
+	 * @throws ImpossibleToScheduleException 
 	 */
-	public TimeTable getAllFreeSlots(long length) {
+	public TimeTable getAllFreeSlots(long length) throws ImpossibleToScheduleException {
 		TimeTable x = invert(this);
 		TimeTable rv = new TimeTable();
 		for (TimeSlot t : x.timeSlots) {
@@ -199,7 +197,7 @@ public class TimeTable
 		return rv;
 	}
 
-	public boolean hasFreeSlotAt(Date startDate, Date stopDate) {
+	public boolean hasFreeSlotAt(Date startDate, Date stopDate) throws ImpossibleToScheduleException {
 		return this.hasFreeSlotAt(new TimeSlot(new TimePoint(startDate,
 				TimeType.start), new TimePoint(stopDate, TimeType.stop)));
 	}
@@ -211,8 +209,9 @@ public class TimeTable
 	 * @param slotToCheck
 	 *            The TimeSlot to be checked for.
 	 * @return True if this TimeTable is free for the complete given TimeSlot.
+	 * @throws ImpossibleToScheduleException 
 	 */
-	public boolean hasFreeSlotAt(TimeSlot slotToCheck) {
+	public boolean hasFreeSlotAt(TimeSlot slotToCheck) throws ImpossibleToScheduleException {
 		TimeTable freeSlotsTable = this
 				.getAllFreeSlots(slotToCheck.getLength());
 		Collection<TimeSlot> slots = freeSlotsTable.getTimeSlots();

@@ -4,11 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import org.junit.Before;
 import org.junit.Test;
-import exceptions.ImpossibleToScheduleException;
-import exceptions.InvalidDurationException;
-import exceptions.InvalidSchedulingRequestException;
-import exceptions.QueueException;
-import exceptions.UserAlreadyExistsException;
+import exceptions.*;
 import scheduler.task.Schedulable;
 import users.UserManager;
 
@@ -26,6 +22,9 @@ public class ScheduleTest
 		m.CreateNurse("Lovely");
 		}catch (UserAlreadyExistsException e) {
 		}	
+		catch(InvalidNameException e) {
+			
+		}
 	}
 	@Test
 	public void test()
