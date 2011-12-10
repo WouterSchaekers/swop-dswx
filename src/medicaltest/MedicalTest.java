@@ -72,7 +72,6 @@ public abstract class MedicalTest implements Schedulable
 	}
 
 	public TimeTable getTimeTable() {
-		
 		return new TimeTable(this.myTimeTable.getTimeSlots());
 	}
 	
