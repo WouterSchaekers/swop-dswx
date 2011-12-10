@@ -142,10 +142,11 @@ public class TimeTable
 
 		if (timeSlots.isEmpty())
 			return new TimeTable(t);
-
-		returnValue.addTimeSlot(new TimeSlot(new TimePoint(d1, TimeType.start),
-				new TimePoint(timeSlots.get(0).getStartPoint().getDate(),
-						TimeType.stop)));
+		if (timeSlots.get(0).getStartPoint().getTime() != d1.getTime()) {
+			returnValue.addTimeSlot(new TimeSlot(new TimePoint(d1,
+					TimeType.start), new TimePoint(timeSlots.get(0)
+					.getStartPoint().getDate(), TimeType.stop)));
+		}
 		for (int i = 0; i < timeSlots.size() - 1; i++) {
 			returnValue.addTimeSlot(new TimeSlot(new TimePoint(timeSlots.get(i)
 					.getStopPoint().getDate(), TimeType.start), new TimePoint(
