@@ -74,7 +74,7 @@ public class TimeSlot
 		return t1.isBetweenOrOn(tt1, tt2) && t2.isBetweenOrOn(tt1, tt2);
 	}
 	
-	public boolean overLaps(TimeSlot t){
+	public boolean overlaps(TimeSlot t){
 		TimePoint tt1 = this.getStartPoint();
 		TimePoint tt2 = this.getStopPoint();
 		TimePoint t1 = t.getStartPoint();
