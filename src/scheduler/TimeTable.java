@@ -10,19 +10,18 @@ import be.kuleuven.cs.som.annotate.Basic;
  */
 public class TimeTable
 {
-	private TimeSlot[] timeSlots;
-	private int amountOfSlots;
+	private LinkedList<TimeSlot> timeSlots;
 
 	/**
 	 * Alternative constructor where a certain amount of slots can just be given
 	 * as parameters, not as a collection.
 	 */
 	public TimeTable(TimeSlot... slots) {
-		this(new ArrayList<TimeSlot>(Arrays.asList(slots)));
+		this(new LinkedList<TimeSlot>(Arrays.asList(slots)));
 	}
 
 	public TimeTable() {
-		this(new ArrayList<TimeSlot>());
+		this(new LinkedList<TimeSlot>());
 	}
 
 	/**
@@ -31,17 +30,13 @@ public class TimeTable
 	 * @param slots
 	 *            All TimeSlots to be stored in this TimeTable.
 	 */
-	public TimeTable(Collection<TimeSlot> slots) {
-		this.timeSlots = new TimeSlot[slots.size()];
-		int i = 0;
-		for (TimeSlot s : slots) {
-			this.timeSlots[i++] = s;
-		}
-		amountOfSlots = slots.size()-1;
+	public TimeTable(LinkedList<TimeSlot> slots) {
+		this.timeSlots = slots;
 	}
 
 	public TimeSlot[] getArrayTimeSlots() {
-		return this.timeSlots;
+		TimeSlot[] returnValue = null;
+		return this.timeSlots.toArray(returnValue);
 	}
 
 	/**
@@ -58,21 +53,7 @@ public class TimeTable
 			throw new ImpossibleToScheduleException(
 					"Dieter, you fucking retard!");
 		}
-		int length = this.timeSlots.length;
-		if (amountOfSlots++ >= length) {
-			int newLength = length*2;
-			if(newLength == 0){
-				newLength = 1;
-			}
-			TimeSlot[] newTimeSlots = new TimeSlot[newLength];
-			for (int i = 0; i < timeSlots.length; i++) {
-				newTimeSlots[i] = timeSlots[i];
-			}
-			newTimeSlots[this.amountOfSlots] = timeSlot;
-			timeSlots = newTimeSlots;
-		} else {
-			this.timeSlots[this.amountOfSlots] = timeSlot;
-		}
+		this.timeSlots.add(timeSlot);
 	}
 
 	/**
@@ -84,8 +65,8 @@ public class TimeTable
 	 * @return The first available timeslot in this timetable.
 	 */
 	public TimeSlot getFirstFreeSlot(long timeNeeded) {
-		int amountOfSlots = this.timeSlots.length;
-		TimeSlot[] slot = this.timeSlots;
+		int amountOfSlots = this.timeSlots.size();
+		TimeSlot[] slot = this.getArrayTimeSlots();
 
 		// Compare the start of the later timepoint to
 		// the stop of the earlier ones.
@@ -113,10 +94,9 @@ public class TimeTable
 	 * @return A TimeTable that contains all free slots of this TimeTable.
 	 */
 	public TimeTable getFreeTimeSlotsFrom(Date time, long length) {
-		int amountOfSlots = this.timeSlots.length;
-		Collection<TimeSlot> returnValue = new ArrayList<TimeSlot>(
-				amountOfSlots);
-		TimeSlot[] slots = this.timeSlots;
+		int amountOfSlots = this.timeSlots.size();
+		LinkedList<TimeSlot> returnValue = new LinkedList<TimeSlot>();
+		TimeSlot[] slots = this.getArrayTimeSlots();
 
 		// Compare the start of the later timepoint to
 		// the stop of the earlier ones.
@@ -160,20 +140,18 @@ public class TimeTable
 				new TimePoint(d2, TimeType.stop));
 		returnValue = new TimeTable();
 
-		if (timeSlots.length == 0)
+		if (timeSlots.isEmpty())
 			return new TimeTable(t);
 
 		returnValue.addTimeSlot(new TimeSlot(new TimePoint(d1, TimeType.start),
-				new TimePoint(timeSlots[0].getStartPoint().getDate(),
+				new TimePoint(timeSlots.get(0).getStartPoint().getDate(),
 						TimeType.stop)));
-
-		int i = 0;
-		for (; i < timeSlots.length - 1; i++) {
-			returnValue.addTimeSlot(new TimeSlot(new TimePoint(timeSlots[i]
+		for (int i = 0; i < timeSlots.size() - 1; i++) {
+			returnValue.addTimeSlot(new TimeSlot(new TimePoint(timeSlots.get(i)
 					.getStopPoint().getDate(), TimeType.start), new TimePoint(
-					timeSlots[0].getStartPoint().getDate(), TimeType.stop)));
+					timeSlots.get(i+1).getStartPoint().getDate(), TimeType.stop)));
 		}
-		returnValue.addTimeSlot(new TimeSlot(new TimePoint(timeSlots[i]
+		returnValue.addTimeSlot(new TimeSlot(new TimePoint(timeSlots.get(this.timeSlots.size()-1)
 				.getStartPoint().getDate(), TimeType.start), new TimePoint(d2,
 				TimeType.stop)));
 		return returnValue;
@@ -219,7 +197,6 @@ public class TimeTable
 		TimeTable freeSlotsTable = this
 				.getAllFreeSlots(slotToCheck.getLength());
 		Collection<TimeSlot> slots = freeSlotsTable.getTimeSlots();
-
 		for (TimeSlot thisSlot : slots){
 			if (thisSlot.containsSlot(slotToCheck))
 				return true;
@@ -235,9 +212,9 @@ public class TimeTable
 	 * @return
 	 */
 	public TimeTable getUnion(TimeTable that) {
-		TimePoint[] allPoints = new TimePoint[this.timeSlots.length * 2
-				+ that.timeSlots.length * 2];
-		ArrayList<TimeSlot> rv = new ArrayList<TimeSlot>();
+		TimePoint[] allPoints = new TimePoint[this.timeSlots.size() * 2
+				+ that.timeSlots.size() * 2];
+		LinkedList<TimeSlot> rv = new LinkedList<TimeSlot>();
 		int i = 0;
 		for (TimeSlot t : this.timeSlots) {
 			allPoints[i++] = t.getStartPoint();
@@ -283,7 +260,7 @@ public class TimeTable
 	public TimeTable getIntersect(TimeTable that) {
 		TimePoint[] one = TimeTable.eliminateOverlap(this);
 		TimePoint[] two = TimeTable.eliminateOverlap(that);
-		ArrayList<TimeSlot> rv = new ArrayList<TimeSlot>();
+		LinkedList<TimeSlot> rv = new LinkedList<TimeSlot>();
 		int first = 0;
 		int second = 0;
 		while (first < one.length - 1 && second < two.length - 1) {
@@ -354,7 +331,7 @@ public class TimeTable
 	// XXX: maybe
 	public static TimePoint[] eliminateOverlap(TimeTable timeTable) {
 
-		TimePoint[] timePoints = new TimePoint[timeTable.timeSlots.length * 2];
+		TimePoint[] timePoints = new TimePoint[timeTable.timeSlots.size() * 2];
 		int i = 0;
 		for (TimeSlot t : timeTable.timeSlots) {
 			timePoints[i++] = t.getStartPoint();
@@ -433,12 +410,12 @@ public class TimeTable
 	 * @return A timeslot at the end of this timetable of the wanted length.
 	 */
 	private TimeSlot getLastSlotWithLength(long length) {
-		if (this.timeSlots.length == 0) {
+		if (this.timeSlots.size() == 0) {
 			return new TimeSlot(new TimePoint(Scheduler.getCurrentSystemTime(),
 					TimeType.start), new TimePoint(new Date(Scheduler
 					.getCurrentSystemTime().getTime() + length), TimeType.stop));
 		}
-		Date startDate = this.timeSlots[this.timeSlots.length - 1]
+		Date startDate = this.timeSlots.getLast()
 				.getStopPoint().getDate();
 		Date stopDate = new Date(startDate.getTime() + length);
 		TimePoint startFree = new TimePoint(startDate, TimeType.start);
@@ -454,7 +431,7 @@ public class TimeTable
 	 */
 	@Basic
 	public LinkedList<TimeSlot> getTimeSlots() {
-		return new LinkedList<TimeSlot>(Arrays.asList(this.timeSlots));
+		return new LinkedList<TimeSlot>(this.timeSlots);
 	}
 
 	/**
@@ -474,13 +451,13 @@ public class TimeTable
 	 * @return true if t is "busy" at the same moments as this timetable.
 	 */
 	public boolean equals(TimeTable t) {
-		if (this.timeSlots.length != t.timeSlots.length)
+		if (this.timeSlots.size() != t.timeSlots.size())
 			return false;
-		for (int i = 0; i < t.timeSlots.length; i++) {
-			boolean t1Cond = this.timeSlots[i].getStartPoint().equals(
-					t.timeSlots[i].getStartPoint());
-			boolean t2Cond = this.timeSlots[i].getStopPoint().equals(
-					t.timeSlots[i].getStopPoint());
+		for (int i = 0; i < t.timeSlots.size(); i++) {
+			boolean t1Cond = this.timeSlots.get(i).getStartPoint().equals(
+					t.timeSlots.get(i).getStartPoint());
+			boolean t2Cond = this.timeSlots.get(i).getStopPoint().equals(
+					t.timeSlots.get(i).getStopPoint());
 			if (!(t1Cond && t2Cond))
 				return false;
 		}
