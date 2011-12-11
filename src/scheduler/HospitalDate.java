@@ -38,6 +38,10 @@ public class HospitalDate {
 	 */
 	public final static HospitalDate START_OF_TIME = new HospitalDate();
 	/**
+	 * 
+	 */
+	public static final HospitalDate END_OF_TIME = new HospitalDate(Long.MAX_VALUE);
+	/**
 	 * One second in millis.
 	 */
 	public final static long ONE_SECOND = 1000;
