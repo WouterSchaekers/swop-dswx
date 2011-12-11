@@ -15,13 +15,16 @@ public class TimeTable
 	/**
 	 * This will allow us to keep the TimeSlots chronologically sorted.
 	 */
-	private static Comparator<TimeSlot> c = new Comparator<TimeSlot>() {
+	private static Comparator<TimeSlot> c = new Comparator<TimeSlot>()
+	{
 		public int compare(TimeSlot o1, TimeSlot o2) {
-			if(o1.getStartPoint().getTime() < o2.getStartPoint().getTime())
+			if (o1.getStartPoint().getTime() < o2.getStartPoint().getTime())
 				return -1;
-			else if(o1.getStartPoint().getTime() == o2.getStartPoint().getTime())
+			else if (o1.getStartPoint().getTime() == o2.getStartPoint()
+					.getTime())
 				return 0;
-			else return 1;
+			else
+				return 1;
 		};
 	};
 
@@ -29,11 +32,11 @@ public class TimeTable
 	 * Alternative constructor where a certain amount of slots can just be given
 	 * as parameters, not as a collection.
 	 */
-	public TimeTable(TimeSlot... slots) throws InvalidTimeSlotException{
+	public TimeTable(TimeSlot... slots) throws InvalidTimeSlotException {
 		this(new LinkedList<TimeSlot>(Arrays.asList(slots)));
 	}
 
-	public TimeTable() throws InvalidTimeSlotException{
+	public TimeTable() throws InvalidTimeSlotException {
 		this(new LinkedList<TimeSlot>());
 	}
 
@@ -41,13 +44,15 @@ public class TimeTable
 	 * Default constructor. Will initialise all fields.
 	 * 
 	 * @param slots
-	 * 				All TimeSlots to be stored in this TimeTable.
+	 *            All TimeSlots to be stored in this TimeTable.
 	 * @throws InvalidTimeSlotException
-	 * 				
+	 * 
 	 */
-	public TimeTable(LinkedList<TimeSlot> timeSlots) throws InvalidTimeSlotException {
-		if(!TimeTable.isValidTimeSlots(timeSlots)){
-			throw new InvalidTimeSlotException("TimeTable initialized with nullpointer.");
+	public TimeTable(LinkedList<TimeSlot> timeSlots)
+			throws InvalidTimeSlotException {
+		if (!TimeTable.isValidTimeSlots(timeSlots)) {
+			throw new InvalidTimeSlotException(
+					"TimeTable initialized with nullpointer.");
 		}
 		this.timeSlots = timeSlots;
 	}
@@ -75,21 +80,21 @@ public class TimeTable
 		this.timeSlots.add(timeSlot);
 		this.sortTimeSlots();
 	}
-	
+
 	/**
-	 * This method will sort the timeslots kept in this timetable by starting time. 
+	 * This method will sort the timeslots kept in this timetable by starting
+	 * time.
 	 */
 	private void sortTimeSlots() {
 		TimeSlot[] toSort = new TimeSlot[timeSlots.size()];
 		Iterator<TimeSlot> timeIt = timeSlots.iterator();
-		
-		for (int i = 0;  i < toSort.length; i++)
+
+		for (int i = 0; i < toSort.length; i++)
 			toSort[i] = timeIt.next();
-		
+
 		Arrays.sort(toSort, c);
 		this.timeSlots = new LinkedList<TimeSlot>(Arrays.asList(toSort));
 	}
-
 
 	/**
 	 * This method will find the first free slot that is available in this
@@ -131,7 +136,8 @@ public class TimeTable
 	 * @throws InvalidTimeSlotException
 	 */
 	// XXX
-	public TimeTable getFreeTimeSlotsFrom(HospitalDate time, long length) throws InvalidTimeSlotException{
+	public TimeTable getFreeTimeSlotsFrom(HospitalDate time, long length)
+			throws InvalidTimeSlotException {
 		int amountOfSlots = this.timeSlots.size();
 		LinkedList<TimeSlot> returnValue = new LinkedList<TimeSlot>();
 		TimeSlot[] slots = this.getArrayTimeSlots();
@@ -166,9 +172,10 @@ public class TimeTable
 	 * @param table
 	 * @return
 	 * @throws InvalidSchedulingRequestException
-	 * @throws InvalidTimeSlotException 
+	 * @throws InvalidTimeSlotException
 	 */
-	public TimeTable invert() throws InvalidSchedulingRequestException, InvalidTimeSlotException {
+	public TimeTable invert() throws InvalidSchedulingRequestException,
+			InvalidTimeSlotException {
 		TimeTable returnValue = null;
 		this.sortTimeSlots();
 		// Start of time
@@ -208,7 +215,7 @@ public class TimeTable
 	 *            The point in time from which to start looking from.
 	 * @return A TimeTable that contains all free slots of this TimeTable.
 	 * @throws InvalidSchedulingRequestException
-	 * @throws InvalidTimeSlotException 
+	 * @throws InvalidTimeSlotException
 	 */
 	// XXX
 	public TimeTable getAllFreeSlots(long length)
@@ -223,9 +230,7 @@ public class TimeTable
 		return rv;
 	}
 
-	// XXX
-	public boolean hasFreeSlotAt(HospitalDate startDate, HospitalDate stopDate)
-			throws InvalidSchedulingRequestException {
+	public boolean hasFreeSlotAt(HospitalDate startDate, HospitalDate stopDate) {
 		return this.hasFreeSlotAt(new TimeSlot(new TimePoint(startDate,
 				TimeType.start), new TimePoint(stopDate, TimeType.stop)));
 	}
@@ -238,7 +243,6 @@ public class TimeTable
 	 *            The TimeSlot to be checked for.
 	 * @return True if this TimeTable is free for the complete given TimeSlot.
 	 */
-	// XXX
 	public boolean hasFreeSlotAt(TimeSlot slotToCheck) {
 		for (TimeSlot thisSlot : this.timeSlots) {
 			if (thisSlot.overlaps(slotToCheck))
@@ -253,7 +257,7 @@ public class TimeTable
 	 * Timetables are occupied. <br>
 	 * 
 	 * @return
-	 * @throws InvalidTimeSlotException 
+	 * @throws InvalidTimeSlotException
 	 */
 	public TimeTable getUnion(TimeTable that) throws InvalidTimeSlotException {
 		this.sortTimeSlots();
@@ -273,9 +277,9 @@ public class TimeTable
 		Arrays.sort(allPoints, TimePoint.ComparatorsStartFirst);
 		i = 0;
 		while (i < allPoints.length) {
-			TimeSlot t = new TimeSlot(
-					new TimePoint(new HospitalDate(0), TimeType.start), new TimePoint(
-							new HospitalDate(3), TimeType.stop));
+			TimeSlot t = new TimeSlot(new TimePoint(new HospitalDate(0),
+					TimeType.start), new TimePoint(new HospitalDate(3),
+					TimeType.stop));
 			t.setStartPoint(allPoints[i]);
 			int endcount = 1;
 			while (endcount > 0) {
@@ -300,9 +304,10 @@ public class TimeTable
 	 * @param that
 	 *            The timetable which has to be intersected with this one.
 	 * @return A new timetable that has all the busy-slots of both timetables.
-	 * @throws InvalidTimeSlotException 
+	 * @throws InvalidTimeSlotException
 	 */
-	public TimeTable getIntersect(TimeTable that) throws InvalidTimeSlotException {
+	public TimeTable getIntersect(TimeTable that)
+			throws InvalidTimeSlotException {
 		this.sortTimeSlots();
 		TimePoint[] one = TimeTable.eliminateOverlap(this);
 		TimePoint[] two = TimeTable.eliminateOverlap(that);
@@ -401,10 +406,11 @@ public class TimeTable
 	 *            intersection with.
 	 * @return A TimeTable that's the intersection of all given tables and this
 	 *         table.
-	 * @throws InvalidTimeSlotException 
+	 * @throws InvalidTimeSlotException
 	 */
-	//XXX
-	public TimeTable intersectAll(Collection<TimeTable> tables) throws InvalidTimeSlotException {
+	// XXX
+	public TimeTable intersectAll(Collection<TimeTable> tables)
+			throws InvalidTimeSlotException {
 		TimeTable rv = this.getIntersect(this);
 		for (TimeTable timeTable : tables)
 			rv = timeTable.getIntersect(rv);
@@ -419,10 +425,11 @@ public class TimeTable
 	 * @param tables
 	 *            The collection of Tables you would like to get the union of.
 	 * @return A TimeTable that's the union of all given tables and this table.
-	 * @throws InvalidTimeSlotException 
+	 * @throws InvalidTimeSlotException
 	 */
-	//XXX
-	public TimeTable unionAll(Collection<TimeTable> tables) throws InvalidTimeSlotException {
+	// XXX
+	public TimeTable unionAll(Collection<TimeTable> tables)
+			throws InvalidTimeSlotException {
 		TimeTable rv = new TimeTable(this.getTimeSlots());
 		for (TimeTable timeTable : tables)
 			rv = timeTable.getUnion(rv);
@@ -440,18 +447,21 @@ public class TimeTable
 	 *            timetable.
 	 * @return A timeslot at the end of this timetable of the wanted length.
 	 */
-	//XXX
+	// XXX
 	private TimeSlot getLastSlotWithLength(long length) {
 		TimeSlot t;
 		if (this.timeSlots.size() == 0) {
 			System.out.println("wololo");
 			t = new TimeSlot(new TimePoint(Scheduler.getCurrentSystemTime(),
 					TimeType.start), new TimePoint(new HospitalDate(Scheduler
-					.getCurrentSystemTime().getTotalMillis() + length), TimeType.stop));
+					.getCurrentSystemTime().getTotalMillis() + length),
+					TimeType.stop));
 			return t;
 		}
-		HospitalDate startDate = this.timeSlots.getLast().getStopPoint().getDate();
-		HospitalDate stopDate = new HospitalDate(startDate.getTotalMillis() + length);
+		HospitalDate startDate = this.timeSlots.getLast().getStopPoint()
+				.getDate();
+		HospitalDate stopDate = new HospitalDate(startDate.getTotalMillis()
+				+ length);
 		TimePoint startFree = new TimePoint(startDate, TimeType.start);
 		TimePoint stopFree = new TimePoint(stopDate, TimeType.stop);
 
@@ -483,24 +493,24 @@ public class TimeTable
 			builder.append(slot.toString());
 		return builder.toString();
 	}
-	
+
 	/**
-	 * Checks wether all the given collection of timeslots consists of valid timeslots.
+	 * Checks wether all the given collection of timeslots consists of valid
+	 * timeslots.
 	 * 
 	 * @param timeSlots
-	 * 			the given collection of timeslots
-	 * @return
-	 * 			true if all timeslots are valid
+	 *            the given collection of timeslots
+	 * @return true if all timeslots are valid
 	 */
-	public static boolean isValidTimeSlots(LinkedList<TimeSlot> timeSlots){
-		if(timeSlots == null)
+	public static boolean isValidTimeSlots(LinkedList<TimeSlot> timeSlots) {
+		if (timeSlots == null)
 			return false;
-		for(TimeSlot timeSlot : timeSlots)
-			if(!TimeSlot.isValidTimeSlot(timeSlot))
+		for (TimeSlot timeSlot : timeSlots)
+			if (!TimeSlot.isValidTimeSlot(timeSlot))
 				return false;
 		return true;
 	}
-	
+
 	/**
 	 * @return true if t is "busy" at the same moments as this timetable.
 	 */
@@ -517,6 +527,5 @@ public class TimeTable
 		}
 		return true;
 	}
-	
-	
+
 }
