@@ -17,5 +17,7 @@
 || 09/12/11: 10u30 -> 14u00|| 3 DSW || 3.5 || More testing of the scheduler,timetable,timepoint,timeslot,.... scheduler package; writing documentation; making all classes defensive; rewriting Task and TaskManager; debugging scheduler; requirementinterface ||
 || 09/12/11: 14u00 -> 14u50 || 2 DS || 1 || Continuance of above || Wouter took a lunchbreak. ||
 || 09/12/11: 14u40 -> 16u10 || 3 DSW || 2.5 || Making everything defensive, more debugging of the scheduler package.||
-|| 10/12/11: 11u30 -> 17u45 || 2 SW || 3 || More of the above...  || Dieter moest naar huis omdat zijn nonkel dood ging en kon dus niet meedoen heel het weekend. ||
+|| 10/12/11: 11u30 -> 17u45 || 2 SW || 3 || More of the above...  || Dieter moest naar huis omdat zijn nonkel overleden was en kon dus niet aanwezig zijn in het weekend. ||
 || 10/12/11: 18u15 -> 19u00 || 2SW || 1 || More of the above... || More of the above.... ||
+|| 10/12/11: 20u30 -> 21u30 || 1 S || 1 || Continuance of above || Wouter at en nam een korte pauze terwijl Stefaan zijn verloren tijd trachtte in te halen. ||
+|| 10/12/11: 21u30 -> 00u30 || 2 SW || 2.5 || Making up our minds about using util.Date, sql.Date, our own Date, Caladendar or GregorianCalendar. ||
