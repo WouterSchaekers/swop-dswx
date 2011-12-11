@@ -171,6 +171,7 @@ public class TimeTable
 	 */
 	public TimeTable invert() throws InvalidSchedulingRequestException, InvalidTimeSlotException {
 		TimeTable returnValue = null;
+		this.sortTimeSlots();
 		// Start of time
 		Date d1 = Scheduler.START_OF_TIME;
 		// the end of time is here :)
@@ -195,7 +196,6 @@ public class TimeTable
 		returnValue.addTimeSlot(new TimeSlot(new TimePoint(timeSlots
 				.get(this.timeSlots.size() - 1).getStopPoint().getDate(),
 				TimeType.start), new TimePoint(d2, TimeType.stop)));
-		this.sortTimeSlots();
 		return returnValue;
 	}
 
@@ -468,6 +468,7 @@ public class TimeTable
 	 */
 	@Basic
 	public LinkedList<TimeSlot> getTimeSlots() {
+		this.sortTimeSlots();
 		return new LinkedList<TimeSlot>(this.timeSlots);
 	}
 
