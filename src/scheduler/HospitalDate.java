@@ -10,6 +10,8 @@ public class HospitalDate
 	public final static int START_HOUR = 8;
 	public final static int START_MINUTE = 0;
 	public final static int START_SECOND = 0;
+	public final static HospitalDate START_OF_TIME = new HospitalDate();
+	public final static HospitalDate END_OF_TIME = new HospitalDate(Long.MAX_VALUE);
 	private GregorianCalendar gregorianCalendar;
 	
 	/**
@@ -232,6 +234,16 @@ public class HospitalDate
 	 */
 	public long getTotalMillis(){
 		return gregorianCalendar.getTimeInMillis();
+	}
+	
+	/**
+	 * @param hospitalDate
+	 * 		The other hospitaldate.
+	 * @return
+	 * 		True if this hospitaldate occurs before the other hospitaldate.
+	 */
+	public boolean before(HospitalDate hospitalDate){
+		return this.getTotalMillis() < hospitalDate.getTotalMillis();
 	}
 	
 	/**

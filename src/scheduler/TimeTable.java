@@ -132,7 +132,7 @@ public class TimeTable
 	 * @throws InvalidTimeSlotException
 	 */
 	// XXX
-	public TimeTable getFreeTimeSlotsFrom(Date time, long length) throws InvalidTimeSlotException{
+	public TimeTable getFreeTimeSlotsFrom(HospitalDate time, long length) throws InvalidTimeSlotException{
 		int amountOfSlots = this.timeSlots.size();
 		LinkedList<TimeSlot> returnValue = new LinkedList<TimeSlot>();
 		TimeSlot[] slots = this.getArrayTimeSlots();
@@ -142,8 +142,8 @@ public class TimeTable
 		for (int i = 1; i < amountOfSlots; i++) {
 			TimePoint curPoint = slots[i].getStartPoint();
 			TimePoint prevPoint = slots[i - 1].getStopPoint();
-			if (curPoint.getTime() >= time.getTime()
-					&& prevPoint.getTime() >= time.getTime()) {
+			if (curPoint.getTime() >= time.getTotalMillis()
+					&& prevPoint.getTime() >= time.getTotalMillis()) {
 				// the current timeslot meets the time-requirement
 				if (curPoint.getTimeBetween(prevPoint) >= length) {
 					// the current timeslot meets all requirements and
@@ -173,16 +173,16 @@ public class TimeTable
 		TimeTable returnValue = null;
 		this.sortTimeSlots();
 		// Start of time
-		Date d1 = Scheduler.START_OF_TIME;
+		HospitalDate d1 = HospitalDate.START_OF_TIME;
 		// the end of time is here :)
-		Date d2 = Scheduler.END_OF_TIME;
+		HospitalDate d2 = HospitalDate.END_OF_TIME;
 		TimeSlot t = new TimeSlot(new TimePoint(d1, TimeType.start),
 				new TimePoint(d2, TimeType.stop));
 		returnValue = new TimeTable();
 
 		if (timeSlots.isEmpty())
 			return new TimeTable(t);
-		if (timeSlots.get(0).getStartPoint().getTime() != d1.getTime()) {
+		if (timeSlots.get(0).getStartPoint().getTime() != d1.getTotalMillis()) {
 			returnValue.addTimeSlot(new TimeSlot(new TimePoint(d1,
 					TimeType.start), new TimePoint(timeSlots.get(0)
 					.getStartPoint().getDate(), TimeType.stop)));
@@ -225,7 +225,7 @@ public class TimeTable
 	}
 
 	// XXX
-	public boolean hasFreeSlotAt(Date startDate, Date stopDate)
+	public boolean hasFreeSlotAt(HospitalDate startDate, HospitalDate stopDate)
 			throws InvalidSchedulingRequestException {
 		return this.hasFreeSlotAt(new TimeSlot(new TimePoint(startDate,
 				TimeType.start), new TimePoint(stopDate, TimeType.stop)));
@@ -275,8 +275,8 @@ public class TimeTable
 		i = 0;
 		while (i < allPoints.length) {
 			TimeSlot t = new TimeSlot(
-					new TimePoint(new Date(0), TimeType.start), new TimePoint(
-							new Date(3), TimeType.stop));
+					new TimePoint(new HospitalDate(0), TimeType.start), new TimePoint(
+							new HospitalDate(3), TimeType.stop));
 			t.setStartPoint(allPoints[i]);
 			int endcount = 1;
 			while (endcount > 0) {
@@ -447,12 +447,12 @@ public class TimeTable
 		if (this.timeSlots.size() == 0) {
 			System.out.println("wololo");
 			t = new TimeSlot(new TimePoint(Scheduler.getCurrentSystemTime(),
-					TimeType.start), new TimePoint(new Date(Scheduler
-					.getCurrentSystemTime().getTime() + length), TimeType.stop));
+					TimeType.start), new TimePoint(new HospitalDate(Scheduler
+					.getCurrentSystemTime().getTotalMillis() + length), TimeType.stop));
 			return t;
 		}
-		Date startDate = this.timeSlots.getLast().getStopPoint().getDate();
-		Date stopDate = new Date(startDate.getTime() + length);
+		HospitalDate startDate = this.timeSlots.getLast().getStopPoint().getDate();
+		HospitalDate stopDate = new HospitalDate(startDate.getTotalMillis() + length);
 		TimePoint startFree = new TimePoint(startDate, TimeType.start);
 		TimePoint stopFree = new TimePoint(stopDate, TimeType.stop);
 
