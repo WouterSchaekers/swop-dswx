@@ -16,7 +16,7 @@ public class ScheduleBloodAnalysis extends MedicalTestCommand
 		@SuppressWarnings("unused")
 		MedicalTestController mc = medData.getMedTestController();
 		
-		//TODO
+		//TODO 
 		//Appointment app = mc.orderBloodAnalysis(medData.getFocus(),medData.getAmount());
 		// Appointment app = null;
 		//System.out.println("The appointment was made at " + app.toString());

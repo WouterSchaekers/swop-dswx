@@ -33,7 +33,6 @@ public class TimeTable
 	 * @throws InvalidTimeSlotException
 	 * 				
 	 */
-	// XXX
 	public TimeTable(LinkedList<TimeSlot> timeSlots) throws InvalidTimeSlotException {
 		if(!TimeTable.isValidTimeSlots(timeSlots)){
 			throw new InvalidTimeSlotException("TimeTable initialized with nullpointer.");
@@ -54,7 +53,6 @@ public class TimeTable
 	 * @throws InvalidSchedulingRequestException
 	 *             The timeslot cannot be scheduled in this timetable
 	 */
-	// XXX
 	public void addTimeSlot(TimeSlot timeSlot)
 			throws InvalidSchedulingRequestException {
 		if (!this.hasFreeSlotAt(timeSlot)) {
@@ -72,7 +70,6 @@ public class TimeTable
 	 *            The minimal amount of time to be reserved.
 	 * @return The first available timeslot in this timetable.
 	 */
-	// XXX
 	public TimeSlot getFirstFreeSlot(long timeNeeded) {
 		int amountOfSlots = this.timeSlots.size();
 		TimeSlot[] slot = this.getArrayTimeSlots();
@@ -103,7 +100,6 @@ public class TimeTable
 	 * @return A TimeTable that contains all free slots of this TimeTable.
 	 * @throws InvalidTimeSlotException
 	 */
-	// XXX
 	public TimeTable getFreeTimeSlotsFrom(Date time, long length) throws InvalidTimeSlotException{
 		int amountOfSlots = this.timeSlots.size();
 		LinkedList<TimeSlot> returnValue = new LinkedList<TimeSlot>();
@@ -182,7 +178,6 @@ public class TimeTable
 	 * @throws InvalidSchedulingRequestException
 	 * @throws InvalidTimeSlotException 
 	 */
-	// XXX
 	public TimeTable getAllFreeSlots(long length)
 			throws InvalidSchedulingRequestException, InvalidTimeSlotException {
 		TimeTable x = this.invert();
@@ -195,7 +190,17 @@ public class TimeTable
 		return rv;
 	}
 
-	// XXX
+	/**
+	 * This method will see if there's a slot free in this timetable that
+	 * contains from startDate to stopDate.
+	 * 
+	 * @param startDate
+	 *            The date of the start of the wanted slot.
+	 * @param stopDate
+	 *            The date of the stop of the wanted slot.
+	 * @return True if such a slot is free in this TimeTable.
+	 * @throws InvalidSchedulingRequestException
+	 */
 	public boolean hasFreeSlotAt(Date startDate, Date stopDate)
 			throws InvalidSchedulingRequestException {
 		return this.hasFreeSlotAt(new TimeSlot(new TimePoint(startDate,
@@ -210,7 +215,6 @@ public class TimeTable
 	 *            The TimeSlot to be checked for.
 	 * @return True if this TimeTable is free for the complete given TimeSlot.
 	 */
-	// XXX
 	public boolean hasFreeSlotAt(TimeSlot slotToCheck) {
 		for (TimeSlot thisSlot : this.timeSlots) {
 			if (thisSlot.overlaps(slotToCheck))
@@ -373,7 +377,6 @@ public class TimeTable
 	 *         table.
 	 * @throws InvalidTimeSlotException 
 	 */
-	//XXX
 	public TimeTable intersectAll(Collection<TimeTable> tables) throws InvalidTimeSlotException {
 		TimeTable rv = this.getIntersect(this);
 		for (TimeTable timeTable : tables)
@@ -391,7 +394,6 @@ public class TimeTable
 	 * @return A TimeTable that's the union of all given tables and this table.
 	 * @throws InvalidTimeSlotException 
 	 */
-	//XXX
 	public TimeTable unionAll(Collection<TimeTable> tables) throws InvalidTimeSlotException {
 		TimeTable rv = new TimeTable(this.getTimeSlots());
 		for (TimeTable timeTable : tables)
@@ -410,7 +412,6 @@ public class TimeTable
 	 *            timetable.
 	 * @return A timeslot at the end of this timetable of the wanted length.
 	 */
-	//XXX
 	private TimeSlot getLastSlotWithLength(long length) {
 		TimeSlot t;
 		if (this.timeSlots.size() == 0) {
