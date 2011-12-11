@@ -44,7 +44,7 @@ public class Scheduler
 	 * @throws InvalidSchedulingRequestException
 	 * @throws InvalidTimeSlotException
 	 */
-	public Date schedule(long duration,
+	public HospitalDate schedule(long duration,
 			Collection<Schedulable>... resourcesToSchedule)
 			throws QueueException, InvalidDurationException,
 			InvalidSchedulingRequestException,
@@ -65,7 +65,7 @@ public class Scheduler
 	 * @throws InvalidTimeSlotException
 	 * @effect schedule(long, collection<schedule>...)
 	 */
-	public Date schedule(long duration,
+	public HospitalDate schedule(long duration,
 			Collection<Collection<Schedulable>> resourcesToSchedule)
 			throws QueueException, InvalidDurationException,
 			InvalidSchedulingRequestException,
@@ -93,7 +93,7 @@ public class Scheduler
 	 * @throws InvalidSchedulingRequestException
 	 * @throws InvalidTimeSlotException
 	 */
-	private Date schedule(long duration, LinkedList<TimeTable> used,
+	private HospitalDate schedule(long duration, LinkedList<TimeTable> used,
 			LinkedList<Collection<Schedulable>> stillToSchedule,
 			LinkedList<Collection<Schedulable>> allTheNeededResources)
 			throws QueueException, InvalidDurationException,
@@ -173,7 +173,7 @@ public class Scheduler
 	 * @throws InvalidSchedulingRequestException
 	 * @throws InvalidTimeSlotException
 	 */
-	private Date finalSchedulingStep(long duration, LinkedList<TimeTable> used,
+	private HospitalDate finalSchedulingStep(long duration, LinkedList<TimeTable> used,
 			LinkedList<Collection<Schedulable>> stillToSchedule,
 			LinkedList<Collection<Schedulable>> allTheNeededResources)
 			throws InvalidSchedulingRequestException,
@@ -209,11 +209,10 @@ public class Scheduler
 			foundResources = new LinkedList<Schedulable>();
 			for (Collection<Schedulable> candidateCol : allTheNeededResources) {
 				for (Schedulable candidate : candidateCol) {
-					Date startDateSlot = candidateSlot.getStartPoint()
+					HospitalDate startDateSlot = candidateSlot.getStartPoint()
 							.getDate();
-					Date stopDateSlot = new Date(candidateSlot.getStartPoint()
-							.getDate().getTime()
-							+ duration);
+					HospitalDate stopDateSlot = new HospitalDate(candidateSlot.getStartPoint()
+							.getDate().getTotalMillis() + duration);
 					if (candidate.canBeScheduledOn(startDateSlot, stopDateSlot)
 							& !foundResources.contains(candidate)) {
 						// We found our match in this collection:
@@ -226,7 +225,7 @@ public class Scheduler
 			}
 			if (foundResources.size() == allTheNeededResources.size()) {
 				// We've found our appointment slot!
-				TimePoint endOfAppointment = new TimePoint(new Date(
+				TimePoint endOfAppointment = new TimePoint(new HospitalDate(
 						candidateSlot.getStartPoint().getTime() + duration),
 						TimeType.stop);
 				TimePoint startOfAppointment = candidateSlot.getStartPoint();
@@ -268,7 +267,7 @@ public class Scheduler
 	}
 
 	@Basic
-	public static void setNewSystemTime(Date newTime) {
+	public static void setNewSystemTime(HospitalDate newTime) {
 		if (!isValidSystemTime(newTime))
 			throw new IllegalArgumentException(
 					"Invalid new system time given to setNewSystemTime() in Scheduler!");
@@ -278,9 +277,9 @@ public class Scheduler
 	/**
 	 * @return True if t is a valid new system time.
 	 */
-	private static boolean isValidSystemTime(Date t) {
+	private static boolean isValidSystemTime(HospitalDate t) {
 		if (currentSystemTime == null)
 			return t != null;
-		return t != null && t.getTime() >= currentSystemTime.getTime();
+		return t != null && t.getTotalMillis() >= currentSystemTime.getTotalMillis();
 	}
 }
