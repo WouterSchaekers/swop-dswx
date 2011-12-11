@@ -36,10 +36,11 @@ public class Nurse extends SchedulableUser
 	 * interval. It will also check the necessary constraints.
 	 * 
 	 * @return True if this Nurse can be scheduled in the given time interval.
+	 * @throws InvalidTimeSlotException 
 	 */
-	@SuppressWarnings("deprecation")
 	@Override
-	public boolean canBeScheduledOn(Date startDate, Date stopDate) throws InvalidSchedulingRequestException {
-		return startDate.getHours() > this.workingHours[0] && startDate.getHours() < this.workingHours[1] && stopDate.getHours() > this.workingHours[0] && stopDate.getHours() < this.workingHours[1];
+	public boolean canBeScheduledOn(Date startDate, Date stopDate) throws InvalidSchedulingRequestException, InvalidTimeSlotException {
+		//return startDate.getHours() > this.workingHours[0] && startDate.getHours() < this.workingHours[1] && stopDate.getHours() > this.workingHours[0] && stopDate.getHours() < this.workingHours[1];
+		return super.canBeScheduledOn(startDate, stopDate);
 	}
 }

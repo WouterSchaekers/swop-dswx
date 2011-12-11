@@ -17,7 +17,7 @@ public abstract class SchedulableUser extends User implements Schedulable
 	}
 	
 	@Override
-	public boolean canBeScheduledOn(Date startDate, Date stopDate) throws InvalidSchedulingRequestException {;
+	public boolean canBeScheduledOn(Date startDate, Date stopDate) throws InvalidSchedulingRequestException, InvalidTimeSlotException {;
 		return timeTable.hasFreeSlotAt(startDate, stopDate);
 	}
 	
@@ -26,7 +26,7 @@ public abstract class SchedulableUser extends User implements Schedulable
 		this.timeTable.addTimeSlot(timeSlot);
 	}
 	
-	public TimeTable getTimeTable() throws InvalidTimeSlotException{
+	public TimeTable getTimeTable() throws InvalidTimeSlotException {
 		return new TimeTable(this.timeTable.getTimeSlots());
 	}
 }
