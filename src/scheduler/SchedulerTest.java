@@ -274,6 +274,57 @@ public class SchedulerTest {
 		assertFalse(d2.canBeScheduledOn(scheduledDate2, new Date(endScheduledDate2.getTime())));
 		assertTrue(d2.canBeScheduledOn(endScheduledDate2,new Date(endScheduledDate2.getTime() + 1)));
 	}
+	
+	@Test
+	public void hybridCase1() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException {		
+		long duration = Scheduler.ONE_MINUTE * 5;
+		long duration2 = Scheduler.ONE_MINUTE * 23;
+		long duration3 = Scheduler.ONE_MINUTE - Scheduler.ONE_SECOND;
+
+		//busy 1: kan de eerste 1 minuut wel iets doen, maar de 9 minuten erna niks.
+		//busy 2: kan de eerste minuut niks doen
+		//busy 3: kan niks doen van 9 minuten tot 15 minuten
+		TimeSlot busySlot = new TimeSlot(new TimePoint(new Date(Scheduler.getCurrentSystemTime().getTime() + Scheduler.ONE_MINUTE), TimeType.start), new TimePoint(new Date(Scheduler.getCurrentSystemTime().getTime() + Scheduler.ONE_MINUTE * 9), TimeType.stop));
+		TimeSlot busySlot2 = new TimeSlot(new TimePoint(new Date(Scheduler.getCurrentSystemTime().getTime()), TimeType.start), new TimePoint(new Date(Scheduler.getCurrentSystemTime().getTime() + Scheduler.ONE_MINUTE), TimeType.stop));
+		TimeSlot busySlot3 = new TimeSlot(new TimePoint(new Date(Scheduler.getCurrentSystemTime().getTime() + Scheduler.ONE_MINUTE * 9), TimeType.start), new TimePoint(new Date(Scheduler.getCurrentSystemTime().getTime() + Scheduler.ONE_MINUTE * 15), TimeType.stop));
+		n1.scheduleAt(busySlot);
+		n2.scheduleAt(busySlot2);
+		d1.scheduleAt(busySlot);
+		d1.scheduleAt(busySlot2);
+		d2.scheduleAt(busySlot3);
+		d3.scheduleAt(busySlot);
+		d3.scheduleAt(busySlot2);
+		d3.scheduleAt(busySlot3);
+		
+		System.out.println("Before:\n----------\n\n");
+		System.out.println("TimeTable Nurse 1: " + n1.getTimeTable());
+		System.out.println("TimeTable Nurse 2: " + n2.getTimeTable());
+		System.out.println("TimeTable Doctor 1: " + d1.getTimeTable());
+		System.out.println("TimeTable Doctor 2: " + d2.getTimeTable());
+		System.out.println("TimeTable Doctor 3: " + d3.getTimeTable());
+		System.out.println("------------------------------------");
+		
+		
+		Date scheduledDate = s.schedule(duration, t4);
+		Date scheduledDate2 = s.schedule(duration2, t4);
+		Date scheduledDate3 = s.schedule(duration3, t4);
+		
+		System.out.println("TimeTable Nurse 1: " + n1.getTimeTable());
+		System.out.println("TimeTable Nurse 2: " + n2.getTimeTable());
+		System.out.println("TimeTable Doctor 1: " + d1.getTimeTable());
+		System.out.println("TimeTable Doctor 2: " + d2.getTimeTable());
+		System.out.println("TimeTable Doctor 3: " + d3.getTimeTable());
+		System.out.println("\n\nAppointments were made at " + scheduledDate + ", " + scheduledDate2 + " and " + scheduledDate3);
+		
+		
+		Date endScheduledDate = new Date(scheduledDate.getTime() + duration);
+		Date endScheduledDate2 = new Date(scheduledDate2.getTime() + duration2);
+		
+		assertFalse(n1.canBeScheduledOn(scheduledDate, new Date(scheduledDate.getTime() + 1)));
+		assertFalse(n1.canBeScheduledOn(scheduledDate, new Date(endScheduledDate.getTime() - 1)));
+		assertFalse(n1.canBeScheduledOn(scheduledDate, new Date(endScheduledDate.getTime())));
+		assertTrue(n1.canBeScheduledOn(endScheduledDate,new Date(endScheduledDate.getTime() + 1)));
+	}
 
 	//TODO: hybrid of all previous
 	//TODO: expected: exception
