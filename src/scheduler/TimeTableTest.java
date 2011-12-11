@@ -45,6 +45,16 @@ public class TimeTableTest
 		LinkedList<TimeSlot> timeSlots = null;
 		TimeTable t0 = new TimeTable(timeSlots);
 	}
+	
+	public void addTimeSlot0Test() throws InvalidTimeSlotException, InvalidSchedulingRequestException{
+		LinkedList<TimeSlot> timeSlots = new LinkedList<TimeSlot>();
+		TimeSlot ts0 = new TimeSlot(tp00, tp11);
+		TimeSlot ts1 = new TimeSlot(tp10, tp21);
+		timeSlots.add(ts0);
+		TimeTable t0 = new TimeTable(timeSlots);
+		t0.addTimeSlot(ts1);
+		assertTrue(t0.equals(new TimeTable(ts0, ts1)));
+	}
 
 	@Test
 	public void hasFreeSlot0Test() throws InvalidTimeSlotException {
