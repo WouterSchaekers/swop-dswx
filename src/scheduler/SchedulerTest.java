@@ -3,6 +3,7 @@ package scheduler;
 import static org.junit.Assert.*;
 import java.util.*;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import exceptions.*;
 import scheduler.task.Schedulable;
@@ -48,11 +49,14 @@ public class SchedulerTest {
 		d2 = t3.get(1);
 		d3 = t3.get(2);
 	}
+	
+	@BeforeClass
+	public void setupScheduler() {
+		Scheduler.setNewSystemTime(Scheduler.START_OF_TIME);
+	}
 
 	@Test
 	public void scheduleNurseFor1Min() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException {
-		s.setNewSystemTime(Scheduler.START_OF_TIME);
-		
 		long duration = Scheduler.ONE_MINUTE;
 
 		Date scheduledDate = s.schedule(duration, t);
@@ -154,7 +158,6 @@ public class SchedulerTest {
 	@Test
 	public void scheduleBusyNurseFor1Min() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException {		
 		long duration = Scheduler.ONE_MINUTE;
-
 		TimeSlot busySlot = new TimeSlot(new TimePoint(new Date(Scheduler.getCurrentSystemTime().getTime()), TimeType.start), new TimePoint(new Date(Scheduler.getCurrentSystemTime().getTime() + Scheduler.ONE_MINUTE), TimeType.stop));
 		n1.scheduleAt(busySlot);
 		
@@ -170,8 +173,6 @@ public class SchedulerTest {
 		assertFalse(n1.canBeScheduledOn(scheduledDate, new Date(endScheduledDate.getTime())));
 		assertFalse(n1.getTimeTable().getTimeSlots().get(0).overlaps(n1.getTimeTable().getTimeSlots().get(1)));
 		assertTrue(n1.canBeScheduledOn(endScheduledDate,new Date(endScheduledDate.getTime() + 1)));
-		assertTrue(n1.getTimeTable().getTimeSlots().size() == 2);
-		
 	}
 	
 	@Test
@@ -183,8 +184,7 @@ public class SchedulerTest {
 		
 		Date scheduledDate = s.schedule(duration, t);
 		Date endScheduledDate = new Date(scheduledDate.getTime() + duration);
-		
-		assertFalse(n1.getTimeTable().getTimeSlots().size() > 1);
+			
 		assertTrue(n1.getTimeTable().getTimeSlots().get(0).equals(busySlot));
 		assertFalse(n1.canBeScheduledOn(scheduledDate,endScheduledDate));
 		
@@ -193,7 +193,6 @@ public class SchedulerTest {
 		assertFalse(n2.canBeScheduledOn(scheduledDate, new Date(endScheduledDate.getTime())));
 		assertFalse(n2.getTimeTable().getTimeSlots().get(0).equals(busySlot));
 		assertTrue(n2.canBeScheduledOn(endScheduledDate,new Date(endScheduledDate.getTime() + 1)));
-		assertTrue(n2.getTimeTable().getTimeSlots().size() == 1);
 	}
 
 	@Test
@@ -208,8 +207,7 @@ public class SchedulerTest {
 		Date endScheduledDate = new Date(scheduledDate.getTime() + duration1);
 		Date endScheduledDate2 = new Date(scheduledDate2.getTime() + duration2);
 		Date endScheduledDate3 = new Date(scheduledDate3.getTime() + duration3);
-		
-		
+			
 		assertFalse(n1.canBeScheduledOn(scheduledDate, new Date(scheduledDate.getTime() + 1)));
 		assertFalse(n1.canBeScheduledOn(scheduledDate, new Date(endScheduledDate.getTime() - 1)));
 		assertFalse(n1.canBeScheduledOn(scheduledDate, new Date(endScheduledDate.getTime())));
