@@ -33,6 +33,7 @@ public class SchedulerTest {
 		m.createDoctor("Jack");
 		m.createDoctor("Jonas");
 		s = new Scheduler();
+		Scheduler.setNewSystemTime(Scheduler.START_OF_TIME);
 		
 		t =  new ArrayList<Collection<Schedulable>>();
 		t4 = new ArrayList<Collection<Schedulable>>();
@@ -48,13 +49,9 @@ public class SchedulerTest {
 		d1 = t3.get(0);
 		d2 = t3.get(1);
 		d3 = t3.get(2);
+		
 	}
 	
-	@BeforeClass
-	public void setupScheduler() {
-		Scheduler.setNewSystemTime(Scheduler.START_OF_TIME);
-	}
-
 	@Test
 	public void scheduleNurseFor1Min() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException {
 		long duration = Scheduler.ONE_MINUTE;
@@ -161,17 +158,12 @@ public class SchedulerTest {
 		TimeSlot busySlot = new TimeSlot(new TimePoint(new Date(Scheduler.getCurrentSystemTime().getTime()), TimeType.start), new TimePoint(new Date(Scheduler.getCurrentSystemTime().getTime() + Scheduler.ONE_MINUTE), TimeType.stop));
 		n1.scheduleAt(busySlot);
 		
-		Collection<Schedulable> temp = new ArrayList<Schedulable>(Arrays.asList(n1));
-		Collection<Collection<Schedulable>> temp2 = new ArrayList<Collection<Schedulable>>();
-		temp2.add(temp);
-		
-		Date scheduledDate = s.schedule(duration, temp2);
+		Date scheduledDate = s.schedule(duration, t);
 		Date endScheduledDate = new Date(scheduledDate.getTime() + duration);
 		
 		assertFalse(n1.canBeScheduledOn(scheduledDate, new Date(scheduledDate.getTime() + 1)));
 		assertFalse(n1.canBeScheduledOn(scheduledDate, new Date(endScheduledDate.getTime() - 1)));
 		assertFalse(n1.canBeScheduledOn(scheduledDate, new Date(endScheduledDate.getTime())));
-		assertFalse(n1.getTimeTable().getTimeSlots().get(0).overlaps(n1.getTimeTable().getTimeSlots().get(1)));
 		assertTrue(n1.canBeScheduledOn(endScheduledDate,new Date(endScheduledDate.getTime() + 1)));
 	}
 	
@@ -282,17 +274,22 @@ public class SchedulerTest {
 		//busy 1: kan de eerste 1 minuut wel iets doen, maar de 9 minuten erna niks.
 		//busy 2: kan de eerste minuut niks doen
 		//busy 3: kan niks doen van 9 minuten tot 15 minuten
+		//busy 4: kan niks doen van 12 tot 20 minuten
+		//busy 5: kan niks doen van start tot over 25 minuten
 		TimeSlot busySlot = new TimeSlot(new TimePoint(new Date(Scheduler.getCurrentSystemTime().getTime() + Scheduler.ONE_MINUTE), TimeType.start), new TimePoint(new Date(Scheduler.getCurrentSystemTime().getTime() + Scheduler.ONE_MINUTE * 9), TimeType.stop));
 		TimeSlot busySlot2 = new TimeSlot(new TimePoint(new Date(Scheduler.getCurrentSystemTime().getTime()), TimeType.start), new TimePoint(new Date(Scheduler.getCurrentSystemTime().getTime() + Scheduler.ONE_MINUTE), TimeType.stop));
 		TimeSlot busySlot3 = new TimeSlot(new TimePoint(new Date(Scheduler.getCurrentSystemTime().getTime() + Scheduler.ONE_MINUTE * 9), TimeType.start), new TimePoint(new Date(Scheduler.getCurrentSystemTime().getTime() + Scheduler.ONE_MINUTE * 15), TimeType.stop));
-		n1.scheduleAt(busySlot);
+		TimeSlot busySlot4 = new TimeSlot(new TimePoint(new Date(Scheduler.getCurrentSystemTime().getTime() + Scheduler.ONE_MINUTE * 12), TimeType.start), new TimePoint(new Date(Scheduler.getCurrentSystemTime().getTime() + Scheduler.ONE_MINUTE * 20), TimeType.stop));
+		TimeSlot busySlot5 = new TimeSlot(new TimePoint(new Date(Scheduler.getCurrentSystemTime().getTime()), TimeType.start), new TimePoint(new Date(Scheduler.getCurrentSystemTime().getTime() + Scheduler.ONE_MINUTE * 25), TimeType.stop));
+		//n1.scheduleAt(busySlot);
+		n1.scheduleAt(busySlot2);
 		n2.scheduleAt(busySlot2);
-		d1.scheduleAt(busySlot);
-		d1.scheduleAt(busySlot2);
-		d2.scheduleAt(busySlot3);
-		d3.scheduleAt(busySlot);
-		d3.scheduleAt(busySlot2);
-		d3.scheduleAt(busySlot3);
+//		d1.scheduleAt(busySlot);
+//		d1.scheduleAt(busySlot2);
+//		d2.scheduleAt(busySlot3);
+//		d3.scheduleAt(busySlot);
+//		d3.scheduleAt(busySlot2);
+//		d3.scheduleAt(busySlot3);
 		
 		System.out.println("Before:\n----------\n\n");
 		System.out.println("TimeTable Nurse 1: " + n1.getTimeTable());
@@ -300,18 +297,34 @@ public class SchedulerTest {
 		System.out.println("TimeTable Doctor 1: " + d1.getTimeTable());
 		System.out.println("TimeTable Doctor 2: " + d2.getTimeTable());
 		System.out.println("TimeTable Doctor 3: " + d3.getTimeTable());
-		System.out.println("------------------------------------");
+		System.out.println("------------------------------------\n");
 		
 		
 		Date scheduledDate = s.schedule(duration, t4);
-		Date scheduledDate2 = s.schedule(duration2, t4);
-		Date scheduledDate3 = s.schedule(duration3, t4);
-		
+		System.out.println("After first schedule:\n----------\n\n");
 		System.out.println("TimeTable Nurse 1: " + n1.getTimeTable());
 		System.out.println("TimeTable Nurse 2: " + n2.getTimeTable());
 		System.out.println("TimeTable Doctor 1: " + d1.getTimeTable());
 		System.out.println("TimeTable Doctor 2: " + d2.getTimeTable());
 		System.out.println("TimeTable Doctor 3: " + d3.getTimeTable());
+		System.out.println("------------------------------------");
+		Date scheduledDate2 = s.schedule(duration2, t4);
+		System.out.println("After second schedule:\n----------\n\n");
+		System.out.println("TimeTable Nurse 1: " + n1.getTimeTable());
+		System.out.println("TimeTable Nurse 2: " + n2.getTimeTable());
+		System.out.println("TimeTable Doctor 1: " + d1.getTimeTable());
+		System.out.println("TimeTable Doctor 2: " + d2.getTimeTable());
+		System.out.println("TimeTable Doctor 3: " + d3.getTimeTable());
+		System.out.println("------------------------------------");
+		Date scheduledDate3 = s.schedule(duration3, t4);
+		
+		System.out.println("Finally:\n----------\n\n");
+		System.out.println("TimeTable Nurse 1: " + n1.getTimeTable());
+		System.out.println("TimeTable Nurse 2: " + n2.getTimeTable());
+		System.out.println("TimeTable Doctor 1: " + d1.getTimeTable());
+		System.out.println("TimeTable Doctor 2: " + d2.getTimeTable());
+		System.out.println("TimeTable Doctor 3: " + d3.getTimeTable());
+		System.out.println("------------------------------------");
 		System.out.println("\n\nAppointments were made at " + scheduledDate + ", " + scheduledDate2 + " and " + scheduledDate3);
 		
 		

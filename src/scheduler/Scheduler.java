@@ -251,6 +251,6 @@ public class Scheduler
 	private static boolean isValidSystemTime(Date t) {
 		if(currentSystemTime == null)
 			return t != null;
-		return t != null && t.getTime() > currentSystemTime.getTime();
+		return t != null && t.getTime() >= currentSystemTime.getTime();
 	}
 }
