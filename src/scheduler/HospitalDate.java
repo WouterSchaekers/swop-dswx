@@ -163,6 +163,16 @@ public class HospitalDate
 	/**
 	 * Sets the time.
 	 * 
+	 * @param millis
+	 * 		The amounf of UTC milliseconds from the epoch.
+	 */
+	public void setTime(long millis){
+		this.gregorianCalendar.setTimeInMillis(millis);
+	}
+	
+	/**
+	 * Sets the time.
+	 * 
 	 * @param year
 	 * 		The year.
 	 * @param month
