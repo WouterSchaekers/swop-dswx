@@ -12,6 +12,18 @@ import be.kuleuven.cs.som.annotate.Basic;
 public class TimeTable
 {
 	private LinkedList<TimeSlot> timeSlots;
+	/**
+	 * This will allow us to keep the TimeSlots chronologically sorted.
+	 */
+	private static Comparator<TimeSlot> c = new Comparator<TimeSlot>() {
+		public int compare(TimeSlot o1, TimeSlot o2) {
+			if(o1.getStartPoint().getTime() < o2.getStartPoint().getTime())
+				return -1;
+			else if(o1.getStartPoint().getTime() == o2.getStartPoint().getTime())
+				return 0;
+			else return 1;
+		};
+	};
 
 	/**
 	 * Alternative constructor where a certain amount of slots can just be given
@@ -62,7 +74,23 @@ public class TimeTable
 					"Can't schedule at given timeSlot!");
 		}
 		this.timeSlots.add(timeSlot);
+		this.sortTimeSlots();
 	}
+	
+	/**
+	 * This method will sort the timeslots kept in this timetable by starting time. 
+	 */
+	private void sortTimeSlots() {
+		TimeSlot[] toSort = new TimeSlot[timeSlots.size()];
+		Iterator<TimeSlot> timeIt = timeSlots.iterator();
+		
+		for (int i = 0;  i < toSort.length; i++)
+			toSort[i] = timeIt.next();
+		
+		Arrays.sort(toSort, c);
+		this.timeSlots = new LinkedList<TimeSlot>(Arrays.asList(toSort));
+	}
+
 
 	/**
 	 * This method will find the first free slot that is available in this
@@ -167,6 +195,7 @@ public class TimeTable
 		returnValue.addTimeSlot(new TimeSlot(new TimePoint(timeSlots
 				.get(this.timeSlots.size() - 1).getStopPoint().getDate(),
 				TimeType.start), new TimePoint(d2, TimeType.stop)));
+		this.sortTimeSlots();
 		return returnValue;
 	}
 
@@ -228,6 +257,7 @@ public class TimeTable
 	 * @throws InvalidTimeSlotException 
 	 */
 	public TimeTable getUnion(TimeTable that) throws InvalidTimeSlotException {
+		this.sortTimeSlots();
 		TimePoint[] allPoints = new TimePoint[this.timeSlots.size() * 2
 				+ that.timeSlots.size() * 2];
 		LinkedList<TimeSlot> rv = new LinkedList<TimeSlot>();
@@ -274,6 +304,7 @@ public class TimeTable
 	 * @throws InvalidTimeSlotException 
 	 */
 	public TimeTable getIntersect(TimeTable that) throws InvalidTimeSlotException {
+		this.sortTimeSlots();
 		TimePoint[] one = TimeTable.eliminateOverlap(this);
 		TimePoint[] two = TimeTable.eliminateOverlap(that);
 		LinkedList<TimeSlot> rv = new LinkedList<TimeSlot>();
@@ -486,4 +517,6 @@ public class TimeTable
 		}
 		return true;
 	}
+	
+	
 }
