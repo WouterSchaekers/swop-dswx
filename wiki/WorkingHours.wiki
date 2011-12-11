@@ -13,7 +13,7 @@
 ||07/12/11: 14u30 -> 18u30 ||2 SW|| 4 ||Testing the TimeTable class and further implementing of the Scheduler||Dieter wilde P&O doen en kon op 6/12 niet omdat hij een prior commitment had om "LoL te spelen" dat hij daarna afzegde om "toffe dingen doen met Shana voor haar verjaardag".||
 ||07/12/11: 20u30 -> 00u30 ||1 S|| 4 ||Further implementing the Scheduler and the TimeTable ||Dieter had geen zin meer omdat hij net een zware P&O dag had en Wouter moest nog P&O doen. Stefaan deed dus alleen nog wat verder.||
 || 08/12/11: 20u00 -> 23u00 || 2 SW || 3 || Finishing up the implementation of Scheduler; start of debugging TimeTable || Dieter had niet tijdig zijn SMS gelezen. ||
-|| 09/12/11: 09u30 -> 10u00 || 1 S || 0.5 || Setting up a TODO-list; some minor code changes to the scheduler. ||
+|| 09/12/11: 09u30 -> 10u00 || 1 S || 0.5 || Setting up a TODO-list; some minor code changes to the scheduler. || ||
 || 09/12/11: 10u30 -> 14u00|| 3 DSW || 3.5 || More testing of the scheduler,timetable,timepoint,timeslot,.... scheduler package; writing documentation; making all classes defensive; rewriting Task and TaskManager; debugging scheduler; requirementinterface || ||
 || 09/12/11: 14u00 -> 14u50 || 2 DS || 1 || Continuance of above || Wouter took a lunchbreak. ||
 || 09/12/11: 14u40 -> 16u10 || 3 DSW || 2.5 || Making everything defensive, more debugging of the scheduler package.|| ||
