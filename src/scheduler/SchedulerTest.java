@@ -153,10 +153,9 @@ public class SchedulerTest {
 		
 		checkDefaultAsserts(n2,scheduledDate, endScheduledDate);
 		assertTrue(n1.getTimeTable().getTimeSlots().get(0).equals(busySlot));
-		assertFalse(n1.canBeScheduledOn(scheduledDate,endScheduledDate));
 		assertFalse(n2.getTimeTable().getTimeSlots().get(0).equals(busySlot));
 		assertTrue(n2.canBeScheduledOn(endScheduledDate, new HospitalDate(endScheduledDate.getTotalMillis() + 1)));
-		assertTrue(n1.canBeScheduledOn(endScheduledDate, new HospitalDate(endScheduledDate.getTotalMillis() + 1)));
+		assertFalse(n1.canBeScheduledOn(scheduledDate, endScheduledDate));
 	}
 
 	@Test
