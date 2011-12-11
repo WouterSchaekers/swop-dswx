@@ -4,6 +4,7 @@ import java.util.*;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidSerialException;
 import exceptions.InvalidTimeSlotException;
+import scheduler.HospitalDate;
 import scheduler.TimeTable;
 import scheduler.task.Schedulable;
 
@@ -75,5 +76,5 @@ public abstract class Machine implements Schedulable
 	}
 
 	@Override
-	public abstract boolean canBeScheduledOn(Date startDate, Date stopDate);
+	public abstract boolean canBeScheduledOn(HospitalDate startDate, HospitalDate stopDate);
 }
