@@ -9,7 +9,7 @@ import scheduler.TimeTable;
 public interface Schedulable
 {
 	
-	public boolean canBeScheduledOn(Date startDate, Date stopDate)throws InvalidSchedulingRequestException;
+	public boolean canBeScheduledOn(Date startDate, Date stopDate)throws InvalidSchedulingRequestException, InvalidTimeSlotException;
 
 	public TimeTable getTimeTable() throws InvalidTimeSlotException;
 	
