@@ -4,6 +4,7 @@ import java.util.*;
 import be.kuleuven.cs.som.annotate.*;
 import exceptions.*;
 import scheduler.Scheduler;
+import scheduler.HospitalDate;
 
 /**
  * This class serves as a form of waiting room for unscheduled tasks. If a Task
@@ -32,8 +33,8 @@ public class TaskManager
 	 * @throws InvalidSchedulingRequestException 
 	 * @throws InvalidTimeSlotException 
 	 */
-	public HashMap<Task,Date> updateQueue() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException {
-		HashMap<Task,Date> returnValue = new HashMap<Task, Date>();
+	public HashMap<Task,HospitalDate> updateQueue() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException {
+		HashMap<Task,HospitalDate> returnValue = new HashMap<Task, HospitalDate>();
 		
 		for(Task curTask: this.taskQueue) {
 			if(curTask.canBeScheduled()) {
