@@ -8,26 +8,28 @@ import scheduler.task.Schedulable;
 /**
  * This class will assign all schedulables their timetables.
  * 
- * <br><br>The global idea is: <br>
-* <u><b>IN:</b></u><br>
-* A collection of collections. Every collection contains all possible Schedulables of one kind. The highest level collection is a collection of all these collections.
-* <br>If one would like to, for example, schedule 2 nurses, one would have to call the scheduler with, as parameters, 2 collections containing all nurses.
-* <br>
-* <br><u><b>OUT:</b></u><br>
-* The time of the start of the scheduled appointment.
-* 
-* <br><br>The scheduler is also responsible for keeping track of the current system time.
+ * <br>
+ * <br>
+ * The global idea is: <br>
+ * <u><b>IN:</b></u><br>
+ * A collection of collections. Every collection contains all possible
+ * Schedulables of one kind. The highest level collection is a collection of all
+ * these collections. <br>
+ * If one would like to, for example, schedule 2 nurses, one would have to call
+ * the scheduler with, as parameters, 2 collections containing all nurses. <br>
+ * <br>
+ * <u><b>OUT:</b></u><br>
+ * The time of the start of the scheduled appointment.
+ * 
+ * <br>
+ * <br>
+ * The scheduler is also responsible for keeping track of the current system
+ * time.
  */
 public class Scheduler
 {
-	private static Date currentSystemTime;
-	public static final Date START_OF_TIME = new Date(1320735600000l);
-	public static final Date END_OF_TIME = new Date(Long.MAX_VALUE);
-	public static final long ONE_SECOND = 1000;
-	public static final long ONE_MINUTE = ONE_SECOND * 60;
-	public static final long ONE_HOUR = ONE_MINUTE * 60;
+	private static HospitalDate currentSystemTime;
 
-	
 	/**
 	 * This method will schedule one of each resources given in the parameters
 	 * in the first available and valid timeslot.
@@ -39,31 +41,43 @@ public class Scheduler
 	 * @param duration
 	 *            The wanted length of the reservation of each resource.
 	 * @return The start date of the scheduled appointment.
-	 * @throws InvalidSchedulingRequestException 
-	 * @throws InvalidTimeSlotException 
+	 * @throws InvalidSchedulingRequestException
+	 * @throws InvalidTimeSlotException
 	 */
-	public Date schedule(long duration, Collection<Schedulable>... resourcesToSchedule) throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException {
+	public Date schedule(long duration,
+			Collection<Schedulable>... resourcesToSchedule)
+			throws QueueException, InvalidDurationException,
+			InvalidSchedulingRequestException,
+			InvalidSchedulingRequestException, InvalidTimeSlotException {
 		LinkedList<Collection<Schedulable>> stillToSchedule = new LinkedList<Collection<Schedulable>>();
 		LinkedList<Collection<Schedulable>> allTheNeededResources = new LinkedList<Collection<Schedulable>>();
 		for (int i = 0; i < resourcesToSchedule.length; i++) {
 			stillToSchedule.add(resourcesToSchedule[i]);
 			allTheNeededResources.add(resourcesToSchedule[i]);
 		}
-		
-		return schedule(duration, new LinkedList<TimeTable>(), stillToSchedule, allTheNeededResources);
+
+		return schedule(duration, new LinkedList<TimeTable>(), stillToSchedule,
+				allTheNeededResources);
 	}
-	
+
 	/**
 	 * @throws InvalidSchedulingRequestException
-	 * @throws InvalidTimeSlotException 
+	 * @throws InvalidTimeSlotException
 	 * @effect schedule(long, collection<schedule>...)
 	 */
-	public Date schedule(long duration, Collection<Collection<Schedulable>> resourcesToSchedule) throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException {
-		LinkedList<Collection<Schedulable>> stillToSchedule = new LinkedList<Collection<Schedulable>>(resourcesToSchedule);
-		LinkedList<Collection<Schedulable>> allTheNeededResources = new LinkedList<Collection<Schedulable>>(stillToSchedule);
-		return schedule(duration, new LinkedList<TimeTable>(),stillToSchedule, allTheNeededResources);
+	public Date schedule(long duration,
+			Collection<Collection<Schedulable>> resourcesToSchedule)
+			throws QueueException, InvalidDurationException,
+			InvalidSchedulingRequestException,
+			InvalidSchedulingRequestException, InvalidTimeSlotException {
+		LinkedList<Collection<Schedulable>> stillToSchedule = new LinkedList<Collection<Schedulable>>(
+				resourcesToSchedule);
+		LinkedList<Collection<Schedulable>> allTheNeededResources = new LinkedList<Collection<Schedulable>>(
+				stillToSchedule);
+		return schedule(duration, new LinkedList<TimeTable>(), stillToSchedule,
+				allTheNeededResources);
 	}
-	
+
 	/**
 	 * This <b><i>PRIVATE</i></b> method will schedule an appointment
 	 * recursively for every required resource.
@@ -77,25 +91,28 @@ public class Scheduler
 	 * 
 	 * @return The date of the scheduled appointment.
 	 * @throws InvalidSchedulingRequestException
-	 * @throws InvalidTimeSlotException 
+	 * @throws InvalidTimeSlotException
 	 */
 	private Date schedule(long duration, LinkedList<TimeTable> used,
 			LinkedList<Collection<Schedulable>> stillToSchedule,
 			LinkedList<Collection<Schedulable>> allTheNeededResources)
 			throws QueueException, InvalidDurationException,
-			InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException {
+			InvalidSchedulingRequestException,
+			InvalidSchedulingRequestException, InvalidTimeSlotException {
 		if (duration < 0)
-			throw new InvalidDurationException("Invalid duration in schedule-method!");
-		
+			throw new InvalidDurationException(
+					"Invalid duration in schedule-method!");
+
 		// First we check if, in this call, the recursion is in it's final step.
-		if(stillToSchedule.isEmpty()) {
-			// We've calculated the intersected timetable 
+		if (stillToSchedule.isEmpty()) {
+			// We've calculated the intersected timetable
 			// of each of the resources in every collection.
 			//
 			// Let's schedule them!
-			return finalSchedulingStep(duration, used, stillToSchedule, allTheNeededResources);
+			return finalSchedulingStep(duration, used, stillToSchedule,
+					allTheNeededResources);
 		}
-		
+
 		// If this isn't the final step, we need to intersect all resources of
 		// the next collection of instances of resources of which the best has
 		// to be chosen out of and finally scheduled.
@@ -103,17 +120,18 @@ public class Scheduler
 		List<Schedulable> resourceQueue = getNextResourceQueue(stillToSchedule);
 		Schedulable firstQueueElement = resourceQueue.remove(0);
 		Collection<TimeTable> allTheTimeTables = new LinkedList<TimeTable>();
-		
-		for(Schedulable s: resourceQueue)
+
+		for (Schedulable s : resourceQueue)
 			allTheTimeTables.add(s.getTimeTable());
 		resourceQueue.clear();
-		
-		TimeTable theIntersection = firstQueueElement.getTimeTable().intersectAll(allTheTimeTables);
-		used.add(theIntersection);		
-		
+
+		TimeTable theIntersection = firstQueueElement.getTimeTable()
+				.intersectAll(allTheTimeTables);
+		used.add(theIntersection);
+
 		return schedule(duration, used, stillToSchedule, allTheNeededResources);
 	}
-	
+
 	/**
 	 * This method is called as the final step of the recursive private
 	 * scheduling method. Using this method in any other location is
@@ -152,12 +170,14 @@ public class Scheduler
 	 * @return The date at which the appointment has been made.
 	 * @throws InvalidSchedulingRequestException
 	 *             If used.isEmpty();
-	 * @throws InvalidSchedulingRequestException 
-	 * @throws InvalidTimeSlotException 
+	 * @throws InvalidSchedulingRequestException
+	 * @throws InvalidTimeSlotException
 	 */
 	private Date finalSchedulingStep(long duration, LinkedList<TimeTable> used,
 			LinkedList<Collection<Schedulable>> stillToSchedule,
-			LinkedList<Collection<Schedulable>> allTheNeededResources) throws InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException {
+			LinkedList<Collection<Schedulable>> allTheNeededResources)
+			throws InvalidSchedulingRequestException,
+			InvalidSchedulingRequestException, InvalidTimeSlotException {
 		if (used.isEmpty())
 			throw new InvalidSchedulingRequestException(
 					"Schedule-method called without asking for any resources!");
@@ -166,7 +186,7 @@ public class Scheduler
 		LinkedList<TimeTable> freeTables = new LinkedList<TimeTable>();
 		for (TimeTable tt : used)
 			freeTables.add(tt.getAllFreeSlots(duration));
-		
+
 		// We now have all the timetables containing the intersection of free
 		// time of every collection of resourcetypes. Let's unify them so we get
 		// one huge table that contains all free times!
@@ -177,7 +197,7 @@ public class Scheduler
 		LinkedList<TimeSlot> freeSlots = unionOfFreeTime.getTimeSlots();
 
 		// Now we have one timetable that is marked as "busy" if
-		// there's at least one instance of each resourcetype 
+		// there's at least one instance of each resourcetype
 		// that is free at that time.
 		//
 		// We now need to check which one of those instances it is
@@ -189,9 +209,13 @@ public class Scheduler
 			foundResources = new LinkedList<Schedulable>();
 			for (Collection<Schedulable> candidateCol : allTheNeededResources) {
 				for (Schedulable candidate : candidateCol) {
-					Date startDateSlot =candidateSlot.getStartPoint().getDate();
-					Date stopDateSlot = new Date (candidateSlot.getStartPoint().getDate().getTime() + duration);
-					if (candidate.canBeScheduledOn(startDateSlot, stopDateSlot)	& !foundResources.contains(candidate)) {
+					Date startDateSlot = candidateSlot.getStartPoint()
+							.getDate();
+					Date stopDateSlot = new Date(candidateSlot.getStartPoint()
+							.getDate().getTime()
+							+ duration);
+					if (candidate.canBeScheduledOn(startDateSlot, stopDateSlot)
+							& !foundResources.contains(candidate)) {
 						// We found our match in this collection:
 						// add it to the list of results and
 						// break from the loop.
@@ -202,7 +226,9 @@ public class Scheduler
 			}
 			if (foundResources.size() == allTheNeededResources.size()) {
 				// We've found our appointment slot!
-				TimePoint endOfAppointment = new TimePoint(new Date(candidateSlot.getStartPoint().getTime() + duration),TimeType.stop);
+				TimePoint endOfAppointment = new TimePoint(new Date(
+						candidateSlot.getStartPoint().getTime() + duration),
+						TimeType.stop);
 				TimePoint startOfAppointment = candidateSlot.getStartPoint();
 				foundSlot = new TimeSlot(startOfAppointment, endOfAppointment);
 				// We can now break from the loop.
@@ -216,7 +242,7 @@ public class Scheduler
 		// return the date of the start of appointment
 		return foundSlot.getStartPoint().getDate();
 	}
-	
+
 	/**
 	 * This method will update the resource queue so that it contains the
 	 * resources from the next collection of stillToScehdule.
@@ -225,31 +251,35 @@ public class Scheduler
 	 * @throws QueueException
 	 *             if the to-schedule-queue is empty.
 	 */
-	private LinkedList<Schedulable> getNextResourceQueue(LinkedList<Collection<Schedulable>> stillToSchedule) throws QueueException {
-		if (stillToSchedule.isEmpty()) 
-			throw new QueueException("Error while updating resource queue: nothing left to schedule!");
+	private LinkedList<Schedulable> getNextResourceQueue(
+			LinkedList<Collection<Schedulable>> stillToSchedule)
+			throws QueueException {
+		if (stillToSchedule.isEmpty())
+			throw new QueueException(
+					"Error while updating resource queue: nothing left to schedule!");
 		return new LinkedList<Schedulable>(stillToSchedule.remove(0));
 	}
-	
+
 	@Basic
-	public static Date getCurrentSystemTime() {
-		if(currentSystemTime==null)
-			currentSystemTime=new Date(0);
+	public static HospitalDate getCurrentSystemTime() {
+		if (currentSystemTime == null)
+			currentSystemTime = new HospitalDate(0);
 		return currentSystemTime;
 	}
-	
+
 	@Basic
 	public static void setNewSystemTime(Date newTime) {
-		if(!isValidSystemTime(newTime))
-			throw new IllegalArgumentException("Invalid new system time given to setNewSystemTime() in Scheduler!");
+		if (!isValidSystemTime(newTime))
+			throw new IllegalArgumentException(
+					"Invalid new system time given to setNewSystemTime() in Scheduler!");
 		currentSystemTime = newTime;
 	}
-	
+
 	/**
 	 * @return True if t is a valid new system time.
 	 */
 	private static boolean isValidSystemTime(Date t) {
-		if(currentSystemTime == null)
+		if (currentSystemTime == null)
 			return t != null;
 		return t != null && t.getTime() >= currentSystemTime.getTime();
 	}

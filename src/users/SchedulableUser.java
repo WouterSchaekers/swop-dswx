@@ -3,7 +3,7 @@ package users;
 import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidTimeSlotException;
-import java.util.*;
+import scheduler.HospitalDate;
 import scheduler.TimeSlot;
 import scheduler.TimeTable;
 import scheduler.task.Schedulable;
@@ -17,7 +17,7 @@ public abstract class SchedulableUser extends User implements Schedulable
 	}
 	
 	@Override
-	public boolean canBeScheduledOn(Date startDate, Date stopDate) throws InvalidSchedulingRequestException, InvalidTimeSlotException {;
+	public boolean canBeScheduledOn(HospitalDate startDate, HospitalDate stopDate) throws InvalidSchedulingRequestException, InvalidTimeSlotException {;
 		return timeTable.hasFreeSlotAt(startDate, stopDate);
 	}
 	

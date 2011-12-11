@@ -1,6 +1,6 @@
 package medicaltest;
 
-import java.util.Date;
+import scheduler.HospitalDate;
 import scheduler.TimeSlot;
 import scheduler.TimeTable;
 import scheduler.task.Schedulable;
@@ -69,7 +69,7 @@ public abstract class MedicalTest implements Schedulable
 		return d > 0;
 	}
 	
-	public boolean canBeScheduledOn(Date startDate, Date stopDate)throws InvalidSchedulingRequestException {
+	public boolean canBeScheduledOn(HospitalDate startDate, HospitalDate stopDate)throws InvalidSchedulingRequestException {
 		return this.myTimeTable.hasFreeSlotAt(startDate,stopDate);
 	}
 

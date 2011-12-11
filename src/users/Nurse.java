@@ -1,6 +1,6 @@
 package users;
 
-import java.util.Date;
+import scheduler.HospitalDate;
 import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidNameException;
 import exceptions.InvalidSchedulingRequestException;
@@ -39,7 +39,7 @@ public class Nurse extends SchedulableUser
 	 * @throws InvalidTimeSlotException 
 	 */
 	@Override
-	public boolean canBeScheduledOn(Date startDate, Date stopDate) throws InvalidSchedulingRequestException, InvalidTimeSlotException {
+	public boolean canBeScheduledOn(HospitalDate startDate, HospitalDate stopDate) throws InvalidSchedulingRequestException, InvalidTimeSlotException {
 		//return startDate.getHours() > this.workingHours[0] && startDate.getHours() < this.workingHours[1] && stopDate.getHours() > this.workingHours[0] && stopDate.getHours() < this.workingHours[1];
 		return super.canBeScheduledOn(startDate, stopDate);
 	}

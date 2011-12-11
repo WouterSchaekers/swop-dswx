@@ -38,4 +38,14 @@ public class HospitalDateTest
 		assertTrue(h.getMinute() == 11);
 		assertTrue(h.getSecond() == 11);
 	}
+	
+	@Test
+	public void beforeTest(){
+		HospitalDate h0 = new HospitalDate(1000);
+		HospitalDate h1 = new HospitalDate(1000);
+		HospitalDate h2 = new HospitalDate(1001);
+		assertFalse(h0.before(h1));
+		assertTrue(h0.before(h2));
+		assertFalse(h2.before(h0));
+	}
 }

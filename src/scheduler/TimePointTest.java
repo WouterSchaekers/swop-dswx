@@ -10,7 +10,7 @@ public class TimePointTest
 	@Test
 	public void basicTestOne()
 	{
-		TimePoint p = new TimePoint(new Date(0),TimeType.stop);
+		TimePoint p = new TimePoint(new HospitalDate(0),TimeType.stop);
 		assertTrue(p.getTime()==0);
 	}
 
@@ -23,7 +23,7 @@ public class TimePointTest
 	@Test(expected = IllegalArgumentException.class)
 	public void nullTestTwo()
 	{
-		TimePoint p = new TimePoint(new Date(0),null);
+		TimePoint p = new TimePoint(new HospitalDate(0),null);
 
 	}
 }
