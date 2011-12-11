@@ -373,19 +373,19 @@ public class TimeTableTest
 	@Test
 	public void invert0Test() throws InvalidSchedulingRequestException,
 			InvalidTimeSlotException {
-		TimeSlot t1 = new TimeSlot(new TimePoint(new HospitalDate(1320735601000l),
-				TimeType.start), new TimePoint(new HospitalDate(1320735602000l),
+		TimeSlot t1 = new TimeSlot(new TimePoint(new HospitalDate(1323327601000l),
+				TimeType.start), new TimePoint(new HospitalDate(1323327602000l),
 				TimeType.stop));
-		TimeSlot t2 = new TimeSlot(new TimePoint(new HospitalDate(1320735603000l),
-				TimeType.start), new TimePoint(new HospitalDate(1320735604000l),
+		TimeSlot t2 = new TimeSlot(new TimePoint(new HospitalDate(1323327603000l),
+				TimeType.start), new TimePoint(new HospitalDate(1323327604000l),
 				TimeType.stop));
 		TimeSlot t3 = new TimeSlot(new TimePoint(HospitalDate.START_OF_TIME,
-				TimeType.start), new TimePoint(new HospitalDate(1320735601000l),
+				TimeType.start), new TimePoint(new HospitalDate(1323327601000l),
 				TimeType.stop));
-		TimeSlot t4 = new TimeSlot(new TimePoint(new HospitalDate(1320735602000l),
-				TimeType.start), new TimePoint(new HospitalDate(1320735603000l),
+		TimeSlot t4 = new TimeSlot(new TimePoint(new HospitalDate(1323327602000l),
+				TimeType.start), new TimePoint(new HospitalDate(1323327603000l),
 				TimeType.stop));
-		TimeSlot t5 = new TimeSlot(new TimePoint(new HospitalDate(1320735604000l),
+		TimeSlot t5 = new TimeSlot(new TimePoint(new HospitalDate(1323327604000l),
 				TimeType.start), new TimePoint(HospitalDate.END_OF_TIME,
 				TimeType.stop));
 		TimeTable table = new TimeTable(t1, t2);
@@ -397,14 +397,14 @@ public class TimeTableTest
 	@Test
 	public void invert1Test() throws InvalidSchedulingRequestException,
 			InvalidTimeSlotException {
-		TimeSlot t1 = new TimeSlot(new TimePoint(new HospitalDate(1320735601000l),
+		TimeSlot t1 = new TimeSlot(new TimePoint(new HospitalDate(1323327601000l),
 				TimeType.start), new TimePoint(new HospitalDate(8984651322588l),
 				TimeType.stop));
 		TimeSlot t2 = new TimeSlot(new TimePoint(new HospitalDate(12589765845329l),
 				TimeType.start), new TimePoint(new HospitalDate(13569856245875l),
 				TimeType.stop));
 		TimeSlot t3 = new TimeSlot(new TimePoint(HospitalDate.START_OF_TIME,
-				TimeType.start), new TimePoint(new HospitalDate(1320735601000l),
+				TimeType.start), new TimePoint(new HospitalDate(1323327601000l),
 				TimeType.stop));
 		TimeSlot t4 = new TimeSlot(new TimePoint(new HospitalDate(8984651322588l),
 				TimeType.start), new TimePoint(new HospitalDate(12589765845329l),
@@ -421,14 +421,14 @@ public class TimeTableTest
 	@Test
 	public void invert2Test() throws InvalidSchedulingRequestException,
 			InvalidTimeSlotException {
-		TimeSlot t1 = new TimeSlot(new TimePoint(new HospitalDate(1320735601000l),
+		TimeSlot t1 = new TimeSlot(new TimePoint(new HospitalDate(1323327601000l),
 				TimeType.start), new TimePoint(new HospitalDate(8984651322588l),
 				TimeType.stop));
 		TimeSlot t2 = new TimeSlot(new TimePoint(new HospitalDate(12589765845329l),
 				TimeType.start), new TimePoint(new HospitalDate(13569856245875l),
 				TimeType.stop));
 		TimeSlot t3 = new TimeSlot(new TimePoint(HospitalDate.START_OF_TIME,
-				TimeType.start), new TimePoint(new HospitalDate(1320735601000l),
+				TimeType.start), new TimePoint(new HospitalDate(1323327601000l),
 				TimeType.stop));
 		TimeSlot t4 = new TimeSlot(new TimePoint(new HospitalDate(8984651322588l),
 				TimeType.start), new TimePoint(new HospitalDate(12589765845329l),
