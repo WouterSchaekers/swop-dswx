@@ -47,10 +47,109 @@ public class TimeTableTest
 	}
 
 	@Test
-	public void hasFreeSlotTest() {
+	public void hasFreeSlot0Test() throws InvalidTimeSlotException {
 		LinkedList<TimeSlot> timeSlots = new LinkedList<TimeSlot>();
+		TimeSlot ts0 = new TimeSlot(tp00, tp11);
+		TimeSlot ts1 = new TimeSlot(tp10, tp21);
+		timeSlots.add(ts0);
+		TimeTable t0 = new TimeTable(timeSlots);
+		assertTrue(t0.hasFreeSlotAt(ts1));
 	}
-
+	
+	@Test
+	public void hasFreeSlot1Test() throws InvalidTimeSlotException {
+		LinkedList<TimeSlot> timeSlots = new LinkedList<TimeSlot>();
+		TimeSlot ts0 = new TimeSlot(tp00, tp11);
+		TimeSlot ts1 = new TimeSlot(tp30, tp41);
+		TimeSlot ts2 = new TimeSlot(tp10, tp21);
+		timeSlots.add(ts0);
+		timeSlots.add(ts1);
+		TimeTable t0 = new TimeTable(timeSlots);
+		assertTrue(t0.hasFreeSlotAt(ts2));
+	}
+	
+	@Test
+	public void hasFreeSlot2Test() throws InvalidTimeSlotException {
+		LinkedList<TimeSlot> timeSlots = new LinkedList<TimeSlot>();
+		TimeSlot ts0 = new TimeSlot(tp00, tp11);
+		TimeSlot ts1 = new TimeSlot(tp20, tp31);
+		TimeSlot ts2 = new TimeSlot(tp10, tp21);
+		timeSlots.add(ts0);
+		timeSlots.add(ts1);
+		TimeTable t0 = new TimeTable(timeSlots);
+		assertTrue(t0.hasFreeSlotAt(ts2));
+	}
+	
+	@Test
+	public void hasFreeSlot3Test() throws InvalidTimeSlotException {
+		LinkedList<TimeSlot> timeSlots = new LinkedList<TimeSlot>();
+		TimeSlot ts0 = new TimeSlot(tp00, tp11);
+		TimeSlot ts1 = new TimeSlot(tp10, tp21);
+		TimeSlot ts2 = new TimeSlot(tp20, tp31);
+		timeSlots.add(ts0);
+		timeSlots.add(ts1);
+		TimeTable t0 = new TimeTable(timeSlots);
+		assertTrue(t0.hasFreeSlotAt(ts2));
+	}
+	
+	@Test
+	public void hasFreeSlot4Test() throws InvalidTimeSlotException {
+		LinkedList<TimeSlot> timeSlots = new LinkedList<TimeSlot>();
+		TimeSlot ts0 = new TimeSlot(tp00, tp11);
+		TimeSlot ts1 = new TimeSlot(tp10, tp21);
+		TimeSlot ts2 = new TimeSlot(tp20, tp31);
+		timeSlots.add(ts1);
+		TimeTable t0 = new TimeTable(timeSlots);
+		assertTrue(t0.hasFreeSlotAt(ts0));
+		assertTrue(t0.hasFreeSlotAt(ts2));
+	}
+	
+	@Test
+	public void hasFreeSlot5Test() throws InvalidTimeSlotException {
+		LinkedList<TimeSlot> timeSlots = new LinkedList<TimeSlot>();
+		TimeSlot ts0 = new TimeSlot(tp00, tp11);
+		TimeSlot ts1 = new TimeSlot(tp10, tp21);
+		TimeSlot ts2 = new TimeSlot(tp10, tp31);
+		timeSlots.add(ts0);
+		timeSlots.add(ts1);
+		TimeTable t0 = new TimeTable(timeSlots);
+		assertFalse(t0.hasFreeSlotAt(ts2));
+	}
+	
+	@Test
+	public void hasFreeSlot6Test() throws InvalidTimeSlotException {
+		LinkedList<TimeSlot> timeSlots = new LinkedList<TimeSlot>();
+		TimeSlot ts0 = new TimeSlot(tp00, tp11);
+		TimeSlot ts1 = new TimeSlot(tp10, tp31);
+		TimeSlot ts2 = new TimeSlot(tp20, tp41);
+		timeSlots.add(ts0);
+		timeSlots.add(ts1);
+		TimeTable t0 = new TimeTable(timeSlots);
+		assertFalse(t0.hasFreeSlotAt(ts2));
+	}
+	
+	@Test
+	public void hasFreeSlot7Test() throws InvalidTimeSlotException {
+		LinkedList<TimeSlot> timeSlots = new LinkedList<TimeSlot>();
+		TimeSlot ts0 = new TimeSlot(tp00, tp11);
+		TimeSlot ts1 = new TimeSlot(tp10, tp21);
+		timeSlots.add(ts0);
+		timeSlots.add(ts1);
+		TimeTable t0 = new TimeTable(timeSlots);
+		assertTrue(t0.hasFreeSlotAt(h2, h4));
+	}
+	
+	@Test
+	public void hasFreeSlot8Test() throws InvalidTimeSlotException {
+		LinkedList<TimeSlot> timeSlots = new LinkedList<TimeSlot>();
+		TimeSlot ts0 = new TimeSlot(tp00, tp11);
+		TimeSlot ts1 = new TimeSlot(tp10, tp31);
+		timeSlots.add(ts0);
+		timeSlots.add(ts1);
+		TimeTable t0 = new TimeTable(timeSlots);
+		assertFalse(t0.hasFreeSlotAt(h2, h4));
+	}
+	
 	@Test
 	public void equalsTest() throws InvalidTimeSlotException {
 		LinkedList<TimeSlot> timeSlots1 = new LinkedList<TimeSlot>();
@@ -75,7 +174,9 @@ public class TimeTableTest
 
 	@Test
 	public void union0Test() throws InvalidTimeSlotException {
-		TimeSlot t1 = new TimeSlot(tp00, tp11);
+		TimeSlot t1 = new TimeSlot(new TimePoint(new HospitalDate(0),
+				TimeType.start), new TimePoint(new HospitalDate(5),
+				TimeType.stop));
 		TimeSlot t2 = new TimeSlot(new TimePoint(new HospitalDate(8),
 				TimeType.start), new TimePoint(new HospitalDate(15),
 				TimeType.stop));
