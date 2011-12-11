@@ -101,7 +101,7 @@ public class HospitalDate
 	 * 		The day of the month.
 	 */
 	public void setDay(int day){
-		this.setTime(this.getYear(), this.getMonth(), this.getDay(), this.getHour(), this.getMinute(), this.getSecond());
+		this.setTime(this.getYear(), this.getMonth(), day, this.getHour(), this.getMinute(), this.getSecond());
 	}
 	
 	/**
@@ -232,5 +232,13 @@ public class HospitalDate
 	 */
 	public long getTotalMillis(){
 		return gregorianCalendar.getTimeInMillis();
+	}
+	
+	/**
+	 * @return
+	 * 		The current date as a string.
+	 */
+	public String toString(){
+		return this.getYear() + "-" + this.getMonth() + "-" + this.getDay() + " " + this.getHour() + ":" + this.getMinute() + ":" + this.getSecond();
 	}
 }
