@@ -21,4 +21,5 @@
 || 10/12/11: 18u15 -> 19u00 || 2SW || 1 || More of the above... || More of the above.... ||
 || 10/12/11: 20u30 -> 21u30 || 1 S || 1 || Continuance of above || Wouter at en nam een korte pauze terwijl Stefaan zijn verloren tijd trachtte in te halen. ||
 || 10/12/11: 21u30 -> 00u30 || 2 SW || 3.5 || Making up our minds about using util.Date, sql.Date, our own Date, Caladendar or GregorianCalendar.|| ||
+|| 11/12/11: 10u30 -> 14u00 || 2 SW || 3.5 || Implementing our own Date, finding weird bugs in Scheduler ||  ||
 || 11/12/11: 14u30 -> 15u30 || 2 SW || 1 ||Finishing up testing and implementing the HospitalDate and applying it to the project. || ||
