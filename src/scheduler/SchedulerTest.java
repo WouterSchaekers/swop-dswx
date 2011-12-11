@@ -207,21 +207,23 @@ public class SchedulerTest {
 	public void hybridCase1() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException {		
 		long duration = HospitalDate.ONE_MINUTE * 5;
 		long duration2 = HospitalDate.ONE_MINUTE * 23;
-		long duration3 = HospitalDate.ONE_MINUTE - HospitalDate.ONE_SECOND;
+		long duration3 = HospitalDate.ONE_MINUTE;
 
 		//busy 1: kan de eerste 1 minuut wel iets doen, maar de 9 minuten erna niks.
 		//busy 2: kan de eerste minuut niks doen
 		//busy 3: kan niks doen van 9 minuten tot 15 minuten
 		//busy 4: kan niks doen van 12 tot 20 minuten
 		//busy 5: kan niks doen van start tot over 25 minuten
+		//busy 6: kan niks doen van 50 minuten na start to 1 uur na start
 		TimeSlot busySlot = new TimeSlot(new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis() + HospitalDate.ONE_MINUTE), TimeType.start), new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis() + HospitalDate.ONE_MINUTE * 9), TimeType.stop));
 		TimeSlot busySlot2 = new TimeSlot(new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis()), TimeType.start), new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis() + HospitalDate.ONE_MINUTE), TimeType.stop));
 		TimeSlot busySlot3 = new TimeSlot(new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis() + HospitalDate.ONE_MINUTE * 9), TimeType.start), new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis() + HospitalDate.ONE_MINUTE * 15), TimeType.stop));
 		TimeSlot busySlot4 = new TimeSlot(new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis() + HospitalDate.ONE_MINUTE * 12), TimeType.start), new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis() + HospitalDate.ONE_MINUTE * 20), TimeType.stop));
 		TimeSlot busySlot5 = new TimeSlot(new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis()), TimeType.start), new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis() + HospitalDate.ONE_MINUTE * 25), TimeType.stop));
+		TimeSlot busySlot6 = new TimeSlot(new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis() + HospitalDate.ONE_MINUTE * 50), TimeType.start), new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis() + HospitalDate.ONE_HOUR), TimeType.stop));
 		//n1.scheduleAt(busySlot);
-		n1.scheduleAt(busySlot2);
-		n2.scheduleAt(busySlot2);
+		n1.scheduleAt(busySlot6);
+		n2.scheduleAt(busySlot6);
 //		d1.scheduleAt(busySlot);
 //		d1.scheduleAt(busySlot2);
 //		d2.scheduleAt(busySlot3);
