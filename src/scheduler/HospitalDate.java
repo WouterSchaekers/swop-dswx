@@ -2,16 +2,53 @@ package scheduler;
 
 import java.util.GregorianCalendar;
 
-public class HospitalDate
-{
+/**
+ * We'll use this class as a date-class as Java's Date classes and alternatives
+ * are outdated or complex or would make our code illegible at some points.
+ */
+public class HospitalDate {
+	
+	/**
+	 * The year of the starttime of the system, given in the assignment.
+	 */
 	public final static int START_YEAR = 2011;
+	/**
+	 * The month of the starttime of the system, given in the assignment.
+	 */
 	public final static int START_MONTH = 11;
+	/**
+	 * The day of the month of the starttime of the system, given in the
+	 * assignment.
+	 */
 	public final static int START_DAY = 8;
+	/**
+	 * The hour of the starttime of the system, given in the assignment.
+	 */
 	public final static int START_HOUR = 8;
+	/**
+	 * The amount of minutes of the starttime of the system, given in the assignment.
+	 */
 	public final static int START_MINUTE = 0;
+	/**
+	 * The amount of seconds of the starttime of the system, given in the assignment.
+	 */
 	public final static int START_SECOND = 0;
+	/**
+	 * This object will keep all the above fields stored in a HospitalDate.
+	 */
 	public final static HospitalDate START_OF_TIME = new HospitalDate();
-	public final static HospitalDate END_OF_TIME = new HospitalDate(Long.MAX_VALUE);
+	/**
+	 * One second in millis.
+	 */
+	public final static long ONE_SECOND = 1000;
+	/**
+	 * One minute in millis.
+	 */
+	public final static long ONE_MINUTE = ONE_SECOND * 60;
+	/**
+	 * One hour in millis.
+	 */
+	public final static long ONE_HOUR = ONE_MINUTE * 60;
 	private GregorianCalendar gregorianCalendar;
 	
 	/**
