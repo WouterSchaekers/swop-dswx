@@ -6,6 +6,9 @@ import scheduler.HospitalDate;
 import scheduler.TimeSlot;
 import scheduler.TimeTable;
 
+/**
+ * This interface is implemented by all things that can be scheduled.
+ */
 public interface Schedulable
 {
 	
