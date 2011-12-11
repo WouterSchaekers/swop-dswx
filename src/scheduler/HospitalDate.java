@@ -56,14 +56,25 @@ public class HospitalDate {
 	private GregorianCalendar gregorianCalendar;
 	
 	/**
-	 * Creates a new HospitalDate, with the default start time.
+	 * Creates a new hospitaldate, with the default start time.
 	 */
 	public HospitalDate(){
 		this(START_YEAR, START_MONTH, START_DAY, START_HOUR, START_MINUTE, START_SECOND);
 	}
 	
 	/**
-	 * Creates a new HostpitalDate, with the given new time in UTC milliseconds from the epoch.
+	 * Creates a new hospitaldate that has the same date as the given hospitaldate.
+	 * 
+	 * @param hospitalDate
+	 * 		The hospitaldate that will be copied.
+	 */
+	public HospitalDate(HospitalDate hospitalDate){
+		gregorianCalendar = new GregorianCalendar();
+		gregorianCalendar.setTimeInMillis(hospitalDate.getTotalMillis());
+	}
+	
+	/**
+	 * Creates a new hostpitaldate, with the given new time in UTC milliseconds from the epoch.
 	 * 
 	 * @param milliseconds
 	 * 		The amount of milliseconds from the first epoch.
@@ -74,7 +85,7 @@ public class HospitalDate {
 	}
 	
 	/**
-	 * Creates a new HospitalDate, with the given date objects.
+	 * Creates a new hospitaldate, with the given date objects.
 	 * 
 	 * @param year
 	 * 		The year.

@@ -45,7 +45,6 @@ public class TimeTable
 	 * @throws InvalidTimeSlotException
 	 * 				
 	 */
-	// XXX
 	public TimeTable(LinkedList<TimeSlot> timeSlots) throws InvalidTimeSlotException {
 		if(!TimeTable.isValidTimeSlots(timeSlots)){
 			throw new InvalidTimeSlotException("TimeTable initialized with nullpointer.");
