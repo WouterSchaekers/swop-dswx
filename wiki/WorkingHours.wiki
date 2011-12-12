@@ -25,3 +25,5 @@
 || 11/12/11: 14u30 -> 16u00 || 2 SW || 1.5 ||Finishing up testing and implementing the HospitalDate and applying it to the project. Making class diagrams.|| ||
 || 11/12/11: 19u00 -> 21u30 || 1 S || 2.5 || Finishing up the class diagram of the scheduler system || Wouter moest A&B maken. ||
 || 11/12/11: 22u00 -> 01u30 || 1 S || 3.5 || Trying to find why in some cases the Scheduler can't schedule properly and fixing 1 out of 3 problem cases. || Wouter moest A&B maken. ||
+|| 12/12/11: 14u00 -> 16u00 || 3 DSW || 2 || Debugging Scheduler, Task, TaskManager, TimeSlot, TimePoint, TimeTable; bringing Dieter up to date	|| ||
+|| 12/12/11: 16u15 -> 18u30 ||3 DSW || 2 || more of the above..., making class diagrams and a draft of the report. || ||
