@@ -211,10 +211,8 @@ public class SchedulerTest {
 	}
 	
 	@Test(expected = InvalidSchedulingRequestException.class)
-	public void schedule3NursesWhileOnly2InHospital() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidTimeSlotException{
+	public void scheduleMoreNursesThanInHospital() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidTimeSlotException{
 		long duration = HospitalDate.ONE_HOUR;
-		long duration2 = HospitalDate.ONE_MINUTE * 2;
-		long duration3 = HospitalDate.ONE_MINUTE * 3;
 		
 		Collection<Collection<Schedulable>> maakHetStuk = new ArrayList<Collection<Schedulable>>();
 		Collection<Schedulable> teWeinigNurses = new ArrayList<Schedulable>();
@@ -224,13 +222,10 @@ public class SchedulerTest {
 		maakHetStuk.add(teWeinigNurses);
 		maakHetStuk.add(teWeinigNurses);
 		
-		System.out.println(s.schedule(duration, t));
-		System.out.println(s.schedule(duration2, t));
-		System.out.println(s.schedule(duration3, t));
-		
+		System.out.println(s.schedule(duration, maakHetStuk));
 	}
 	
-	//@Test
+	@Test
 	public void hybridCase1() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException {		
 		long duration = HospitalDate.ONE_MINUTE * 5;
 		long duration2 = HospitalDate.ONE_MINUTE * 23;
@@ -248,16 +243,15 @@ public class SchedulerTest {
 		TimeSlot busySlot4 = new TimeSlot(new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis() + HospitalDate.ONE_MINUTE * 12), TimeType.start), new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis() + HospitalDate.ONE_MINUTE * 20), TimeType.stop));
 		TimeSlot busySlot5 = new TimeSlot(new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis()), TimeType.start), new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis() + HospitalDate.ONE_MINUTE * 25), TimeType.stop));
 		TimeSlot busySlot6 = new TimeSlot(new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis() + HospitalDate.ONE_MINUTE * 50), TimeType.start), new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis() + HospitalDate.ONE_HOUR), TimeType.stop));
-//		n1.scheduleAt(busySlot);
+		n1.scheduleAt(busySlot);
 		n1.scheduleAt(busySlot6);
 		n2.scheduleAt(busySlot6);
-		//TODO: de nullpointer is gefixt, nu nog de invalidTimePointException o-o
-//		d1.scheduleAt(busySlot);
-//		d1.scheduleAt(busySlot2);
-//		d2.scheduleAt(busySlot3);
-//		d3.scheduleAt(busySlot);
-//		d3.scheduleAt(busySlot2);
-//		d3.scheduleAt(busySlot3);
+		d1.scheduleAt(busySlot);
+		d1.scheduleAt(busySlot2);
+		d2.scheduleAt(busySlot3);
+		d3.scheduleAt(busySlot);
+		d3.scheduleAt(busySlot2);
+		d3.scheduleAt(busySlot3);
 		
 		System.out.println("Before:\n----------\n\n");
 		System.out.println("TimeTable Nurse 1: " + n1.getTimeTable());
