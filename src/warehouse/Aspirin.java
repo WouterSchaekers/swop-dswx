@@ -1,10 +1,17 @@
 package warehouse;
 
-import java.util.Date;
+import scheduler.HospitalDate;
+import treatment.Medication;
 
 public class Aspirin extends Medication
 {
-	public Aspirin(boolean sensitive, Date expirationDate) {
+	public Aspirin(boolean sensitive, HospitalDate expirationDate) {
 		super("Aspirin", sensitive, expirationDate);
+	}
+
+	@Override
+	public boolean hasPassedDate(HospitalDate date) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

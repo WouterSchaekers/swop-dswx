@@ -2,6 +2,7 @@ package warehouse;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import treatment.Medication;
 import exceptions.DepotOverCapacityException;
 
 public class Depot
