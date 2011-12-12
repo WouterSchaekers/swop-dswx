@@ -44,18 +44,15 @@ public class Scheduler
 	 * @throws InvalidSchedulingRequestException
 	 * @throws InvalidTimeSlotException
 	 */
-	public HospitalDate schedule(long duration,
-			Collection<Schedulable>... resourcesToSchedule)
-			throws QueueException, InvalidDurationException,
-			InvalidSchedulingRequestException,
-			InvalidSchedulingRequestException, InvalidTimeSlotException {
+	public HospitalDate schedule(long duration,Collection<Schedulable>... resourcesToSchedule)throws QueueException, InvalidDurationException,InvalidSchedulingRequestException,InvalidSchedulingRequestException, InvalidTimeSlotException {
 		LinkedList<Collection<Schedulable>> stillToSchedule = new LinkedList<Collection<Schedulable>>();
 		LinkedList<Collection<Schedulable>> allTheNeededResources = new LinkedList<Collection<Schedulable>>();
+
 		for (int i = 0; i < resourcesToSchedule.length; i++) {
 			stillToSchedule.add(resourcesToSchedule[i]);
 			allTheNeededResources.add(resourcesToSchedule[i]);
 		}
-
+		
 		return schedule(duration, new LinkedList<TimeTable>(), stillToSchedule,
 				allTheNeededResources);
 	}
@@ -70,7 +67,10 @@ public class Scheduler
 		LinkedList<Collection<Schedulable>> stillToSchedule = new LinkedList<Collection<Schedulable>>(resourcesToSchedule);
 		LinkedList<Collection<Schedulable>> allTheNeededResources = new LinkedList<Collection<Schedulable>>(stillToSchedule);
 
-		return schedule(duration, new LinkedList<TimeTable>(), stillToSchedule,allTheNeededResources);
+		if(isValidToScheduleCollection(resourcesToSchedule)) {	
+			return schedule(duration, new LinkedList<TimeTable>(), stillToSchedule,allTheNeededResources);
+		}
+		else throw new InvalidSchedulingRequestException("Trying to schedule an invalid amount of resources(more cols of cols than elem in col)");
 	}
 
 	/**
@@ -220,6 +220,22 @@ public class Scheduler
 		throw new IllegalStateException("Something went wrong... this is embarrasing!");
 	}
 
+	private boolean isValidToScheduleCollection(Collection<Collection<Schedulable>> toCheck) {
+		HashMap<Collection<Schedulable>, Integer> hm = new HashMap<Collection<Schedulable>,Integer>();
+		
+		for (Collection<Schedulable> collection : toCheck) {
+			if(hm.containsKey(collection))
+				if(hm.get(collection) >= hm.size())
+					return false;
+				else hm.put(collection, hm.get(collection) + 1);
+			else if(collection.size() > 0)
+				hm.put(collection, 1);
+			else return false;
+		}
+		System.out.println(hm);
+		return true;
+	}
+	
 	/**
 	 * This method will update the resource queue so that it contains the
 	 * resources from the next collection of stillToScehdule.
