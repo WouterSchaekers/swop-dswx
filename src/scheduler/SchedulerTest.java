@@ -296,10 +296,6 @@ public class SchedulerTest {
 		HospitalDate endScheduledDate2 = new HospitalDate(scheduledDate2.getTotalMillis() + duration2);
 		HospitalDate endScheduledDate3 = new HospitalDate(scheduledDate3.getTotalMillis() + duration3);
 		
-		assertFalse(n1.canBeScheduledOn(scheduledDate, new HospitalDate(scheduledDate.getTotalMillis() + 1)));
-		assertFalse(n1.canBeScheduledOn(scheduledDate, new HospitalDate(endScheduledDate.getTotalMillis() - 1)));
-		assertFalse(n1.canBeScheduledOn(scheduledDate, new HospitalDate(endScheduledDate.getTotalMillis())));
-		assertTrue(n1.canBeScheduledOn(endScheduledDate,new HospitalDate(endScheduledDate.getTotalMillis() + 1)));
 	}
 
 	//TODO: hybrid of all previous
