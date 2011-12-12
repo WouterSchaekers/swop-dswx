@@ -219,7 +219,16 @@ public class Scheduler
 		}
 		throw new IllegalStateException("Something went wrong... this is embarrasing!");
 	}
-
+	
+	/**
+	 * Will check if the called method doesn't want to e.g. schedule more nurses
+	 * than there are available in the hospital.
+	 * 
+	 * @param toCheck
+	 * The collection to check.
+	 * @return
+	 * True if the given Collection of Collections should be able to be scheduled.
+	 */
 	private boolean isValidToScheduleCollection(Collection<Collection<Schedulable>> toCheck) {
 		HashMap<Collection<Schedulable>, Integer> hm = new HashMap<Collection<Schedulable>,Integer>();
 		
