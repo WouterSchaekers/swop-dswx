@@ -246,9 +246,9 @@ public class TimeTable
 		while (first < one.length - 1 && second < two.length - 1) {
 			while (first < one.length - 1
 					&& second < two.length - 1
-					&& !two[second].isBetweenIncluding(one[first],
+					&& !two[second].isBetweenExcludingEndPoint(one[first],
 							one[first + 1])
-					&& !one[first].isBetweenIncluding(two[second],
+					&& !one[first].isBetweenExcludingEndPoint(two[second],
 							two[second + 1])) {
 				if (one[first].compareTo(two[second]) > 0) {
 					second = second + 2;
