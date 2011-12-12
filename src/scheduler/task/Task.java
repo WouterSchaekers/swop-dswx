@@ -45,8 +45,18 @@ public class Task
 	public Task(Collection<Collection<Schedulable>> myResource, long duration) throws IllegalArgumentException {
 		if(!canHaveAsResources(myResource))
 			throw new IllegalArgumentException("Invalid resource passed to Task constructor!");
-		this.myResources = myResource;
+		Collection<Collection<Schedulable>> res = CloneCollectionOfCollection(myResource);
+		this.myResources = res;
 		this.reqs = new LinkedList<Requirement>();
+		this.duration=duration;
+	}
+
+	private Collection<Collection<Schedulable>> CloneCollectionOfCollection(
+			Collection<Collection<Schedulable>> myResource) {
+		Collection<Collection<Schedulable>> res= new ArrayList<Collection<Schedulable>>();
+		for(Collection<Schedulable> sched : myResource)
+			res.add(new ArrayList<Schedulable>(sched));
+		return res;
 	}
 	
 	/**
@@ -117,7 +127,7 @@ public class Task
 	
 	@Basic
 	public Collection<Collection<Schedulable>> getResources() {
-		return new ArrayList<Collection<Schedulable>>(this.myResources);
+		return CloneCollectionOfCollection(myResources);
 	}
 	
 	@Basic

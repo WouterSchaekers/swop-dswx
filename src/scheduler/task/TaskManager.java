@@ -34,14 +34,19 @@ public class TaskManager
 	 * @throws InvalidTimeSlotException 
 	 */
 	public HashMap<Task,HospitalDate> updateQueue() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException {
-		HashMap<Task,HospitalDate> returnValue = new HashMap<Task, HospitalDate>();
 		
-		for(Task curTask: this.taskQueue) {
-			if(curTask.canBeScheduled()) {
-				returnValue.put(curTask, this.scheduler.schedule(curTask.getDuration(), curTask.getResources()));
-				this.removeTask(curTask);
+		HashMap<Task, HospitalDate> returnValue = new HashMap<Task, HospitalDate>();
+		Queue<Task> newQueue = new LinkedList<Task>(this.taskQueue);
+		for (Task curTask : this.taskQueue) {
+			if (curTask.canBeScheduled()) {
+				HospitalDate d = (new Scheduler()).schedule(
+						curTask.getDuration(), curTask.getResources());
+				returnValue.put(curTask, d);
+			} else {
+				newQueue.add(curTask);
 			}
 		}
+		this.taskQueue = newQueue;
 		return returnValue;
 	}
 	
