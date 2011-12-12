@@ -241,7 +241,6 @@ public class Scheduler
 				hm.put(collection, 1);
 			else return false;
 		}
-		System.out.println(hm);
 		return true;
 	}
 	
