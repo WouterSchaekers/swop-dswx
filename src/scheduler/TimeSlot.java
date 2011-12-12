@@ -97,4 +97,10 @@ public class TimeSlot
 	public TimeSlot clone(){
 		return new TimeSlot(this.getStartPoint().clone(), this.getStopPoint().clone());
 	}
+	public boolean equals(Object o){
+		if(!(o instanceof TimeSlot))
+			return false;
+		TimeSlot that = (TimeSlot)o;
+		return this.t1.equals(that.t1)&&this.t2.equals(that.t2);
+	}
 }

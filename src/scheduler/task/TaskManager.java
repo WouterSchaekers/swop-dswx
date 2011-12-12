@@ -16,7 +16,6 @@ import scheduler.HospitalDate;
  */
 public class TaskManager
 {
-	private Scheduler scheduler = new Scheduler();
 	private Collection<Task> taskQueue = new LinkedList<Task>();
 
 	/**
@@ -61,18 +60,7 @@ public class TaskManager
 		this.taskQueue.add(t);
 	}
 
-	/**
-	 * This method will remove Task t from the task queue.
-	 * 
-	 * @param t
-	 *            The task to remove.
-	 * @throws QueueException
-	 *             if(!taskQueue.contains(t))
-	 */
-	private void removeTask(Task t) throws QueueException {
-		if(!this.taskQueue.remove(t))
-			throw new QueueException("Task t is not in taskQueue of TaskManager in removeTask!");
-	}
+
 	
 	/**
 	 * @return True if t is a valid Task that can be queued in this TM.
