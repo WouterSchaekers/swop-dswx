@@ -55,6 +55,7 @@ public class TimeTable
 					"TimeTable initialized with nullpointer.");
 		}
 		this.timeSlots = timeSlots;
+		this.eliminateOverlap();
 	}
 
 	public TimeSlot[] getArrayTimeSlots() {
@@ -70,7 +71,6 @@ public class TimeTable
 	 * @throws InvalidSchedulingRequestException
 	 *             The timeslot cannot be scheduled in this timetable
 	 */
-	// XXX
 	public void addTimeSlot(TimeSlot timeSlot) throws InvalidSchedulingRequestException {
 		if (!this.hasFreeSlotAt(timeSlot) || timeSlot == null) {
 			throw new InvalidSchedulingRequestException(
@@ -78,6 +78,7 @@ public class TimeTable
 		}
 		this.timeSlots.add(timeSlot);
 		this.sortTimeSlots();
+		this.eliminateOverlap();
 	}
 
 	/**
@@ -87,10 +88,8 @@ public class TimeTable
 	private void sortTimeSlots() {
 		TimeSlot[] toSort = new TimeSlot[timeSlots.size()];
 		Iterator<TimeSlot> timeIt = timeSlots.iterator();
-
 		for (int i = 0; i < toSort.length; i++)
 			toSort[i] = timeIt.next();
-
 		Arrays.sort(toSort, c);
 		this.timeSlots = new LinkedList<TimeSlot>(Arrays.asList(toSort));
 	}
@@ -308,8 +307,11 @@ public class TimeTable
 	public TimeTable getIntersect(TimeTable that)
 			throws InvalidTimeSlotException {
 		this.sortTimeSlots();
-		TimePoint[] one = TimeTable.eliminateOverlap(this);
-		TimePoint[] two = TimeTable.eliminateOverlap(that);
+		that.sortTimeSlots();
+		this.eliminateOverlap();
+		that.eliminateOverlap();
+		TimePoint[] one = this.getTimePoints();
+		TimePoint[] two = that.getTimePoints();
 		LinkedList<TimeSlot> rv = new LinkedList<TimeSlot>();
 		int first = 0;
 		int second = 0;
@@ -361,17 +363,17 @@ public class TimeTable
 	 *            A certain timetable that has to be simplified
 	 * @return The timePoints of this timetable without overlap
 	 */
-	public static TimePoint[] eliminateOverlap(TimeTable timeTable) {
-		TimePoint[] timePoints = new TimePoint[timeTable.timeSlots.size() * 2];
-		int i = 0;
-		for (TimeSlot t : timeTable.timeSlots) {
-			timePoints[i++] = t.getStartPoint();
-			timePoints[i++] = t.getStopPoint();
+	public void eliminateOverlap() {
+		TimePoint[] timePoints = new TimePoint[this.timeSlots.size() * 2];
+		for (int i = 0; i < this.timeSlots.size(); i++){
+			TimeSlot t = timeSlots.get(i);
+			timePoints[2*i] = t.getStartPoint();
+			timePoints[2*i+1] = t.getStopPoint();
 		}
 		Arrays.sort(timePoints, TimePoint.ComparatorsEndFirst);
-		Collection<TimePoint> simplifiedTimePoints = new ArrayList<TimePoint>();
+		ArrayList<TimePoint> simplifiedTimePoints = new ArrayList<TimePoint>();
 		int amount = 0;
-		for (i = 0; i < timePoints.length; i++) {
+		for (int i = 0; i < timePoints.length; i++) {
 			if (timePoints[i].getType() == TimeType.start) {
 				amount++;
 				if (!(amount > 1)) {
@@ -390,10 +392,22 @@ public class TimeTable
 				}
 			}
 		}
-		TimePoint[] returnTimePoints = new TimePoint[simplifiedTimePoints
-				.size()];
-		simplifiedTimePoints.toArray(returnTimePoints);
-		return returnTimePoints;
+		LinkedList<TimeSlot> newTimeSlots = new LinkedList<TimeSlot>();
+		for (int i = 0; i < simplifiedTimePoints.size()-1; i = i + 2){
+			TimeSlot timeSlot = new TimeSlot(simplifiedTimePoints.get(i), simplifiedTimePoints.get(i+1));
+			newTimeSlots.add(timeSlot);
+		}
+		this.timeSlots = newTimeSlots;
+	}
+	
+	public TimePoint[] getTimePoints(){
+		TimePoint[] timePoints = new TimePoint[this.timeSlots.size()*2];
+		for(int i = 0; i < this.timeSlots.size(); i++){
+			TimeSlot currentTimeSlot = this.timeSlots.get(i).clone();
+			timePoints[i*2] = currentTimeSlot.getStartPoint();
+			timePoints[i*2+1] = currentTimeSlot.getStopPoint();
+		}
+		return timePoints;
 	}
 
 	/**

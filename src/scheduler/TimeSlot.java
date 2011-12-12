@@ -93,4 +93,8 @@ public class TimeSlot
 			return false;
 		return true;
 	}
+	
+	public TimeSlot clone(){
+		return new TimeSlot(this.getStartPoint().clone(), this.getStopPoint().clone());
+	}
 }

@@ -318,4 +318,8 @@ public class HospitalDate {
 		String sec = (("" + this.getSecond()).length() == 1)? "0" + this.getSecond() : "" + this.getSecond();
 		return this.getYear() + "-" + this.getMonth() + "-" + this.getDay() + " " + hour + ":" + minute + ":" + sec;
 	}
+	
+	public HospitalDate clone(){
+		return new HospitalDate(this.getTotalMillis());
+	}
 }

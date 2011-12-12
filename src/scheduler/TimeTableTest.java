@@ -11,15 +11,20 @@ import exceptions.InvalidTimeSlotException;
 public class TimeTableTest
 {
 	HospitalDate h0, h1, h2, h3, h4, h5;
-	TimePoint tp00, tp10, tp20, tp30, tp40, tp50, tp01, tp11, tp21, tp31, tp41, tp51;
+	TimePoint tp00, tp10, tp20, tp30, tp40, tp50, tp01, tp11, tp21, tp31, tp41,
+			tp51;
 
 	@Before
 	public void initialize() {
 		h0 = new HospitalDate(HospitalDate.START_OF_TIME);
-		h1 = new HospitalDate(HospitalDate.START_OF_TIME.getTotalMillis() + 5);
-		h2 = new HospitalDate(HospitalDate.START_OF_TIME.getTotalMillis() + 10);
-		h3 = new HospitalDate(HospitalDate.START_OF_TIME.getTotalMillis() + 15);
-		h4 = new HospitalDate(HospitalDate.START_OF_TIME.getTotalMillis() + 20);
+		h1 = new HospitalDate(
+				HospitalDate.START_OF_TIME.getTotalMillis() + 5000);
+		h2 = new HospitalDate(
+				HospitalDate.START_OF_TIME.getTotalMillis() + 10000);
+		h3 = new HospitalDate(
+				HospitalDate.START_OF_TIME.getTotalMillis() + 15000);
+		h4 = new HospitalDate(
+				HospitalDate.START_OF_TIME.getTotalMillis() + 20000);
 		h5 = new HospitalDate(HospitalDate.END_OF_TIME);
 		tp00 = new TimePoint(h0, TimeType.start);
 		tp10 = new TimePoint(h1, TimeType.start);
@@ -45,8 +50,10 @@ public class TimeTableTest
 		LinkedList<TimeSlot> timeSlots = null;
 		TimeTable t0 = new TimeTable(timeSlots);
 	}
-	
-	public void addTimeSlot0Test() throws InvalidTimeSlotException, InvalidSchedulingRequestException{
+
+	@Test
+	public void addTimeSlot0Test() throws InvalidTimeSlotException,
+			InvalidSchedulingRequestException {
 		LinkedList<TimeSlot> timeSlots = new LinkedList<TimeSlot>();
 		TimeSlot ts0 = new TimeSlot(tp00, tp11);
 		TimeSlot ts1 = new TimeSlot(tp10, tp21);
@@ -54,6 +61,30 @@ public class TimeTableTest
 		TimeTable t0 = new TimeTable(timeSlots);
 		t0.addTimeSlot(ts1);
 		assertTrue(t0.equals(new TimeTable(ts0, ts1)));
+	}
+
+	@Test
+	public void addTimeSlot1Test() throws InvalidTimeSlotException,
+			InvalidSchedulingRequestException {
+		LinkedList<TimeSlot> timeSlots = new LinkedList<TimeSlot>();
+		TimeSlot ts0 = new TimeSlot(tp00, tp11);
+		TimeSlot ts1 = new TimeSlot(tp10, tp21);
+		TimeSlot ts2 = new TimeSlot(tp00, tp21);
+		timeSlots.add(ts0);
+		TimeTable t0 = new TimeTable(timeSlots);
+		t0.addTimeSlot(ts1);
+		assertTrue(t0.equals(new TimeTable(ts2)));
+	}
+
+	@Test(expected = InvalidSchedulingRequestException.class)
+	public void addTimeSlot2Test() throws InvalidTimeSlotException,
+			InvalidSchedulingRequestException {
+		LinkedList<TimeSlot> timeSlots = new LinkedList<TimeSlot>();
+		TimeSlot ts0 = new TimeSlot(tp00, tp31);
+		TimeSlot ts1 = new TimeSlot(tp10, tp21);
+		timeSlots.add(ts0);
+		TimeTable t0 = new TimeTable(timeSlots);
+		t0.addTimeSlot(ts1);
 	}
 
 	@Test
@@ -65,7 +96,7 @@ public class TimeTableTest
 		TimeTable t0 = new TimeTable(timeSlots);
 		assertTrue(t0.hasFreeSlotAt(ts1));
 	}
-	
+
 	@Test
 	public void hasFreeSlot1Test() throws InvalidTimeSlotException {
 		LinkedList<TimeSlot> timeSlots = new LinkedList<TimeSlot>();
@@ -77,7 +108,7 @@ public class TimeTableTest
 		TimeTable t0 = new TimeTable(timeSlots);
 		assertTrue(t0.hasFreeSlotAt(ts2));
 	}
-	
+
 	@Test
 	public void hasFreeSlot2Test() throws InvalidTimeSlotException {
 		LinkedList<TimeSlot> timeSlots = new LinkedList<TimeSlot>();
@@ -89,7 +120,7 @@ public class TimeTableTest
 		TimeTable t0 = new TimeTable(timeSlots);
 		assertTrue(t0.hasFreeSlotAt(ts2));
 	}
-	
+
 	@Test
 	public void hasFreeSlot3Test() throws InvalidTimeSlotException {
 		LinkedList<TimeSlot> timeSlots = new LinkedList<TimeSlot>();
@@ -101,7 +132,7 @@ public class TimeTableTest
 		TimeTable t0 = new TimeTable(timeSlots);
 		assertTrue(t0.hasFreeSlotAt(ts2));
 	}
-	
+
 	@Test
 	public void hasFreeSlot4Test() throws InvalidTimeSlotException {
 		LinkedList<TimeSlot> timeSlots = new LinkedList<TimeSlot>();
@@ -113,7 +144,7 @@ public class TimeTableTest
 		assertTrue(t0.hasFreeSlotAt(ts0));
 		assertTrue(t0.hasFreeSlotAt(ts2));
 	}
-	
+
 	@Test
 	public void hasFreeSlot5Test() throws InvalidTimeSlotException {
 		LinkedList<TimeSlot> timeSlots = new LinkedList<TimeSlot>();
@@ -125,7 +156,7 @@ public class TimeTableTest
 		TimeTable t0 = new TimeTable(timeSlots);
 		assertFalse(t0.hasFreeSlotAt(ts2));
 	}
-	
+
 	@Test
 	public void hasFreeSlot6Test() throws InvalidTimeSlotException {
 		LinkedList<TimeSlot> timeSlots = new LinkedList<TimeSlot>();
@@ -137,7 +168,7 @@ public class TimeTableTest
 		TimeTable t0 = new TimeTable(timeSlots);
 		assertFalse(t0.hasFreeSlotAt(ts2));
 	}
-	
+
 	@Test
 	public void hasFreeSlot7Test() throws InvalidTimeSlotException {
 		LinkedList<TimeSlot> timeSlots = new LinkedList<TimeSlot>();
@@ -148,7 +179,7 @@ public class TimeTableTest
 		TimeTable t0 = new TimeTable(timeSlots);
 		assertTrue(t0.hasFreeSlotAt(h2, h4));
 	}
-	
+
 	@Test
 	public void hasFreeSlot8Test() throws InvalidTimeSlotException {
 		LinkedList<TimeSlot> timeSlots = new LinkedList<TimeSlot>();
@@ -159,7 +190,7 @@ public class TimeTableTest
 		TimeTable t0 = new TimeTable(timeSlots);
 		assertFalse(t0.hasFreeSlotAt(h2, h4));
 	}
-	
+
 	@Test
 	public void equalsTest() throws InvalidTimeSlotException {
 		LinkedList<TimeSlot> timeSlots1 = new LinkedList<TimeSlot>();
@@ -553,7 +584,8 @@ public class TimeTableTest
 				TimeType.start), new TimePoint(new HospitalDate(15),
 				TimeType.stop));
 		TimeTable table = new TimeTable(t1, t2);
-		TimePoint[] timePoints = TimeTable.eliminateOverlap(table);
+		table.eliminateOverlap();
+		TimePoint[] timePoints = table.getTimePoints();
 		assertTrue(timePoints.length == 2);
 		assertTrue(timePoints[0].equals(new TimePoint(new HospitalDate(1),
 				TimeType.start)));
@@ -570,7 +602,8 @@ public class TimeTableTest
 				TimeType.start), new TimePoint(new HospitalDate(15),
 				TimeType.stop));
 		TimeTable table = new TimeTable(t1, t2);
-		TimePoint[] timePoints = TimeTable.eliminateOverlap(table);
+		table.eliminateOverlap();
+		TimePoint[] timePoints = table.getTimePoints();
 		assertTrue(timePoints.length == 2);
 		assertTrue(timePoints[0].equals(new TimePoint(new HospitalDate(1),
 				TimeType.start)));
