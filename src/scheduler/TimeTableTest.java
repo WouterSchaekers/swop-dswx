@@ -521,16 +521,78 @@ public class TimeTableTest
 	
 	@Test
 	public void intersectAll0Test() throws InvalidTimeSlotException, InvalidSchedulingRequestException {
-		TimeSlot t1 = new TimeSlot(tp00, tp51);
+		TimeSlot t1 = new TimeSlot(tp00, tp41);
 		TimeSlot t2 = new TimeSlot(tp10, tp21);
 		TimeSlot t3 = new TimeSlot(tp20, tp31);
 		TimeTable table = new TimeTable(t1);
 		TimeTable table2 = new TimeTable(t2, t3);
 		Collection<TimeTable> ct = new LinkedList<TimeTable>(Arrays.asList(
 				table, table2));
-		System.out.println(ct);
-//		System.out.println(TimeTable.intersectAll(ct));
 		assertTrue(table2.equals(TimeTable.intersectAll(ct)));
+	}
+	
+	@Test
+	public void intersectAll1Test() throws InvalidTimeSlotException, InvalidSchedulingRequestException {
+		TimeSlot t1 = new TimeSlot(tp00, tp11);
+		TimeSlot t2 = new TimeSlot(tp10, tp21);
+		TimeSlot t3 = new TimeSlot(tp20, tp31);
+		TimeTable table = new TimeTable(t1);
+		TimeTable table2 = new TimeTable(t2, t3);
+		Collection<TimeTable> ct = new LinkedList<TimeTable>(Arrays.asList(
+				table, table2));
+		assertTrue(TimeTable.intersectAll(ct).equals(new TimeTable()));
+	}
+	
+	@Test
+	public void intersectAll2Test() throws InvalidTimeSlotException, InvalidSchedulingRequestException {
+		TimeSlot t1 = new TimeSlot(tp00, tp11);
+		TimeSlot t2 = new TimeSlot(tp10, tp21);
+		TimeSlot t3 = new TimeSlot(tp10, tp31);
+		TimeTable table = new TimeTable(t1, t2);
+		TimeTable table2 = new TimeTable(t3);
+		TimeTable intersection = new TimeTable(t2);
+		Collection<TimeTable> ct = new LinkedList<TimeTable>(Arrays.asList(
+				table, table2));
+		assertTrue(TimeTable.intersectAll(ct).equals(intersection));
+	}
+	
+	@Test
+	public void intersectAll3Test() throws InvalidTimeSlotException, InvalidSchedulingRequestException {
+		TimeSlot t1 = new TimeSlot(tp00, tp51);
+		TimeTable table = new TimeTable(t1);
+		TimeTable table2 = new TimeTable();
+		TimeTable intersection = new TimeTable();
+		Collection<TimeTable> ct = new LinkedList<TimeTable>(Arrays.asList(
+				table, table2));
+		assertTrue(TimeTable.intersectAll(ct).equals(intersection));
+	}
+	
+	@Test
+	public void intersectAll4Test() throws InvalidTimeSlotException, InvalidSchedulingRequestException {
+		TimeSlot t1 = new TimeSlot(tp00, tp21);
+		TimeSlot t2 = new TimeSlot(tp10, tp31);
+		TimeSlot t3 = new TimeSlot(tp10, tp21);
+		TimeTable table = new TimeTable(t1);
+		TimeTable table2 = new TimeTable(t2);
+		TimeTable intersection = new TimeTable(t3);
+		Collection<TimeTable> ct = new LinkedList<TimeTable>(Arrays.asList(
+				table, table2));
+		assertTrue(TimeTable.intersectAll(ct).equals(intersection));
+	}
+	
+	@Test
+	public void intersectAll5Test() throws InvalidTimeSlotException, InvalidSchedulingRequestException {
+		TimeSlot t1 = new TimeSlot(tp00, tp51);
+		TimeSlot t2 = new TimeSlot(tp10, tp31);
+		TimeSlot t3 = new TimeSlot(tp10, tp41);
+		TimeSlot t4 = new TimeSlot(tp00, tp31);
+		TimeTable table = new TimeTable(t1);
+		TimeTable table2 = new TimeTable(t2);
+		TimeTable table3 = new TimeTable(t3, t4);
+		TimeTable intersection = new TimeTable(t2);
+		Collection<TimeTable> ct = new LinkedList<TimeTable>(Arrays.asList(
+				table, table2, table3));
+		assertTrue(TimeTable.intersectAll(ct).equals(intersection));
 	}
 
 	@Test
