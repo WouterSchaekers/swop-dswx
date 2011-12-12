@@ -504,7 +504,7 @@ public class TimeTableTest
 				new HospitalDate(0), TimeType.start), new TimePoint(
 				new HospitalDate(20), TimeType.stop)))));
 	}
-	
+
 	@Test
 	public void intersect6Test() throws InvalidTimeSlotException {
 		TimeSlot t1 = new TimeSlot(new TimePoint(new HospitalDate(0),
@@ -518,9 +518,10 @@ public class TimeTableTest
 		TimeTable res = table.getIntersect(table2);
 		assertTrue(res.equals(new TimeTable()));
 	}
-	
+
 	@Test
-	public void intersectAll0Test() throws InvalidTimeSlotException, InvalidSchedulingRequestException {
+	public void intersectAll0Test() throws InvalidTimeSlotException,
+			InvalidSchedulingRequestException {
 		TimeSlot t1 = new TimeSlot(tp00, tp41);
 		TimeSlot t2 = new TimeSlot(tp10, tp21);
 		TimeSlot t3 = new TimeSlot(tp20, tp31);
@@ -530,9 +531,10 @@ public class TimeTableTest
 				table, table2));
 		assertTrue(table2.equals(TimeTable.intersectAll(ct)));
 	}
-	
+
 	@Test
-	public void intersectAll1Test() throws InvalidTimeSlotException, InvalidSchedulingRequestException {
+	public void intersectAll1Test() throws InvalidTimeSlotException,
+			InvalidSchedulingRequestException {
 		TimeSlot t1 = new TimeSlot(tp00, tp11);
 		TimeSlot t2 = new TimeSlot(tp10, tp21);
 		TimeSlot t3 = new TimeSlot(tp20, tp31);
@@ -542,9 +544,10 @@ public class TimeTableTest
 				table, table2));
 		assertTrue(TimeTable.intersectAll(ct).equals(new TimeTable()));
 	}
-	
+
 	@Test
-	public void intersectAll2Test() throws InvalidTimeSlotException, InvalidSchedulingRequestException {
+	public void intersectAll2Test() throws InvalidTimeSlotException,
+			InvalidSchedulingRequestException {
 		TimeSlot t1 = new TimeSlot(tp00, tp11);
 		TimeSlot t2 = new TimeSlot(tp10, tp21);
 		TimeSlot t3 = new TimeSlot(tp10, tp31);
@@ -555,9 +558,10 @@ public class TimeTableTest
 				table, table2));
 		assertTrue(TimeTable.intersectAll(ct).equals(intersection));
 	}
-	
+
 	@Test
-	public void intersectAll3Test() throws InvalidTimeSlotException, InvalidSchedulingRequestException {
+	public void intersectAll3Test() throws InvalidTimeSlotException,
+			InvalidSchedulingRequestException {
 		TimeSlot t1 = new TimeSlot(tp00, tp51);
 		TimeTable table = new TimeTable(t1);
 		TimeTable table2 = new TimeTable();
@@ -566,9 +570,10 @@ public class TimeTableTest
 				table, table2));
 		assertTrue(TimeTable.intersectAll(ct).equals(intersection));
 	}
-	
+
 	@Test
-	public void intersectAll4Test() throws InvalidTimeSlotException, InvalidSchedulingRequestException {
+	public void intersectAll4Test() throws InvalidTimeSlotException,
+			InvalidSchedulingRequestException {
 		TimeSlot t1 = new TimeSlot(tp00, tp21);
 		TimeSlot t2 = new TimeSlot(tp10, tp31);
 		TimeSlot t3 = new TimeSlot(tp10, tp21);
@@ -579,9 +584,10 @@ public class TimeTableTest
 				table, table2));
 		assertTrue(TimeTable.intersectAll(ct).equals(intersection));
 	}
-	
+
 	@Test
-	public void intersectAll5Test() throws InvalidTimeSlotException, InvalidSchedulingRequestException {
+	public void intersectAll5Test() throws InvalidTimeSlotException,
+			InvalidSchedulingRequestException {
 		TimeSlot t1 = new TimeSlot(tp00, tp51);
 		TimeSlot t2 = new TimeSlot(tp10, tp31);
 		TimeSlot t3 = new TimeSlot(tp10, tp41);
@@ -747,10 +753,10 @@ public class TimeTableTest
 		TimeTable invertedTable = table.invert();
 		assertTrue(invertedTable.equals(table2));
 	}
-	
+
 	@Test
-	public void invert3Test() throws InvalidSchedulingRequestException,
-			InvalidTimeSlotException {
+	public void invert3Test() throws InvalidTimeSlotException,
+			InvalidSchedulingRequestException {
 		TimeSlot t1 = new TimeSlot(tp00, tp21);
 		TimeSlot t2 = new TimeSlot(tp10, tp31);
 		TimeSlot t3 = new TimeSlot(tp10, tp21);
@@ -758,11 +764,78 @@ public class TimeTableTest
 		assertTrue(table.invert().invert().equals(table));
 	}
 	
-//	@Test
-//	public void getAllFreeSlotsTest(){
-//		TimeSlot t1 = new TimeSlot(tp00, tp21);
-//		TimeSlot t2 = new TimeSlot(tp10, tp31);
-//		TimeSlot t3 = new TimeSlot(tp10, tp21);
-//		TimeTable table = new TimeTable(t1);
-//	}
+	@Test
+	public void invert4Test() throws InvalidTimeSlotException,
+			InvalidSchedulingRequestException {
+		TimeSlot t1 = new TimeSlot(tp00, tp21);
+		TimeSlot t2 = new TimeSlot(tp10, tp31);
+		TimeSlot t3 = new TimeSlot(tp10, tp51);
+		TimeTable table = new TimeTable(t1, t2, t3);
+		assertTrue(table.invert().invert().equals(table));
+	}
+	
+	@Test
+	public void invert5Test() throws InvalidTimeSlotException,
+			InvalidSchedulingRequestException {
+		TimeSlot t1 = new TimeSlot(tp10, tp21);
+		TimeSlot t2 = new TimeSlot(tp10, tp31);
+		TimeSlot t3 = new TimeSlot(tp10, tp51);
+		TimeTable table = new TimeTable(t1, t2, t3);
+		assertTrue(table.invert().invert().equals(table));
+	}
+
+	@Test
+	public void getAllFreeSlots0Test() throws InvalidTimeSlotException, InvalidSchedulingRequestException {
+		TimeSlot t1 = new TimeSlot(tp00, tp21);
+		TimeSlot t2 = new TimeSlot(tp10, tp31);
+		TimeSlot t3 = new TimeSlot(tp10, tp21);
+		TimeSlot t4 = new TimeSlot(tp30, tp51);
+		TimeTable table = new TimeTable(t1, t2, t3);
+		TimeTable freeSlotsTable = new TimeTable(t4);
+		assertTrue(freeSlotsTable.equals(table.getAllFreeSlots(0)));
+	}
+	
+	@Test
+	public void getAllFreeSlots1Test() throws InvalidTimeSlotException, InvalidSchedulingRequestException {
+		TimeSlot t1 = new TimeSlot(tp00, tp21);
+		TimeSlot t2 = new TimeSlot(tp10, tp31);
+		TimeSlot t3 = new TimeSlot(tp10, tp21);
+		TimeSlot t4 = new TimeSlot(tp30, tp51);
+		TimeTable table = new TimeTable(t1, t2, t3);
+		TimeTable freeSlotsTable = new TimeTable(t4);
+		assertTrue(freeSlotsTable.equals(table.getAllFreeSlots(10000)));
+	}
+	
+	@Test
+	public void getAllFreeSlots2Test() throws InvalidTimeSlotException, InvalidSchedulingRequestException {
+		TimeSlot t1 = new TimeSlot(tp00, tp11);
+		TimeSlot t2 = new TimeSlot(tp20, tp31);
+		TimeSlot t3 = new TimeSlot(tp10, tp21);
+		TimeSlot t4 = new TimeSlot(tp30, tp51);
+		TimeTable table = new TimeTable(t1, t2);
+		TimeTable freeSlotsTable = new TimeTable(t3, t4);
+		assertTrue(freeSlotsTable.equals(table.getAllFreeSlots(0)));
+	}
+	
+	@Test
+	public void getAllFreeSlots3Test() throws InvalidTimeSlotException, InvalidSchedulingRequestException {
+		TimeSlot t1 = new TimeSlot(tp00, tp11);
+		TimeSlot t2 = new TimeSlot(tp20, tp31);
+		TimeSlot t3 = new TimeSlot(tp10, tp21);
+		TimeSlot t4 = new TimeSlot(tp30, tp51);
+		TimeTable table = new TimeTable(t1, t2);
+		TimeTable freeSlotsTable = new TimeTable(t3, t4);
+		assertTrue(freeSlotsTable.equals(table.getAllFreeSlots(5000)));
+	}
+	
+	@Test
+	public void getAllFreeSlots4Test() throws InvalidTimeSlotException, InvalidSchedulingRequestException {
+		TimeSlot t1 = new TimeSlot(tp00, tp11);
+		TimeSlot t2 = new TimeSlot(tp20, tp31);
+		TimeSlot t3 = new TimeSlot(tp10, tp21);
+		TimeSlot t4 = new TimeSlot(tp30, tp51);
+		TimeTable table = new TimeTable(t1, t2);
+		TimeTable freeSlotsTable = new TimeTable(t3, t4);
+		assertFalse(freeSlotsTable.equals(table.getAllFreeSlots(5001)));
+	}
 }

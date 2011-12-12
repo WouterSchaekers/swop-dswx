@@ -145,7 +145,6 @@ public class TimeTable
 	 * @throws InvalidSchedulingRequestException
 	 * @throws InvalidTimeSlotException
 	 */
-	// XXX
 	public TimeTable getAllFreeSlots(long length)
 			throws InvalidSchedulingRequestException, InvalidTimeSlotException {
 		TimeTable x = this.invert();
