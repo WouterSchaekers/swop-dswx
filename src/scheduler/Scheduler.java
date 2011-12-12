@@ -53,7 +53,7 @@ public class Scheduler
 			allTheNeededResources.add(resourcesToSchedule[i]);
 		}
 		
-		return schedule(duration, new LinkedList<TimeTable>(), stillToSchedule,
+		return schedule(duration, new TimeTable(), stillToSchedule,
 				allTheNeededResources);
 	}
 
@@ -68,7 +68,7 @@ public class Scheduler
 		LinkedList<Collection<Schedulable>> allTheNeededResources = new LinkedList<Collection<Schedulable>>(stillToSchedule);
 
 		if(isValidToScheduleCollection(resourcesToSchedule)) {	
-			return schedule(duration, new LinkedList<TimeTable>(), stillToSchedule,allTheNeededResources);
+			return schedule(duration, new TimeTable(), stillToSchedule,allTheNeededResources);
 		}
 		else throw new InvalidSchedulingRequestException("Trying to schedule an invalid amount of resources(more cols of cols than elem in col)");
 	}
@@ -88,7 +88,7 @@ public class Scheduler
 	 * @throws InvalidSchedulingRequestException
 	 * @throws InvalidTimeSlotException
 	 */
-	private HospitalDate schedule(long duration, LinkedList<TimeTable> used,LinkedList<Collection<Schedulable>> stillToSchedule,LinkedList<Collection<Schedulable>> allTheNeededResources) throws QueueException, InvalidDurationException,InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException {
+	private HospitalDate schedule(long duration, TimeTable used,LinkedList<Collection<Schedulable>> stillToSchedule,LinkedList<Collection<Schedulable>> allTheNeededResources) throws QueueException, InvalidDurationException,InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException {
 		
 		if (duration < 0)
 			throw new InvalidDurationException(
@@ -108,15 +108,14 @@ public class Scheduler
 		// to be chosen out of and finally scheduled.
 		// For further info: check the documentation on finalSchedulingStep().
 		List<Schedulable> resourceQueue = getNextResourceQueue(stillToSchedule);
-		Schedulable firstQueueElement = resourceQueue.remove(0);
 		Collection<TimeTable> allTheTimeTables = new LinkedList<TimeTable>();
 
 		for (Schedulable s : resourceQueue)
 			allTheTimeTables.add(s.getTimeTable());
 		resourceQueue.clear();
 
-		TimeTable theIntersection = firstQueueElement.getTimeTable().intersectAll(allTheTimeTables);
-		used.add(theIntersection);
+		TimeTable theIntersection =TimeTable.intersectAll(allTheTimeTables);
+		used=used.getUnion(theIntersection);
 		return schedule(duration, used, stillToSchedule, allTheNeededResources);
 	}
 
@@ -161,20 +160,17 @@ public class Scheduler
 	 * @throws InvalidSchedulingRequestException
 	 * @throws InvalidTimeSlotException
 	 */
-	private HospitalDate finalSchedulingStep(long duration, LinkedList<TimeTable> used,LinkedList<Collection<Schedulable>> allTheNeededResources)throws InvalidSchedulingRequestException,InvalidSchedulingRequestException, InvalidTimeSlotException {
-		if (used.isEmpty())
-			throw new InvalidSchedulingRequestException(
-					"Schedule-method called without asking for any resources!");
+	private HospitalDate finalSchedulingStep(long duration, TimeTable used,LinkedList<Collection<Schedulable>> allTheNeededResources)throws InvalidSchedulingRequestException,InvalidSchedulingRequestException, InvalidTimeSlotException {
 
 		// Get all free timeslots
 		LinkedList<TimeTable> freeTables = new LinkedList<TimeTable>();
-		for (TimeTable tt : used)
-			freeTables.add(tt.getAllFreeSlots(duration));
+	
+			freeTables.add(used.getAllFreeSlots(duration));
 
 		// We now have all the timetables containing the intersection of free
 		// time of every collection of resourcetypes. Let's intersect them so we get
 		// one huge table that contains all free times!
-		TimeTable unionOfFreeTime = freeTables.remove(0).intersectAll(freeTables);
+		TimeTable unionOfFreeTime = TimeTable.intersectAll(freeTables);
 
 		// The following command gets all the free slots from the huge table
 		// mentioned above.

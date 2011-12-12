@@ -125,7 +125,8 @@ public class TimeTable
 					timeSlots.get(i + 1).getStartPoint().getDate(),
 					TimeType.stop)));
 		}
-		returnValue.addTimeSlot(new TimeSlot(new TimePoint(timeSlots
+		if(timeSlots.get(this.timeSlots.size()-1).getStopPoint().getDate().getTotalMillis()!=d2.getTotalMillis());
+			returnValue.addTimeSlot(new TimeSlot(new TimePoint(timeSlots
 				.get(this.timeSlots.size() - 1).getStopPoint().getDate(),
 				TimeType.start), new TimePoint(d2, TimeType.stop)));
 		return returnValue;
