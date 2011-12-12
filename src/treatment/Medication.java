@@ -1,7 +1,7 @@
-package warehouse;
+package treatment;
 
-import java.util.Date;
-import treatment.Treatment;
+import scheduler.HospitalDate;
+import warehouse.Expirable;
 
 /**
  * This class represent treatment by medication.
@@ -14,7 +14,7 @@ public abstract class Medication extends Treatment implements Expirable
 	private String description = ""; // the description of the meds
 	private boolean sensitive = false; // whether or not if the medication is
 										// sensitive
-	public final Date expiryDate;
+	public final HospitalDate expiryDate;
 
 	/**
 	 * Default constructor.
@@ -24,7 +24,7 @@ public abstract class Medication extends Treatment implements Expirable
 	 * @param sensitive
 	 *            Whether or not the meds are sensitive.
 	 */
-	public Medication(String description, boolean sensitive, Date expiryDate) {
+	public Medication(String description, boolean sensitive, HospitalDate expiryDate) {
 		super(TREATMENTNAME);
 		setDescription(description);
 		setSensitive(sensitive);
@@ -81,11 +81,11 @@ public abstract class Medication extends Treatment implements Expirable
 		this.sensitive = sensitive;
 	}
 	
-	public Date getExpiryDate(){
+	public HospitalDate getExpiryDate(){
 		return this.expiryDate;
 	}
 	
-	public boolean hasPassedDate(Date date){
+	public boolean hasPassedDate(HospitalDate date){
 		if(this.expiryDate.before(date)){
 			return true;
 		}

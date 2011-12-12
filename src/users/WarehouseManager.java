@@ -1,9 +1,9 @@
 package users;
 
 import java.util.Collection;
+import treatment.Medication;
 import warehouse.Depot;
 import warehouse.Meal;
-import warehouse.Medication;
 import exceptions.DepotOverCapacityException;
 import exceptions.InvalidNameException;
 

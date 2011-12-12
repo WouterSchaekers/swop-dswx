@@ -1,9 +1,9 @@
 package warehouse;
 
-import java.util.Date;
+import scheduler.HospitalDate;
 
 public abstract interface Expirable
 {
-	public Date getExpiryDate();
-	public boolean hasPassedDate(Date date);
+	public HospitalDate getExpiryDate();
+	public boolean hasPassedDate(HospitalDate date);
 }
