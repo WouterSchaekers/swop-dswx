@@ -10,15 +10,11 @@ http://imgdumper.nl
 = Mail =
 Voorlopig moeten er geen mails verstuurd worden.
 
-= Global Issues =
-Dieter komt NOOIT op tijd :p<p>
-Wouter second that.<p>
-Stefaan second that.
 
 = Volgende Dates =
-  * Donderdag 8/12 om 20u00 UTC +1 <br>
-  * Vrijdag 9/12 om 10u00 UTC +1
+  * Dinsdag 13/12 om 16u00<p>
+  * ...
 
-= TODOS voor wanneer de scheduler werkt =
-  * Alle methodes dingen laten throwen.
-  * use cases
+
+= Tussentijds verslagje over de Scheduler =
+<a href="http://www.mediafire.com/?pcdh4zznofc1yy5">Klik hier ^^</a>
