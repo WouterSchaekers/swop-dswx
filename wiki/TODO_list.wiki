@@ -14,7 +14,6 @@
   * WarehouseAdmin
   * AdvanceTime()
   * Een oplossing voor het system-package en de SystemStarter class
-  * TEKENINGETJES MAKEN ^^
   * usecases iteratie 1, en vorige fixen.
   * nieuwe usecases van iteratie 2
   * als de tijd vooruit gaat, moeten de volgende dingen gebeuren:
@@ -29,8 +28,8 @@
 = Wie is er momenteel waaraan bezig? =
 <p>
 Dieter: BREAKTIME<p>
-Stefaan: Tekeningetjes maken<p>
-Wouter: TimeTable en getFreeSlot etc... debuggen en tests ervoor schrijven<p>
+Stefaan: BREAKTIME<p>
+Wouter: BREAKTIME<p>
 
 = Things that have been crossed off = 
   * Scheduler-bugje: waar de juiste resource bepaald wordt: checken dat ze nog niet is opgenomen in de lijst van dingen die al gevonden zijn.
@@ -43,3 +42,4 @@ Wouter: TimeTable en getFreeSlot etc... debuggen en tests ervoor schrijven<p>
   * Alles defensief maken en documentatie schrijven en nakijken (behalve scheduler package want daar mocht Stefaan niet aankomen).
   * Scheduler debuggen
   * De dude mailen met een draft versie van het verslag en de vraag of onze scheduler nu wel objectgericht geprogrammeerd is.
+  * TEKENINGETJES MAKEN ^^
