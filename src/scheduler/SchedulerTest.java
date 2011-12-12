@@ -21,6 +21,7 @@ public class SchedulerTest {
 	Schedulable d1;
 	Schedulable d2;
 	Schedulable d3;
+	Schedulable d4;
 
 	@Before
 	public void create() throws UserAlreadyExistsException,	InvalidNameException, InvalidTimeSlotException {
@@ -48,6 +49,7 @@ public class SchedulerTest {
 		d1 = t3.get(0);
 		d2 = t3.get(1);
 		d3 = t3.get(2);
+		d4 = t3.get(3);
 		
 	}
 	/**
@@ -221,9 +223,10 @@ public class SchedulerTest {
 		TimeSlot busySlot4 = new TimeSlot(new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis() + HospitalDate.ONE_MINUTE * 12), TimeType.start), new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis() + HospitalDate.ONE_MINUTE * 20), TimeType.stop));
 		TimeSlot busySlot5 = new TimeSlot(new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis()), TimeType.start), new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis() + HospitalDate.ONE_MINUTE * 25), TimeType.stop));
 		TimeSlot busySlot6 = new TimeSlot(new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis() + HospitalDate.ONE_MINUTE * 50), TimeType.start), new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis() + HospitalDate.ONE_HOUR), TimeType.stop));
-		//n1.scheduleAt(busySlot);
+//		n1.scheduleAt(busySlot);
 		n1.scheduleAt(busySlot6);
 		n2.scheduleAt(busySlot6);
+		//TODO: de nullpointer is gefixt, nu nog de invalidTimePointException o-o
 //		d1.scheduleAt(busySlot);
 //		d1.scheduleAt(busySlot2);
 //		d2.scheduleAt(busySlot3);
@@ -271,6 +274,7 @@ public class SchedulerTest {
 		
 		HospitalDate endScheduledDate = new HospitalDate(scheduledDate.getTotalMillis() + duration);
 		HospitalDate endScheduledDate2 = new HospitalDate(scheduledDate2.getTotalMillis() + duration2);
+		HospitalDate endScheduledDate3 = new HospitalDate(scheduledDate3.getTotalMillis() + duration3);
 		
 		assertFalse(n1.canBeScheduledOn(scheduledDate, new HospitalDate(scheduledDate.getTotalMillis() + 1)));
 		assertFalse(n1.canBeScheduledOn(scheduledDate, new HospitalDate(endScheduledDate.getTotalMillis() - 1)));

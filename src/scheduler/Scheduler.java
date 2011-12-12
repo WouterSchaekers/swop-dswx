@@ -2,7 +2,7 @@ package scheduler;
 
 import java.util.*;
 import exceptions.*;
-import be.kuleuven.cs.som.annotate.Basic;
+import be.kuleuven.cs.som.annotate.*;
 import scheduler.task.Schedulable;
 
 /**
@@ -65,17 +65,12 @@ public class Scheduler
 	 * @throws InvalidTimeSlotException
 	 * @effect schedule(long, collection<schedule>...)
 	 */
-	public HospitalDate schedule(long duration,
-			Collection<Collection<Schedulable>> resourcesToSchedule)
-			throws QueueException, InvalidDurationException,
-			InvalidSchedulingRequestException,
-			InvalidSchedulingRequestException, InvalidTimeSlotException {
-		LinkedList<Collection<Schedulable>> stillToSchedule = new LinkedList<Collection<Schedulable>>(
-				resourcesToSchedule);
-		LinkedList<Collection<Schedulable>> allTheNeededResources = new LinkedList<Collection<Schedulable>>(
-				stillToSchedule);
-		return schedule(duration, new LinkedList<TimeTable>(), stillToSchedule,
-				allTheNeededResources);
+	public HospitalDate schedule(long duration, Collection<Collection<Schedulable>> resourcesToSchedule) throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException {
+		
+		LinkedList<Collection<Schedulable>> stillToSchedule = new LinkedList<Collection<Schedulable>>(resourcesToSchedule);
+		LinkedList<Collection<Schedulable>> allTheNeededResources = new LinkedList<Collection<Schedulable>>(stillToSchedule);
+
+		return schedule(duration, new LinkedList<TimeTable>(), stillToSchedule,allTheNeededResources);
 	}
 
 	/**
@@ -93,12 +88,8 @@ public class Scheduler
 	 * @throws InvalidSchedulingRequestException
 	 * @throws InvalidTimeSlotException
 	 */
-	private HospitalDate schedule(long duration, LinkedList<TimeTable> used,
-			LinkedList<Collection<Schedulable>> stillToSchedule,
-			LinkedList<Collection<Schedulable>> allTheNeededResources)
-			throws QueueException, InvalidDurationException,
-			InvalidSchedulingRequestException,
-			InvalidSchedulingRequestException, InvalidTimeSlotException {
+	private HospitalDate schedule(long duration, LinkedList<TimeTable> used,LinkedList<Collection<Schedulable>> stillToSchedule,LinkedList<Collection<Schedulable>> allTheNeededResources) throws QueueException, InvalidDurationException,InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException {
+		
 		if (duration < 0)
 			throw new InvalidDurationException(
 					"Invalid duration in schedule-method!");
@@ -109,8 +100,7 @@ public class Scheduler
 			// of each of the resources in every collection.
 			//
 			// Let's schedule them!
-			return finalSchedulingStep(duration, used, stillToSchedule,
-					allTheNeededResources);
+			return finalSchedulingStep(duration, used, allTheNeededResources);
 		}
 
 		// If this isn't the final step, we need to intersect all resources of
@@ -125,10 +115,8 @@ public class Scheduler
 			allTheTimeTables.add(s.getTimeTable());
 		resourceQueue.clear();
 
-		TimeTable theIntersection = firstQueueElement.getTimeTable()
-				.intersectAll(allTheTimeTables);
+		TimeTable theIntersection = firstQueueElement.getTimeTable().intersectAll(allTheTimeTables);
 		used.add(theIntersection);
-
 		return schedule(duration, used, stillToSchedule, allTheNeededResources);
 	}
 
@@ -149,7 +137,7 @@ public class Scheduler
 	 * resource type that can be scheduled in that slot.
 	 * </p>
 	 * <p>
-	 * The only thing left to do after that is to unify all intersected
+	 * The only thing left to do after that is to intersect all intersected
 	 * timetables with eachother and get the free slots from that table.
 	 * </p>
 	 * <p>
@@ -173,11 +161,7 @@ public class Scheduler
 	 * @throws InvalidSchedulingRequestException
 	 * @throws InvalidTimeSlotException
 	 */
-	private HospitalDate finalSchedulingStep(long duration, LinkedList<TimeTable> used,
-			LinkedList<Collection<Schedulable>> stillToSchedule,
-			LinkedList<Collection<Schedulable>> allTheNeededResources)
-			throws InvalidSchedulingRequestException,
-			InvalidSchedulingRequestException, InvalidTimeSlotException {
+	private HospitalDate finalSchedulingStep(long duration, LinkedList<TimeTable> used,LinkedList<Collection<Schedulable>> allTheNeededResources)throws InvalidSchedulingRequestException,InvalidSchedulingRequestException, InvalidTimeSlotException {
 		if (used.isEmpty())
 			throw new InvalidSchedulingRequestException(
 					"Schedule-method called without asking for any resources!");
@@ -188,9 +172,9 @@ public class Scheduler
 			freeTables.add(tt.getAllFreeSlots(duration));
 
 		// We now have all the timetables containing the intersection of free
-		// time of every collection of resourcetypes. Let's unify them so we get
+		// time of every collection of resourcetypes. Let's intersect them so we get
 		// one huge table that contains all free times!
-		TimeTable unionOfFreeTime = freeTables.remove(0).unionAll(freeTables);
+		TimeTable unionOfFreeTime = freeTables.remove(0).intersectAll(freeTables);
 
 		// The following command gets all the free slots from the huge table
 		// mentioned above.
@@ -202,17 +186,14 @@ public class Scheduler
 		//
 		// We now need to check which one of those instances it is
 		// and then tell it to schedule itself.
-		LinkedList<Schedulable> foundResources = null;
-		TimeSlot foundSlot = null;
+		LinkedList<Schedulable> foundResources = new LinkedList<Schedulable>();
 
-		for (TimeSlot candidateSlot : freeSlots) {
-			foundResources = new LinkedList<Schedulable>();
+		for (TimeSlot candidateSlot : freeSlots) {			
 			for (Collection<Schedulable> candidateCol : allTheNeededResources) {
 				for (Schedulable candidate : candidateCol) {
-					HospitalDate startDateSlot = candidateSlot.getStartPoint()
-							.getDate();
-					HospitalDate stopDateSlot = new HospitalDate(candidateSlot.getStartPoint()
-							.getDate().getTotalMillis() + duration);
+					HospitalDate startDateSlot = candidateSlot.getStartPoint().getDate();
+					HospitalDate stopDateSlot = new HospitalDate(candidateSlot.getStartPoint().getDate().getTotalMillis() + duration);
+					
 					if (candidate.canBeScheduledOn(startDateSlot, stopDateSlot)
 							& !foundResources.contains(candidate)) {
 						// We found our match in this collection:
@@ -224,22 +205,19 @@ public class Scheduler
 				}
 			}
 			if (foundResources.size() == allTheNeededResources.size()) {
-				// We've found our appointment slot!
-				TimePoint endOfAppointment = new TimePoint(new HospitalDate(
-						candidateSlot.getStartPoint().getTime() + duration),
-						TimeType.stop);
+				//We've found our appointment slot!
 				TimePoint startOfAppointment = candidateSlot.getStartPoint();
-				foundSlot = new TimeSlot(startOfAppointment, endOfAppointment);
-				// We can now break from the loop.
-				break;
+				TimePoint endOfAppointment = new TimePoint(new HospitalDate(candidateSlot.getStartPoint().getTime() + duration),TimeType.stop);
+				TimeSlot foundSlot = new TimeSlot(startOfAppointment, endOfAppointment);
+				
+				// Tell the found elements to schedule themselves.
+				for (Schedulable s : foundResources)
+					s.scheduleAt(foundSlot);
+				return foundSlot.getStartPoint().getDate();
 			}
+			foundResources.clear();
 		}
-		// Tell the found elements to schedule themselves.
-		for (Schedulable s : foundResources)
-			s.scheduleAt(foundSlot);
-
-		// return the date of the start of appointment
-		return foundSlot.getStartPoint().getDate();
+		throw new IllegalStateException("Something went wrong... this is embarrasing!");
 	}
 
 	/**
