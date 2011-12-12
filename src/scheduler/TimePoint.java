@@ -140,19 +140,19 @@ public class TimePoint implements Comparable<TimePoint>
 	}
 
 	/**
-	 * Checks wether this timepoint lies between the two other timepoints.
+	 * Checks wether this timepoint lies between the two other timepoints, including the first point, but excluding the last point.
 	 * 
 	 * @param timePoint
 	 *            The timepoint that has to lie between the other two timepoints
 	 * @param before
-	 *            The timepoint that has to lie before the first timepoint
+	 *            The timepoint that has to lie before or on the first timepoint
 	 * @param after
 	 *            The timepoint that has to lie behind the first timepoint
-	 * @return True if the first timepoint lies between the other two timepoints
+	 * @return True if the first timepoint lies between the other two timepoints or on the first point
 	 */
-	public boolean isBetweenIncluding(TimePoint before, TimePoint after) {
+	public boolean isBetweenExcludingEndPoint(TimePoint before, TimePoint after) {
 		return (this.getTime() - before.getTime() >= 0)
-				&& (after.getTime() - this.getTime() >= 0);
+				&& (after.getTime() - this.getTime() > 0);
 	}
 	
 	public TimePoint clone(){
