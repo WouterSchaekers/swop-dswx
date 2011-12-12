@@ -71,9 +71,8 @@ public class TimeTable
 	 *             The timeslot cannot be scheduled in this timetable
 	 */
 	// XXX
-	public void addTimeSlot(TimeSlot timeSlot)
-			throws InvalidSchedulingRequestException {
-		if (!this.hasFreeSlotAt(timeSlot)) {
+	public void addTimeSlot(TimeSlot timeSlot) throws InvalidSchedulingRequestException {
+		if (!this.hasFreeSlotAt(timeSlot) || timeSlot == null) {
 			throw new InvalidSchedulingRequestException(
 					"Can't schedule at given timeSlot!");
 		}
