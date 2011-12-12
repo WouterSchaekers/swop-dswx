@@ -747,4 +747,22 @@ public class TimeTableTest
 		TimeTable invertedTable = table.invert();
 		assertTrue(invertedTable.equals(table2));
 	}
+	
+	@Test
+	public void invert3Test() throws InvalidSchedulingRequestException,
+			InvalidTimeSlotException {
+		TimeSlot t1 = new TimeSlot(tp00, tp21);
+		TimeSlot t2 = new TimeSlot(tp10, tp31);
+		TimeSlot t3 = new TimeSlot(tp10, tp21);
+		TimeTable table = new TimeTable(t1, t2, t3);
+		assertTrue(table.invert().invert().equals(table));
+	}
+	
+//	@Test
+//	public void getAllFreeSlotsTest(){
+//		TimeSlot t1 = new TimeSlot(tp00, tp21);
+//		TimeSlot t2 = new TimeSlot(tp10, tp31);
+//		TimeSlot t3 = new TimeSlot(tp10, tp21);
+//		TimeTable table = new TimeTable(t1);
+//	}
 }

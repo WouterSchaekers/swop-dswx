@@ -125,10 +125,11 @@ public class TimeTable
 					timeSlots.get(i + 1).getStartPoint().getDate(),
 					TimeType.stop)));
 		}
-		if(timeSlots.get(this.timeSlots.size()-1).getStopPoint().getDate().getTotalMillis()!=d2.getTotalMillis());
+		if(timeSlots.get(this.timeSlots.size()-1).getStopPoint().getDate().getTotalMillis()!=d2.getTotalMillis()){
 			returnValue.addTimeSlot(new TimeSlot(new TimePoint(timeSlots
 				.get(this.timeSlots.size() - 1).getStopPoint().getDate(),
 				TimeType.start), new TimePoint(d2, TimeType.stop)));
+		}
 		return returnValue;
 	}
 
@@ -351,8 +352,6 @@ public class TimeTable
 	 * @throws InvalidTimeSlotException
 	 * @throws InvalidSchedulingRequestException 
 	 */
-	// XXX
-
 	public static TimeTable intersectAll(Collection<TimeTable> tables) throws InvalidTimeSlotException, InvalidSchedulingRequestException
 	{
 		TimeTable table = new TimeTable();
