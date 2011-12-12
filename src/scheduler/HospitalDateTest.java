@@ -40,6 +40,11 @@ public class HospitalDateTest
 	}
 	
 	@Test
+	public void toStringTest(){
+		System.out.println(new HospitalDate(0));
+	}
+	
+	@Test
 	public void beforeTest(){
 		HospitalDate h0 = new HospitalDate(1000);
 		HospitalDate h1 = new HospitalDate(1000);

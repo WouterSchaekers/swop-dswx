@@ -154,4 +154,8 @@ public class TimePoint implements Comparable<TimePoint>
 		return (this.getTime() - before.getTime() >= 0)
 				&& (after.getTime() - this.getTime() >= 0);
 	}
+	
+	public TimePoint clone(){
+		return new TimePoint(this.getDate().clone(), this.getType());
+	}
 }
