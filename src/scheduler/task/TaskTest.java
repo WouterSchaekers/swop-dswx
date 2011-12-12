@@ -24,12 +24,11 @@ public class TaskTest
 		Task simpletask= new Task(r, 10);
 		TaskManager m = new TaskManager();
 		m.addTask(simpletask);
+		
 		m.updateQueue();
-		Scheduler sc = new Scheduler();
-		sc.schedule(10, simpletask.getResources());
 	}
 	@Test
-	public void taskResourceFail() throws InvalidNameException, InvalidTimeSlotException, QueueException, InvalidDurationException, InvalidSchedulingRequestException
+	public void testIfCollectionsGetCopied() throws InvalidNameException, InvalidTimeSlotException, QueueException, InvalidDurationException, InvalidSchedulingRequestException
 	{
 		Collection<Collection<Schedulable>> r = new ArrayList<Collection<Schedulable>>();
 		ArrayList<Schedulable> zero= new ArrayList<Schedulable>();
