@@ -95,78 +95,6 @@ public class TimeTable
 	}
 
 	/**
-	 * This method will find the first free slot that is available in this
-	 * timetable with the required length.
-	 * 
-	 * @param timeNeeded
-	 *            The minimal amount of time to be reserved.
-	 * @return The first available timeslot in this timetable.
-	 */
-	// XXX
-	public TimeSlot getFirstFreeSlot(long timeNeeded) {
-		int amountOfSlots = this.timeSlots.size();
-		TimeSlot[] slot = this.getArrayTimeSlots();
-
-		// Compare the start of the later timepoint to
-		// the stop of the earlier ones.
-		for (int i = 1; i < amountOfSlots; i++) {
-			TimePoint curPoint = slot[i].getStartPoint();
-			TimePoint prevPoint = slot[i - 1].getStopPoint();
-			if (curPoint.getTimeBetween(prevPoint) >= timeNeeded)
-				return new TimeSlot(slot[i - 1].getStopPoint(),
-						slot[i].getStartPoint());
-		}
-		// everything has been scheduled from back-to-back
-		// give a new timeslot from the end of this timetable.
-		return getLastSlotWithLength(timeNeeded);
-
-	}
-
-	/**
-	 * This method returns all free slots in this TimeTable starting from a
-	 * certain point in time with a certain minimal length.
-	 * 
-	 * @param length
-	 *            The minimal length of the required free slot.
-	 * @param time
-	 *            The point in time from which to start looking from.
-	 * @return A TimeTable that contains all free slots of this TimeTable.
-	 * @throws InvalidTimeSlotException
-	 */
-	// XXX
-	public TimeTable getFreeTimeSlotsFrom(HospitalDate time, long length)
-			throws InvalidTimeSlotException {
-		int amountOfSlots = this.timeSlots.size();
-		LinkedList<TimeSlot> returnValue = new LinkedList<TimeSlot>();
-		TimeSlot[] slots = this.getArrayTimeSlots();
-
-		// Compare the start of the later timepoint to
-		// the stop of the earlier ones.
-		for (int i = 1; i < amountOfSlots; i++) {
-			TimePoint curPoint = slots[i].getStartPoint();
-			TimePoint prevPoint = slots[i - 1].getStopPoint();
-			if (curPoint.getTime() >= time.getTotalMillis()
-					&& prevPoint.getTime() >= time.getTotalMillis()) {
-				// the current timeslot meets the time-requirement
-				if (curPoint.getTimeBetween(prevPoint) >= length) {
-					// the current timeslot meets all requirements and
-					// can thus be added to the returnvalue
-					TimePoint t1 = new TimePoint(prevPoint.getDate(),
-							prevPoint.getType());
-					TimePoint t2 = new TimePoint(curPoint.getDate(),
-							curPoint.getType());
-					returnValue.add(new TimeSlot(t1, t2));
-				}
-			}
-		}
-		// All scheduled timeslots have been iterated over.
-		// We now need can add a slot at the end of the current timeline aswell
-		// and then return everything in a new TimeTable.
-		returnValue.add(getLastSlotWithLength(length));
-		return new TimeTable(returnValue);
-	}
-
-	/**
 	 * @param table
 	 * @return
 	 * @throws InvalidSchedulingRequestException
@@ -429,58 +357,6 @@ public class TimeTable
 			rv = timeTable.getIntersect(rv);
 
 		return rv;
-	}
-
-	/**
-	 * This method will get the union of this TimeTable with a lot of other
-	 * TimeTables.
-	 * 
-	 * @param tables
-	 *            The collection of Tables you would like to get the union of.
-	 * @return A TimeTable that's the union of all given tables and this table.
-	 * @throws InvalidTimeSlotException
-	 */
-	// XXX
-	public TimeTable unionAll(Collection<TimeTable> tables)
-			throws InvalidTimeSlotException {
-		TimeTable rv = new TimeTable(this.getTimeSlots());
-		for (TimeTable timeTable : tables)
-			rv = timeTable.getUnion(rv);
-
-		return rv;
-	}
-
-	/**
-	 * This method will give the timeslot at the end of this time table without
-	 * appending it to it's timeslots. It can be of any length, which is what
-	 * the length parameter is for.
-	 * 
-	 * @param length
-	 *            The wished length of the timeslot at the end of the current
-	 *            timetable.
-	 * @return A timeslot at the end of this timetable of the wanted length.
-	 */
-	// XXX
-	private TimeSlot getLastSlotWithLength(long length) {
-		TimeSlot t;
-		if (this.timeSlots.size() == 0) {
-			System.out.println("wololo");
-			t = new TimeSlot(new TimePoint(Scheduler.getCurrentSystemTime(),
-					TimeType.start), new TimePoint(new HospitalDate(Scheduler
-					.getCurrentSystemTime().getTotalMillis() + length),
-					TimeType.stop));
-			return t;
-		}
-		HospitalDate startDate = this.timeSlots.getLast().getStopPoint()
-				.getDate();
-		HospitalDate stopDate = new HospitalDate(startDate.getTotalMillis()
-				+ length);
-		TimePoint startFree = new TimePoint(startDate, TimeType.start);
-		TimePoint stopFree = new TimePoint(stopDate, TimeType.stop);
-
-		t = new TimeSlot(startFree, stopFree);
-		System.out.println("TimeSlot allocated: " + t);
-		return t;
 	}
 
 	/**
