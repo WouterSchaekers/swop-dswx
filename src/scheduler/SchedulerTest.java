@@ -67,14 +67,19 @@ public class SchedulerTest {
 	@Test
 	public void scheduleNurseFor1Min() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException {
 		long duration = HospitalDate.ONE_MINUTE;
-
-		HospitalDate scheduledDate = s.schedule(duration, t);
+		Collection<Schedulable> oneNurse = new ArrayList<Schedulable>();
+		oneNurse.add(n1);
+		Collection<Collection<Schedulable>> col = new ArrayList<Collection<Schedulable>>();
+		col.add(oneNurse);
+		
+		HospitalDate scheduledDate = s.schedule(duration, col);
 		HospitalDate endScheduledDate = new HospitalDate(scheduledDate.getTotalMillis() + duration);
 		
 		checkDefaultAsserts(n1,scheduledDate, endScheduledDate);
 		assertTrue(n2.canBeScheduledOn(scheduledDate, new HospitalDate(scheduledDate.getTotalMillis() + 1)));
 		assertTrue(n2.canBeScheduledOn(endScheduledDate, new HospitalDate(endScheduledDate.getTotalMillis() + 1)));
 	}
+	
 
 	@Test
 	public void scheduleNurseFor1Hour42Min5Sec() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException {
@@ -188,11 +193,7 @@ public class SchedulerTest {
 		checkDefaultAsserts(n1,scheduledDate, endScheduledDate);
 		checkDefaultAsserts(d1,scheduledDate, endScheduledDate);
 	}
-	@Test
-	public void schedule3nurses(){
-		//TODO: test if this throws exception!
-		
-	}
+
 	@Test
 	public void schedule2DifferentKindsOfSchedulablesForDifferentDurations() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException {		
 		long duration = HospitalDate.ONE_MINUTE;
@@ -209,7 +210,27 @@ public class SchedulerTest {
 		checkDefaultAsserts(d2,scheduledDate2, endScheduledDate2);
 	}
 	
-	@Test
+	@Test(expected = InvalidSchedulingRequestException.class)
+	public void schedule3NursesWhileOnly2InHospital() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidTimeSlotException{
+		long duration = HospitalDate.ONE_HOUR;
+		long duration2 = HospitalDate.ONE_MINUTE * 2;
+		long duration3 = HospitalDate.ONE_MINUTE * 3;
+		
+		Collection<Collection<Schedulable>> maakHetStuk = new ArrayList<Collection<Schedulable>>();
+		Collection<Schedulable> teWeinigNurses = new ArrayList<Schedulable>();
+		teWeinigNurses.add(n1);
+		teWeinigNurses.add(n2);
+		maakHetStuk.add(teWeinigNurses);
+		maakHetStuk.add(teWeinigNurses);
+		maakHetStuk.add(teWeinigNurses);
+		
+		System.out.println(s.schedule(duration, t));
+		System.out.println(s.schedule(duration2, t));
+		System.out.println(s.schedule(duration3, t));
+		
+	}
+	
+	//@Test
 	public void hybridCase1() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException {		
 		long duration = HospitalDate.ONE_MINUTE * 5;
 		long duration2 = HospitalDate.ONE_MINUTE * 23;
