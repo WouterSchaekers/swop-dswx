@@ -188,7 +188,11 @@ public class SchedulerTest {
 		checkDefaultAsserts(n1,scheduledDate, endScheduledDate);
 		checkDefaultAsserts(d1,scheduledDate, endScheduledDate);
 	}
-	
+	@Test
+	public void schedule3nurses(){
+		//TODO: test if this throws exception!
+		
+	}
 	@Test
 	public void schedule2DifferentKindsOfSchedulablesForDifferentDurations() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException {		
 		long duration = HospitalDate.ONE_MINUTE;
