@@ -1,6 +1,5 @@
 = TODOs =
   * constraints in canBeScheduled
-  * scheduler tests updaten na canBeScheduled
   * Concerning Task and TaskManager:
     * In de usecases willen we Tasks aanmaken.
       * Als de Tasks niet onmiddellijk gescheduled kunnen worden, komen ze in de task queue van de Taskmanager.
@@ -43,15 +42,4 @@ Wouter: //XXX <p>
   * De dude mailen met een draft versie van het verslag en de vraag of onze scheduler nu wel objectgericht geprogrammeerd is.
   * TEKENINGETJES MAKEN ^^
   * Een klasse maken die gregoriancalendar extend en die gemakkelijke functies heeft om daarop dingen aan te passen en daarna terug te getten. Vervolgens alle Date dingen refactoren.
-
-= Voor het mailtje naar Willem =
-Wie kan wanneer voor de afspraak? Wat gaan we bespreken behalve het design van de Scheduler? Moet Stefaan al een draft van het verslag maken waarin hij bepaalde dingen al brespreekt en tekeningetjes ervan maakt?
-<p>Stefaan kan:
-  * maandag heel de dag.
-  * dinsdag heel de dag behalve van 14 tot 16u.
-  * woensdag heel de dag behalve van 18 tot 20u.
-  * donderdag heel de dag behalve van 16 tot 18u.
-  * vrijdag heel de dag behalve van 18 tot 20u.
-<p>Wouter kan:
-
-<p>Dieter kan: 
+  * scheduler.
