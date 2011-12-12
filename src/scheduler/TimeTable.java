@@ -348,15 +348,19 @@ public class TimeTable
 	 * @return A TimeTable that's the intersection of all given tables and this
 	 *         table.
 	 * @throws InvalidTimeSlotException
+	 * @throws InvalidSchedulingRequestException 
 	 */
 	// XXX
-	public TimeTable intersectAll(Collection<TimeTable> tables)
-			throws InvalidTimeSlotException {
-		TimeTable rv = this.getIntersect(this);
-		for (TimeTable timeTable : tables)
-			rv = timeTable.getIntersect(rv);
 
-		return rv;
+	public static TimeTable intersectAll(Collection<TimeTable> tables) throws InvalidTimeSlotException, InvalidSchedulingRequestException
+	{
+		TimeTable table = new TimeTable();
+		table = table.invert();
+		for(TimeTable t:tables)
+		{
+			table=table.getIntersect(t);
+		}
+		return table;
 	}
 
 	/**
