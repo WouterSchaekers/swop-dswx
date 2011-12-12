@@ -27,3 +27,4 @@
 || 11/12/11: 22u00 -> 01u30 || 1 S || 3.5 || Trying to find why in some cases the Scheduler can't schedule properly and fixing 1 out of 3 problem cases. || Wouter moest A&B maken. ||
 || 12/12/11: 14u00 -> 16u00 || 3 DSW || 2 || Debugging Scheduler, Task, TaskManager, TimeSlot, TimePoint, TimeTable; bringing Dieter up to date	|| ||
 || 12/12/11: 16u15 -> 18u30 ||3 DSW || 2 || more of the above..., making class diagrams and a draft of the report. || ||
+|| 12/12/11: 21u00 -> 00u00 ||1 S || 3 || Finishing some class diagrams and the draft of the report. || ||
