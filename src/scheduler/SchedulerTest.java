@@ -222,7 +222,8 @@ public class SchedulerTest {
 		maakHetStuk.add(teWeinigNurses);
 		maakHetStuk.add(teWeinigNurses);
 		
-		System.out.println(s.schedule(duration, maakHetStuk));
+		s.schedule(duration, maakHetStuk);
+		throw new IllegalStateException("Something went wrong...");
 	}
 	
 	@Test
