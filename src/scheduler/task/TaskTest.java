@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import org.junit.Test;
-import scheduler.Scheduler;
 import users.Nurse;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidNameException;
