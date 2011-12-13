@@ -241,8 +241,8 @@ public class SchedulerTest {
 		TimeSlot busySlot = new TimeSlot(new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis() + HospitalDate.ONE_MINUTE), TimeType.start), new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis() + HospitalDate.ONE_MINUTE * 9), TimeType.stop));
 		TimeSlot busySlot2 = new TimeSlot(new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis()), TimeType.start), new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis() + HospitalDate.ONE_MINUTE), TimeType.stop));
 		TimeSlot busySlot3 = new TimeSlot(new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis() + HospitalDate.ONE_MINUTE * 9), TimeType.start), new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis() + HospitalDate.ONE_MINUTE * 15), TimeType.stop));
-		TimeSlot busySlot4 = new TimeSlot(new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis() + HospitalDate.ONE_MINUTE * 12), TimeType.start), new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis() + HospitalDate.ONE_MINUTE * 20), TimeType.stop));
-		TimeSlot busySlot5 = new TimeSlot(new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis()), TimeType.start), new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis() + HospitalDate.ONE_MINUTE * 25), TimeType.stop));
+//		TimeSlot busySlot4 = new TimeSlot(new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis() + HospitalDate.ONE_MINUTE * 12), TimeType.start), new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis() + HospitalDate.ONE_MINUTE * 20), TimeType.stop));
+//		TimeSlot busySlot5 = new TimeSlot(new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis()), TimeType.start), new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis() + HospitalDate.ONE_MINUTE * 25), TimeType.stop));
 		TimeSlot busySlot6 = new TimeSlot(new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis() + HospitalDate.ONE_MINUTE * 50), TimeType.start), new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis() + HospitalDate.ONE_HOUR), TimeType.stop));
 		n1.scheduleAt(busySlot);
 		n1.scheduleAt(busySlot6);
@@ -290,11 +290,6 @@ public class SchedulerTest {
 		System.out.println("TimeTable Doctor 3: " + d3.getTimeTable());
 		System.out.println("------------------------------------");
 		System.out.println("\n\nAppointments were made at " + scheduledDate + ", " + scheduledDate2 + " and " + scheduledDate3);
-		
-		
-		HospitalDate endScheduledDate = new HospitalDate(scheduledDate.getTotalMillis() + duration);
-		HospitalDate endScheduledDate2 = new HospitalDate(scheduledDate2.getTotalMillis() + duration2);
-		HospitalDate endScheduledDate3 = new HospitalDate(scheduledDate3.getTotalMillis() + duration3);
 		
 	}
 

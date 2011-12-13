@@ -11,15 +11,20 @@ import exceptions.InvalidTimeSlotException;
  */
 public class Nurse extends SchedulableUser
 {
+
+	private HospitalDate startsWorkAt = new HospitalDate(0, 0, 0, 8, 0, 0);
+	private HospitalDate stopsWorkAt = new HospitalDate(0, 0, 0, 17, 0, 0);
+
 	/**
 	 * Default constructor. Will initialise all fields.
 	 * 
 	 * @param name
 	 *            The name of this Nurse.
 	 * @throws InvalidNameException
-	 * @throws InvalidTimeSlotException 
+	 * @throws InvalidTimeSlotException
 	 */
-	public Nurse(String name) throws InvalidNameException, InvalidTimeSlotException {
+	public Nurse(String name) throws InvalidNameException,
+			InvalidTimeSlotException {
 		super(name);
 	}
 
@@ -29,18 +34,21 @@ public class Nurse extends SchedulableUser
 		return UserType.Nurse;
 	}
 
-	private int[] workingHours = {8,17};
-	
 	/**
 	 * This method will see if this Nurse can be scheduled in the given time
 	 * interval. It will also check the necessary constraints.
 	 * 
 	 * @return True if this Nurse can be scheduled in the given time interval.
-	 * @throws InvalidTimeSlotException 
+	 * @throws InvalidTimeSlotException
 	 */
 	@Override
-	public boolean canBeScheduledOn(HospitalDate startDate, HospitalDate stopDate) throws InvalidSchedulingRequestException, InvalidTimeSlotException {
-		//return startDate.getHours() > this.workingHours[0] && startDate.getHours() < this.workingHours[1] && stopDate.getHours() > this.workingHours[0] && stopDate.getHours() < this.workingHours[1];
-		return super.canBeScheduledOn(startDate, stopDate);
+	public boolean canBeScheduledOn(HospitalDate startDate,
+			HospitalDate stopDate) throws InvalidSchedulingRequestException,
+			InvalidTimeSlotException {
+		return startDate.getHour() >= this.startsWorkAt.getHour()
+				&& startDate.getHour() < this.stopsWorkAt.getHour()
+				&& stopDate.getHour() > this.startsWorkAt.getHour()
+				&& stopDate.getHour() <= this.stopsWorkAt.getHour()
+				&& this.timeTable.hasFreeSlotAt(startDate, stopDate);
 	}
 }
