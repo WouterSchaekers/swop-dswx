@@ -164,8 +164,7 @@ public class Scheduler
 
 		// Get all free timeslots
 		LinkedList<TimeTable> freeTables = new LinkedList<TimeTable>();
-	
-			freeTables.add(used.getAllFreeSlots(duration));
+		freeTables.add(used.getAllFreeSlots(duration));
 
 		// We now have all the timetables containing the intersection of free
 		// time of every collection of resourcetypes. Let's intersect them so we get
