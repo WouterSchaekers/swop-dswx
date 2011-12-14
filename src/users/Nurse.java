@@ -45,11 +45,10 @@ public class Nurse extends SchedulableUser
 	public boolean canBeScheduledOn(HospitalDate startDate,
 			HospitalDate stopDate) throws InvalidSchedulingRequestException,
 			InvalidTimeSlotException {
-//		return startDate.getHour() >= this.startsWorkAt.getHour()
-//				&& startDate.getHour() < this.stopsWorkAt.getHour()
-//				&& stopDate.getHour() > this.startsWorkAt.getHour()
-//				&& stopDate.getHour() <= this.stopsWorkAt.getHour()
-//				&& this.timeTable.hasFreeSlotAt(startDate, stopDate);
-		return this.timeTable.hasFreeSlotAt(startDate,stopDate);
+		return startDate.getHour() >= this.startsWorkAt.getHour()
+				&& startDate.getHour() < this.stopsWorkAt.getHour()
+				&& stopDate.getHour() > this.startsWorkAt.getHour()
+				&& stopDate.getHour() <= this.stopsWorkAt.getHour()
+				&& this.timeTable.hasFreeSlotAt(startDate, stopDate);
 	}
 }
