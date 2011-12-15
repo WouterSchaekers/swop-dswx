@@ -4,6 +4,7 @@ import java.util.*;
 import exceptions.*;
 import be.kuleuven.cs.som.annotate.*;
 import scheduler.task.Schedulable;
+import scheduler.*;
 
 /**
  * This class will assign all schedulables their timetables.
