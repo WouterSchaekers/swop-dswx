@@ -56,6 +56,10 @@ public class TimePoint implements Comparable<TimePoint>
 		this.type = t;
 		this.hospitalDate = d;
 	}
+	
+	public TimePoint(TimePoint t){
+		this(t.getDate(), t.getType());
+	}
 
 	@Basic
 	public TimeType getType() {

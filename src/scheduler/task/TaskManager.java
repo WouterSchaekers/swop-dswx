@@ -3,8 +3,8 @@ package scheduler.task;
 import java.util.*;
 import be.kuleuven.cs.som.annotate.*;
 import exceptions.*;
-import scheduler.Scheduler;
 import scheduler.HospitalDate;
+import scheduler.Scheduler;
 
 /**
  * This class serves as a form of waiting room for unscheduled tasks. If a Task

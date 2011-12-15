@@ -292,6 +292,20 @@ public class SchedulerTest {
 		System.out.println("\n\nAppointments were made at " + scheduledDate + ", " + scheduledDate2 + " and " + scheduledDate3);
 		
 	}
+	
+	@Test
+	public void SomeTest() throws InvalidNameException, InvalidTimeSlotException, InvalidSchedulingRequestException, QueueException, InvalidDurationException{
+		Nurse n1 = new Nurse("skmfe");
+		Nurse n2 = new Nurse("jsmjer");
+		TimeSlot timeSlot = new TimeSlot(new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis()), TimeType.start), new TimePoint(new HospitalDate(Scheduler.getCurrentSystemTime().getTotalMillis()+5000), TimeType.stop));
+		Collection<Schedulable> col = new LinkedList<Schedulable>(Arrays.asList(n1, n2));
+		Collection<Collection<Schedulable>> col2 = new LinkedList<Collection<Schedulable>>();
+		col2.add(col);
+		col2.add(col);
+		n1.scheduleAt(timeSlot);
+		System.out.println(Scheduler.getCurrentSystemTime());
+		System.out.println(s.schedule(5000, col2));
+	}
 
 	//TODO: hybrid of all previous
 	//TODO: expected: exception
