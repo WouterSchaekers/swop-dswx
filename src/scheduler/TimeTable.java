@@ -183,26 +183,21 @@ public class TimeTable
 		TimeTable x = this.invert();
 		for(TimeSlot t : x.timeSlots){
 			HospitalDate startDateOfTimeSlot = t.getStartPoint().getDate();
-			HospitalDate endDateOfTimeSlot = t.getStopPoint().getDate();
+			HospitalDate stopDateOfTimeSlot = t.getStopPoint().getDate();
 			if(!startDateOfTimeSlot.before(startDate)){
-				
-				if(stopDate.getTotalMillis() - startDateOfTimeSlot.getTotalMillis() >= duration){
-					return new TimeSlot(new TimePoint(startDate, TimeType.start), new TimePoint(stopDate))
+				if(stopDateOfTimeSlot.before(stopDate) && stopDateOfTimeSlot.getTotalMillis() - startDateOfTimeSlot.getTotalMillis() >= duration){
+					return new TimeSlot(new TimePoint(startDateOfTimeSlot, TimeType.start), new TimePoint(stopDateOfTimeSlot, TimeType.stop));
 				}
-			}
-		}
-		for (TimeSlot t : x.timeSlots) {
-			if (!t.getStartPoint().getDate().before(startDate)) {
-				if(t.getLength() >= length){
-					return t;
+				else if(!stopDateOfTimeSlot.before(stopDate) && stopDate.getTotalMillis() - startDateOfTimeSlot.getTotalMillis() >= duration){
+					return new TimeSlot(new TimePoint(startDateOfTimeSlot, TimeType.start), new TimePoint(stopDate, TimeType.stop));
 				}
 			}
 			else{
-				if(hospitalDate.before(t.getStopPoint().getDate())){
-					TimeSlot modifiedSlot = new TimeSlot(new TimePoint(hospitalDate, TimeType.start), new TimePoint(t.getStopPoint()));
-					if(modifiedSlot.getLength() >= length){
-						return modifiedSlot;
-					}
+				if(stopDateOfTimeSlot.before(stopDate) && stopDateOfTimeSlot.getTotalMillis() - startDate.getTotalMillis() >= duration){
+					return new TimeSlot(new TimePoint(startDate, TimeType.start), new TimePoint(stopDateOfTimeSlot, TimeType.stop));
+				}
+				else if(!stopDateOfTimeSlot.before(stopDate) && stopDate.getTotalMillis() - startDate.getTotalMillis() >= duration){
+					return new TimeSlot(new TimePoint(startDate, TimeType.start), new TimePoint(stopDate, TimeType.stop));
 				}
 			}
 		}
