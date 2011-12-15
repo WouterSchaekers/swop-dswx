@@ -13,8 +13,10 @@ public class Scheduler
 			LinkedList<LinkedList<Schedulable>> neededResources,
 			LinkedList<Integer> occurences) throws InvalidTimeSlotException,
 			InvalidSchedulingRequestException {
-		LinkedList<Integer> newOccurences = Scheduler.makeCorrespondingArray(occurences);
-		boolean[][] treeMatrix = Scheduler.makeTreeMatrix(neededResources, newOccurences);
+		LinkedList<Integer> newOccurences = Scheduler
+				.makeCorrespondingArray(occurences);
+		boolean[][] treeMatrix = Scheduler.makeTreeMatrix(neededResources,
+				newOccurences);
 		return Scheduler.schedule(duration, Scheduler.currentSystemTime,
 				HospitalDate.END_OF_TIME, neededResources,
 				new LinkedList<Schedulable>(), treeMatrix, newOccurences, 0);
@@ -30,7 +32,8 @@ public class Scheduler
 		LinkedList<Schedulable> curResList = neededResources.get(iteration);
 		int bestOption = Scheduler.findBestOption(duration, startDate,
 				stopDate, treeMatrix, curResList, iteration);
-		usedResources.add(curResList.get(bestOption));
+		Schedulable chosenSchedulable = curResList.get(bestOption);
+		usedResources.add(chosenSchedulable);
 		treeMatrix = Scheduler.updateTreeMatrix(treeMatrix, bestOption,
 				occurences, iteration);
 
@@ -66,8 +69,7 @@ public class Scheduler
 			LinkedList<Integer> newOccurences) {
 		boolean[][] treeMatrix = new boolean[newOccurences.size()][];
 		for (int i = 0; i < newOccurences.size(); i++) {
-			boolean[] currentArray = new boolean[neededResources.get(i)
-			             						.size()];
+			boolean[] currentArray = new boolean[neededResources.get(i).size()];
 			for (int j = 0; j < currentArray.length; j++) {
 				currentArray[j] = true;
 			}
@@ -84,11 +86,9 @@ public class Scheduler
 		int bestOption = -1;
 		for (int i = 0; i < treeMatrix[iteration].length; i++) {
 			if (treeMatrix[iteration][i]) {
-				HospitalDate curDate = curResList
-						.get(i)
-						.getTimeTable()
-						.getFirstFreeSlotFrom(Scheduler.currentSystemTime,
-								duration).getStartPoint().getDate();
+				HospitalDate curDate = curResList.get(i).getTimeTable()
+						.getFirstFreeSlotBetween(startDate, stopDate, duration)
+						.getStartPoint().getDate();
 				if (curDate.before(firstDate)) {
 					bestOption = i;
 					firstDate = curDate;
