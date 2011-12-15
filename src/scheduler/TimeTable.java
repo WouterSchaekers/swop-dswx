@@ -157,11 +157,42 @@ public class TimeTable
 		return rv;
 	}
 	
+//	//TODO
+//	public TimeSlot getFirstFreeSlotFrom(HospitalDate hospitalDate, long length) throws InvalidSchedulingRequestException, InvalidTimeSlotException{
+//		TimeTable x = this.invert();
+//		for (TimeSlot t : x.timeSlots) {
+//			if (!t.getStartPoint().getDate().before(hospitalDate)) {
+//				if(t.getLength() >= length){
+//					return t;
+//				}
+//			}
+//			else{
+//				if(hospitalDate.before(t.getStopPoint().getDate())){
+//					TimeSlot modifiedSlot = new TimeSlot(new TimePoint(hospitalDate, TimeType.start), new TimePoint(t.getStopPoint()));
+//					if(modifiedSlot.getLength() >= length){
+//						return modifiedSlot;
+//					}
+//				}
+//			}
+//		}
+//		throw new IllegalStateException("No more free slots available! End of time reached?");
+//	}
+	
 	//TODO
-	public TimeSlot getFirstFreeSlotFrom(HospitalDate hospitalDate, long length) throws InvalidSchedulingRequestException, InvalidTimeSlotException{
+	public TimeSlot getFirstFreeSlotBetween(HospitalDate startDate, HospitalDate stopDate, long duration) throws InvalidSchedulingRequestException, InvalidTimeSlotException{
 		TimeTable x = this.invert();
+		for(TimeSlot t : x.timeSlots){
+			HospitalDate startDateOfTimeSlot = t.getStartPoint().getDate();
+			HospitalDate endDateOfTimeSlot = t.getStopPoint().getDate();
+			if(!startDateOfTimeSlot.before(startDate)){
+				
+				if(stopDate.getTotalMillis() - startDateOfTimeSlot.getTotalMillis() >= duration){
+					return new TimeSlot(new TimePoint(startDate, TimeType.start), new TimePoint(stopDate))
+				}
+			}
+		}
 		for (TimeSlot t : x.timeSlots) {
-			if (!t.getStartPoint().getDate().before(hospitalDate)) {
+			if (!t.getStartPoint().getDate().before(startDate)) {
 				if(t.getLength() >= length){
 					return t;
 				}
@@ -439,6 +470,21 @@ public class TimeTable
 				return false;
 		}
 		return true;
+	}
+	
+	//TODO
+	public TimeTable clone() {
+		LinkedList<TimeSlot> newTimeSlots = new LinkedList<TimeSlot>();
+		for(TimeSlot timeSlot : this.timeSlots){
+			newTimeSlots.add(timeSlot);
+		}
+		TimeTable newTimeTable = null; 
+		try {
+			newTimeTable = new TimeTable(newTimeSlots);
+		} catch (InvalidTimeSlotException e) {
+			e.printStackTrace();
+		}
+		return newTimeTable;
 	}
 
 }
