@@ -40,7 +40,7 @@ public class HospitalDate {
 	/**
 	 * 
 	 */
-	public static final HospitalDate END_OF_TIME = new HospitalDate(Long.MAX_VALUE);
+	public static final HospitalDate END_OF_TIME = new HospitalDate(Long.MAX_VALUE-START_OF_TIME.getTotalMillis());
 	/**
 	 * One second in millis.
 	 */
@@ -69,7 +69,7 @@ public class HospitalDate {
 	 * 		The hospitaldate that will be copied.
 	 */
 	public HospitalDate(HospitalDate hospitalDate){
-		if(hospitalDate.gregorianCalendar.getTimeInMillis()<HospitalDate.START_OF_TIME.getTotalMillis())
+		if(hospitalDate.before(START_OF_TIME))
 			throw new IllegalArgumentException("The provided date is before the start of time. Fuck you!");
 		gregorianCalendar = new GregorianCalendar();
 		gregorianCalendar.setTimeInMillis(hospitalDate.getTotalMillis());
@@ -79,11 +79,13 @@ public class HospitalDate {
 	 * Creates a new hostpitaldate, with the given new time in UTC milliseconds from the epoch.
 	 * 
 	 * @param milliseconds
-	 * 		The amount of milliseconds from the first epoch.
+	 * 		The amount of milliseconds since the start of time.
 	 */
 	public HospitalDate(long milliseconds){
-		gregorianCalendar = new GregorianCalendar();
-		gregorianCalendar.setTimeInMillis(milliseconds);
+		if(milliseconds<0)
+			throw new IllegalArgumentException("The provided date is before the start of time. Fuck you!");
+			gregorianCalendar = new GregorianCalendar();
+		gregorianCalendar.setTimeInMillis(HospitalDate.START_OF_TIME.getTotalMillis()+milliseconds);
 	}
 	
 	/**
@@ -221,7 +223,7 @@ public class HospitalDate {
 	 * 		The amounf of UTC milliseconds from the epoch.
 	 */
 	public void setTime(long millis){
-		this.gregorianCalendar.setTimeInMillis(millis);
+		this.gregorianCalendar.setTimeInMillis(HospitalDate.START_OF_TIME.getTotalMillis()+millis);
 	}
 	
 	/**
@@ -322,6 +324,13 @@ public class HospitalDate {
 	}
 	
 	public HospitalDate clone(){
-		return new HospitalDate(this.getTotalMillis());
+		return new HospitalDate(this);
+	}
+	public boolean equals(Object o)
+	{
+		if(o instanceof HospitalDate)
+		{
+			return this.gregorianCalendar.equals(((HospitalDate) o).gregorianCalendar);
+		}return false;
 	}
 }
