@@ -59,6 +59,7 @@ public class SchedulerTest
 	
 	@Test
 	public void schedule0Test() throws InvalidTimeSlotException, InvalidSchedulingRequestException, InvalidResourceException{
+		listOfNurses.get(0).getTimeTable().addTimeSlot(new TimeSlot(new TimePoint(HospitalDate.START_OF_TIME, TimeType.start), new TimePoint(HospitalDate.START_OF_TIME.getTimeSinceStart() + 5000, TimeType.stop)));
 		System.out.println(Scheduler.schedule(5000, listOfSchedulables, occurences).getTimeSlot());
 	}
 }
