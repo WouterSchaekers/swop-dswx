@@ -14,6 +14,10 @@ public class Main
 	
 	public static void increase(LittleClass bla){
 		bla.increase();
+		if(bla.getBla() < 10){
+			increase(bla);
+		}
+		System.out.println(bla.getBla());
 	}
 	
 
