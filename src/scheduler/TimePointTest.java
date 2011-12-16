@@ -11,7 +11,7 @@ public class TimePointTest
 	public void basicTestOne()
 	{
 		TimePoint p = new TimePoint(new HospitalDate(0),TimeType.stop);
-		assertTrue(p.getTime()==0);
+		assertTrue(p.getTime()==HospitalDate.START_OF_TIME.getTotalMillis());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
