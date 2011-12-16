@@ -1,58 +1,64 @@
 package scheduler;
 
+import static org.junit.Assert.*;
+import java.util.Collection;
 import java.util.LinkedList;
 import org.junit.Before;
+import org.junit.Test;
 import scheduler.task.Schedulable;
 import users.UserManager;
 import exceptions.InvalidNameException;
+import exceptions.InvalidResourceException;
+import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidTimeSlotException;
 import exceptions.UserAlreadyExistsException;
 
 public class SchedulerTest
 {
+	
 	UserManager m;
-	Scheduler s = new Scheduler();
-	LinkedList<LinkedList<Schedulable>> t;
-	LinkedList<LinkedList<Schedulable>> t4;
-	LinkedList<Schedulable> t2;
-	LinkedList<Schedulable> t3;
-
-	Schedulable n1;
-	Schedulable n2;
-	Schedulable d1;
-	Schedulable d2;
-	Schedulable d3;
-	Schedulable d4;
+	LinkedList<Schedulable> listOfDoctors;
+	LinkedList<Schedulable> listOfNurses;
+	LinkedList<LinkedList<Schedulable>> listOfSchedulables;
+	LinkedList<Integer> occurences;
+	LinkedList<Integer> fullOccurences;
 
 	@Before
 	public void create() throws UserAlreadyExistsException,
 			InvalidNameException, InvalidTimeSlotException {
 		m = new UserManager();
-		m.createNurse("Jenny");
-		m.createNurse("Jill");
 		m.createDoctor("Jonathan");
 		m.createDoctor("Jeffrey");
 		m.createDoctor("Jack");
 		m.createDoctor("Jonas");
-		s = new Scheduler();
+		m.createNurse("Jenny");
+		m.createNurse("Jill");
+		listOfDoctors = new LinkedList<Schedulable>(m.getAllDoctors());
+		listOfNurses = new LinkedList<Schedulable>(m.getAllNurses());
+		listOfSchedulables = new LinkedList<LinkedList<Schedulable>>();
+		listOfSchedulables.add(listOfDoctors);
+		listOfSchedulables.add(listOfNurses);
+		occurences = new LinkedList<Integer>();
+		occurences.add(1);
+		occurences.add(2);
+		fullOccurences = new LinkedList<Integer>();
+		fullOccurences.add(0);
+		fullOccurences.add(1);
+		fullOccurences.add(1);
 		Scheduler.setNewSystemTime(HospitalDate.START_OF_TIME);
-
-		t = new LinkedList<LinkedList<Schedulable>>();
-		t4 = new LinkedList<LinkedList<Schedulable>>();
-		t2 = (LinkedList<Schedulable>) m.getAllNurses();
-		t3 = (LinkedList<Schedulable>) m.getAllDoctors();
-
-		t.add(t2);
-		t4.add(t3);
-		t4.add(t2);
-
-		n1 = t2.get(0);
-		n2 = t2.get(1);
-		d1 = t3.get(0);
-		d2 = t3.get(1);
-		d3 = t3.get(2);
-		d4 = t3.get(3);
-
 	}
-	// XXX
+	
+	@Test
+	public void makeTreeMatrixTest(){
+		boolean[][] treeMatrix = Scheduler.makeTreeMatrix(listOfSchedulables, fullOccurences);
+		assertTrue(treeMatrix.length == 3);
+		assertTrue(treeMatrix[0].length == 4);
+		assertTrue(treeMatrix[1].length == 2);
+		assertTrue(treeMatrix[2].length == 2);
+	}
+	
+	@Test
+	public void schedule0Test() throws InvalidTimeSlotException, InvalidSchedulingRequestException, InvalidResourceException{
+		System.out.println(Scheduler.schedule(5000, listOfSchedulables, occurences).getTimeSlot());
+	}
 }

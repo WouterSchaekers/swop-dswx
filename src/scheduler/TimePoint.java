@@ -57,6 +57,10 @@ public class TimePoint implements Comparable<TimePoint>
 		this.hospitalDate = d;
 	}
 	
+	public TimePoint(long timeInMillis, TimeType t){
+		this(new HospitalDate(timeInMillis), t);
+	}
+	
 	public TimePoint(TimePoint t){
 		this(t.getDate(), t.getType());
 	}
@@ -73,7 +77,7 @@ public class TimePoint implements Comparable<TimePoint>
 
 	@Basic
 	public long getTime() {
-		return this.hospitalDate.getTotalMillis();
+		return this.hospitalDate.getTimeSinceStart();
 	}
 
 	@Override

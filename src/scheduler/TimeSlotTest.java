@@ -40,10 +40,10 @@ public class TimeSlotTest
 	
 	@Test
 	public void overlaps2Test(){
-		TimeSlot s0 = new TimeSlot(new TimePoint(new HospitalDate(0), TimeType.start),
+		TimeSlot s0 = new TimeSlot(new TimePoint(new HospitalDate(4), TimeType.start),
+				new TimePoint(new HospitalDate(9), TimeType.stop));
+		TimeSlot s1 = new TimeSlot(new TimePoint(new HospitalDate(0), TimeType.start),
 				new TimePoint(new HospitalDate(5), TimeType.stop));
-		TimeSlot s1 = new TimeSlot(new TimePoint(new HospitalDate(-4), TimeType.start),
-				new TimePoint(new HospitalDate(1), TimeType.stop));
 		assertTrue(s0.overlaps(s1));
 	}
 	
@@ -67,19 +67,19 @@ public class TimeSlotTest
 	
 	@Test
 	public void overlaps5Test(){
-		TimeSlot s0 = new TimeSlot(new TimePoint(new HospitalDate(-1000), TimeType.start),
-				new TimePoint(new HospitalDate(0), TimeType.stop));
-		TimeSlot s1 = new TimeSlot(new TimePoint(new HospitalDate(1), TimeType.start),
-				new TimePoint(new HospitalDate(1001), TimeType.stop));
+		TimeSlot s0 = new TimeSlot(new TimePoint(new HospitalDate(0), TimeType.start),
+				new TimePoint(new HospitalDate(1000), TimeType.stop));
+		TimeSlot s1 = new TimeSlot(new TimePoint(new HospitalDate(1001), TimeType.start),
+				new TimePoint(new HospitalDate(2001), TimeType.stop));
 		assertFalse(s0.overlaps(s1));
 	}
 	
 	@Test
 	public void overlaps6Test(){
-		TimeSlot s0 = new TimeSlot(new TimePoint(new HospitalDate(1), TimeType.start),
-				new TimePoint(new HospitalDate(1001), TimeType.stop));
-		TimeSlot s1 = new TimeSlot(new TimePoint(new HospitalDate(-1000), TimeType.start),
-				new TimePoint(new HospitalDate(0), TimeType.stop));
+		TimeSlot s0 = new TimeSlot(new TimePoint(new HospitalDate(1001), TimeType.start),
+				new TimePoint(new HospitalDate(2001), TimeType.stop));
+		TimeSlot s1 = new TimeSlot(new TimePoint(new HospitalDate(0), TimeType.start),
+				new TimePoint(new HospitalDate(1000), TimeType.stop));
 		assertFalse(s0.overlaps(s1));
 	}
 }

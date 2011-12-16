@@ -46,7 +46,7 @@ public class Task
 	 * @return True if d is a valid duration for a Task.
 	 */
 	public static boolean isValidDuration(long d) {
-		return d > 0 && d < (HospitalDate.END_OF_TIME.getTotalMillis() - HospitalDate.START_OF_TIME.getTotalMillis());
+		return d > 0 && d < (HospitalDate.END_OF_TIME.getTimeSinceStart());
 	}
 	
 	@Basic
