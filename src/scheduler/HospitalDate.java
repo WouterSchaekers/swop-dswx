@@ -324,6 +324,7 @@ public class HospitalDate {
 		return this.getYear() + "-" + this.getMonth() + "-" + this.getDay() + " " + hour + ":" + minute + ":" + sec;
 	}
 	
+	//TODO
 	public HospitalDate clone(){
 		return new HospitalDate(this);
 	}

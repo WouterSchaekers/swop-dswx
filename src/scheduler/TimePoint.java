@@ -57,6 +57,7 @@ public class TimePoint implements Comparable<TimePoint>
 		this.hospitalDate = d;
 	}
 	
+	//TODO
 	public TimePoint(long timeInMillis, TimeType t){
 		this(new HospitalDate(timeInMillis), t);
 	}

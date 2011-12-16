@@ -88,6 +88,7 @@ public class Scheduler
 			throws InvalidSchedulingRequestException, InvalidTimeSlotException,
 			InvalidResourceException {
 
+		
 		int curCollectionToSchedule = fullOccurences.get(iteration);
 		LinkedList<Schedulable> curSchedList = neededSchedulables
 				.get(curCollectionToSchedule);
@@ -128,7 +129,7 @@ public class Scheduler
 			LinkedList<Integer> occurences) {
 		LinkedList<Integer> rv = new LinkedList<Integer>();
 		for (int i = 0; i < occurences.size(); i++) {
-			for (int j = 0; j < i; j++) {
+			for (int j = 0; j < occurences.get(i); j++) {
 				rv.add(i);
 			}
 		}
