@@ -21,15 +21,23 @@ public class UnscheduledTask extends Task
 	private LinkedList<Integer> occurences = new LinkedList<Integer>();
 	
 	/**
-	 * Default constructor.
+	 * Default constructor
+	 * 
+	 * @param myResources
+	 *            The resourcepool for this unscheduled task.
+	 * @param duration
+	 *            The duration one would like this Task to last for.
 	 * @param reqs
-	 *            The objects that this Task is waiting for to be ready.
-	 * @throws InvalidResourceException 
-	 * @throws InvalidDurationException 
-	 * @throws InvalidOccurencesException 
-	 * @see this(myResource,duration)
+	 *            The requirements that have to be ready before this unscheduled
+	 *            task can become a scheduled task.
+	 * @param occurences
+	 *            The amount of occurences for each of the Schedulables in
+	 *            myResources.
+	 * @throws InvalidResourceException
+	 * @throws InvalidDurationException
+	 * @throws InvalidOccurencesException
 	 */
-	public UnscheduledTask(LinkedList<LinkedList<Schedulable>> myResources, long duration,Collection<Requirement> reqs, LinkedList<Integer> occurences) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException {
+	public UnscheduledTask(LinkedList<LinkedList<Schedulable>> myResources, long duration, Collection<Requirement> reqs, LinkedList<Integer> occurences) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException {
 		if (!canHaveAsRequirements(reqs))
 			throw new InvalidResourceException("Invalid requirement collection given to Task constructor!");
 		if(!super.isValidDuration(duration)) 

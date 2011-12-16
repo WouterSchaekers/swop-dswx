@@ -49,7 +49,7 @@ public class TaskManager
 	}
 	
 	/**
-	 * This method will add a Task to this TaskManager's queue.
+	 * This method will add a Task to this TaskManager's queue. Note that you should probably update the queue of this TaskManager after adding a Task.
 	 * @param t
 	 * The task to add.
 	 * @throws InvalidTimeSlotException 
@@ -61,7 +61,6 @@ public class TaskManager
 		if (!isValidTask(t))
 			throw new IllegalArgumentException("Task t in addTask of the TaskManager is not a valid queueable Task!");
 		this.taskQueue.add(t);
-		this.updateQueue();
 	}
 	
 	/**
