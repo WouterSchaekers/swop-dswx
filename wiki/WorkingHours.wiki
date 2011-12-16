@@ -29,7 +29,7 @@
 || 12/12/11: 16u15 -> 18u30 ||3 DSW || 2 || more of the above..., making class diagrams and a draft of the report. || ||
 || 12/12/11: 21u00 -> 00u00 ||1 S || 3 || Finishing some class diagrams and the draft of the report. || ||
 || 13/12/11: 16u00 -> 18u30 || 3 DSW || 2.5 || Discussing some more about constraints, specifically about the ones concerning Diagnose and back-to-back scheduled.|| ||
-|| 14/12/11: 20u45 -> 02u30 || 2 SW || 6 || Scheduler revision 6 (recursive) due to bug in specific case in previous revision|| Dieter moest naar de begrafenis van zijn nonkel en moest vandaag ook de wina kelder opruimen en kon dus niet komen. ||
+|| 14/12/11: 20u45 -> 02u30 || 2 SW || 6 || Scheduler rev 6 (recursive) due to bug in specific case in previous revision|| Dieter moest naar de begrafenis van zijn nonkel en moest vandaag ook de wina kelder opruimen en kon dus niet komen. ||
 || 15/12/11: 17u00 -> 19u00 || 1 SW || 2 || Further implementing of Scheduler and making a pre-fab of the report about it.|| We hadden met Dieter afgesproken morgen te komen om 9u30.||
 || 16/12/11: 10u00 -> 12u00 || 2 DW || 2 || Further implementing and debugging of Scheduler || Stefaan had zich overslapen omdat hij Wartortle & Mew aan het grinden was ||
 || 16/12/11: 12u00 -> 15u30 || 3 DSW || 3.5 ||Scheduler, Task, UnscheduledTask, ScheduledTask, TaskManager, TaskTest, TimeTable, TimeTableTest, SchedulerTest,... fixen|| ||
