@@ -12,8 +12,8 @@ import exceptions.InvalidTimeSlotException;
 public class Nurse extends SchedulableUser
 {
 
-	private HospitalDate startsWorkAt = new HospitalDate(0, 0, 0, 8, 0, 0);
-	private HospitalDate stopsWorkAt = new HospitalDate(0, 0, 0, 17, 0, 0);
+	// private HospitalDate startsWorkAt = new HospitalDate(0, 0, 0, 8, 0, 0);
+	// private HospitalDate stopsWorkAt = new HospitalDate(0, 0, 0, 17, 0, 0);
 
 	/**
 	 * Default constructor. Will initialise all fields.
