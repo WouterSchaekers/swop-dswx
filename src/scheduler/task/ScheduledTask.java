@@ -1,6 +1,7 @@
 package scheduler.task;
 
 import java.util.Collection;
+import java.util.LinkedList;
 import be.kuleuven.cs.som.annotate.Basic;
 import scheduler.HospitalDate;
 import scheduler.TimeSlot;
@@ -13,7 +14,7 @@ import exceptions.*;
  */
 public class ScheduledTask extends Task
 {
-	private Collection<Schedulable> myResources = null;
+	private LinkedList<Schedulable> myResources = null;
 	private TimeSlot mySlot = null;
 	
 	/**
@@ -38,7 +39,7 @@ public class ScheduledTask extends Task
 	}
 	
 	@Basic
-	public Collection<Schedulable> getResources() {
+	public LinkedList<Schedulable> getResources() {
 		return super.cloneCollection(myResources);
 	}
 	
