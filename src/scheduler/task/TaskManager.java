@@ -32,8 +32,9 @@ public class TaskManager
 	 * @throws QueueException
 	 * @throws InvalidSchedulingRequestException
 	 * @throws InvalidTimeSlotException
+	 * @throws InvalidResourceException 
 	 */
-	public HashMap<ScheduledTask,HospitalDate> updateQueue() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException {
+	public HashMap<ScheduledTask,HospitalDate> updateQueue() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException, InvalidResourceException {
 		HashMap<ScheduledTask, HospitalDate> returnValue = new HashMap<ScheduledTask, HospitalDate>();
 		Queue<UnscheduledTask> newQueue = new LinkedList<UnscheduledTask>(this.taskQueue);
 		for (UnscheduledTask curTask : this.taskQueue) {
