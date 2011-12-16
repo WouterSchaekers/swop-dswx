@@ -11,91 +11,95 @@ public class Scheduler
 	private static HospitalDate currentSystemTime = new HospitalDate();
 
 	/**
-	 * Schedules a set of resources on the best available slot, taking into
+	 * Schedules a set of schedulables on the best available slot, taking into
 	 * account the required duration.
 	 * 
 	 * @param duration
 	 *            The duration of the needed timeslot.
-	 * @param neededResources
+	 * @param neededSchedulables
 	 *            A collection of schedulable collections of which at least one
 	 *            schedulable need to be scheduled.
 	 * @param occurences
-	 *            The amount of times a collection of resources has to be
+	 *            The amount of times a collection of schedulables has to be
 	 *            scheduled.
-	 * @return A task which includes the timeslot and the used resources.
+	 * @return A task which includes the timeslot and the used schedulables.
 	 * @throws InvalidTimeSlotException
 	 * @throws InvalidSchedulingRequestException
 	 */
 	public static Task schedule(long duration,
-			LinkedList<LinkedList<Schedulable>> neededResources,
+			LinkedList<LinkedList<Schedulable>> neededSchedulables,
 			LinkedList<Integer> occurences) throws InvalidTimeSlotException,
 			InvalidSchedulingRequestException {
-		if (!Scheduler.isValidToScheduleCollection(neededResources, occurences)) {
+		if (!Scheduler.isValidToScheduleCollection(neededSchedulables, occurences)) {
 			throw new InvalidSchedulingRequestException(
-					"Trying to schedule an invalid amount of resources.");
+					"Trying to schedule an invalid amount of schedulables.");
 		}
-		LinkedList<Integer> newOccurences = Scheduler
+		LinkedList<Integer> fullOccurences = Scheduler
 				.makeCorrespondingArray(occurences);
-		boolean[][] treeMatrix = Scheduler.makeTreeMatrix(neededResources,
-				newOccurences);
+		boolean[][] treeMatrix = Scheduler.makeTreeMatrix(neededSchedulables,
+				fullOccurences);
 		return Scheduler.schedule(duration, Scheduler.currentSystemTime,
-				HospitalDate.END_OF_TIME, neededResources,
-				new LinkedList<Schedulable>(), treeMatrix, newOccurences, 0);
+				HospitalDate.END_OF_TIME, neededSchedulables,
+				new LinkedList<Schedulable>(), treeMatrix, fullOccurences, 0);
 	}
 
 	/**
-	 * Schedules a set of resources on the best available slot, taking into
-	 * account the required duration. A seperate list of specific resources may
+	 * Schedules a set of schedulables on the best available slot, taking into
+	 * account the required duration. A seperate list of specific schedulables may
 	 * be included.
 	 * 
 	 * @param duration
 	 *            The duration of the needed timeslot.
-	 * @param neededResources
+	 * @param neededSchedulables
 	 *            A collection of schedulable collections of which at least one
 	 *            schedulable need to be scheduled.
-	 * @param specificResources
-	 *            A collection of resources that all need to be scheduled.
+	 * @param specificSchedulables
+	 *            A collection of schedulables that all need to be scheduled.
 	 * @param occurences
-	 *            The amount of times a collection of resources has to be
+	 *            The amount of times a collection of schedulables has to be
 	 *            scheduled.
-	 * @return A task which includes the timeslot and the used resources.
+	 * @return A task which includes the timeslot and the used schedulables.
 	 * @throws InvalidTimeSlotException
 	 * @throws InvalidSchedulingRequestException
 	 */
 	public static Task schedule(long duration,
-			LinkedList<LinkedList<Schedulable>> neededResources,
-			LinkedList<Schedulable> specificResources,
+			LinkedList<LinkedList<Schedulable>> neededSchedulables,
+			LinkedList<Schedulable> specificSchedulables,
 			LinkedList<Integer> occurences) throws InvalidTimeSlotException,
 			InvalidSchedulingRequestException {
-		for (int i = specificResources.size() - 1; i >= 0; i--) {
-			LinkedList<Schedulable> newResourceList = new LinkedList<Schedulable>();
-			newResourceList.add(specificResources.get(i));
-			neededResources.addFirst(newResourceList);
+		for (int i = specificSchedulables.size() - 1; i >= 0; i--) {
+			LinkedList<Schedulable> newSchedulableList = new LinkedList<Schedulable>();
+			newSchedulableList.add(specificSchedulables.get(i));
+			neededSchedulables.addFirst(newSchedulableList);
 			occurences.addFirst(1);
 		}
-		return Scheduler.schedule(duration, neededResources, occurences);
+		return Scheduler.schedule(duration, neededSchedulables, occurences);
 	}
 
 	private static Task schedule(long duration, HospitalDate startDate,
 			HospitalDate stopDate,
-			LinkedList<LinkedList<Schedulable>> neededResources,
-			LinkedList<Schedulable> usedResources, boolean[][] treeMatrix,
+			LinkedList<LinkedList<Schedulable>> neededSchedulables,
+			LinkedList<Schedulable> usedSchedulables, boolean[][] treeMatrix,
 			LinkedList<Integer> occurences, int iteration)
 			throws InvalidSchedulingRequestException, InvalidTimeSlotException {
 
 		int curCollectionToSchedule = occurences.get(iteration);
-		LinkedList<Schedulable> curResList = neededResources
+		LinkedList<Schedulable> curResList = neededSchedulables
 				.get(curCollectionToSchedule);
 		int bestOption = Scheduler.findBestOption(duration, startDate,
 				stopDate, treeMatrix, curResList, iteration);
 		Schedulable chosenSchedulable = curResList.get(bestOption);
-		usedResources.add(chosenSchedulable);
+		TimeSlot bestTimeSlot = chosenSchedulable.getTimeTable().getFirstFreeSlotBetween(startDate, stopDate, duration);
+		HospitalDate newStartDate = bestTimeSlot.getStartPoint().getDate();
+		HospitalDate newEndDate = bestTimeSlot.getStopPoint().getDate();
+		LinkedList<Schedulable> newUsedSchedulables = Scheduler.copyList(usedSchedulables);
+		newUsedSchedulables.add(chosenSchedulable);
 		treeMatrix = Scheduler.updateTreeMatrix(treeMatrix, bestOption,
 				occurences, iteration);
 
 		if (++iteration <= occurences.size()) {
-			return schedule(duration, startDate, stopDate, neededResources,
-					usedResources, treeMatrix, occurences, iteration);
+			return schedule(duration, startDate, stopDate, neededSchedulables,
+					newUsedSchedulables, treeMatrix, occurences, iteration);
 		} else {
 			TimePoint startPoint = curResList
 					.get(bestOption)
@@ -105,7 +109,7 @@ public class Scheduler
 			TimeSlot bestSlot = new TimeSlot(startPoint, new TimePoint(
 					new HospitalDate(startPoint.getDate().getTotalMillis()
 							+ duration), TimeType.stop));
-			return new Task(usedResources, bestSlot);
+			return new Task(usedSchedulables, bestSlot);
 		}
 	}
 
@@ -121,11 +125,11 @@ public class Scheduler
 	}
 
 	private static boolean[][] makeTreeMatrix(
-			LinkedList<LinkedList<Schedulable>> neededResources,
-			LinkedList<Integer> newOccurences) {
-		boolean[][] treeMatrix = new boolean[newOccurences.size()][];
-		for (int i = 0; i < newOccurences.size(); i++) {
-			boolean[] currentArray = new boolean[neededResources.get(i).size()];
+			LinkedList<LinkedList<Schedulable>> neededSchedulables,
+			LinkedList<Integer> fullOccurences) {
+		boolean[][] treeMatrix = new boolean[fullOccurences.size()][];
+		for (int i = 0; i < fullOccurences.size(); i++) {
+			boolean[] currentArray = new boolean[neededSchedulables.get(i).size()];
 			for (int j = 0; j < currentArray.length; j++) {
 				currentArray[j] = true;
 			}
@@ -134,18 +138,6 @@ public class Scheduler
 		return treeMatrix;
 	}
 
-	/**
-	 * 
-	 * @param duration
-	 * @param startDate
-	 * @param stopDate
-	 * @param treeMatrix
-	 * @param curResList
-	 * @param iteration
-	 * @return
-	 * @throws InvalidSchedulingRequestException
-	 * @throws InvalidTimeSlotException
-	 */
 	private static int findBestOption(long duration, HospitalDate startDate,
 			HospitalDate stopDate, boolean[][] treeMatrix,
 			LinkedList<Schedulable> curResList, int iteration)
@@ -221,5 +213,13 @@ public class Scheduler
 			}
 		}
 		return true;
+	}
+	
+	private static LinkedList<Schedulable> copyList(LinkedList<Schedulable> listToCopy){
+		LinkedList<Schedulable> newList = new LinkedList<Schedulable>();
+		for(int i = 0; i < listToCopy.size(); i++){
+			newList.add(listToCopy.get(i));
+		}
+		return newList;
 	}
 }
