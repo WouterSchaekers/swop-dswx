@@ -842,6 +842,21 @@ public class TimeTableTest
 		System.out.println(table);
 		System.out.println(table2);
 		System.out.println((table.invert().getUnion(table2.invert())).invert());
-		
 	}
+	
+	@Test
+	public void unionSpelen() throws InvalidTimeSlotException, InvalidSchedulingRequestException
+	{
+		
+		TimePoint p = new TimePoint(new HospitalDate(HospitalDate.START_OF_TIME.getTotalMillis()+HospitalDate.ONE_SECOND*3),TimeType.start);
+		TimeSlot t1 = new TimeSlot(tp00, tp11);
+		TimeSlot t2 = new TimeSlot(p, tp31);
+
+		TimeTable table = new TimeTable(t1);
+		TimeTable table2 = new TimeTable(t2);
+		System.out.println(table);
+		System.out.println(table2);
+		System.out.println((table.invert().getIntersect(table2).equals(table.getIntersect(table2))));
+	}
+	
 }
