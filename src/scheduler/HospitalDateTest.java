@@ -19,7 +19,7 @@ public class HospitalDateTest
 	@Test
 	public void Constructor1Test(){
 		HospitalDate h = new HospitalDate(1000000);
-		assertTrue(h.getTotalMillis() == HospitalDate.START_OF_TIME.getTotalMillis()+1000000);
+		assertTrue(h.getTimeSinceStart() == 1000000);
 	}
 	@Test
 	public void cloneTest()

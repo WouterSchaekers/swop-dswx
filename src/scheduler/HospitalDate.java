@@ -69,10 +69,7 @@ public class HospitalDate {
 	 * 		The hospitaldate that will be copied.
 	 */
 	public HospitalDate(HospitalDate hospitalDate){
-		if(hospitalDate.before(START_OF_TIME))
-			throw new IllegalArgumentException("The provided date is before the start of time. Fuck you!");
-		gregorianCalendar = new GregorianCalendar();
-		gregorianCalendar.setTimeInMillis(hospitalDate.getTotalMillis());
+		this(hospitalDate.getTimeSinceStart());
 	}
 	
 	/**
@@ -223,7 +220,7 @@ public class HospitalDate {
 	 * 		The amounf of UTC milliseconds from the epoch.
 	 */
 	public void setTime(long millis){
-		this.gregorianCalendar.setTimeInMillis(HospitalDate.START_OF_TIME.getTotalMillis()+millis);
+		this.gregorianCalendar.setTimeInMillis(HospitalDate.START_OF_TIME.getTimeSinceStart()+millis);
 	}
 	
 	/**
@@ -298,7 +295,11 @@ public class HospitalDate {
 	 * @return
 	 * 		The amounf of UTC milliseconds from the epoch.
 	 */
-	public long getTotalMillis(){
+	public long getTimeSinceStart(){
+		return gregorianCalendar.getTimeInMillis() - HospitalDate.START_OF_TIME.getTotalMillis();
+	}
+	
+	private long getTotalMillis(){
 		return gregorianCalendar.getTimeInMillis();
 	}
 	

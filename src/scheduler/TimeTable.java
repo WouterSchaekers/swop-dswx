@@ -114,7 +114,7 @@ public class TimeTable
 
 		if (timeSlots.isEmpty())
 			return new TimeTable(t);
-		if (timeSlots.get(0).getStartPoint().getTime() != d1.getTotalMillis()) {
+		if (timeSlots.get(0).getStartPoint().getTime() != d1.getTimeSinceStart()) {
 			returnValue.addTimeSlot(new TimeSlot(new TimePoint(d1,
 					TimeType.start), new TimePoint(timeSlots.get(0)
 					.getStartPoint().getDate(), TimeType.stop)));
@@ -125,7 +125,7 @@ public class TimeTable
 					timeSlots.get(i + 1).getStartPoint().getDate(),
 					TimeType.stop)));
 		}
-		if(timeSlots.get(this.timeSlots.size()-1).getStopPoint().getDate().getTotalMillis()!=d2.getTotalMillis()){
+		if(timeSlots.get(this.timeSlots.size()-1).getStopPoint().getDate().getTimeSinceStart()!=d2.getTimeSinceStart()){
 			returnValue.addTimeSlot(new TimeSlot(new TimePoint(timeSlots
 				.get(this.timeSlots.size() - 1).getStopPoint().getDate(),
 				TimeType.start), new TimePoint(d2, TimeType.stop)));
@@ -197,18 +197,18 @@ public class TimeTable
 			HospitalDate startDateOfTimeSlot = t.getStartPoint().getDate();
 			HospitalDate stopDateOfTimeSlot = t.getStopPoint().getDate();
 			if(!startDateOfTimeSlot.before(startDate)){
-				if(stopDateOfTimeSlot.before(stopDate) && stopDateOfTimeSlot.getTotalMillis() - startDateOfTimeSlot.getTotalMillis() >= duration){
+				if(stopDateOfTimeSlot.before(stopDate) && stopDateOfTimeSlot.getTimeSinceStart() - startDateOfTimeSlot.getTimeSinceStart() >= duration){
 					return new TimeSlot(new TimePoint(startDateOfTimeSlot, TimeType.start), new TimePoint(stopDateOfTimeSlot, TimeType.stop));
 				}
-				else if(!stopDateOfTimeSlot.before(stopDate) && stopDate.getTotalMillis() - startDateOfTimeSlot.getTotalMillis() >= duration){
+				else if(!stopDateOfTimeSlot.before(stopDate) && stopDate.getTimeSinceStart() - startDateOfTimeSlot.getTimeSinceStart() >= duration){
 					return new TimeSlot(new TimePoint(startDateOfTimeSlot, TimeType.start), new TimePoint(stopDate, TimeType.stop));
 				}
 			}
 			else{
-				if(stopDateOfTimeSlot.before(stopDate) && stopDateOfTimeSlot.getTotalMillis() - startDate.getTotalMillis() >= duration){
+				if(stopDateOfTimeSlot.before(stopDate) && stopDateOfTimeSlot.getTimeSinceStart() - startDate.getTimeSinceStart() >= duration){
 					return new TimeSlot(new TimePoint(startDate, TimeType.start), new TimePoint(stopDateOfTimeSlot, TimeType.stop));
 				}
-				else if(!stopDateOfTimeSlot.before(stopDate) && stopDate.getTotalMillis() - startDate.getTotalMillis() >= duration){
+				else if(!stopDateOfTimeSlot.before(stopDate) && stopDate.getTimeSinceStart() - startDate.getTimeSinceStart() >= duration){
 					return new TimeSlot(new TimePoint(startDate, TimeType.start), new TimePoint(stopDate, TimeType.stop));
 				}
 			}

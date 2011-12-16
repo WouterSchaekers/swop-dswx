@@ -17,14 +17,10 @@ public class TimeTableTest
 	@Before
 	public void initialize() {
 		h0 = new HospitalDate(HospitalDate.START_OF_TIME);
-		h1 = new HospitalDate(
-				HospitalDate.START_OF_TIME.getTotalMillis() + 5000);
-		h2 = new HospitalDate(
-				HospitalDate.START_OF_TIME.getTotalMillis() + 10000);
-		h3 = new HospitalDate(
-				HospitalDate.START_OF_TIME.getTotalMillis() + 15000);
-		h4 = new HospitalDate(
-				HospitalDate.START_OF_TIME.getTotalMillis() + 20000);
+		h1 = new HospitalDate(5000);
+		h2 = new HospitalDate(10000);
+		h3 = new HospitalDate(15000);
+		h4 = new HospitalDate(20000);
 		h5 = new HospitalDate(HospitalDate.END_OF_TIME);
 		tp00 = new TimePoint(h0, TimeType.start);
 		tp10 = new TimePoint(h1, TimeType.start);
@@ -833,7 +829,7 @@ public class TimeTableTest
 	public void intersectbyunionandinvert() throws InvalidTimeSlotException, InvalidSchedulingRequestException
 	{
 		
-		TimePoint p = new TimePoint(new HospitalDate(HospitalDate.START_OF_TIME.getTotalMillis()+HospitalDate.ONE_SECOND*3),TimeType.start);
+		TimePoint p = new TimePoint(new HospitalDate(HospitalDate.ONE_SECOND*3),TimeType.start);
 		TimeSlot t1 = new TimeSlot(tp00, tp11);
 		TimeSlot t2 = new TimeSlot(p, tp31);
 
@@ -848,7 +844,7 @@ public class TimeTableTest
 	public void unionSpelen() throws InvalidTimeSlotException, InvalidSchedulingRequestException
 	{
 		
-		TimePoint p = new TimePoint(new HospitalDate(HospitalDate.START_OF_TIME.getTotalMillis()+HospitalDate.ONE_SECOND*3),TimeType.start);
+		TimePoint p = new TimePoint(new HospitalDate(HospitalDate.START_OF_TIME.getTimeSinceStart()+HospitalDate.ONE_SECOND*3),TimeType.start);
 		TimeSlot t1 = new TimeSlot(tp00, tp11);
 		TimeSlot t2 = new TimeSlot(p, tp31);
 
