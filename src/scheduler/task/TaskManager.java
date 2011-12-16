@@ -3,25 +3,26 @@ package scheduler.task;
 import java.util.*;
 import be.kuleuven.cs.som.annotate.*;
 import exceptions.*;
-import scheduler.HospitalDate;
-import scheduler.Scheduler;
+import scheduler.*;
 
 /**
- * This class serves as a form of waiting room for unscheduled tasks. If a Task
- * can't be scheduled at creation, it will be stored in here. Once there's
- * change to the state of the system, the usecase should notify this class to
- * update it's pool of "waiting tasks". It then, if needed can tell the
- * scheduler to schedule tasks if they suddenly do meet the requirements to be
- * scheduled.
+ * This class manages new and old Tasks. If a new Task is created, it will
+ * schedule it immediately, if possible. If the new Task can't be scheduled
+ * straight away, it will go to the waiting queue that's being kept in this
+ * class. The reason these Tasks can't be scheduled is that one of their
+ * requirements has not been met yet. Mind that you need to have an association
+ * to TaskManager from each Requirement class so that it can call the
+ * updateQueue() function every time its state changes. Once an unscheduled task
+ * meets its requirements, it will be scheduled.
  */
 public class TaskManager
 {
-	private Collection<Task> taskQueue = new LinkedList<Task>();
+	private Collection<UnscheduledTask> taskQueue = new LinkedList<UnscheduledTask>();
 
 	/**
 	 * This method has to be called in order to update the Queue at the right
 	 * times in the flow of the program. It will check if any of the Tasks in
-	 * the Queue can be scheduled. If so, it will ask the scheduler to schedule
+	 * the Queue can be scheduled. If so, it will ask a Scheduler to schedule
 	 * them.
 	 * 
 	 * @return A map from Task to Date where the Date is the Date the Task has
@@ -29,18 +30,16 @@ public class TaskManager
 	 * @throws InvalidSchedulingRequestException
 	 * @throws InvalidDurationException
 	 * @throws QueueException
-	 * @throws InvalidSchedulingRequestException 
-	 * @throws InvalidTimeSlotException 
+	 * @throws InvalidSchedulingRequestException
+	 * @throws InvalidTimeSlotException
 	 */
-	public HashMap<Task,HospitalDate> updateQueue() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException {
-		
-		HashMap<Task, HospitalDate> returnValue = new HashMap<Task, HospitalDate>();
-		Queue<Task> newQueue = new LinkedList<Task>(this.taskQueue);
-		for (Task curTask : this.taskQueue) {
+	public HashMap<ScheduledTask,HospitalDate> updateQueue() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException {
+		HashMap<ScheduledTask, HospitalDate> returnValue = new HashMap<ScheduledTask, HospitalDate>();
+		Queue<UnscheduledTask> newQueue = new LinkedList<UnscheduledTask>(this.taskQueue);
+		for (UnscheduledTask curTask : this.taskQueue) {
 			if (curTask.canBeScheduled()) {
-				HospitalDate d = (new Scheduler()).schedule(
-						curTask.getDuration(), curTask.getResources());
-				returnValue.put(curTask, d);
+				ScheduledTask d = Scheduler.schedule(curTask.getDuration(), curTask.getResourcePool(), curTask.getOccurences());
+				returnValue.put(d, d.getStartDate());
 			} else {
 				newQueue.add(curTask);
 			}
@@ -53,20 +52,23 @@ public class TaskManager
 	 * This method will add a Task to this TaskManager's queue.
 	 * @param t
 	 * The task to add.
+	 * @throws InvalidTimeSlotException 
+	 * @throws InvalidSchedulingRequestException 
+	 * @throws InvalidDurationException 
+	 * @throws QueueException 
 	 */
-	public void addTask(Task t) {
+	public void addTask(UnscheduledTask t) throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidTimeSlotException {
 		if (!isValidTask(t))
-			throw new IllegalArgumentException("Task t in addTask of the TaskManager is not a valid queable Task!");
+			throw new IllegalArgumentException("Task t in addTask of the TaskManager is not a valid queueable Task!");
 		this.taskQueue.add(t);
+		this.updateQueue();
 	}
-
-
 	
 	/**
 	 * @return True if t is a valid Task that can be queued in this TM.
 	 */
-	private boolean isValidTask(Task t) {
-		return t != null && !t.getResources().isEmpty();
+	private boolean isValidTask(UnscheduledTask t) {
+		return t != null;
 	}
 	
 	@Basic
