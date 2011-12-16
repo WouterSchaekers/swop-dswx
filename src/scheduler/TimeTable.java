@@ -279,52 +279,55 @@ public class TimeTable
 	 *            The timetable which has to be intersected with this one.
 	 * @return A new timetable that has all the busy-slots of both timetables.
 	 * @throws InvalidTimeSlotException
+	 * @throws InvalidSchedulingRequestException 
 	 */
 	public TimeTable getIntersect(TimeTable that)
-			throws InvalidTimeSlotException {
-		this.sortTimeSlots();
-		that.sortTimeSlots();
-		this.eliminateOverlap();
-		that.eliminateOverlap();
-		TimePoint[] one = this.getTimePoints();
-		TimePoint[] two = that.getTimePoints();
-		LinkedList<TimeSlot> rv = new LinkedList<TimeSlot>();
-		int first = 0;
-		int second = 0;
-		while (first < one.length - 1 && second < two.length - 1) {
-			while (first < one.length - 1
-					&& second < two.length - 1
-					&& !two[second].isBetweenExcludingEndPoint(one[first],
-							one[first + 1])
-					&& !one[first].isBetweenExcludingEndPoint(two[second],
-							two[second + 1])) {
-				if (one[first].compareTo(two[second]) > 0) {
-					second = second + 2;
-				} else {
-					first = first + 2;
-				}
-			}
-			if (!(first < one.length - 1 && second < two.length - 1)) {
-				break;
-			}
-			TimePoint startPoint;
-			if (one[first].compareTo(two[second]) > 0) {
-				startPoint = one[first];
-			} else {
-				startPoint = two[second];
-			}
-			TimePoint endPoint;
-			if (one[first + 1].compareTo(two[second + 1]) > 0) {
-				endPoint = two[second + 1];
-				second = second + 2;
-			} else {
-				endPoint = one[first + 1];
-				first = first + 2;
-			}
-			TimeSlot t = new TimeSlot(startPoint, endPoint);
-			rv.add(t);
-		}
-		return new TimeTable(rv);
+			throws InvalidTimeSlotException, InvalidSchedulingRequestException {
+		
+//		this.sortTimeSlots();
+//		that.sortTimeSlots();
+//		this.eliminateOverlap();
+//		that.eliminateOverlap();
+//		TimePoint[] one = this.getTimePoints();
+//		TimePoint[] two = that.getTimePoints();
+//		LinkedList<TimeSlot> rv = new LinkedList<TimeSlot>();
+//		int first = 0;
+//		int second = 0;
+//		while (first < one.length - 1 && second < two.length - 1) {
+//			while (first < one.length - 1
+//					&& second < two.length - 1
+//					&& !two[second].isBetweenExcludingEndPoint(one[first],
+//							one[first + 1])
+//					&& !one[first].isBetweenExcludingEndPoint(two[second],
+//							two[second + 1])) {
+//				if (one[first].compareTo(two[second]) > 0) {
+//					second = second + 2;
+//				} else {
+//					first = first + 2;
+//				}
+//			}
+//			if (!(first < one.length - 1 && second < two.length - 1)) {
+//				break;
+//			}
+//			TimePoint startPoint;
+//			if (one[first].compareTo(two[second]) > 0) {
+//				startPoint = one[first];
+//			} else {
+//				startPoint = two[second];
+//			}
+//			TimePoint endPoint;
+//			if (one[first + 1].compareTo(two[second + 1]) > 0) {
+//				endPoint = two[second + 1];
+//				second = second + 2;
+//			} else {
+//				endPoint = one[first + 1];
+//				first = first + 2;
+//			}
+//			TimeSlot t = new TimeSlot(startPoint, endPoint);
+//			rv.add(t);
+//		}
+//		return new TimeTable(rv);
+		return (this.invert().getUnion(that.invert())).invert();
 	}
 
 	/**

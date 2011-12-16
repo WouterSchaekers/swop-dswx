@@ -69,6 +69,8 @@ public class HospitalDate {
 	 * 		The hospitaldate that will be copied.
 	 */
 	public HospitalDate(HospitalDate hospitalDate){
+		if(hospitalDate.gregorianCalendar.getTimeInMillis()<HospitalDate.START_OF_TIME.getTotalMillis())
+			throw new IllegalArgumentException("The provided date is before the start of time. Fuck you!");
 		gregorianCalendar = new GregorianCalendar();
 		gregorianCalendar.setTimeInMillis(hospitalDate.getTotalMillis());
 	}
