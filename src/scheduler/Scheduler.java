@@ -111,13 +111,13 @@ public class Scheduler
 						fullOccurences, iteration + 1);
 			}
 			catch(InvalidSchedulingRequestException e){
-				
+				treeMatrix[iteration][bestOption] = false;
+				return Scheduler.schedule(duration, startDate, stopDate, neededSchedulables, usedSchedulables, treeMatrix, fullOccurences, iteration);
 			}
 		}
 		else{
 			return new ScheduledTask(newUsedSchedulables, bestTimeSlot);
 		}
-		return null;
 	}
 
 	private static LinkedList<Integer> makeCorrespondingArray(
@@ -235,6 +235,15 @@ public class Scheduler
 		}
 		return newList;
 	}
+	
+	private static boolean[][] copyMatrix(boolean[][] treeMatrix) {
+		boolean[][] newTreeMatrix = new boolean[treeMatrix.length][];
+		for (int i = 0; i < treeMatrix.length; i++) {
+			newTreeMatrix[i] = Arrays.copyOf(treeMatrix[i],
+					treeMatrix[i].length);
+		}
+		return newTreeMatrix;
+	}
 
 	// private static HospitalDate findNextDateToSchedule(HospitalDate
 	// startDate, boolean[] treeArray, LinkedList<Schedulable> curSchedList)
@@ -252,13 +261,4 @@ public class Scheduler
 	// }
 	// return newHospitalDate;
 	// }
-
-	private static boolean[][] copyMatrix(boolean[][] treeMatrix) {
-		boolean[][] newTreeMatrix = new boolean[treeMatrix.length][];
-		for (int i = 0; i < treeMatrix.length; i++) {
-			newTreeMatrix[i] = Arrays.copyOf(treeMatrix[i],
-					treeMatrix[i].length);
-		}
-		return newTreeMatrix;
-	}
 }
