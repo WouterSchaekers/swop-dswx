@@ -84,102 +84,108 @@ public class SchedulerTest
 	public void sschedule1Test() throws InvalidSchedulingRequestException,
 			InvalidTimeSlotException, InvalidResourceException {
 		for (Schedulable s : listOfNurses) {
-			s.getTimeTable().addTimeSlot(
-					new TimeSlot(
-							new StartTimePoint(HospitalDate.START_OF_TIME),
-							new EndTimePoint(HospitalDate.START_OF_TIME
-									.getTimeSinceStart() + 5000)));
+			s.scheduleAt(new TimeSlot(new StartTimePoint(
+					HospitalDate.START_OF_TIME), new EndTimePoint(
+					HospitalDate.START_OF_TIME.getTimeSinceStart() + 5000)));
 		}
-		assertFalse(Scheduler.schedule(5000, listOfSchedulables,occurences).getTimeSlot().getStartPoint().getDate().equals(new HospitalDate()));
+		assertFalse(Scheduler.schedule(5000, listOfSchedulables, occurences)
+				.getTimeSlot().getStartPoint().getDate()
+				.equals(new HospitalDate()));
 	}
 
 	@Test
 	public void sschedule2Test() throws InvalidSchedulingRequestException,
 			InvalidTimeSlotException, InvalidResourceException {
 		for (Schedulable s : listOfNurses) {
-			s.getTimeTable().addTimeSlot(
-					new TimeSlot(
-							new StartTimePoint(HospitalDate.START_OF_TIME),
-							new EndTimePoint(HospitalDate.START_OF_TIME
-									.getTimeSinceStart() + 5000)));
+			s.scheduleAt(new TimeSlot(new StartTimePoint(
+					HospitalDate.START_OF_TIME), new EndTimePoint(
+					HospitalDate.START_OF_TIME.getTimeSinceStart() + 5000)));
 		}
 		occurences = new LinkedList<Integer>();
 		occurences.add(2);
 		occurences.add(0);
-		assertFalse(Scheduler.schedule(5000, listOfSchedulables,occurences).getTimeSlot().getStartPoint().getDate().equals(new HospitalDate()));
+		assertFalse(Scheduler.schedule(5000, listOfSchedulables, occurences)
+				.getStartDate().equals(new HospitalDate()));
 	}
 
 	@Test
 	public void sschedule3Test() throws InvalidSchedulingRequestException,
 			InvalidTimeSlotException, InvalidResourceException {
 		for (Schedulable s : listOfNurses) {
-			s.getTimeTable().addTimeSlot(
-					new TimeSlot(
-							new StartTimePoint(HospitalDate.START_OF_TIME),
-							new EndTimePoint(HospitalDate.START_OF_TIME
-									.getTimeSinceStart() + 5000)));
+			s.scheduleAt(new TimeSlot(new StartTimePoint(
+					HospitalDate.START_OF_TIME), new EndTimePoint(
+					HospitalDate.START_OF_TIME.getTimeSinceStart() + 5000)));
 		}
 		for (Schedulable s : listOfDoctors) {
-			s.getTimeTable().addTimeSlot(
-					new TimeSlot(
-							new StartTimePoint(HospitalDate.START_OF_TIME),
-							new EndTimePoint(HospitalDate.START_OF_TIME
-									.getTimeSinceStart() + 5000)));
+			s.scheduleAt(new TimeSlot(new StartTimePoint(
+					HospitalDate.START_OF_TIME), new EndTimePoint(
+					HospitalDate.START_OF_TIME.getTimeSinceStart() + 5000)));
 		}
 		occurences = new LinkedList<Integer>();
 		occurences.add(2);
 		occurences.add(2);
-		assertFalse(Scheduler.schedule(5000, listOfSchedulables,occurences).getTimeSlot().getStartPoint().getDate().equals(new HospitalDate()));
+		assertFalse(Scheduler.schedule(5000, listOfSchedulables, occurences)
+				.getTimeSlot().getStartPoint().getDate()
+				.equals(new HospitalDate()));
 	}
 
-	@Test (expected = InvalidSchedulingRequestException.class)
+	@Test(
+			expected = InvalidSchedulingRequestException.class)
 	public void sschedule4Test() throws InvalidSchedulingRequestException,
 			InvalidTimeSlotException, InvalidResourceException {
 		occurences = new LinkedList<Integer>();
 		occurences.add(5);
 		occurences.add(5);
-		Scheduler.schedule(5000, listOfSchedulables,occurences);
+		Scheduler.schedule(5000, listOfSchedulables, occurences);
 		throw new IllegalStateException("Something went wrong....");
 	}
-	
+
 	@Test
 	public void sschedule5Test() throws InvalidSchedulingRequestException,
 			InvalidTimeSlotException, InvalidResourceException {
 		for (Schedulable s : listOfNurses) {
-			s.getTimeTable().addTimeSlot(
-					new TimeSlot(
-							new StartTimePoint(HospitalDate.START_OF_TIME),
-							new EndTimePoint(HospitalDate.START_OF_TIME.getTimeSinceStart() + 5000)));
+			s.scheduleAt(new TimeSlot(new StartTimePoint(
+					HospitalDate.START_OF_TIME), new EndTimePoint(
+					HospitalDate.START_OF_TIME.getTimeSinceStart() + 5000)));
 		}
 		for (Schedulable s : listOfDoctors) {
-			s.getTimeTable().addTimeSlot(
-					new TimeSlot(
-							new StartTimePoint(HospitalDate.START_OF_TIME),
-							new EndTimePoint(HospitalDate.START_OF_TIME.getTimeSinceStart() + 2300)));
+			s.scheduleAt(new TimeSlot(new StartTimePoint(
+					HospitalDate.START_OF_TIME), new EndTimePoint(
+					HospitalDate.START_OF_TIME.getTimeSinceStart() + 2300)));
 		}
 		occurences = new LinkedList<Integer>();
 		occurences.add(4);
 		occurences.add(1);
-		assertFalse(Scheduler.schedule(5000, listOfSchedulables,occurences).getTimeSlot().getStartPoint().getDate().equals(new HospitalDate()));
+		assertFalse(Scheduler.schedule(5000, listOfSchedulables, occurences)
+				.getTimeSlot().getStartPoint().getDate()
+				.equals(new HospitalDate()));
 	}
-	
+
 	@Test
 	public void sschedule6Test() throws InvalidSchedulingRequestException,
 			InvalidTimeSlotException, InvalidResourceException {
-		listOfNurses.get(0).getTimeTable().addTimeSlot(new TimeSlot(
-							new StartTimePoint(HospitalDate.START_OF_TIME.getTimeSinceStart() + 1500),
-							new EndTimePoint(HospitalDate.START_OF_TIME.getTimeSinceStart() + 5000)));
-		
+		listOfNurses.get(0)
+				.scheduleAt(
+						new TimeSlot(
+								new StartTimePoint(HospitalDate.START_OF_TIME
+										.getTimeSinceStart() + 1500),
+								new EndTimePoint(HospitalDate.START_OF_TIME
+										.getTimeSinceStart() + 5000)));
+
 		for (Schedulable s : listOfDoctors) {
-			s.getTimeTable().addTimeSlot(
-					new TimeSlot(
-							new StartTimePoint(HospitalDate.START_OF_TIME.getTimeSinceStart() + 5500),
-							new EndTimePoint(HospitalDate.START_OF_TIME.getTimeSinceStart() + 8000)));
+			s.scheduleAt(new TimeSlot(new StartTimePoint(
+					HospitalDate.START_OF_TIME.getTimeSinceStart() + 5500),
+					new EndTimePoint(HospitalDate.START_OF_TIME
+							.getTimeSinceStart() + 8000)));
 		}
 		occurences = new LinkedList<Integer>();
 		occurences.add(4);
 		occurences.add(2);
-		assertTrue(Scheduler.schedule(1501, listOfSchedulables, occurences).getTimeSlot().getStartPoint().getDate().equals(new HospitalDate(HospitalDate.START_OF_TIME.getTimeSinceStart() + 8000)));
+		assertTrue(Scheduler
+				.schedule(1501, listOfSchedulables, occurences)
+				.getStartDate()
+				.equals(new HospitalDate(HospitalDate.START_OF_TIME
+						.getTimeSinceStart() + 8000)));
 	}
 
 }
