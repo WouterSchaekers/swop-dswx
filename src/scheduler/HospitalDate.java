@@ -73,13 +73,13 @@ public class HospitalDate {
 	}
 	
 	/**
-	 * Creates a new hostpitaldate, with the given new time in UTC milliseconds from the epoch.
+	 * Creates a new hostpitaldate, with the given new time.
 	 * 
 	 * @param milliseconds
 	 * 		The amount of milliseconds since the start of time.
 	 */
 	public HospitalDate(long milliseconds){
-		if(milliseconds < HospitalDate.START_OF_TIME.getTotalMillis())
+		if(milliseconds<0)
 			throw new IllegalArgumentException("The provided date is before the start of time.");
 		gregorianCalendar = new GregorianCalendar();
 		gregorianCalendar.setTimeInMillis(HospitalDate.START_OF_TIME.getTotalMillis()+milliseconds);
