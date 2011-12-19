@@ -23,7 +23,7 @@ public class TimePointTest
 
 	@Test(expected = IllegalArgumentException.class)
 	public void nullTestTwo() {
-		TimePoint p = new StartTimePoint(0);
+		TimePoint p = new StartTimePoint(-1);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -35,7 +35,7 @@ public class TimePointTest
 
 	@Test(expected = IllegalArgumentException.class)
 	public void nullTestFour() {
-		TimePoint p = new EndTimePoint(0);
+		TimePoint p = new EndTimePoint(-1);
 
 	}
 }
