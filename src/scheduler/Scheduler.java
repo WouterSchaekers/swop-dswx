@@ -87,7 +87,8 @@ public class Scheduler
 			LinkedList<Integer> fullOccurences, int iteration)
 			throws InvalidSchedulingRequestException, InvalidTimeSlotException,
 			InvalidResourceException {
-		
+
+		System.out.println(startDate);
 		int curCollectionToSchedule = fullOccurences.get(iteration);
 		LinkedList<Schedulable> curSchedList = neededSchedulables
 				.get(curCollectionToSchedule);
@@ -111,15 +112,20 @@ public class Scheduler
 						neededSchedulables, newUsedSchedulables, newTreeMatrix,
 						fullOccurences, iteration + 1);
 			} catch (InvalidSchedulingRequestException e) {
+				//hier een try zetten om te zien of het met een verder tijdsslot werkt.
+				//indien niet -> nieuwe exception & op false zetten.
 				treeMatrix[iteration][bestOption] = false;
 				return Scheduler.schedule(duration, startDate, stopDate,
 						neededSchedulables, usedSchedulables, treeMatrix,
 						fullOccurences, iteration);
 			}
 		} else {
-			TimePoint startOfTimeSlot = new StartTimePoint(bestTimeSlot.getStartPoint().getDate());
-			TimePoint endOfTimeSlot = new EndTimePoint(startOfTimeSlot.getDate().getTimeSinceStart() + duration);
-			TimeSlot timeSlotToReturn = new TimeSlot(startOfTimeSlot, endOfTimeSlot);
+			TimePoint startOfTimeSlot = new StartTimePoint(bestTimeSlot
+					.getStartPoint().getDate());
+			TimePoint endOfTimeSlot = new EndTimePoint(startOfTimeSlot
+					.getDate().getTimeSinceStart() + duration);
+			TimeSlot timeSlotToReturn = new TimeSlot(startOfTimeSlot,
+					endOfTimeSlot);
 			return new ScheduledTask(newUsedSchedulables, timeSlotToReturn);
 		}
 	}
@@ -144,15 +150,23 @@ public class Scheduler
 		HospitalDate bestDate = null;
 		for (int i = 0; i < treeArray.length; i++) {
 			if (treeArray[i]) {
-				TimeSlot curSlot = curSchedList.get(i).getTimeTable()
-						.getFirstFreeSlotBetween(startDate, stopDate, duration);
-				HospitalDate curDate = curSlot.getStartPoint().getDate();
-				if (bestOption == -1 || (curDate.before(bestDate)
-						|| (curDate.equals(bestDate) && curSlot.getLength() > bestSlot
-								.getLength()))) {
-					bestOption = i;
-					bestSlot = curSlot;
-					bestDate = curDate;
+				try {
+					TimeSlot curSlot = curSchedList
+							.get(i)
+							.getTimeTable()
+							.getFirstFreeSlotBetween(startDate, stopDate,
+									duration);
+					HospitalDate curDate = curSlot.getStartPoint().getDate();
+					if (bestOption == -1
+							|| (curDate.before(bestDate) || (curDate
+									.equals(bestDate) && curSlot.getLength() > bestSlot
+									.getLength()))) {
+						bestOption = i;
+						bestSlot = curSlot;
+						bestDate = curDate;
+					}
+				} catch (IllegalStateException e) {
+					;
 				}
 			}
 		}
@@ -181,7 +195,8 @@ public class Scheduler
 	public static boolean[][] updateTreeMatrix(boolean[][] treeMatrix,
 			int bestOption, LinkedList<Integer> fullOccurences, int iteration) {
 		int occurenceNumber = fullOccurences.get(iteration);
-		for(int i = 1; iteration + i < fullOccurences.size() && occurenceNumber == fullOccurences.get(iteration + i); i++){
+		for (int i = 1; iteration + i < fullOccurences.size()
+				&& occurenceNumber == fullOccurences.get(iteration + i); i++) {
 			treeMatrix[iteration + i][bestOption] = false;
 		}
 		return treeMatrix;
@@ -202,7 +217,8 @@ public class Scheduler
 		if (currentSystemTime == null)
 			return t != null;
 		return t != null
-				&& t.getTimeSinceStart() >= currentSystemTime.getTimeSinceStart();
+				&& t.getTimeSinceStart() >= currentSystemTime
+						.getTimeSinceStart();
 	}
 
 	/**
