@@ -7,19 +7,17 @@ import be.kuleuven.cs.som.annotate.Basic;
  * This class can be used to schedule appointments. It is either a start- or a
  * stop point. Useful for finding free appointments.
  */
-public class TimePoint implements Comparable<TimePoint>
+public abstract class TimePoint implements Comparable<TimePoint>
 {
-	private TimeType type;
 	private HospitalDate hospitalDate;
 	public static final Comparator<TimePoint> ComparatorsStartFirst = new Comparator<TimePoint>()
 	{
 		@Override
 		public int compare(TimePoint o1, TimePoint o2) {
 			if (o1.compareTo(o2) == 0) {
-
-				if (o1.type == TimeType.start && o2.type == TimeType.stop)
+				if (o1 instanceof StartTimePoint && o2 instanceof EndTimePoint)
 					return -1;
-				if (o1.type == TimeType.stop && o2.type == TimeType.start)
+				if (o1 instanceof EndTimePoint && o2 instanceof StartTimePoint)
 					return 1;
 				return 0;
 			} else
@@ -32,9 +30,9 @@ public class TimePoint implements Comparable<TimePoint>
 		public int compare(TimePoint o1, TimePoint o2) {
 			if (o1.compareTo(o2) == 0) {
 
-				if (o1.type == TimeType.start && o2.type == TimeType.stop)
+				if (o1 instanceof StartTimePoint&& o2 instanceof EndTimePoint)
 					return 1;
-				if (o1.type == TimeType.stop && o2.type == TimeType.start)
+				if (o1 instanceof EndTimePoint&& o2 instanceof StartTimePoint)
 					return -1;
 				return 0;
 			} else
@@ -49,28 +47,24 @@ public class TimePoint implements Comparable<TimePoint>
 	 * @throws IllegalArgumentException
 	 *             if the given date is null or the timetype is null.
 	 */
-	public TimePoint(HospitalDate d, TimeType t) {
-		if (d == null || t == null)
+	protected TimePoint(HospitalDate d) {
+		if (d == null )
 			throw new IllegalArgumentException(
 					"Invalid date or TimeType in constructor-call of TimePoint!");
-		this.type = t;
+	
 		this.hospitalDate = d;
 	}
 	
 	//TODO
-	public TimePoint(long timeInMillis, TimeType t){
-		this(new HospitalDate(timeInMillis), t);
+	protected TimePoint(long timeInMillis ){
+		this(new HospitalDate(timeInMillis));
 	}
 	
-	public TimePoint(TimePoint t){
-		this(t.getDate(), t.getType());
+	protected TimePoint(TimePoint t){
+		this(t.getDate());
 	}
 
-	@Basic
-	public TimeType getType() {
-		return this.type;
-	}
-
+	
 	@Basic
 	public HospitalDate getDate() {
 		return this.hospitalDate;
@@ -98,32 +92,12 @@ public class TimePoint implements Comparable<TimePoint>
 	/**
 	 * @return True if this is a start-timepoint.
 	 */
-	public boolean isStart() {
-		return this.type == TimeType.start;
-	}
+	public abstract boolean isStart(); 
 
 	/**
 	 * @return True if this is an end-timepoint
 	 */
-	public boolean isEnd() {
-		return this.type == TimeType.stop;
-	}
-
-	/**
-	 * @return true if this == t
-	 */
-	public boolean equals(TimePoint t) {
-		return t.getType().equals(this.type) && t.compareTo(this) == 0;
-	}
-
-	@Override
-	public String toString() {
-		if (this.type == TimeType.start) {
-			return "Start " + this.getDate();
-		} else {
-			return "End " + this.getDate();
-		}
-	}
+	public abstract boolean isEnd(); 
 
 	/**
 	 * @return the time between this TimePoint and t.
@@ -164,7 +138,5 @@ public class TimePoint implements Comparable<TimePoint>
 				&& (after.getTime() - this.getTime() > 0);
 	}
 	
-	public TimePoint clone(){
-		return new TimePoint(this.getDate().clone(), this.getType());
-	}
+	public abstract TimePoint clone();
 }
