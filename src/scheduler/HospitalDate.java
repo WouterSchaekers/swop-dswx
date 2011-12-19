@@ -79,9 +79,9 @@ public class HospitalDate {
 	 * 		The amount of milliseconds since the start of time.
 	 */
 	public HospitalDate(long milliseconds){
-		if(milliseconds<0)
-			throw new IllegalArgumentException("The provided date is before the start of time. Fuck you!");
-			gregorianCalendar = new GregorianCalendar();
+		if(milliseconds < HospitalDate.START_OF_TIME.getTotalMillis())
+			throw new IllegalArgumentException("The provided date is before the start of time.");
+		gregorianCalendar = new GregorianCalendar();
 		gregorianCalendar.setTimeInMillis(HospitalDate.START_OF_TIME.getTotalMillis()+milliseconds);
 	}
 	
