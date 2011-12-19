@@ -46,12 +46,7 @@ public class TaskTest
 		Iterator<Schedulable> _2=theTask.getResources().iterator();
 		while(_1.hasNext())
 		{
-			assertFalse(_1.next()==_2.next());
+			assertTrue(_1.next()==_2.next());
 		}
-	}
-	@Test
-	public void abraFail()
-	{
-		
 	}
 }
