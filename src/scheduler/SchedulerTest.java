@@ -6,11 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import scheduler.task.Schedulable;
 import users.UserManager;
-import exceptions.InvalidNameException;
-import exceptions.InvalidResourceException;
-import exceptions.InvalidSchedulingRequestException;
-import exceptions.InvalidTimeSlotException;
-import exceptions.UserAlreadyExistsException;
+import exceptions.*;
 
 public class SchedulerTest
 {
