@@ -179,15 +179,11 @@ public class Scheduler
 		return treeMatrix;
 	}
 
-	private static boolean[][] updateTreeMatrix(boolean[][] treeMatrix,
-			int bestOption, LinkedList<Integer> occurences, int iteration) {
-		int occurenceNumber = occurences.get(iteration);
-		for (int i = 0; i < occurenceNumber; i++) {
-			if (iteration + i < occurences.size()
-					&& occurences.get(iteration + i) == occurences
-							.get(iteration)) {
-				treeMatrix[iteration + i][bestOption] = false;
-			}
+	public static boolean[][] updateTreeMatrix(boolean[][] treeMatrix,
+			int bestOption, LinkedList<Integer> fullOccurences, int iteration) {
+		int occurenceNumber = fullOccurences.get(iteration);
+		for(int i = 1; iteration + i < fullOccurences.size() && occurenceNumber == fullOccurences.get(iteration + i); i++){
+			treeMatrix[iteration + i][bestOption] = false;
 		}
 		return treeMatrix;
 	}
