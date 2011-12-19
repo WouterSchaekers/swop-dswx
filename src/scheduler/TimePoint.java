@@ -138,9 +138,8 @@ public abstract class TimePoint implements Comparable<TimePoint>
 				&& (after.getTime() - this.getTime() > 0);
 	}
 	
+	public abstract String toString();
+	
 	public abstract TimePoint clone();
 	
-	public String toString() {
-		return this.getDate().toString();
-	}
 }
