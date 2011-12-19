@@ -36,6 +36,6 @@ public class EndTimePoint extends TimePoint
 	{
 		if(!(o instanceof EndTimePoint))
 			return false;
-		return this.getDate().equals(((StartTimePoint)o).getDate());
+		return this.getDate().equals(((EndTimePoint)o).getDate());
 	}
 }
