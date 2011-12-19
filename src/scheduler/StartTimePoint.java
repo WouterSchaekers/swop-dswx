@@ -6,12 +6,12 @@ public class StartTimePoint extends TimePoint
 	public StartTimePoint(HospitalDate d) {
 		super(d);
 	}
-	public StartTimePoint(long timeInMillis)
-	{
+
+	public StartTimePoint(long timeInMillis) {
 		super(timeInMillis);
 	}
-	public StartTimePoint(TimePoint t)
-	{
+
+	public StartTimePoint(TimePoint t) {
 		super(t);
 	}
 

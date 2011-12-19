@@ -8,22 +8,34 @@ import org.junit.Test;
 public class TimePointTest
 {
 	@Test
-	public void basicTestOne()
-	{
-		TimePoint p = new TimePoint(new HospitalDate(0),TimeType.stop);
-		assertTrue(p.getTime()==HospitalDate.START_OF_TIME.getTimeSinceStart());
+	public void basicTestOne() {
+		TimePoint p = new StartTimePoint(new HospitalDate(0));
+		assertTrue(p.getTime() == HospitalDate.START_OF_TIME
+				.getTimeSinceStart());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void nullTestOne()
-	{
-		TimePoint p = new TimePoint(null,TimeType.stop);
+	public void nullTestOne() {
+		HospitalDate o = null;
+		TimePoint p = new StartTimePoint(o);
 
 	}
+
 	@Test(expected = IllegalArgumentException.class)
-	public void nullTestTwo()
-	{
-		TimePoint p = new TimePoint(new HospitalDate(0),null);
+	public void nullTestTwo() {
+		TimePoint p = new StartTimePoint(0);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void nullTestThree() {
+		HospitalDate o = null;
+		TimePoint p = new EndTimePoint(o);
+
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void nullTestFour() {
+		TimePoint p = new EndTimePoint(0);
 
 	}
 }
