@@ -34,4 +34,4 @@
 || 16/12/11: 10u00 -> 12u00 || 2 DW || 2 || Further implementing and debugging of Scheduler || Stefaan had zich overslapen omdat hij Wartortle & Mew aan het grinden was ||
 || 16/12/11: 12u00 -> 15u30 || 3 DSW || 3.5 || Scheduler, Task, UnscheduledTask, ScheduledTask, TaskManager, TaskTest, TimeTable, TimeTableTest, SchedulerTest,... fixen || ||
 || 16/12/11: 15u30 -> 18u00 || 1 W || 2.5 || Scheduler || ||
-|| 19/12/11: 15u20 -> ... || 3 DSW || ... || Implement all the things! || ||
+|| 19/12/11: 15u20 -> 19u00 || 3 DSW || 3.67 || Scheduler + TimePoint || ||
