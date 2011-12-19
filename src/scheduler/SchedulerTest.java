@@ -72,7 +72,7 @@ public class SchedulerTest
 				.get(0)
 				.getTimeTable()
 				.addTimeSlot(
-						new TimeSlot(new TimePoint(HospitalDate.START_OF_TIME,
+						new  StartTimeSlot(new TimePoint(HospitalDate.START_OF_TIME,
 								TimeType.start),
 								new TimePoint(HospitalDate.START_OF_TIME
 										.getTimeSinceStart() + 5000,
