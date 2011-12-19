@@ -25,7 +25,6 @@ public class EndTimePoint extends TimePoint
 	}
 	@Override
 	public TimePoint clone() {
-		// TODO Auto-generated method stub
-		return null;
+		return new EndTimePoint(this);
 	}
 }

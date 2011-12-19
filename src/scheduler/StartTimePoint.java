@@ -17,19 +17,16 @@ public class StartTimePoint extends TimePoint
 
 	@Override
 	public TimePoint clone() {
-		// TODO Auto-generated method stub
-		return null;
+		return new StartTimePoint(this);
 	}
 
 	@Override
 	public boolean isStart() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean isEnd() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
