@@ -66,32 +66,30 @@ public class SchedulerTest
 	}
 	
 	@Test
-	public void updateTreeMatrixTest(){
+	public void smakeTreeMatrixTest1() {
 		boolean[][] treeMatrix = Scheduler.makeTreeMatrix(listOfSchedulables,
-				fullOccurences);
-		Scheduler.updateTreeMatrix(treeMatrix, 0, fullOccurences, 1);
-		assertTrue(treeMatrix[1][0] == true);
-		assertTrue(treeMatrix[2][0] == false);
+				occurences);
+		assertTrue(treeMatrix.length == 3);
+		assertTrue(treeMatrix[0].length == 4);
+		assertTrue(treeMatrix[1].length == 2);
+		assertTrue(treeMatrix[2].length == 2);
 	}
 
-//	@Test
-//	public void schedule0Test() throws InvalidTimeSlotException,
-//			InvalidSchedulingRequestException, InvalidResourceException {
-//		listOfNurses
-//				.get(0)
-//				.getTimeTable()
-//				.addTimeSlot(
-//						new TimeSlot(new TimePoint(HospitalDate.START_OF_TIME,
-//								TimeType.start),
-//								new TimePoint(HospitalDate.START_OF_TIME
-//										.getTimeSinceStart() + 5000,
-//										TimeType.stop)));
-//		System.out.println(Scheduler.schedule(5000, listOfSchedulables,
-//				occurences).getTimeSlot());
-//	}
+	@Test
+	public void schedule0Test() throws InvalidTimeSlotException,
+			InvalidSchedulingRequestException, InvalidResourceException {
+		listOfNurses.get(0).getTimeTable().addTimeSlot(
+				new TimeSlot(new StartTimePoint(HospitalDate.START_OF_TIME),
+								new EndTimePoint(HospitalDate.START_OF_TIME.getTimeSinceStart() + 5000)));
+		System.out.println(Scheduler.schedule(5000, listOfSchedulables, occurences).getTimeSlot());
+	}
 	
 	@Test
-	public void sschedule1Test(){
-		
+	public void sschedule1Test() throws InvalidSchedulingRequestException, InvalidTimeSlotException{
+		listOfNurses.get(0).getTimeTable().addTimeSlot(new TimeSlot(new StartTimePoint(HospitalDate.START_OF_TIME),
+								new EndTimePoint(HospitalDate.START_OF_TIME.getTimeSinceStart() + 5000)));
+		listOfNurses.get(1).getTimeTable().addTimeSlot(new TimeSlot(new StartTimePoint(HospitalDate.START_OF_TIME),
+				new EndTimePoint(HospitalDate.START_OF_TIME.getTimeSinceStart() + 5000)));
+
 	}
 }
