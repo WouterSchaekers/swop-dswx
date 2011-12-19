@@ -190,7 +190,7 @@ public class TimeTable
 				}
 			}
 		}
-		throw new IllegalStateException("No more free slots available! End of time reached?");
+		throw new IllegalStateException("No more free slots available between the given Start -and EndDate!");
 	}
 
 	public boolean hasFreeSlotAt(HospitalDate startDate, HospitalDate stopDate) {
