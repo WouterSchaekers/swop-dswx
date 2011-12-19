@@ -10,6 +10,9 @@ import be.kuleuven.cs.som.annotate.Basic;
 public abstract class TimePoint implements Comparable<TimePoint>
 {
 	private HospitalDate hospitalDate;
+	/**
+	 * This comparator compares 2 Time Points where this timepoint is a starttimepoint.
+	 */
 	public static final Comparator<TimePoint> ComparatorsStartFirst = new Comparator<TimePoint>()
 	{
 		@Override
@@ -24,6 +27,9 @@ public abstract class TimePoint implements Comparable<TimePoint>
 				return o1.compareTo(o2);
 		}
 	};
+	/**
+	 * This comparator compares 2 Time Points where this timepoint is a starttimepoint.
+	 */
 	public static final Comparator<TimePoint> ComparatorsEndFirst = new Comparator<TimePoint>()
 	{
 		@Override
@@ -55,11 +61,23 @@ public abstract class TimePoint implements Comparable<TimePoint>
 		this.hospitalDate = d;
 	}
 	
+	/**
+	 * Constructor where amount of millis since system start can be given to.
+	 * @param timeInMillis
+	 * Amount of millis since system start.
+	 */
 	//TODO
 	protected TimePoint(long timeInMillis ){
 		this(new HospitalDate(timeInMillis));
 	}
 	
+	/**
+	 * Constructor where another TimePoint is given that results in this
+	 * TimePoint being a clone of the given one.
+	 * 
+	 * @param t
+	 * The TimePoint on which this TimePoint is to be based on.
+	 */
 	protected TimePoint(TimePoint t){
 		this(t.getDate());
 	}
@@ -138,8 +156,10 @@ public abstract class TimePoint implements Comparable<TimePoint>
 				&& (after.getTime() - this.getTime() > 0);
 	}
 	
+	@Override
 	public abstract String toString();
 	
+	@Override
 	public abstract TimePoint clone();
 	
 }
