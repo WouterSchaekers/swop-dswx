@@ -31,4 +31,11 @@ public class EndTimePoint extends TimePoint
 	public String toString() {
 		return "End: " + this.getDate();
 	}
+	@Override
+	public boolean equals(Object o)
+	{
+		if(!(o instanceof EndTimePoint))
+			return false;
+		return this.getDate().equals(((StartTimePoint)o).getDate());
+	}
 }
