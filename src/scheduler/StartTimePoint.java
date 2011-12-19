@@ -22,7 +22,7 @@ public class StartTimePoint extends TimePoint
 
 	@Override
 	public boolean isStart() {
-		return false;
+		return true;
 	}
 
 	@Override
