@@ -9,7 +9,7 @@ public class TimePointTest
 {
 	@Test
 	public void basicTestOne() {
-		TimePoint p = new StartTimePoint(new HospitalDate(0));
+		TimePoint p = new StartTimePoint(new HospitalDate());
 		assertTrue(p.getTime() == HospitalDate.START_OF_TIME
 				.getTimeSinceStart());
 	}
