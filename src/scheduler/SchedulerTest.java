@@ -179,7 +179,7 @@ public class SchedulerTest
 		occurences = new LinkedList<Integer>();
 		occurences.add(4);
 		occurences.add(2);
-		assertTrue(Scheduler.schedule(2500, listOfSchedulables, occurences).getTimeSlot().getStartPoint().getDate().equals(new HospitalDate(HospitalDate.START_OF_TIME.getTimeSinceStart() + 8000)));
+		assertTrue(Scheduler.schedule(1501, listOfSchedulables, occurences).getTimeSlot().getStartPoint().getDate().equals(new HospitalDate(HospitalDate.START_OF_TIME.getTimeSinceStart() + 8000)));
 	}
 
 }
