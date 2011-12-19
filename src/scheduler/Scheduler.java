@@ -118,8 +118,8 @@ public class Scheduler
 						fullOccurences, iteration);
 			}
 		} else {
-			TimePoint startOfTimeSlot = new TimePoint(bestTimeSlot.getStartPoint().getDate(), TimeType.start);
-			TimePoint endOfTimeSlot = new TimePoint(startOfTimeSlot.getDate().getTimeSinceStart() + duration, TimeType.stop);
+			TimePoint startOfTimeSlot = new StartTimePoint(bestTimeSlot.getStartPoint().getDate());
+			TimePoint endOfTimeSlot = new EndTimePoint(startOfTimeSlot.getDate().getTimeSinceStart() + duration);
 			TimeSlot timeSlotToReturn = new TimeSlot(startOfTimeSlot, endOfTimeSlot);
 			return new ScheduledTask(newUsedSchedulables, timeSlotToReturn);
 		}
