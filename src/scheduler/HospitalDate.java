@@ -318,6 +318,7 @@ public class HospitalDate {
 	 * 		The current date as a string.
 	 */
 	public String toString(){
+		
 		String hour = (("" + this.getHour()).length() == 1)? "0" + this.getHour() : "" + this.getHour();
 		String minute = (("" + this.getMinute()).length() == 1)? "0" + this.getMinute() : "" + this.getMinute();
 		String sec = (("" + this.getSecond()).length() == 1)? "0" + this.getSecond() : "" + this.getSecond();
