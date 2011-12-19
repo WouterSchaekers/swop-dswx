@@ -155,27 +155,6 @@ public class TimeTable
 		return rv;
 	}
 	
-//	//TODO
-//	public TimeSlot getFirstFreeSlotFrom(HospitalDate hospitalDate, long length) throws InvalidSchedulingRequestException, InvalidTimeSlotException{
-//		TimeTable x = this.invert();
-//		for (TimeSlot t : x.timeSlots) {
-//			if (!t.getStartPoint().getDate().before(hospitalDate)) {
-//				if(t.getLength() >= length){
-//					return t;
-//				}
-//			}
-//			else{
-//				if(hospitalDate.before(t.getStopPoint().getDate())){
-//					TimeSlot modifiedSlot = new TimeSlot(new TimePoint(hospitalDate, TimeType.start), new TimePoint(t.getStopPoint()));
-//					if(modifiedSlot.getLength() >= length){
-//						return modifiedSlot;
-//					}
-//				}
-//			}
-//		}
-//		throw new IllegalStateException("No more free slots available! End of time reached?");
-//	}
-	
 	public TimeSlot getFirstFreeSlotFrom(HospitalDate hospitalDate) throws InvalidSchedulingRequestException, InvalidTimeSlotException{
 		TimeTable x = this.invert();
 		LinkedList<TimeSlot> allTimeSlots = x.timeSlots;
