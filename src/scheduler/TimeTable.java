@@ -108,27 +108,25 @@ public class TimeTable
 		HospitalDate d1 = HospitalDate.START_OF_TIME;
 		// the end of time is here :)
 		HospitalDate d2 = HospitalDate.END_OF_TIME;
-		TimeSlot t = new TimeSlot(new TimePoint(d1, TimeType.start),
-				new TimePoint(d2, TimeType.stop));
+		TimeSlot t = new TimeSlot(new StartTimePoint(d1),
+				new EndTimePoint(d2));
 		returnValue = new TimeTable();
 
 		if (timeSlots.isEmpty())
 			return new TimeTable(t);
 		if (timeSlots.get(0).getStartPoint().getTime() != d1.getTimeSinceStart()) {
-			returnValue.addTimeSlot(new TimeSlot(new TimePoint(d1,
-					TimeType.start), new TimePoint(timeSlots.get(0)
-					.getStartPoint().getDate(), TimeType.stop)));
+			returnValue.addTimeSlot(new TimeSlot(new StartTimePoint(d1), new EndTimePoint(timeSlots.get(0)
+					.getStartPoint().getDate())));
 		}
 		for (int i = 0; i < timeSlots.size() - 1; i++) {
-			returnValue.addTimeSlot(new TimeSlot(new TimePoint(timeSlots.get(i)
-					.getStopPoint().getDate(), TimeType.start), new TimePoint(
-					timeSlots.get(i + 1).getStartPoint().getDate(),
-					TimeType.stop)));
+			returnValue.addTimeSlot(new TimeSlot(new StartTimePoint(timeSlots.get(i)
+					.getStopPoint().getDate()), new EndTimePoint(
+					timeSlots.get(i + 1).getStartPoint().getDate())));
 		}
 		if(timeSlots.get(this.timeSlots.size()-1).getStopPoint().getDate().getTimeSinceStart()!=d2.getTimeSinceStart()){
-			returnValue.addTimeSlot(new TimeSlot(new TimePoint(timeSlots
-				.get(this.timeSlots.size() - 1).getStopPoint().getDate(),
-				TimeType.start), new TimePoint(d2, TimeType.stop)));
+			returnValue.addTimeSlot(new TimeSlot(new StartTimePoint(timeSlots
+				.get(this.timeSlots.size() - 1).getStopPoint().getDate()
+				), new EndTimePoint(d2)));
 		}
 		return returnValue;
 	}
@@ -186,8 +184,8 @@ public class TimeTable
 				return t;
 			}
 		}
-		TimePoint newStopPoint = new TimePoint(allTimeSlots.get(allTimeSlots.size()-1).getStopPoint().getDate(), TimeType.stop);
-		return new TimeSlot(new TimePoint(hospitalDate, TimeType.start), newStopPoint);
+		TimePoint newStopPoint = new EndTimePoint(allTimeSlots.get(allTimeSlots.size()-1).getStopPoint().getDate());
+		return new TimeSlot(new StartTimePoint(hospitalDate), newStopPoint);
 	}
 	
 	//TODO
@@ -198,18 +196,18 @@ public class TimeTable
 			HospitalDate stopDateOfTimeSlot = t.getStopPoint().getDate();
 			if(!startDateOfTimeSlot.before(startDate)){
 				if(stopDateOfTimeSlot.before(stopDate) && stopDateOfTimeSlot.getTimeSinceStart() - startDateOfTimeSlot.getTimeSinceStart() >= duration){
-					return new TimeSlot(new TimePoint(startDateOfTimeSlot, TimeType.start), new TimePoint(stopDateOfTimeSlot, TimeType.stop));
+					return new TimeSlot(new StartTimePoint(startDateOfTimeSlot), new EndTimePoint(stopDateOfTimeSlot));
 				}
 				else if(!stopDateOfTimeSlot.before(stopDate) && stopDate.getTimeSinceStart() - startDateOfTimeSlot.getTimeSinceStart() >= duration){
-					return new TimeSlot(new TimePoint(startDateOfTimeSlot, TimeType.start), new TimePoint(stopDate, TimeType.stop));
+					return new TimeSlot(new StartTimePoint(startDateOfTimeSlot), new EndTimePoint(stopDate));
 				}
 			}
 			else{
 				if(stopDateOfTimeSlot.before(stopDate) && stopDateOfTimeSlot.getTimeSinceStart() - startDate.getTimeSinceStart() >= duration){
-					return new TimeSlot(new TimePoint(startDate, TimeType.start), new TimePoint(stopDateOfTimeSlot, TimeType.stop));
+					return new TimeSlot(new StartTimePoint(startDate), new EndTimePoint(stopDateOfTimeSlot));
 				}
 				else if(!stopDateOfTimeSlot.before(stopDate) && stopDate.getTimeSinceStart() - startDate.getTimeSinceStart() >= duration){
-					return new TimeSlot(new TimePoint(startDate, TimeType.start), new TimePoint(stopDate, TimeType.stop));
+					return new TimeSlot(new StartTimePoint(startDate), new EndTimePoint(stopDate));
 				}
 			}
 		}
@@ -217,8 +215,8 @@ public class TimeTable
 	}
 
 	public boolean hasFreeSlotAt(HospitalDate startDate, HospitalDate stopDate) {
-		return this.hasFreeSlotAt(new TimeSlot(new TimePoint(startDate,
-				TimeType.start), new TimePoint(stopDate, TimeType.stop)));
+		return this.hasFreeSlotAt(new TimeSlot(new StartTimePoint(startDate
+				), new EndTimePoint(stopDate)));
 	}
 
 	/**
@@ -263,9 +261,9 @@ public class TimeTable
 		Arrays.sort(allPoints, TimePoint.ComparatorsStartFirst);
 		i = 0;
 		while (i < allPoints.length) {
-			TimeSlot t = new TimeSlot(new TimePoint(new HospitalDate(0),
-					TimeType.start), new TimePoint(new HospitalDate(3),
-					TimeType.stop));
+			TimeSlot t = new TimeSlot(new StartTimePoint(new HospitalDate(0)
+					), new EndTimePoint(new HospitalDate(3)
+					));
 			t.setStartPoint(allPoints[i]);
 			int endcount = 1;
 			while (endcount > 0) {
@@ -295,50 +293,6 @@ public class TimeTable
 	 */
 	public TimeTable getIntersect(TimeTable that)
 			throws InvalidTimeSlotException, InvalidSchedulingRequestException {
-		
-//		this.sortTimeSlots();
-//		that.sortTimeSlots();
-//		this.eliminateOverlap();
-//		that.eliminateOverlap();
-//		TimePoint[] one = this.getTimePoints();
-//		TimePoint[] two = that.getTimePoints();
-//		LinkedList<TimeSlot> rv = new LinkedList<TimeSlot>();
-//		int first = 0;
-//		int second = 0;
-//		while (first < one.length - 1 && second < two.length - 1) {
-//			while (first < one.length - 1
-//					&& second < two.length - 1
-//					&& !two[second].isBetweenExcludingEndPoint(one[first],
-//							one[first + 1])
-//					&& !one[first].isBetweenExcludingEndPoint(two[second],
-//							two[second + 1])) {
-//				if (one[first].compareTo(two[second]) > 0) {
-//					second = second + 2;
-//				} else {
-//					first = first + 2;
-//				}
-//			}
-//			if (!(first < one.length - 1 && second < two.length - 1)) {
-//				break;
-//			}
-//			TimePoint startPoint;
-//			if (one[first].compareTo(two[second]) > 0) {
-//				startPoint = one[first];
-//			} else {
-//				startPoint = two[second];
-//			}
-//			TimePoint endPoint;
-//			if (one[first + 1].compareTo(two[second + 1]) > 0) {
-//				endPoint = two[second + 1];
-//				second = second + 2;
-//			} else {
-//				endPoint = one[first + 1];
-//				first = first + 2;
-//			}
-//			TimeSlot t = new TimeSlot(startPoint, endPoint);
-//			rv.add(t);
-//		}
-//		return new TimeTable(rv);
 		return (this.invert().getUnion(that.invert())).invert();
 	}
 
@@ -365,7 +319,7 @@ public class TimeTable
 		ArrayList<TimePoint> simplifiedTimePoints = new ArrayList<TimePoint>();
 		int amount = 0;
 		for (int i = 0; i < timePoints.length; i++) {
-			if (timePoints[i].getType() == TimeType.start) {
+			if (timePoints[i].isStart()) {
 				amount++;
 				if (!(amount > 1)) {
 					if (!(i > 0 && timePoints[i - 1].getTime() == timePoints[i]
