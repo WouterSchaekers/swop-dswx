@@ -16,8 +16,8 @@ public class TimeSlotTest
 
 	@Test(expected = IllegalArgumentException.class)
 	public void stopBeforeStartTestFail() {
-		TimeSlot s = new TimeSlot(new StartTimePoint(new HospitalDate(0)),
-				new EndTimePoint(new HospitalDate(5)));
+		TimeSlot s = new TimeSlot(new StartTimePoint(new HospitalDate(5)),
+				new EndTimePoint(new HospitalDate(0)));
 	}
 	
 	@Test
