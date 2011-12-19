@@ -86,9 +86,9 @@ public class TimeSlot
 	 * 			true is the given timeslot is valid
 	 */
 	public static boolean isValidTimeSlot(TimeSlot timeSlot){
-		if(timeSlot.getStartPoint().getType() == TimeType.stop)
+		if(timeSlot.getStartPoint().isEnd())
 			return false;
-		if(timeSlot.getStopPoint().getType() == TimeType.start)
+		if(timeSlot.getStopPoint().isStart())
 			return false;
 		if(timeSlot.getStartPoint().getTime() > timeSlot.getStopPoint().getTime())
 			return false;
