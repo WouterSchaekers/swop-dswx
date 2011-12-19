@@ -27,4 +27,8 @@ public class EndTimePoint extends TimePoint
 	public TimePoint clone() {
 		return new EndTimePoint(this);
 	}
+	@Override
+	public String toString() {
+		return "End: " + this.getDate();
+	}
 }

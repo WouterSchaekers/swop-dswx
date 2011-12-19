@@ -88,7 +88,6 @@ public class Scheduler
 			throws InvalidSchedulingRequestException, InvalidTimeSlotException,
 			InvalidResourceException {
 
-		
 		int curCollectionToSchedule = fullOccurences.get(iteration);
 		LinkedList<Schedulable> curSchedList = neededSchedulables
 				.get(curCollectionToSchedule);

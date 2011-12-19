@@ -29,5 +29,8 @@ public class StartTimePoint extends TimePoint
 	public boolean isEnd() {
 		return false;
 	}
-
+	@Override
+	public String toString() {
+		return "Start: " + this.getDate();
+	}
 }
