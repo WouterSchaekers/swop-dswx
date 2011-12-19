@@ -10,7 +10,7 @@ import exceptions.*;
 
 public class SchedulerTest
 {
-	
+
 	UserManager m;
 	LinkedList<Schedulable> listOfDoctors;
 	LinkedList<Schedulable> listOfNurses;
@@ -28,6 +28,18 @@ public class SchedulerTest
 		m.createDoctor("Jonas");
 		m.createNurse("Jenny");
 		m.createNurse("Jill");
+		//
+		// ###########################################
+		// #				   #J					 #
+		// ###########################################
+		// Jennifer
+		// Joanne
+		// Jenna
+		// Jasper
+		// Joe
+		// Jeroen
+		//
+
 		listOfDoctors = new LinkedList<Schedulable>(m.getAllDoctors());
 		listOfNurses = new LinkedList<Schedulable>(m.getAllNurses());
 		listOfSchedulables = new LinkedList<LinkedList<Schedulable>>();
@@ -42,19 +54,30 @@ public class SchedulerTest
 		fullOccurences.add(1);
 		Scheduler.setNewSystemTime(HospitalDate.START_OF_TIME);
 	}
-	
+
 	@Test
-	public void makeTreeMatrixTest(){
-		boolean[][] treeMatrix = Scheduler.makeTreeMatrix(listOfSchedulables, fullOccurences);
+	public void makeTreeMatrixTest() {
+		boolean[][] treeMatrix = Scheduler.makeTreeMatrix(listOfSchedulables,
+				fullOccurences);
 		assertTrue(treeMatrix.length == 3);
 		assertTrue(treeMatrix[0].length == 4);
 		assertTrue(treeMatrix[1].length == 2);
 		assertTrue(treeMatrix[2].length == 2);
 	}
-	
+
 	@Test
-	public void schedule0Test() throws InvalidTimeSlotException, InvalidSchedulingRequestException, InvalidResourceException{
-		listOfNurses.get(0).getTimeTable().addTimeSlot(new TimeSlot(new TimePoint(HospitalDate.START_OF_TIME, TimeType.start), new TimePoint(HospitalDate.START_OF_TIME.getTimeSinceStart() + 5000, TimeType.stop)));
-		System.out.println(Scheduler.schedule(5000, listOfSchedulables, occurences).getTimeSlot());
+	public void schedule0Test() throws InvalidTimeSlotException,
+			InvalidSchedulingRequestException, InvalidResourceException {
+		listOfNurses
+				.get(0)
+				.getTimeTable()
+				.addTimeSlot(
+						new TimeSlot(new TimePoint(HospitalDate.START_OF_TIME,
+								TimeType.start),
+								new TimePoint(HospitalDate.START_OF_TIME
+										.getTimeSinceStart() + 5000,
+										TimeType.stop)));
+		System.out.println(Scheduler.schedule(5000, listOfSchedulables,
+				occurences).getTimeSlot());
 	}
 }
