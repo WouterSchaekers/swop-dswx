@@ -64,6 +64,15 @@ public class SchedulerTest
 		assertTrue(treeMatrix[1].length == 2);
 		assertTrue(treeMatrix[2].length == 2);
 	}
+	
+	@Test
+	public void updateTreeMatrixTest(){
+		boolean[][] treeMatrix = Scheduler.makeTreeMatrix(listOfSchedulables,
+				fullOccurences);
+		Scheduler.updateTreeMatrix(treeMatrix, 0, fullOccurences, 1);
+		assertTrue(treeMatrix[1][0] == true);
+		assertTrue(treeMatrix[2][0] == false);
+	}
 
 //	@Test
 //	public void schedule0Test() throws InvalidTimeSlotException,
