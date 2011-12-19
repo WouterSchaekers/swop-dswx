@@ -411,7 +411,7 @@ public class TimeTableTest
 		TimeSlot t3 = new TimeSlot(new StartTimePoint(new HospitalDate(10)),
 				new EndTimePoint(new HospitalDate(25)));
 		TimeSlot t4 = new TimeSlot(new StartTimePoint(new HospitalDate(10)),
-				new StartTimePoint(new HospitalDate(20)));
+				new EndTimePoint(new HospitalDate(20)));
 		TimeSlot t5 = new TimeSlot(new StartTimePoint(new HospitalDate(20)),
 				new EndTimePoint(new HospitalDate(30)));
 		TimeTable table = new TimeTable(t1, t2, t3);
@@ -641,7 +641,7 @@ public class TimeTableTest
 				1323327601000l)), new EndTimePoint(new HospitalDate(
 				8984651322588l)));
 		TimeSlot t2 = new TimeSlot(new StartTimePoint(new HospitalDate(
-				12589765845329l)), new StartTimePoint(new HospitalDate(
+				12589765845329l)), new EndTimePoint(new HospitalDate(
 				13569856245875l)));
 		TimeSlot t3 = new TimeSlot(new StartTimePoint(
 				HospitalDate.START_OF_TIME), new EndTimePoint(new HospitalDate(
@@ -650,7 +650,7 @@ public class TimeTableTest
 				8984651322588l)), new EndTimePoint(new HospitalDate(
 				12589765845329l)));
 		TimeSlot t5 = new TimeSlot(new StartTimePoint(new HospitalDate(
-				13569856245875l)), new StartTimePoint(HospitalDate.END_OF_TIME));
+				13569856245875l)), new EndTimePoint(HospitalDate.END_OF_TIME));
 		TimeTable table = new TimeTable(t1, t2);
 		TimeTable table2 = new TimeTable(t3, t4, t5);
 		TimeTable invertedTable = table.invert();
