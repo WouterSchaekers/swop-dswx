@@ -21,19 +21,21 @@ public class TimeTableTest
 		h2 = new HospitalDate(10000);
 		h3 = new HospitalDate(15000);
 		h4 = new HospitalDate(20000);
+
+		
 		h5 = new HospitalDate(HospitalDate.END_OF_TIME);
-		tp00 = new TimePoint(h0, TimeType.start);
-		tp10 = new TimePoint(h1, TimeType.start);
-		tp20 = new TimePoint(h2, TimeType.start);
-		tp30 = new TimePoint(h3, TimeType.start);
-		tp40 = new TimePoint(h4, TimeType.start);
-		tp50 = new TimePoint(h5, TimeType.start);
-		tp01 = new TimePoint(h0, TimeType.stop);
-		tp11 = new TimePoint(h1, TimeType.stop);
-		tp21 = new TimePoint(h2, TimeType.stop);
-		tp31 = new TimePoint(h3, TimeType.stop);
-		tp41 = new TimePoint(h4, TimeType.stop);
-		tp51 = new TimePoint(h5, TimeType.stop);
+		tp00 = new StartTimePoint(h0);
+		tp10 = new StartTimePoint(h1);
+		tp20 = new StartTimePoint(h2);
+		tp30 = new StartTimePoint(h3);
+		tp40 = new StartTimePoint(h4);
+		tp50 = new StartTimePoint(h5);
+		tp01 = new EndTimePoint(h0);
+		tp11 = new EndTimePoint(h1);
+		tp21 = new EndTimePoint(h2);
+		tp31 = new EndTimePoint(h3);
+		tp41 = new EndTimePoint(h4);
+		tp51 = new EndTimePoint(h5);
 	}
 
 	@Test
@@ -202,116 +204,103 @@ public class TimeTableTest
 
 	@Test(expected = IllegalArgumentException.class)
 	public void argumentTestFail() {
-		TimeSlot t1 = new TimeSlot(new TimePoint(new HospitalDate(-2),
-				TimeType.start), new TimePoint(new HospitalDate(-5),
-				TimeType.stop));
+		TimeSlot t1 = new TimeSlot(new StartTimePoint(new HospitalDate(-2)
+				), new EndTimePoint(new HospitalDate(-5)
+				));
 		throw new IllegalStateException(
 				"Should not be able to get past all the previous code!!! ");
 	}
 
 	@Test
 	public void union0Test() throws InvalidTimeSlotException {
-		TimeSlot t1 = new TimeSlot(new TimePoint(new HospitalDate(0),
-				TimeType.start), new TimePoint(new HospitalDate(5),
-				TimeType.stop));
-		TimeSlot t2 = new TimeSlot(new TimePoint(new HospitalDate(8),
-				TimeType.start), new TimePoint(new HospitalDate(15),
-				TimeType.stop));
-		TimeSlot t3 = new TimeSlot(new TimePoint(new HospitalDate(2),
-				TimeType.start), new TimePoint(new HospitalDate(7),
-				TimeType.stop));
-		TimeSlot t4 = new TimeSlot(new TimePoint(new HospitalDate(13),
-				TimeType.start), new TimePoint(new HospitalDate(21),
-				TimeType.stop));
+		TimeSlot t1 = new TimeSlot(new StartTimePoint(new HospitalDate(0)), new EndTimePoint(new HospitalDate(5)));
+		TimeSlot t2 = new TimeSlot(new StartTimePoint(new HospitalDate(8)
+			), new EndTimePoint(new HospitalDate(15)));
+		TimeSlot t3 = new TimeSlot(new StartTimePoint(new HospitalDate(2)
+				), new EndTimePoint(new HospitalDate(7)));
+		TimeSlot t4 = new TimeSlot(new StartTimePoint(new HospitalDate(13)
+				), new EndTimePoint(new HospitalDate(21)
+				));
 		TimeTable table = new TimeTable(t1, t2);
 		TimeTable table2 = new TimeTable(t3, t4);
 		TimeTable res = table.getUnion(table2);
-		TimeSlot t6 = new TimeSlot(new TimePoint(new HospitalDate(0),
-				TimeType.start), new TimePoint(new HospitalDate(7),
-				TimeType.stop));
-		TimeSlot t7 = new TimeSlot(new TimePoint(new HospitalDate(8),
-				TimeType.start), new TimePoint(new HospitalDate(21),
-				TimeType.stop));
+		TimeSlot t6 = new TimeSlot(new StartTimePoint(new HospitalDate(0)
+			), new EndTimePoint(new HospitalDate(7)
+				));
+		TimeSlot t7 = new TimeSlot(new StartTimePoint(new HospitalDate(8)
+				), new EndTimePoint(new HospitalDate(21)
+			));
 		assertTrue(res.equals(new TimeTable(t6, t7)));
 	}
 
 	@Test
 	public void union1Test() throws InvalidTimeSlotException {
-		TimeSlot t1 = new TimeSlot(new TimePoint(new HospitalDate(0),
-				TimeType.start), new TimePoint(new HospitalDate(5),
-				TimeType.stop));
-		TimeSlot t2 = new TimeSlot(new TimePoint(new HospitalDate(8),
-				TimeType.start), new TimePoint(new HospitalDate(15),
-				TimeType.stop));
-		TimeSlot t3 = new TimeSlot(new TimePoint(new HospitalDate(2),
-				TimeType.start), new TimePoint(new HospitalDate(9),
-				TimeType.stop));
-		TimeSlot t4 = new TimeSlot(new TimePoint(new HospitalDate(13),
-				TimeType.start), new TimePoint(new HospitalDate(21),
-				TimeType.stop));
+		TimeSlot t1 = 
+				new TimeSlot(new StartTimePoint(new HospitalDate(0)),
+				new EndTimePoint(new HospitalDate(5)
+				));
+		TimeSlot t2 = new TimeSlot(new StartTimePoint(new HospitalDate(8)
+				), new EndTimePoint(new HospitalDate(15)
+				));
+		TimeSlot t3 = new TimeSlot(new StartTimePoint(new HospitalDate(2)
+				), new EndTimePoint(new HospitalDate(9)
+				));
+		TimeSlot t4 = new TimeSlot(new StartTimePoint(new HospitalDate(13)
+				), new EndTimePoint(new HospitalDate(21)
+				));
 		TimeTable table = new TimeTable(t1, t2);
 		TimeTable table2 = new TimeTable(t3, t4);
 		TimeTable res = table.getUnion(table2);
-		TimeSlot t6 = new TimeSlot(new TimePoint(new HospitalDate(0),
-				TimeType.start), new TimePoint(new HospitalDate(21),
-				TimeType.stop));
+		TimeSlot t6 = new TimeSlot(new StartTimePoint(new HospitalDate(0)
+			), new EndTimePoint(new HospitalDate(21)
+				));
 		assertTrue(res.equals(new TimeTable(t6)));
 	}
 
 	@Test
 	public void union2Test() throws InvalidTimeSlotException {
-		TimeSlot t1 = new TimeSlot(new TimePoint(new HospitalDate(0),
-				TimeType.start), new TimePoint(new HospitalDate(2),
-				TimeType.stop));
-		TimeSlot t2 = new TimeSlot(new TimePoint(new HospitalDate(1),
-				TimeType.start), new TimePoint(new HospitalDate(21),
-				TimeType.stop));
+		TimeSlot t1 = new TimeSlot(new StartTimePoint(new HospitalDate(0)
+				), new EndTimePoint(new HospitalDate(2)
+				));
+		TimeSlot t2 = new TimeSlot(new StartTimePoint(new HospitalDate(1)
+		
+				), new EndTimePoint(new HospitalDate(21)
+				));
 		TimeTable table = new TimeTable(t1);
 		TimeTable table2 = new TimeTable(t2);
 		TimeTable res = table.getUnion(table2);
-		TimeSlot t6 = new TimeSlot(new TimePoint(new HospitalDate(0),
-				TimeType.start), new TimePoint(new HospitalDate(21),
-				TimeType.stop));
+		TimeSlot t6 = new TimeSlot(new StartTimePoint(new HospitalDate(0)
+				), new EndTimePoint(new HospitalDate(21)
+				));
 		assertTrue(res.equals(new TimeTable(t6)));
 	}
 
 	@Test
 	public void union3Test() throws InvalidTimeSlotException {
-		TimeSlot t1 = new TimeSlot(new TimePoint(new HospitalDate(1),
-				TimeType.start), new TimePoint(new HospitalDate(4),
-				TimeType.stop));
-		TimeSlot t2 = new TimeSlot(new TimePoint(new HospitalDate(6),
-				TimeType.start), new TimePoint(new HospitalDate(15),
-				TimeType.stop));
-		TimeSlot t3 = new TimeSlot(new TimePoint(new HospitalDate(200),
-				TimeType.start), new TimePoint(new HospitalDate(900),
-				TimeType.stop));
-		TimeSlot t4 = new TimeSlot(new TimePoint(new HospitalDate(13),
-				TimeType.start), new TimePoint(new HospitalDate(21),
-				TimeType.stop));
+		TimeSlot t1 = new TimeSlot(new StartTimePoint(new HospitalDate(1)
+			), new EndTimePoint(new HospitalDate(4)
+				));
+		TimeSlot t2 = new TimeSlot(new StartTimePoint(new HospitalDate(6)
+			), new EndTimePoint(new HospitalDate(15)
+			));
+		TimeSlot t3 = new TimeSlot(new StartTimePoint(new HospitalDate(200)), new EndTimePoint(new HospitalDate(900)));
+		TimeSlot t4 = new TimeSlot(new StartTimePoint(new HospitalDate(13)), new EndTimePoint(new HospitalDate(21)));
 		TimeTable table = new TimeTable(t1, t2);
 		TimeTable table2 = new TimeTable(t3, t4);
 		TimeTable res = table.getUnion(table2);
-		TimeSlot t5 = new TimeSlot(new TimePoint(new HospitalDate(1),
-				TimeType.start), new TimePoint(new HospitalDate(4),
-				TimeType.stop));
-		TimeSlot t6 = new TimeSlot(new TimePoint(new HospitalDate(6),
-				TimeType.start), new TimePoint(new HospitalDate(21),
-				TimeType.stop));
-		TimeSlot t7 = new TimeSlot(new TimePoint(new HospitalDate(200),
-				TimeType.start), new TimePoint(new HospitalDate(900),
-				TimeType.stop));
+		TimeSlot t5 = new TimeSlot(new StartTimePoint(new HospitalDate(1)
+		), new EndTimePoint(new HospitalDate(4)));
+		TimeSlot t6 = new TimeSlot(new StartTimePoint(new HospitalDate(6)), new EndTimePoint(new HospitalDate(21)));
+		TimeSlot t7 = new TimeSlot(new StartTimePoint(new HospitalDate(200)), new EndTimePoint(new HospitalDate(900)));
 		assertTrue(res.equals(new TimeTable(t5, t6, t7)));
 	}
 
 	@Test
 	public void unionTestWithOnlyOneTable() throws InvalidTimeSlotException {
-		TimeSlot t1 = new TimeSlot(new TimePoint(new HospitalDate(1),
-				TimeType.start), new TimePoint(new HospitalDate(5),
-				TimeType.stop));
-		TimeSlot t2 = new TimeSlot(new TimePoint(new HospitalDate(10),
-				TimeType.start), new TimePoint(new HospitalDate(15),
-				TimeType.stop));
+		TimeSlot t1 = new TimeSlot(new StartTimePoint(new HospitalDate(1)), new EndTimePoint(new HospitalDate(5)));
+		TimeSlot t2 = new TimeSlot(new StartTimePoint(new HospitalDate(10)
+				), new EndTimePoint(new HospitalDate(15)
+				));
 		TimeTable table = new TimeTable(t1, t2);
 		TimeTable table2 = new TimeTable(t1, t2);
 		TimeTable res = table.getUnion(table2);
@@ -321,18 +310,16 @@ public class TimeTableTest
 
 	@Test
 	public void unionDoubleRemovalTest() throws InvalidTimeSlotException {
-		TimeSlot t1 = new TimeSlot(new TimePoint(new HospitalDate(0),
-				TimeType.start), new TimePoint(new HospitalDate(5),
-				TimeType.stop));
-		TimeSlot t2 = new TimeSlot(new TimePoint(new HospitalDate(6),
-				TimeType.start), new TimePoint(new HospitalDate(8),
-				TimeType.stop));
-		TimeSlot t3 = new TimeSlot(new TimePoint(new HospitalDate(0),
-				TimeType.start), new TimePoint(new HospitalDate(5),
-				TimeType.stop));
-		TimeSlot t4 = new TimeSlot(new TimePoint(new HospitalDate(6),
-				TimeType.start), new TimePoint(new HospitalDate(8),
-				TimeType.stop));
+		TimeSlot t1 = new TimeSlot(new StartTimePoint(new HospitalDate(0)
+				), new EndTimePoint(new HospitalDate(5)));
+		TimeSlot t2 = new TimeSlot(new StartTimePoint(new HospitalDate(6)
+				), new EndTimePoint(new HospitalDate(8)
+				));
+		TimeSlot t3 = new TimeSlot(new StartTimePoint(new HospitalDate(0)
+				), new EndTimePoint(new HospitalDate(5)
+				));
+		TimeSlot t4 = new TimeSlot(new StartTimePoint(new HospitalDate(6)), new EndTimePoint(new HospitalDate(8)
+				));
 		TimeTable table = new TimeTable(t1, t2);
 		TimeTable table2 = new TimeTable(t3, t4);
 		assertTrue(table.getUnion(table2).equals(table));
@@ -340,56 +327,45 @@ public class TimeTableTest
 
 	@Test
 	public void intersect0Test() throws InvalidTimeSlotException, InvalidSchedulingRequestException {
-		TimeSlot t1 = new TimeSlot(new TimePoint(new HospitalDate(0),
-				TimeType.start), new TimePoint(new HospitalDate(5),
-				TimeType.stop));
-		TimeSlot t2 = new TimeSlot(new TimePoint(new HospitalDate(8),
-				TimeType.start), new TimePoint(new HospitalDate(15),
-				TimeType.stop));
-		TimeSlot t3 = new TimeSlot(new TimePoint(new HospitalDate(2),
-				TimeType.start), new TimePoint(new HospitalDate(7),
-				TimeType.stop));
-		TimeSlot t4 = new TimeSlot(new TimePoint(new HospitalDate(13),
-				TimeType.start), new TimePoint(new HospitalDate(21),
-				TimeType.stop));
+		TimeSlot t1 = new TimeSlot(new StartTimePoint(new HospitalDate(0)
+				), new EndTimePoint(new HospitalDate(5)
+				));
+		TimeSlot t2 = new TimeSlot(new StartTimePoint(new HospitalDate(8)
+				), new EndTimePoint(new HospitalDate(15)
+				));
+		TimeSlot t3 = new TimeSlot(new StartTimePoint(new HospitalDate(2)
+			), new EndTimePoint(new HospitalDate(7)
+				));
+		TimeSlot t4 = new TimeSlot(new StartTimePoint(new HospitalDate(13)
+				), new EndTimePoint(new HospitalDate(21)
+			));
 		TimeTable table = new TimeTable(t1, t2);
 		TimeTable table2 = new TimeTable(t3, t4);
 		TimeTable res = table.getIntersect(table2);
-		TimeSlot t6 = new TimeSlot(new TimePoint(new HospitalDate(2),
-				TimeType.start), new TimePoint(new HospitalDate(5),
-				TimeType.stop));
-		TimeSlot t7 = new TimeSlot(new TimePoint(new HospitalDate(13),
-				TimeType.start), new TimePoint(new HospitalDate(15),
-				TimeType.stop));
+		TimeSlot t6 = new TimeSlot(new StartTimePoint(new HospitalDate(2)), new EndTimePoint(new HospitalDate(5)));
+		TimeSlot t7 = new TimeSlot(new StartTimePoint(new HospitalDate(13)), new EndTimePoint(new HospitalDate(15)
+));
 		assertTrue(res.equals(new TimeTable(t6, t7)));
 	}
 
 	@Test
 	public void intersect1Test() throws InvalidTimeSlotException, InvalidSchedulingRequestException {
-		TimeSlot t1 = new TimeSlot(new TimePoint(new HospitalDate(0),
-				TimeType.start), new TimePoint(new HospitalDate(5),
-				TimeType.stop));
-		TimeSlot t2 = new TimeSlot(new TimePoint(new HospitalDate(8),
-				TimeType.start), new TimePoint(new HospitalDate(15),
-				TimeType.stop));
-		TimeSlot t3 = new TimeSlot(new TimePoint(new HospitalDate(2),
-				TimeType.start), new TimePoint(new HospitalDate(9),
-				TimeType.stop));
-		TimeSlot t4 = new TimeSlot(new TimePoint(new HospitalDate(13),
-				TimeType.start), new TimePoint(new HospitalDate(21),
-				TimeType.stop));
+		TimeSlot t1 = new TimeSlot(new StartTimePoint(new HospitalDate(0)), new EndTimePoint(new HospitalDate(5)));
+		TimeSlot t2 = new TimeSlot(new StartTimePoint(new HospitalDate(8)), new EndTimePoint(new HospitalDate(15)));
+		TimeSlot t3 = new TimeSlot(new StartTimePoint(new HospitalDate(2)), new EndTimePoint(new HospitalDate(9)));
+		TimeSlot t4 = new TimeSlot(new StartTimePoint(new HospitalDate(13)), new EndTimePoint(new HospitalDate(21)));
 		TimeTable table = new TimeTable(t1, t2);
 		TimeTable table2 = new TimeTable(t3, t4);
 		TimeTable res = table.getIntersect(table2);
-		TimeSlot t6 = new TimeSlot(new TimePoint(new HospitalDate(2),
-				TimeType.start), new TimePoint(new HospitalDate(5),
-				TimeType.stop));
-		TimeSlot t7 = new TimeSlot(new TimePoint(new HospitalDate(8),
-				TimeType.start), new TimePoint(new HospitalDate(9),
-				TimeType.stop));
-		TimeSlot t8 = new TimeSlot(new TimePoint(new HospitalDate(13),
-				TimeType.start), new TimePoint(new HospitalDate(15),
-				TimeType.stop));
+		TimeSlot t6 = new TimeSlot(new StartTimePoint(new HospitalDate(2)
+				), new EndTimePoint(new HospitalDate(5)
+				));
+		TimeSlot t7 = new TimeSlot(new StartTimePoint(new HospitalDate(8)
+				), new EndTimePoint(new HospitalDate(9)
+				));
+		TimeSlot t8 = new TimeSlot(new StartTimePoint(new HospitalDate(13)
+				), new EndTimePoint(new HospitalDate(15)
+				));
 		assertTrue(res.equals(new TimeTable(t6, t7, t8)));
 	}
 
@@ -401,18 +377,18 @@ public class TimeTableTest
 		TimeTable table = new TimeTable(t1);
 		TimeTable table2 = new TimeTable(t2);
 		TimeTable res = table.getIntersect(table2);
-		TimeSlot t5 = new TimeSlot(new TimePoint(new HospitalDate(130),
-				TimeType.start), new TimePoint(new HospitalDate(2100),
-				TimeType.stop));
-		TimeSlot t6 = new TimeSlot(new TimePoint(new HospitalDate(0),
-				TimeType.start), new TimePoint(new HospitalDate(21),
-				TimeType.stop));
-		TimeSlot t7 = new TimeSlot(new TimePoint(new HospitalDate(2),
-				TimeType.start), new TimePoint(new HospitalDate(9),
-				TimeType.stop));
-		TimeSlot t8 = new TimeSlot(new TimePoint(new HospitalDate(13),
-				TimeType.start), new TimePoint(new HospitalDate(15),
-				TimeType.stop));
+		TimeSlot t5 = new TimeSlot(new StartTimePoint(new HospitalDate(130)
+				), new EndTimePoint(new HospitalDate(2100)
+				));
+		TimeSlot t6 = new TimeSlot(new StartTimePoint(new HospitalDate(0)
+				), new EndTimePoint(new HospitalDate(21)
+				));
+		TimeSlot t7 = new TimeSlot(new StartTimePoint(new HospitalDate(2)
+				), new EndTimePoint(new HospitalDate(9)
+				));
+		TimeSlot t8 = new TimeSlot(new StartTimePoint(new HospitalDate(13)
+				), new EndTimePoint(new HospitalDate(15)
+				));
 		assertFalse(table.equals(new TimeTable(t5, t6)));
 		assertFalse(res.equals(new TimeTable(t5, t6)));
 		assertTrue(res.equals(new TimeTable()));
@@ -421,85 +397,80 @@ public class TimeTableTest
 
 	@Test
 	public void intersect3Test() throws InvalidTimeSlotException, InvalidSchedulingRequestException {
-		TimeSlot t1 = new TimeSlot(new TimePoint(new HospitalDate(1),
-				TimeType.start), new TimePoint(new HospitalDate(4),
-				TimeType.stop));
-		TimeSlot t2 = new TimeSlot(new TimePoint(new HospitalDate(2),
-				TimeType.start), new TimePoint(new HospitalDate(15),
-				TimeType.stop));
-		TimeSlot t3 = new TimeSlot(new TimePoint(new HospitalDate(200),
-				TimeType.start), new TimePoint(new HospitalDate(900),
-				TimeType.stop));
-		TimeSlot t4 = new TimeSlot(new TimePoint(new HospitalDate(13),
-				TimeType.start), new TimePoint(new HospitalDate(21),
-				TimeType.stop));
+		TimeSlot t1 = new TimeSlot(new StartTimePoint(new HospitalDate(1)
+				), new EndTimePoint(new HospitalDate(4)
+				));
+		TimeSlot t2 = new TimeSlot(new StartTimePoint(new HospitalDate(2)
+				), new EndTimePoint(new HospitalDate(15)
+				));
+		TimeSlot t3 = new TimeSlot(new StartTimePoint(new HospitalDate(200)
+				), new EndTimePoint(new HospitalDate(900)
+				));
+		TimeSlot t4 = new TimeSlot(new StartTimePoint(new HospitalDate(13)
+				), new EndTimePoint(new HospitalDate(21)));
 		TimeTable table = new TimeTable(t1, t2);
 		TimeTable table2 = new TimeTable(t3, t4);
 		TimeTable res = table.getIntersect(table2);
-		TimeSlot t5 = new TimeSlot(new TimePoint(new HospitalDate(13),
-				TimeType.start), new TimePoint(new HospitalDate(15),
-				TimeType.stop));
+		TimeSlot t5 = new TimeSlot(new StartTimePoint(new HospitalDate(13)), new EndTimePoint(new HospitalDate(15)));
 		assertTrue(res.equals(new TimeTable(t5)));
 	}
 
 	@Test
 	public void intersect4Test() throws InvalidTimeSlotException, InvalidSchedulingRequestException {
-		TimeSlot t1 = new TimeSlot(new TimePoint(new HospitalDate(0),
-				TimeType.start), new TimePoint(new HospitalDate(10),
-				TimeType.stop));
-		TimeSlot t2 = new TimeSlot(new TimePoint(new HospitalDate(10),
-				TimeType.start), new TimePoint(new HospitalDate(20),
-				TimeType.stop));
-		TimeSlot t3 = new TimeSlot(new TimePoint(new HospitalDate(10),
-				TimeType.start), new TimePoint(new HospitalDate(25),
-				TimeType.stop));
-		TimeSlot t4 = new TimeSlot(new TimePoint(new HospitalDate(10),
-				TimeType.start), new TimePoint(new HospitalDate(20),
-				TimeType.stop));
-		TimeSlot t5 = new TimeSlot(new TimePoint(new HospitalDate(20),
-				TimeType.start), new TimePoint(new HospitalDate(30),
-				TimeType.stop));
+		TimeSlot t1 = new TimeSlot(new StartTimePoint(new HospitalDate(0)
+				), new EndTimePoint(new HospitalDate(10)
+				));
+		TimeSlot t2 = new TimeSlot(new StartTimePoint(new HospitalDate(10)
+			), new EndTimePoint(new HospitalDate(20)
+				));
+		TimeSlot t3 = new TimeSlot(new StartTimePoint(new HospitalDate(10)
+				), new EndTimePoint(new HospitalDate(25)
+				));
+		TimeSlot t4 = new TimeSlot(new StartTimePoint(new HospitalDate(10)
+				), new StartTimePoint(new HospitalDate(20)
+				));
+		TimeSlot t5 = new TimeSlot(new StartTimePoint(new HospitalDate(20)), new EndTimePoint(new HospitalDate(30)));
 		TimeTable table = new TimeTable(t1, t2, t3);
 		TimeTable table2 = new TimeTable(t4, t5);
 		TimeTable res = table.getIntersect(table2);
-		assertTrue(res.equals(new TimeTable(new TimeSlot(new TimePoint(
-				new HospitalDate(10), TimeType.start), new TimePoint(
-				new HospitalDate(25), TimeType.stop)))));
+		assertTrue(res.equals(new TimeTable(new TimeSlot(new StartTimePoint(
+				new HospitalDate(10)), new EndTimePoint(
+				new HospitalDate(25))))));
 	}
 
 	@Test
 	public void intersect5Test() throws InvalidTimeSlotException, InvalidSchedulingRequestException {
-		TimeSlot t1 = new TimeSlot(new TimePoint(new HospitalDate(0),
-				TimeType.start), new TimePoint(new HospitalDate(10),
-				TimeType.stop));
-		TimeSlot t2 = new TimeSlot(new TimePoint(new HospitalDate(10),
-				TimeType.start), new TimePoint(new HospitalDate(20),
-				TimeType.stop));
-		TimeSlot t3 = new TimeSlot(new TimePoint(new HospitalDate(0),
-				TimeType.start), new TimePoint(new HospitalDate(10),
-				TimeType.stop));
-		TimeSlot t4 = new TimeSlot(new TimePoint(new HospitalDate(10),
-				TimeType.start), new TimePoint(new HospitalDate(20),
-				TimeType.stop));
-		TimeSlot t5 = new TimeSlot(new TimePoint(new HospitalDate(20),
-				TimeType.start), new TimePoint(new HospitalDate(30),
-				TimeType.stop));
+		TimeSlot t1 = new TimeSlot(new StartTimePoint(new HospitalDate(0)
+				), new EndTimePoint(new HospitalDate(10)
+				));
+		TimeSlot t2 = new TimeSlot(new StartTimePoint(new HospitalDate(10)
+				), new EndTimePoint(new HospitalDate(20)
+				));
+		TimeSlot t3 = new TimeSlot(new StartTimePoint(new HospitalDate(0)
+				), new EndTimePoint(new HospitalDate(10)
+				));
+		TimeSlot t4 = new TimeSlot(new StartTimePoint(new HospitalDate(10)
+				), new EndTimePoint(new HospitalDate(20)
+				));
+		TimeSlot t5 = new TimeSlot(new StartTimePoint(new HospitalDate(20)
+				), new EndTimePoint(new HospitalDate(30)
+				));
 		TimeTable table = new TimeTable(t1, t2);
 		TimeTable table2 = new TimeTable(t3, t4, t5);
 		TimeTable res = table.getIntersect(table2);
-		assertTrue(res.equals(new TimeTable(new TimeSlot(new TimePoint(
-				new HospitalDate(0), TimeType.start), new TimePoint(
-				new HospitalDate(20), TimeType.stop)))));
+		assertTrue(res.equals(new TimeTable(new TimeSlot(new StartTimePoint(
+				new HospitalDate(0)), new EndTimePoint(
+				new HospitalDate(20))))));
 	}
 
 	@Test
 	public void intersect6Test() throws InvalidTimeSlotException, InvalidSchedulingRequestException {
-		TimeSlot t1 = new TimeSlot(new TimePoint(new HospitalDate(0),
-				TimeType.start), new TimePoint(new HospitalDate(10),
-				TimeType.stop));
-		TimeSlot t2 = new TimeSlot(new TimePoint(new HospitalDate(10),
-				TimeType.start), new TimePoint(new HospitalDate(20),
-				TimeType.stop));
+		TimeSlot t1 = new TimeSlot(new StartTimePoint(new HospitalDate(0)
+				), new EndTimePoint(new HospitalDate(10)
+				));
+		TimeSlot t2 = new TimeSlot(new StartTimePoint(new HospitalDate(10)
+				), new EndTimePoint(new HospitalDate(20)
+				));
 		TimeTable table = new TimeTable(t1);
 		TimeTable table2 = new TimeTable(t2);
 		TimeTable res = table.getIntersect(table2);
@@ -590,12 +561,12 @@ public class TimeTableTest
 
 	@Test
 	public void intersectTestWithOnlyOneTable() throws InvalidTimeSlotException, InvalidSchedulingRequestException {
-		TimeSlot t1 = new TimeSlot(new TimePoint(new HospitalDate(1),
-				TimeType.start), new TimePoint(new HospitalDate(5),
-				TimeType.stop));
-		TimeSlot t2 = new TimeSlot(new TimePoint(new HospitalDate(10),
-				TimeType.start), new TimePoint(new HospitalDate(15),
-				TimeType.stop));
+		TimeSlot t1 = new TimeSlot(new StartTimePoint(new HospitalDate(1)
+				), new EndTimePoint(new HospitalDate(5)
+				));
+		TimeSlot t2 = new TimeSlot(new StartTimePoint(new HospitalDate(10)
+				), new EndTimePoint(new HospitalDate(15)
+				));
 		TimeTable table = new TimeTable(t1, t2);
 		TimeTable table2 = new TimeTable(t1, t2);
 		TimeTable res = table.getIntersect(table2);
@@ -605,28 +576,28 @@ public class TimeTableTest
 
 	@Test
 	public void intersectManythings() throws InvalidTimeSlotException, InvalidSchedulingRequestException {
-		TimeTable always = new TimeTable(new TimeSlot(new TimePoint(
-				new HospitalDate(0), TimeType.start), new TimePoint(
-				new HospitalDate(8945890), TimeType.stop)));
-		TimeTable slot = new TimeTable(new TimeSlot(new TimePoint(
-				new HospitalDate(0), TimeType.start), new TimePoint(
-				new HospitalDate(5), TimeType.stop)));
+		TimeTable always = new TimeTable(new TimeSlot(new StartTimePoint(
+				new HospitalDate(0)), new EndTimePoint(
+				new HospitalDate(8945890))));
+		TimeTable slot = new TimeTable(new TimeSlot(new StartTimePoint(
+				new HospitalDate(0)), new EndTimePoint(
+				new HospitalDate(5))));
 		for (int i = 5; i < 100; i += 2) {
-			slot.getUnion(new TimeTable(new TimeSlot(new TimePoint(
-					new HospitalDate(i), TimeType.start), new TimePoint(
-					new HospitalDate(i + 1), TimeType.stop))));
+			slot.getUnion(new TimeTable(new TimeSlot(new StartTimePoint(
+					new HospitalDate(i)), new EndTimePoint(
+					new HospitalDate(i + 1)))));
 		}
 		assertTrue(slot.equals(slot.getIntersect(always)));
 	}
 
 	@Test
 	public void intersecAtPoint() throws InvalidTimeSlotException, InvalidSchedulingRequestException {
-		TimeSlot t1 = new TimeSlot(new TimePoint(new HospitalDate(1),
-				TimeType.start), new TimePoint(new HospitalDate(5),
-				TimeType.stop));
-		TimeSlot t2 = new TimeSlot(new TimePoint(new HospitalDate(10),
-				TimeType.start), new TimePoint(new HospitalDate(15),
-				TimeType.stop));
+		TimeSlot t1 = new TimeSlot(new StartTimePoint(new HospitalDate(1)
+				), new EndTimePoint(new HospitalDate(5)
+				));
+		TimeSlot t2 = new TimeSlot(new StartTimePoint(new HospitalDate(10)
+				), new EndTimePoint(new HospitalDate(15)
+				));
 		TimeTable table = new TimeTable(t1);
 		TimeTable table2 = new TimeTable(t2);
 		TimeTable t = table.getIntersect(table2);
