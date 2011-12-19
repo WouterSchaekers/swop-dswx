@@ -87,7 +87,7 @@ public class Scheduler
 			LinkedList<Integer> fullOccurences, int iteration)
 			throws InvalidSchedulingRequestException, InvalidTimeSlotException,
 			InvalidResourceException {
-
+		
 		int curCollectionToSchedule = fullOccurences.get(iteration);
 		LinkedList<Schedulable> curSchedList = neededSchedulables
 				.get(curCollectionToSchedule);
@@ -144,11 +144,8 @@ public class Scheduler
 		HospitalDate bestDate = null;
 		for (int i = 0; i < treeArray.length; i++) {
 			if (treeArray[i]) {
-//				System.out.println(i);
 				TimeSlot curSlot = curSchedList.get(i).getTimeTable()
 						.getFirstFreeSlotBetween(startDate, stopDate, duration);
-				System.out.println(curSchedList.get(i).getTimeTable());
-//				System.out.println(curSlot);
 				HospitalDate curDate = curSlot.getStartPoint().getDate();
 				if (bestOption == -1 || (curDate.before(bestDate)
 						|| (curDate.equals(bestDate) && curSlot.getLength() > bestSlot
