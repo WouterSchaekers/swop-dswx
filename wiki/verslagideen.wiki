@@ -1,0 +1,5 @@
+# ideen om de dude blij mee te maken <3
+
+= Ideas =
+
+Hosipitaldate biginteger maken & een extra klasse toevoegen die the end of time voorstelt.
