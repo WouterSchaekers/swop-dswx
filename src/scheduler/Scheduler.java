@@ -114,9 +114,6 @@ public class Scheduler
 						fullOccurences, iteration + 1);
 			} catch (InvalidSchedulingRequestException e) {
 				HospitalDate nextHospitalDate = Scheduler.getNextHospitalDate(curSchedList, newStartDate, newStopDate);
-				//hier een try zetten om te zien of het met een verder tijdsslot werkt.
-				//indien niet -> nieuwe exception & op false zetten.
-				//treeMatrix[iteration][bestOption] = false;
 				return Scheduler.schedule(duration, nextHospitalDate, stopDate,
 						neededSchedulables, usedSchedulables, treeMatrix,
 						fullOccurences, iteration);
