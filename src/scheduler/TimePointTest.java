@@ -18,7 +18,6 @@ public class TimePointTest
 	public void nullTestOne() {
 		HospitalDate o = null;
 		TimePoint p = new StartTimePoint(o);
-
 	}
 
 	@Test(expected = IllegalArgumentException.class)
