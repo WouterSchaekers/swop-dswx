@@ -14,6 +14,7 @@
   * Een oplossing voor het system-package en de SystemStarter class
   * usecases iteratie 1, en vorige fixen.
   * nieuwe usecases van iteratie 2
+  * scheduler moet dynamisch gemaakt worden
   * als de tijd vooruit gaat, moeten de volgende dingen gebeuren:
     * Alle TimeTables moeten geupdate worden.
     * Het warehouse moet geupdate worden.
@@ -25,9 +26,9 @@
 
 = Wie is er momenteel waaraan bezig? =
 <p>
-Dieter: opgave <p>
-Stefaan: scheduler <p>
-Wouter: scheduler <p>
+Dieter: spawen + eten <p>
+Stefaan: lezen opgave + uml maken <p>
+Wouter: pattern voor treatment implementeren <p>
 
 = Things that have been crossed off = 
   * Scheduler-bugje: waar de juiste resource bepaald wordt: checken dat ze nog niet is opgenomen in de lijst van dingen die al gevonden zijn.
@@ -42,4 +43,4 @@ Wouter: scheduler <p>
   * De dude mailen met een draft versie van het verslag en de vraag of onze scheduler nu wel objectgericht geprogrammeerd is.
   * TEKENINGETJES MAKEN ^^
   * Een klasse maken die gregoriancalendar extend en die gemakkelijke functies heeft om daarop dingen aan te passen en daarna terug te getten. Vervolgens alle Date dingen refactoren.
-  * scheduler.
+  * scheduler (yay!)
