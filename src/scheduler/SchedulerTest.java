@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import org.junit.Before;
 import org.junit.Test;
 import scheduler.task.Schedulable;
+import scheduler.task.ScheduledTask;
 import users.UserManager;
 import exceptions.*;
 
@@ -187,6 +188,20 @@ public class SchedulerTest
 				.getStartDate()
 				.equals(new HospitalDate(HospitalDate.START_OF_TIME
 						.getTimeSinceStart() + 8000)));
+	}
+	
+	@Test
+	public void sschedule8Test() throws InvalidSchedulingRequestException,
+			InvalidTimeSlotException, InvalidResourceException {
+		occurences = new LinkedList<Integer>();
+		occurences.add(4);
+		occurences.add(2);
+		LinkedList<Schedulable> jonathan = new LinkedList<Schedulable>();
+		jonathan.add(listOfDoctors.get(0));
+		ScheduledTask t = Scheduler.schedule(1500, listOfSchedulables, jonathan, occurences);
+		assertTrue(t.getStartDate().equals(new HospitalDate(HospitalDate.START_OF_TIME
+						.getTimeSinceStart())));
+		assertTrue(t.getResources().contains(jonathan.get(0)));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
