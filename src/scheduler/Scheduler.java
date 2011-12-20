@@ -120,7 +120,7 @@ public class Scheduler
 		} else {
 			TimePoint startOfTimeSlot = new StartTimePoint(bestTimeSlot
 					.getStartPoint().getDate());
-			TimePoint endOfTimeSlot = new EndTimePoint(startOfTimeSlot
+			TimePoint endOfTimeSlot = new StopTimePoint(startOfTimeSlot
 					.getDate().getTimeSinceStart() + duration);
 			TimeSlot timeSlotToReturn = new TimeSlot(startOfTimeSlot,
 					endOfTimeSlot);

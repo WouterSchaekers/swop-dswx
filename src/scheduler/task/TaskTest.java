@@ -5,7 +5,7 @@ import java.util.*;
 import org.junit.Before;
 import org.junit.Test;
 import patient.Diagnose;
-import scheduler.EndTimePoint;
+import scheduler.StopTimePoint;
 import scheduler.HospitalDate;
 import scheduler.StartTimePoint;
 import scheduler.TimeSlot;
@@ -83,7 +83,7 @@ public class TaskTest
 	@Test
 	public void durationGetterTest() throws InvalidResourceException {
 		ScheduledTask t = new ScheduledTask(listOfNurses, new TimeSlot(
-				new StartTimePoint(new HospitalDate()), new EndTimePoint(
+				new StartTimePoint(new HospitalDate()), new StopTimePoint(
 						new HospitalDate(1))));
 		assertTrue(t.getDuration() == 1);
 	}
@@ -91,7 +91,7 @@ public class TaskTest
 	@Test(expected = InvalidResourceException.class)
 	public void scheduledTaskFailTest() throws InvalidResourceException {
 		ScheduledTask t = new ScheduledTask(null, new TimeSlot(
-				new StartTimePoint(new HospitalDate()), new EndTimePoint(
+				new StartTimePoint(new HospitalDate()), new StopTimePoint(
 						new HospitalDate(1))));
 		assertTrue(t.getDuration() == 1);
 	}

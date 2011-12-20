@@ -71,7 +71,7 @@ public class SchedulerTest
 			InvalidSchedulingRequestException, InvalidResourceException {
 		listOfNurses.get(0).scheduleAt(
 				new TimeSlot(new StartTimePoint(HospitalDate.START_OF_TIME),
-						new EndTimePoint(HospitalDate.START_OF_TIME
+						new StopTimePoint(HospitalDate.START_OF_TIME
 								.getTimeSinceStart() + 5000)));
 		Scheduler.schedule(5000, listOfSchedulables,occurences).getTimeSlot();
 	}
@@ -81,7 +81,7 @@ public class SchedulerTest
 			InvalidTimeSlotException, InvalidResourceException {
 		for (Schedulable s : listOfNurses) {
 			s.scheduleAt(new TimeSlot(new StartTimePoint(
-					HospitalDate.START_OF_TIME), new EndTimePoint(
+					HospitalDate.START_OF_TIME), new StopTimePoint(
 					HospitalDate.START_OF_TIME.getTimeSinceStart() + 5000)));
 		}
 		assertFalse(Scheduler.schedule(5000, listOfSchedulables, occurences)
@@ -94,7 +94,7 @@ public class SchedulerTest
 			InvalidTimeSlotException, InvalidResourceException {
 		for (Schedulable s : listOfNurses) {
 			s.scheduleAt(new TimeSlot(new StartTimePoint(
-					HospitalDate.START_OF_TIME), new EndTimePoint(
+					HospitalDate.START_OF_TIME), new StopTimePoint(
 					HospitalDate.START_OF_TIME.getTimeSinceStart() + 5000)));
 		}
 		occurences = new LinkedList<Integer>();
@@ -109,12 +109,12 @@ public class SchedulerTest
 			InvalidTimeSlotException, InvalidResourceException {
 		for (Schedulable s : listOfNurses) {
 			s.scheduleAt(new TimeSlot(new StartTimePoint(
-					HospitalDate.START_OF_TIME), new EndTimePoint(
+					HospitalDate.START_OF_TIME), new StopTimePoint(
 					HospitalDate.START_OF_TIME.getTimeSinceStart() + 5000)));
 		}
 		for (Schedulable s : listOfDoctors) {
 			s.scheduleAt(new TimeSlot(new StartTimePoint(
-					HospitalDate.START_OF_TIME), new EndTimePoint(
+					HospitalDate.START_OF_TIME), new StopTimePoint(
 					HospitalDate.START_OF_TIME.getTimeSinceStart() + 5000)));
 		}
 		occurences = new LinkedList<Integer>();
@@ -215,7 +215,7 @@ public class SchedulerTest
 				new TimeSlot(
 						new StartTimePoint(HospitalDate.START_OF_TIME
 								.getTimeSinceStart() + startMillis),
-						new EndTimePoint(HospitalDate.START_OF_TIME
+						new StopTimePoint(HospitalDate.START_OF_TIME
 								.getTimeSinceStart() + stopMillis)));
 	}
 

@@ -18,9 +18,9 @@ public abstract class TimePoint implements Comparable<TimePoint>
 		@Override
 		public int compare(TimePoint o1, TimePoint o2) {
 			if (o1.compareTo(o2) == 0) {
-				if (o1 instanceof StartTimePoint && o2 instanceof EndTimePoint)
+				if (o1 instanceof StartTimePoint && o2 instanceof StopTimePoint)
 					return -1;
-				if (o1 instanceof EndTimePoint && o2 instanceof StartTimePoint)
+				if (o1 instanceof StopTimePoint && o2 instanceof StartTimePoint)
 					return 1;
 				return 0;
 			} else
@@ -36,9 +36,9 @@ public abstract class TimePoint implements Comparable<TimePoint>
 		public int compare(TimePoint o1, TimePoint o2) {
 			if (o1.compareTo(o2) == 0) {
 
-				if (o1 instanceof StartTimePoint&& o2 instanceof EndTimePoint)
+				if (o1 instanceof StartTimePoint&& o2 instanceof StopTimePoint)
 					return 1;
-				if (o1 instanceof EndTimePoint&& o2 instanceof StartTimePoint)
+				if (o1 instanceof StopTimePoint&& o2 instanceof StartTimePoint)
 					return -1;
 				return 0;
 			} else

@@ -110,24 +110,24 @@ public class TimeTable
 		// the end of time is here :)
 		HospitalDate d2 = HospitalDate.END_OF_TIME;
 		TimeSlot t = new TimeSlot(new StartTimePoint(d1),
-				new EndTimePoint(d2));
+				new StopTimePoint(d2));
 		returnValue = new TimeTable();
 
 		if (timeSlots.isEmpty())
 			return new TimeTable(t);
 		if (timeSlots.get(0).getStartPoint().getTime() != d1.getTimeSinceStart()) {
-			returnValue.addTimeSlot(new TimeSlot(new StartTimePoint(d1), new EndTimePoint(timeSlots.get(0)
+			returnValue.addTimeSlot(new TimeSlot(new StartTimePoint(d1), new StopTimePoint(timeSlots.get(0)
 					.getStartPoint().getDate())));
 		}
 		for (int i = 0; i < timeSlots.size() - 1; i++) {
 			returnValue.addTimeSlot(new TimeSlot(new StartTimePoint(timeSlots.get(i)
-					.getStopPoint().getDate()), new EndTimePoint(
+					.getStopPoint().getDate()), new StopTimePoint(
 					timeSlots.get(i + 1).getStartPoint().getDate())));
 		}
 		if(timeSlots.get(this.timeSlots.size()-1).getStopPoint().getDate().getTimeSinceStart()!=d2.getTimeSinceStart()){
 			returnValue.addTimeSlot(new TimeSlot(new StartTimePoint(timeSlots
 				.get(this.timeSlots.size() - 1).getStopPoint().getDate()
-				), new EndTimePoint(d2)));
+				), new StopTimePoint(d2)));
 		}
 		return returnValue;
 	}
@@ -164,7 +164,7 @@ public class TimeTable
 				return t;
 			}
 		}
-		TimePoint newStopPoint = new EndTimePoint(allTimeSlots.get(allTimeSlots.size()-1).getStopPoint().getDate());
+		TimePoint newStopPoint = new StopTimePoint(allTimeSlots.get(allTimeSlots.size()-1).getStopPoint().getDate());
 		return new TimeSlot(new StartTimePoint(hospitalDate), newStopPoint);
 	}
 	
@@ -176,18 +176,18 @@ public class TimeTable
 			HospitalDate stopDateOfTimeSlot = t.getStopPoint().getDate();
 			if(!startDateOfTimeSlot.before(startDate)){
 				if(stopDateOfTimeSlot.before(stopDate) && stopDateOfTimeSlot.getTimeSinceStart() - startDateOfTimeSlot.getTimeSinceStart() >= duration){
-					return new TimeSlot(new StartTimePoint(startDateOfTimeSlot), new EndTimePoint(stopDateOfTimeSlot));
+					return new TimeSlot(new StartTimePoint(startDateOfTimeSlot), new StopTimePoint(stopDateOfTimeSlot));
 				}
 				else if(!stopDateOfTimeSlot.before(stopDate) && stopDate.getTimeSinceStart() - startDateOfTimeSlot.getTimeSinceStart() >= duration){
-					return new TimeSlot(new StartTimePoint(startDateOfTimeSlot), new EndTimePoint(stopDate));
+					return new TimeSlot(new StartTimePoint(startDateOfTimeSlot), new StopTimePoint(stopDate));
 				}
 			}
 			else{
 				if(stopDateOfTimeSlot.before(stopDate) && stopDateOfTimeSlot.getTimeSinceStart() - startDate.getTimeSinceStart() >= duration){
-					return new TimeSlot(new StartTimePoint(startDate), new EndTimePoint(stopDateOfTimeSlot));
+					return new TimeSlot(new StartTimePoint(startDate), new StopTimePoint(stopDateOfTimeSlot));
 				}
 				else if(!stopDateOfTimeSlot.before(stopDate) && stopDate.getTimeSinceStart() - startDate.getTimeSinceStart() >= duration){
-					return new TimeSlot(new StartTimePoint(startDate), new EndTimePoint(stopDate));
+					return new TimeSlot(new StartTimePoint(startDate), new StopTimePoint(stopDate));
 				}
 			}
 		}
@@ -196,7 +196,7 @@ public class TimeTable
 
 	public boolean hasFreeSlotAt(HospitalDate startDate, HospitalDate stopDate) {
 		return this.hasFreeSlotAt(new TimeSlot(new StartTimePoint(startDate
-				), new EndTimePoint(stopDate)));
+				), new StopTimePoint(stopDate)));
 	}
 	
 	public HospitalDate getNextHospitalDateAfter(HospitalDate hospitalDate) throws InvalidHospitalDateException{
@@ -258,7 +258,7 @@ public class TimeTable
 		i = 0;
 		while (i < allPoints.length) {
 			TimeSlot t = new TimeSlot(new StartTimePoint(new HospitalDate(0)
-					), new EndTimePoint(new HospitalDate(3)
+					), new StopTimePoint(new HospitalDate(3)
 					));
 			t.setStartPoint(allPoints[i]);
 			int endcount = 1;
