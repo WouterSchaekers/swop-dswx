@@ -149,5 +149,11 @@ public class TaskTest
 		t.addRequirement(null);
 	}
 	
-
+	@Test
+	public void taskCustomID() throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidRequirementException, InvalidDoctorException, InvalidDiagnoseException, InvalidNameException, InvalidTimeSlotException {
+		LinkedList<Requirement> lr = new LinkedList<Requirement>();
+		UnscheduledTask t = new UnscheduledTask(listoflist,1,lr,occurences);
+		t.setUserDefinedID("lol!");
+		assertTrue(t.getUserDefinedID().equals("lol!"));
+	}
 }
