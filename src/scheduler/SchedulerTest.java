@@ -72,8 +72,7 @@ public class SchedulerTest
 				new TimeSlot(new StartTimePoint(HospitalDate.START_OF_TIME),
 						new EndTimePoint(HospitalDate.START_OF_TIME
 								.getTimeSinceStart() + 5000)));
-		System.out.println(Scheduler.schedule(5000, listOfSchedulables,
-				occurences).getTimeSlot());
+		Scheduler.schedule(5000, listOfSchedulables,occurences).getTimeSlot();
 	}
 
 	@Test
