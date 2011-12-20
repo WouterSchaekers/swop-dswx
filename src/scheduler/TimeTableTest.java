@@ -781,9 +781,7 @@ public class TimeTableTest
 
 		TimeTable table = new TimeTable(t1);
 		TimeTable table2 = new TimeTable(t2);
-		System.out.println(table);
-		System.out.println(table2);
-		System.out.println((table.invert().getUnion(table2.invert())).invert());
+		(table.invert().getUnion(table2.invert())).invert();
 	}
 
 	@Test
@@ -798,10 +796,8 @@ public class TimeTableTest
 
 		TimeTable table = new TimeTable(t1);
 		TimeTable table2 = new TimeTable(t2);
-		System.out.println(table);
-		System.out.println(table2);
-		System.out.println((table.invert().getIntersect(table2).equals(table
-				.getIntersect(table2))));
+		table.invert().getIntersect(table2).equals(table
+				.getIntersect(table2));
 	}
 
 }
