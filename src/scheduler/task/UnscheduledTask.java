@@ -36,14 +36,15 @@ public class UnscheduledTask extends Task
 	 * @throws InvalidResourceException
 	 * @throws InvalidDurationException
 	 * @throws InvalidOccurencesException
+	 * @throws InvalidRequirementException 
 	 */
-	public UnscheduledTask(LinkedList<LinkedList<Schedulable>> myResources, long duration, Collection<Requirement> reqs, LinkedList<Integer> occurences) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException {
-		if (!canHaveAsRequirements(reqs))
-			throw new InvalidResourceException("Invalid requirement collection given to Task constructor!");
-		if(!super.isValidDuration(duration)) 
-			throw new InvalidDurationException("Invalid duration given to UnscheduledTask!");
+	public UnscheduledTask(LinkedList<LinkedList<Schedulable>> myResources, long duration, Collection<Requirement> reqs, LinkedList<Integer> occurences) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidRequirementException {
 		if(!canHaveAsResourcePool(myResources)) 
 			throw new InvalidResourceException("Invalid resource pool given to UnscheduledTask!");
+		if(!super.isValidDuration(duration)) 
+			throw new InvalidDurationException("Invalid duration given to UnscheduledTask!");
+		if (!canHaveAsRequirements(reqs))
+			throw new InvalidRequirementException("Invalid requirement collection given to Task constructor!");
 		if(!canHaveAsOccurences(occurences, myResources))
 			throw new InvalidOccurencesException("Invalid occurcences given to UnscheduledTask!");
 		this.myResourcePool = myResources;
@@ -70,10 +71,11 @@ public class UnscheduledTask extends Task
 	 * @throws IllegalArgumentException
 	 *             if (!canHaveAsRequirement(r)
 	 */
-	public void addRequirement(Requirement r) throws IllegalArgumentException {
+	public void addRequirement(Requirement r) throws InvalidRequirementException {
 		if (!canHaveAsRequirement(r))
-			throw new IllegalArgumentException(
+			throw new InvalidRequirementException(
 					"r is not a valid requirement in Task.addRequireent(r)!");
+		this.myRequirements.add(r);
 	}
 	
 	/**
@@ -95,8 +97,10 @@ public class UnscheduledTask extends Task
 	 * @return True if reqs is a valid collection of Requirements for this Task.
 	 */
 	private boolean canHaveAsRequirements(Collection<Requirement> reqs) {
+		if(reqs == null)
+			return false;
 		for (Requirement r : reqs)
-			if (reqs == null || !this.canHaveAsRequirement(r))
+			if (!this.canHaveAsRequirement(r))
 				return false;
 		return true;
 	}
