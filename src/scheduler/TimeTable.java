@@ -1,6 +1,7 @@
 package scheduler;
 
 import java.util.*;
+import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidTimeSlotException;
 import be.kuleuven.cs.som.annotate.Basic;
@@ -196,6 +197,22 @@ public class TimeTable
 	public boolean hasFreeSlotAt(HospitalDate startDate, HospitalDate stopDate) {
 		return this.hasFreeSlotAt(new TimeSlot(new StartTimePoint(startDate
 				), new EndTimePoint(stopDate)));
+	}
+	
+	public HospitalDate getNextHospitalDateAfter(HospitalDate hospitalDate) throws InvalidHospitalDateException{
+		HospitalDate firstDate = null;
+		for(TimeSlot t : timeSlots){
+			HospitalDate curDate = t.getStartPoint().getDate();
+			if(hospitalDate.before(curDate)){
+				if(firstDate == null || firstDate.before(curDate)){
+					firstDate = curDate;
+				}
+			}
+		}
+		if(firstDate == null){
+			throw new InvalidHospitalDateException("There are no more dates available.");
+		}
+		return firstDate;
 	}
 
 	/**
