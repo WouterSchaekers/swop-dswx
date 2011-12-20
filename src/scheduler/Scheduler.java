@@ -2,6 +2,7 @@ package scheduler;
 
 import java.util.*;
 import be.kuleuven.cs.som.annotate.Basic;
+import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidResourceException;
 import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidTimeSlotException;
@@ -112,10 +113,11 @@ public class Scheduler
 						neededSchedulables, newUsedSchedulables, newTreeMatrix,
 						fullOccurences, iteration + 1);
 			} catch (InvalidSchedulingRequestException e) {
+				HospitalDate nextHospitalDate = Scheduler.getNextHospitalDate(curSchedList, newStartDate, newStopDate);
 				//hier een try zetten om te zien of het met een verder tijdsslot werkt.
 				//indien niet -> nieuwe exception & op false zetten.
-				treeMatrix[iteration][bestOption] = false;
-				return Scheduler.schedule(duration, startDate, stopDate,
+				//treeMatrix[iteration][bestOption] = false;
+				return Scheduler.schedule(duration, nextHospitalDate, stopDate,
 						neededSchedulables, usedSchedulables, treeMatrix,
 						fullOccurences, iteration);
 			}
@@ -175,6 +177,25 @@ public class Scheduler
 					"No Schedulable of this list can be schedulabled.");
 		}
 		return bestOption;
+	}
+	
+	public static HospitalDate getNextHospitalDate(Collection<Schedulable> curSchedList, HospitalDate previousDate, HospitalDate stopDate) throws InvalidTimeSlotException, InvalidSchedulingRequestException{
+		HospitalDate nextDate = null;
+		for(Schedulable curSchedulable : curSchedList){
+			try{
+				HospitalDate curNextDate = curSchedulable.getTimeTable().getNextHospitalDateAfter(previousDate);
+				if(nextDate == null || curNextDate.before(curNextDate)){
+					nextDate = curNextDate;
+				}
+			}
+			catch(InvalidHospitalDateException e){
+				;
+			}
+		}
+		if(nextDate == null || stopDate.before(nextDate)){
+			throw new InvalidSchedulingRequestException("No more timeslots available in this list.");
+		}
+		return nextDate;
 	}
 
 	public static boolean[][] makeTreeMatrix(
