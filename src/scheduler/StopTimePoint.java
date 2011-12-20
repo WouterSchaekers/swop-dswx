@@ -4,13 +4,13 @@ package scheduler;
  * This class represents a point in time that, specifically, is the end of a
  * timeslot.
  */
-public class EndTimePoint extends TimePoint
+public class StopTimePoint extends TimePoint
 {
 	/**
 	 * @param d
 	 * The date of this Endpoint.
 	 */
-	public EndTimePoint(HospitalDate d) {
+	public StopTimePoint(HospitalDate d) {
 		super(d);
 	}
 
@@ -18,7 +18,7 @@ public class EndTimePoint extends TimePoint
 	 * @param l
 	 * The amount of milliseconds since the start of time.
 	 */
-	public EndTimePoint(long l) {
+	public StopTimePoint(long l) {
 		super(l);
 	}
 
@@ -26,7 +26,7 @@ public class EndTimePoint extends TimePoint
 	 * @param t
 	 * Another timepoint that serves as the base for this endpoint.
 	 */
-	public EndTimePoint(TimePoint t) {
+	public StopTimePoint(TimePoint t) {
 		super(t);
 	}
 
@@ -42,7 +42,7 @@ public class EndTimePoint extends TimePoint
 
 	@Override
 	public TimePoint clone() {
-		return new EndTimePoint(this);
+		return new StopTimePoint(this);
 	}
 
 	@Override
@@ -52,8 +52,8 @@ public class EndTimePoint extends TimePoint
 
 	@Override
 	public boolean equals(Object o) {
-		if (!(o instanceof EndTimePoint))
+		if (!(o instanceof StopTimePoint))
 			return false;
-		return this.getDate().equals(((EndTimePoint) o).getDate());
+		return this.getDate().equals(((StopTimePoint) o).getDate());
 	}
 }

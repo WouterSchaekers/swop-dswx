@@ -28,13 +28,13 @@ public class TimePointTest
 	@Test(expected = IllegalArgumentException.class)
 	public void nullTestThree() {
 		HospitalDate o = null;
-		TimePoint p = new EndTimePoint(o);
+		TimePoint p = new StopTimePoint(o);
 
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void nullTestFour() {
-		TimePoint p = new EndTimePoint(-1);
+		TimePoint p = new StopTimePoint(-1);
 
 	}
 }
