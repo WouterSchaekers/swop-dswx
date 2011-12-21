@@ -73,4 +73,12 @@ public class WarehouseAdmin extends User
 	public static boolean isValidAmountOfUnits(int u) {
 		return u >= 0;
 	}
+	
+	/**
+	 * This method is to be called at the correct times. It will put new meals,
+	 * casts and medication in the hospital.
+	 */
+	public void updateWarehouse() {
+		
+	}
 }
