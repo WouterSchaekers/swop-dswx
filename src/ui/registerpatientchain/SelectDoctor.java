@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import ui.UserinterfaceData;
 import ui.Usecase;
-import users.UserType;
+import users.Doctor;
 import controllers.RegisterPatientController;
 import controllers.interfaces.AppointmentIN;
 import controllers.interfaces.PatientFileIN;
@@ -28,7 +28,7 @@ public class SelectDoctor extends Usecase
 		ArrayList<UserIN> docters = new ArrayList<UserIN>();
 		System.out.println("Select a doctor from  the list of doctors:");
 		for (UserIN u : data.getLoginController().getAllUsers()) {
-			if (u.type() == UserType.Doctor)
+			if (u instanceof Doctor)
 				docters.add(u);
 		}
 		Map<String, UserIN> map = new HashMap<String, UserIN>();
