@@ -22,7 +22,7 @@
 <p>
 Dieter: Met shana babbelen<p>
 Stefaan: eten<p>
-Wouter: stoppen met kijken naar filmpjes van Postal II, extra dingen van scheduler implementeren <p>
+Wouter: scheduler nakijken <p>
 
 = Things that have been crossed off = 
   * Treatment Factories gemaakt en getest
