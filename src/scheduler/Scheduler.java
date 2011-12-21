@@ -9,7 +9,10 @@ import exceptions.InvalidTimeSlotException;
 import scheduler.task.Schedulable;
 import scheduler.task.ScheduledTask;
 
-
+/**
+ * This class is a tool that allows you to schedule certain things at the first
+ * free slot available that satisfies all the constraints from the assignement.
+ */
 public class Scheduler
 {
 	private HospitalDate currentSystemTime = new HospitalDate();
@@ -83,6 +86,42 @@ public class Scheduler
 		return schedule(duration, neededSchedulables, occurences);
 	}
 
+	/**
+	 * This method will schedule as many objects as needed from each of the
+	 * linked lists in the given linked list.
+	 * 
+	 * @param duration
+	 *            The length each resource needs to be scheduled for.
+	 * @param startDate
+	 *            The date from which this method should start looking
+	 * @param stopDate
+	 *            The date from which to stop looking from.
+	 * @param neededSchedulables
+	 *            A linked list of linked lists that's a collection of all
+	 *            possible resources that can be scheduled. E.g. If one would
+	 *            like to schedule a nurse that's working in the hospital, the
+	 *            first linked list should be a collection of all nurses. If one
+	 *            would like to schedule either nurse Jenny or nurse Jenna, the
+	 *            first linked list should just contain Jenny and Jenna. If one
+	 *            would like to schedule a nurse and a doctor, the first linked
+	 *            list will be a collection of all nurses and the second one
+	 *            will be one of all doctors etc...
+	 * @param usedSchedulables
+	 *            Used in the recursive call of this method.
+	 * @param treeMatrix
+	 *            A tree matrix is used to determine whether or not a resource
+	 *            has already been checked in the recursive call.
+	 * @param fullOccurences
+	 *            Expansion from occurences.<br>
+	 *            occurences: 1 3 2 -> fulloccurences: 1 222 33
+	 * @param iteration
+	 *            Used for recursive purposes.
+	 * @return A ScheduledTask that contains all the scheduled resources, the
+	 *         start time etc...
+	 * @throws InvalidSchedulingRequestException
+	 * @throws InvalidTimeSlotException
+	 * @throws InvalidResourceException
+	 */
 	private  ScheduledTask schedule(long duration,
 			HospitalDate startDate, HospitalDate stopDate,
 			LinkedList<LinkedList<Schedulable>> neededSchedulables,
@@ -130,7 +169,11 @@ public class Scheduler
 		}
 	}
 
-	private  LinkedList<Integer> makeCorrespondingArray(
+	/**
+	 * This method will expand occurences into fullOccurences
+	 * @see schedule()
+	 */
+	private LinkedList<Integer> makeCorrespondingArray(
 			LinkedList<Integer> occurences) {
 		LinkedList<Integer> rv = new LinkedList<Integer>();
 		for (int i = 0; i < occurences.size(); i++) {
@@ -141,7 +184,26 @@ public class Scheduler
 		return rv;
 	}
 
-	private  int findBestOption(long duration, HospitalDate startDate,
+	/**
+	 * This method will find the best free slot from curSchedList.
+	 * 
+	 * @param duration
+	 *            The length of the wanted free slot.
+	 * @param startDate
+	 *            The date from which to start looking from.
+	 * @param stopDate
+	 *            The date where to stop looking.
+	 * @param treeArray
+	 *            The array of the treematrix of the current list of
+	 *            schedulables.
+	 * @param curSchedList
+	 *            The current list of schedulables.
+	 * @return An integer that represents the sequential number of the best free
+	 *         slot.
+	 * @throws InvalidSchedulingRequestException
+	 * @throws InvalidTimeSlotException
+	 */
+	private int findBestOption(long duration, HospitalDate startDate,
 			HospitalDate stopDate, boolean[] treeArray,
 			LinkedList<Schedulable> curSchedList)
 			throws InvalidSchedulingRequestException, InvalidTimeSlotException {
@@ -177,7 +239,21 @@ public class Scheduler
 		return bestOption;
 	}
 	
-	public  HospitalDate getNextHospitalDate(Collection<Schedulable> curSchedList, HospitalDate previousDate, HospitalDate stopDate) throws InvalidTimeSlotException, InvalidSchedulingRequestException{
+	/**
+	 * This method will return the HospitalDate of the start of the next free
+	 * slot.
+	 * 
+	 * @param curSchedList
+	 *            The current list of schedulables.
+	 * @param previousDate
+	 *            The date of the previous free slot.
+	 * @param stopDate
+	 *            The date on which we should stop looking.
+	 * @return A HospitalDate that is the start of the next free time slot.
+	 * @throws InvalidTimeSlotException
+	 * @throws InvalidSchedulingRequestException
+	 */
+	public HospitalDate getNextHospitalDate(Collection<Schedulable> curSchedList, HospitalDate previousDate, HospitalDate stopDate) throws InvalidTimeSlotException, InvalidSchedulingRequestException{
 		HospitalDate nextDate = null;
 		for(Schedulable curSchedulable : curSchedList){
 			try{
@@ -196,7 +272,16 @@ public class Scheduler
 		return nextDate;
 	}
 
-	public  boolean[][] makeTreeMatrix(
+	/**
+	 * This method will generate the treematrix.
+	 * @param neededSchedulables 
+	 * --> @see schedule()
+	 * @param fullOccurences
+	 * --> @see schedule()
+	 * @return
+	 * --> @see schedule()
+	 */
+	public boolean[][] makeTreeMatrix(
 			LinkedList<LinkedList<Schedulable>> neededSchedulables,
 			LinkedList<Integer> fullOccurences) {
 		boolean[][] treeMatrix = new boolean[fullOccurences.size()][];
@@ -211,7 +296,12 @@ public class Scheduler
 		return treeMatrix;
 	}
 
-	public  boolean[][] updateTreeMatrix(boolean[][] treeMatrix,
+	/**
+	 * This method will update the treematrix for the given iteration
+	 * 
+	 * @return The updated treematrix.
+	 */
+	public boolean[][] updateTreeMatrix(boolean[][] treeMatrix,
 			int bestOption, LinkedList<Integer> fullOccurences, int iteration) {
 		int occurenceNumber = fullOccurences.get(iteration);
 		for (int i = 1; iteration + i < fullOccurences.size()
@@ -232,7 +322,7 @@ public class Scheduler
 	/**
 	 * @return True if t is a valid new system time.
 	 */
-	private  boolean isValidSystemTime(HospitalDate t) {
+	private boolean isValidSystemTime(HospitalDate t) {
 		if (currentSystemTime == null)
 			return t != null;
 		return t != null
@@ -249,7 +339,7 @@ public class Scheduler
 	 * @return True if the given Collection of Collections should be able to be
 	 *         scheduled.
 	 */
-	private  boolean isValidToScheduleCollection(
+	private boolean isValidToScheduleCollection(
 			LinkedList<LinkedList<Schedulable>> toCheck,
 			LinkedList<Integer> occurences) {
 		for (int i = 0; i < occurences.size(); i++) {
@@ -260,7 +350,10 @@ public class Scheduler
 		return true;
 	}
 
-	private static  LinkedList<Schedulable> copyList(
+	/**
+	 * @return A copy of the given list.
+	 */
+	private static LinkedList<Schedulable> copyList(
 			LinkedList<Schedulable> listToCopy) {
 		
 		LinkedList<Schedulable> newList = new LinkedList<Schedulable>();
@@ -270,6 +363,9 @@ public class Scheduler
 		return newList;
 	}
 
+	/**
+	 * @return a clone of the tree matrix.
+	 */
 	private  boolean[][] copyMatrix(boolean[][] treeMatrix) {
 		boolean[][] newTreeMatrix = new boolean[treeMatrix.length][];
 		for (int i = 0; i < treeMatrix.length; i++) {
