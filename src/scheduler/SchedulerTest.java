@@ -1,14 +1,18 @@
 package scheduler;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import java.util.LinkedList;
 import org.junit.Before;
 import org.junit.Test;
-import scheduler.*;
 import scheduler.task.Schedulable;
 import scheduler.task.ScheduledTask;
 import users.UserManager;
-import exceptions.*;
+import exceptions.InvalidNameException;
+import exceptions.InvalidResourceException;
+import exceptions.InvalidSchedulingRequestException;
+import exceptions.InvalidTimeSlotException;
+import exceptions.UserAlreadyExistsException;
 
 public class SchedulerTest
 {
@@ -213,7 +217,7 @@ public class SchedulerTest
 			occurences.add(2);
 			things.add(listOfNurses);
 			occurences.add(1);
-			ScheduledTask t = new Scheduler().schedule(50000,things, occurences);
+			 new Scheduler().schedule(50000,things, occurences);
 			LinkedList<LinkedList<Schedulable>> nurses = new LinkedList<LinkedList<Schedulable>>();
 			nurses.add(listOfNurses);
 			occurences = new LinkedList<Integer>();
