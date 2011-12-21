@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import exceptions.InvalidResultException;
 import be.kuleuven.cs.som.annotate.Basic;
-import patient.Result;
+import result.Result;
 
 /**
  * This class is the superclass of all treatments.
