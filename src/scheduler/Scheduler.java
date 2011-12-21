@@ -12,7 +12,7 @@ import scheduler.task.ScheduledTask;
 
 public class Scheduler
 {
-	private  HospitalDate currentSystemTime = new HospitalDate();
+	private HospitalDate currentSystemTime = new HospitalDate();
 
 	/**
 	 * Schedules a set of schedulables on the best available slot, taking into
@@ -222,7 +222,7 @@ public class Scheduler
 	}
 
 	@Basic
-	public  void setNewSystemTime(HospitalDate newTime) {
+	public void setNewSystemTime(HospitalDate newTime) {
 		if (!isValidSystemTime(newTime))
 			throw new IllegalArgumentException(
 					"Invalid new system time given to setNewSystemTime() in ");
