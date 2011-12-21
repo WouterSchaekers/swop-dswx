@@ -9,9 +9,5 @@ public class HospitalAdmin extends User
 		super(name);
 	}
 
-	@Override
-	public UserType type() {
-		return UserType.HospitalAdmin;
-	}
 
 }

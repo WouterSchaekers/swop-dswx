@@ -28,11 +28,7 @@ public class Nurse extends SchedulableUser
 		super(name);
 	}
 
-	@Override
-	@Basic
-	public UserType type() {
-		return UserType.Nurse;
-	}
+
 
 	/**
 	 * This method will see if this Nurse can be scheduled in the given time

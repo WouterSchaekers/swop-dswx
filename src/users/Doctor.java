@@ -10,8 +10,5 @@ public class Doctor extends SchedulableUser implements DoctorIN
 		super(name);
 	}
 	
-	@Override
-	public UserType type() {
-		return UserType.Doctor;
-	}
+	
 }
