@@ -26,8 +26,8 @@
 
 = Wie is er momenteel waaraan bezig? =
 <p>
-Dieter: op tijd zijn <p>
-Stefaan: lezen opgave + uml maken <p>
+Dieter: op tijd zijn + treatmentfactories maken <p>
+Stefaan: stoppen met simsocial + helpen met scheduler <p>
 Wouter: extra dingen van scheduler implementeren <p>
 
 = Things that have been crossed off = 
