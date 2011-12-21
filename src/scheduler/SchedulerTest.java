@@ -82,7 +82,7 @@ public class SchedulerTest
 				new TimeSlot(new StartTimePoint(HospitalDate.START_OF_TIME),
 						new StopTimePoint(HospitalDate.START_OF_TIME
 								.getTimeSinceStart() + 5000)));
-		new Scheduler().schedule(5000, listOfSchedulables,occurences).getTimeSlot();
+		new Scheduler().schedule(5000, HospitalDate.START_OF_TIME, listOfSchedulables,occurences).getTimeSlot();
 	}
 
 	@Test
@@ -93,7 +93,7 @@ public class SchedulerTest
 					HospitalDate.START_OF_TIME), new StopTimePoint(
 					HospitalDate.START_OF_TIME.getTimeSinceStart() + 5000)));
 		}
-		assertFalse(new Scheduler().schedule(5000, listOfSchedulables, occurences)
+		assertFalse(new Scheduler().schedule(5000, HospitalDate.START_OF_TIME, listOfSchedulables, occurences)
 				.getTimeSlot().getStartPoint().getDate()
 				.equals(new HospitalDate()));
 	}
