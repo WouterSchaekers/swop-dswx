@@ -15,6 +15,4 @@ public class MedicalTests
 		medicaltests.add(new BloodAnalysisFactory());
 		return new ArrayList<MedicalTestFactory>(medicaltests);
 	}
-	
-	
 }
