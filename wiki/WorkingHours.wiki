@@ -38,4 +38,4 @@
 || 20/12/11: 11u30 -> 12u30 || 2 SW || 1 || Scheduler has been completely made bugfree; writing more tests to assure it is. || Dieter voelde zich wat ziek dus bleef hij thuis. ||
 || 20/12/11: 13u00 -> 15u00 || 2 SW || 2 || Writing more tests for Tasks and reading up on design patterns.|| See above. ||
 || 20/12/11: 16u00 -> 17u00 || 3 DSW || 1 || Creating a design for iteration 2.|| ||
-|| 21/12/11: 11u00 -> 12u30 || 3 DSW || 1.5 || Niets || Dieter moest praten met Frédéric Vogels over C#, Common Lisp andere talen en het examenrooster ||
+|| 21/12/11: 11u00 -> 12u30 || 3 DSW || 1.5 || Niets || Dieter moest nogmaals praten met Frédéric Vogels over C#, Common Lisp andere talen en het examenrooster ||
