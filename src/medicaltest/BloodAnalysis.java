@@ -21,7 +21,7 @@ public class BloodAnalysis extends MedicalTest
 	 */
 	public BloodAnalysis() throws InvalidNameException,
 			InvalidDurationException, InvalidTimeSlotException {
-		super("BloodAnalysis", 45);
+		super(45);
 	}
 
 	@Basic
