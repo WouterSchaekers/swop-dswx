@@ -27,7 +27,7 @@
 <p>
 Dieter: treatmentfactories maken <p>
 Stefaan: Result <p>
-Wouter: extra dingen van scheduler implementeren <p>
+Wouter: stoppen met kijken naar filmpjes van postal, extra dingen van scheduler implementeren <p>
 
 = Things that have been crossed off = 
   * Scheduler-bugje: waar de juiste resource bepaald wordt: checken dat ze nog niet is opgenomen in de lijst van dingen die al gevonden zijn.
