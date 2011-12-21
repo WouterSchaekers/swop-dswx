@@ -6,7 +6,6 @@
       * Als de taken wel onmiddellijk gescheduled kunnen worden, schedulen we ze.
       * Task manager moet verwittigd worden om zijn queues te updaten op de gepaste plaatsten in de usecases.
   * Factory patronen implementeren voor MedicalTest en Treatment -> Dieter
-  * eten -> Stefaan
   * AdvanceTime()
   * Een oplossing voor het system-package en de SystemStarter class
   * usecases iteratie 1, en vorige fixen.
@@ -22,8 +21,8 @@
 
 = Wie is er momenteel waaraan bezig? =
 <p>
-Dieter:  <p>
-Stefaan: Result <p>
+Dieter: Met shana babbelen<p>
+Stefaan: eten<p>
 Wouter: stoppen met kijken naar filmpjes van Postal II, extra dingen van scheduler implementeren <p>
 
 = Things that have been crossed off = 
