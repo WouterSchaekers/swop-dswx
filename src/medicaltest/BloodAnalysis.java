@@ -1,12 +1,9 @@
 package medicaltest;
 
-import scheduler.HospitalDate;
-import scheduler.TimeSlot;
+import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidNameException;
-import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidTimeSlotException;
-import be.kuleuven.cs.som.annotate.*;
 
 /**
  * This class represents a bloodanalysis test.
