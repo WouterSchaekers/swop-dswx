@@ -1,5 +1,6 @@
 package result;
 
+import exceptions.InvalidReportException;
 import be.kuleuven.cs.som.annotate.Basic;
 
 /**
@@ -7,17 +8,37 @@ import be.kuleuven.cs.som.annotate.Basic;
  */
 public class Result
 {
-	private String details = "";
+	private String report = "";
 
-	@Basic
-	public String getDetails() {
-		return details;
-	}
-
-	@Basic
-	public void setDetails(String details) {
-		this.details = details;
+	/**
+	 * Default constructor.
+	 * 
+	 * @param report
+	 *            The report for this Result.
+	 * @throws InvalidReportException
+	 */
+	public Result(String report) throws InvalidReportException {
+		if(this.canHaveAsDetail(report))
+			this.report = report;
+		else throw new InvalidReportException("Invalid report for Result!");
 	}
 	
+	@Basic
+	public String getReport() {
+		return report;
+	}	
 	
+	/**
+	 * @return True if s is a valid detail for this Result.
+	 */
+	protected boolean canHaveAsDetail(String s) {
+		return s != null && ! s.equals("");
+	}
+	
+	/**
+	 * @return True if s is a valid amount for this Result.
+	 */
+	protected boolean canhaveAsAmount(int a) {
+		return a >= 0;
+	}
 }
