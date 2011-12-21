@@ -5,6 +5,10 @@ import java.util.Collection;
 import treatment.Medication;
 import exceptions.DepotOverCapacityException;
 
+/**
+ * This class represents a warehouse. It keeps track of all resources in the
+ * hospital including food, plaster, medication,...
+ */
 public class Warehouse
 {
 	private final static int MAX_UNITS_OF_PLASTER = 8;
