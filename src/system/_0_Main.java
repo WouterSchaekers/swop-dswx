@@ -1,6 +1,6 @@
 package system;
 
-public class _main
+public class _0_Main
 {
 //	// things that are needed in the system
 //	static PatientFileManager patientfmanager = new PatientFileManager();
