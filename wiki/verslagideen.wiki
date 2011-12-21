@@ -2,4 +2,5 @@
 
 = Ideas =
 
-Hosipitaldate biginteger maken & een extra klasse toevoegen die the end of time voorstelt.
+  * Hosipitaldate biginteger maken & een extra klasse toevoegen die the end of time voorstelt.
+  * Scheduler niet statisch maken
