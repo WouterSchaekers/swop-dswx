@@ -10,26 +10,21 @@ import be.kuleuven.cs.som.annotate.*;
  */
 public class BloodAnalysis extends MedicalTest
 {
-	// the name of the test is used to determine what kind of test it was later
-	// on.
-	private int amount;
-	private String focus;
+	private final int amount;
+	private final String focus;
 
 	/**
-	 * Default constructor. Will call MedicalTest("BloodAnalysis")
+	 * Constructor called by the BloodAnalysisFactory
 	 * @throws InvalidTimeSlotException 
 	 */
-	public BloodAnalysis() throws InvalidNameException,
+	 BloodAnalysis(int amount,String focus) throws InvalidNameException,
 			InvalidDurationException, InvalidTimeSlotException {
 		super(45);
+		this.amount=amount;
+		this.focus=focus;
 	}
 
-	@Basic
-	public void setAmount(int amount) {
-		if(!canHaveAsAmount(amount))
-			throw new IllegalArgumentException("Invalid amount given to bloodanalysis!");
-		this.amount = amount;
-	}
+	
 
 	@Basic
 	public int getAmount() {
@@ -37,29 +32,9 @@ public class BloodAnalysis extends MedicalTest
 	}
 
 	@Basic
-	public void setFocus(String focus) {
-		if(!canHaveAsFocus(focus))
-			throw new IllegalArgumentException("Invalid focus given to setFocus in bloodanalysis!");
-		this.focus = focus;
-	}
-
-	@Basic
 	public String getFocus() {
 		return this.focus;
 	}
 	
-	/**
-	 * @return True if amount is a valid amount for this bloodanalysis
-	 */
-	private boolean canHaveAsAmount(int amount) {
-		return amount > 0;
-	}
-	
-	/**
-	 * @return True if focus is a valid focus for this bloodtest
-	 */
-	private boolean canHaveAsFocus(String focus) {
-		return !focus.equals("");
-	}
 	
 }
