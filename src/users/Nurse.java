@@ -1,7 +1,6 @@
 package users;
 
 import scheduler.HospitalDate;
-import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidNameException;
 import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidTimeSlotException;
@@ -27,8 +26,6 @@ public class Nurse extends SchedulableUser
 			InvalidTimeSlotException {
 		super(name);
 	}
-
-
 
 	/**
 	 * This method will see if this Nurse can be scheduled in the given time
