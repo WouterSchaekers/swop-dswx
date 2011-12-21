@@ -1,13 +1,15 @@
 package scheduler;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.LinkedList;
+import scheduler.task.Schedulable;
+import scheduler.task.ScheduledTask;
 import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidResourceException;
 import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidTimeSlotException;
-import scheduler.task.Schedulable;
-import scheduler.task.ScheduledTask;
 
 /**
  * This class is a tool that allows you to schedule certain things at the first
@@ -19,7 +21,11 @@ public class Scheduler
 
 	/**
 	 * Schedules a set of schedulables on the best available slot, taking into
-	 * account the required duration.
+	 * account the required duration. <br>
+	 * <br>
+	 * <b>We recommend not using this method. You need to use schedule(duration,
+	 * startDate, users, otherSchedulables, userOccurences, otherOccurences) if
+	 * you want to meet the requirements of the assignment!</b>
 	 * 
 	 * @param duration
 	 *            The duration of the needed timeslot.
@@ -84,6 +90,44 @@ public class Scheduler
 			occurences.addFirst(1);
 		}
 		return schedule(duration, startDate, neededSchedulables, occurences);
+	}
+	
+	/**
+	 * Schedules a set of schedulables on the best available slot, taking into
+	 * account the required duration.
+	 * 
+	 * @param users
+	 *            This list should contain all users, if one would like to
+	 *            schedule users.
+	 * @param otherSchedulables
+	 *            The list of all schedulable that aren't users and that need to
+	 *            be scheduled.
+	 * @param duration
+	 *            The length of the appointment one would like to make.
+	 * @param userOccurences
+	 *            The amount of times a collection of users has to be scheduled.
+	 * @param otherOccurences
+	 *            The amount of times a collection of other resources has to be
+	 *            scheduled.
+	 * 
+	 * @pre If there are no linked lists of users in otherSchedulables, then the
+	 *      returned Task will be scheduled back-to-back with at least 1 User.
+	 *      Otherwise it will be scheduled back-to-back with at least 1 resource
+	 *      (User, Machine,...)
+	 * @return A ScheduledTask containing data about the scheduled appointment.
+	 * @throws InvalidResourceException 
+	 * @throws InvalidSchedulingRequestException 
+	 * @throws InvalidTimeSlotException 
+	 */
+	public ScheduledTask schedule(long duration, HospitalDate startDate, LinkedList<LinkedList<Schedulable>> users, LinkedList<LinkedList<Schedulable>> otherSchedulables, LinkedList<Integer> userOccurences, LinkedList<Integer> otherOccurences) throws InvalidTimeSlotException, InvalidSchedulingRequestException, InvalidResourceException {
+		LinkedList<LinkedList<Schedulable>> listOfSchedulables = new LinkedList<LinkedList<Schedulable>>();
+		listOfSchedulables.addAll(users);
+		listOfSchedulables.addAll(otherSchedulables);
+		LinkedList<Integer> occurencesCool = new LinkedList<Integer>();
+		occurencesCool.addAll(userOccurences);
+		occurencesCool.addAll(otherOccurences);
+		
+		return schedule(duration, startDate, listOfSchedulables, occurencesCool);
 	}
 
 	/**
