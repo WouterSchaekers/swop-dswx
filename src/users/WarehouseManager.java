@@ -27,9 +27,4 @@ public class WarehouseManager extends User
 		depot.addMeals(meals);
 	}
 
-	@Override
-	public UserType type() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
