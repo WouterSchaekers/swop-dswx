@@ -1,5 +1,4 @@
 = TODOs =
-  * constraints in canBeScheduled -> Wouter
   * Concerning Task and TaskManager:
     * In de usecases willen we Tasks aanmaken.
       * Als de Tasks niet onmiddellijk gescheduled kunnen worden, komen ze in de task queue van de Taskmanager.
@@ -44,3 +43,4 @@ Wouter: stoppen met kijken naar filmpjes van Postal II, extra dingen van schedul
   * warehouse
   * Result
   * WarehouseAdmin
+  * constraints in canBeScheduled
