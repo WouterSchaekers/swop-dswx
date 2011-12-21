@@ -73,5 +73,11 @@ public abstract class MedicalTest implements Schedulable
 		//TODO: Implement
 		return false;
 	}
+	
+	@Override
+	public TimeSlot getFirstFreeSlotBetween(HospitalDate startDate,
+			HospitalDate stopDate, long duration) throws InvalidSchedulingRequestException, InvalidTimeSlotException {
+		return this.getTimeTable().getFirstFreeSlotBetween(startDate, stopDate, duration);
+	}
 
 }

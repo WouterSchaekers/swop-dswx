@@ -259,7 +259,6 @@ public class Scheduler
 				try {
 					TimeSlot curSlot = curSchedList
 							.get(i)
-							.getTimeTable()
 							.getFirstFreeSlotBetween(startDate, stopDate,
 									duration);
 					HospitalDate curDate = curSlot.getStartPoint().getDate();

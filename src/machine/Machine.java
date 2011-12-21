@@ -2,9 +2,11 @@ package machine;
 
 import java.util.*;
 import exceptions.InvalidLocationException;
+import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidSerialException;
 import exceptions.InvalidTimeSlotException;
 import scheduler.HospitalDate;
+import scheduler.TimeSlot;
 import scheduler.TimeTable;
 import scheduler.task.Schedulable;
 
@@ -77,4 +79,10 @@ public abstract class Machine implements Schedulable
 
 	@Override
 	public abstract boolean canBeScheduledOn(HospitalDate startDate, HospitalDate stopDate);
+	
+	@Override
+	public TimeSlot getFirstFreeSlotBetween(HospitalDate startDate,
+			HospitalDate stopDate, long duration) throws InvalidSchedulingRequestException, InvalidTimeSlotException {
+		return this.getTimeTable().getFirstFreeSlotBetween(startDate, stopDate, duration);
+	}
 }
