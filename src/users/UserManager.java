@@ -1,6 +1,9 @@
 package users;
 
 import java.util.*;
+import controllers.interfaces.DoctorIN;
+import controllers.interfaces.NurseIN;
+import controllers.interfaces.UserIN;
 import scheduler.task.Schedulable;
 import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidNameException;
@@ -12,18 +15,18 @@ public class UserManager
 	/**
 	 * We use a Map so interaction with the user in usecases can go more smoothly.
 	 */
-	private Map<String, User> users;
+	private Collection<User> users;
 
 	/**
 	 * Default constructor.
 	 */
 	public UserManager() {
-		users = new HashMap<String, User>();
+		users = new ArrayList<User>();
 	}
 
 	@Basic
 	public Collection<User> getAllUsers() {
-		return new ArrayList<User>(users.values());
+		return new ArrayList<User>(users);
 	}
 
 	/**
@@ -63,24 +66,19 @@ public class UserManager
 	/**
 	 * @return A collection of all Nurses, casted to Schedulable.
 	 */
-	public Collection<Schedulable> getAllNurses() {
-		Collection<Schedulable> rv = new ArrayList<Schedulable>();
-		for(User u : this.users.values()) {
-			if (u.type().equals(UserType.Nurse))
-				rv.add((Schedulable)u);
-		}
-		
-		return rv;
+	public Collection<NurseIN> getAllNurses() {
+		ArrayList<UserIN> t = new ArrayList<UserIN>();
+		for(User u:users)
+			t.add(u);
+		return UserFilter.NurseFilter(t);
 	}
 	
 	@Basic
-	public Collection<Schedulable> getAllDoctors() {
-		Collection<Schedulable> rv = new ArrayList<Schedulable>();
-		for(User u : this.users.values()) {
-			if (u.type().equals(UserType.Doctor))
-				rv.add((Schedulable)u);
-		}
-		return rv;
+	public Collection<DoctorIN> getAllDoctors() {
+		ArrayList<UserIN> t = new ArrayList<UserIN>();
+		for(User u:users)
+			t.add(u);
+		return UserFilter.DoctorFilter(t);
 	}
 	
 	/**
@@ -90,8 +88,8 @@ public class UserManager
 	 * @throws UserAlreadyExistsException
 	 */
 	private void AddUser(User newUser) throws UserAlreadyExistsException {
-		if (users.containsKey(newUser) || newUser == null)
+		if (users.contains(newUser))
 			throw new UserAlreadyExistsException(newUser.name);
-		this.users.put(newUser.name, newUser);
+		this.users.add(newUser);
 	}
 }

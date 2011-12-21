@@ -5,7 +5,6 @@ import exceptions.InvalidNameException;
 
 public abstract class User implements UserIN
 {
-	public abstract UserType type();
 	protected String name;
 
 	protected User(String name) throws InvalidNameException {
