@@ -5,7 +5,7 @@ import java.util.Collection;
 import treatment.Medication;
 import exceptions.DepotOverCapacityException;
 
-public class Depot
+public class Warehouse
 {
 	private final static int MAX_UNITS_OF_PLASTER = 8;
 	private final static int MAX_UNITS_OF_MEDICATION = 10;
@@ -14,7 +14,7 @@ public class Depot
 	private Collection<Medication> medication;
 	private Collection<Meal> meals;
 	
-	public Depot(){
+	public Warehouse(){
 		medication = new ArrayList<Medication>();
 		meals = new ArrayList<Meal>();
 		initialize();
