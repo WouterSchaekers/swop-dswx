@@ -1,4 +1,7 @@
-package medicaltest;
+package medicaltest.factories;
+
+import medicaltest.MedicalTest;
+import medicaltest.XRayScan;
 
 public class XRayScanFactory extends MedicalTestFactory
 {

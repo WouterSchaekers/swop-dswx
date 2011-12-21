@@ -1,4 +1,6 @@
-package medicaltest;
+package medicaltest.factories;
+
+import medicaltest.MedicalTest;
 
 public class BloodAnalysisFactory extends MedicalTestFactory
 {
