@@ -26,7 +26,7 @@
 
 = Wie is er momenteel waaraan bezig? =
 <p>
-Dieter: spawen + eten <p>
+Dieter: op tijd zijn <p>
 Stefaan: lezen opgave + uml maken <p>
 Wouter: pattern voor treatment implementeren <p>
 
