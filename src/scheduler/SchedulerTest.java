@@ -44,6 +44,10 @@ public class SchedulerTest
 		// Jasper
 		// Joe
 		// Jeroen
+		// Jamilia
+		// Janett
+		// Joeri
+		// 
 		//
 
 		listOfDoctors = new LinkedList<Schedulable>(m.getAllDoctors());
