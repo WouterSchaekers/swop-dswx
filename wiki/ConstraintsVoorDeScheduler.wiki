@@ -1,3 +1,4 @@
+= Constraints =
 * Niet meer dan 10 XRays per jaar. -> In use case<p>
 * Nurses: 8h-17h (elke dag). -> Fixen in canBeScheduledAt en nextFreeSlot.<p>
 * Doctors en MedicalTests minstens 1h van de currentTime schedulen. -> In de use case. (Extra methode in scheduler waarbij het uur kan meegegeven worden.)<p>
