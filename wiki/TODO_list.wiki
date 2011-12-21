@@ -7,9 +7,6 @@
       * Task manager moet verwittigd worden om zijn queues te updaten op de gepaste plaatsten in de usecases.
   * Factory patronen implementeren voor MedicalTest en Treatment -> Dieter
   * eten -> Stefaan
-  * warehouse -> Stefaan
-  * Result -> Stefaan
-  * WarehouseAdmin -> Stefaan
   * AdvanceTime()
   * Een oplossing voor het system-package en de SystemStarter class
   * usecases iteratie 1, en vorige fixen.
@@ -45,3 +42,6 @@ Wouter: stoppen met kijken naar filmpjes van Postal II, extra dingen van schedul
   * Een klasse maken die gregoriancalendar extend en die gemakkelijke functies heeft om daarop dingen aan te passen en daarna terug te getten. Vervolgens alle Date dingen refactoren.
   * scheduler (yay!)
   * scheduler moet dynamisch gemaakt worden
+  * warehouse
+  * Result
+  * WarehouseAdmin
