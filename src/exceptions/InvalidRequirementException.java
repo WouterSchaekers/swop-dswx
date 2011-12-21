@@ -1,12 +1,6 @@
-/**
- * 
- */
 package exceptions;
 
-/**
- * @author Stefaan
- *
- */
+
 public class InvalidRequirementException extends Exception
 {
 
