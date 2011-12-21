@@ -34,7 +34,7 @@ public class Scheduler
 	 * @throws InvalidSchedulingRequestException
 	 * @throws InvalidResourceException
 	 */
-	public  ScheduledTask schedule(long duration,
+	public ScheduledTask schedule(long duration, HospitalDate startDate,
 			LinkedList<LinkedList<Schedulable>> neededSchedulables,
 			LinkedList<Integer> occurences) throws InvalidTimeSlotException,
 			InvalidSchedulingRequestException, InvalidResourceException {
@@ -47,7 +47,7 @@ public class Scheduler
 				.makeCorrespondingArray(occurences);
 		boolean[][] treeMatrix = makeTreeMatrix(neededSchedulables,
 				fullOccurences);
-		return schedule(duration, currentSystemTime,
+		return schedule(duration, startDate,
 				HospitalDate.END_OF_TIME, neededSchedulables,
 				new LinkedList<Schedulable>(), treeMatrix, fullOccurences, 0);
 	}
@@ -72,7 +72,7 @@ public class Scheduler
 	 * @throws InvalidSchedulingRequestException
 	 * @throws InvalidResourceException
 	 */
-	public  ScheduledTask schedule(long duration,
+	public ScheduledTask schedule(long duration, HospitalDate startDate,
 			LinkedList<LinkedList<Schedulable>> neededSchedulables,
 			LinkedList<Schedulable> specificSchedulables,
 			LinkedList<Integer> occurences) throws InvalidTimeSlotException,
@@ -83,7 +83,7 @@ public class Scheduler
 			neededSchedulables.addFirst(newSchedulableList);
 			occurences.addFirst(1);
 		}
-		return schedule(duration, neededSchedulables, occurences);
+		return schedule(duration, startDate, neededSchedulables, occurences);
 	}
 
 	/**
@@ -122,7 +122,7 @@ public class Scheduler
 	 * @throws InvalidTimeSlotException
 	 * @throws InvalidResourceException
 	 */
-	private  ScheduledTask schedule(long duration,
+	private ScheduledTask schedule(long duration,
 			HospitalDate startDate, HospitalDate stopDate,
 			LinkedList<LinkedList<Schedulable>> neededSchedulables,
 			LinkedList<Schedulable> usedSchedulables, boolean[][] treeMatrix,
