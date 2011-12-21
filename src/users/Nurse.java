@@ -1,5 +1,6 @@
 package users;
 
+import controllers.interfaces.NurseIN;
 import scheduler.HospitalDate;
 import scheduler.TimeSlot;
 import exceptions.InvalidNameException;
@@ -9,7 +10,7 @@ import exceptions.InvalidTimeSlotException;
 /**
  * This class represents a Nurse in the hospital.
  */
-public class Nurse extends SchedulableUser
+public class Nurse extends SchedulableUser implements NurseIN
 {
 
 	// private HospitalDate startsWorkAt = new HospitalDate(0, 0, 0, 8, 0, 0);
