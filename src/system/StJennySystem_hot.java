@@ -1,6 +1,6 @@
 package system;
 
-public class _0_Main
+public class StJennySystem_hot
 {
 //	// things that are needed in the system
 //	static PatientFileManager patientfmanager = new PatientFileManager();
