@@ -4,7 +4,6 @@ import java.util.*;
 import controllers.interfaces.DoctorIN;
 import controllers.interfaces.NurseIN;
 import controllers.interfaces.UserIN;
-import scheduler.task.Schedulable;
 import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidNameException;
 import exceptions.InvalidTimeSlotException;
