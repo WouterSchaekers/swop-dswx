@@ -2,15 +2,15 @@ package users;
 
 import java.util.Collection;
 import treatment.Medication;
-import warehouse.Depot;
+import warehouse.Warehouse;
 import warehouse.Meal;
 import exceptions.DepotOverCapacityException;
 import exceptions.InvalidNameException;
 
 public class WarehouseManager extends User
 {
-	private Depot depot;
-	public WarehouseManager(Depot depot) throws InvalidNameException{
+	private Warehouse depot;
+	public WarehouseManager(Warehouse depot) throws InvalidNameException{
 		super("The Warehouse manager");
 		this.depot = depot;
 	}
