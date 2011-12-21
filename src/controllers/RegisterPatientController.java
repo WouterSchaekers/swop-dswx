@@ -9,7 +9,7 @@ import exceptions.InvalidNameException;
 import patient.PatientFile;
 import users.Nurse;
 import users.User;
-import users.UserType;
+import users.Doctor;
 
 public class RegisterPatientController
 {
@@ -61,7 +61,7 @@ public class RegisterPatientController
 			
 		if (u == null || f == null)
 			throw new IllegalArgumentException("null objects are illegal");
-		if (u.type() != UserType.Doctor)
+		if (!(u instanceof Doctor))
 			throw new IllegalArgumentException(u.getName()
 					+ "is not a doctor");
 		if (this.openPatientFile == null)
