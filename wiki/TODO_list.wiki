@@ -28,7 +28,7 @@
 <p>
 Dieter: op tijd zijn <p>
 Stefaan: lezen opgave + uml maken <p>
-Wouter: pattern voor treatment implementeren <p>
+Wouter: extra dingen van scheduler implementeren <p>
 
 = Things that have been crossed off = 
   * Scheduler-bugje: waar de juiste resource bepaald wordt: checken dat ze nog niet is opgenomen in de lijst van dingen die al gevonden zijn.
