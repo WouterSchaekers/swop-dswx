@@ -10,14 +10,17 @@ public class XRayScan extends MedicalTest
 	// on.
 	public static final String TESTNAME = "XRayScan";
 	public static final int DURATION = 15;
+	private final String bodypart;
 
 	/**
 	 * Default constructor. 
 	 * @throws InvalidTimeSlotException 
 	 * @see MedicalTest("XRayScan",15,patientFile)
 	 */
-	public XRayScan() throws InvalidNameException, InvalidDurationException, InvalidTimeSlotException {
+	//TODO: reden om dit package only te maken zodat de factories gebruikt moeten worden!
+	XRayScan(String bodypart) throws InvalidNameException, InvalidDurationException, InvalidTimeSlotException {
 		super(TESTNAME, DURATION);
+		this.bodypart=bodypart;
 	}
 
 }
