@@ -15,7 +15,7 @@ public class XRayScanFactory extends MedicalTestFactory
 	private int num;
 	private float zoomlevel;
 	private int duration;
-
+	XRayScanFactory(){setDuration(15);}
 	/**
 	 * Sets the bodypart the scan is used for ( in the form of a string), this argument can not be null.
 	 * @param bodypart
@@ -58,7 +58,7 @@ public class XRayScanFactory extends MedicalTestFactory
 	 * @throws IllegalArgumentException 
 	 * 	if the duration is < 15 min.
 	 */
-	public void setDuration(int duration)
+	private void setDuration(int duration)
 	{
 		if(inValidDuration(duration))
 			throw new IllegalArgumentException("Illegal duration");
