@@ -7,10 +7,10 @@ import warehouse.Meal;
 import exceptions.DepotOverCapacityException;
 import exceptions.InvalidNameException;
 
-public class WarehouseManager extends User
+public class WarehouseAdmin extends User
 {
 	private Warehouse depot;
-	public WarehouseManager(Warehouse depot) throws InvalidNameException{
+	public WarehouseAdmin(Warehouse depot) throws InvalidNameException{
 		super("The Warehouse manager");
 		this.depot = depot;
 	}
