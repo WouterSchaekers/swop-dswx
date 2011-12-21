@@ -109,7 +109,7 @@ public class SchedulerTest
 		occurences = new LinkedList<Integer>();
 		occurences.add(0);
 		occurences.add(2);
-		assertFalse(new Scheduler().schedule(5000, listOfSchedulables, occurences)
+		assertFalse(new Scheduler().schedule(5000, HospitalDate.START_OF_TIME,listOfSchedulables, occurences)
 				.getStartDate().equals(new HospitalDate()));
 	}
 
@@ -129,7 +129,7 @@ public class SchedulerTest
 		occurences = new LinkedList<Integer>();
 		occurences.add(2);
 		occurences.add(2);
-		assertFalse(new Scheduler().schedule(5000, listOfSchedulables, occurences)
+		assertFalse(new Scheduler().schedule(5000, HospitalDate.START_OF_TIME, listOfSchedulables, occurences)
 				.getTimeSlot().getStartPoint().getDate()
 				.equals(new HospitalDate()));
 	}
@@ -141,7 +141,7 @@ public class SchedulerTest
 		occurences = new LinkedList<Integer>();
 		occurences.add(5);
 		occurences.add(5);
-		new Scheduler().schedule(5000, listOfSchedulables, occurences);
+		new Scheduler().schedule(5000, HospitalDate.START_OF_TIME, listOfSchedulables, occurences);
 		throw new IllegalStateException("Something went wrong....");
 	}
 
@@ -157,7 +157,7 @@ public class SchedulerTest
 		occurences = new LinkedList<Integer>();
 		occurences.add(4);
 		occurences.add(1);
-		assertFalse(new Scheduler().schedule(5000, listOfSchedulables, occurences)
+		assertFalse(new Scheduler().schedule(5000, HospitalDate.START_OF_TIME, listOfSchedulables, occurences)
 				.getTimeSlot().getStartPoint().getDate()
 				.equals(new HospitalDate()));
 	}
@@ -174,7 +174,7 @@ public class SchedulerTest
 		occurences.add(4);
 		occurences.add(2);
 		assertTrue(new Scheduler()
-				.schedule(1501, listOfSchedulables, occurences)
+				.schedule(1501, HospitalDate.START_OF_TIME, listOfSchedulables, occurences)
 				.getStartDate()
 				.equals(new HospitalDate(HospitalDate.START_OF_TIME
 						.getTimeSinceStart() + 8000)));
@@ -193,7 +193,7 @@ public class SchedulerTest
 		occurences.add(4);
 		occurences.add(2);
 		assertTrue(new Scheduler()
-				.schedule(1501, listOfSchedulables, occurences)
+				.schedule(1501, HospitalDate.START_OF_TIME, listOfSchedulables, occurences)
 				.getStartDate()
 				.equals(new HospitalDate(HospitalDate.START_OF_TIME
 						.getTimeSinceStart() + 8000)));
@@ -207,7 +207,7 @@ public class SchedulerTest
 		occurences.add(2);
 		LinkedList<Schedulable> jonathan = new LinkedList<Schedulable>();
 		jonathan.add(listOfDoctors.get(0));
-		ScheduledTask t = new Scheduler().schedule(1500, listOfSchedulables, jonathan, occurences);
+		ScheduledTask t = new Scheduler().schedule(1500, HospitalDate.START_OF_TIME, listOfSchedulables, jonathan, occurences);
 		assertTrue(t.getStartDate().equals(new HospitalDate(HospitalDate.START_OF_TIME
 						.getTimeSinceStart())));
 		assertTrue(t.getResources().contains(jonathan.get(0)));
@@ -221,12 +221,12 @@ public class SchedulerTest
 			occurences.add(2);
 			things.add(listOfNurses);
 			occurences.add(1);
-			 new Scheduler().schedule(50000,things, occurences);
+			 new Scheduler().schedule(50000, HospitalDate.START_OF_TIME, things, occurences);
 			LinkedList<LinkedList<Schedulable>> nurses = new LinkedList<LinkedList<Schedulable>>();
 			nurses.add(listOfNurses);
 			occurences = new LinkedList<Integer>();
 			occurences.add(2);
-			System.out.println(new Scheduler().schedule(50000, nurses, occurences).getStartDate());
+			System.out.println(new Scheduler().schedule(50000, HospitalDate.START_OF_TIME, nurses, occurences).getStartDate());
 			}
 	@Test(expected = IllegalArgumentException.class)
 	public void setSystemTimeTest0() {
