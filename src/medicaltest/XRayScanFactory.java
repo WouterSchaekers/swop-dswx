@@ -64,15 +64,6 @@ public class XRayScanFactory extends MedicalTestFactory
 			throw new IllegalArgumentException("Illegal duration");
 		this.duration=duration;
 	}
-	
-	@Override
-	public MedicalTest create() throws InvalidNameException,
-			InvalidDurationException, InvalidTimeSlotException,
-			FactoryInstantiation {
-		if (this.ready())
-			return new XRayScan(bodypart,num,zoomlevel,duration);
-		throw new FactoryInstantiation();
-	}
 	/**
 	 * Checks if all the arguments are sufficiently instantiated
 	 * @return 
@@ -117,6 +108,14 @@ public class XRayScanFactory extends MedicalTestFactory
 	 */
 	private boolean inValidDuration(int duration2) {
 		return duration2<15;
+	}
+	@Override
+	public MedicalTest create() throws InvalidNameException,
+			InvalidDurationException, InvalidTimeSlotException,
+			FactoryInstantiation {
+		if (this.ready())
+			return new XRayScan(bodypart,num,zoomlevel,duration);
+		throw new FactoryInstantiation();
 	}
 
 }
