@@ -1,4 +1,4 @@
-package scheduler.task;
+package scheduler.task.unscheduled;
 
 import java.util.LinkedList;
 import exceptions.InvalidAmountException;
@@ -8,6 +8,8 @@ import exceptions.InvalidOccurencesException;
 import exceptions.InvalidRequirementException;
 import exceptions.InvalidResourceException;
 import scheduler.HospitalDate;
+import scheduler.task.Schedulable;
+import scheduler.task.UnscheduledTask;
 import users.Doctor;
 
 public class UnscheduledAppointment extends UnscheduledTask
