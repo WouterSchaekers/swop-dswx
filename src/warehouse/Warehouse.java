@@ -83,7 +83,14 @@ public class Warehouse
 		this.medication.addAll(medication);
 	}
 	
-	public void reserveItem()
+	/**
+	 * This method allows one to add an item to the Warehouse.
+	 * @param i
+	 * The item to add
+	 */
+	public void reserveItem(WarehouseItem i) {
+		
+	}
 	
 	/**
 	 * This method will add meals to this hospital.
