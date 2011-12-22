@@ -29,7 +29,7 @@ public class Task
 	 * @return A cloned collection of myResource
 	 */
 	public static LinkedList<Schedulable> cloneCollection(Collection<Schedulable> myResource) {
-		LinkedList<Schedulable> res= new LinkedList<Schedulable>();
+		LinkedList<Schedulable> res = new LinkedList<Schedulable>();
 		for(Schedulable sched : myResource)
 			res.add(sched);
 		return res;

@@ -21,7 +21,7 @@ public class UnscheduledTask extends Task
 	private long duration;
 	private LinkedList<Integer> occurences = new LinkedList<Integer>();
 	private long extraTime;
-	private HospitalDate currentSystemTime;
+	private HospitalDate creationTime;
 	
 	/**
 	 * Constructor without requirements.
@@ -44,7 +44,7 @@ public class UnscheduledTask extends Task
 	 * @throws InvalidAmountException 
 	 * @throws InvalidHospitalDateException 
 	 */
-	public UnscheduledTask(LinkedList<LinkedList<Schedulable>> myResources, long duration, LinkedList<Integer> occurences, long extraTime, HospitalDate currentSystemTime) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException{
+	public UnscheduledTask(LinkedList<LinkedList<Schedulable>> myResources, long duration, LinkedList<Integer> occurences, long extraTime, HospitalDate creationTime) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException{
 		if(!canHaveAsResourcePool(myResources)) 
 			throw new InvalidResourceException("Invalid resource pool given to UnscheduledTask!");
 		if(!super.isValidDuration(duration)) 
@@ -53,12 +53,12 @@ public class UnscheduledTask extends Task
 			throw new InvalidOccurencesException("Invalid occurcences given to UnscheduledTask!");
 		if(!isValidAmountOfExtraTime(extraTime))
 			throw new InvalidAmountException("Invalid amount of extra time since system start given to Unscheduled Task");
-		if(!isValidSystemTime(currentSystemTime))
+		if(!isValidSystemTime(creationTime))
 			throw new InvalidHospitalDateException("Invalid systemtime given to Unscheduled Task");
 		this.myResourcePool = myResources;
 		this.duration = duration;
 		this.occurences = occurences;
-		this.currentSystemTime = currentSystemTime;
+		this.creationTime = creationTime;
 	}
 
 	/**
@@ -85,7 +85,7 @@ public class UnscheduledTask extends Task
 	 * @throws InvalidAmountException
 	 * @throws InvalidHospitalDateException 
 	 */
-	public UnscheduledTask(LinkedList<LinkedList<Schedulable>> myResources, long duration, Collection<Requirement> reqs, LinkedList<Integer> occurences, long extraTime, HospitalDate currentSystemTime) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidRequirementException, InvalidAmountException, InvalidHospitalDateException {
+	public UnscheduledTask(LinkedList<LinkedList<Schedulable>> myResources, long duration, Collection<Requirement> reqs, LinkedList<Integer> occurences, long extraTime, HospitalDate creationTime) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidRequirementException, InvalidAmountException, InvalidHospitalDateException {
 		if(!canHaveAsResourcePool(myResources)) 
 			throw new InvalidResourceException("Invalid resource pool given to UnscheduledTask!");
 		if(!super.isValidDuration(duration)) 
@@ -96,13 +96,13 @@ public class UnscheduledTask extends Task
 			throw new InvalidOccurencesException("Invalid occurcences given to UnscheduledTask!");
 		if(!isValidAmountOfExtraTime(extraTime))
 			throw new InvalidAmountException("Invalid amount of extra time since system start given to Unscheduled Task");
-		if(!isValidSystemTime(currentSystemTime))
+		if(!isValidSystemTime(creationTime))
 			throw new InvalidHospitalDateException("Invalid systemtime given to Unscheduled Task");
 		this.myResourcePool = myResources;
 		this.myRequirements = reqs;
 		this.duration = duration;
 		this.occurences = occurences;
-		this.currentSystemTime = currentSystemTime;
+		this.creationTime = creationTime;
 	}
 
 	/**
@@ -238,8 +238,8 @@ public class UnscheduledTask extends Task
 	}
 	
 	@Basic
-	public HospitalDate getSystemTime() {
-		return new HospitalDate(this.currentSystemTime);
+	public HospitalDate getCreationTime() {
+		return new HospitalDate(this.creationTime);
 	}
 	
 }
