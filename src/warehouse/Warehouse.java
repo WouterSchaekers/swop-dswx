@@ -19,6 +19,7 @@ public class Warehouse
 	private int unitsOfPlaster;
 	private Collection<Medication> medication;
 	private Collection<Meal> meals;
+	private Collection<WarehouseItem> reserved;
 	private HospitalDate prevDate;
 	
 	/**
@@ -33,6 +34,7 @@ public class Warehouse
 	public Warehouse(HospitalDate startDate) throws InvalidHospitalDateException{
 		medication = new ArrayList<Medication>();
 		meals = new ArrayList<Meal>();
+		reserved = new ArrayList<WarehouseItem>();
 		this.unitsOfPlaster = MAX_UNITS_OF_PLASTER;
 		for(int i = 0; i < MAX_UNITS_OF_MEALS; i++){
 			this.meals.add(new Meal(null));
@@ -84,12 +86,25 @@ public class Warehouse
 	}
 	
 	/**
-	 * This method allows one to add an item to the Warehouse.
+	 * This method allows one to reserve an item to the Warehouse.
 	 * @param i
 	 * The item to add
 	 */
 	public void reserveItem(WarehouseItem i) {
-		
+		if(removeAndReserveFrom(i, meals))
+			return;
+		if(removeAndReserveFrom(i, medication))
+			return;		
+	}
+
+	private <T extends WarehouseItem> boolean removeAndReserveFrom(WarehouseItem i, Collection<T> t) {
+		if(t.contains(i))
+		{
+			t.remove(i);
+			reserved.add(i);
+			return true;
+		}
+		return false;
 	}
 	
 	/**
