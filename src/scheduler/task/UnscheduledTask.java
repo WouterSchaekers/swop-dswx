@@ -21,6 +21,32 @@ public class UnscheduledTask extends Task
 	private LinkedList<Integer> occurences = new LinkedList<Integer>();
 	
 	/**
+	 * Constructor without requirements.
+	 * 
+	 * @param myResources
+	 *            The resourcepool for this unscheduled task.
+	 * @param duration
+	 *            The duration one would like this Task to eventually be scheduled for.
+	 * @param occurences
+	 *            The amount of occurences for each of the Schedulables in
+	 *            myResources.
+	 * @throws InvalidResourceException
+	 * @throws InvalidDurationException
+	 * @throws InvalidOccurencesException
+	 */
+	public UnscheduledTask(LinkedList<LinkedList<Schedulable>> myResources, long duration, LinkedList<Integer> occurences) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException{
+		if(!canHaveAsResourcePool(myResources)) 
+			throw new InvalidResourceException("Invalid resource pool given to UnscheduledTask!");
+		if(!super.isValidDuration(duration)) 
+			throw new InvalidDurationException("Invalid duration given to UnscheduledTask!");
+		if(!canHaveAsOccurences(occurences, myResources))
+			throw new InvalidOccurencesException("Invalid occurcences given to UnscheduledTask!");
+		this.myResourcePool = myResources;
+		this.duration = duration;
+		this.occurences = occurences;
+	}
+	
+	/**
 	 * Default constructor
 	 * 
 	 * @param myResources
