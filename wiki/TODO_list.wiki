@@ -1,4 +1,5 @@
 = TODOs =
+  * Treatment factory
   * Concerning Task and TaskManager:
     * In de usecases willen we Tasks aanmaken.
       * Als de Tasks niet onmiddellijk gescheduled kunnen worden, komen ze in de task queue van de Taskmanager.
@@ -19,8 +20,8 @@
 
 = Wie is er momenteel waaraan bezig? =
 <p>
-Dieter: Factory patronen implementeren voor MedicalTest en Treatment<p>
-Stefaan: eten, warehouse, warehouseadmin<p>
+Dieter: eXtreme-programming<p>
+Stefaan: eXtreme-programming, usecases<p>
 Wouter: scheduler nakijken <p>
 
 = Things that have been crossed off = 
@@ -43,3 +44,7 @@ Wouter: scheduler nakijken <p>
   * Result
   * WarehouseAdmin
   * constraints in canBeScheduled
+  * Factory patronen implementeren voor MedicalTest
+  * eten
+  * warehouse
+  * warehouseadmin
