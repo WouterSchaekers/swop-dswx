@@ -309,6 +309,9 @@ public class HospitalDate {
 		return gregorianCalendar.getTimeInMillis() - HospitalDate.START_OF_TIME.getTotalMillis();
 	}
 	
+	/**
+	 * @depricated instead use getTimeSinceStart()
+	 */
 	public long getTotalMillis(){
 		return gregorianCalendar.getTimeInMillis();
 	}
