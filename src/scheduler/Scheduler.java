@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import scheduler.task.Schedulable;
 import scheduler.task.ScheduledTask;
+import scheduler.task.UnscheduledTask;
 import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidResourceException;
@@ -128,6 +129,24 @@ public class Scheduler
 		occurencesCool.addAll(otherOccurences);
 		
 		return schedule(duration, startDate, listOfSchedulables, occurencesCool);
+	}
+	
+	/**
+	 * Schedule method where only an UnscheduledTask is given.
+	 * 
+	 * @param Task
+	 *            The unscheduled task that needs to be scheduled.
+	 * @return A scheduled task that contains all the necessary information.
+	 * @throws InvalidResourceException 
+	 * @throws InvalidSchedulingRequestException 
+	 * @throws InvalidTimeSlotException 
+	 */
+	public ScheduledTask schedule(UnscheduledTask task) throws InvalidTimeSlotException, InvalidSchedulingRequestException, InvalidResourceException {
+		LinkedList<LinkedList<Schedulable>> listOfSchedulables = new LinkedList<LinkedList<Schedulable>>(task.getResourcePool());
+		long duration = task.getDuration();
+		HospitalDate startDate = this.currentSystemTime;
+		LinkedList<Integer> occurences = task.getOccurences();
+		return schedule(duration, startDate, listOfSchedulables, occurences);
 	}
 
 	/**
