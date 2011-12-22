@@ -312,7 +312,7 @@ public class HospitalDate {
 	/**
 	 * @depricated instead use getTimeSinceStart()
 	 */
-	public long getTotalMillis(){
+	private long getTotalMillis(){
 		return gregorianCalendar.getTimeInMillis();
 	}
 	
