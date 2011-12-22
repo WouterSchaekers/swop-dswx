@@ -1,5 +1,6 @@
 package medicaltest;
 
+import scheduler.HospitalDate;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidTimeSlotException;
@@ -14,8 +15,8 @@ public class XRayScanFactory extends MedicalTestFactory
 	private String bodypart;
 	private int num;
 	private float zoomlevel;
-	private int duration;
-	XRayScanFactory(){setDuration(15);}
+	private long duration;
+	XRayScanFactory(){setDuration(15*HospitalDate.ONE_MINUTE);}
 	/**
 	 * Sets the bodypart the scan is used for ( in the form of a string), this argument can not be null.
 	 * @param bodypart
@@ -58,7 +59,7 @@ public class XRayScanFactory extends MedicalTestFactory
 	 * @throws IllegalArgumentException 
 	 * 	if the duration is < 15 min.
 	 */
-	private void setDuration(int duration)
+	private void setDuration(long duration)
 	{
 		if(inValidDuration(duration))
 			throw new IllegalArgumentException("Illegal duration");
@@ -99,15 +100,16 @@ public class XRayScanFactory extends MedicalTestFactory
 	 * @return true if the argument is not null
 	 */
 	private boolean invalidBodyPart(String name) {
-		return name != null;
+		//XXX: fix de naamgeving, dieter!!
+		return name == null;
 	}
 	/**
 	 * 
 	 * @param duration2
 	 * @return
 	 */
-	private boolean inValidDuration(int duration2) {
-		return duration2<15;
+	private boolean inValidDuration(long duration2) {
+		return duration2 != 15* HospitalDate.ONE_MINUTE;
 	}
 	@Override
 	public MedicalTest create() throws InvalidNameException,

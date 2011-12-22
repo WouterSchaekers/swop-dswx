@@ -28,7 +28,7 @@ public abstract class MedicalTest implements Schedulable
 	 *             If(!isValidDuration(duration))
 	 * @throws InvalidTimeSlotException 
 	 */
-	public MedicalTest( long duration) throws InvalidNameException,
+	public MedicalTest(long duration) throws InvalidNameException,
 			InvalidDurationException, InvalidTimeSlotException {
 		
 		if (!isValidDuration(duration))

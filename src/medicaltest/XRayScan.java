@@ -40,7 +40,7 @@ public class XRayScan extends MedicalTest
 	 * @see MedicalTest("XRayScan",15,patientFile)
 	 */
 
-	XRayScan(String bodypart, int num, float zoomlevel,int duration) throws InvalidNameException, InvalidDurationException, InvalidTimeSlotException {
+	XRayScan(String bodypart, int num, float zoomlevel,long duration) throws InvalidNameException, InvalidDurationException, InvalidTimeSlotException {
 		super(duration);
 		this.bodypart=bodypart;
 		this.num=num;
