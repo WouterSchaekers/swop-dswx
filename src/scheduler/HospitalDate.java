@@ -169,10 +169,11 @@ public class HospitalDate {
 	
 	/**
 	 * @return The time between this hospital date and the given one.
-	 * Will be negative if this date is after d.
 	 */
 	public long getTimeBetween(HospitalDate d) {
-		return d.getTotalMillis() - this.getTotalMillis();
+		if(this.before(d))
+			return d.getTotalMillis() - this.getTotalMillis();
+		return this.getTotalMillis() - d.getTotalMillis();
 	}
 	
 	/**
