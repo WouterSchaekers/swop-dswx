@@ -10,6 +10,12 @@ import controllers.RegisterPatientController;
 import controllers.interfaces.AppointmentIN;
 import controllers.interfaces.PatientFileIN;
 import controllers.interfaces.UserIN;
+import exceptions.InvalidDurationException;
+import exceptions.InvalidOccurencesException;
+import exceptions.InvalidRequirementException;
+import exceptions.InvalidResourceException;
+import exceptions.InvalidSchedulingRequestException;
+import exceptions.InvalidTimeSlotException;
 
 public class SelectDoctor extends Usecase
 {
@@ -42,7 +48,28 @@ public class SelectDoctor extends Usecase
 			return this;
 		}
 
-		AppointmentIN app = rpc.CreateAppointMent(map.get(name), pfile);
+		AppointmentIN app = null;
+		try {
+			app = rpc.CreateAppointMent(map.get(name), pfile);
+		} catch (InvalidTimeSlotException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidSchedulingRequestException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidResourceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidDurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidOccurencesException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidRequirementException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return new DisplayAppointment(data, app);
 	}
 
