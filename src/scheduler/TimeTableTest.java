@@ -7,7 +7,6 @@ import org.junit.Test;
 import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidTimeSlotException;
 
-@SuppressWarnings("unused")
 public class TimeTableTest
 {
 	HospitalDate h0, h1, h2, h3, h4, h5;
@@ -39,14 +38,14 @@ public class TimeTableTest
 
 	@Test
 	public void constructor0Test() throws InvalidTimeSlotException {
-		TimeTable t0 = new TimeTable();
+		new TimeTable();
 	}
 
 	@Test(
 			expected = InvalidTimeSlotException.class)
 	public void constructor1Test() throws InvalidTimeSlotException {
 		LinkedList<TimeSlot> timeSlots = null;
-		TimeTable t0 = new TimeTable(timeSlots);
+		new TimeTable(timeSlots);
 	}
 
 	@Test
@@ -206,7 +205,7 @@ public class TimeTableTest
 	@Test(
 			expected = IllegalArgumentException.class)
 	public void argumentTestFail() {
-		TimeSlot t1 = new TimeSlot(new StartTimePoint(new HospitalDate(-2)),
+		new TimeSlot(new StartTimePoint(new HospitalDate(-2)),
 				new StopTimePoint(new HospitalDate(-5)));
 		throw new IllegalStateException(
 				"Should not be able to get past all the previous code!!! ");
@@ -372,10 +371,6 @@ public class TimeTableTest
 				new StopTimePoint(new HospitalDate(2100)));
 		TimeSlot t6 = new TimeSlot(new StartTimePoint(new HospitalDate(0)),
 				new StopTimePoint(new HospitalDate(21)));
-		TimeSlot t7 = new TimeSlot(new StartTimePoint(new HospitalDate(2)),
-				new StopTimePoint(new HospitalDate(9)));
-		TimeSlot t8 = new TimeSlot(new StartTimePoint(new HospitalDate(13)),
-				new StopTimePoint(new HospitalDate(15)));
 		assertFalse(table.equals(new TimeTable(t5, t6)));
 		assertFalse(res.equals(new TimeTable(t5, t6)));
 		assertTrue(res.equals(new TimeTable()));
@@ -798,6 +793,19 @@ public class TimeTableTest
 		TimeTable table2 = new TimeTable(t2);
 		table.invert().getIntersect(table2).equals(table
 				.getIntersect(table2));
+	}
+	
+	@Test
+	public void cloneTest() throws InvalidTimeSlotException, InvalidSchedulingRequestException {
+		TimeTable t = new TimeTable();
+		TimeSlot t1 = new TimeSlot(tp00,tp11);
+		t.addTimeSlot(t1);
+		TimeTable timeT2 = t.clone();
+		
+		assertTrue(t.equals(timeT2));
+		assertTrue(t.getTimeSlots().get(0).equals(t1));
+		assertFalse(t == timeT2);
+		assertFalse(t.getTimeSlots().get(0) == t1);
 	}
 
 }

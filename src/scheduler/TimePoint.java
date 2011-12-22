@@ -66,7 +66,6 @@ public abstract class TimePoint implements Comparable<TimePoint>
 	 * @param timeInMillis
 	 * Amount of millis since system start.
 	 */
-	//TODO
 	protected TimePoint(long timeInMillis ){
 		this(new HospitalDate(timeInMillis));
 	}
