@@ -168,7 +168,6 @@ public class TimeTable
 		return new TimeSlot(new StartTimePoint(hospitalDate), newStopPoint);
 	}
 	
-	//TODO
 	public TimeSlot getFirstFreeSlotBetween(HospitalDate startDate, HospitalDate stopDate, long duration) throws InvalidSchedulingRequestException, InvalidTimeSlotException{
 		TimeTable x = this.invert();
 		for(TimeSlot t : x.timeSlots){
@@ -375,14 +374,15 @@ public class TimeTable
 	}
 
 	/**
-	 * Returns the timeslots of this timetable as a linked list.
-	 * 
 	 * @return The timeslots of this timetable as a linked list
 	 */
 	@Basic
 	public LinkedList<TimeSlot> getTimeSlots() {
 		this.sortTimeSlots();
-		return new LinkedList<TimeSlot>(this.timeSlots);
+		LinkedList<TimeSlot> rv = new LinkedList<TimeSlot>();
+		for(TimeSlot s : this.timeSlots)
+			rv.add(s.clone());
+		return rv;
 	}
 
 	/**
@@ -432,10 +432,10 @@ public class TimeTable
 		return true;
 	}
 	
-	//TODO
+	@Override
 	public TimeTable clone() {
 		LinkedList<TimeSlot> newTimeSlots = new LinkedList<TimeSlot>();
-		for(TimeSlot timeSlot : this.timeSlots){
+		for(TimeSlot timeSlot : this.getTimeSlots()){
 			newTimeSlots.add(timeSlot);
 		}
 		TimeTable newTimeTable = null; 
