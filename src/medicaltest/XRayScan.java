@@ -39,7 +39,7 @@ public class XRayScan extends MedicalTest
 	 * @throws InvalidTimeSlotException 
 	 * @see MedicalTest("XRayScan",15,patientFile)
 	 */
-	//TODO: reden om dit package only te maken zodat de factories gebruikt moeten worden!
+
 	XRayScan(String bodypart, int num, float zoomlevel,int duration) throws InvalidNameException, InvalidDurationException, InvalidTimeSlotException {
 		super(duration);
 		this.bodypart=bodypart;

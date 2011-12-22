@@ -6,9 +6,6 @@ import ui.UCHandler;
 import ui.UserinterfaceData;
 import users.UserManager;
 import controllers.DataPasser;
-import exceptions.InvalidNameException;
-import exceptions.InvalidTimeSlotException;
-import exceptions.UserAlreadyExistsException;
 
 public class StJennySystem_hot
 {
@@ -23,16 +20,7 @@ public class StJennySystem_hot
 		pf.registerPatient("simon");
 		pf.registerPatient("jasper");
 		
-	} catch (UserAlreadyExistsException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} catch (InvalidNameException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} catch (InvalidTimeSlotException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+	} catch (Exception e) {}
 	UserinterfaceData data = new UserinterfaceData(new DataPasser(m,pf, s));
 	UCHandler handler = new UCHandler(data);
 	handler.start();
