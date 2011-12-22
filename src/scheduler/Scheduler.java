@@ -144,7 +144,7 @@ public class Scheduler
 	public ScheduledTask schedule(UnscheduledTask task) throws InvalidTimeSlotException, InvalidSchedulingRequestException, InvalidResourceException {
 		LinkedList<LinkedList<Schedulable>> listOfSchedulables = new LinkedList<LinkedList<Schedulable>>(task.getResourcePool());
 		long duration = task.getDuration();
-		HospitalDate startDate = new HospitalDate(this.currentSystemTime.getTotalMillis() + task.getExtraTime());
+		HospitalDate startDate = new HospitalDate(task.getSystemTime().getTotalMillis() + task.getExtraTime());
 		LinkedList<Integer> occurences = task.getOccurences();
 		ScheduledTask schedTask =  schedule(duration, startDate, listOfSchedulables, occurences);
 		
