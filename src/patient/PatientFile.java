@@ -1,6 +1,8 @@
 package patient;
 
 import java.util.*;
+import scheduler.HospitalDate;
+import medicaltest.XRayScan;
 import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.PatientFileIN;
 import exceptions.*;
@@ -17,7 +19,8 @@ public class PatientFile implements PatientFileIN
 	 */
 	private Collection<Diagnose> diagnosis = new ArrayList<Diagnose>();
 	private boolean discharged = false;
-
+	private ArrayList<HospitalDate> xrays = new ArrayList<HospitalDate>();
+	
 	/**
 	 * Default Constructor.
 	 * 
@@ -72,6 +75,31 @@ public class PatientFile implements PatientFileIN
 	 */
 	private boolean isValidName(String n) {
 		return !n.equals("");
+	}
+	
+	/**
+	 * This method must be called if an XRrayScan is ordered for this patient.
+	 * It is needed to keep track of the amount of xrays a patient has had in
+	 * the past year.
+	 * 
+	 * @param d
+	 *            The date on which the XRay is scheduled.
+	 */
+	public void addXRay(HospitalDate d) {
+		xrays.add(d);
+	}
+	
+	/**
+	 * @param curDate
+	 * The current system time.
+	 * @return The amount of xrays this patient has had in the last year.
+	 */
+	public int amountOfXraysThisYear(HospitalDate curDate) {
+		for(HospitalDate xr : this.xrays) {
+			if(xr.getTimeBetween(curDate) > HospitalDate.ONE_YEAR)
+				xrays.remove(xr);
+		}
+		return xrays.size();
 	}
 	
 	@Basic
