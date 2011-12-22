@@ -1,7 +1,9 @@
 package scheduler.task;
 
 import java.util.LinkedList;
+import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
+import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidOccurencesException;
 import exceptions.InvalidRequirementException;
 import exceptions.InvalidResourceException;
@@ -10,9 +12,9 @@ import users.Doctor;
 
 public class UnscheduledAppointment extends UnscheduledTask
 {
-	public UnscheduledAppointment(Doctor d) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidRequirementException
+	public UnscheduledAppointment(Doctor d,HospitalDate currentsystemtime) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidRequirementException, InvalidAmountException, InvalidHospitalDateException
 	{
-		super(createRes(d), HospitalDate.ONE_MINUTE*30, oneoccurence());
+		super(createRes(d), HospitalDate.ONE_MINUTE*30, oneoccurence(),HospitalDate.ONE_HOUR,currentsystemtime);
 	}
 
 	private static LinkedList<Integer> oneoccurence() {

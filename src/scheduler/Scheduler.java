@@ -19,7 +19,7 @@ import exceptions.InvalidTimeSlotException;
 public class Scheduler
 {
 	private HospitalDate currentSystemTime = new HospitalDate();
-
+	
 	/**
 	 * Schedules a set of schedulables on the best available slot, taking into
 	 * account the required duration. <br>
@@ -440,5 +440,9 @@ public class Scheduler
 					treeMatrix[i].length);
 		}
 		return newTreeMatrix;
+	}
+
+	public HospitalDate getCurrentSystemTime() {
+		return currentSystemTime;
 	}
 }
