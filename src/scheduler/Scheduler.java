@@ -146,7 +146,12 @@ public class Scheduler
 		long duration = task.getDuration();
 		HospitalDate startDate = new HospitalDate(this.currentSystemTime.getTotalMillis() + task.getExtraTime());
 		LinkedList<Integer> occurences = task.getOccurences();
-		return schedule(duration, startDate, listOfSchedulables, occurences);
+		ScheduledTask schedTask =  schedule(duration, startDate, listOfSchedulables, occurences);
+		
+		LinkedList<Schedulable> scheddedRes = schedTask.getResources();
+		for (Schedulable s : scheddedRes)
+			s.scheduleAt(schedTask.getTimeSlot());
+		return schedTask;
 	}
 
 	/**
