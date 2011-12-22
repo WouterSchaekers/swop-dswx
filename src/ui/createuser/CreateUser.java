@@ -2,7 +2,6 @@ package ui.createuser;
 
 import ui.Usecase;
 import ui.UserinterfaceData;
-import users.UserManager;
 
 public class CreateUser extends Usecase
 {
