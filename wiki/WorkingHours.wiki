@@ -41,4 +41,4 @@
 || 21/12/11: 11u00 -> 12u30 || 3 DSW || 1.5 || Niets || Dieter moest nogmaals praten met Frédéric Vogels over C#, Common Lisp, Haskell, Haskell tutorialboeken, andere programeertalen met hun voor en nadelen en het examenrooster ||
 || 21/12/11: 12u30 -> 15u30 || 3 DSW || 3 || Programming  some scheduler constrains and medicaltest factory ||  ||
 || 21/12/11: 16u15 ->  18u15 || 3 DSW || 2 || More of the above || ||
-|| 22/12/11: 10u30 -> || 2 SW || implementing warehouse, advance time || Dieter had gisteren wina bar.||
+|| 22/12/11: 10u30 -> || || 2 SW || implementing warehouse, advance time || Dieter had gisteren wina bar.||
