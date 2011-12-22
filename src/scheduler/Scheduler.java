@@ -442,7 +442,8 @@ public class Scheduler
 		return newTreeMatrix;
 	}
 
+	@Basic
 	public HospitalDate getCurrentSystemTime() {
-		return currentSystemTime;
+		return new HospitalDate(currentSystemTime);
 	}
 }
