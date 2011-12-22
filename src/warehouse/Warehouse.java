@@ -2,8 +2,10 @@ package warehouse;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import scheduler.HospitalDate;
 import treatment.Medication;
 import exceptions.DepotOverCapacityException;
+import exceptions.InvalidHospitalDateException;
 
 /**
  * This class represents a warehouse. It keeps track of all resources in the
@@ -17,11 +19,18 @@ public class Warehouse
 	private int unitsOfPlaster;
 	private Collection<Medication> medication;
 	private Collection<Meal> meals;
+	private HospitalDate prevDate;
 	
 	/**
 	 * Default constructor. Fields will be initialised.
+	 * 
+	 * @param startDate
+	 *            The date that this warehouse starts existing on. Will be used
+	 *            to calculate the difference in time between the new system
+	 *            time and the current system time, should the time advance.
+	 * @throws InvalidHospitalDateException 
 	 */
-	public Warehouse(){
+	public Warehouse(HospitalDate startDate) throws InvalidHospitalDateException{
 		medication = new ArrayList<Medication>();
 		meals = new ArrayList<Meal>();
 		this.unitsOfPlaster = MAX_UNITS_OF_PLASTER;
@@ -36,6 +45,16 @@ public class Warehouse
 		this.medication.add(new ActivatedCarbon(false, null));
 		this.medication.add(new Aspirin(false, null));
 		this.medication.add(new Misc(false, null));
+		if(!this.canHaveAsDate(startDate))
+			throw new InvalidHospitalDateException("Invalid date given to Warehouse!");
+		this.prevDate = startDate;
+	}
+	
+	/**
+	 * @return If d is a valid hospital date for this warehouse.
+	 */
+	private boolean canHaveAsDate(HospitalDate d) {
+		return d != null && d.after(new HospitalDate(HospitalDate.START_OF_TIME));
 	}
 	
 	/**
@@ -64,6 +83,8 @@ public class Warehouse
 		this.medication.addAll(medication);
 	}
 	
+	public void reserveItem()
+	
 	/**
 	 * This method will add meals to this hospital.
 	 * @param meals
@@ -75,5 +96,24 @@ public class Warehouse
 			throw new DepotOverCapacityException("There are too many meals.");
 		}
 		this.meals.addAll(meals);
+	}
+	
+	/**
+	 * This method will update the stock (namingly the amount of meals -- the
+	 * rest should be automatically removed due to the fact that there are
+	 * usecases))of the warehouse automatically based on the new date d and the
+	 * previous date, given in the constructor. It wil also update this previous
+	 * date into d, so as to prepare for the next update.
+	 * 
+	 * @param d
+	 *            The new system time.
+	 * @throws InvalidHospitalDateException
+	 */
+	public void updateStock(HospitalDate d) throws InvalidHospitalDateException {
+		if (!this.canHaveAsDate(d))
+			throw new InvalidHospitalDateException(
+					"Invalid HospitalDate given to updateStock() in Warehouse!");
+		long timeDiff = this.prevDate.getTimeBetween(d);
+		
 	}
 }
