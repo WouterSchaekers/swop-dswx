@@ -10,7 +10,9 @@ import controllers.RegisterPatientController;
 import controllers.interfaces.AppointmentIN;
 import controllers.interfaces.PatientFileIN;
 import controllers.interfaces.UserIN;
+import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
+import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidOccurencesException;
 import exceptions.InvalidRequirementException;
 import exceptions.InvalidResourceException;
@@ -50,7 +52,7 @@ public class SelectDoctor extends Usecase
 
 		AppointmentIN app = null;
 		try {
-			app = rpc.CreateAppointMent(map.get(name), pfile);
+			app = rpc.CreateAppointMent(map.get(name), pfile,data.getDataPasser());
 		} catch (InvalidTimeSlotException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -67,6 +69,12 @@ public class SelectDoctor extends Usecase
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InvalidRequirementException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidAmountException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidHospitalDateException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

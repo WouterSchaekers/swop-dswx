@@ -5,7 +5,9 @@ import java.util.Collection;
 import controllers.interfaces.AppointmentIN;
 import controllers.interfaces.PatientFileIN;
 import controllers.interfaces.UserIN;
+import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
+import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidOccurencesException;
 import exceptions.InvalidRequirementException;
@@ -55,7 +57,7 @@ public class RegisterPatientController
 	}
 
 	public AppointmentIN CreateAppointMent(UserIN user,
-			PatientFileIN pfile) throws InvalidTimeSlotException, InvalidSchedulingRequestException, InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidRequirementException {
+			PatientFileIN pfile, DataPasser data) throws InvalidTimeSlotException, InvalidSchedulingRequestException, InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidRequirementException, InvalidAmountException, InvalidHospitalDateException {
 		User u;
 		PatientFile f;
 		if(user instanceof User)
@@ -79,7 +81,7 @@ public class RegisterPatientController
 		if (f.isDischarged())
 			throw new IllegalArgumentException(f.getName()
 					+ " is not checked in");
-		return new Appointment(new Scheduler().schedule(new UnscheduledAppointment((Doctor)u)));//  new Scheduler().schedule(duration, startDate, neededSchedulables, occurences);
+		return new Appointment(data.getScheduler().schedule(new UnscheduledAppointment((Doctor)u,data.getScheduler().getCurrentSystemTime())));//  new Scheduler().schedule(duration, startDate, neededSchedulables, occurences);
 	}
 
 	public void createNewPatient(DataPasser dataPasser2, String name) throws InvalidNameException {
