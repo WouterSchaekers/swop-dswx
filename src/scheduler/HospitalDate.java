@@ -53,6 +53,7 @@ public class HospitalDate {
 	 * One hour in millis.
 	 */
 	public final static long ONE_HOUR = ONE_MINUTE * 60;
+	public static final long ONE_YEAR = ONE_HOUR * 24 * 365;
 	private GregorianCalendar gregorianCalendar;
 	
 	/**
