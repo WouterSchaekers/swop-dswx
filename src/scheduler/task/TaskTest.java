@@ -39,14 +39,14 @@ public class TaskTest
 	public void simpletask() throws QueueException, InvalidDurationException,
 			InvalidSchedulingRequestException, InvalidTimeSlotException,
 			InvalidNameException, InvalidResourceException,
-			InvalidOccurencesException, InvalidRequirementException {
+			InvalidOccurencesException, InvalidRequirementException, InvalidAmountException {
 		LinkedList<LinkedList<Schedulable>> r = new LinkedList<LinkedList<Schedulable>>();
 		LinkedList<Schedulable> zero = new LinkedList<Schedulable>();
 		zero.add(new Nurse("jenny"));
 		r.add(zero);
 		LinkedList<Integer> l = new LinkedList<Integer>(Arrays.asList(1));
 		UnscheduledTask simpletask = new UnscheduledTask(r, 10l,
-				new LinkedList<Requirement>(), l);
+				new LinkedList<Requirement>(), l, 0);
 		TaskManager m = new TaskManager();
 		m.addTask(simpletask);
 		m.updateQueue();
@@ -56,14 +56,14 @@ public class TaskTest
 	public void testIfCollectionsGetCopied() throws InvalidNameException,
 			InvalidTimeSlotException, QueueException, InvalidDurationException,
 			InvalidSchedulingRequestException, InvalidResourceException,
-			InvalidOccurencesException, InvalidRequirementException {
+			InvalidOccurencesException, InvalidRequirementException, InvalidAmountException {
 		LinkedList<LinkedList<Schedulable>> r = new LinkedList<LinkedList<Schedulable>>();
 		LinkedList<Schedulable> zero = new LinkedList<Schedulable>();
 		zero.add(new Nurse("jenny"));
 		r.add(zero);
 		LinkedList<Integer> l = new LinkedList<Integer>(Arrays.asList(1));
 		UnscheduledTask simpletask = new UnscheduledTask(r, 10l,
-				new LinkedList<Requirement>(), l);
+				new LinkedList<Requirement>(), l, 0);
 		TaskManager m = new TaskManager();
 		m.addTask(simpletask);
 		HashMap<ScheduledTask, HospitalDate> scheduled = m.updateQueue();
@@ -97,32 +97,32 @@ public class TaskTest
 	}
 	
 	@Test(expected = InvalidResourceException.class)
-	public void unScheduledTaskConstructorFailTest0() throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidRequirementException {
-		new UnscheduledTask(null,0,null,null);
+	public void unScheduledTaskConstructorFailTest0() throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidRequirementException, InvalidAmountException {
+		new UnscheduledTask(null,0,null,null,0);
 
 	}
 	
 	@Test(expected = InvalidDurationException.class)
-	public void unScheduledTaskConstructorFailTest1() throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidRequirementException {
-		new UnscheduledTask(listoflist,-1,null,null);
+	public void unScheduledTaskConstructorFailTest1() throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidRequirementException, InvalidAmountException {
+		new UnscheduledTask(listoflist,-1,null,null,0);
 	}
 	
 	@Test(expected = InvalidRequirementException.class)
-	public void unScheduledTaskConstructorFailTest2() throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidRequirementException {
-		new UnscheduledTask(listoflist,1,null,null);
+	public void unScheduledTaskConstructorFailTest2() throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidRequirementException, InvalidAmountException {
+		new UnscheduledTask(listoflist,1,null,null,0);
 	}
 	
 	@Test(expected = InvalidOccurencesException.class)
-	public void unScheduledTaskConstructorFailTest3() throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidRequirementException {
-		new UnscheduledTask(listoflist,1,new LinkedList<Requirement>(),null);
+	public void unScheduledTaskConstructorFailTest3() throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidRequirementException, InvalidAmountException {
+		new UnscheduledTask(listoflist,1,new LinkedList<Requirement>(),null,0);
 	}
 	
 	@Test
-	public void requirements() throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidRequirementException, InvalidDoctorException, InvalidDiagnoseException, InvalidNameException, InvalidTimeSlotException {
+	public void requirements() throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidRequirementException, InvalidDoctorException, InvalidDiagnoseException, InvalidNameException, InvalidTimeSlotException, InvalidAmountException {
 		Diagnose d = new Diagnose(new Doctor("Frits"), "yay!");
 		d.markForSecOp(new Doctor("Bobby"));
 		LinkedList<Requirement> lr = new LinkedList<Requirement>(Arrays.asList(d));
-		UnscheduledTask t = new UnscheduledTask(listoflist,1,lr,occurences);
+		UnscheduledTask t = new UnscheduledTask(listoflist,1,lr,occurences,0);
 		assertFalse(t.canBeScheduled());
 		d.approve();
 		assertTrue(t.canBeScheduled());
@@ -143,16 +143,16 @@ public class TaskTest
 	
 	
 	@Test(expected = InvalidRequirementException.class)
-	public void requirements2() throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidRequirementException, InvalidDoctorException, InvalidDiagnoseException, InvalidNameException, InvalidTimeSlotException {
+	public void requirements2() throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidRequirementException, InvalidDoctorException, InvalidDiagnoseException, InvalidNameException, InvalidTimeSlotException, InvalidAmountException {
 		LinkedList<Requirement> lr = new LinkedList<Requirement>();
-		UnscheduledTask t = new UnscheduledTask(listoflist,1,lr,occurences);
+		UnscheduledTask t = new UnscheduledTask(listoflist,1,lr,occurences,0);
 		t.addRequirement(null);
 	}
 	
 	@Test
-	public void taskCustomID() throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidRequirementException, InvalidDoctorException, InvalidDiagnoseException, InvalidNameException, InvalidTimeSlotException {
+	public void taskCustomID() throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidRequirementException, InvalidDoctorException, InvalidDiagnoseException, InvalidNameException, InvalidTimeSlotException, InvalidAmountException {
 		LinkedList<Requirement> lr = new LinkedList<Requirement>();
-		UnscheduledTask t = new UnscheduledTask(listoflist,1,lr,occurences);
+		UnscheduledTask t = new UnscheduledTask(listoflist,1,lr,occurences,0);
 		t.setUserDefinedID("lol!");
 		assertTrue(t.getUserDefinedID().equals("lol!"));
 	}

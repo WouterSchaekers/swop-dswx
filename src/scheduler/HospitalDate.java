@@ -309,7 +309,7 @@ public class HospitalDate {
 		return gregorianCalendar.getTimeInMillis() - HospitalDate.START_OF_TIME.getTotalMillis();
 	}
 	
-	private long getTotalMillis(){
+	public long getTotalMillis(){
 		return gregorianCalendar.getTimeInMillis();
 	}
 	
