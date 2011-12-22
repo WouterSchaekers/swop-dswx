@@ -1,7 +1,7 @@
 = TODOs =
   * Treatment factory
   * Concerning Task and TaskManager:
-    * In de usecases willen we Tasks aanmaken.
+    * In de usecases willen we (Unscheduled)Tasks aanmaken.
       * Als de Tasks niet onmiddellijk gescheduled kunnen worden, komen ze in de task queue van de Taskmanager.
       * Als de taken wel onmiddellijk gescheduled kunnen worden, schedulen we ze.
       * Task manager moet verwittigd worden om zijn queues te updaten op de gepaste plaatsten in de usecases.
