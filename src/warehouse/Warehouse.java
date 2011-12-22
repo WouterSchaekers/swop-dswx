@@ -19,6 +19,7 @@ public class Warehouse
 	private int unitsOfPlaster;
 	private Collection<Medication> medication;
 	private Collection<Meal> meals;
+	
 	private Collection<WarehouseItem> reserved;
 	private HospitalDate prevDate;
 	
@@ -96,7 +97,7 @@ public class Warehouse
 		if(removeAndReserveFrom(i, medication))
 			return;		
 	}
-
+	
 	private <T extends WarehouseItem> boolean removeAndReserveFrom(WarehouseItem i, Collection<T> t) {
 		if(t.contains(i))
 		{
