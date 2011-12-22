@@ -1,15 +1,10 @@
 package ui.ordermedicaltestchain;
 
-import java.util.ArrayList;
-import controllers.MedicalTestController;
-import java.util.Arrays;
 import medicaltest.MedicalTest;
-import medicaltest.MedicalTestTypes;
+import controllers.MedicalTestController;
 
 public class MedicalTestData
 {
-	ArrayList<MedicalTestTypes> types = new ArrayList<MedicalTestTypes>(
-			Arrays.asList(MedicalTestTypes.values()));
 	private MedicalTest m;
 	private MedicalTestController mc;
 	private String bodypart;
