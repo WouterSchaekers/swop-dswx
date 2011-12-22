@@ -71,7 +71,7 @@ public class RegisterPatientController
 		if (f.isDischarged())
 			throw new IllegalArgumentException(f.getName()
 					+ " is not checked in");
-		return null;//  new Scheduler().schedule(duration, startDate, neededSchedulables, occurences);
+		return null ;//  new Scheduler().schedule(duration, startDate, neededSchedulables, occurences);
 	}
 
 	public void createNewPatient(DataPasser dataPasser2, String name) throws InvalidNameException {
