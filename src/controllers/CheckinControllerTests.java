@@ -11,7 +11,7 @@ package controllers;
 public class CheckinControllerTests
 {
 
-	//TODO: fix all tests!
+	//XXX: figure out all the tests!
 //	
 //	private PatientFileManager pfm;
 //	private CheckinController cic;

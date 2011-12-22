@@ -69,9 +69,8 @@ public abstract class MedicalTest implements Schedulable
 		this.myTimeTable.addTimeSlot(timeSlot);
 	}
 	
-	private boolean isValidTimeSlot(TimeSlot t){
-		//TODO: Implement
-		return false;
+	private boolean isValidTimeSlot(TimeSlot t) throws InvalidSchedulingRequestException{
+		return t != null && this.canBeScheduledOn(t.getStartPoint().getDate(), t.getStopPoint().getDate());
 	}
 	
 	@Override

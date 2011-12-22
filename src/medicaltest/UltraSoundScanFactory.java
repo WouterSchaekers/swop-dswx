@@ -5,9 +5,8 @@ import exceptions.InvalidNameException;
 import exceptions.InvalidTimeSlotException;
 
 /**
- * Class that creates ultrasoundScans
+ * This class represents something that can create UltraSoundScans.
  */
-//TODO: Read for spelling errors/ lacking commnents
 public class UltraSoundScanFactory extends MedicalTestFactory
 {
 	private String scaninfo;

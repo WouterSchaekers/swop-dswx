@@ -14,7 +14,7 @@ public class UnscheduledAppointment extends UnscheduledTask
 {
 	public UnscheduledAppointment(Doctor d,HospitalDate currentsystemtime) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidRequirementException, InvalidAmountException, InvalidHospitalDateException
 	{
-		super(createRes(d), HospitalDate.ONE_MINUTE*30, oneoccurence(),HospitalDate.ONE_HOUR,currentsystemtime);
+		super(createResourceListOfOneDoctor(d), HospitalDate.ONE_MINUTE*30, oneoccurence(),HospitalDate.ONE_HOUR,currentsystemtime);
 	}
 
 	private static LinkedList<Integer> oneoccurence() {
@@ -23,11 +23,10 @@ public class UnscheduledAppointment extends UnscheduledTask
 		return s;
 	}
 
-	private static LinkedList<LinkedList<Schedulable>> createRes(Doctor d) {
-		// TODO Auto-generated method stub
-		LinkedList<LinkedList<Schedulable>> abra = new LinkedList<LinkedList<Schedulable>>();
-		abra.add(new LinkedList<Schedulable>());
-		abra.get(0).add(d);
-		return abra;
+	private static LinkedList<LinkedList<Schedulable>> createResourceListOfOneDoctor(Doctor d) {
+		LinkedList<LinkedList<Schedulable>> rv = new LinkedList<LinkedList<Schedulable>>();
+		rv.add(new LinkedList<Schedulable>());
+		rv.get(0).add(d);
+		return rv;
 	}
 }
