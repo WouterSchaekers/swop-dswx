@@ -44,6 +44,22 @@ public class UserManager
 		AddUser(newUser);
 		return newUser;
 	}
+	/**
+	 * This method will create a new HospitalAdmin and add it to this UserManager's
+	 * database.
+	 * 
+	 * @param string
+	 *            The name of the Nurse.
+	 * @return The created Nurse.
+	 * @throws UserAlreadyExistsException
+	 * @throws InvalidNameException
+	 * @throws InvalidTimeSlotException 
+	 */
+	public HospitalAdmin createHospitalAdmin(String string) throws UserAlreadyExistsException, InvalidNameException, InvalidTimeSlotException {
+		HospitalAdmin newUser = new HospitalAdmin(string);
+		AddUser(newUser);
+		return newUser;
+	}
 
 	/**
 	 * This method will create a new Doctor and add it to this UserManager's

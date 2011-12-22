@@ -1,21 +1,34 @@
 package system;
 
+import patient.PatientFileManager;
+import controllers.DataPasser;
+import exceptions.InvalidNameException;
+import exceptions.InvalidTimeSlotException;
+import exceptions.UserAlreadyExistsException;
+import scheduler.Scheduler;
+import ui.UCHandler;
+import ui.UserinterfaceData;
+import users.UserManager;
+
 public class StJennySystem_hot
 {
-//	// things that are needed in the system
-//	static PatientFileManager patientfmanager = new PatientFileManager();
-//	static UserManager usermanager = new UserManager();
-//	static MachinePool machinepool = new MachinePool();
-//	static DietersDikkeTettenSchedulerBackup scheduler = new DietersDikkeTettenSchedulerBackup(usermanager, machinepool);
-//
-//	public static void main(String[] args) throws UserAlreadyExistsException {
-//		usermanager.CreateDoctor("jonathan");
-//		usermanager.CreateNurse("jenny");
-//		//TODO: fix
-//		// DataPasser data = new DataPasser(usermanager, patientfmanager,scheduler);
-//				DataPasser data = new DataPasser(usermanager, patientfmanager,
-//						new Scheduler());
-//		UserInterface T = new UserInterface(data);
-//		T.start();
-//	}
+	public static void main(String[] args) {
+	UserManager m = new UserManager();
+	try {
+		m.createHospitalAdmin("jeffry");
+	} catch (UserAlreadyExistsException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (InvalidNameException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (InvalidTimeSlotException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	UserinterfaceData data = new UserinterfaceData(new DataPasser(m, new PatientFileManager(), new Scheduler()));
+	UCHandler handler = new UCHandler(data);
+	handler.start();
+	}
+	
 }

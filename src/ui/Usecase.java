@@ -4,8 +4,7 @@ import java.util.Scanner;
 
 /**
  * An abstract class that represends a usecase command.
- * 
- * @author Dieter
+ * r
  * 
  */
 // TODO: change the name of this class because it represents a command and not a

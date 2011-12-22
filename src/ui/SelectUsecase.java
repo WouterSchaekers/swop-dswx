@@ -1,5 +1,6 @@
 package ui;
 
+import ui.createuser.CreateUser;
 import ui.loginchain.IsAllowedToLogin;
 import ui.logoutchain.LogOut;
 import ui.ordermedicaltestchain.OrderMedicalTest;
@@ -27,7 +28,7 @@ public class SelectUsecase extends Usecase
 	{
 		login("login"), RegisterPatient("register patient"), nothing(
 				"do nothing"), logout("logout"), orderMedicalTest(
-				"order medical test"), exitSystem("exit system");
+				"order medical test"), exitSystem("exit system"), createUser("Create User");
 		String description;
 
 		/**
@@ -94,6 +95,8 @@ public class SelectUsecase extends Usecase
 			return new OrderMedicalTest(data);
 		case exitSystem:
 			return new ExitSystem(data);
+		case createUser:
+			return new CreateUser(data);
 		default:
 			break;
 		}
