@@ -168,6 +168,14 @@ public class HospitalDate {
 	}
 	
 	/**
+	 * @return The time between this hospital date and the given one.
+	 * Will be negative if this date is after d.
+	 */
+	public long getTimeBetween(HospitalDate d) {
+		return d.getTotalMillis() - this.getTotalMillis();
+	}
+	
+	/**
 	 * Sets the hour.
 	 * 
 	 * @param hour
@@ -311,6 +319,13 @@ public class HospitalDate {
 	 */
 	public boolean before(HospitalDate hospitalDate){
 		return this.getTotalMillis() < hospitalDate.getTotalMillis();
+	}
+	
+	/**
+	 * @return True if this date is after the given hospital date.
+	 */
+	public boolean after(HospitalDate hospitalDate) {
+		return hospitalDate.before(this);
 	}
 	
 	/**
