@@ -16,9 +16,10 @@ public class UnscheduledTask extends Task
 	/**
 	 * @see Requirement
 	 */
-	private Collection<Requirement> myRequirements = new ArrayList<Requirement>();
-	private long duration = 0;
+	private Collection<Requirement> myRequirements;
+	private long duration;
 	private LinkedList<Integer> occurences = new LinkedList<Integer>();
+	private long extraTime;
 	
 	/**
 	 * Constructor without requirements.
@@ -26,21 +27,27 @@ public class UnscheduledTask extends Task
 	 * @param myResources
 	 *            The resourcepool for this unscheduled task.
 	 * @param duration
-	 *            The duration one would like this Task to eventually be scheduled for.
+	 *            The duration one would like this Task to eventually be
+	 *            scheduled for.
 	 * @param occurences
 	 *            The amount of occurences for each of the Schedulables in
 	 *            myResources.
+	 * @param extraTime
+	 *            The amount of extra time since the system start time.
 	 * @throws InvalidResourceException
 	 * @throws InvalidDurationException
 	 * @throws InvalidOccurencesException
+	 * @throws InvalidAmountException 
 	 */
-	public UnscheduledTask(LinkedList<LinkedList<Schedulable>> myResources, long duration, LinkedList<Integer> occurences) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException{
+	public UnscheduledTask(LinkedList<LinkedList<Schedulable>> myResources, long duration, LinkedList<Integer> occurences, long extraTime) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException{
 		if(!canHaveAsResourcePool(myResources)) 
 			throw new InvalidResourceException("Invalid resource pool given to UnscheduledTask!");
 		if(!super.isValidDuration(duration)) 
 			throw new InvalidDurationException("Invalid duration given to UnscheduledTask!");
 		if(!canHaveAsOccurences(occurences, myResources))
 			throw new InvalidOccurencesException("Invalid occurcences given to UnscheduledTask!");
+		if(!isValidAmountOfExtraTime(extraTime))
+			throw new InvalidAmountException("Invalid amount of extra time since system start given to Unscheduled Task");
 		this.myResourcePool = myResources;
 		this.duration = duration;
 		this.occurences = occurences;
@@ -59,12 +66,15 @@ public class UnscheduledTask extends Task
 	 * @param occurences
 	 *            The amount of occurences for each of the Schedulables in
 	 *            myResources.
+	 * @param extraTime
+	 *            The amount of extra time since the system start time.
 	 * @throws InvalidResourceException
 	 * @throws InvalidDurationException
 	 * @throws InvalidOccurencesException
-	 * @throws InvalidRequirementException 
+	 * @throws InvalidRequirementException
+	 * @throws InvalidAmountException
 	 */
-	public UnscheduledTask(LinkedList<LinkedList<Schedulable>> myResources, long duration, Collection<Requirement> reqs, LinkedList<Integer> occurences) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidRequirementException {
+	public UnscheduledTask(LinkedList<LinkedList<Schedulable>> myResources, long duration, Collection<Requirement> reqs, LinkedList<Integer> occurences, long extraTime) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidRequirementException, InvalidAmountException {
 		if(!canHaveAsResourcePool(myResources)) 
 			throw new InvalidResourceException("Invalid resource pool given to UnscheduledTask!");
 		if(!super.isValidDuration(duration)) 
@@ -73,6 +83,8 @@ public class UnscheduledTask extends Task
 			throw new InvalidRequirementException("Invalid requirement collection given to Task constructor!");
 		if(!canHaveAsOccurences(occurences, myResources))
 			throw new InvalidOccurencesException("Invalid occurcences given to UnscheduledTask!");
+		if(!isValidAmountOfExtraTime(extraTime))
+			throw new InvalidAmountException("Invalid amount of extra time since system start given to Unscheduled Task");
 		this.myResourcePool = myResources;
 		this.myRequirements = reqs;
 		this.duration = duration;
@@ -151,6 +163,14 @@ public class UnscheduledTask extends Task
 	}
 
 	/**
+	 * @return True if l is a valid amount of time since the system start time
+	 *         for this unscheduled task.
+	 */
+	private boolean isValidAmountOfExtraTime(long l) {
+		return l >= 0;
+	}
+	
+	/**
 	 * @return If this unscheduled task has r as a requirement.
 	 */
 	public boolean hasRequirement(Requirement r){
@@ -166,6 +186,11 @@ public class UnscheduledTask extends Task
 			rv.add(req);
 		
 		return rv;
+	}
+	
+	@Basic
+	public long getExtraTime() {
+		return this.extraTime;
 	}
 	
 	@Basic
