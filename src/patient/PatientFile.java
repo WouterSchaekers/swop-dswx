@@ -2,7 +2,6 @@ package patient;
 
 import java.util.*;
 import scheduler.HospitalDate;
-import medicaltest.XRayScan;
 import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.PatientFileIN;
 import exceptions.*;
