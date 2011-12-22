@@ -40,9 +40,9 @@ public class CreateUserController
 	{
 		if(!l.equals(loginc))
 			throw new IllegalArgumentException("invalid login controller");
-		if(!m.equals(manager))
-			throw new IllegalArgumentException("invalid usermanager controller");
-		m.getUserManager().createNurse(nurse);
+		if(!m.getUserManager().equals(manager))
+			throw new IllegalArgumentException("invalid usermanager");
+		m.getUserManager().createDoctor(nurse);
 	}
 
 }
