@@ -22,6 +22,7 @@ public class UnscheduledTask extends Task
 	private LinkedList<Integer> occurences = new LinkedList<Integer>();
 	private long extraTime;
 	private HospitalDate creationTime;
+	private boolean backToBack;
 	
 	/**
 	 * Constructor without requirements.
@@ -44,7 +45,7 @@ public class UnscheduledTask extends Task
 	 * @throws InvalidAmountException 
 	 * @throws InvalidHospitalDateException 
 	 */
-	public UnscheduledTask(LinkedList<LinkedList<Schedulable>> myResources, long duration, LinkedList<Integer> occurences, long extraTime, HospitalDate creationTime) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException{
+	public UnscheduledTask(LinkedList<LinkedList<Schedulable>> myResources, LinkedList<Integer> occurences, long extraTime, HospitalDate creationTime) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException{
 		if(!canHaveAsResourcePool(myResources)) 
 			throw new InvalidResourceException("Invalid resource pool given to UnscheduledTask!");
 		if(!super.isValidDuration(duration)) 
