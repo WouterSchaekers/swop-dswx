@@ -20,7 +20,7 @@ public class PatientFileOpenChecker extends MedicalTestCommand
 		LoginController lc = data.getLoginController();
 		UserIN docLc = lc.getUserIN();
 		UserIN curDoc = data.getPatientFileOpenController().getDocIN();
-
+		
 		if (docLc.equals(curDoc))
 			return new CheckPatientStatus(data, medData);
 		return new SelectUsecase(data);
