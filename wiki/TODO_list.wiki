@@ -1,4 +1,5 @@
 = TODOs =
+  * *DIETER* durations in millis setten en isValid ipv invalid gebruiken bij factories ^^
   * Treatment factory
   * Concerning Task and TaskManager:
     * In de usecases willen we (Unscheduled)Tasks aanmaken.
