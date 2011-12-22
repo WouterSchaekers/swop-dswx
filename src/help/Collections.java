@@ -2,9 +2,9 @@ package help;
 
 import java.util.ArrayList;
 import java.util.Collection;
-public class Collections
+public final class Collections
 {
-	 public static <T>Collection<T> filter(Collection<T> tofilter,Filter f)
+	 public static final <T>Collection<T> filter(Collection<T> tofilter,Filter f)
 	    {
 	        ArrayList<T> a = new ArrayList<T>();
 	        for(T t: tofilter)
