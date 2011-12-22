@@ -5,13 +5,14 @@ import exceptions.InvalidDurationException;
 import exceptions.InvalidOccurencesException;
 import exceptions.InvalidRequirementException;
 import exceptions.InvalidResourceException;
+import scheduler.HospitalDate;
 import users.Doctor;
 
 public class UnscheduledAppointment extends UnscheduledTask
 {
 	public UnscheduledAppointment(Doctor d) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidRequirementException
 	{
-		super(createRes(d), 30, oneoccurence());
+		super(createRes(d), HospitalDate.ONE_MINUTE*30, oneoccurence());
 	}
 
 	private static LinkedList<Integer> oneoccurence() {
@@ -24,6 +25,7 @@ public class UnscheduledAppointment extends UnscheduledTask
 		// TODO Auto-generated method stub
 		LinkedList<LinkedList<Schedulable>> abra = new LinkedList<LinkedList<Schedulable>>();
 		abra.add(new LinkedList<Schedulable>());
+		abra.get(0).add(d);
 		return abra;
 	}
 }

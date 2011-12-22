@@ -5,9 +5,17 @@ import java.util.Collection;
 import controllers.interfaces.AppointmentIN;
 import controllers.interfaces.PatientFileIN;
 import controllers.interfaces.UserIN;
+import exceptions.InvalidDurationException;
 import exceptions.InvalidNameException;
+import exceptions.InvalidOccurencesException;
+import exceptions.InvalidRequirementException;
+import exceptions.InvalidResourceException;
+import exceptions.InvalidSchedulingRequestException;
+import exceptions.InvalidTimeSlotException;
 import patient.PatientFile;
 import scheduler.Scheduler;
+import scheduler.task.Appointment;
+import scheduler.task.UnscheduledAppointment;
 import users.Nurse;
 import users.User;
 import users.Doctor;
@@ -47,7 +55,7 @@ public class RegisterPatientController
 	}
 
 	public AppointmentIN CreateAppointMent(UserIN user,
-			PatientFileIN pfile) {
+			PatientFileIN pfile) throws InvalidTimeSlotException, InvalidSchedulingRequestException, InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidRequirementException {
 		User u;
 		PatientFile f;
 		if(user instanceof User)
@@ -71,7 +79,7 @@ public class RegisterPatientController
 		if (f.isDischarged())
 			throw new IllegalArgumentException(f.getName()
 					+ " is not checked in");
-		return null ;//  new Scheduler().schedule(duration, startDate, neededSchedulables, occurences);
+		return new Appointment(new Scheduler().schedule(new UnscheduledAppointment((Doctor)u)));//  new Scheduler().schedule(duration, startDate, neededSchedulables, occurences);
 	}
 
 	public void createNewPatient(DataPasser dataPasser2, String name) throws InvalidNameException {

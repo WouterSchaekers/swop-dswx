@@ -14,8 +14,13 @@ public class StJennySystem_hot
 {
 	public static void main(String[] args) {
 	UserManager m = new UserManager();
+	PatientFileManager pf= new PatientFileManager();
 	try {
 		m.createHospitalAdmin("jeffry");
+		m.createNurse("jenny");
+		m.createDoctor("vinc");
+		pf.registerPatient("simon");
+		
 	} catch (UserAlreadyExistsException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -26,7 +31,7 @@ public class StJennySystem_hot
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-	UserinterfaceData data = new UserinterfaceData(new DataPasser(m, new PatientFileManager(), new Scheduler()));
+	UserinterfaceData data = new UserinterfaceData(new DataPasser(m,pf, new Scheduler()));
 	UCHandler handler = new UCHandler(data);
 	handler.start();
 	}
