@@ -7,6 +7,7 @@ import controllers.interfaces.PatientFileIN;
 import controllers.interfaces.UserIN;
 import exceptions.InvalidNameException;
 import patient.PatientFile;
+import scheduler.Scheduler;
 import users.Nurse;
 import users.User;
 import users.Doctor;
@@ -70,9 +71,7 @@ public class RegisterPatientController
 		if (f.isDischarged())
 			throw new IllegalArgumentException(f.getName()
 					+ " is not checked in");
-		return null;// new
-					// AppointmentDTO(dataPasser.getScheduler().addAppointment(pfile.getPatientFile(),
-					// (Doctor)userDTO.getUser(), 60));
+		return null;//  new Scheduler().schedule(duration, startDate, neededSchedulables, occurences);
 	}
 
 	public void createNewPatient(DataPasser dataPasser2, String name) throws InvalidNameException {
