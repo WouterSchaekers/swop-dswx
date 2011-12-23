@@ -232,8 +232,11 @@ public class TimeTable
 	
 	public boolean isBackToBack(HospitalDate startDate){
 		for (TimeSlot thisSlot : this.timeSlots){
-			if(thisSlot.)
+			if(thisSlot.isToBack(startDate)){
+				return true;
+			}
 		}
+		return false;
 	}
 
 	/**
