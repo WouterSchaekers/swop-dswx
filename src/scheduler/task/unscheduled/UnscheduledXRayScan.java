@@ -10,6 +10,7 @@ import machine.MachinePool;
 import machine.XRayScanner;
 import medicaltest.XRayScan;
 import scheduler.HospitalDate;
+import scheduler.task.Requirement;
 import scheduler.task.Schedulable;
 import scheduler.task.UnscheduledTask;
 import users.UserManager;
@@ -18,13 +19,14 @@ import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidOccurencesException;
+import exceptions.InvalidRequirementException;
 import exceptions.InvalidResourceException;
 
 public class UnscheduledXRayScan extends UnscheduledTask
 {
 
-	public UnscheduledXRayScan(XRayScan xray, HospitalDate currentSystemTime, UserManager um, MachinePool mp) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException {
-		super(genResources(um, mp), xray.getDURATION(), generateOccurences(), HospitalDate.ONE_HOUR, currentSystemTime);
+	public UnscheduledXRayScan(XRayScan xray, HospitalDate currentSystemTime, UserManager um, MachinePool mp) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException, InvalidRequirementException {
+		super(genResources(um, mp), xray.getDURATION(), new LinkedList<Requirement>(),generateOccurences(), HospitalDate.ONE_HOUR, currentSystemTime);
 	}
 
 	/**
