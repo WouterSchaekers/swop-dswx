@@ -8,6 +8,7 @@ import exceptions.InvalidOccurencesException;
 import exceptions.InvalidRequirementException;
 import exceptions.InvalidResourceException;
 import scheduler.HospitalDate;
+import scheduler.task.Requirement;
 import scheduler.task.Schedulable;
 import scheduler.task.UnscheduledTask;
 import users.Doctor;
@@ -16,7 +17,7 @@ public class UnscheduledAppointment extends UnscheduledTask
 {
 	public UnscheduledAppointment(Doctor d,HospitalDate currentsystemtime) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidRequirementException, InvalidAmountException, InvalidHospitalDateException
 	{
-		super(createResourceListOfOneDoctor(d), HospitalDate.ONE_MINUTE*30, oneoccurence(),HospitalDate.ONE_HOUR,currentsystemtime);
+		super(createResourceListOfOneDoctor(d), HospitalDate.ONE_MINUTE*30, new LinkedList<Requirement>(), oneoccurence(),HospitalDate.ONE_HOUR,currentsystemtime);
 	}
 
 	private static LinkedList<Integer> oneoccurence() {

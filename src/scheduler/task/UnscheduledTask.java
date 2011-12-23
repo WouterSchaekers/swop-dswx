@@ -48,8 +48,6 @@ public class UnscheduledTask extends Task
 	public UnscheduledTask(LinkedList<LinkedList<Schedulable>> myResources, LinkedList<Integer> occurences, long extraTime, HospitalDate creationTime) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException{
 		if(!canHaveAsResourcePool(myResources)) 
 			throw new InvalidResourceException("Invalid resource pool given to UnscheduledTask!");
-		if(!super.isValidDuration(duration)) 
-			throw new InvalidDurationException("Invalid duration given to UnscheduledTask!");
 		if(!canHaveAsOccurences(occurences, myResources))
 			throw new InvalidOccurencesException("Invalid occurcences given to UnscheduledTask!");
 		if(!isValidAmountOfExtraTime(extraTime))
@@ -57,7 +55,6 @@ public class UnscheduledTask extends Task
 		if(!isValidSystemTime(creationTime))
 			throw new InvalidHospitalDateException("Invalid systemtime given to Unscheduled Task");
 		this.myResourcePool = myResources;
-		this.duration = duration;
 		this.occurences = occurences;
 		this.creationTime = creationTime;
 	}

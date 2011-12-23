@@ -13,6 +13,7 @@ import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidOccurencesException;
+import exceptions.InvalidRequirementException;
 import exceptions.InvalidResourceException;
 import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidSerialException;
@@ -28,7 +29,7 @@ public class UnscheduledXRayScanTest
 			InvalidTimeSlotException, InvalidLocationException,
 			InvalidSerialException, InvalidResourceException,
 			InvalidDurationException, InvalidOccurencesException,
-			InvalidAmountException, FactoryInstantiation, InvalidSchedulingRequestException {
+			InvalidAmountException, FactoryInstantiation, InvalidSchedulingRequestException, InvalidRequirementException {
 		DefaultHospital dh = new DefaultHospital();
 		XRayScanFactory xrf = FactoryTestsMedicalTests.filterXrayScan(new MedicalTests().factories());
 		xrf.numberOfNeededImages(1);

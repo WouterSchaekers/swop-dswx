@@ -7,8 +7,13 @@ import org.junit.Before;
 import org.junit.Test;
 import scheduler.task.Schedulable;
 import scheduler.task.ScheduledTask;
+import scheduler.task.UnscheduledTask;
 import users.UserManager;
+import exceptions.InvalidAmountException;
+import exceptions.InvalidDurationException;
+import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidNameException;
+import exceptions.InvalidOccurencesException;
 import exceptions.InvalidResourceException;
 import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidTimeSlotException;
@@ -23,10 +28,13 @@ public class SchedulerTest
 	LinkedList<LinkedList<Schedulable>> listOfSchedulables;
 	LinkedList<Integer> occurences;
 	LinkedList<Integer> fullOccurences;
-
+	UnscheduledTask unsched1;
+	UnscheduledTask unsched2;
+	UnscheduledTask unsched3;
+	
 	@Before
 	public void create() throws UserAlreadyExistsException,
-			InvalidNameException, InvalidTimeSlotException {
+			InvalidNameException, InvalidTimeSlotException, InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException {
 		m = new UserManager();
 		m.createDoctor("Jonathan");
 		m.createDoctor("Jeffrey");
@@ -62,7 +70,7 @@ public class SchedulerTest
 		fullOccurences.add(0);
 		fullOccurences.add(1);
 		fullOccurences.add(1);
-		new Scheduler().setNewSystemTime(HospitalDate.START_OF_TIME);
+		unsched1 = new UnscheduledTask(listOfSchedulables, occurences, 0 , new HospitalDate(1));
 	}
 
 	@Test
@@ -82,7 +90,8 @@ public class SchedulerTest
 				new TimeSlot(new StartTimePoint(HospitalDate.START_OF_TIME),
 						new StopTimePoint(HospitalDate.START_OF_TIME
 								.getTimeSinceStart() + 5000)));
-		new Scheduler().schedule(5000, HospitalDate.START_OF_TIME, listOfSchedulables,occurences).getTimeSlot();
+
+		new Scheduler().schedule(unsched1);
 	}
 
 	@Test

@@ -39,7 +39,7 @@ public class TaskManager
 		Queue<UnscheduledTask> newQueue = new LinkedList<UnscheduledTask>(this.taskQueue);
 		for (UnscheduledTask curTask : this.taskQueue) {
 			if (curTask.canBeScheduled()) {
-				ScheduledTask d = new Scheduler().schedule(curTask.getDuration(), HospitalDate.START_OF_TIME, curTask.getResourcePool(), curTask.getOccurences());
+				ScheduledTask d = new Scheduler().schedule(curTask);
 				returnValue.put(d, d.getStartDate());
 			} else {
 				newQueue.add(curTask);
