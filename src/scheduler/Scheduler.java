@@ -63,7 +63,7 @@ public class Scheduler
 			boolean isScheduled = false;
 			while(!isScheduled){
 				try{
-					schedTask = schedule(duration, startDate, HospitalDate.END_OF_TIME,
+					schedTask = schedule(duration, startDate, new HospitalDate(startDate.getTimeSinceStart() + duration),
 							listOfSchedulables, new LinkedList<Schedulable>(), treeMatrix,
 							fullOccurences, 0);
 					isScheduled = true;
@@ -161,9 +161,8 @@ public class Scheduler
 		}
 	}
 	
-	private boolean isBackToBack(HospitalDate startDate, Schedulable schedulable){
-		TimeTable currentTimeTable = schedulable.getTimeTable();
-		currentTimeTable.
+	private boolean isBackToBack(HospitalDate startDate, Schedulable schedulable) throws InvalidTimeSlotException{
+		return schedulable.getTimeTable().isBackToBack(startDate);
 	}
 
 	/**
