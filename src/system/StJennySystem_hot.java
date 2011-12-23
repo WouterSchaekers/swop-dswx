@@ -29,26 +29,14 @@ public class StJennySystem_hot
 			System.out.println("Fatal error at system startup, wouter already exists");
 		} catch (InvalidNameException e) {
 			System.out.println("Fatal error at system startup, wouter is ");
-			e.printStackTrace();
 		} catch (InvalidTimeSlotException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// seriously we didnt fuck up this hard :p
 		}
 	}
 	
 	public static void main(String[] args) {
-	UserManager m = new UserManager();
-	PatientFileManager pf= new PatientFileManager();
-	Scheduler s = new Scheduler();
-	try {
-		m.createHospitalAdmin("jeffry");
-		m.createNurse("jenny");
-		m.createDoctor("vinc");
-		pf.registerPatient("simon");
-		pf.registerPatient("jasper");
-		
-	} catch (Exception e) {}
-	UserinterfaceData data = new UserinterfaceData(new DataPasser(m,pf, s));
+	StJennySystem_hot t = StJennySystem_hot.instance();
+	UserinterfaceData data = new UserinterfaceData(new DataPasser(t.state.userManager,t.state.patientFileManager, t.state.scheduler));
 	UCHandler handler = new UCHandler(data);
 	handler.start();
 	}
