@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import scheduler.task.Schedulable;
 import scheduler.task.ScheduledTask;
 import scheduler.task.UnscheduledTask;
+import system.TimeLord;
 import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidResourceException;
@@ -18,8 +19,11 @@ import exceptions.InvalidTimeSlotException;
  */
 public class Scheduler
 {
-	private HospitalDate currentSystemTime = new HospitalDate();
-
+	private TimeLord currentSystemTime;
+	public Scheduler(TimeLord lord)
+	{
+		this.currentSystemTime=lord;
+	}
 	/**
 	 * Schedule method where only an UnscheduledTask is given.
 	 * 
@@ -49,8 +53,8 @@ public class Scheduler
 				.makeCorrespondingArray(occurences);
 		boolean[][] treeMatrix = makeTreeMatrix(listOfSchedulables,
 				fullOccurences);
-		if (startDate.before(this.currentSystemTime)) {
-			startDate = this.currentSystemTime;
+		if (startDate.before(this.currentSystemTime.getSystemtyme())) {
+			startDate = this.currentSystemTime.getSystemtyme();
 		}
 		ScheduledTask schedTask = schedule(duration, startDate, HospitalDate.END_OF_TIME,
 				listOfSchedulables, new LinkedList<Schedulable>(), treeMatrix,
@@ -290,24 +294,8 @@ public class Scheduler
 		return treeMatrix;
 	}
 
-	@Basic
-	public void setNewSystemTime(HospitalDate newTime) {
-		if (!isValidSystemTime(newTime))
-			throw new IllegalArgumentException(
-					"Invalid new system time given to setNewSystemTime() in ");
-		currentSystemTime = newTime;
-	}
 
-	/**
-	 * @return True if t is a valid new system time.
-	 */
-	private boolean isValidSystemTime(HospitalDate t) {
-		if (currentSystemTime == null)
-			return t != null;
-		return t != null
-				&& t.getTimeSinceStart() >= currentSystemTime
-						.getTimeSinceStart();
-	}
+
 
 	/**
 	 * Will check if the called method doesn't want to e.g. schedule more nurses
@@ -354,8 +342,4 @@ public class Scheduler
 		return newTreeMatrix;
 	}
 
-	@Basic
-	public HospitalDate getCurrentSystemTime() {
-		return new HospitalDate(currentSystemTime);
-	}
 }
