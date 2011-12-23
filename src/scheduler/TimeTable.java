@@ -164,7 +164,7 @@ public class TimeTable
 				return t;
 			}
 		}
-		TimePoint newStopPoint = new StopTimePoint(allTimeSlots.get(allTimeSlots.size()-1).getStopPoint().getDate());
+		StopTimePoint newStopPoint = new StopTimePoint(allTimeSlots.get(allTimeSlots.size()-1).getStopPoint().getDate());
 		return new TimeSlot(new StartTimePoint(hospitalDate), newStopPoint);
 	}
 	
@@ -228,6 +228,12 @@ public class TimeTable
 				return false;
 		}
 		return true;
+	}
+	
+	public boolean isBackToBack(HospitalDate startDate){
+		for (TimeSlot thisSlot : this.timeSlots){
+			if(thisSlot.)
+		}
 	}
 
 	/**

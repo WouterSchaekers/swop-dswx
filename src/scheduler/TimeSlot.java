@@ -8,8 +8,8 @@ import be.kuleuven.cs.som.annotate.Basic;
  */
 public class TimeSlot
 {
-	private TimePoint t1;
-	private TimePoint t2;
+	private StartTimePoint startTimePoint;
+	private StopTimePoint stopTimePoint;
 	
 	/**
 	 * Default Constructor. Will initialise both time points.
@@ -18,39 +18,39 @@ public class TimeSlot
 	 * 		if t2 is before or at the same time as t2
 	 * 
 	 */
-	public TimeSlot(TimePoint t1,TimePoint t2){
+	public TimeSlot(TimePoint t1, TimePoint t2){
 		if(t1.isEnd()) throw new IllegalArgumentException("Invalid TimePoint 1!");
 		if(t2.isStart()) throw new IllegalArgumentException("Invalid TimePoint 2!");		
 		if(t1.compareTo(t2)>=0)
 			throw new IllegalArgumentException("Invalid TimePoints! start >= stop!");
-		this.t1=t1;
-		this.t2=t2;
+		this.startTimePoint=new StartTimePoint(t1.getDate());
+		this.stopTimePoint=new StopTimePoint(t2.getDate());
 	}
 	
 	@Basic
-	public TimePoint getStartPoint() {
-		return t1;
+	public StartTimePoint getStartPoint() {
+		return startTimePoint;
 	}
 	
 	@Basic
 	public void setStartPoint(TimePoint t1) {
-		this.t1 = t1;
+		this.startTimePoint = new StartTimePoint(t1.getDate());
 	}
 	
 	@Basic
-	public TimePoint getStopPoint() {
-		return t2;
+	public StopTimePoint getStopPoint() {
+		return stopTimePoint;
 	}
 	
 	@Basic
 	public void setStopPoint(TimePoint t2) {
-		this.t2 = t2;
+		this.stopTimePoint = new StopTimePoint(t2.getDate());
 	}
 	
 	@Override
 	public String toString()
 	{
-		return "[ " + t1.toString()+","+t2.toString()+" ]";
+		return "[ " + startTimePoint.toString()+","+stopTimePoint.toString()+" ]";
 	}
 	
 	/**
@@ -75,6 +75,10 @@ public class TimeSlot
 		TimePoint t1 = timeslot.getStartPoint();
 		TimePoint t2 = timeslot.getStopPoint();
 		return t1.isBetweenExcluding(tt1, tt2) || t2.isBetweenExcluding(tt1, tt2) || t1.equals(tt1) || t2.equals(tt2);
+	}
+	
+	public boolean isToBack(HospitalDate hospitalDate){
+		return this.stopTimePoint.getTime() == hospitalDate.getTimeSinceStart();
 	}
 	
 	/**
@@ -102,6 +106,6 @@ public class TimeSlot
 		if(!(o instanceof TimeSlot))
 			return false;
 		TimeSlot that = (TimeSlot)o;
-		return this.t1.equals(that.t1)&&this.t2.equals(that.t2);
+		return this.startTimePoint.equals(that.startTimePoint)&&this.stopTimePoint.equals(that.stopTimePoint);
 	}
 }
