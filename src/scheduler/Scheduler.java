@@ -59,6 +59,18 @@ public class Scheduler
 		ScheduledTask schedTask = schedule(duration, startDate, HospitalDate.END_OF_TIME,
 				listOfSchedulables, new LinkedList<Schedulable>(), treeMatrix,
 				fullOccurences, 0);
+		if(unscheduledTask.mustBeBackToBack() && !this.isBackToBack(startDate, schedTask.getResources().get(0))){
+			boolean isScheduled = false;
+			while(!isScheduled){
+				try{
+					schedTask = schedule(duration, startDate, HospitalDate.END_OF_TIME,
+							listOfSchedulables, new LinkedList<Schedulable>(), treeMatrix,
+							fullOccurences, 0);
+					isScheduled = true;
+				}
+				catch(InvalidSchedulingRequestException e){}
+			}
+		}
 
 		LinkedList<Schedulable> scheddedRes = schedTask.getResources();
 		for (Schedulable s : scheddedRes)
@@ -148,6 +160,11 @@ public class Scheduler
 			return new ScheduledTask(newUsedSchedulables, timeSlotToReturn);
 		}
 	}
+	
+	private boolean isBackToBack(HospitalDate startDate, Schedulable schedulable){
+		TimeTable currentTimeTable = schedulable.getTimeTable();
+		currentTimeTable.
+	}
 
 	/**
 	 * This method will expand occurences into fullOccurences
@@ -232,7 +249,7 @@ public class Scheduler
 	 * @throws InvalidTimeSlotException
 	 * @throws InvalidSchedulingRequestException
 	 */
-	public HospitalDate getNextHospitalDate(
+	private HospitalDate getNextHospitalDate(
 			Collection<Schedulable> curSchedList, HospitalDate previousDate,
 			HospitalDate stopDate) throws InvalidTimeSlotException,
 			InvalidSchedulingRequestException {
@@ -264,7 +281,7 @@ public class Scheduler
 	 *            --> @see schedule()
 	 * @return --> @see schedule()
 	 */
-	public boolean[][] makeTreeMatrix(
+	private boolean[][] makeTreeMatrix(
 			LinkedList<LinkedList<Schedulable>> neededSchedulables,
 			LinkedList<Integer> fullOccurences) {
 		boolean[][] treeMatrix = new boolean[fullOccurences.size()][];
@@ -284,7 +301,7 @@ public class Scheduler
 	 * 
 	 * @return The updated treematrix.
 	 */
-	public boolean[][] updateTreeMatrix(boolean[][] treeMatrix, int bestOption,
+	private boolean[][] updateTreeMatrix(boolean[][] treeMatrix, int bestOption,
 			LinkedList<Integer> fullOccurences, int iteration) {
 		int occurenceNumber = fullOccurences.get(iteration);
 		for (int i = 1; iteration + i < fullOccurences.size()

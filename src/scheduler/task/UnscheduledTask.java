@@ -45,7 +45,7 @@ public class UnscheduledTask extends Task
 	 * @throws InvalidAmountException 
 	 * @throws InvalidHospitalDateException 
 	 */
-	public UnscheduledTask(LinkedList<LinkedList<Schedulable>> myResources, LinkedList<Integer> occurences, long extraTime, HospitalDate creationTime) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException{
+	public UnscheduledTask(long duration, LinkedList<LinkedList<Schedulable>> myResources, LinkedList<Integer> occurences, long extraTime, HospitalDate creationTime, boolean backToBack) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException{
 		if(!canHaveAsResourcePool(myResources)) 
 			throw new InvalidResourceException("Invalid resource pool given to UnscheduledTask!");
 		if(!canHaveAsOccurences(occurences, myResources))
@@ -57,6 +57,7 @@ public class UnscheduledTask extends Task
 		this.myResourcePool = myResources;
 		this.occurences = occurences;
 		this.creationTime = creationTime;
+		this.backToBack = backToBack;
 	}
 
 	/**
@@ -238,6 +239,11 @@ public class UnscheduledTask extends Task
 	@Basic
 	public HospitalDate getCreationTime() {
 		return new HospitalDate(this.creationTime);
+	}
+	
+	@Basic
+	public boolean mustBeBackToBack(){
+		return this.backToBack;
 	}
 	
 }

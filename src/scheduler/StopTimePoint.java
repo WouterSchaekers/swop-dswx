@@ -41,7 +41,7 @@ public class StopTimePoint extends TimePoint
 	}
 
 	@Override
-	public TimePoint clone() {
+	public StopTimePoint clone() {
 		return new StopTimePoint(this);
 	}
 
