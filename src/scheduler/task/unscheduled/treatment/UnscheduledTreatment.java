@@ -14,16 +14,18 @@ import scheduler.HospitalDate;
 import scheduler.task.Requirement;
 import scheduler.task.Schedulable;
 import scheduler.task.UnscheduledTask;
+import users.UserManager;
 
 public abstract class UnscheduledTreatment extends UnscheduledTask
 {
+	UserManager um;
 	public UnscheduledTreatment(long duration, HospitalDate creationTime,
-			Collection<Requirement> requirements, boolean backToBack,Diagnose diagnose)
+			Collection<Requirement> requirements, boolean backToBack,Diagnose diagnose,UserManager manager)
 			throws InvalidResourceException, InvalidDurationException,
 			InvalidOccurencesException, InvalidAmountException,
 			InvalidHospitalDateException {
 		super(duration, creationTime, genReq(diagnose), backToBack);
-		// TODO Auto-generated constructor stub
+		this.um=manager;
 	}
 
 	private static Collection<Requirement> genReq(Diagnose diagnose2) {
@@ -31,6 +33,16 @@ public abstract class UnscheduledTreatment extends UnscheduledTask
 		req.add(diagnose2);
 		return req;
 	}
+	@Override
+	public LinkedList<LinkedList<Schedulable>> getResourcePool(){
 
+		LinkedList<LinkedList<Schedulable>> rv = new LinkedList<LinkedList<Schedulable>>();
+		LinkedList<Schedulable> sched = new LinkedList<Schedulable>();
+		rv.add(sched);
+		sched.addAll(this.um.getAllNurses());
+		return rv;
+		
+	}
+ 
 
 }
