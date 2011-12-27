@@ -37,4 +37,20 @@ public class TimePointTest
 		TimePoint p = new StopTimePoint(-1);
 
 	}
+	@Test
+	public void comparatorTest1(){
+		TimePoint one = new StartTimePoint(new HospitalDate(10));
+		TimePoint two = new StopTimePoint(new HospitalDate(10));
+		assertTrue(TimePoint.ComparatorsEndFirst.compare(one, two)==-1);
+		assertFalse(TimePoint.ComparatorsStartFirst.compare(one, two)==-1);
+
+	}
+	@Test
+	public void comparatorTest2(){
+		TimePoint two = new StartTimePoint(new HospitalDate(10));
+		TimePoint one = new StopTimePoint(new HospitalDate(10));
+		assertTrue(TimePoint.ComparatorsEndFirst.compare(one, two)==1);
+		assertFalse(TimePoint.ComparatorsStartFirst.compare(one, two)==1);
+
+	}
 }
