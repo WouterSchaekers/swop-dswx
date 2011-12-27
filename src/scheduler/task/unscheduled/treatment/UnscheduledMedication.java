@@ -14,11 +14,11 @@ import scheduler.task.Schedulable;
 import treatment.Medication;
 import users.UserManager;
 
-public class UnscheduledMedecation extends UnscheduledTreatment
+public class UnscheduledMedication extends UnscheduledTreatment
 {
 
 	
-	public UnscheduledMedecation(long duration, HospitalDate creationTime,
+	public UnscheduledMedication(long duration, HospitalDate creationTime,
 			Collection<Requirement> requirements, boolean backToBack,
 			Diagnose diagnose,Medication med,UserManager um) throws InvalidResourceException,
 			InvalidDurationException, InvalidOccurencesException,
@@ -44,6 +44,11 @@ public class UnscheduledMedecation extends UnscheduledTreatment
 	public LinkedList<Integer> getOccurences() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public boolean canBeScheduled() {
+		
 	}
 
 }

@@ -19,20 +19,18 @@ import users.UserManager;
 public abstract class UnscheduledTreatment extends UnscheduledTask
 {
 	UserManager um;
+	Diagnose diagnose;
+	
 	public UnscheduledTreatment(long duration, HospitalDate creationTime,
 			Collection<Requirement> requirements, boolean backToBack,Diagnose diagnose,UserManager manager)
 			throws InvalidResourceException, InvalidDurationException,
 			InvalidOccurencesException, InvalidAmountException,
 			InvalidHospitalDateException {
-		super(duration, creationTime, genReq(diagnose), backToBack);
+		super(duration, creationTime, backToBack);
 		this.um=manager;
+		this.diagnose = diagnose;
 	}
 
-	private static Collection<Requirement> genReq(Diagnose diagnose2) {
-		ArrayList<Requirement> req = new ArrayList<Requirement>();
-		req.add(diagnose2);
-		return req;
-	}
 	@Override
 	public LinkedList<LinkedList<Schedulable>> getResourcePool(){
 
