@@ -58,7 +58,7 @@ public class TaskManager extends Observable
 	 * @throws InvalidTimeSlotException
 	 * @throws InvalidResourceException 
 	 */
-	public HashMap<ScheduledTask,HospitalDate> updateQueue() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException, InvalidResourceException {
+	private HashMap<ScheduledTask,HospitalDate> updateQueue() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException, InvalidResourceException {
 		HashMap<ScheduledTask, HospitalDate> returnValue = new HashMap<ScheduledTask, HospitalDate>();
 		Queue<UnscheduledTask> newQueue = new LinkedList<UnscheduledTask>(this.taskQueue);
 		for (UnscheduledTask curTask : this.taskQueue) {
@@ -69,6 +69,10 @@ public class TaskManager extends Observable
 				newQueue.add(curTask);
 			}
 		}//TODO: remove new scheduler hieruit!
+		//XXX: de sysout o_O'
+		System.out.println("The following things have been scheduled at the following dates: ");
+		for(ScheduledTask t : returnValue.keySet())
+			System.out.println(t + " at " + returnValue.get(t));
 		this.taskQueue = newQueue;
 		return returnValue;
 	}
@@ -102,5 +106,20 @@ public class TaskManager extends Observable
 	@Basic
 	public Collection<Task> getTaskQueue() {
 		return new ArrayList<Task>(taskQueue);
+	}
+	
+	/**
+	 * This method should be called when any observer notices anything relevant
+	 * to the TaskManager. The TaskManager will update its queue and schedule
+	 * the things it can in this new situation.
+	 * 
+	 * @pre before calling this method, we assume that the warehouse observer
+	 *      has already notified its warehouse about the changes. Otherwise a
+	 *      correct update of the queue will not be guarrenteed!
+	 */
+	public void update() {
+		try {
+			this.updateQueue();
+		} catch (Exception e) {}
 	}
 }
