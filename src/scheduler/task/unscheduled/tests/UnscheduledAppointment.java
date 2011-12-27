@@ -1,5 +1,7 @@
-package scheduler.task.unscheduled;
+package scheduler.task.unscheduled.tests;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
@@ -15,15 +17,12 @@ import users.Doctor;
 
 public class UnscheduledAppointment extends UnscheduledTask
 {
+	private Doctor requiredDoctor;
+
 	public UnscheduledAppointment(Doctor d,HospitalDate currentsystemtime) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidRequirementException, InvalidAmountException, InvalidHospitalDateException
 	{
-		super(createResourceListOfOneDoctor(d), HospitalDate.ONE_MINUTE*30, new LinkedList<Requirement>(), oneoccurence(),HospitalDate.ONE_HOUR,currentsystemtime);
-	}
-
-	private static LinkedList<Integer> oneoccurence() {
-		LinkedList<Integer> s =new LinkedList<Integer>();
-		s.add(1);
-		return s;
+		super(30*HospitalDate.ONE_MINUTE, currentsystemtime, true);
+		this.requiredDoctor=d;
 	}
 
 	private static LinkedList<LinkedList<Schedulable>> createResourceListOfOneDoctor(Doctor d) {
@@ -31,5 +30,33 @@ public class UnscheduledAppointment extends UnscheduledTask
 		rv.add(new LinkedList<Schedulable>());
 		rv.get(0).add(d);
 		return rv;
+	}
+
+
+
+
+
+	@Override
+	public
+	Collection<Requirement> getRequirements() {
+		return new ArrayList<Requirement>();
+	}
+
+	@Override
+	public
+	LinkedList<Integer> getOccurences() {
+		LinkedList<Integer> rv=new LinkedList<Integer>();
+		rv.add(1);
+		return rv;
+	}
+
+	@Override
+	public long getExtraTime() {
+		return HospitalDate.ONE_HOUR;
+	}
+
+	@Override
+	public LinkedList<LinkedList<Schedulable>> getResourcePool() {
+		 return createResourceListOfOneDoctor(requiredDoctor);
 	}
 }

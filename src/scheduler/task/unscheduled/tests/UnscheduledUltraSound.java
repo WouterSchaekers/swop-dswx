@@ -1,4 +1,4 @@
-package scheduler.task.unscheduled;
+package scheduler.task.unscheduled.tests;
 
 public class UnscheduledUltraSound
 {

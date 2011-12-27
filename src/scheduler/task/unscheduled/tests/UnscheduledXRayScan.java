@@ -1,7 +1,8 @@
-package scheduler.task.unscheduled;
+package scheduler.task.unscheduled.tests;
 
 import help.Collections;
 import help.Filter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -25,9 +26,14 @@ import exceptions.InvalidResourceException;
 public class UnscheduledXRayScan extends UnscheduledTask
 {
 
+	private MachinePool pool;
+	private UserManager um;
+
 	public UnscheduledXRayScan(XRayScan xray, HospitalDate currentSystemTime, UserManager um, MachinePool mp) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException, InvalidRequirementException {
-		super(genResources(um, mp), xray.getDURATION(), new LinkedList<Requirement>(),generateOccurences(), HospitalDate.ONE_HOUR, currentSystemTime);
-	}
+			super(0, currentSystemTime, true);
+			this.um=um;
+			this.pool=mp;
+		}
 
 	/**
 	 * This method will generate the linked list of linked lists that's needed
@@ -72,4 +78,29 @@ public class UnscheduledXRayScan extends UnscheduledTask
 	private static LinkedList<Integer> generateOccurences() {
 		return new LinkedList<Integer>(Arrays.asList(1,1));
 	}
+
+	@Override
+	public long getExtraTime() {
+		return 0;
+	}
+
+	@Override
+	public LinkedList<LinkedList<Schedulable>> getResourcePool() {
+		// TODO Auto-generated method stub
+		return genResources(this.um, this.pool);
+	}
+
+	@Override
+	public Collection<Requirement> getRequirements() {
+		// TODO Auto-generated method stub
+		return new ArrayList<Requirement>();
+	}
+
+	@Override
+	public LinkedList<Integer> getOccurences() {
+		// TODO Auto-generated method stub
+		return generateOccurences();
+	}
+
+
 }
