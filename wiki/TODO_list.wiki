@@ -26,7 +26,7 @@
      *Treatment : Cast
      *Treatment : Medication
      *Treatment : Surgery
-
+Bij unscheduled classes zorgen dat die requirements lazy gemaakt worden, (dit door de voorstelling van onze requirements :) )
 
 = Wie is er momenteel waaraan bezig? =
 <p>
