@@ -137,6 +137,13 @@ public class Warehouse
 			throw new InvalidHospitalDateException(
 					"Invalid HospitalDate given to updateStock() in Warehouse!");
 		long timeDiff = this.prevDate.getTimeBetween(d);
-		
+	}
+	
+	public boolean hasPlaster(int plaster){
+		return this.unitsOfPlaster >= plaster;
+	}
+	
+	public boolean hasMedication(int plaster){
+		return this.unitsOfPlaster >= plaster;
 	}
 }
