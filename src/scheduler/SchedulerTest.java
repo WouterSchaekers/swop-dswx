@@ -2,6 +2,7 @@ package scheduler;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import org.junit.Before;
 import org.junit.Test;
@@ -75,7 +76,8 @@ public class SchedulerTest
 		fullOccurences.add(0);
 		fullOccurences.add(1);
 		fullOccurences.add(1);
-	//	unsched1 = new UnscheduledTask(5,listOfSchedulables, occurences, 0 , new HospitalDate(1));
+		unsched1 = new UnscheduledTaskTestClass(5000l, HospitalDate.START_OF_TIME, new ArrayList<scheduler.task.Requirement>(),true, listOfSchedulables	, occurences);
+		
 	}
 
 	@Test
@@ -101,20 +103,22 @@ public class SchedulerTest
 
 	@Test
 	public void sschedule1Test() throws InvalidSchedulingRequestException,
-			InvalidTimeSlotException, InvalidResourceException {
+			InvalidTimeSlotException, InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException {
 		for (Schedulable s : listOfNurses) {
 			s.scheduleAt(new TimeSlot(new StartTimePoint(
 					HospitalDate.START_OF_TIME), new StopTimePoint(
 					HospitalDate.START_OF_TIME.getTimeSinceStart() + 5000)));
 		}
-		assertFalse(s.schedule(5000, HospitalDate.START_OF_TIME, listOfSchedulables, occurences)
+UnscheduledTaskTestClass c=	new UnscheduledTaskTestClass(5000l, HospitalDate.START_OF_TIME, new ArrayList<scheduler.task.Requirement>(), true, listOfSchedulables, occurences);
+		
+assertFalse(s.schedule(c)
 				.getTimeSlot().getStartPoint().getDate()
 				.equals(new HospitalDate()));
 	}
 
 	@Test
 	public void sschedule2Test() throws InvalidSchedulingRequestException,
-			InvalidTimeSlotException, InvalidResourceException {
+			InvalidTimeSlotException, InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException {
 		for (Schedulable s : listOfNurses) {
 			s.scheduleAt(new TimeSlot(new StartTimePoint(
 					HospitalDate.START_OF_TIME), new StopTimePoint(
@@ -123,13 +127,15 @@ public class SchedulerTest
 		occurences = new LinkedList<Integer>();
 		occurences.add(0);
 		occurences.add(2);
-		assertFalse(s.schedule(5000, HospitalDate.START_OF_TIME,listOfSchedulables, occurences)
+		UnscheduledTaskTestClass c=	new UnscheduledTaskTestClass(5000l, HospitalDate.START_OF_TIME, new ArrayList<scheduler.task.Requirement>(), true, listOfSchedulables, occurences);
+		
+		assertFalse(s.schedule(c)
 				.getStartDate().equals(new HospitalDate()));
 	}
 
 	@Test
 	public void sschedule3Test() throws InvalidSchedulingRequestException,
-			InvalidTimeSlotException, InvalidResourceException {
+			InvalidTimeSlotException, InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException {
 		for (Schedulable s : listOfNurses) {
 			s.scheduleAt(new TimeSlot(new StartTimePoint(
 					HospitalDate.START_OF_TIME), new StopTimePoint(
@@ -143,7 +149,9 @@ public class SchedulerTest
 		occurences = new LinkedList<Integer>();
 		occurences.add(2);
 		occurences.add(2);
-		assertFalse(s.schedule(5000, HospitalDate.START_OF_TIME, listOfSchedulables, occurences)
+		UnscheduledTaskTestClass c=	new UnscheduledTaskTestClass(5000l, HospitalDate.START_OF_TIME, new ArrayList<scheduler.task.Requirement>(), true, listOfSchedulables, occurences);
+		
+		assertFalse(s.schedule(c)
 				.getTimeSlot().getStartPoint().getDate()
 				.equals(new HospitalDate()));
 	}
@@ -151,17 +159,19 @@ public class SchedulerTest
 	@Test(
 			expected = InvalidSchedulingRequestException.class)
 	public void sschedule4Test() throws InvalidSchedulingRequestException,
-			InvalidTimeSlotException, InvalidResourceException {
+			InvalidTimeSlotException, InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException {
 		occurences = new LinkedList<Integer>();
 		occurences.add(5);
 		occurences.add(5);
-		s.schedule(5000, HospitalDate.START_OF_TIME, listOfSchedulables, occurences);
+		UnscheduledTaskTestClass c=	new UnscheduledTaskTestClass(5000l, HospitalDate.START_OF_TIME, new ArrayList<scheduler.task.Requirement>(), true, listOfSchedulables, occurences);
+		
+		s.schedule(c);
 		throw new IllegalStateException("Something went wrong....");
 	}
 
 	@Test
 	public void sschedule5Test() throws InvalidSchedulingRequestException,
-			InvalidTimeSlotException, InvalidResourceException {
+			InvalidTimeSlotException, InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException {
 		for (Schedulable s : listOfNurses)
 			makeBusyAt(s,0, 5000);
 		
@@ -171,14 +181,16 @@ public class SchedulerTest
 		occurences = new LinkedList<Integer>();
 		occurences.add(4);
 		occurences.add(1);
-		assertFalse(s.schedule(5000, HospitalDate.START_OF_TIME, listOfSchedulables, occurences)
+		UnscheduledTaskTestClass c=	new UnscheduledTaskTestClass(5000l, HospitalDate.START_OF_TIME, new ArrayList<scheduler.task.Requirement>(), true, listOfSchedulables, occurences);
+		
+		assertFalse(s.schedule(c)
 				.getTimeSlot().getStartPoint().getDate()
 				.equals(new HospitalDate()));
 	}
 
 	@Test
 	public void sschedule6Test() throws InvalidSchedulingRequestException,
-			InvalidTimeSlotException, InvalidResourceException {
+			InvalidTimeSlotException, InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException {
 		
 		makeBusyAt(listOfNurses.get(0),1500, 5000);
 		for (Schedulable s : listOfDoctors) {
@@ -187,8 +199,10 @@ public class SchedulerTest
 		occurences = new LinkedList<Integer>();
 		occurences.add(4);
 		occurences.add(2);
-		assertTrue(new Scheduler()
-				.schedule(1501, HospitalDate.START_OF_TIME, listOfSchedulables, occurences)
+		UnscheduledTaskTestClass c=	new UnscheduledTaskTestClass(1501, HospitalDate.START_OF_TIME, new ArrayList<scheduler.task.Requirement>(), true, listOfSchedulables, occurences);
+		
+		assertTrue(this.s
+				.schedule(c)
 				.getStartDate()
 				.equals(new HospitalDate(HospitalDate.START_OF_TIME
 						.getTimeSinceStart() + 8000)));
@@ -196,7 +210,7 @@ public class SchedulerTest
 
 	@Test
 	public void sschedule7Test() throws InvalidSchedulingRequestException,
-			InvalidTimeSlotException, InvalidResourceException {
+			InvalidTimeSlotException, InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException {
 		
 		makeBusyAt(listOfDoctors.get(0),1500, 5000);
 		for (Schedulable s : listOfNurses) {
@@ -206,8 +220,9 @@ public class SchedulerTest
 		occurences = new LinkedList<Integer>();
 		occurences.add(4);
 		occurences.add(2);
-		assertTrue(new Scheduler()
-				.schedule(1501, HospitalDate.START_OF_TIME, listOfSchedulables, occurences)
+		UnscheduledTaskTestClass c=	new UnscheduledTaskTestClass(1501, HospitalDate.START_OF_TIME, new ArrayList<scheduler.task.Requirement>(), true, listOfSchedulables, occurences);
+		assertTrue(s
+				.schedule(c)
 				.getStartDate()
 				.equals(new HospitalDate(HospitalDate.START_OF_TIME
 						.getTimeSinceStart() + 8000)));
@@ -215,38 +230,41 @@ public class SchedulerTest
 	
 	@Test
 	public void sschedule8Test() throws InvalidSchedulingRequestException,
-			InvalidTimeSlotException, InvalidResourceException {
+			InvalidTimeSlotException, InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException {
 		occurences = new LinkedList<Integer>();
 		occurences.add(4);
 		occurences.add(2);
 		LinkedList<Schedulable> jonathan = new LinkedList<Schedulable>();
 		jonathan.add(listOfDoctors.get(0));
-		ScheduledTask t = s.schedule(1500, HospitalDate.START_OF_TIME, listOfSchedulables, jonathan, occurences);
+		UnscheduledTaskTestClass c=	new UnscheduledTaskTestClass(1500, HospitalDate.START_OF_TIME, new ArrayList<scheduler.task.Requirement>(), true, listOfSchedulables, occurences);
+		//XXX:add jonathan
+	//	ScheduledTask t = s.schedule(1500, HospitalDate.START_OF_TIME, listOfSchedulables, jonathan, occurences);
+		ScheduledTask t = s.schedule(c);
 		assertTrue(t.getStartDate().equals(new HospitalDate(HospitalDate.START_OF_TIME
 						.getTimeSinceStart())));
 		assertTrue(t.getResources().contains(jonathan.get(0)));
 	}
 
 	@Test
-	public void sschedule9Test() throws InvalidTimeSlotException, InvalidSchedulingRequestException, InvalidResourceException{
+	public void sschedule9Test() throws InvalidTimeSlotException, InvalidSchedulingRequestException, InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException{
 			occurences = new LinkedList<Integer>();
 			LinkedList<LinkedList<Schedulable>> things =  new LinkedList<LinkedList<Schedulable>>();
 			things.add(listOfDoctors);
 			occurences.add(2);
 			things.add(listOfNurses);
 			occurences.add(1);
-			 s.schedule(50000, HospitalDate.START_OF_TIME, things, occurences);
+			UnscheduledTaskTestClass c=	new UnscheduledTaskTestClass(1501, HospitalDate.START_OF_TIME, new ArrayList<scheduler.task.Requirement>(), true, listOfSchedulables, occurences);
+			
+			 s.schedule(c);
 			LinkedList<LinkedList<Schedulable>> nurses = new LinkedList<LinkedList<Schedulable>>();
 			nurses.add(listOfNurses);
 			occurences = new LinkedList<Integer>();
 			occurences.add(2);
-			System.out.println(s.schedule(50000, HospitalDate.START_OF_TIME, nurses, occurences).getStartDate());
+			c=	new UnscheduledTaskTestClass(50000, HospitalDate.START_OF_TIME, new ArrayList<scheduler.task.Requirement>(), true, listOfSchedulables, occurences);
+			
+			System.out.println(s.schedule(c).getStartDate());
 			}
-	@Test(expected = IllegalArgumentException.class)
-	public void setSystemTimeTest0() {
-		s..setNewSystemTime(new HospitalDate(-1));
 
-	}
 	
 	private void makeBusyAt(Schedulable s, long startMillis, long stopMillis) throws InvalidSchedulingRequestException {
 		s.scheduleAt(
