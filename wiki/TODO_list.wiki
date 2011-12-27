@@ -18,6 +18,15 @@
   * Documentatie schrijven
   * Verslag schrijven
   * ...
+  * Unscheduled classes maken!
+     *Xray
+     *BloodTest
+     *UltraSoundScan
+     *Appointment
+     *Treatment : Cast
+     *Treatment : Medication
+     *Treatment : Surgery
+
 
 = Wie is er momenteel waaraan bezig? =
 <p>
