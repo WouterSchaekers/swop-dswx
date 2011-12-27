@@ -46,5 +46,5 @@
 || 22/12/11: 14u00 -> 15u00|| 2 DS || 1 || usecases, advance time || Wouter moest iets gaan eten.||
 || 22/12/11: 15u00 -> 18u00 || 3 DSW || 3 || unScheduledTasks and their child classes. || ||
 || 23/12/11: 12u00 -> 13u00 || 3 DSW || 1 || new scheduling algorithm, usecases, ... || ||
-|| 23/12/11: 13u00 -> 16u00 || 3 DSW || 3 || Praten met Frédéric || ||
+|| 23/12/11: 13u00 -> 16u00 || 3 DSW || 3 || Nothing || Praten met Frédéric ||
 || 27/12/11: 11u30 -> ... || 3 DSW || ... || ... || ||
