@@ -1,8 +1,8 @@
 package system;
 
+import exceptions.InvalidTimeLordException;
 import machine.MachinePool;
 import patient.PatientFileManager;
-import scheduler.HospitalDate;
 import scheduler.Scheduler;
 import scheduler.task.TaskManager;
 import users.UserManager;
@@ -19,8 +19,9 @@ public class HospitalState
 
 	/**
 	 * Initializes an empty hospital
+	 * @throws InvalidTimeLordException 
 	 */
-	public HospitalState() {
+	public HospitalState() throws InvalidTimeLordException {
 		this.systemTime = new TimeLord();
 		this.userManager = new UserManager();
 		this.machinePool = new MachinePool();
