@@ -17,7 +17,7 @@ import exceptions.InvalidTimeSlotException;
 import patient.PatientFile;
 import scheduler.Scheduler;
 import scheduler.task.scheduled.Appointment;
-import scheduler.task.unscheduled.UnscheduledAppointment;
+import scheduler.task.unscheduled.tests.UnscheduledAppointment;
 import users.Nurse;
 import users.User;
 import users.Doctor;

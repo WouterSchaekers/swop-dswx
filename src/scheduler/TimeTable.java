@@ -253,7 +253,8 @@ public class TimeTable
 				+ that.timeSlots.size() * 2];
 		LinkedList<TimeSlot> rv = new LinkedList<TimeSlot>();
 		int i = 0;
-		for (TimeSlot t : this.timeSlots) {
+		for (TimeSlot t : this.timeSlots) 
+		{
 			allPoints[i++] = t.getStartPoint();
 			allPoints[i++] = t.getStopPoint();
 		}

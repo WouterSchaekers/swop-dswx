@@ -25,7 +25,7 @@ import java.util.Scanner;
  * */
 public class UCHandler
 {
-	Usecase currentUseCase;
+	Usecase currentUIView;
 	UserinterfaceData data;
 
 	/**
@@ -35,10 +35,10 @@ public class UCHandler
 	 */
 	public UCHandler(UserinterfaceData data) {
 		this.data = data;
-		currentUseCase = new SelectUsecase(data);
+		currentUIView = new SelectUsecase(data);
 		Usecase.setScanner(new Scanner(System.in));
 	}
-
+	
 	/**
 	 * Here each command is called and executed, this returns a new command that
 	 * then will be executed, until the exitSystem command is returned.
@@ -46,7 +46,7 @@ public class UCHandler
 	 */
 	public void start() {
 		while (true) {
-			if ((currentUseCase = currentUseCase.Execute()) instanceof ExitSystem)
+			if ((currentUIView = currentUIView.Execute()) instanceof ExitSystem)
 				return;
 		}
 

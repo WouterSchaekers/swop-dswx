@@ -7,7 +7,6 @@ import scheduler.task.Schedulable;
 import scheduler.task.ScheduledTask;
 import scheduler.task.UnscheduledTask;
 import system.TimeLord;
-import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidResourceException;
 import exceptions.InvalidSchedulingRequestException;
@@ -124,12 +123,17 @@ public class Scheduler
 	 * @throws InvalidTimeSlotException
 	 * @throws InvalidResourceException
 	 */
-	private ScheduledTask schedule(long duration, HospitalDate startDate,
+	private ScheduledTask schedule(
+			long duration,
+			HospitalDate startDate,
 			HospitalDate stopDate,
 			LinkedList<LinkedList<Schedulable>> neededSchedulables,
-			LinkedList<Schedulable> usedSchedulables, boolean[][] treeMatrix,
-			LinkedList<Integer> fullOccurences, int iteration)
-			throws InvalidSchedulingRequestException, InvalidTimeSlotException,
+			LinkedList<Schedulable> usedSchedulables, 
+			boolean[][] treeMatrix,
+			LinkedList<Integer> fullOccurences,
+			int iteration
+			)
+		throws InvalidSchedulingRequestException, InvalidTimeSlotException,
 			InvalidResourceException {
 
 		int curCollectionToSchedule = fullOccurences.get(iteration);
