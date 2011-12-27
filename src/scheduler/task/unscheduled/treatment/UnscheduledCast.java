@@ -13,9 +13,11 @@ import scheduler.HospitalDate;
 import scheduler.task.Requirement;
 import scheduler.task.Schedulable;
 import treatment.Cast;
+import users.UserManager;
 public class UnscheduledCast extends UnscheduledTreatment
 {
 	private Cast cast;
+	private UserManager um;
 
 	/**
 	 * 
@@ -30,10 +32,10 @@ public class UnscheduledCast extends UnscheduledTreatment
 	 * @throws InvalidHospitalDateException
 	 */
 	public UnscheduledCast(long duration, HospitalDate creationTime,
-			boolean backToBack,Diagnose dependendend,Cast cast) throws InvalidResourceException,
+			boolean backToBack,Diagnose dependendend,Cast cast,UserManager manager) throws InvalidResourceException,
 			InvalidDurationException, InvalidOccurencesException,
 			InvalidAmountException, InvalidHospitalDateException {
-		super(duration, creationTime,new ArrayList<Requirement>(), backToBack,dependendend);
+		super(duration, creationTime,new ArrayList<Requirement>(), backToBack,dependendend,manager);
 		this.cast=cast;
 		
 	}
@@ -43,25 +45,19 @@ public class UnscheduledCast extends UnscheduledTreatment
 		return 0;
 	}
 
-	@Override
-	public LinkedList<LinkedList<Schedulable>> getResourcePool() {
-		LinkedList<LinkedList<Schedulable>> rv = new LinkedList<LinkedList<Schedulable>>();
-		LinkedList<Schedulable> sched = new LinkedList<Schedulable>();
-		rv.add(sched);
-		
-		return null;
-	}
+
 
 	@Override
 	public Collection<Requirement> getRequirements() {
 		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<Requirement>();
 	}
 
 	@Override
 	public LinkedList<Integer> getOccurences() {
-		// TODO Auto-generated method stub
-		return null;
+		LinkedList<Integer> lin = new LinkedList<Integer>();
+		lin.add(1);
+		return lin;
 	}
 	public Cast getCast()
 	{
