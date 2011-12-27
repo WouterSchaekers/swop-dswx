@@ -18,7 +18,11 @@ import scheduler.*;
 public class TaskManager
 {
 	private Collection<UnscheduledTask> taskQueue = new LinkedList<UnscheduledTask>();
-
+	private Scheduler myScheduler;
+	public TaskManager(Scheduler s)
+	{
+		this.myScheduler=s;
+	}
 	/**
 	 * This method has to be called in order to update the Queue at the right
 	 * times in the flow of the program. It will check if any of the Tasks in
@@ -39,16 +43,20 @@ public class TaskManager
 		Queue<UnscheduledTask> newQueue = new LinkedList<UnscheduledTask>(this.taskQueue);
 		for (UnscheduledTask curTask : this.taskQueue) {
 			if (curTask.canBeScheduled()) {
-				ScheduledTask d = new Scheduler().schedule(curTask);
+				ScheduledTask d = this.myScheduler().schedule(curTask);
 				returnValue.put(d, d.getStartDate());
 			} else {
 				newQueue.add(curTask);
 			}
-		}
+		}//TODO: remove new scheduler hieruit!
 		this.taskQueue = newQueue;
 		return returnValue;
 	}
 	
+	private Scheduler myScheduler() {
+		return this.myScheduler;
+	}
+
 	/**
 	 * This method will add a Task to this TaskManager's queue. Note that you should probably update the queue of this TaskManager after adding a Task.
 	 * @param t

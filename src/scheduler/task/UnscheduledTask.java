@@ -21,6 +21,7 @@ public abstract class UnscheduledTask extends Task
 	private long extraTime;
 	private boolean backToBack;
 	private HospitalDate creationTime;
+	private Collection<Requirement> myRequirements;
 	
 	/**
 	 * Constructor without requirements.
@@ -45,7 +46,7 @@ public abstract class UnscheduledTask extends Task
 	 */
 	public  UnscheduledTask(
 			long duration
-			, HospitalDate creationTime,
+			, HospitalDate creationTime,Collection<Requirement> requirements,
 			boolean backToBack)
 	throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException
 	{
@@ -55,6 +56,7 @@ public abstract class UnscheduledTask extends Task
 			throw new InvalidHospitalDateException("Invalid systemtime given to Unscheduled Task");
 		this.creationTime = creationTime;
 		this.backToBack = backToBack;
+		this.myRequirements = requirements;
 	}
 //
 //	/**
@@ -99,15 +101,15 @@ public abstract class UnscheduledTask extends Task
 //		this.creationTime = creationTime;
 //	}
 //
-//	/**
-//	 * @return True if this unscheduled task is ready to be scheduled.
-//	 */
-//	public boolean canBeScheduled() {
-//		for (Requirement r : this.myRequirements)
-//			if (!r.isReady())
-//				return false;
-//		return true;
-//	}
+	/**
+	 * @return True if this unscheduled task is ready to be scheduled.
+	 */
+	public  boolean canBeScheduled() {
+		for (Requirement r : this.myRequirements)
+			if (!r.isReady())
+				return false;
+		return true;
+	}
 
 	/**
 	 * This method adds a requirement to this Task.
@@ -193,7 +195,9 @@ public abstract class UnscheduledTask extends Task
 	}
 
 	@Basic
-	public abstract Collection<Requirement> getRequirements();
+	public Collection<Requirement> getRequirements(){
+		return new ArrayList<Requirement>(myRequirements);
+	}
 	@Basic
 	public abstract LinkedList<Integer> getOccurences() ;
 	@Basic

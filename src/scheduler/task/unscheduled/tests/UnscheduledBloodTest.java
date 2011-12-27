@@ -26,7 +26,7 @@ public class UnscheduledBloodTest extends UnscheduledTask
 			boolean backToBack,UserManager manager,MachinePool pool) throws InvalidResourceException,
 			InvalidDurationException, InvalidOccurencesException,
 			InvalidAmountException, InvalidHospitalDateException {
-		super(duration, creationTime, backToBack);
+		super(duration, creationTime,new ArrayList<Requirement>(), backToBack);
 		this.manager=manager;
 	}
 
@@ -53,10 +53,7 @@ public class UnscheduledBloodTest extends UnscheduledTask
 		return rv;
 	}
 
-	@Override
-	public Collection<Requirement> getRequirements() {
-		return new ArrayList<Requirement>();
-	}
+
 
 	@Override
 	public LinkedList<Integer> getOccurences() {
