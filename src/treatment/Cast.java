@@ -1,5 +1,6 @@
 package treatment;
 
+import scheduler.HospitalDate;
 import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.*;
 
@@ -8,7 +9,6 @@ import exceptions.*;
  */
 public class Cast extends Treatment
 {
-	public static final String TREATMENTNAME = "Cast";
 	private String bodyPart;
 	private int length;
 
@@ -21,7 +21,7 @@ public class Cast extends Treatment
 	 *            The lengths of the cast.
 	 */
 	public Cast(String bodyPart, int length) {
-		super(TREATMENTNAME);
+		super(2*HospitalDate.ONE_HOUR);
 	}
 	
 	/**
@@ -60,5 +60,10 @@ public class Cast extends Treatment
 		if(!isValidLength(length))
 			throw new InvalidLengthException("Invalid length assigned to setLength() in Cast!");
 		this.length = length;
+	}
+	public boolean nyan()
+	{
+		System.out.println("nyab");
+		return nyan();
 	}
 }

@@ -1,5 +1,6 @@
 package treatment;
 
+import scheduler.HospitalDate;
 import exceptions.InvalidDescriptionException;
 import be.kuleuven.cs.som.annotate.Basic;
 
@@ -16,9 +17,11 @@ public class Surgery extends Treatment
 	 * 
 	 * @param description
 	 *            The description of this surgery.
+	 * @throws InvalidDescriptionException 
 	 */
-	public Surgery(String description) {
-		super(TREATMENTNAME);
+	public Surgery(String description) throws InvalidDescriptionException {
+		super(HospitalDate.ONE_MINUTE*180);
+		setDescription(description);
 	}
 
 	@Basic

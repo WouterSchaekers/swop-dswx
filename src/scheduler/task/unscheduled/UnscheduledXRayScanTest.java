@@ -38,8 +38,8 @@ public class UnscheduledXRayScanTest
 		xrf.setZoomLevel(2.5f);
 		XRayScan xscan = (XRayScan) xrf.create();
 		
-		UnscheduledXRayScan uxr = new UnscheduledXRayScan(xscan, dh.s.getSystemTime().getSystemTime(), dh.um, dh.mp);
-		System.out.println(dh.s.schedule(uxr));
+//		UnscheduledXRayScan uxr = new UnscheduledXRayScan(xscan, dh.s.getSystemTime().getSystemTime(), dh.um, dh.mp);
+//		System.out.println(dh.s.schedule(uxr));
 	}
 
 }

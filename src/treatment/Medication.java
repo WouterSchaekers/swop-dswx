@@ -11,7 +11,6 @@ public abstract class Medication extends Treatment implements Expirable,Warehous
 {
 	// the name of each treatment will be final and will be used later on to
 	// determine which treatment a Treatment is.
-	public static final String TREATMENTNAME = "Medication";
 	private String description = ""; // the description of the meds
 	private boolean sensitive = false; // whether or not if the medication is
 										// sensitive
@@ -26,7 +25,7 @@ public abstract class Medication extends Treatment implements Expirable,Warehous
 	 *            Whether or not the meds are sensitive.
 	 */
 	public Medication(String description, boolean sensitive, HospitalDate expiryDate) {
-		super(TREATMENTNAME);
+		super(HospitalDate.ONE_MINUTE*20);
 		setDescription(description);
 		setSensitive(sensitive);
 		this.expiryDate = expiryDate;
@@ -36,7 +35,7 @@ public abstract class Medication extends Treatment implements Expirable,Warehous
 	 * @return Information about this medicinal treatment.
 	 */
 	public String information() {
-		return TREATMENTNAME + ": " + getDescription() + " " + sensitiveText()
+		return toString()+ ": " + getDescription() + " " + sensitiveText()
 				+ ".";
 	}
 

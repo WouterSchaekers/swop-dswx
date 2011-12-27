@@ -381,7 +381,7 @@ public class Scheduler
 	}
 	
 	//TODO interne types niet lekken
-	
+	@Basic
 	public TimeLord getSystemTime() {
 		return this.currentSystemTime;
 	}
