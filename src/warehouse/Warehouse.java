@@ -122,21 +122,26 @@ public class Warehouse
 	}
 	
 	/**
-	 * This method will update the stock (namingly the amount of meals -- the
-	 * rest should be automatically removed due to the fact that there are
-	 * usecases))of the warehouse automatically based on the new date d and the
-	 * previous date, given in the constructor. It wil also update this previous
-	 * date into d, so as to prepare for the next update.
+	 * This method should be called whenever there's a change in time. The
+	 * warehouse will then update its stock accordingly.
 	 * 
-	 * @param d
+	 * @param newDate
 	 *            The new system time.
-	 * @throws InvalidHospitalDateException
 	 */
-	public void updateStock(HospitalDate d) throws InvalidHospitalDateException {
-		if (!this.canHaveAsDate(d))
-			throw new InvalidHospitalDateException(
-					"Invalid HospitalDate given to updateStock() in Warehouse!");
-		long timeDiff = this.prevDate.getTimeBetween(d);
+	public void update(HospitalDate newDate) {
+		long timeDiff = this.prevDate.getTimeBetween(newDate);
+		int amountOfDays = (int) (timeDiff % (24 * HospitalDate.ONE_HOUR));
+		int amountOfMealsADay = 3;
+				
+		for (int i = 0; i < amountOfDays; i++) {
+		
+			// remove the expired medication and order new things.
+			for (int j = 0; j < amountOfMealsADay; j++) {
+				// remove the eaten meals and add new ones at the end of the day.
+			}
+		}
+		
+
 	}
 	
 	public boolean hasPlaster(int plaster){
