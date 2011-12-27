@@ -4,18 +4,18 @@ import scheduler.HospitalDate;
 
 public class TimeLord
 {
-	private HospitalDate systemtyme;
+	private HospitalDate systemTime;
 
-	public HospitalDate getSystemtyme() {
-		return systemtyme;
+	public HospitalDate getSystemTime() {
+		return systemTime;
 	}
 
-	public void setSystemtyme(HospitalDate systemtyme) {
-		this.systemtyme = systemtyme;
+	public void setSystemTime(HospitalDate systemtyme) {
+		this.systemTime = systemtyme;
 	}
 	public TimeLord(HospitalDate date)
 	{
-		setSystemtyme(date);
+		setSystemTime(date);
 	}
 	public TimeLord()
 	{

@@ -1,11 +1,5 @@
 package test;
 
-import exceptions.InvalidHospitalDateException;
-import exceptions.InvalidLocationException;
-import exceptions.InvalidNameException;
-import exceptions.InvalidSerialException;
-import exceptions.InvalidTimeSlotException;
-import exceptions.UserAlreadyExistsException;
 import machine.BloodAnalyser;
 import machine.MachinePool;
 import machine.UltraSoundScanner;
@@ -14,8 +8,16 @@ import patient.PatientFile;
 import patient.PatientFileManager;
 import scheduler.HospitalDate;
 import scheduler.Scheduler;
+import system.TimeLord;
 import users.UserManager;
 import warehouse.Warehouse;
+import exceptions.InvalidHospitalDateException;
+import exceptions.InvalidLocationException;
+import exceptions.InvalidNameException;
+import exceptions.InvalidSerialException;
+import exceptions.InvalidTimeLordException;
+import exceptions.InvalidTimeSlotException;
+import exceptions.UserAlreadyExistsException;
 
 /**
  * This class is used for testing purposes to avoid having to declare a couple
@@ -41,6 +43,7 @@ public class DefaultHospital
 	public PatientFileManager pfm;
 	public Warehouse wh;
 	public MachinePool mp;
+	public TimeLord tl;
 	
 	/**
 	 * Default constructor.
@@ -63,10 +66,12 @@ public class DefaultHospital
 	 * @throws UserAlreadyExistsException 
 	 * @throws InvalidSerialException 
 	 * @throws InvalidLocationException 
+	 * @throws InvalidTimeLordException 
 	 */
-	public DefaultHospital() throws InvalidHospitalDateException, UserAlreadyExistsException, InvalidNameException, InvalidTimeSlotException, InvalidLocationException, InvalidSerialException {
+	public DefaultHospital() throws InvalidHospitalDateException, UserAlreadyExistsException, InvalidNameException, InvalidTimeSlotException, InvalidLocationException, InvalidSerialException, InvalidTimeLordException {
 		um = new UserManager();
-		s = new Scheduler();
+		tl = new TimeLord();
+		s = new Scheduler(tl);
 		pfm = new PatientFileManager();
 		wh = new Warehouse(new HospitalDate((new HospitalDate().getTimeSinceStart()) + 1));
 		mp = new MachinePool();
