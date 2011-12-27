@@ -9,7 +9,6 @@ import org.junit.Test;
 import scheduler.task.Schedulable;
 import scheduler.task.ScheduledTask;
 import scheduler.task.UnscheduledTask;
-import system.TimeLord;
 import users.UserManager;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;

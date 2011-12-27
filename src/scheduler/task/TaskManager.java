@@ -1,9 +1,19 @@
 package scheduler.task;
 
-import java.util.*;
-import be.kuleuven.cs.som.annotate.*;
-import exceptions.*;
-import scheduler.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Observable;
+import scheduler.HospitalDate;
+import scheduler.Scheduler;
+import be.kuleuven.cs.som.annotate.Basic;
+import exceptions.InvalidDurationException;
+import exceptions.InvalidResourceException;
+import exceptions.InvalidSchedulingRequestException;
+import exceptions.InvalidTimeSlotException;
+import exceptions.QueueException;
 
 /**
  * This class manages new and old Tasks. If a new Task is created, it will
@@ -15,14 +25,24 @@ import scheduler.*;
  * updateQueue() function every time its state changes. Once an unscheduled task
  * meets its requirements, it will be scheduled.
  */
-public class TaskManager
+public class TaskManager extends Observable
 {
 	private Collection<UnscheduledTask> taskQueue = new LinkedList<UnscheduledTask>();
 	private Scheduler myScheduler;
+	
+	/**
+	 * Default constructor. Creates a new taskamanger and appoints it a
+	 * sheduler.
+	 * 
+	 * @param s
+	 *            The scheduler to be stored in this TaskManager for current
+	 *            system time purposes.
+	 */
 	public TaskManager(Scheduler s)
 	{
 		this.myScheduler=s;
 	}
+	
 	/**
 	 * This method has to be called in order to update the Queue at the right
 	 * times in the flow of the program. It will check if any of the Tasks in

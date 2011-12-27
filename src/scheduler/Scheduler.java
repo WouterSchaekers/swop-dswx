@@ -7,7 +7,6 @@ import be.kuleuven.cs.som.annotate.Basic;
 import scheduler.task.Schedulable;
 import scheduler.task.ScheduledTask;
 import scheduler.task.UnscheduledTask;
-import system.TimeLord;
 import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidResourceException;
 import exceptions.InvalidSchedulingRequestException;
