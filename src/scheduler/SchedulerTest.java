@@ -75,7 +75,7 @@ public class SchedulerTest
 		fullOccurences.add(0);
 		fullOccurences.add(1);
 		fullOccurences.add(1);
-		unsched1 = new UnscheduledTask(5,listOfSchedulables, occurences, 0 , new HospitalDate(1));
+	//	unsched1 = new UnscheduledTask(5,listOfSchedulables, occurences, 0 , new HospitalDate(1));
 	}
 
 	@Test

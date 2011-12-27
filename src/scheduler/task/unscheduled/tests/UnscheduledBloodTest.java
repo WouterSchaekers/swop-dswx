@@ -3,7 +3,6 @@ package scheduler.task.unscheduled.tests;
 import help.Collections;
 import help.Filter;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.LinkedList;
 import machine.BloodAnalyser;
 import machine.MachinePool;

@@ -13,30 +13,22 @@ public abstract class Treatment
 {
 
 	private Collection<Result> results = new ArrayList<Result>();
+	private long duration;
 	// all childclasses will have their names be final and static and will use
-	// this var to store that information in.
-	protected final String treatmentName;
-
+	// this var to store that information in
 	/**
 	 * Default constructor.
 	 * 
 	 * @param treatmentName
 	 *            The name of this treatment.
 	 */
-	public Treatment(String treatmentName) {
-		this.treatmentName = treatmentName;
+	public Treatment(long duration) {
+		this.duration=duration;
 	}
-
-	@Basic
-	public String getTreatmentName() {
-		return treatmentName;
+	
+	public long getDuration(){
+		return duration;
 	}
-
-	@Override
-	public String toString() {
-		return this.getTreatmentName();
-	}
-
 	/**
 	 * Method to add a result to an existing treatment
 	 * @throws InvalidResultException 

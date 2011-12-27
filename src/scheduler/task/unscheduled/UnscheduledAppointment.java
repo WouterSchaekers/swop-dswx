@@ -1,4 +1,4 @@
-package scheduler.task.unscheduled.tests;
+package scheduler.task.unscheduled;
 
 import java.util.ArrayList;
 import java.util.Collection;

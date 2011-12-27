@@ -3,6 +3,7 @@ package scheduler.task.unscheduled.treatment;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
+import patient.Diagnose;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidHospitalDateException;
@@ -11,28 +12,43 @@ import exceptions.InvalidResourceException;
 import scheduler.HospitalDate;
 import scheduler.task.Requirement;
 import scheduler.task.Schedulable;
-import scheduler.task.UnscheduledTask;
-
-public class UnscheduledCast extends UnscheduledTask
+import treatment.Cast;
+public class UnscheduledCast extends UnscheduledTreatment
 {
+	private Cast cast;
 
+	/**
+	 * 
+	 * @param duration
+	 * @param creationTime
+	 * @param backToBack
+	 * @param dependend
+	 * @throws InvalidResourceException
+	 * @throws InvalidDurationException
+	 * @throws InvalidOccurencesException
+	 * @throws InvalidAmountException
+	 * @throws InvalidHospitalDateException
+	 */
 	public UnscheduledCast(long duration, HospitalDate creationTime,
-			boolean backToBack) throws InvalidResourceException,
+			boolean backToBack,Diagnose dependendend,Cast cast) throws InvalidResourceException,
 			InvalidDurationException, InvalidOccurencesException,
 			InvalidAmountException, InvalidHospitalDateException {
-		super(duration, creationTime,new ArrayList<Requirement>(), backToBack);
-		// TODO Auto-generated constructor stub
+		super(duration, creationTime,new ArrayList<Requirement>(), backToBack,dependendend);
+		this.cast=cast;
+		
 	}
 
 	@Override
 	public long getExtraTime() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public LinkedList<LinkedList<Schedulable>> getResourcePool() {
-		// TODO Auto-generated method stub
+		LinkedList<LinkedList<Schedulable>> rv = new LinkedList<LinkedList<Schedulable>>();
+		LinkedList<Schedulable> sched = new LinkedList<Schedulable>();
+		rv.add(sched);
+		
 		return null;
 	}
 
@@ -47,5 +63,8 @@ public class UnscheduledCast extends UnscheduledTask
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	public Cast getCast()
+	{
+		return cast;
+	}
 }
