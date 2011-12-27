@@ -16,5 +16,5 @@ Ze moet meer koken !
   * Stoofvlees met bloemkool
   * Stoofvlees met rooi kool
   * ...
-  * Makreel
+  * 
   * macaroni met kaassaus en kool
