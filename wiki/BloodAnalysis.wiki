@@ -1,0 +1,1 @@
+A class representing a BloodAnalysis extends [MedicalTest]. Needs a blood analyzer and a nurse
