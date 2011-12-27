@@ -17,6 +17,7 @@ import exceptions.InvalidRequirementException;
 import exceptions.InvalidResourceException;
 import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidSerialException;
+import exceptions.InvalidTimeLordException;
 import exceptions.InvalidTimeSlotException;
 import exceptions.UserAlreadyExistsException;
 
@@ -29,7 +30,7 @@ public class UnscheduledXRayScanTest
 			InvalidTimeSlotException, InvalidLocationException,
 			InvalidSerialException, InvalidResourceException,
 			InvalidDurationException, InvalidOccurencesException,
-			InvalidAmountException, FactoryInstantiation, InvalidSchedulingRequestException, InvalidRequirementException {
+			InvalidAmountException, FactoryInstantiation, InvalidSchedulingRequestException, InvalidRequirementException, InvalidTimeLordException {
 		DefaultHospital dh = new DefaultHospital();
 		XRayScanFactory xrf = FactoryTestsMedicalTests.filterXrayScan(new MedicalTests().factories());
 		xrf.numberOfNeededImages(1);
@@ -37,7 +38,7 @@ public class UnscheduledXRayScanTest
 		xrf.setZoomLevel(2.5f);
 		XRayScan xscan = (XRayScan) xrf.create();
 		
-		UnscheduledXRayScan uxr = new UnscheduledXRayScan(xscan, dh.s.getCurrentSystemTime(), dh.um, dh.mp);
+		UnscheduledXRayScan uxr = new UnscheduledXRayScan(xscan, dh.s.getSystemTime().getSystemTime(), dh.um, dh.mp);
 		System.out.println(dh.s.schedule(uxr));
 	}
 

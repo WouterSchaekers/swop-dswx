@@ -1,5 +1,6 @@
 package scheduler.task.unscheduled.treatment;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import exceptions.InvalidAmountException;
@@ -19,7 +20,7 @@ public class UnscheduledCast extends UnscheduledTask
 			boolean backToBack) throws InvalidResourceException,
 			InvalidDurationException, InvalidOccurencesException,
 			InvalidAmountException, InvalidHospitalDateException {
-		super(duration, creationTime, backToBack);
+		super(duration, creationTime,new ArrayList<Requirement>(), backToBack);
 		// TODO Auto-generated constructor stub
 	}
 

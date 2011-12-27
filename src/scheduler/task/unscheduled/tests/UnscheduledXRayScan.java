@@ -30,7 +30,7 @@ public class UnscheduledXRayScan extends UnscheduledTask
 	private UserManager um;
 
 	public UnscheduledXRayScan(XRayScan xray, HospitalDate currentSystemTime, UserManager um, MachinePool mp) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException, InvalidRequirementException {
-			super(0, currentSystemTime, true);
+			super(0, currentSystemTime,new ArrayList<Requirement>(), true);
 			this.um=um;
 			this.pool=mp;
 		}
@@ -86,19 +86,16 @@ public class UnscheduledXRayScan extends UnscheduledTask
 
 	@Override
 	public LinkedList<LinkedList<Schedulable>> getResourcePool() {
-		// TODO Auto-generated method stub
 		return genResources(this.um, this.pool);
 	}
 
 	@Override
 	public Collection<Requirement> getRequirements() {
-		// TODO Auto-generated method stub
 		return new ArrayList<Requirement>();
 	}
 
 	@Override
 	public LinkedList<Integer> getOccurences() {
-		// TODO Auto-generated method stub
 		return generateOccurences();
 	}
 

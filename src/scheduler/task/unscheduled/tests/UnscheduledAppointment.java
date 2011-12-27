@@ -21,7 +21,7 @@ public class UnscheduledAppointment extends UnscheduledTask
 
 	public UnscheduledAppointment(Doctor d,HospitalDate currentsystemtime) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidRequirementException, InvalidAmountException, InvalidHospitalDateException
 	{
-		super(30*HospitalDate.ONE_MINUTE, currentsystemtime, true);
+		super(30*HospitalDate.ONE_MINUTE, currentsystemtime,new ArrayList<Requirement>(), true);
 		this.requiredDoctor=d;
 	}
 
@@ -36,11 +36,6 @@ public class UnscheduledAppointment extends UnscheduledTask
 
 
 
-	@Override
-	public
-	Collection<Requirement> getRequirements() {
-		return new ArrayList<Requirement>();
-	}
 
 	@Override
 	public
