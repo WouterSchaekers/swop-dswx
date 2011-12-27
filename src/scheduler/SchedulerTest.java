@@ -15,8 +15,10 @@ import exceptions.InvalidDurationException;
 import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidOccurencesException;
+import exceptions.InvalidRequirementException;
 import exceptions.InvalidResourceException;
 import exceptions.InvalidSchedulingRequestException;
+import exceptions.InvalidTimeLordException;
 import exceptions.InvalidTimeSlotException;
 import exceptions.UserAlreadyExistsException;
 
@@ -36,7 +38,7 @@ public class SchedulerTest
 	
 	@Before
 	public void create() throws UserAlreadyExistsException,
-			InvalidNameException, InvalidTimeSlotException, InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException {
+			InvalidNameException, InvalidTimeSlotException, InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException, InvalidRequirementException, InvalidTimeLordException {
 		s = new Scheduler(new TimeLord());
 		m = new UserManager();
 		m.createDoctor("Jonathan");
@@ -73,7 +75,7 @@ public class SchedulerTest
 		fullOccurences.add(0);
 		fullOccurences.add(1);
 		fullOccurences.add(1);
-		unsched1 = new UnscheduledTask(listOfSchedulables, occurences, 0 , new HospitalDate(1));
+		unsched1 = new UnscheduledTask(5,listOfSchedulables, occurences, 0 , new HospitalDate(1));
 	}
 
 	@Test
