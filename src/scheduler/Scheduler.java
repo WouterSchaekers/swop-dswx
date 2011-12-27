@@ -7,10 +7,10 @@ import scheduler.task.Schedulable;
 import scheduler.task.ScheduledTask;
 import scheduler.task.UnscheduledTask;
 import system.TimeLord;
-import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidResourceException;
 import exceptions.InvalidSchedulingRequestException;
+import exceptions.InvalidTimeLordException;
 import exceptions.InvalidTimeSlotException;
 
 /**
@@ -20,9 +20,18 @@ import exceptions.InvalidTimeSlotException;
 public class Scheduler
 {
 	private TimeLord currentSystemTime;
-	public Scheduler(TimeLord lord)
+
+	/**
+	 * Default constructor. Will initialise time lord field.
+	 * @param lord
+	 * The timelord to be appointed to this scheduler.
+	 * @throws InvalidTimeLordException
+	 */
+	public Scheduler(TimeLord lord) throws InvalidTimeLordException
 	{
-		this.currentSystemTime=lord;
+		if(this.canHaveAsTimeLord(lord))
+			this.currentSystemTime=lord;
+		else throw new InvalidTimeLordException("Invalid timelord given to scheduler!");
 	}
 	/**
 	 * Schedule method where only an UnscheduledTask is given.
@@ -332,6 +341,13 @@ public class Scheduler
 		}
 		return true;
 	}
+	
+	/**
+	 * @return True if t is a valid time lord for this scheduler.
+	 */
+	private boolean canHaveAsTimeLord(TimeLord t) {
+		return t != null;
+	}
 
 	/**
 	 * @return A copy of the given list.
@@ -356,6 +372,10 @@ public class Scheduler
 					treeMatrix[i].length);
 		}
 		return newTreeMatrix;
+	}
+	
+	public TimeLord getTimeLord() {
+		return ne 
 	}
 
 }
