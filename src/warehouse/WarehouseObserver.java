@@ -11,5 +11,6 @@ public class WarehouseObserver implements Observer
 		if(!(newHospitalDate instanceof HospitalDate)){
 			throw new IllegalArgumentException("The object given to the WarehouseObserver is not a HospitalDate.");
 		}
+		
 	}
 }
