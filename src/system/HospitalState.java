@@ -4,6 +4,7 @@ import exceptions.InvalidTimeLordException;
 import machine.MachinePool;
 import patient.PatientFileManager;
 import scheduler.Scheduler;
+import scheduler.TimeLord;
 import scheduler.task.TaskManager;
 import users.UserManager;
 

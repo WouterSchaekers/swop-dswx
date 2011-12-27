@@ -8,7 +8,7 @@ import patient.PatientFile;
 import patient.PatientFileManager;
 import scheduler.HospitalDate;
 import scheduler.Scheduler;
-import system.TimeLord;
+import scheduler.TimeLord;
 import users.UserManager;
 import warehouse.Warehouse;
 import exceptions.InvalidHospitalDateException;
