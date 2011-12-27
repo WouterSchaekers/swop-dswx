@@ -57,6 +57,7 @@ public abstract class UnscheduledTask extends Task
 		this.creationTime = creationTime;
 		this.backToBack = backToBack;
 		this.myRequirements = requirements;
+		this.duration=duration;
 	}
 //
 //	/**

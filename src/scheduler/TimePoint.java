@@ -18,28 +18,27 @@ public abstract class TimePoint implements Comparable<TimePoint>
 		@Override
 		public int compare(TimePoint o1, TimePoint o2) {
 			if (o1.compareTo(o2) == 0) {
-				if (o1 instanceof StartTimePoint && o2 instanceof StopTimePoint)
-					return -1;
-				if (o1 instanceof StopTimePoint && o2 instanceof StartTimePoint)
+				if (o1.isStart() && o2.isEnd())
 					return 1;
+				if (o1.isEnd()&& o2.isStart())
+					return -1;
 				return 0;
 			} else
 				return o1.compareTo(o2);
 		}
 	};
 	/**
-	 * This comparator compares 2 Time Points where this timepoint is a starttimepoint.
+	 * This comparator compares 2 Time Points where 
 	 */
 	public static final Comparator<TimePoint> ComparatorsEndFirst = new Comparator<TimePoint>()
 	{
 		@Override
 		public int compare(TimePoint o1, TimePoint o2) {
 			if (o1.compareTo(o2) == 0) {
-
-				if (o1 instanceof StartTimePoint&& o2 instanceof StopTimePoint)
-					return 1;
-				if (o1 instanceof StopTimePoint&& o2 instanceof StartTimePoint)
+				if (o1.isStart()&& o2.isEnd())
 					return -1;
+				if (o1.isEnd()&& o2.isStart())
+					return 1;
 				return 0;
 			} else
 				return o1.compareTo(o2);
