@@ -7,6 +7,7 @@ import scheduler.task.Schedulable;
 import scheduler.task.ScheduledTask;
 import scheduler.task.UnscheduledTask;
 import system.TimeLord;
+import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidResourceException;
 import exceptions.InvalidSchedulingRequestException;
@@ -62,8 +63,8 @@ public class Scheduler
 				.makeCorrespondingArray(occurences);
 		boolean[][] treeMatrix = makeTreeMatrix(listOfSchedulables,
 				fullOccurences);
-		if (startDate.before(this.currentSystemTime.getSystemtyme())) {
-			startDate = this.currentSystemTime.getSystemtyme();
+		if (startDate.before(this.currentSystemTime.getSystemTime())) {
+			startDate = this.currentSystemTime.getSystemTime();
 		}
 		ScheduledTask schedTask = schedule(duration, startDate, HospitalDate.END_OF_TIME,
 				listOfSchedulables, new LinkedList<Schedulable>(), treeMatrix,
@@ -289,7 +290,7 @@ public class Scheduler
 	 *            --> @see schedule()
 	 * @return --> @see schedule()
 	 */
-	private boolean[][] makeTreeMatrix(
+	boolean[][] makeTreeMatrix(
 			LinkedList<LinkedList<Schedulable>> neededSchedulables,
 			LinkedList<Integer> fullOccurences) {
 		boolean[][] treeMatrix = new boolean[fullOccurences.size()][];
@@ -374,8 +375,10 @@ public class Scheduler
 		return newTreeMatrix;
 	}
 	
-	public TimeLord getTimeLord() {
-		return ne 
+	//TODO interne types niet lekken
+	@Basic
+	public TimeLord getSystemTime() {
+		return this.currentSystemTime;
 	}
 
 }
