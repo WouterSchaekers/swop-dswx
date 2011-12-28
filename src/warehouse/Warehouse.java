@@ -6,7 +6,9 @@ import java.util.LinkedList;
 import scheduler.HospitalDate;
 import treatment.Medication;
 import be.kuleuven.cs.som.annotate.Basic;
+import exceptions.InvalidAmountException;
 import exceptions.InvalidHospitalDateException;
+import exceptions.MealException;
 import exceptions.WarehouseException;
 import exceptions.WarehouseOverCapacityException;
 
@@ -20,8 +22,8 @@ public class Warehouse
 	private final static int MAX_UNITS_OF_MEDICATION = 10;
 	private final static int MAX_UNITS_OF_MEALS = 120;
 	private int unitsOfPlaster;
-	private Collection<Medication> medication;
-	private Collection<Meal> meals;
+	private LinkedList<Medication> medication;
+	private LinkedList<Meal> meals;
 
 	private Collection<WarehouseItem> reserved;
 	private HospitalDate prevDate;
@@ -38,8 +40,8 @@ public class Warehouse
 	 */
 	public Warehouse(HospitalDate startDate)
 			throws InvalidHospitalDateException {
-		medication = new ArrayList<Medication>();
-		meals = new ArrayList<Meal>();
+		medication = new LinkedList<Medication>();
+		meals = new LinkedList<Meal>();
 		reserved = new ArrayList<WarehouseItem>();
 		this.unitsOfPlaster = MAX_UNITS_OF_PLASTER;
 		for (int i = 0; i < MAX_UNITS_OF_MEALS; i++) {
@@ -90,7 +92,7 @@ public class Warehouse
 		return amount >= 0
 				&& this.unitsOfPlaster + amount <= MAX_UNITS_OF_PLASTER;
 	}
-	
+
 	/**
 	 * This method will add medication to this hospital.
 	 * 
@@ -127,6 +129,31 @@ public class Warehouse
 			return;
 		if (removeAndReserveFrom(i, medication))
 			return;
+	}
+
+	/**
+	 * Eats amount amount of meals from this warehouse.
+	 * 
+	 * @throws MealException
+	 * @throws InvalidAmountException 
+	 */
+	public void eatMeals(int amount) throws MealException, InvalidAmountException {
+		LinkedList<Meal> newMeals = new LinkedList<Meal>();
+		// TODO: clean up code
+		if (amount > 0) {
+			if (amount < meals.size()) {
+				for (int i = amount; i < meals.size(); i++) {
+					newMeals.add(this.meals.get(i));
+				}
+			} else {
+				this.meals = newMeals;
+				throw new MealException("The warehouse ran out of meals! The people are hungry!");
+			}
+			this.meals = newMeals;
+			
+		} else {
+			throw new InvalidAmountException("Invalid amount of meals given to warehouse!");
+		}
 	}
 
 	/**
@@ -171,38 +198,42 @@ public class Warehouse
 	public boolean hasMedication(int plaster) {
 		return this.unitsOfPlaster >= plaster;
 	}
-	
+
 	@Basic
-	public HospitalDate getPreviousDate(){
+	public HospitalDate getPreviousDate() {
 		return this.prevDate;
 	}
-	
+
 	@Basic
 	public void setPreviousDate(HospitalDate newDate) {
 		this.prevDate = newDate;
 	}
-	
+
 	public int getPlaster() {
 		return this.unitsOfPlaster;
 	}
-	
-	public Collection<Medication> getMedication() {
+
+	public LinkedList<Medication> getMedication() {
 		return new LinkedList<Medication>(this.medication);
 	}
-	
-	public Collection<Meal> getMeals() {
+
+	public LinkedList<Meal> getMeals() {
 		return new LinkedList<Meal>(this.meals);
 	}
-	
+
 	public void setPlaster(int newPlasterAmount) {
 		this.unitsOfPlaster = newPlasterAmount;
 	}
-	
-	public void setMedicaton(Collection<Medication> newMedication) {
+
+	public void setMedicaton(LinkedList<Medication> newMedication) {
 		this.medication = newMedication;
 	}
-	
-	public void setMeals(Collection<Meal> newMeals) {
-		this.meals = newMeals;
+
+	public void setMeals(LinkedList<Meal> newMeals) {
+		this.meals = new LinkedList<Meal>(newMeals);
+	}
+
+	public int amountOfMeals() {
+		return this.meals.size();
 	}
 }
