@@ -75,9 +75,8 @@ public class HospitalDate
 	 * Creates a new hospitaldate, with the default start time.
 	 * @throws InvalidHospitalDateArgument 
 	 */
-	public HospitalDate() throws InvalidHospitalDateArgument {
-		this(START_YEAR, START_MONTH, START_DAY, START_HOUR, START_MINUTE,
-				START_SECOND);
+	public HospitalDate() {
+		this(0);
 	}
 
 	/**
@@ -417,7 +416,12 @@ public class HospitalDate
 	}
 
 	public static HospitalDate getNextHour(HospitalDate hospitalDate) {
-		HospitalDate roundedHospitalDate = new HospitalDate(hospitalDate.getYear(), hospitalDate.getMonth(), hospitalDate.getDay(), hospitalDate.getHour(), 0, 0);
+		HospitalDate roundedHospitalDate;
+		try {
+			roundedHospitalDate = new HospitalDate(hospitalDate.getYear(), hospitalDate.getMonth(), hospitalDate.getDay(), hospitalDate.getHour(), 0, 0);
 		return new HospitalDate(roundedHospitalDate.getTimeSinceStart() + HospitalDate.ONE_HOUR);
+		} catch (InvalidHospitalDateArgument e) {
+			return null;
+		}
 	}
 }
