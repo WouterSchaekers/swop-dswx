@@ -2,8 +2,10 @@ package patient;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 import be.kuleuven.cs.som.annotate.Basic;
-import exceptions.*;
+import exceptions.InvalidNameException;
+import exceptions.InvalidPatientFileException;
 
 /**
  * This class can be used to manage and interact with patient files.
@@ -82,11 +84,13 @@ public class PatientFileManager
 	 *            The name of the patient.
 	 * @return The patientfile of the requested patient or null if no such
 	 *         patient is found.
-	 * @throws InvalidNameException 
+	 * @throws InvalidNameException
 	 */
-	public PatientFile getPatientFileFrom(String name) throws InvalidNameException {
-		if(!isValidName(name))
-			throw new InvalidNameException("Invalid name for query in patientfile database!");
+	public PatientFile getPatientFileFrom(String name)
+			throws InvalidNameException {
+		if (!isValidName(name))
+			throw new InvalidNameException(
+					"Invalid name for query in patientfile database!");
 		for (PatientFile pf : patientFiles)
 			if (pf.getName().equalsIgnoreCase(name))
 				return pf;
@@ -95,10 +99,11 @@ public class PatientFileManager
 
 	/**
 	 * @throws InvalidPatientFileException
-	 * if(!containsFileFrom(pf))
+	 *             if(!containsFileFrom(pf))
 	 */
 	@Basic
-	public boolean patientIsDischarged(PatientFile pf) throws InvalidPatientFileException {
+	public boolean patientIsDischarged(PatientFile pf)
+			throws InvalidPatientFileException {
 		if (this.containsFileOf(pf))
 			return pf.isDischarged();
 		else
@@ -110,6 +115,28 @@ public class PatientFileManager
 	 */
 	private boolean isValidName(String n) {
 		return !n.equals("");
+	}
+
+	/**
+	 * @return A collections of patients that are currently staying in this
+	 *         hospital.
+	 */
+	private Collection<PatientFile> getActivePatients() {
+		Collection<PatientFile> rv = new LinkedList<PatientFile>();
+		for (PatientFile pf : this.patientFiles) {
+			if (!pf.isDischarged())
+				rv.add(pf);
+		}
+		return rv;
+	}
+
+	/**
+	 * 
+	 * @return The amount of patients that are currently staying in this
+	 *         hospital.
+	 */
+	public int amountOfActivePatients() {
+		return this.getActivePatients().size();
 	}
 
 }
