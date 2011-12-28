@@ -1,6 +1,5 @@
 package medicaltest;
 
-import scheduler.HospitalDate;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidTimeSlotException;
@@ -15,8 +14,7 @@ public class XRayScanFactory extends MedicalTestFactory
 	private String bodypart;
 	private int num;
 	private float zoomlevel;
-	private long duration;
-	XRayScanFactory(){setDuration(15*HospitalDate.ONE_MINUTE);}
+	XRayScanFactory(){}
 	/**
 	 * Sets the bodypart the scan is used for ( in the form of a string), this argument can not be null.
 	 * @param bodypart
@@ -53,18 +51,7 @@ public class XRayScanFactory extends MedicalTestFactory
 			throw new IllegalArgumentException("invalid number of images");
 		this.num = num;
 	}
-	/**
-	 * Sets the duration for this medical test ( in minutes)
-	 * @param duration
-	 * @throws IllegalArgumentException 
-	 * 	if the duration is != 15 min.
-	 */
-	private void setDuration(long duration)
-	{
-		if(!isValidDuration(duration))
-			throw new IllegalArgumentException("Illegal duration");
-		this.duration=duration;
-	}
+	
 	/**
 	 * Checks if all the arguments are sufficiently instantiated
 	 * @return 
@@ -75,7 +62,6 @@ public class XRayScanFactory extends MedicalTestFactory
 		rv &= isValidBodyPart(bodypart);
 		rv &= isValidZoomLevel(zoomlevel);
 		rv &= isValidNumberOfImages(num);
-		rv &= isValidDuration(duration);
 		return rv;
 	}
 	/**
@@ -102,21 +88,13 @@ public class XRayScanFactory extends MedicalTestFactory
 	private boolean isValidBodyPart(String name) {
 		return name != null;
 	}
-	/**
-	 * Checks if the duration is valid
-	 * @param duration2
-	 * @return
-	 * true if duration2 == 15 mins
-	 */
-	private boolean isValidDuration(long duration2) {
-		return duration2 == 15* HospitalDate.ONE_MINUTE;
-	}
+	
 	@Override
 	public MedicalTest create() throws InvalidNameException,
 			InvalidDurationException, InvalidTimeSlotException,
 			FactoryInstantiation {
 		if (this.ready())
-			return new XRayScan(bodypart,num,zoomlevel,duration);
+			return new XRayScan(bodypart,num,zoomlevel);
 		throw new FactoryInstantiation();
 	}
 

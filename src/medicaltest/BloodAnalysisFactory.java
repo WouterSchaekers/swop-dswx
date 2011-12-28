@@ -9,14 +9,11 @@ public class BloodAnalysisFactory extends MedicalTestFactory
 {
 	private String focus;
 	private int numberOfAnalysis;
-	private long duration;
 	/**
 	 * Default constructor, only visible in the package since you have to create 
 	 * the factories in the MedicalTestsClass
 	 */
-	BloodAnalysisFactory() {
-		setDuration(45*HospitalDate.ONE_MINUTE);
-	}
+	BloodAnalysisFactory() {}
 
 	/**
 	 * Method to set the focus of the bloodanalysis
@@ -50,7 +47,7 @@ public class BloodAnalysisFactory extends MedicalTestFactory
 		if (!ready())
 			throw new IllegalArgumentException();
 
-		return new BloodAnalysis(numberOfAnalysis, focus, duration);
+		return new BloodAnalysis(numberOfAnalysis, focus);
 	}
 
 	/**
@@ -61,7 +58,6 @@ public class BloodAnalysisFactory extends MedicalTestFactory
 	 */
 	private boolean ready() {
 		boolean rv = true;
-		rv &= isValidDuration(duration);
 		rv &= isValidFocus(focus);
 		rv &= isValidNumberOfAnalysis(numberOfAnalysis);
 		return rv;
@@ -88,17 +84,6 @@ public class BloodAnalysisFactory extends MedicalTestFactory
 	 */
 	private boolean isValidNumberOfAnalysis(int numberOfAnalysis) {
 		return numberOfAnalysis > 0;
-	}
-
-	/**
-	 * private setter to maybe use in future iteration
-	 * 
-	 * @param l
-	 */
-	private void setDuration(long l) {
-		if (!isValidDuration(l))
-			throw new IllegalArgumentException("wrong duration provided");
-		this.duration = l;
 	}
 
 	/**

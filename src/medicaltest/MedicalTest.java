@@ -12,7 +12,7 @@ import be.kuleuven.cs.som.annotate.Basic;
  */
 public abstract class MedicalTest implements Schedulable
 {
-	private final long DURATION;
+	public final long DURATION;
 	private TimeTable myTimeTable;
 	
 	/**
@@ -35,15 +35,6 @@ public abstract class MedicalTest implements Schedulable
 		this.DURATION = duration;
 		this.myTimeTable = new TimeTable();
 	}
-
-
-
-	@Basic
-	public long getDURATION() {
-		return DURATION;
-	}
-	
-
 	
 	/**
 	 * @return True if d is a valid duration for this medical test.
@@ -76,5 +67,4 @@ public abstract class MedicalTest implements Schedulable
 			HospitalDate stopDate, long duration) throws InvalidSchedulingRequestException, InvalidTimeSlotException {
 		return this.getTimeTable().getFirstFreeSlotBetween(startDate, stopDate, duration);
 	}
-
 }
