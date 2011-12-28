@@ -214,10 +214,7 @@ public class Diagnose extends Observable implements DiagnoseIN
 		return t != null;
 	}
 
-	public void disaprove(DiagnoseIN replacement) {
-		if(!isMarkedForSecOp())
-			throw new Approv
-		// TODO Auto-generated method stub
-		
+	public void disapprove(DiagnoseIN replacement) {
+		//XXX DIETERRRRRRRRRRRRRRRRRRRRRRRRR
 	}
 }
