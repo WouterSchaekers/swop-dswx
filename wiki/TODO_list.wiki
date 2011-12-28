@@ -4,8 +4,6 @@
   * Verslag schrijven
   * Meer code coverage (Junit!)
 
-Bij unscheduled classes zorgen dat die requirements lazy gemaakt worden, (dit door de voorstelling van onze requirements :) )
-
 = Wie is er momenteel waaraan bezig? =
 <p>
 Dieter: Diagnosis<p>
@@ -41,6 +39,7 @@ Wouter: SchedulerTest<p>
   * eten
   * warehouse
   * warehouseadmin
+  * Bij unscheduled classes zorgen dat die requirements lazy gemaakt worden, (dit door de voorstelling van onze requirements :) )
 
 = Next Iteration =
   * factories maken voor Medication & Machine.
