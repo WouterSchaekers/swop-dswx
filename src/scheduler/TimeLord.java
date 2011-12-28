@@ -10,8 +10,6 @@ import java.util.Observer;
 public class TimeLord extends Observable
 {
 	private HospitalDate systemTime;
-	private LinkedList<Observer> observers;
-	
 	/**
 	 * Constructor that will create a new TimeLord that will have its current
 	 * system time as the beginning of time (@see: HospitalDate)
