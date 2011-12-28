@@ -3,10 +3,11 @@ package scheduler;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
-import be.kuleuven.cs.som.annotate.Basic;
+import patient.PatientFile;
 import scheduler.task.Schedulable;
 import scheduler.task.scheduled.ScheduledTask;
 import scheduler.task.unscheduled.UnscheduledTask;
+import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidResourceException;
 import exceptions.InvalidSchedulingRequestException;
@@ -23,16 +24,19 @@ public class Scheduler
 
 	/**
 	 * Default constructor. Will initialise time lord field.
+	 * 
 	 * @param lord
-	 * The timelord to be appointed to this scheduler.
+	 *            The timelord to be appointed to this scheduler.
 	 * @throws InvalidTimeLordException
 	 */
-	public Scheduler(TimeLord lord) throws InvalidTimeLordException
-	{
-		if(this.canHaveAsTimeLord(lord))
-			this.currentSystemTime=lord;
-		else throw new InvalidTimeLordException("Invalid timelord given to scheduler!");
+	public Scheduler(TimeLord lord) throws InvalidTimeLordException {
+		if (this.canHaveAsTimeLord(lord))
+			this.currentSystemTime = lord;
+		else
+			throw new InvalidTimeLordException(
+					"Invalid timelord given to scheduler!");
 	}
+
 	/**
 	 * Schedule method where only an UnscheduledTask is given.
 	 * 
@@ -46,7 +50,7 @@ public class Scheduler
 	public ScheduledTask schedule(UnscheduledTask unscheduledTask)
 			throws InvalidTimeSlotException, InvalidSchedulingRequestException,
 			InvalidResourceException {
-		
+
 		long duration = unscheduledTask.getDuration();
 		LinkedList<LinkedList<Schedulable>> listOfSchedulables = new LinkedList<LinkedList<Schedulable>>(
 				unscheduledTask.getResourcePool());
@@ -65,19 +69,23 @@ public class Scheduler
 		if (startDate.before(this.currentSystemTime.getSystemTime())) {
 			startDate = this.currentSystemTime.getSystemTime();
 		}
-		ScheduledTask schedTask = schedule(duration, startDate, HospitalDate.END_OF_TIME,
-				listOfSchedulables, new LinkedList<Schedulable>(), treeMatrix,
-				fullOccurences, 0);
-		if(unscheduledTask.mustBeBackToBack() && !this.isBackToBack(startDate, schedTask.getResources().get(0))){
+		PatientFile patient = unscheduledTask.getPatient();
+		ScheduledTask schedTask = schedule(patient, duration, startDate,
+				HospitalDate.END_OF_TIME, listOfSchedulables,
+				new LinkedList<Schedulable>(), treeMatrix, fullOccurences, 0);
+		if (unscheduledTask.mustBeBackToBack()
+				&& !this.isBackToBack(startDate, schedTask.getResources()
+						.get(0))) {
 			boolean isScheduled = false;
-			while(!isScheduled){
-				try{
-					schedTask = schedule(duration, startDate, new HospitalDate(startDate.getTimeSinceStart() + duration),
-							listOfSchedulables, new LinkedList<Schedulable>(), treeMatrix,
-							fullOccurences, 0);
+			while (!isScheduled) {
+				try {
+					schedTask = schedule(patient, duration, startDate, new HospitalDate(
+							startDate.getTimeSinceStart() + duration),
+							listOfSchedulables, new LinkedList<Schedulable>(),
+							treeMatrix, fullOccurences, 0);
 					isScheduled = true;
+				} catch (InvalidSchedulingRequestException e) {
 				}
-				catch(InvalidSchedulingRequestException e){}
 			}
 		}
 
@@ -123,17 +131,12 @@ public class Scheduler
 	 * @throws InvalidTimeSlotException
 	 * @throws InvalidResourceException
 	 */
-	private ScheduledTask schedule(
-			long duration,
-			HospitalDate startDate,
+	private ScheduledTask schedule(PatientFile patient, long duration, HospitalDate startDate,
 			HospitalDate stopDate,
 			LinkedList<LinkedList<Schedulable>> neededSchedulables,
-			LinkedList<Schedulable> usedSchedulables, 
-			boolean[][] treeMatrix,
-			LinkedList<Integer> fullOccurences,
-			int iteration
-			)
-		throws InvalidSchedulingRequestException, InvalidTimeSlotException,
+			LinkedList<Schedulable> usedSchedulables, boolean[][] treeMatrix,
+			LinkedList<Integer> fullOccurences, int iteration)
+			throws InvalidSchedulingRequestException, InvalidTimeSlotException,
 			InvalidResourceException {
 
 		int curCollectionToSchedule = fullOccurences.get(iteration);
@@ -154,13 +157,13 @@ public class Scheduler
 		updateTreeMatrix(newTreeMatrix, bestOption, fullOccurences, iteration);
 		if (iteration < fullOccurences.size() - 1) {
 			try {
-				return schedule(duration, newStartDate, newStopDate,
+				return schedule(patient, duration, newStartDate, newStopDate,
 						neededSchedulables, newUsedSchedulables, newTreeMatrix,
 						fullOccurences, iteration + 1);
 			} catch (InvalidSchedulingRequestException e) {
 				HospitalDate nextHospitalDate = getNextHospitalDate(
 						curSchedList, newStartDate, newStopDate);
-				return schedule(duration, nextHospitalDate, stopDate,
+				return schedule(patient, duration, nextHospitalDate, stopDate,
 						neededSchedulables, usedSchedulables, treeMatrix,
 						fullOccurences, iteration);
 			}
@@ -171,11 +174,12 @@ public class Scheduler
 					.getDate().getTimeSinceStart() + duration);
 			TimeSlot timeSlotToReturn = new TimeSlot(startOfTimeSlot,
 					endOfTimeSlot);
-			return new ScheduledTask(newUsedSchedulables, timeSlotToReturn);
+			return new ScheduledTask(patient, newUsedSchedulables, timeSlotToReturn);
 		}
 	}
-	
-	private boolean isBackToBack(HospitalDate startDate, Schedulable schedulable) throws InvalidTimeSlotException{
+
+	private boolean isBackToBack(HospitalDate startDate, Schedulable schedulable)
+			throws InvalidTimeSlotException {
 		return schedulable.getTimeTable().isBackToBack(startDate);
 	}
 
@@ -314,8 +318,8 @@ public class Scheduler
 	 * 
 	 * @return The updated treematrix.
 	 */
-	private boolean[][] updateTreeMatrix(boolean[][] treeMatrix, int bestOption,
-			LinkedList<Integer> fullOccurences, int iteration) {
+	private boolean[][] updateTreeMatrix(boolean[][] treeMatrix,
+			int bestOption, LinkedList<Integer> fullOccurences, int iteration) {
 		int occurenceNumber = fullOccurences.get(iteration);
 		for (int i = 1; iteration + i < fullOccurences.size()
 				&& occurenceNumber == fullOccurences.get(iteration + i); i++) {
@@ -323,9 +327,6 @@ public class Scheduler
 		}
 		return treeMatrix;
 	}
-
-
-
 
 	/**
 	 * Will check if the called method doesn't want to e.g. schedule more nurses
@@ -346,7 +347,7 @@ public class Scheduler
 		}
 		return true;
 	}
-	
+
 	/**
 	 * @return True if t is a valid time lord for this scheduler.
 	 */
@@ -378,11 +379,9 @@ public class Scheduler
 		}
 		return newTreeMatrix;
 	}
-	
-	//TODO interne types niet lekken
+
 	@Basic
 	public TimeLord getSystemTime() {
-		return this.currentSystemTime;
+		return new TimeLord(this.currentSystemTime.getSystemTime());
 	}
-
 }

@@ -105,5 +105,5 @@ public abstract class UnscheduledTask extends Task
 	@Basic
 	public abstract LinkedList<Integer> getOccurences();
 
-	protected abstract LinkedList<LinkedList<Schedulable>> getResourcePool();
+	public abstract LinkedList<LinkedList<Schedulable>> getResourcePool();
 }
