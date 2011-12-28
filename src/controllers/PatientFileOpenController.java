@@ -78,4 +78,10 @@ public class PatientFileOpenController
 		return this.doctor;
 	}
 
+	public void closePatientFile() {
+		this.data=null;
+		this.doctor=null;
+		this.lc=null;
+	}
+
 }
