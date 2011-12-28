@@ -2,6 +2,7 @@ package users;
 
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Observable;
 import patient.PatientFileManager;
 import scheduler.HospitalDate;
 import treatment.Medication;
@@ -22,6 +23,7 @@ public class WarehouseAdmin extends User
 {
 	private Warehouse warehouse;
 	private PatientFileManager pfm;
+	public Observable observable;
 
 	/**
 	 * Default constructor. Will appoint this admin his warehouse.
@@ -87,7 +89,11 @@ public class WarehouseAdmin extends User
 	 */
 	public void update(HospitalDate newTime) {
 		this.removeExpiredItems(newTime);
-		this.updateMeals(newTime);
+		try {
+			this.updateMeals(newTime);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		this.warehouse.setPreviousDate(newTime);
 	}
 
@@ -107,33 +113,33 @@ public class WarehouseAdmin extends User
 
 	/**
 	 * Updates the amount of meals after 1 meal. Also
+	 * 
+	 * @throws InvalidHospitalDateArgument
+	 * @throws InvalidAmountException
+	 * @throws MealException
 	 */
-	private void updateMeals(HospitalDate newTime) {
-		try {
-			int amountOfPatients = this.pfm.amountOfActivePatients();
-			int amountOfMealsEaten = this.amountOfMealsTill(newTime) * amountOfPatients;
-			this.warehouse.eatMeals(amountOfMealsEaten);
-			this.orderMoreMeals(newTime);
-		} catch (MealException e) {
-			System.out.println(e.getMessage());
-		} catch (InvalidAmountException e) {
-			System.out.println(e.getMessage());
-		} catch (InvalidHospitalDateArgument e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	private void updateMeals(HospitalDate newTime)
+			throws InvalidHospitalDateArgument, MealException,
+			InvalidAmountException {
+		int amountOfPatients = this.pfm.amountOfActivePatients();
+		int amountOfMealsEaten = this.amountOfMealsTill(newTime)
+				* amountOfPatients;
+		this.warehouse.eatMeals(amountOfMealsEaten);
+		this.orderMoreMeals(newTime);
+
 	}
-	
-	//TODO
+
+	// TODO
 	private void updateOrders(HospitalDate newDate) {
-		
+
 	}
 
 	/**
 	 * @return The time till the next meal.
-	 * @throws InvalidHospitalDateArgument 
+	 * @throws InvalidHospitalDateArgument
 	 */
-	private long timeToNextMeal(HospitalDate nextDate) throws InvalidHospitalDateArgument {
+	private long timeToNextMeal(HospitalDate nextDate)
+			throws InvalidHospitalDateArgument {
 		HospitalDate[] meals = {
 				new HospitalDate(nextDate.getYear(), nextDate.getMonth(),
 						nextDate.getDay(), 8, 0, 0),
@@ -141,7 +147,8 @@ public class WarehouseAdmin extends User
 						nextDate.getDay(), 12, 0, 0),
 				new HospitalDate(nextDate.getYear(), nextDate.getMonth(),
 						nextDate.getDay(), 18, 0, 0) };
-		HospitalDate breakfastNextDay = new HospitalDate(meals[0].getTimeSinceStart() + HospitalDate.ONE_DAY);
+		HospitalDate breakfastNextDay = new HospitalDate(
+				meals[0].getTimeSinceStart() + HospitalDate.ONE_DAY);
 		for (int i = 0; i < meals.length; i++) {
 			if (meals[i].after(nextDate))
 				return nextDate.getTimeBetween(meals[i]);
@@ -152,34 +159,43 @@ public class WarehouseAdmin extends User
 	}
 
 	/**
-	 * @return The amount of meals between the prev date of warehouse and newTime.
-	 * @throws InvalidHospitalDateArgument 
+	 * @return The amount of meals between the prev date of warehouse and
+	 *         newTime.
+	 * @throws InvalidHospitalDateArgument
 	 */
-	private int amountOfMealsTill(HospitalDate newTime) throws InvalidHospitalDateArgument {
+	private int amountOfMealsTill(HospitalDate newTime)
+			throws InvalidHospitalDateArgument {
 		int amountOfMeals = 0;
-		HospitalDate nextDate = new HospitalDate(this.warehouse.getPreviousDate());
+		HospitalDate nextDate = new HospitalDate(
+				this.warehouse.getPreviousDate());
 		long nextMealTime = 0;
 
 		while (nextDate.before(newTime)) {
 			nextMealTime = this.timeToNextMeal(nextDate);
-			nextDate = new HospitalDate(nextDate.getTimeSinceStart() + nextMealTime);
+			nextDate = new HospitalDate(nextDate.getTimeSinceStart()
+					+ nextMealTime);
 			if (nextDate.before(newTime))
 				amountOfMeals++;
 		}
 		return amountOfMeals;
 	}
-	
+
 	/**
-	 * @return The amount of orders between the prev date of warehouse and newTime.
-	 * @throws InvalidHospitalDateArgument 
+	 * @return The amount of orders between the prev date of warehouse and
+	 *         newTime.
+	 * @throws InvalidHospitalDateArgument
 	 */
-	private int amountOfOrdersTill(HospitalDate lastDate) throws InvalidHospitalDateArgument {
-		HospitalDate nextDate = new HospitalDate(this.warehouse.getPreviousDate());
-		HospitalDate orderTime = new HospitalDate(nextDate.getYear(), nextDate.getMonth(), nextDate.getDay(), 23,59,00);
+	private int amountOfOrdersTill(HospitalDate lastDate)
+			throws InvalidHospitalDateArgument {
+		HospitalDate nextDate = new HospitalDate(
+				this.warehouse.getPreviousDate());
+		HospitalDate orderTime = new HospitalDate(nextDate.getYear(),
+				nextDate.getMonth(), nextDate.getDay(), 23, 59, 00);
 		int rv = 0;
-		while(nextDate.before(lastDate)) {
+		while (nextDate.before(lastDate)) {
 			rv++;
-			orderTime = new HospitalDate(orderTime.getTimeSinceStart() + HospitalDate.ONE_DAY);
+			orderTime = new HospitalDate(orderTime.getTimeSinceStart()
+					+ HospitalDate.ONE_DAY);
 		}
 		return rv;
 	}
@@ -191,6 +207,6 @@ public class WarehouseAdmin extends User
 	 *            The new system time.
 	 */
 	private void orderMoreMeals(HospitalDate newTime) {
-		//TODO
+		// TODO
 	}
 }
