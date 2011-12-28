@@ -1,10 +1,10 @@
 package ui;
 
-import ui.createuser.CreateUser;
-import ui.loginchain.IsAllowedToLogin;
-import ui.logoutchain.LogOut;
-import ui.ordermedicaltestchain.OrderMedicalTest;
-import ui.registerpatientchain.RegisterPatient;
+import ui.addhospitalstaff.CreateUser;
+import ui.login.IsAllowedToLogin;
+import ui.logout.LogOut;
+import ui.ordermedicaltest.OrderMedicalTest;
+import ui.registerpatient.RegisterPatient;
 
 /**
  * This class represents a menu to select what a user wants to do. You can
