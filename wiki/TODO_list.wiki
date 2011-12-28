@@ -6,18 +6,10 @@
       * Als de Tasks niet onmiddellijk gescheduled kunnen worden, komen ze in de task queue van de Taskmanager.
       * Als de taken wel onmiddellijk gescheduled kunnen worden, schedulen we ze.
       * Task manager moet verwittigd worden om zijn queues te updaten op de gepaste plaatsten in de usecases.
-  * AdvanceTime()
-  * Een oplossing voor het system-package en de SystemStarter class
   * usecases iteratie 1, en vorige fixen.
   * nieuwe usecases van iteratie 2
-  * als de tijd vooruit gaat, moeten de volgende dingen gebeuren:
-    * Alle TimeTables moeten geupdate worden.
-    * Het warehouse moet geupdate worden.
-    * De TaskManager moet zijn queues updaten, indien er tijdsafhankelijke constraints zijn voor Schedulables.
-    * ...
   * Documentatie schrijven
   * Verslag schrijven
-  * ...
   * Unscheduled classes maken!
      *Xray
      *BloodTest
@@ -31,7 +23,11 @@ Bij unscheduled classes zorgen dat die requirements lazy gemaakt worden, (dit do
 = Wie is er momenteel waaraan bezig? =
 <p>
 Dieter: eXtreme-programming<p>
-Stefaan: eXtreme-programming, usecases<p>
+Stefaan:   * als de tijd vooruit gaat, moeten de volgende dingen gebeuren:
+    * Alle TimeTables moeten geupdate worden.
+    * Het warehouse moet geupdate worden.
+    * De TaskManager moet zijn queues updaten, indien er tijdsafhankelijke constraints zijn voor Schedulables.
+    * ...<p>
 Wouter: scheduler nakijken <p>
 
 = Things that have been crossed off = 
