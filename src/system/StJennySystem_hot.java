@@ -24,11 +24,11 @@ public class StJennySystem_hot
 		try {
 			state.userManager.createHospitalAdmin("Wouter");
 		} catch (UserAlreadyExistsException e) {
-			System.out.println("Fatal error at system startup, wouter already exists");
+			System.out.println("Fatal error at system startup, Wouter already exists.");
 		} catch (InvalidNameException e) {
-			System.out.println("Fatal error at system startup, wouter is ");
+			System.out.println("Fatal error at system startup, Wouter is cool.");
 		} catch (InvalidTimeSlotException e) {
-			// seriously we didnt fuck up this hard :p
+			System.out.println("Fatal error at system startup.");
 		}
 	}
 	
