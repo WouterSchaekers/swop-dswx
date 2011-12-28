@@ -23,7 +23,7 @@ public abstract class UnscheduledMedicalTest extends UnscheduledTask
 			throws InvalidResourceException, InvalidDurationException,
 			InvalidOccurencesException, InvalidAmountException,
 			InvalidHospitalDateException {
-		super(p, duration, currentSystemTime, 60 * HospitalDate.ONE_MINUTE,
+		super(p, duration, currentSystemTime, HospitalDate.ONE_HOUR,
 				true);
 		this.userManager = userManager;
 		this.machinePool = machinePool;

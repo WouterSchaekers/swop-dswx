@@ -61,9 +61,4 @@ public class Cast extends Treatment
 			throw new InvalidLengthException("Invalid length assigned to setLength() in Cast!");
 		this.length = length;
 	}
-	public boolean nyan()
-	{
-		System.out.println("nyab");
-		return nyan();
-	}
 }
