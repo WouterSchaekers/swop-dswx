@@ -87,7 +87,6 @@ public class WarehouseAdmin extends User
 	public void update(HospitalDate newTime) {
 		this.removeExpiredItems(newTime);
 		this.updateMeals(newTime);
-
 		this.warehouse.setPreviousDate(newTime);
 	}
 
@@ -110,27 +109,7 @@ public class WarehouseAdmin extends User
 	 */
 	private void updateMeals(HospitalDate newTime) {
 		int amountOfPatients = this.pfm.amountOfActivePatients();
-		int amountOfMealsEaten = 0;
-		HospitalDate nextDate = new HospitalDate(this.warehouse.getPreviousDate());
-		long nextMeals[] = new long[3];
-		int amountOfOrdersToPlace = 0;
-
-		 do {
-			amountOfOrdersToPlace++;
-			 nextMeals = this.timeToNextMeals(nextDate);
-			for (int i = 0; i < nextMeals.length; i++) {
-				if (nextMeals[i] < 24)
-					amountOfMealsEaten++;
-			}
-			nextDate = new HospitalDate(nextDate.getTimeSinceStart()
-					+ HospitalDate.ONE_DAY);
-		} while (nextDate.before(newTime));
-		
-		 if(newTime.getHour() < 23 && newTime.getMinute() < 59)
-			 amountOfOrdersToPlace--;
-		 		 
-		 
-		amountOfMealsEaten *= amountOfPatients;
+		int amountOfMealsEaten = this.amountOfMealsTill(newTime) * amountOfPatients;
 		try {
 			this.warehouse.eatMeals(amountOfMealsEaten);
 		} catch (MealException e) {
@@ -138,21 +117,60 @@ public class WarehouseAdmin extends User
 		} catch (InvalidAmountException e) {
 			System.out.println(e.getMessage());
 		}
-
+	}
+	
+	private void updateOrders(HospitalDate newDate) {
+		
 	}
 
 	/**
-	 * @return The time till the next 3 meals
+	 * @return The time till the next meal.
 	 */
-	private long[] timeToNextMeals(HospitalDate nextDate) {
-		long rv[] = new long[3];
-		long mealtimes[] = { 8, 12, 18 };
+	private long timeToNextMeal(HospitalDate nextDate) {
+		HospitalDate[] meals = {
+				new HospitalDate(nextDate.getYear(), nextDate.getMonth(),
+						nextDate.getDay(), 8, 0, 0),
+				new HospitalDate(nextDate.getYear(), nextDate.getMonth(),
+						nextDate.getDay(), 12, 0, 0),
+				new HospitalDate(nextDate.getYear(), nextDate.getMonth(),
+						nextDate.getDay(), 18, 0, 0) };
+		HospitalDate breakfastNextDay = new HospitalDate(meals[0].getTimeSinceStart() + HospitalDate.ONE_DAY);
+		for (int i = 0; i < meals.length; i++) {
+			if (meals[i].after(nextDate))
+				return nextDate.getTimeBetween(meals[i]);
+		}
+		// if breakfast, lunch and dinner have already passed, the next meal
+		// will be tomorrow and breakfast.
+		return nextDate.getTimeBetween(breakfastNextDay);
+	}
 
-		for (int i = 0; i < rv.length; i++) {
-			if (nextDate.getHour() > mealtimes[i]) // meal is next day
-				rv[i] = nextDate.getHour() + 24 - mealtimes[i];
-			else
-				rv[i] = nextDate.getHour() - mealtimes[i];
+	/**
+	 * @return The amount of meals between the prev date of warehouse and newTime.
+	 */
+	private int amountOfMealsTill(HospitalDate newTime) {
+		int amountOfMeals = 0;
+		HospitalDate nextDate = new HospitalDate(this.warehouse.getPreviousDate());
+		long nextMealTime = 0;
+
+		while (nextDate.before(newTime)) {
+			nextMealTime = this.timeToNextMeal(nextDate);
+			nextDate = new HospitalDate(nextDate.getTimeSinceStart() + nextMealTime);
+			if (nextDate.before(newTime))
+				amountOfMeals++;
+		}
+		return amountOfMeals;
+	}
+	
+	/**
+	 * @return The amount of orders between the prev date of warehouse and newTime.
+	 */
+	private int amountOfOrdersTill(HospitalDate lastDate) {
+		HospitalDate nextDate = new HospitalDate(this.warehouse.getPreviousDate());
+		HospitalDate orderTime = new HospitalDate(nextDate.getYear(), nextDate.getMonth(), nextDate.getDay(), 23,59,00);
+		int rv = 0;
+		while(nextDate.before(lastDate)) {
+			rv++;
+			orderTime = new HospitalDate(orderTime.getTimeSinceStart() + HospitalDate.ONE_DAY);
 		}
 		return rv;
 	}
@@ -164,6 +182,6 @@ public class WarehouseAdmin extends User
 	 *            The new system time.
 	 */
 	private void orderMoreMeals(HospitalDate newTime) {
-		
+
 	}
 }
