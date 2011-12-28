@@ -1,11 +1,13 @@
 package scheduler;
 
 import java.util.LinkedList;
+import patient.PatientFile;
 import scheduler.task.Schedulable;
 import scheduler.task.unscheduled.UnscheduledTask;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidHospitalDateException;
+import exceptions.InvalidNameException;
 import exceptions.InvalidOccurencesException;
 import exceptions.InvalidResourceException;
 
@@ -25,8 +27,8 @@ public class UnscheduledTaskTestClass extends UnscheduledTask
 			LinkedList<LinkedList<Schedulable>> s, LinkedList<Integer> occ,
 			boolean backToBack) throws InvalidResourceException,
 			InvalidDurationException, InvalidOccurencesException,
-			InvalidAmountException, InvalidHospitalDateException {
-		super(null, duration, creationTime, extraTime, backToBack);
+			InvalidAmountException, InvalidHospitalDateException, InvalidNameException {
+		super(new PatientFile("Dieter"), duration, creationTime, extraTime, backToBack);
 		this.requirements = r;
 		this.schedulables = s;
 		this.occurences = occ;

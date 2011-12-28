@@ -363,4 +363,9 @@ public class HospitalDate {
 			return this.gregorianCalendar.equals(((HospitalDate) o).gregorianCalendar);
 		}return false;
 	}
+
+	public static HospitalDate getNextHour(HospitalDate hospitalDate) {
+		HospitalDate roundedHospitalDate = new HospitalDate(hospitalDate.getYear(), hospitalDate.getMonth(), hospitalDate.getDay(), hospitalDate.getHour(), 0, 0);
+		return new HospitalDate(roundedHospitalDate.getTimeSinceStart() + HospitalDate.ONE_HOUR);
+	}
 }
