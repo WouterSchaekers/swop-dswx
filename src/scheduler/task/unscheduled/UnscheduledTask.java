@@ -44,10 +44,11 @@ public abstract class UnscheduledTask extends Task
 	 * @throws InvalidAmountException
 	 * @throws InvalidHospitalDateException
 	 */
-	public UnscheduledTask(PatientFile p, long duration, HospitalDate creationTime,
-			boolean backToBack) throws InvalidResourceException,
-			InvalidDurationException, InvalidOccurencesException,
-			InvalidAmountException, InvalidHospitalDateException {
+	public UnscheduledTask(PatientFile p, long duration,
+			HospitalDate creationTime, long extraTime, boolean backToBack)
+			throws InvalidResourceException, InvalidDurationException,
+			InvalidOccurencesException, InvalidAmountException,
+			InvalidHospitalDateException {
 		super(p);
 		if (!isValidAmountOfExtraTime(extraTime))
 			throw new InvalidAmountException(
@@ -95,14 +96,14 @@ public abstract class UnscheduledTask extends Task
 	public boolean mustBeBackToBack() {
 		return this.backToBack;
 	}
-	
+
 	/**
 	 * @return True if this unscheduled task is ready to be scheduled.
 	 */
 	public abstract boolean canBeScheduled();
-	
+
 	@Basic
 	public abstract LinkedList<Integer> getOccurences();
-	
+
 	protected abstract LinkedList<LinkedList<Schedulable>> getResourcePool();
 }
