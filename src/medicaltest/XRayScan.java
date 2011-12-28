@@ -1,14 +1,15 @@
 package medicaltest;
 
+import scheduler.HospitalDate;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidTimeSlotException;
 
 public class XRayScan extends MedicalTest
 {
-	// the name of the test, used to determine what kind of test it was later
-	// on.
+	public final static long DURATION = 15 * HospitalDate.ONE_MINUTE;
 	private final String bodypart;
+
 	public int getNum() {
 		return num;
 	}
@@ -33,18 +34,20 @@ public class XRayScan extends MedicalTest
 	private float zoomlevel;
 
 	/**
-	 * Default constructor. 
-	 * @param zoomlevel 
-	 * @param num 
-	 * @throws InvalidTimeSlotException 
+	 * Default constructor.
+	 * 
+	 * @param zoomlevel
+	 * @param num
+	 * @throws InvalidTimeSlotException
 	 * @see MedicalTest("XRayScan",15,patientFile)
 	 */
-
-	XRayScan(String bodypart, int num, float zoomlevel,long duration) throws InvalidNameException, InvalidDurationException, InvalidTimeSlotException {
-		super(duration);
-		this.bodypart=bodypart;
-		this.num=num;
-		this.zoomlevel=zoomlevel;
+	XRayScan(String bodypart, int num, float zoomlevel)
+			throws InvalidNameException, InvalidDurationException,
+			InvalidTimeSlotException {
+		super(XRayScan.DURATION);
+		this.bodypart = bodypart;
+		this.num = num;
+		this.zoomlevel = zoomlevel;
 	}
 
 }

@@ -1,9 +1,7 @@
 package scheduler.task.unscheduled.tests;
 
-import help.Collections;
-import help.Filter;
 import java.util.LinkedList;
-import machine.BloodAnalyser;
+import machine.MachinePool;
 import patient.PatientFile;
 import scheduler.HospitalDate;
 import scheduler.task.Schedulable;
@@ -17,38 +15,31 @@ import exceptions.InvalidResourceException;
 
 public abstract class UnscheduledMedicalTest extends UnscheduledTask
 {
-	private UserManager manager;
+	private UserManager userManager;
+	protected MachinePool machinePool;
 
 	public UnscheduledMedicalTest(PatientFile p, long duration,
-			HospitalDate currentSystemTime, UserManager manager)
+			HospitalDate currentSystemTime, UserManager userManager, MachinePool machinePool)
 			throws InvalidResourceException, InvalidDurationException,
 			InvalidOccurencesException, InvalidAmountException,
 			InvalidHospitalDateException {
 		super(p, duration, currentSystemTime, 60 * HospitalDate.ONE_MINUTE,
 				true);
-		this.manager = manager;
+		this.userManager = userManager;
+		this.machinePool = machinePool;
 	}
 	
 	@Override
-	public boolean canBeScheduled(){
-		
+	public boolean canBeScheduled() {
+		return this.getMachinePool().size() > 0 && this.userManager.getAllNurses().size() > 0;
 	}
 
 	@Override
 	public LinkedList<LinkedList<Schedulable>> getResourcePool() {
 		LinkedList<LinkedList<Schedulable>> rv = new LinkedList<LinkedList<Schedulable>>();
 		LinkedList<Schedulable> l = new LinkedList<Schedulable>();
-		l.addAll(this.manager.getAllNurses());
+		l.addAll(this.userManager.getAllNurses());
 		rv.add(l);
-		LinkedList<Schedulable> machine = new LinkedList<Schedulable>();
-		machine.addAll(Collections.filter(pool.getAllMachines(), new Filter()
-		{
-			@Override
-			public <T> boolean allows(T arg) {
-				return arg instanceof BloodAnalyser;
-			}
-		}));
-		rv.add(machine);
 		return rv;
 	}
 
@@ -59,5 +50,6 @@ public abstract class UnscheduledMedicalTest extends UnscheduledTask
 		rv.add(1);
 		return rv;
 	}
-
+	
+	protected abstract LinkedList<Schedulable> getMachinePool();
 }

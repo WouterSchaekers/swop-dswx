@@ -11,12 +11,11 @@ import exceptions.InvalidTimeSlotException;
 public class UltraSoundScanFactory extends MedicalTestFactory
 {
 	private String scaninfo;
-	private long duration;
 	private boolean recordVidSet=false;
 	private boolean recordImageSet=false;
 	private boolean recordVid;
 	private boolean recordImages;
-	UltraSoundScanFactory(){setDuration(30*HospitalDate.ONE_MINUTE);}
+	UltraSoundScanFactory(){}
 	/**
 	 * Sets if there should be a video recoded
 	 * @param recordVid
@@ -45,7 +44,7 @@ public class UltraSoundScanFactory extends MedicalTestFactory
 	public MedicalTest create() throws InvalidNameException, InvalidDurationException, InvalidTimeSlotException {
 		if(!ready())
 			throw new IllegalArgumentException();
-		return new UltraSoundScan(scaninfo,recordVid,recordImages,duration);
+		return new UltraSoundScan(scaninfo,recordVid,recordImages);
 	}
 	
 	@Override
@@ -64,18 +63,7 @@ public class UltraSoundScanFactory extends MedicalTestFactory
 		rv  &=isValidScanInfo(scaninfo);
 		return rv;
 	}
-	/**
-	 * Sets the duration of this scan
-	 * @param duration
-	 * @throws IllegalArgumentException()
-	 * 	if the passed duration is invalid (!= 30 min).
-	 */
-	private void setDuration(long duration) {
-		if(!isValidDuration(duration))
-			throw new IllegalArgumentException();
-		this.duration=duration;
-		
-	}
+	
 	/**
 	 * Checks if the provided argument is a valid duration
 	 * @param duration2

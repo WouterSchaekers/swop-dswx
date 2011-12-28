@@ -1,5 +1,6 @@
 package medicaltest;
 
+import scheduler.HospitalDate;
 import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidNameException;
@@ -19,18 +20,19 @@ public class BloodAnalysis extends MedicalTest
 	 */
 	private final String focus;
 
+	public final static long DURATION = 45 * HospitalDate.ONE_MINUTE;
+
 	/**
 	 * Constructor called by the BloodAnalysisFactory
-	 * @throws InvalidTimeSlotException 
+	 * 
+	 * @throws InvalidTimeSlotException
 	 */
-	 BloodAnalysis(int amount,String focus,long duration) throws InvalidNameException,
+	BloodAnalysis(int amount, String focus) throws InvalidNameException,
 			InvalidDurationException, InvalidTimeSlotException {
-		super(duration);
-		this.amount=amount;
-		this.focus=focus;
+		super(BloodAnalysis.DURATION);
+		this.amount = amount;
+		this.focus = focus;
 	}
-
-	
 
 	@Basic
 	public int getAmount() {
@@ -41,6 +43,5 @@ public class BloodAnalysis extends MedicalTest
 	public String getFocus() {
 		return this.focus;
 	}
-	
-	
+
 }
