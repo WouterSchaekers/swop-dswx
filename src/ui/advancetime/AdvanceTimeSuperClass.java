@@ -37,9 +37,10 @@ public class AdvanceTimeSuperClass extends Usecase
 		
 		String s = date.substring(0, 2);
 		int day = new Integer(s);
+		Integer.parseInt(s);
 		 s = date.substring(0, 2);
 		int month = new Integer(s);
-		 s = date.substring(0, 2);
+		 s = date.substring(5, 7);
 		int year = new Integer(s);
 		 s = date.substring(0, 2);
 		int hour = new Integer(s);
@@ -53,6 +54,10 @@ public class AdvanceTimeSuperClass extends Usecase
 		System.out.println("succesfull !");
 		// TODO Auto-generated method stub
 		return new SelectUsecase(data);
+	}
+	public static void main(String[] args) {
+		HospitalDate d = new HospitalDate(1999,00,1,1,1,1);
+		System.out.println(d);
 	}
 	
 }
