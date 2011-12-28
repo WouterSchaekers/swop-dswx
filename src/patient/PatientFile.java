@@ -3,6 +3,7 @@ package patient;
 import java.util.*;
 import scheduler.HospitalDate;
 import be.kuleuven.cs.som.annotate.Basic;
+import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.PatientFileIN;
 import exceptions.*;
 
@@ -65,7 +66,7 @@ public class PatientFile implements PatientFileIN
 	/**
 	 * @return True if d is a valid Diagnose.
 	 */
-	private boolean isValidDiagnose(Diagnose d) {
+	private boolean isValidDiagnose(DiagnoseIN d) {
 		return d != null;
 	}
 	
@@ -119,5 +120,12 @@ public class PatientFile implements PatientFileIN
 	@Override
 	public String toString() {
 		return name;
+	}
+
+	@Override
+	public Collection<DiagnoseIN> getAlldiagnosis() {
+		Collection<DiagnoseIN> rv = new ArrayList<DiagnoseIN>();
+		rv.addAll(diagnosis);
+		return rv;
 	}
 }

@@ -2,6 +2,7 @@ package treatment;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import controllers.interfaces.TreatmentIN;
 import exceptions.InvalidResultException;
 import be.kuleuven.cs.som.annotate.Basic;
 import result.Result;
@@ -9,7 +10,7 @@ import result.Result;
 /**
  * This class is the superclass of all treatments.
  */
-public abstract class Treatment
+public abstract class Treatment implements TreatmentIN
 {
 
 	private Collection<Result> results = new ArrayList<Result>();

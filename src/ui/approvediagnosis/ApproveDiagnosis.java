@@ -1,6 +1,7 @@
 package ui.approvediagnosis;
 
 import controllers.ApproveDiagnosisController;
+import exceptions.InvalidLoginControllerException;
 import ui.Usecase;
 import ui.UserinterfaceData;
 
@@ -14,7 +15,13 @@ public class ApproveDiagnosis extends ApproveDiagnosisSuper
 	@Override
 	public Usecase Execute() {
 		//create controller!
-		ApproveDiagnosisController controller=new ApproveDiagnosisController(data.getDataPasser());
+		ApproveDiagnosisController controller = null;
+		try {
+			controller = new ApproveDiagnosisController(data.getLoginController());
+		} catch (InvalidLoginControllerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.chaindata.add(controller);
 		return new ShowDiagnosisOptionsToApprove(data,chaindata);
 	}
