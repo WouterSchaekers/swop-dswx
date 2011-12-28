@@ -74,7 +74,7 @@ public class WarehouseAdmin extends User
 	 * @param newTime
 	 *            The new system time.
 	 */
-	public void updateWarehouse(HospitalDate newTime) {
+	public void update(HospitalDate newTime) {
 		HospitalDate prevDate = this.warehouse.getPreviousDate();
 		long timeDiff = prevDate.getTimeBetween(newTime);
 		int mealsADay = 3;
