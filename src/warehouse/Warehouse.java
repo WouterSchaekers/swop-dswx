@@ -74,7 +74,8 @@ public class Warehouse
 	 */
 	public void addPlaster(int units) throws WarehouseException {
 		if (!isValidAmountOfPlasterToAdd(units)) {
-			throw new WarehouseException("There is too much plaster.");
+			throw new WarehouseException(
+					"Either an invalid amount of plaster was given to this method, or either adding the given amount will result in an overflow of the warehouse. ");
 		}
 		this.unitsOfPlaster += units;
 	}
@@ -93,13 +94,13 @@ public class Warehouse
 	 * 
 	 * @param medication
 	 *            The medication to add to the hospital.
-	 * @throws WarehouseOverCapacityException
+	 * @throws WarehouseException
 	 */
 	public void addMedication(Collection<Medication> medication)
-			throws WarehouseOverCapacityException {
-		if (isValidAmountOfMedicationToAdd(medication.size())) {
-			throw new WarehouseOverCapacityException(
-					"There is too much medication.");
+			throws WarehouseException {
+		if (!isValidAmountOfMedicationToAdd(medication.size())) {
+			throw new WarehouseException(
+					"Either an invalid amount of plaster was given to this method, or either adding the given amount will result in an overflow of the warehouse.");
 		}
 		this.medication.addAll(medication);
 	}
@@ -174,7 +175,7 @@ public class Warehouse
 		int amountOfMealsADay = 3;
 
 		for (int i = 0; i < amountOfDays; i++) {
-			
+
 			// remove the expired medication and order new things.
 			for (int j = 0; j < amountOfMealsADay; j++) {
 				// remove the eaten meals and add new ones at the end of the
