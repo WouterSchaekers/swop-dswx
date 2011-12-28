@@ -1,6 +1,5 @@
 package medicaltest;
 
-import scheduler.HospitalDate;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidTimeSlotException;
@@ -84,15 +83,5 @@ public class BloodAnalysisFactory extends MedicalTestFactory
 	 */
 	private boolean isValidNumberOfAnalysis(int numberOfAnalysis) {
 		return numberOfAnalysis > 0;
-	}
-
-	/**
-	 * Checks if the duration is valid
-	 * 
-	 * @param l
-	 * @return
-	 */
-	private boolean isValidDuration(long l) {
-		return l == 45*HospitalDate.ONE_MINUTE;
 	}
 }

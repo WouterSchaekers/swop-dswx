@@ -1,8 +1,6 @@
 package scheduler;
 
-import java.util.LinkedList;
 import java.util.Observable;
-import java.util.Observer;
 
 /**
  * This class can be used to store the current system time in.

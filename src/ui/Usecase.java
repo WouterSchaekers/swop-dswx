@@ -1,6 +1,7 @@
 package ui;
 
 import java.util.Scanner;
+import exceptions.InvalidHospitalDateArgument;
 
 /**
  * An abstract class that represends a usecase command.
@@ -26,7 +27,8 @@ public abstract class Usecase
 	/**
 	 * 
 	 * @return
+	 * @throws InvalidHospitalDateArgument 
 	 */
-	public abstract Usecase Execute();
+	public abstract Usecase Execute() throws InvalidHospitalDateArgument;
 
 };

@@ -1,5 +1,6 @@
 package scheduler.task;
 
+import exceptions.InvalidHospitalDateArgument;
 import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidTimeSlotException;
 import scheduler.HospitalDate;
@@ -22,5 +23,5 @@ public interface Schedulable
 			throws InvalidSchedulingRequestException;
 
 	public TimeSlot getFirstFreeSlotBetween(HospitalDate startDate,
-			HospitalDate stopDate, long duration) throws InvalidSchedulingRequestException, InvalidTimeSlotException;
+			HospitalDate stopDate, long duration) throws InvalidSchedulingRequestException, InvalidTimeSlotException, InvalidHospitalDateArgument;
 }

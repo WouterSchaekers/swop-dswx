@@ -17,7 +17,6 @@ import exceptions.InvalidResourceException;
  */
 public class UnscheduledTaskTestClass extends UnscheduledTask
 {
-
 	private LinkedList<Schedulable> requirements;
 	private LinkedList<LinkedList<Schedulable>> schedulables;
 	private LinkedList<Integer> occurences;
@@ -32,6 +31,10 @@ public class UnscheduledTaskTestClass extends UnscheduledTask
 		this.requirements = r;
 		this.schedulables = s;
 		this.occurences = occ;
+	}
+	
+	public LinkedList<Schedulable> getRequirements(){
+		return this.requirements;
 	}
 
 	@Override

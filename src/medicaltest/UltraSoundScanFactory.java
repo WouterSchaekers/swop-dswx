@@ -1,6 +1,5 @@
 package medicaltest;
 
-import scheduler.HospitalDate;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidTimeSlotException;
@@ -64,15 +63,6 @@ public class UltraSoundScanFactory extends MedicalTestFactory
 		return rv;
 	}
 	
-	/**
-	 * Checks if the provided argument is a valid duration
-	 * @param duration2
-	 * @return
-	 * 	true of duration2 == 30 minutes
-	 */
-	private boolean isValidDuration(long duration2) {
-		return duration2==30*HospitalDate.ONE_MINUTE;
-	}
 	/**
 	 * Checks if the given argument is a valid argument for scan info.
 	 * @param scaninfo

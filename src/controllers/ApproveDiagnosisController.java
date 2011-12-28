@@ -1,17 +1,14 @@
 package controllers;
 
-import help.Collections;
-import help.Filter;
 import java.util.ArrayList;
 import java.util.Collection;
 import patient.Diagnose;
-import patient.PatientFile;
-import patient.PatientFileManager;
 import users.Doctor;
 import controllers.DataPasser;
 import controllers.LoginController;
 import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.PatientFileIN;
+import exceptions.ApproveDiagnoseException;
 import exceptions.InvalidLoginControllerException;
 
 public class ApproveDiagnosisController
@@ -43,7 +40,7 @@ public class ApproveDiagnosisController
 	}
 
 	public void approveDiagnose(LoginController loginController2,
-			DiagnoseIN selected) throws InvalidLoginControllerException {
+			DiagnoseIN selected) throws InvalidLoginControllerException, ApproveDiagnoseException {
 		if(!isValidLoginController(loginController2))
 			throw new InvalidLoginControllerException("");
 		if(selected instanceof Diagnose)
@@ -52,7 +49,7 @@ public class ApproveDiagnosisController
 	}
 
 	public void disApproveDiagnose(LoginController loginController2,
-			DiagnoseIN selected,DiagnoseIN replacement) {
+			DiagnoseIN selected,DiagnoseIN replacement) throws InvalidLoginControllerException {
 		if(!isValidLoginController(loginController2))
 			throw new InvalidLoginControllerException("");
 		if(selected instanceof Diagnose)

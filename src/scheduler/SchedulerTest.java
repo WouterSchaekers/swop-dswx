@@ -66,7 +66,7 @@ public class SchedulerTest
 
 	@Test
 	public void schedule0Test() throws InvalidTimeSlotException,
-			InvalidSchedulingRequestException, InvalidResourceException {
+			InvalidSchedulingRequestException, InvalidResourceException, InvalidHospitalDateArgument {
 		listOfNurses.get(0).scheduleAt(
 				new TimeSlot(new StartTimePoint(HospitalDate.START_OF_TIME),
 						new StopTimePoint(HospitalDate.START_OF_TIME
@@ -79,7 +79,7 @@ public class SchedulerTest
 	public void sschedule1Test() throws InvalidSchedulingRequestException,
 			InvalidTimeSlotException, InvalidResourceException,
 			InvalidDurationException, InvalidOccurencesException,
-			InvalidAmountException, InvalidHospitalDateException {
+			InvalidAmountException, InvalidHospitalDateException, InvalidHospitalDateArgument {
 		for (Schedulable s : listOfNurses) {
 			s.scheduleAt(new TimeSlot(new StartTimePoint(
 					HospitalDate.START_OF_TIME), new StopTimePoint(
