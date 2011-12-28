@@ -2,11 +2,13 @@ package warehouse;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 import scheduler.HospitalDate;
 import treatment.Medication;
+import be.kuleuven.cs.som.annotate.Basic;
+import exceptions.InvalidHospitalDateException;
 import exceptions.WarehouseException;
 import exceptions.WarehouseOverCapacityException;
-import exceptions.InvalidHospitalDateException;
 
 /**
  * This class represents a warehouse. It keeps track of all resources in the
@@ -86,9 +88,9 @@ public class Warehouse
 	 */
 	private boolean isValidAmountOfPlasterToAdd(int amount) {
 		return amount >= 0
-				&& this.unitsOfPlaster + amount > MAX_UNITS_OF_PLASTER;
+				&& this.unitsOfPlaster + amount <= MAX_UNITS_OF_PLASTER;
 	}
-
+	
 	/**
 	 * This method will add medication to this hospital.
 	 * 
@@ -111,7 +113,7 @@ public class Warehouse
 	 */
 	private boolean isValidAmountOfMedicationToAdd(int amount) {
 		return amount >= 0
-				&& this.medication.size() + medication.size() > MAX_UNITS_OF_MEDICATION;
+				&& this.medication.size() + medication.size() <= MAX_UNITS_OF_MEDICATION;
 	}
 
 	/**
@@ -162,34 +164,45 @@ public class Warehouse
 		this.meals.addAll(meals);
 	}
 
-	/**
-	 * This method should be called whenever there's a change in time. The
-	 * warehouse will then update its stock accordingly.
-	 * 
-	 * @param newDate
-	 *            The new system time.
-	 */
-	public void update(HospitalDate newDate) {
-		long timeDiff = this.prevDate.getTimeBetween(newDate);
-		int amountOfDays = (int) (timeDiff % (24 * HospitalDate.ONE_HOUR));
-		int amountOfMealsADay = 3;
-		
-		for (int i = 0; i < amountOfDays; i++) {
-			
-			// remove the expired medication and order new things.
-			for (int j = 0; j < amountOfMealsADay; j++) {
-				// remove the eaten meals and add new ones at the end of the
-				// day.
-			}
-		}
-
-	}
-
 	public boolean hasPlaster(int plaster) {
 		return this.unitsOfPlaster >= plaster;
 	}
 
 	public boolean hasMedication(int plaster) {
 		return this.unitsOfPlaster >= plaster;
+	}
+	
+	@Basic
+	public HospitalDate getPreviousDate(){
+		return this.prevDate;
+	}
+	
+	@Basic
+	public void setPreviousDate(HospitalDate newDate) {
+		this.prevDate = newDate;
+	}
+	
+	public int getPlaster() {
+		return this.unitsOfPlaster;
+	}
+	
+	public Collection<Medication> getMedication() {
+		return new LinkedList<Medication>(this.medication);
+	}
+	
+	public Collection<Meal> getMeals() {
+		return new LinkedList<Meal>(this.meals);
+	}
+	
+	public void setPlaster(int newPlasterAmount) {
+		this.unitsOfPlaster = newPlasterAmount;
+	}
+	
+	public void setMedicaton(Collection<Medication> newMedication) {
+		this.medication = newMedication;
+	}
+	
+	public void setMeals(Collection<Meal> newMeals) {
+		this.meals = newMeals;
 	}
 }
