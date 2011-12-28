@@ -14,7 +14,7 @@ import exceptions.WarehouseOverCapacityException;
  */
 public class WarehouseAdmin extends User
 {
-	private Warehouse depot;
+	private Warehouse warehouse;
 
 	/**
 	 * Default constructor. Will appoint this admin his warehouse.
@@ -25,7 +25,7 @@ public class WarehouseAdmin extends User
 	 */
 	public WarehouseAdmin(Warehouse depot) throws InvalidNameException {
 		super("The Warehouse administrator");
-		this.depot = depot;
+		this.warehouse = depot;
 	}
 
 	/**
@@ -37,7 +37,7 @@ public class WarehouseAdmin extends User
 	 * @throws WarehouseException
 	 */
 	public void addPlaster(int units) throws WarehouseException {
-		depot.addPlaster(units);
+		warehouse.addPlaster(units);
 	}
 
 	/**
@@ -50,7 +50,7 @@ public class WarehouseAdmin extends User
 	 */
 	public void addMedication(Collection<Medication> medication)
 			throws WarehouseException {
-		depot.addMedication(medication);
+		warehouse.addMedication(medication);
 	}
 
 	/**
@@ -63,7 +63,15 @@ public class WarehouseAdmin extends User
 	 */
 	public void addMeals(Collection<Meal> meals)
 			throws WarehouseOverCapacityException {
-		depot.addMeals(meals);
+		warehouse.addMeals(meals);
+	}
+	
+	/**
+	 * Removes the expired items from the warehouse that is associated with this
+	 * warehouse administrator.
+	 */
+	public void removeExpiredItems() {
+		
 	}
 
 	/**

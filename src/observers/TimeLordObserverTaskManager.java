@@ -1,4 +1,4 @@
-package scheduler.observers;
+package observers;
 
 import java.util.Observable;
 import java.util.Observer;
