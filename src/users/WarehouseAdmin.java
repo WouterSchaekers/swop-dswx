@@ -1,6 +1,7 @@
 package users;
 
 import java.util.Collection;
+import scheduler.HospitalDate;
 import treatment.Medication;
 import warehouse.Meal;
 import warehouse.Warehouse;
@@ -65,12 +66,43 @@ public class WarehouseAdmin extends User
 			throws WarehouseOverCapacityException {
 		warehouse.addMeals(meals);
 	}
-	
+
 	/**
-	 * Removes the expired items from the warehouse that is associated with this
-	 * warehouse administrator.
+	 * This method should be called whenever there's a change in time. The
+	 * warehouse will then update its stock accordingly.
+	 * 
+	 * @param newTime
+	 *            The new system time.
 	 */
-	public void removeExpiredItems() {
+	public void updateWarehouse(HospitalDate newTime) {
+		HospitalDate prevDate = this.warehouse.getPreviousDate();
+		long timeDiff = prevDate.getTimeBetween(newTime);
+		int mealsADay = 3;
+		int amountOfMeals = (int) (timeDiff / (24 * HospitalDate.ONE_HOUR)) * mealsADay;
+		
+		this.removeExpiredItems(newTime);
+		
+		for (int i = 0; i < amountOfMeals; i++) {
+			this.updateMeals();
+		}
+		
+		this.warehouse.setPreviousDate(newTime);
+	}
+
+	/**
+	 * Removes the expired items (note meals!)from the warehouse that is
+	 * associated with this warehouse administrator.
+	 */
+	public void removeExpiredItems(HospitalDate newTime) {
+		Collection<Medication> meds = this.warehouse.getMedication();
+		int plaster = this.warehouse.getPlaster();
+
+	}
+
+	/**
+	 * Updates the amount of meals after 1 meal. Also 
+	 */
+	public void updateMeals() {
 		
 	}
 
@@ -82,5 +114,15 @@ public class WarehouseAdmin extends User
 	public static boolean isValidAmountOfUnits(int u) {
 		return u >= 0;
 	}
-	
+
+	/**
+	 * @return The time till the next 3 meals
+	 */
+	private long[] timeToNextMeals() {
+		long rv[] = new long[3];
+		long breakfast = HospitalDate.ONE_HOUR * 8;
+		long lunch = HospitalDate.ONE_HOUR * 12;
+		long dinner = HospitalDate.ONE_HOUR * 8;
+		return null;
+	}
 }
