@@ -2,6 +2,7 @@ package scheduler.task;
 
 import java.util.Collection;
 import java.util.LinkedList;
+import patient.PatientFile;
 import scheduler.HospitalDate;
 import be.kuleuven.cs.som.annotate.Basic;
 
@@ -9,7 +10,7 @@ import be.kuleuven.cs.som.annotate.Basic;
  * This class represents an appointment either still needs to be scheduled or is
  * already scheduled.
  */
-public class Task
+public abstract class Task
 {
 	/**
 	 * We will ask the user if they would like to give this task a specific name
@@ -20,6 +21,18 @@ public class Task
 	 * scheduled after the taskQueue in TaskManager has been updated.
 	 */
 	private String userDefinedID = "defaultID";
+	private PatientFile patient;
+	
+	public Task(PatientFile p){
+		if(p == null){
+			throw new IllegalArgumentException("The given patient may not be null.");
+		}
+		this.patient = p;
+	}
+	
+	public PatientFile getPatient(){
+		return this.patient;
+	}
 
 	/**
 	 * This method can be used to clone collections of Schedulables so they are

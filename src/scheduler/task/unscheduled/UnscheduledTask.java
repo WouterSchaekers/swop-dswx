@@ -1,6 +1,7 @@
 package scheduler.task.unscheduled;
 
 import java.util.LinkedList;
+import patient.PatientFile;
 import scheduler.HospitalDate;
 import scheduler.task.Schedulable;
 import scheduler.task.Task;
@@ -43,10 +44,11 @@ public abstract class UnscheduledTask extends Task
 	 * @throws InvalidAmountException
 	 * @throws InvalidHospitalDateException
 	 */
-	public UnscheduledTask(long duration, HospitalDate creationTime,
+	public UnscheduledTask(PatientFile p, long duration, HospitalDate creationTime,
 			boolean backToBack) throws InvalidResourceException,
 			InvalidDurationException, InvalidOccurencesException,
 			InvalidAmountException, InvalidHospitalDateException {
+		super(p);
 		if (!isValidAmountOfExtraTime(extraTime))
 			throw new InvalidAmountException(
 					"Invalid amount of extra time since system start given to Unscheduled Task");
