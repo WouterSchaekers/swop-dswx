@@ -3,6 +3,7 @@ package controllers;
 import machine.MachinePool;
 import patient.PatientFileManager;
 import scheduler.Scheduler;
+import scheduler.TimeLord;
 import users.UserManager;
 
 /**
@@ -14,6 +15,7 @@ public class DataPasser
 	private final Scheduler scheduler;
 	private final PatientFileManager pfm;
 	private final MachinePool machinePool;
+	private TimeLord theDoctor;
 
 	/**
 	 * Default constructor.
@@ -26,11 +28,12 @@ public class DataPasser
 	 *            a scheduler
 	 */
 	public DataPasser(UserManager userm, PatientFileManager pfm,
-			Scheduler scheduler,MachinePool machine) {
+			Scheduler scheduler,MachinePool machine,TimeLord doctor) {
 		this.userm = userm;
 		this.pfm = pfm;
 		this.scheduler = scheduler;
 		this.machinePool=machine;
+		this.theDoctor=doctor;
 	}
 
 	/**
@@ -56,6 +59,10 @@ public class DataPasser
 
 	public MachinePool getMachinePool() {
 		return machinePool;
+	}
+
+	public TimeLord getTimeLord() {
+		return theDoctor;
 	}
 
 }
