@@ -8,7 +8,7 @@ Bij unscheduled classes zorgen dat die requirements lazy gemaakt worden, (dit do
 
 = Wie is er momenteel waaraan bezig? =
 <p>
-Dieter: usecases<p>
+Dieter: Diagnosis<p>
 Stefaan:
   * als de tijd vooruit gaat, moeten de volgende dingen gebeuren:
     * Alle TimeTables moeten geupdate worden.
