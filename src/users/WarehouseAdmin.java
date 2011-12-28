@@ -2,10 +2,10 @@ package users;
 
 import java.util.Collection;
 import treatment.Medication;
-import warehouse.Warehouse;
 import warehouse.Meal;
-import exceptions.WarehouseOverCapacityException;
+import warehouse.Warehouse;
 import exceptions.InvalidNameException;
+import exceptions.WarehouseOverCapacityException;
 
 /**
  * This class represents the administrator of the warehouse that is in the
@@ -33,9 +33,9 @@ public class WarehouseAdmin extends User
 	 * 
 	 * @param units
 	 *            The amount of plaster to add to the warehouse.
-	 * @throws WarehouseOverCapacityException
+	 * @throws WarehouseException
 	 */
-	public void addPlaster(int units) throws WarehouseOverCapacityException {
+	public void addPlaster(int units) throws WarehouseException {
 		depot.addPlaster(units);
 	}
 
@@ -45,10 +45,10 @@ public class WarehouseAdmin extends User
 	 * 
 	 * @param units
 	 *            The amount of medication to add to the warehouse.
-	 * @throws WarehouseOverCapacityException
+	 * @throws WarehouseException
 	 */
 	public void addMedication(Collection<Medication> medication)
-			throws WarehouseOverCapacityException {
+			throws WarehouseException {
 		depot.addMedication(medication);
 	}
 
