@@ -1,34 +1,21 @@
 = TODOs =
   * Treatment factory
-  * Concerning Task and TaskManager:
-    * In de usecases willen we (Unscheduled)Tasks aanmaken.
-      * Als de Tasks niet onmiddellijk gescheduled kunnen worden, komen ze in de task queue van de Taskmanager.
-      * Als de taken wel onmiddellijk gescheduled kunnen worden, schedulen we ze.
-      * Task manager moet verwittigd worden om zijn queues te updaten op de gepaste plaatsten in de usecases.
-  * usecases iteratie 1, en vorige fixen.
-  * nieuwe usecases van iteratie 2
   * Documentatie schrijven
   * Verslag schrijven
-  * Unscheduled classes maken!
-     *Xray
-     *BloodTest
-     *UltraSoundScan
-     *Appointment
-     *Treatment : Cast
-     *Treatment : Medication
-     *Treatment : Surgery
+  * Meer code coverage (Junit!)
+
 Bij unscheduled classes zorgen dat die requirements lazy gemaakt worden, (dit door de voorstelling van onze requirements :) )
 
 = Wie is er momenteel waaraan bezig? =
 <p>
-Dieter: durations in millis setten en isValid ipv invalid gebruiken bij factories ^^<p>
+Dieter: usecases<p>
 Stefaan:
   * als de tijd vooruit gaat, moeten de volgende dingen gebeuren:
     * Alle TimeTables moeten geupdate worden.
     * Het warehouse moet geupdate worden.
     * De TaskManager moet zijn queues updaten, indien er tijdsafhankelijke constraints zijn voor Schedulables.
     * ...<p>
-Wouter: scheduler nakijken <p>
+Wouter: unscheduled dingen maken<p>
 
 = Things that have been crossed off = 
   * Treatment Factories gemaakt en getest
