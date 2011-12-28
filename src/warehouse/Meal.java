@@ -24,5 +24,5 @@ public class Meal implements Expirable, WarehouseItem
 			return false;
 		}
 	}
-
+	
 }
