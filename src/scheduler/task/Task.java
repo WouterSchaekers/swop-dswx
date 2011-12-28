@@ -1,8 +1,9 @@
 package scheduler.task;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.LinkedList;
 import scheduler.HospitalDate;
-import be.kuleuven.cs.som.annotate.*;
+import be.kuleuven.cs.som.annotate.Basic;
 
 /**
  * This class represents an appointment either still needs to be scheduled or is
@@ -19,7 +20,7 @@ public class Task
 	 * scheduled after the taskQueue in TaskManager has been updated.
 	 */
 	private String userDefinedID = "defaultID";
-	
+
 	/**
 	 * This method can be used to clone collections of Schedulables so they are
 	 * safe to return.
@@ -28,9 +29,10 @@ public class Task
 	 *            The collection of Schedulables one would like to clone.
 	 * @return A cloned collection of myResource
 	 */
-	public static LinkedList<Schedulable> cloneCollection(Collection<Schedulable> myResource) {
+	public static LinkedList<Schedulable> cloneCollection(
+			Collection<Schedulable> myResource) {
 		LinkedList<Schedulable> res = new LinkedList<Schedulable>();
-		for(Schedulable sched : myResource)
+		for (Schedulable sched : myResource)
 			res.add(sched);
 		return res;
 	}
@@ -41,22 +43,23 @@ public class Task
 	public static boolean canHaveAsResources(Collection<Schedulable> s) {
 		return s != null && !s.isEmpty();
 	}
-	
+
 	/**
 	 * @return True if d is a valid duration for a Task.
 	 */
 	public static boolean isValidDuration(long d) {
 		return d > 0 && d < (HospitalDate.END_OF_TIME.getTimeSinceStart());
 	}
-	
+
 	@Basic
 	public String getUserDefinedID() {
 		return this.userDefinedID;
 	}
-	
+
 	/**
-	 * @param id If the user wishes to assign an empty String or such, then this
-	 *       wish will be granted.
+	 * @param id
+	 *            If the user wishes to assign an empty String or such, then
+	 *            this wish will be granted.
 	 */
 	@Basic
 	public void setUserDefinedID(String id) {
