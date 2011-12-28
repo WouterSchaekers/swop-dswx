@@ -24,7 +24,7 @@ public class XRayScanFactory extends MedicalTestFactory
 	 * 	if the argument was null
 	 */
 	public void setBodyPart(String bodypart) {
-		if (invalidBodyPart(bodypart))
+		if (!isValidBodyPart(bodypart))
 			throw new IllegalArgumentException("bodypart argument was invalid");
 		this.bodypart = bodypart;
 	}
@@ -36,7 +36,7 @@ public class XRayScanFactory extends MedicalTestFactory
 	 * 	if the zoomlevel is invalid : below 1 or above 3
 	 */
 	public void setZoomLevel(float zoomlevel) {
-		if (isInValidZoomLevel(zoomlevel))
+		if (!isValidZoomLevel(zoomlevel))
 			throw new IllegalArgumentException("invalid zoomlevel");
 		this.zoomlevel = zoomlevel;
 
@@ -49,7 +49,7 @@ public class XRayScanFactory extends MedicalTestFactory
 	 * 	if the number of images is <= 0
 	 */
 	public void numberOfNeededImages(int num) {
-		if (inValidNumberOfImages(num))
+		if (!isValidNumberOfImages(num))
 			throw new IllegalArgumentException("invalid number of images");
 		this.num = num;
 	}
@@ -57,11 +57,11 @@ public class XRayScanFactory extends MedicalTestFactory
 	 * Sets the duration for this medical test ( in minutes)
 	 * @param duration
 	 * @throws IllegalArgumentException 
-	 * 	if the duration is < 15 min.
+	 * 	if the duration is != 15 min.
 	 */
 	private void setDuration(long duration)
 	{
-		if(inValidDuration(duration))
+		if(!isValidDuration(duration))
 			throw new IllegalArgumentException("Illegal duration");
 		this.duration=duration;
 	}
@@ -72,10 +72,10 @@ public class XRayScanFactory extends MedicalTestFactory
 	 */
 	private boolean ready() {
 		boolean rv = true;
-		rv &= !invalidBodyPart(bodypart);
-		rv &= !isInValidZoomLevel(zoomlevel);
-		rv &= !inValidNumberOfImages(num);
-		rv &= !inValidDuration(duration);
+		rv &= isValidBodyPart(bodypart);
+		rv &= isValidZoomLevel(zoomlevel);
+		rv &= isValidNumberOfImages(num);
+		rv &= isValidDuration(duration);
 		return rv;
 	}
 	/**
@@ -83,33 +83,32 @@ public class XRayScanFactory extends MedicalTestFactory
 	 * @param num
 	 * @return true if num < 0
 	 */
-	private boolean inValidNumberOfImages(int num) {
+	private boolean isValidNumberOfImages(int num) {
 		return num < 0;
 	}
 	/**
-	 * Checks if the zoomlevel is Invalid.
+	 * Checks if the zoomlevel is Valid.
 	 * @param level
 	 * @return level<1||level>3
 	 */
-	private boolean isInValidZoomLevel(float level) {
-		return level < 1 || level > 3;
+	private boolean isValidZoomLevel(float level) {
+		return !(level < 1 || level > 3);
 	}
 	/**
 	 * bodypart validity check:
 	 * @param name
 	 * @return true if the argument is not null
 	 */
-	private boolean invalidBodyPart(String name) {
-		//XXX: fix de naamgeving, dieter!!
-		return name == null;
+	private boolean isValidBodyPart(String name) {
+		return name != null;
 	}
 	/**
 	 * 
 	 * @param duration2
 	 * @return
 	 */
-	private boolean inValidDuration(long duration2) {
-		return duration2 != 15* HospitalDate.ONE_MINUTE;
+	private boolean isValidDuration(long duration2) {
+		return duration2 == 15* HospitalDate.ONE_MINUTE;
 	}
 	@Override
 	public MedicalTest create() throws InvalidNameException,

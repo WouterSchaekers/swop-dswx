@@ -31,7 +31,7 @@ public class UltraSoundScan extends MedicalTest
 	 * @throws InvalidTimeSlotException 
 	 * @see MedicalTest("UltraSoundScan")
 	 */
-	UltraSoundScan(String scaninfo, boolean recordVid, boolean recordImages, int duration) throws InvalidNameException,
+	UltraSoundScan(String scaninfo, boolean recordVid, boolean recordImages, long duration) throws InvalidNameException,
 			InvalidDurationException, InvalidTimeSlotException {
 		super( duration);
 		this.scaninfo=scaninfo;

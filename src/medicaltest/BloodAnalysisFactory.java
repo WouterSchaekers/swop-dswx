@@ -1,5 +1,6 @@
 package medicaltest;
 
+import scheduler.HospitalDate;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidTimeSlotException;
@@ -8,13 +9,13 @@ public class BloodAnalysisFactory extends MedicalTestFactory
 {
 	private String focus;
 	private int numberOfAnalysis;
-	private int duration;
+	private long duration;
 	/**
 	 * Default constructor, only visible in the package since you have to create 
 	 * the factories in the MedicalTestsClass
 	 */
 	BloodAnalysisFactory() {
-		setDuration(45);
+		setDuration(45*HospitalDate.ONE_MINUTE);
 	}
 
 	/**
@@ -25,7 +26,7 @@ public class BloodAnalysisFactory extends MedicalTestFactory
 	 *             if the provided argument is null
 	 */
 	public void setFocus(String focus) {
-		if (inValidFocus(focus))
+		if (!isValidFocus(focus))
 			throw new IllegalArgumentException("invalid focus value");
 		this.focus = focus;
 	}
@@ -38,7 +39,7 @@ public class BloodAnalysisFactory extends MedicalTestFactory
 	 *             the provided number is invalid (<=0)
 	 */
 	public void setNumberOfAnalysis(int numberOfAnalysis) {
-		if (inValidNumberOfAnalysis(numberOfAnalysis))
+		if (!isValidNumberOfAnalysis(numberOfAnalysis))
 			throw new IllegalArgumentException("Illegal amount of analysis");
 		this.numberOfAnalysis = numberOfAnalysis;
 	}
@@ -60,9 +61,9 @@ public class BloodAnalysisFactory extends MedicalTestFactory
 	 */
 	private boolean ready() {
 		boolean rv = true;
-		rv &= !inValidDuration(duration);
-		rv &= !inValidFocus(focus);
-		rv &= !inValidNumberOfAnalysis(numberOfAnalysis);
+		rv &= isValidDuration(duration);
+		rv &= isValidFocus(focus);
+		rv &= isValidNumberOfAnalysis(numberOfAnalysis);
 		return rv;
 	}
 
@@ -72,41 +73,41 @@ public class BloodAnalysisFactory extends MedicalTestFactory
 	 * @param focus
 	 *            the focus of the bloodanalysis that will be created by this
 	 *            factory
-	 * @return true if the argumet is null.
+	 * @return true if the argumet is not null.
 	 */
-	private boolean inValidFocus(String focus) {
-		return focus == null;
+	private boolean isValidFocus(String focus) {
+		return !(focus == null);
 	}
 
 	/**
-	 * Method to check if the amount of analysis is invalid ( less then 0)
+	 * Method to check if the amount of analysis is valid ( greater then 0)
 	 * 
 	 * @param numberOfAnalysis
 	 *            the number of analysis that have to be executed
-	 * @return true if the argument is <= 0
+	 * @return true if the argument is > 0
 	 */
-	private boolean inValidNumberOfAnalysis(int numberOfAnalysis) {
-		return numberOfAnalysis <= 0;
+	private boolean isValidNumberOfAnalysis(int numberOfAnalysis) {
+		return numberOfAnalysis > 0;
 	}
 
 	/**
 	 * private setter to maybe use in future iteration
 	 * 
-	 * @param duration
+	 * @param l
 	 */
-	private void setDuration(int duration) {
-		if (inValidDuration(duration))
+	private void setDuration(long l) {
+		if (!isValidDuration(l))
 			throw new IllegalArgumentException("wrong duration provided");
-		this.duration = duration;
+		this.duration = l;
 	}
 
 	/**
-	 * Checks if the duration is invalid
+	 * Checks if the duration is valid
 	 * 
-	 * @param duration2
+	 * @param l
 	 * @return
 	 */
-	private boolean inValidDuration(int duration2) {
-		return duration2 != 45;
+	private boolean isValidDuration(long l) {
+		return l == 45*HospitalDate.ONE_MINUTE;
 	}
 }

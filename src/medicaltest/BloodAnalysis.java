@@ -17,7 +17,7 @@ public class BloodAnalysis extends MedicalTest
 	 * Constructor called by the BloodAnalysisFactory
 	 * @throws InvalidTimeSlotException 
 	 */
-	 BloodAnalysis(int amount,String focus,int duration) throws InvalidNameException,
+	 BloodAnalysis(int amount,String focus,long duration) throws InvalidNameException,
 			InvalidDurationException, InvalidTimeSlotException {
 		super(duration);
 		this.amount=amount;
