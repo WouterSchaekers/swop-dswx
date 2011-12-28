@@ -32,15 +32,16 @@ public class UnscheduledBloodTest extends UnscheduledMedicalTest
 		return rv;
 	}
 	
+	@Override
 	protected LinkedList<Schedulable> getMachinePool(){
-		LinkedList<Schedulable> machinePool = new LinkedList<Schedulable>();
-		machinePool.addAll(Collections.filter(this.machinePool.getAllMachines(), new Filter()
+		LinkedList<Schedulable> curMachinePool = new LinkedList<Schedulable>();
+		curMachinePool.addAll(Collections.filter(this.machinePool.getAllMachines(), new Filter()
 		{
 			@Override
 			public <T> boolean allows(T arg) {
 				return arg instanceof BloodAnalyser;
 			}
 		}));
-		return machinePool;
+		return curMachinePool;
 	}
 }
