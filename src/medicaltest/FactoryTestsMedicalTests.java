@@ -6,7 +6,10 @@ import org.junit.Test;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidTimeSlotException;
-
+@Deprecated
+/**
+ * Use Filter from the collections package instead
+ */
 public class FactoryTestsMedicalTests
 {
 

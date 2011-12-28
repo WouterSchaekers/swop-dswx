@@ -41,9 +41,6 @@ public class UltraSoundScanFactory extends MedicalTestFactory
 			throw new IllegalArgumentException("invalid scan info");
 		this.scaninfo=scaninfo;
 	}
-	/**
-	 * @see
-	 */
 	@Override
 	public MedicalTest create() throws InvalidNameException, InvalidDurationException, InvalidTimeSlotException {
 		if(!ready())
