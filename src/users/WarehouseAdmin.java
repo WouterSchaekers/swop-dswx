@@ -5,6 +5,7 @@ import treatment.Medication;
 import warehouse.Meal;
 import warehouse.Warehouse;
 import exceptions.InvalidNameException;
+import exceptions.WarehouseException;
 import exceptions.WarehouseOverCapacityException;
 
 /**
