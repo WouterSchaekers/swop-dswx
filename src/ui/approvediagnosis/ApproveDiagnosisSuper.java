@@ -16,4 +16,5 @@ public abstract class ApproveDiagnosisSuper extends Usecase
 	{
 		this(data,new ApproveDiagnosisData());
 	}
+	
 }
