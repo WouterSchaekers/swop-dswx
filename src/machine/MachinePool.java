@@ -1,6 +1,7 @@
 package machine;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 
 /**
@@ -32,6 +33,11 @@ public class MachinePool
 	 */
 	public Collection<Machine> getAllMachines() {
 		return new ArrayList<Machine>(this.allMachines);
+	}
+
+
+	public Collection<MachineBuilder> getAllBuilders() {
+		return Arrays.asList(new BloodanalyzerBuilder(),new UltraSoundScannerBuilder(),new XrayScannerBuilder());
 	}
 
  

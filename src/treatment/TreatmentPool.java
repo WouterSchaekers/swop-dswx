@@ -28,9 +28,7 @@ public class TreatmentPool
 	 * This method will remove a Treatment from this TreatmentPool
 	 * @param m
 	 */
-	public void removeTreatment(Treatment m) {
-		allTreatments.remove(m);
-	}
+
 
 	@Basic
 	public Collection<Treatment> getAllTreatments() {
