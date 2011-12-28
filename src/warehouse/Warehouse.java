@@ -173,9 +173,9 @@ public class Warehouse
 		long timeDiff = this.prevDate.getTimeBetween(newDate);
 		int amountOfDays = (int) (timeDiff % (24 * HospitalDate.ONE_HOUR));
 		int amountOfMealsADay = 3;
-
+		
 		for (int i = 0; i < amountOfDays; i++) {
-
+			
 			// remove the expired medication and order new things.
 			for (int j = 0; j < amountOfMealsADay; j++) {
 				// remove the eaten meals and add new ones at the end of the
