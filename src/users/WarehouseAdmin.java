@@ -4,7 +4,7 @@ import java.util.Collection;
 import treatment.Medication;
 import warehouse.Warehouse;
 import warehouse.Meal;
-import exceptions.DepotOverCapacityException;
+import exceptions.WarehouseOverCapacityException;
 import exceptions.InvalidNameException;
 
 /**
@@ -33,9 +33,9 @@ public class WarehouseAdmin extends User
 	 * 
 	 * @param units
 	 *            The amount of plaster to add to the warehouse.
-	 * @throws DepotOverCapacityException
+	 * @throws WarehouseOverCapacityException
 	 */
-	public void addPlaster(int units) throws DepotOverCapacityException {
+	public void addPlaster(int units) throws WarehouseOverCapacityException {
 		depot.addPlaster(units);
 	}
 
@@ -45,10 +45,10 @@ public class WarehouseAdmin extends User
 	 * 
 	 * @param units
 	 *            The amount of medication to add to the warehouse.
-	 * @throws DepotOverCapacityException
+	 * @throws WarehouseOverCapacityException
 	 */
 	public void addMedication(Collection<Medication> medication)
-			throws DepotOverCapacityException {
+			throws WarehouseOverCapacityException {
 		depot.addMedication(medication);
 	}
 
@@ -58,10 +58,10 @@ public class WarehouseAdmin extends User
 	 * 
 	 * @param units
 	 *            The amount of meals to add to the warehouse.
-	 * @throws DepotOverCapacityException
+	 * @throws WarehouseOverCapacityException
 	 */
 	public void addMeals(Collection<Meal> meals)
-			throws DepotOverCapacityException {
+			throws WarehouseOverCapacityException {
 		depot.addMeals(meals);
 	}
 
