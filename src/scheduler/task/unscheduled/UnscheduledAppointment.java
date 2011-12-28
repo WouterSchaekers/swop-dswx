@@ -20,7 +20,7 @@ public class UnscheduledAppointment extends UnscheduledTask
 			throws InvalidResourceException, InvalidDurationException,
 			InvalidOccurencesException, InvalidRequirementException,
 			InvalidAmountException, InvalidHospitalDateException {
-		super(p, 60 * HospitalDate.ONE_MINUTE, currentsystemtime, true);
+		super(p, 30 * HospitalDate.ONE_MINUTE, currentsystemtime, HospitalDate.ONE_HOUR, true);
 		this.requiredDoctor = d;
 	}
 	
