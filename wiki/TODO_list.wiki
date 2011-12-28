@@ -23,7 +23,8 @@ Bij unscheduled classes zorgen dat die requirements lazy gemaakt worden, (dit do
 = Wie is er momenteel waaraan bezig? =
 <p>
 Dieter: eXtreme-programming<p>
-Stefaan:   * als de tijd vooruit gaat, moeten de volgende dingen gebeuren:
+Stefaan:
+  * als de tijd vooruit gaat, moeten de volgende dingen gebeuren:
     * Alle TimeTables moeten geupdate worden.
     * Het warehouse moet geupdate worden.
     * De TaskManager moet zijn queues updaten, indien er tijdsafhankelijke constraints zijn voor Schedulables.
