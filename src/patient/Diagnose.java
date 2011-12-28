@@ -7,14 +7,13 @@ import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.*;
 import treatment.Treatment;
 import users.Doctor;
-import scheduler.task.Requirement;
 
 /**
  * This class represents a diagnosis that's given to a patient after admission
  * and examination. It keeps a collections of Treatments to keep track of which
  * Diagnosis have been treated with which Treatments.
  */
-public class Diagnose implements Requirement
+public class Diagnose
 {
 
 	private String diag = ""; 
@@ -201,10 +200,5 @@ public class Diagnose implements Requirement
 	 */
 	private boolean isValidTreatment(Treatment t) {
 		return t != null;
-	}
-
-	@Override
-	public boolean isReady() {
-		return this.isApproved();
 	}
 }

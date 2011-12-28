@@ -27,8 +27,8 @@ public class HospitalState
 		this.userManager = new UserManager();
 		this.machinePool = new MachinePool();
 		this.patientFileManager = new PatientFileManager();
-		this.taskManager = new TaskManager();
 		this.scheduler = new Scheduler(this.systemTime);
+		this.taskManager = new TaskManager(this.scheduler);
 	}
 
 }

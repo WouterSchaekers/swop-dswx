@@ -3,6 +3,7 @@ package scheduler.task.scheduled;
 import java.util.Collection;
 import java.util.LinkedList;
 import javax.swing.Spring;
+import patient.PatientFile;
 import be.kuleuven.cs.som.annotate.Basic;
 import scheduler.HospitalDate;
 import scheduler.TimeSlot;
@@ -28,7 +29,8 @@ public class ScheduledTask extends Task
 	 * The TimeSlot during which this Task has been scheduled at.
 	 * @throws InvalidResourceException 
 	 */
-	public ScheduledTask(Collection<Schedulable> resources, TimeSlot timeSlot) throws InvalidResourceException{
+	public ScheduledTask(PatientFile p, Collection<Schedulable> resources, TimeSlot timeSlot) throws InvalidResourceException{
+		super(p);
 		if(!super.canHaveAsResources(resources)){
 			throw new InvalidResourceException("Invalid resource passed to Task constructor!");
 		}
