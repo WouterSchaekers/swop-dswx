@@ -2,7 +2,9 @@ package patient;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.DoctorIN;
+import controllers.interfaces.TreatmentIN;
 import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.*;
 import treatment.Treatment;
@@ -13,7 +15,7 @@ import users.Doctor;
  * and examination. It keeps a collections of Treatments to keep track of which
  * Diagnosis have been treated with which Treatments.
  */
-public class Diagnose
+public class Diagnose implements DiagnoseIN
 {
 
 	private String diag = ""; 
@@ -186,8 +188,8 @@ public class Diagnose
 	}
 
 	@Basic
-	public Collection<Treatment> getTreatments() {
-		return new ArrayList<Treatment>(treatments);
+	public Collection<TreatmentIN> getTreatments() {
+		return new ArrayList<TreatmentIN>(treatments);
 	}
 
 	@Override

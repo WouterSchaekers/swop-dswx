@@ -66,7 +66,7 @@ public class PatientFile implements PatientFileIN
 	/**
 	 * @return True if d is a valid Diagnose.
 	 */
-	private boolean isValidDiagnose(DiagnoseIN d) {
+	private boolean isValidDiagnose(Diagnose d) {
 		return d != null;
 	}
 	
