@@ -78,6 +78,7 @@ public class Scheduler
 						.get(0))) {
 			boolean isScheduled = false;
 			while (!isScheduled) {
+				startDate = HospitalDate.getNextHour(startDate);
 				try {
 					schedTask = schedule(patient, duration, startDate, new HospitalDate(
 							startDate.getTimeSinceStart() + duration),
