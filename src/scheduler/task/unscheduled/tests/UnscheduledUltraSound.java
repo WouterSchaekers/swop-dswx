@@ -33,14 +33,14 @@ public class UnscheduledUltraSound extends UnscheduledMedicalTest
 	}
 	
 	protected LinkedList<Schedulable> getMachinePool(){
-		LinkedList<Schedulable> machinePool = new LinkedList<Schedulable>();
-		machinePool.addAll(Collections.filter(this.machinePool.getAllMachines(), new Filter()
+		LinkedList<Schedulable> curMachinePool = new LinkedList<Schedulable>();
+		curMachinePool.addAll(Collections.filter(this.machinePool.getAllMachines(), new Filter()
 		{
 			@Override
 			public <T> boolean allows(T arg) {
 				return arg instanceof UltraSoundScanner;
 			}
 		}));
-		return machinePool;
+		return curMachinePool;
 	}
 }

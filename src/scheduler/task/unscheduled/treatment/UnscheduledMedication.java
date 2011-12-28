@@ -1,5 +1,7 @@
 package scheduler.task.unscheduled.treatment;
 
+import help.Collections;
+import help.Filter;
 import java.util.LinkedList;
 import patient.Diagnose;
 import patient.PatientFile;
@@ -45,10 +47,9 @@ public class UnscheduledMedication extends UnscheduledTreatment
 		return this.medication;
 	}
 
-	//TODO: Problem
 	@Override
 	public boolean canBeScheduled() {
-//		return super.canBeScheduled() && warehouse.hasPlaster(1);
+		return super.canBeScheduled() && this.getMedicationPool().size() > 0;
 	}
 
 	@Override
@@ -56,5 +57,17 @@ public class UnscheduledMedication extends UnscheduledTreatment
 		LinkedList<Integer> rv = new LinkedList<Integer>();
 		rv.add(1);
 		return rv;
+	}
+	
+	protected LinkedList<Medication> getMedicationPool(){
+		LinkedList<Medication> medicationPool = new LinkedList<Medication>();
+		medicationPool.addAll(Collections.filter(this.warehouse.getMedication(), new Filter() 
+		{
+			@Override
+			public <T> boolean allows(T arg) {
+				return arg.getClass().equals(UnscheduledMedication.this.medication.getClass());
+			}
+		}));
+		return medicationPool;
 	}
 }
