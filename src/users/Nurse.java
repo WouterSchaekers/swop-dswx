@@ -3,6 +3,7 @@ package users;
 import controllers.interfaces.NurseIN;
 import scheduler.HospitalDate;
 import scheduler.TimeSlot;
+import exceptions.InvalidHospitalDateArgument;
 import exceptions.InvalidNameException;
 import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidTimeSlotException;
@@ -49,32 +50,32 @@ public class Nurse extends SchedulableUser implements NurseIN
 	@Override
 	public TimeSlot getFirstFreeSlotBetween(HospitalDate startDate,
 			HospitalDate stopDate, long duration)
-			throws InvalidSchedulingRequestException, InvalidTimeSlotException {
-		HospitalDate tmpStartWorkingHour = new HospitalDate(0, 0, 0,
-				Nurse.STARTHOUR, 0, 0);
-		HospitalDate tmpStopWorkingHour = new HospitalDate(0, 0, 0,
-				Nurse.STOPHOUR, 0, 0);
+			throws InvalidSchedulingRequestException, InvalidTimeSlotException, InvalidHospitalDateArgument {
+		HospitalDate tmpStartWorkingHour = new HospitalDate(1, 1, 1,
+				Nurse.STARTHOUR, 1, 1);
+		HospitalDate tmpStopWorkingHour = new HospitalDate(1, 1, 1,
+				Nurse.STOPHOUR, 1, 1);
 		HospitalDate tmpStartDate = this.createDummyDate(startDate);
 		HospitalDate tmpStopDate = this.createDummyDate(stopDate);
 		if (tmpStartDate.before(tmpStartWorkingHour)) {
 			startDate = new HospitalDate(startDate.getYear(),
 					startDate.getMonth(), startDate.getDay(), Nurse.STARTHOUR,
-					0, 0);
+					1, 1);
 		} else if (tmpStopWorkingHour.before(tmpStartDate)
 				|| tmpStopWorkingHour.equals(tmpStartDate)) {
 			startDate = new HospitalDate(startDate.getYear(),
 					startDate.getMonth(), startDate.getDay() + 1,
-					Nurse.STARTHOUR, 0, 0);
+					Nurse.STARTHOUR, 1, 1);
 		}
 		if (tmpStopDate.before(tmpStartWorkingHour)
 				|| tmpStopDate.equals(tmpStartWorkingHour)) {
 			stopDate = new HospitalDate(stopDate.getYear(),
 					stopDate.getMonth(), stopDate.getDay() - 1,
-					Nurse.STARTHOUR, 0, 0);
+					Nurse.STARTHOUR, 1, 1);
 		} else if (tmpStopWorkingHour.before(tmpStopDate)) {
 			stopDate = new HospitalDate(stopDate.getYear(),
-					stopDate.getMonth(), stopDate.getDay(), Nurse.STARTHOUR, 0,
-					0);
+					stopDate.getMonth(), stopDate.getDay(), Nurse.STARTHOUR, 1,
+					1);
 		}
 		if (stopDate.before(startDate)) {
 			throw new InvalidSchedulingRequestException(
@@ -84,8 +85,8 @@ public class Nurse extends SchedulableUser implements NurseIN
 				duration);
 	}
 
-	private HospitalDate createDummyDate(HospitalDate hospitalDate) {
-		return new HospitalDate(0, 0, 0, hospitalDate.getHour(),
+	private HospitalDate createDummyDate(HospitalDate hospitalDate) throws InvalidHospitalDateArgument {
+		return new HospitalDate(1, 1, 1, hospitalDate.getHour(),
 				hospitalDate.getMinute(), hospitalDate.getSecond());
 	}
 }

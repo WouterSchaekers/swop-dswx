@@ -8,6 +8,7 @@ import scheduler.task.Schedulable;
 import scheduler.task.scheduled.ScheduledTask;
 import scheduler.task.unscheduled.UnscheduledTask;
 import be.kuleuven.cs.som.annotate.Basic;
+import exceptions.InvalidHospitalDateArgument;
 import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidResourceException;
 import exceptions.InvalidSchedulingRequestException;
@@ -46,10 +47,11 @@ public class Scheduler
 	 * @throws InvalidResourceException
 	 * @throws InvalidSchedulingRequestException
 	 * @throws InvalidTimeSlotException
+	 * @throws InvalidHospitalDateArgument 
 	 */
 	public ScheduledTask schedule(UnscheduledTask unscheduledTask)
 			throws InvalidTimeSlotException, InvalidSchedulingRequestException,
-			InvalidResourceException {
+			InvalidResourceException, InvalidHospitalDateArgument {
 
 		long duration = unscheduledTask.getDuration();
 		LinkedList<LinkedList<Schedulable>> listOfSchedulables = new LinkedList<LinkedList<Schedulable>>(
@@ -131,6 +133,7 @@ public class Scheduler
 	 * @throws InvalidSchedulingRequestException
 	 * @throws InvalidTimeSlotException
 	 * @throws InvalidResourceException
+	 * @throws InvalidHospitalDateArgument 
 	 */
 	private ScheduledTask schedule(PatientFile patient, long duration, HospitalDate startDate,
 			HospitalDate stopDate,
@@ -138,7 +141,7 @@ public class Scheduler
 			LinkedList<Schedulable> usedSchedulables, boolean[][] treeMatrix,
 			LinkedList<Integer> fullOccurences, int iteration)
 			throws InvalidSchedulingRequestException, InvalidTimeSlotException,
-			InvalidResourceException {
+			InvalidResourceException, InvalidHospitalDateArgument {
 
 		int curCollectionToSchedule = fullOccurences.get(iteration);
 		LinkedList<Schedulable> curSchedList = neededSchedulables
@@ -218,11 +221,12 @@ public class Scheduler
 	 *         slot.
 	 * @throws InvalidSchedulingRequestException
 	 * @throws InvalidTimeSlotException
+	 * @throws InvalidHospitalDateArgument 
 	 */
 	private int findBestOption(long duration, HospitalDate startDate,
 			HospitalDate stopDate, boolean[] treeArray,
 			LinkedList<Schedulable> curSchedList)
-			throws InvalidSchedulingRequestException, InvalidTimeSlotException {
+			throws InvalidSchedulingRequestException, InvalidTimeSlotException, InvalidHospitalDateArgument {
 		int bestOption = -1;
 		TimeSlot bestSlot = null;
 		HospitalDate bestDate = null;

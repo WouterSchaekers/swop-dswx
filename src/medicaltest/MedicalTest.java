@@ -5,7 +5,6 @@ import scheduler.TimeSlot;
 import scheduler.TimeTable;
 import scheduler.task.Schedulable;
 import exceptions.*;
-import be.kuleuven.cs.som.annotate.Basic;
 
 /**
  * This class represents a medical test.

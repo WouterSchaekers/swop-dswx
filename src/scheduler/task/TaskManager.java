@@ -12,6 +12,7 @@ import scheduler.task.scheduled.ScheduledTask;
 import scheduler.task.unscheduled.UnscheduledTask;
 import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidDurationException;
+import exceptions.InvalidHospitalDateArgument;
 import exceptions.InvalidResourceException;
 import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidTimeSlotException;
@@ -59,8 +60,9 @@ public class TaskManager extends Observable
 	 * @throws InvalidSchedulingRequestException
 	 * @throws InvalidTimeSlotException
 	 * @throws InvalidResourceException 
+	 * @throws InvalidHospitalDateArgument 
 	 */
-	private HashMap<ScheduledTask,HospitalDate> updateQueue() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException, InvalidResourceException {
+	private HashMap<ScheduledTask,HospitalDate> updateQueue() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException, InvalidResourceException, InvalidHospitalDateArgument {
 		HashMap<ScheduledTask, HospitalDate> returnValue = new HashMap<ScheduledTask, HospitalDate>();
 		Queue<UnscheduledTask> newQueue = new LinkedList<UnscheduledTask>(this.taskQueue);
 		for (UnscheduledTask curTask : this.taskQueue) {

@@ -1,7 +1,7 @@
 package ui.advancetime;
 
-import java.util.Scanner;
 import controllers.AdvanceTimeController;
+import exceptions.InvalidHospitalDateArgument;
 import exceptions.InvalidLoginControllerException;
 import scheduler.HospitalDate;
 import ui.SelectUsecase;
@@ -17,7 +17,7 @@ public class AdvanceTimeSuperClass extends Usecase
 	}
 	
 	@Override
-	public Usecase Execute() {
+	public Usecase Execute() throws InvalidHospitalDateArgument {
 		//Create controller
 		AdvanceTimeController controller = null;
 		try {
@@ -55,7 +55,7 @@ public class AdvanceTimeSuperClass extends Usecase
 		// TODO Auto-generated method stub
 		return new SelectUsecase(data);
 	}
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InvalidHospitalDateArgument {
 		HospitalDate d = new HospitalDate(1999,00,1,1,1,1);
 		System.out.println(d);
 	}

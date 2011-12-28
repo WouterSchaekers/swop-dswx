@@ -1,8 +1,6 @@
 package scheduler;
 
 import java.util.GregorianCalendar;
-import java.util.IllegalFormatException;
-import javax.management.RuntimeErrorException;
 import exceptions.InvalidHospitalDateArgument;
 
 /**
@@ -73,10 +71,12 @@ public class HospitalDate
 
 	/**
 	 * Creates a new hospitaldate, with the default start time.
-	 * @throws InvalidHospitalDateArgument 
+	 * 
+	 * @throws InvalidHospitalDateArgument
 	 */
 	public HospitalDate() {
-		this(0);
+		this.gregorianCalendar = new GregorianCalendar(START_YEAR, START_MONTH,
+				START_DAY, START_HOUR, START_MINUTE, START_SECOND);
 	}
 
 	/**
@@ -121,7 +121,7 @@ public class HospitalDate
 	 * @param second
 	 *            The second of the minute.
 	 * @throws InvalidHospitalDateArgument
-	 * 	if the arguments are non sensible
+	 *             if the arguments are non sensible
 	 */
 	public HospitalDate(int year, int month, int day, int hour, int minute,
 			int second) throws InvalidHospitalDateArgument {
@@ -415,13 +415,12 @@ public class HospitalDate
 		return false;
 	}
 
-	public static HospitalDate getNextHour(HospitalDate hospitalDate) {
-		HospitalDate roundedHospitalDate;
-		try {
-			roundedHospitalDate = new HospitalDate(hospitalDate.getYear(), hospitalDate.getMonth(), hospitalDate.getDay(), hospitalDate.getHour(), 0, 0);
-		return new HospitalDate(roundedHospitalDate.getTimeSinceStart() + HospitalDate.ONE_HOUR);
-		} catch (InvalidHospitalDateArgument e) {
-			return null;
-		}
+	public static HospitalDate getNextHour(HospitalDate hospitalDate)
+			throws InvalidHospitalDateArgument {
+		HospitalDate roundedHospitalDate = new HospitalDate(
+				hospitalDate.getYear(), hospitalDate.getMonth(),
+				hospitalDate.getDay(), hospitalDate.getHour(), 0, 0);
+		return new HospitalDate(roundedHospitalDate.getTimeSinceStart()
+				+ HospitalDate.ONE_HOUR);
 	}
 }

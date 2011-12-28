@@ -1,6 +1,7 @@
 package ui;
 
 import java.util.Scanner;
+import exceptions.InvalidHospitalDateArgument;
 
 /**
  * This class truly starts the user interface and initializes the first item do
@@ -42,9 +43,10 @@ public class UCHandler
 	/**
 	 * Here each command is called and executed, this returns a new command that
 	 * then will be executed, until the exitSystem command is returned.
+	 * @throws InvalidHospitalDateArgument 
 	 * 
 	 */
-	public void start() {
+	public void start() throws InvalidHospitalDateArgument {
 		while (true) {
 			if ((currentUIView = currentUIView.Execute()) instanceof ExitSystem)
 				return;
