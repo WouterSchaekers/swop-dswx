@@ -21,7 +21,7 @@ public abstract class UnscheduledTask extends Task
 	private long duration;
 	private long extraTime;
 	private boolean backToBack;
-	private HospitalDate creationTime;
+	private HospitalDate systemTime;
 
 	/**
 	 * Constructor without requirements.
@@ -45,7 +45,7 @@ public abstract class UnscheduledTask extends Task
 	 * @throws InvalidHospitalDateException
 	 */
 	public UnscheduledTask(PatientFile p, long duration,
-			HospitalDate creationTime, long extraTime, boolean backToBack)
+			HospitalDate systemTime, long extraTime, boolean backToBack)
 			throws InvalidResourceException, InvalidDurationException,
 			InvalidOccurencesException, InvalidAmountException,
 			InvalidHospitalDateException {
@@ -53,10 +53,10 @@ public abstract class UnscheduledTask extends Task
 		if (!isValidAmountOfExtraTime(extraTime))
 			throw new InvalidAmountException(
 					"Invalid amount of extra time since system start given to Unscheduled Task");
-		if (!isValidSystemTime(creationTime))
+		if (!isValidSystemTime(systemTime))
 			throw new InvalidHospitalDateException(
 					"Invalid systemtime given to Unscheduled Task");
-		this.creationTime = creationTime;
+		this.systemTime = systemTime;
 		this.backToBack = backToBack;
 		this.duration = duration;
 	}
@@ -89,7 +89,7 @@ public abstract class UnscheduledTask extends Task
 
 	@Basic
 	public HospitalDate getCreationTime() {
-		return new HospitalDate(this.creationTime);
+		return new HospitalDate(this.systemTime);
 	}
 
 	@Basic
