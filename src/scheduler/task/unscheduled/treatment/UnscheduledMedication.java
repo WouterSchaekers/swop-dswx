@@ -18,14 +18,11 @@ public class UnscheduledMedication extends UnscheduledTreatment
 {
 
 	
-	public UnscheduledMedication(long duration, HospitalDate creationTime,
-			Collection<Requirement> requirements, boolean backToBack,
+	public UnscheduledMedication(long duration, HospitalDate creationTime, boolean backToBack,
 			Diagnose diagnose,Medication med,UserManager um) throws InvalidResourceException,
 			InvalidDurationException, InvalidOccurencesException,
 			InvalidAmountException, InvalidHospitalDateException {
 		super(duration, creationTime, requirements, backToBack, diagnose, um);
-		// TODO Auto-generated constructor stub
-		
 	}
 
 	@Override

@@ -3,7 +3,6 @@ package scheduler.task.unscheduled;
 import java.util.LinkedList;
 import scheduler.HospitalDate;
 import scheduler.task.Schedulable;
-import scheduler.task.UnscheduledTask;
 import users.Doctor;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;

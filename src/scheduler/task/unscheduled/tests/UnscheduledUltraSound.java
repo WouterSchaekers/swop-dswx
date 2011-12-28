@@ -16,7 +16,7 @@ import exceptions.InvalidResourceException;
 import scheduler.HospitalDate;
 import scheduler.task.Requirement;
 import scheduler.task.Schedulable;
-import scheduler.task.UnscheduledTask;
+import scheduler.task.unscheduled.UnscheduledTask;
 import users.UserManager;
 
 public class UnscheduledUltraSound extends UnscheduledTask

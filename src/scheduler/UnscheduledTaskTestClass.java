@@ -10,7 +10,7 @@ import exceptions.InvalidOccurencesException;
 import exceptions.InvalidResourceException;
 import scheduler.task.Requirement;
 import scheduler.task.Schedulable;
-import scheduler.task.UnscheduledTask;
+import scheduler.task.unscheduled.UnscheduledTask;
 /**
  * Class created for testing purposes only !!!F!!!!!!!!!@!$!Q@#$!@#$
  *

@@ -8,6 +8,8 @@ import java.util.Queue;
 import java.util.Observable;
 import scheduler.HospitalDate;
 import scheduler.Scheduler;
+import scheduler.task.scheduled.ScheduledTask;
+import scheduler.task.unscheduled.UnscheduledTask;
 import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidResourceException;

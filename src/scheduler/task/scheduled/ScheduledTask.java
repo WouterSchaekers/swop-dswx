@@ -1,4 +1,4 @@
-package scheduler.task;
+package scheduler.task.scheduled;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -6,6 +6,8 @@ import javax.swing.Spring;
 import be.kuleuven.cs.som.annotate.Basic;
 import scheduler.HospitalDate;
 import scheduler.TimeSlot;
+import scheduler.task.Schedulable;
+import scheduler.task.Task;
 import exceptions.*;
 
 /**
