@@ -12,8 +12,6 @@ import be.kuleuven.cs.som.annotate.Basic;
  */
 public abstract class MedicalTest implements Schedulable
 {
-	// all childclasses will have their names be final and static and will use
-	// this var to store that information in.
 	private final long DURATION;
 	private TimeTable myTimeTable;
 	
