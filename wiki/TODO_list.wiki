@@ -1,5 +1,4 @@
 = TODOs =
-  * *DIETER* durations in millis setten en isValid ipv invalid gebruiken bij factories ^^
   * Treatment factory
   * Concerning Task and TaskManager:
     * In de usecases willen we (Unscheduled)Tasks aanmaken.
@@ -22,7 +21,7 @@ Bij unscheduled classes zorgen dat die requirements lazy gemaakt worden, (dit do
 
 = Wie is er momenteel waaraan bezig? =
 <p>
-Dieter: eXtreme-programming<p>
+Dieter: durations in millis setten en isValid ipv invalid gebruiken bij factories ^^<p>
 Stefaan:
   * als de tijd vooruit gaat, moeten de volgende dingen gebeuren:
     * Alle TimeTables moeten geupdate worden.
