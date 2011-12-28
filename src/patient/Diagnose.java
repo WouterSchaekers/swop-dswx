@@ -2,6 +2,7 @@ package patient;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Observable;
 import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.DoctorIN;
 import controllers.interfaces.TreatmentIN;
@@ -15,7 +16,7 @@ import users.Doctor;
  * and examination. It keeps a collections of Treatments to keep track of which
  * Diagnosis have been treated with which Treatments.
  */
-public class Diagnose implements DiagnoseIN
+public class Diagnose extends Observable implements DiagnoseIN
 {
 
 	private String diag = ""; 
@@ -61,21 +62,26 @@ public class Diagnose implements DiagnoseIN
 	 *             if (!canGvieSecondOpionion(from))
 	 * @throws InvalidDiagnoseException
 	 *             if (!isValidDiagnosis(diag))
+	 * @throws InvalidDisaprovementException 
 	 */
-	public void giveSecOp(Doctor from, String diag)
-			throws InvalidDoctorException, InvalidDiagnoseException {
+	public void disapprove(Doctor from, Diagnose replacement)
+			throws InvalidDoctorException, InvalidDiagnoseException, InvalidDisaprovementException {
+		if(!canBeReplacedWith(replacement))
+			throw new InvalidDisaprovementException();
 		if (!canGiveSecondOpinion(from))
 			throw new InvalidDoctorException(
 					"The given Doctor cannot give a second opinion on the selected Diagnose because he's not been asked to do so!");
 		if (!isValidDiagnosis(diag))
 			throw new InvalidDiagnoseException(
-					"Invalid Diagnose for second opinion!");
+					"Invalid Diagnose for second opinion!"); 
+		this.disapprove();
+	}
 
-		// remember: approve does more than just set the field... 
-		if (evaluateSecOp(diag))
-			this.approve();
-		else
-			this.disapprove();
+	private boolean canBeReplacedWith(Diagnose replacement) {
+		boolean rv = this.secopDoc.equals(replacement.attending);
+		rv&= (this.attending.equals(replacement.secopDoc));
+		rv&= replacement.secOpFlag;
+		return rv;
 	}
 
 	/**
@@ -111,8 +117,12 @@ public class Diagnose implements DiagnoseIN
 
 	/**
 	 * Approves this diagnosis.
+	 * @throws ApproveDiagnoseException 
+	 * 	If this diagnose was not marked for second opinion.
 	 */
-	public void approve() {
+	public void approve() throws ApproveDiagnoseException {
+		if(!isMarkedForSecOp())
+			throw new ApproveDiagnoseException();
 		this.approved = true;
 		this.unmarkForSecOp();
 	}
@@ -202,5 +212,12 @@ public class Diagnose implements DiagnoseIN
 	 */
 	private boolean isValidTreatment(Treatment t) {
 		return t != null;
+	}
+
+	public void disaprove(DiagnoseIN replacement) {
+		if(!isMarkedForSecOp())
+			throw new Approv
+		// TODO Auto-generated method stub
+		
 	}
 }

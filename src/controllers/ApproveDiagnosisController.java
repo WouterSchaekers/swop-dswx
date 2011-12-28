@@ -52,11 +52,11 @@ public class ApproveDiagnosisController
 	}
 
 	public void disApproveDiagnose(LoginController loginController2,
-			DiagnoseIN selected) {
+			DiagnoseIN selected,DiagnoseIN replacement) {
 		if(!isValidLoginController(loginController2))
 			throw new InvalidLoginControllerException("");
 		if(selected instanceof Diagnose)
-			((Diagnose)selected).;
+			((Diagnose)selected).disaprove(replacement);
 	}
 
 }
