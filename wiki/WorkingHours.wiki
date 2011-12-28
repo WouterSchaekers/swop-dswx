@@ -47,4 +47,7 @@
 || 22/12/11: 15u00 -> 18u00 || 3 DSW || 3 || unScheduledTasks and their child classes. || ||
 || 23/12/11: 12u00 -> 13u00 || 3 DSW || 1 || new scheduling algorithm, usecases, ... || ||
 || 23/12/11: 13u00 -> 16u00 || 3 DSW || 3 || Nothing || Praten met Frédéric ||
-|| 27/12/11: 11u30 -> ... || 3 DSW || ... || ... || ||
+|| 27/12/11: 11u30 -> 14u00 || DSW  || 2.5 || UnscheduledAppointment, UnscheduledMedicalTreatment || || 
+|| 27/12/11: 17u00 -> 19u00 ||  3 DSW || 2 || Observerpattern for TaskManager, TimeLord, Warehouse || || 
+|| 28/12/11: 10u00 -> 10u30 || 1 S || 0.5 || Assessment of the situation and viability of making the  deadline -> Must work 10-13 hours from 28/12 to 31/12 ||  Dieter en Wouter waren te laat >.>'|| 
+|| 28/12/11: 10u30 -> 	||  2 SW || || || 
