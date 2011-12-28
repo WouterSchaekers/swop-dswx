@@ -103,9 +103,10 @@ public class XRayScanFactory extends MedicalTestFactory
 		return name != null;
 	}
 	/**
-	 * 
+	 * Checks if the duration is valid
 	 * @param duration2
 	 * @return
+	 * true if duration2 == 15 mins
 	 */
 	private boolean isValidDuration(long duration2) {
 		return duration2 == 15* HospitalDate.ONE_MINUTE;

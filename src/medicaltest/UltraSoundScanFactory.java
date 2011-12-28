@@ -53,6 +53,10 @@ public class UltraSoundScanFactory extends MedicalTestFactory
 	{
 		return "ultrasound scan";
 	}
+	/**
+	 * checks if the ultrasound scan object is ready to be created.
+	 * @return
+	 */
 	private boolean ready() {
 		boolean rv= true;
 		rv	&=recordImageSet;
