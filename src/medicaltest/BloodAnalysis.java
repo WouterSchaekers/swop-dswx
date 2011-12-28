@@ -10,7 +10,13 @@ import exceptions.InvalidTimeSlotException;
  */
 public class BloodAnalysis extends MedicalTest
 {
+	/**
+	 * amount of times an analysis has to be run
+	 */
 	private final int amount;
+	/**
+	 * The focus of this bloodanalysis
+	 */
 	private final String focus;
 
 	/**

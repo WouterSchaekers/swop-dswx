@@ -6,14 +6,24 @@ import exceptions.InvalidTimeSlotException;
 
 public class UltraSoundScan extends MedicalTest
 {
+	/**
+	 * 
+	 * @return
+	 */
 	public String getScaninfo() {
 		return scaninfo;
 	}
-
+	/**
+	 * 
+	 * @return
+	 */
 	public boolean hasVideoRecordingEnabled() {
 		return recordVid;
 	}
-
+	/**
+	 * 
+	 * @return
+	 */
 	public boolean hasImageRecordingEnabled() {
 		return recordImages;
 	}
