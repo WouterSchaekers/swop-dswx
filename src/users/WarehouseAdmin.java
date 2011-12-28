@@ -85,16 +85,9 @@ public class WarehouseAdmin extends User
 	 *            The new system time.
 	 */
 	public void update(HospitalDate newTime) {
-		HospitalDate prevDate = this.warehouse.getPreviousDate();
-		long timeDiff = prevDate.getTimeBetween(newTime);
-		int mealsADay = 3;
-		int amountOfMealsPassed = (int) (timeDiff / (24 * HospitalDate.ONE_HOUR))
-				* mealsADay;
-
 		this.removeExpiredItems(newTime);
-		for (int i = 0; i < amountOfMealsPassed; i++) {
-			this.updateMeals(newTime);
-		}
+		this.updateMeals(newTime);
+
 		this.warehouse.setPreviousDate(newTime);
 	}
 
@@ -102,11 +95,11 @@ public class WarehouseAdmin extends User
 	 * Removes the expired items (note meals!)from the warehouse that is
 	 * associated with this warehouse administrator.
 	 */
-	public void removeExpiredItems(HospitalDate newTime) {
+	private void removeExpiredItems(HospitalDate newTime) {
 		LinkedList<Medication> meds = this.warehouse.getMedication();
 		LinkedList<Medication> newMeds = new LinkedList<Medication>();
-		for(Medication m : meds) {
-			if(!m.hasPassedDate(newTime))
+		for (Medication m : meds) {
+			if (!m.hasPassedDate(newTime))
 				newMeds.add(m);
 		}
 		this.warehouse.setMedicaton(newMeds);
@@ -115,15 +108,29 @@ public class WarehouseAdmin extends User
 	/**
 	 * Updates the amount of meals after 1 meal. Also
 	 */
-	public void updateMeals(HospitalDate newTime) {
+	private void updateMeals(HospitalDate newTime) {
 		int amountOfPatients = this.pfm.amountOfActivePatients();
 		int amountOfMealsEaten = 0;
 		HospitalDate nextDate = new HospitalDate(this.warehouse.getPreviousDate());
+		long nextMeals[] = new long[3];
+		int amountOfOrdersToPlace = 0;
+
+		 do {
+			amountOfOrdersToPlace++;
+			 nextMeals = this.timeToNextMeals(nextDate);
+			for (int i = 0; i < nextMeals.length; i++) {
+				if (nextMeals[i] < 24)
+					amountOfMealsEaten++;
+			}
+			nextDate = new HospitalDate(nextDate.getTimeSinceStart()
+					+ HospitalDate.ONE_DAY);
+		} while (nextDate.before(newTime));
 		
-		while(! nextDate.after(newTime)) {
-			nextDate = new HospitalDate(nextDate.getTimeSinceStart() + HospitalDate.on)
-		}
-		
+		 if(newTime.getHour() < 23 && newTime.getMinute() < 59)
+			 amountOfOrdersToPlace--;
+		 		 
+		 
+		amountOfMealsEaten *= amountOfPatients;
 		try {
 			this.warehouse.eatMeals(amountOfMealsEaten);
 		} catch (MealException e) {
@@ -151,11 +158,12 @@ public class WarehouseAdmin extends User
 	}
 
 	/**
-	 * @return True if u is a valid amount of units for whatever kind of thing
-	 *         one would like to add to the warehouse of this warehouse
-	 *         administrator.
+	 * Places the order for more meals should the time be updated.
+	 * 
+	 * @param newTime
+	 *            The new system time.
 	 */
-	public static boolean isValidAmountOfUnits(int u) {
-		return u >= 0;
+	private void orderMoreMeals(HospitalDate newTime) {
+		
 	}
 }
