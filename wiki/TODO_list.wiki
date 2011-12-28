@@ -15,7 +15,7 @@ Stefaan:
     * Het warehouse moet geupdate worden.
     * De TaskManager moet zijn queues updaten, indien er tijdsafhankelijke constraints zijn voor Schedulables.
     * ...<p>
-Wouter: unscheduled dingen maken<p>
+Wouter: SchedulerTest<p>
 
 = Things that have been crossed off = 
   * Treatment Factories gemaakt en getest
