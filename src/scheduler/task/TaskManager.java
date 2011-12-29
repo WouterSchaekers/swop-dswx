@@ -63,18 +63,15 @@ public class TaskManager extends Observable
 			InvalidSchedulingRequestException,
 			InvalidSchedulingRequestException, InvalidTimeSlotException,
 			InvalidResourceException, InvalidHospitalDateArgument {
-		Queue<UnscheduledTask> newQueue = new LinkedList<UnscheduledTask>(
-				this.taskQueue);
+		Queue<UnscheduledTask> newQueue = new LinkedList<UnscheduledTask>();
 		for (UnscheduledTask curTask : this.taskQueue) {
 			if (curTask.canBeScheduled()) {
 				this.myScheduler().schedule(curTask);
-
 			} else {
 				newQueue.add(curTask);
 			}
 		}
 		this.taskQueue = newQueue;
-
 	}
 
 	private Scheduler myScheduler() {

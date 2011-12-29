@@ -10,8 +10,8 @@ import scheduler.task.TaskManager;
  */
 public class TimeLordObserverTaskManager implements Observer
 {
-	private TaskManager myTM;
-	private HospitalDate hospitalDate;
+	private TaskManager taskManager;
+	private HospitalDate previousDate;
 	
 	/**
 	 * Default constructor.
@@ -20,9 +20,9 @@ public class TimeLordObserverTaskManager implements Observer
 	 *            The TaskManager this observer should notify, should it get
 	 *            notified.
 	 */
-	public TimeLordObserverTaskManager(TaskManager tm) {
-		this.myTM = tm;
-		this.hospitalDate = null;
+	public TimeLordObserverTaskManager(TaskManager taskManager, HospitalDate initialDate) {
+		this.taskManager = taskManager;
+		this.previousDate = initialDate;
 	}
 	
 	@Override
@@ -30,8 +30,9 @@ public class TimeLordObserverTaskManager implements Observer
 		if (!(newDate instanceof HospitalDate))
 			throw new IllegalArgumentException(
 					"Object given to TimeLordObserver was not a hospital date!");
-		if(this.hospitalDate == null || this.hospitalDate.before((HospitalDate) newDate)){
-			this.myTM.update();
+		if(this.previousDate.before((HospitalDate) newDate)){
+			this.taskManager.update();
 		}
+		previousDate = (HospitalDate)newDate;
 	}
 }
