@@ -5,6 +5,7 @@
   * Observers
   * Usecases
   * Dieter slaan
+  * Bidirectionele binding tussen TaskManager en Schedulable
   * Meer code coverage (Junit!) (optional)
 
 = Wie is er momenteel waaraan bezig? =
