@@ -39,12 +39,24 @@ public class UnscheduledTaskTestClass extends UnscheduledTask
 
 	@Override
 	public LinkedList<LinkedList<Schedulable>> getResourcePool() {
-		return schedulables;
+		LinkedList<LinkedList<Schedulable>> allSchedulables = new LinkedList<LinkedList<Schedulable>>();
+		for(int i = 0; i < requirements.size(); i++){
+			LinkedList<Schedulable> tempList = new LinkedList<Schedulable>();
+			tempList.add(requirements.get(i));
+			allSchedulables.add(tempList);
+		}
+		allSchedulables.addAll(this.schedulables);
+		return allSchedulables;
 	}
 
 	@Override
 	public LinkedList<Integer> getOccurences() {
-		return occurences;
+		LinkedList<Integer> allOccurences = new LinkedList<Integer>();
+		for(int i = 0; i < requirements.size(); i++){
+			allOccurences.add(1);
+		}
+		allOccurences.addAll(this.occurences);
+		return allOccurences;
 	}
 
 	@Override
