@@ -36,10 +36,10 @@ public class WarehouseAdmin extends User
 	 *            the amount of active patients in its hospital.
 	 * @throws InvalidNameException
 	 */
-	public WarehouseAdmin(Warehouse depot, PatientFileManager pfm)
+	public WarehouseAdmin(Warehouse warehouse, PatientFileManager pfm)
 			throws InvalidNameException {
 		super("The Warehouse administrator");
-		this.warehouse = depot;
+		this.warehouse = warehouse;
 		this.pfm = pfm;
 	}
 

@@ -9,7 +9,9 @@ import patient.PatientFileManager;
 import scheduler.HospitalDate;
 import scheduler.Scheduler;
 import scheduler.TimeLord;
+import scheduler.task.TaskManager;
 import users.UserManager;
+import users.WarehouseAdmin;
 import warehouse.Warehouse;
 import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidLocationException;
@@ -44,6 +46,8 @@ public class DefaultHospital
 	public Warehouse wh;
 	public MachinePool mp;
 	public TimeLord tl;
+	public WarehouseAdmin wha;
+	public TaskManager tm;
 	
 	/**
 	 * Default constructor.
@@ -70,10 +74,12 @@ public class DefaultHospital
 	 */
 	public DefaultHospital() throws InvalidHospitalDateException, UserAlreadyExistsException, InvalidNameException, InvalidTimeSlotException, InvalidLocationException, InvalidSerialException, InvalidTimeLordException {
 		um = new UserManager();
+		wh = new Warehouse(new HospitalDate((new HospitalDate().getTimeSinceStart()) + 1));
+		pfm = new PatientFileManager();
+		wha = new WarehouseAdmin(wh, pfm);
+		tm = new TaskManager(s);
 		tl = new TimeLord();
 		s = new Scheduler(tl);
-		pfm = new PatientFileManager();
-		wh = new Warehouse(new HospitalDate((new HospitalDate().getTimeSinceStart()) + 1));
 		mp = new MachinePool();
 		
 		um.createNurse("Jenny");
@@ -84,9 +90,9 @@ public class DefaultHospital
 		mp.addMachine(new XRayScanner(0, "Links"));
 		mp.addMachine(new BloodAnalyser(1,"Extreem Rechts"));
 		mp.addMachine(new UltraSoundScanner(2, "Kim Jung-Il"));
-		pfm.registerPatient("Dieter");
+		pfm.registerPatient("Zieke Dieter");
 		pfm.registerPatient("Wouter");
-		PatientFile Dieter = pfm.getPatientFileFrom("Dieter");
+		PatientFile Dieter = pfm.getPatientFileFrom("Zieke Dieter");
 		pfm.checkIn(Dieter);
 		
 	}

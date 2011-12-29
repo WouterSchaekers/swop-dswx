@@ -2,14 +2,16 @@ package observers;
 
 import java.util.Observable;
 import java.util.Observer;
+import machine.MachinePool;
 import scheduler.HospitalDate;
 import users.UserManager;
 
-public class TimeLordTimeTablesObserver implements Observer
+public class TimeLordObserverTimeTables implements Observer
 {
 	UserManager userManager;
+	MachinePool machinePool;
 	
-	public TimeLordTimeTablesObserver(UserManager userManager){
+	public TimeLordObserverTimeTables(UserManager userManager){
 		this.userManager = userManager;
 	}
 	@Override
@@ -18,5 +20,6 @@ public class TimeLordTimeTablesObserver implements Observer
 			throw new IllegalArgumentException(
 					"Object given to TimeLordObserver was not a hospital date!");
 		this.userManager.updateTimeTables((HospitalDate)newDate);
+		this.machinePool.updateTimeTables((HospitalDate)newDate);
 	}
 }

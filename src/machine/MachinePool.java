@@ -3,6 +3,7 @@ package machine;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import scheduler.HospitalDate;
 
 /**
  * This class is merely a collection of all machines in existence.
@@ -39,6 +40,10 @@ public class MachinePool
 	public Collection<MachineBuilder> getAllBuilders() {
 		return Arrays.asList(new BloodanalyzerBuilder(),new UltraSoundScannerBuilder(),new XrayScannerBuilder());
 	}
-
- 
+	
+	public void updateTimeTables(HospitalDate newDate){
+		for(Machine machine : allMachines){
+			machine.updateTimeTable(newDate);
+		}
+	}
 }

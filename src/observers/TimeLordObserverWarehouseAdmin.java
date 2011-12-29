@@ -8,7 +8,7 @@ import users.WarehouseAdmin;
 /**
  * Use this observer to notify a warehouse to update its stock.
  */
-public class TimeLordObserverWarehouse implements Observer
+public class TimeLordObserverWarehouseAdmin implements Observer
 {
 	private WarehouseAdmin myWarehouseAdmin;
 	
@@ -19,7 +19,7 @@ public class TimeLordObserverWarehouse implements Observer
 	 *            The WarehouseAdmin this observer should notify, should it get
 	 *            notified.
 	 */
-	public TimeLordObserverWarehouse (WarehouseAdmin w) {
+	public TimeLordObserverWarehouseAdmin (WarehouseAdmin w) {
 		this.myWarehouseAdmin = w;
 	}
 	
