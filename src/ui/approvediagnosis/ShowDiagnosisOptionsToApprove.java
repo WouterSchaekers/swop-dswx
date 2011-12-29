@@ -22,7 +22,7 @@ public class ShowDiagnosisOptionsToApprove extends ApproveDiagnosisSuper
 		ApproveDiagnosisController c =chaindata.getController();
 		Collection<PatientFileIN> patienfiles=c.getAllPatienFiles(data.getDataPasser());
 
-		Collection<DiagnoseIN> d = new ArrayList<DiagnoseIN>();
+		Collection< DiagnoseIN> d = new ArrayList<DiagnoseIN>();
 		for(PatientFileIN pf:patienfiles)
 			d.addAll(pf.getAlldiagnosis());
 		d=Collections.filter(d, new Filter()

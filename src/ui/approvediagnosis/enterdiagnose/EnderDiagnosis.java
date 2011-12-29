@@ -1,4 +1,4 @@
-package ui.enterdiagnosis;
+package ui.approvediagnosis.enterdiagnose;
 
 import controllers.EnterDiagnoseController;
 import exceptions.InvalidLoginControllerException;

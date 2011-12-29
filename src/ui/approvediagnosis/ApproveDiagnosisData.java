@@ -9,6 +9,7 @@ public class ApproveDiagnosisData
 
 	private ApproveDiagnosisController approveDiagnosisController;
 	private Collection<DiagnoseIN> d;
+	private DiagnoseIN diagnose;
 
 	public void add(ApproveDiagnosisController controller) {
 		this.approveDiagnosisController = controller;
@@ -26,6 +27,15 @@ public class ApproveDiagnosisData
 	public Collection<DiagnoseIN> getAllTheDiagnosis()
 	{
 		return d;
+	}
+
+	public void setCreatedDiagnose(DiagnoseIN diagnose) {
+		this.diagnose=diagnose;
+		
+	}
+
+	public DiagnoseIN getDiagnose() {
+		return diagnose;
 	}
 
 }

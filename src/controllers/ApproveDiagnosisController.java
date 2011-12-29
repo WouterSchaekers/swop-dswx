@@ -39,12 +39,13 @@ public class ApproveDiagnosisController
 		return f;
 	}
 
-	public void approveDiagnose(LoginController loginController2,
+	public DiagnoseIN approveDiagnose(LoginController loginController2,
 			DiagnoseIN selected) throws InvalidLoginControllerException, ApproveDiagnoseException {
 		if(!isValidLoginController(loginController2))
 			throw new InvalidLoginControllerException("");
 		if(selected instanceof Diagnose)
 			((Diagnose)selected).approve();
+		return selected;
 		
 	}
 

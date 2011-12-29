@@ -101,5 +101,18 @@ public class LoginController
 	public UserIN getUserIN() {
 		return user;
 	}
+	/**
+	 * Equality test
+	 */
+	@Override
+	public boolean equals(Object o)
+	{
+		if(!(o instanceof LoginController))
+			return false;
+		LoginController that = (LoginController) o;
+	return	
+		this.loggedIn	==	that.loggedIn
+		&this.user.equals(that.user);
+	}	
 
 }
