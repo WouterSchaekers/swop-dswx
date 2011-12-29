@@ -2,6 +2,7 @@ package controllers;
 
 import patient.Diagnose;
 import patient.PatientFile;
+import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.DoctorIN;
 import users.Doctor;
 import exceptions.InvalidDiagnoseException;
@@ -64,7 +65,7 @@ public class EnterDiagnoseController
 		return true;
 	}
 
-	public void enterDiagnose(LoginController loginController2,
+	public DiagnoseIN enterDiagnose(LoginController loginController2,
 			PatientFileOpenController patientFileOpenController, String diag,
 			DoctorIN choice) throws InvalidLoginControllerException,
 			InvalidPatientFileOpenController, InvalidDiagnoseException,
@@ -78,7 +79,7 @@ public class EnterDiagnoseController
 		d.markForSecOp((Doctor) choice);
 		((PatientFile) patientFileOpenController.getPatientFile())
 				.addDiagnosis(d);
-
+		return d;
 	}
 
 	public void enterDiagnose(LoginController loginController2,
