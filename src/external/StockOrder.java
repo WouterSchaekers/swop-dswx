@@ -1,6 +1,6 @@
 package external;
 
-public class StockOrder<T>
+public class StockOrder
 {
 	private int amount;
 	public StockOrder(int amount)
