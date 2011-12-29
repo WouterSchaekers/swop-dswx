@@ -5,8 +5,9 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Queue;
-import scheduler.HospitalDate;
 import scheduler.Scheduler;
+import scheduler.task.scheduled.Appointment;
+import scheduler.task.scheduled.ScheduledTask;
 import scheduler.task.unscheduled.UnscheduledTask;
 import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidDurationException;
@@ -63,15 +64,18 @@ public class TaskManager extends Observable
 			InvalidSchedulingRequestException,
 			InvalidSchedulingRequestException, InvalidTimeSlotException,
 			InvalidResourceException, InvalidHospitalDateArgument {
-		Queue<UnscheduledTask> newQueue = new LinkedList<UnscheduledTask>();
+		Queue<UnscheduledTask> newQueue = new LinkedList<UnscheduledTask>(
+				this.taskQueue);
 		for (UnscheduledTask curTask : this.taskQueue) {
 			if (curTask.canBeScheduled()) {
 				this.myScheduler().schedule(curTask);
+
 			} else {
 				newQueue.add(curTask);
 			}
 		}
 		this.taskQueue = newQueue;
+
 	}
 
 	private Scheduler myScheduler() {
@@ -88,16 +92,22 @@ public class TaskManager extends Observable
 	 * @throws InvalidSchedulingRequestException
 	 * @throws InvalidDurationException
 	 * @throws QueueException
+	 * @throws InvalidHospitalDateArgument 
+	 * @throws InvalidResourceException 
 	 */
-	public void addTask(UnscheduledTask t) throws QueueException,
-			InvalidDurationException, InvalidSchedulingRequestException,
-			InvalidTimeSlotException {
+	public ScheduledTask addTask(UnscheduledTask t) throws InvalidTimeSlotException, InvalidResourceException, InvalidHospitalDateArgument   {
 		if (!isValidTask(t))
 			throw new IllegalArgumentException(
 					"Task t in addTask of the TaskManager is not a valid queueable Task!");
-		this.taskQueue.add(t);
-	}
+		try {
+			return this.myScheduler.schedule(t);
+		} catch (InvalidSchedulingRequestException e) {
+			this.taskQueue.add(t);
+			return null;
+		} 
 
+
+	}
 	/**
 	 * @return True if t is a valid Task that can be queued in this TM.
 	 */
