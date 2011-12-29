@@ -18,9 +18,9 @@ import exceptions.WarehouseOverCapacityException;
  */
 public class Warehouse
 {
-	private final static int MAX_UNITS_OF_PLASTER = 8;
-	private final static int MAX_UNITS_OF_MEDICATION = 10;
-	private final static int MAX_UNITS_OF_MEALS = 120;
+	public static final int MAX_UNITS_OF_PLASTER = 8;
+	public static final int MAX_UNITS_OF_MEDICATION = 10;
+	public static final int MAX_UNITS_OF_MEALS = 120;
 	private int unitsOfPlaster;
 	private LinkedList<Medication> medication;
 	private LinkedList<Meal> meals;
@@ -139,7 +139,6 @@ public class Warehouse
 	 */
 	public void eatMeals(int amount) throws MealException, InvalidAmountException {
 		LinkedList<Meal> newMeals = new LinkedList<Meal>();
-		// TODO: clean up code
 		if (amount > 0) {
 			if (amount < meals.size()) {
 				for (int i = amount; i < meals.size(); i++) {
@@ -155,7 +154,7 @@ public class Warehouse
 			throw new InvalidAmountException("Invalid amount of meals given to warehouse!");
 		}
 	}
-
+	
 	/**
 	 * Removes and reserves an item from the warehouse if possible.
 	 * 

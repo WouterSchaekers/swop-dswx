@@ -3,7 +3,7 @@ package observers;
 import java.util.Observable;
 import java.util.Observer;
 
-public class WarehouseObserverStockOrder implements Observer
+public class WarehouseObserverWarehouseAdmin implements Observer
 {
 
 	@Override
