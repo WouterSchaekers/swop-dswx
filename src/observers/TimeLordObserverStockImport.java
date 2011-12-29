@@ -3,10 +3,10 @@ package observers;
 import java.util.Observable;
 import java.util.Observer;
 
-public class TimelordObserverStockImport implements Observer
+public class TimeLordObserverStockImport implements Observer
 {
 
-	public TimelordObserverStockImport() {
+	public TimeLordObserverStockImport() {
 		// TODO Auto-generated constructor stub
 	}
 

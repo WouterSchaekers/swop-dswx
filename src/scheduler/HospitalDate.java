@@ -45,7 +45,7 @@ public class HospitalDate
 	 * 
 	 */
 	public static final HospitalDate END_OF_TIME = new HospitalDate(
-			Long.MAX_VALUE - START_OF_TIME.getTotalMillis());
+			Long.MAX_VALUE - HospitalDate.START_OF_TIME.getTotalMillis());
 	/**
 	 * One second in millis.
 	 */
