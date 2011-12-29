@@ -7,6 +7,7 @@ import exceptions.InvalidLoginControllerException;
 import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
+import ui.approvediagnosis.enterdiagnose.EnderDiagnosis;
 
 public class SelectDiagnosis extends ApproveDiagnosisSuper
 {
@@ -54,7 +55,8 @@ public class SelectDiagnosis extends ApproveDiagnosisSuper
 		}
 		if(inString.equals("n"))
 		{
-			return new EnterNewDiagnose(data,chaindata);
+			chaindata.setOtherDoctor(selected.getAttending());
+			return new EnderDiagnosis(data,chaindata);
 		}
 		System.out.println("Wrong input, please try again");
 		chaindata.getAllTheDiagnosis().add(selected);

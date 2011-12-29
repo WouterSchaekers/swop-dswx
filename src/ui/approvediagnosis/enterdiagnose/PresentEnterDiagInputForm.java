@@ -3,14 +3,17 @@ package ui.approvediagnosis.enterdiagnose;
 import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
+import ui.approvediagnosis.ApproveDiagnosisData;
+import ui.approvediagnosis.ApproveDiagnosisSuper;
+import ui.approvediagnosis.ShowResultingTreatment;
 
-public class PresentEnterDiagInputForm extends EnterDiagnoseSuperClass
+public class PresentEnterDiagInputForm extends ApproveDiagnosisSuper
 {
 
 	
 
 	public PresentEnterDiagInputForm(UserinterfaceData data,
-			EnterDiagnoseData chaindata) {
+			ApproveDiagnosisData chaindata) {
 		super(data,chaindata);
 	}
 
@@ -23,16 +26,15 @@ public class PresentEnterDiagInputForm extends EnterDiagnoseSuperClass
 		String in = input.nextLine();
 		System.out.println("Input entered, are you content with this as your diagnose?");
 		System.out.println(in);
-		System.out.println("Yes:y No:n Quit :q");
+		System.out.println("Yes:y No:n");
 		String v = input.nextLine();
-		if(v.equalsIgnoreCase("q"))
-			return new SelectUsecase(data);
 		if(v.equalsIgnoreCase("n"))
 			return this;
 		if(v.equalsIgnoreCase("y")){
 			chaindata.setDiagnose(in);
 			return new RegisterDiagnoseInput(data,chaindata);
 		}
+		
 		
 		return new SelectUsecase(data);
 	}

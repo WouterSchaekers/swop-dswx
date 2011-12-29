@@ -3,31 +3,26 @@ package ui.approvediagnosis.enterdiagnose;
 import controllers.EnterDiagnoseController;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileOpenController;
-import patient.Diagnose;
 import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
+import ui.approvediagnosis.ApproveDiagnosisData;
+import ui.approvediagnosis.ApproveDiagnosisSuper;
 
-public class EnderDiagnosis extends EnterDiagnoseSuperClass
+public class EnderDiagnosis extends ApproveDiagnosisSuper
 {
-	public EnderDiagnosis(UserinterfaceData data) {
-		super(data);
+	public EnderDiagnosis(UserinterfaceData data, ApproveDiagnosisData chaindata) {
+		super(data, chaindata);
 		// TODO Auto-generated constructor stub
-	}
-
-	public Diagnose getDiagnose()
-	{
-		
-		return null;
-		
 	}
 
 	@Override
 	public Usecase Execute() {
-		//Create controller
+		// Create controller
 		EnterDiagnoseController c;
 		try {
-			c = new EnterDiagnoseController(data.getLoginController(),data.getPatientFileOpenController());
+			c = new EnterDiagnoseController(data.getLoginController(),
+					data.getPatientFileOpenController());
 		} catch (InvalidLoginControllerException e) {
 			System.out.println("Invalid login aborting");
 			return new SelectUsecase(data);
@@ -36,11 +31,8 @@ public class EnderDiagnosis extends EnterDiagnoseSuperClass
 			return new SelectUsecase(data);
 		}
 		this.chaindata.setController(c);
-		//Now we can do shit!
-		
-		System.out.println("En");
-		return new PresentEnterDiagInputForm(data,chaindata);
-	}
 
+		return new PresentEnterDiagInputForm(data, chaindata);
+	}
 
 }
