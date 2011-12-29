@@ -47,7 +47,7 @@ public class Scheduler
 	 * @throws InvalidResourceException
 	 * @throws InvalidSchedulingRequestException
 	 * @throws InvalidTimeSlotException
-	 * @throws InvalidHospitalDateArgument 
+	 * @throws InvalidHospitalDateArgument
 	 */
 	public ScheduledTask schedule(UnscheduledTask unscheduledTask)
 			throws InvalidTimeSlotException, InvalidSchedulingRequestException,
@@ -56,6 +56,7 @@ public class Scheduler
 		long duration = unscheduledTask.getDuration();
 		LinkedList<LinkedList<Schedulable>> listOfSchedulables = new LinkedList<LinkedList<Schedulable>>(
 				unscheduledTask.getResourcePool());
+		this.deleteDoubles(listOfSchedulables);
 		HospitalDate startDate = new HospitalDate(unscheduledTask
 				.getCreationTime().getTimeSinceStart()
 				+ unscheduledTask.getExtraTime());
@@ -82,10 +83,11 @@ public class Scheduler
 			while (!isScheduled) {
 				startDate = HospitalDate.getNextHour(startDate);
 				try {
-					schedTask = schedule(patient, duration, startDate, new HospitalDate(
-							startDate.getTimeSinceStart() + duration),
-							listOfSchedulables, new LinkedList<Schedulable>(),
-							treeMatrix, fullOccurences, 0);
+					schedTask = schedule(patient, duration, startDate,
+							new HospitalDate(startDate.getTimeSinceStart()
+									+ duration), listOfSchedulables,
+							new LinkedList<Schedulable>(), treeMatrix,
+							fullOccurences, 0);
 					isScheduled = true;
 				} catch (InvalidSchedulingRequestException e) {
 				}
@@ -133,16 +135,15 @@ public class Scheduler
 	 * @throws InvalidSchedulingRequestException
 	 * @throws InvalidTimeSlotException
 	 * @throws InvalidResourceException
-	 * @throws InvalidHospitalDateArgument 
+	 * @throws InvalidHospitalDateArgument
 	 */
-	private ScheduledTask schedule(PatientFile patient, long duration, HospitalDate startDate,
-			HospitalDate stopDate,
+	private ScheduledTask schedule(PatientFile patient, long duration,
+			HospitalDate startDate, HospitalDate stopDate,
 			LinkedList<LinkedList<Schedulable>> neededSchedulables,
 			LinkedList<Schedulable> usedSchedulables, boolean[][] treeMatrix,
 			LinkedList<Integer> fullOccurences, int iteration)
 			throws InvalidSchedulingRequestException, InvalidTimeSlotException,
 			InvalidResourceException, InvalidHospitalDateArgument {
-
 		int curCollectionToSchedule = fullOccurences.get(iteration);
 		LinkedList<Schedulable> curSchedList = neededSchedulables
 				.get(curCollectionToSchedule);
@@ -166,7 +167,7 @@ public class Scheduler
 						fullOccurences, iteration + 1);
 			} catch (InvalidSchedulingRequestException e) {
 				HospitalDate nextHospitalDate = getNextHospitalDate(
-						curSchedList, newStartDate, newStopDate);
+						curSchedList, newStartDate, stopDate);
 				return schedule(patient, duration, nextHospitalDate, stopDate,
 						neededSchedulables, usedSchedulables, treeMatrix,
 						fullOccurences, iteration);
@@ -178,7 +179,8 @@ public class Scheduler
 					.getDate().getTimeSinceStart() + duration);
 			TimeSlot timeSlotToReturn = new TimeSlot(startOfTimeSlot,
 					endOfTimeSlot);
-			return new ScheduledTask(patient, newUsedSchedulables, timeSlotToReturn);
+			return new ScheduledTask(patient, newUsedSchedulables,
+					timeSlotToReturn);
 		}
 	}
 
@@ -221,12 +223,13 @@ public class Scheduler
 	 *         slot.
 	 * @throws InvalidSchedulingRequestException
 	 * @throws InvalidTimeSlotException
-	 * @throws InvalidHospitalDateArgument 
+	 * @throws InvalidHospitalDateArgument
 	 */
 	private int findBestOption(long duration, HospitalDate startDate,
 			HospitalDate stopDate, boolean[] treeArray,
 			LinkedList<Schedulable> curSchedList)
-			throws InvalidSchedulingRequestException, InvalidTimeSlotException, InvalidHospitalDateArgument {
+			throws InvalidSchedulingRequestException, InvalidTimeSlotException,
+			InvalidHospitalDateArgument {
 		int bestOption = -1;
 		TimeSlot bestSlot = null;
 		HospitalDate bestDate = null;
@@ -351,6 +354,35 @@ public class Scheduler
 			}
 		}
 		return true;
+	}
+
+	private void deleteDoubles(LinkedList<LinkedList<Schedulable>> toCheck)
+			throws InvalidSchedulingRequestException {
+		for (int i = 0; i < toCheck.size(); i++) {
+			LinkedList<Schedulable> curToCheck = toCheck.get(i);
+			for (int j = 0; j < curToCheck.size(); j++) {
+				Schedulable curSchedulable = curToCheck.get(j);
+				boolean deleted = false;
+				for (int k = 0; k < toCheck.size() && !deleted; k++) {
+					LinkedList<Schedulable> curToDelete = toCheck.get(k);
+					for (int l = 0; l < curToDelete.size(); l++) {
+						if ((i != k || j != l)
+								&& curSchedulable.equals(curToDelete.get(l))) {
+							curToDelete.remove(l);
+							deleted = true;
+							j--;
+							break;
+						}
+					}
+				}
+			}
+		}
+		for (int i = 0; i < toCheck.size(); i++) {
+			if (toCheck.get(i).size() == 0) {
+				throw new InvalidSchedulingRequestException(
+						"Deleted doubles. Some lists are empty now.");
+			}
+		}
 	}
 
 	/**
