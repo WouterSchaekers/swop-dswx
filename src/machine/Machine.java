@@ -85,4 +85,8 @@ public abstract class Machine implements Schedulable
 			HospitalDate stopDate, long duration) throws InvalidSchedulingRequestException, InvalidTimeSlotException {
 		return this.getTimeTable().getFirstFreeSlotBetween(startDate, stopDate, duration);
 	}
+	
+	public void updateTimeTable(HospitalDate newDate){
+		this.timeTable.updateTimeTable(newDate);
+	}
 }

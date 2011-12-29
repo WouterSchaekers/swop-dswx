@@ -394,6 +394,16 @@ public class TimeTable
 			rv.add(s.clone());
 		return rv;
 	}
+	
+	public void updateTimeTable(HospitalDate newDate){
+		LinkedList<TimeSlot> newTimeSlots = new LinkedList<TimeSlot>();
+		for(TimeSlot timeSlot : timeSlots){
+			if(timeSlot.getStopPoint().getDate().before(newDate)){
+				newTimeSlots.add(timeSlot);
+			}
+		}
+		this.timeSlots = newTimeSlots;
+	}
 
 	/**
 	 * Returns a concatination of all timeslots of this timetable.

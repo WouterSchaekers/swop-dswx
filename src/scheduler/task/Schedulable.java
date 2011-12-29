@@ -24,4 +24,6 @@ public interface Schedulable
 
 	public TimeSlot getFirstFreeSlotBetween(HospitalDate startDate,
 			HospitalDate stopDate, long duration) throws InvalidSchedulingRequestException, InvalidTimeSlotException, InvalidHospitalDateArgument;
+	
+	public void updateTimeTable(HospitalDate newDate);
 }
