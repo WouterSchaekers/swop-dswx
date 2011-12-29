@@ -1,8 +1,11 @@
 = TODOs =
-  * Treatment factory
-  * Documentatie schrijven
+  * Treatment factory (optional)
+  * Documentatie schrijven (optional)
   * Verslag schrijven
-  * Meer code coverage (Junit!)
+  * Observers
+  * Usecases
+  * Dieter slaan
+  * Meer code coverage (Junit!) (optional)
 
 = Wie is er momenteel waaraan bezig? =
 <p>
