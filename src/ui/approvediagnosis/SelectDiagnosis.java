@@ -2,6 +2,7 @@ package ui.approvediagnosis;
 
 import java.util.Collection;
 import controllers.interfaces.DiagnoseIN;
+import exceptions.InvalidLoginControllerException;
 import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
@@ -15,7 +16,7 @@ public class SelectDiagnosis extends ApproveDiagnosisSuper
 	}
 
 	@Override
-	public Usecase Execute() {
+	public Usecase Execute() throws InvalidLoginControllerException {
 		if(chaindata.getAllTheDiagnosis().isEmpty()){
 			System.out.println("You have no diagnosis awaiting your second opinion!");
 		return new SelectUsecase(data);
@@ -40,8 +41,8 @@ public class SelectDiagnosis extends ApproveDiagnosisSuper
 		}
 		if(inString.equals("n"))
 		{
-			chaindata.getController().disApproveDiagnose(data.getLoginController(),selected);
-			return null;
+			return new EnterNewDiagnose(data,chaindata);
+		
 		}
 		System.out.println("Wrong input, please try again");
 		chaindata.getAllTheDiagnosis().add(selected);

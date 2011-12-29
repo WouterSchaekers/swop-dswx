@@ -49,7 +49,13 @@ public class AdvanceTimeSuperClass extends Usecase
 		s = date.substring(0, 2);
 		int sec = new Integer(s);
 		
-		HospitalDate hospitalDate = new HospitalDate(year,month,day,hour,min,sec);
+		HospitalDate hospitalDate = null;
+		try {
+			hospitalDate = new HospitalDate(year,month,day,hour,min,sec);
+		} catch (InvalidHospitalDateArgument e) {
+			System.out.println("Please enter a sensible date :)");
+			return this;
+		}
 		controller.setNewSystemTime(hospitalDate);
 		System.out.println("succesfull !");
 		// TODO Auto-generated method stub
@@ -59,5 +65,4 @@ public class AdvanceTimeSuperClass extends Usecase
 		HospitalDate d = new HospitalDate(1999,00,1,1,1,1);
 		System.out.println(d);
 	}
-	
 }
