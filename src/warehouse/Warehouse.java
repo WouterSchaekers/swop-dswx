@@ -3,6 +3,7 @@ package warehouse;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Observable;
 import scheduler.HospitalDate;
 import treatment.Medication;
 import be.kuleuven.cs.som.annotate.Basic;
@@ -16,7 +17,7 @@ import exceptions.WarehouseOverCapacityException;
  * This class represents a warehouse. It keeps track of all resources in the
  * hospital including food, plaster, medication,...
  */
-public class Warehouse
+public class Warehouse extends Observable
 {
 	public static final int MAX_UNITS_OF_PLASTER = 8;
 	public static final int MAX_UNITS_OF_MEDICATION = 10;
@@ -82,6 +83,7 @@ public class Warehouse
 					"Either an invalid amount of plaster was given to this method, or either adding the given amount will result in an overflow of the warehouse. ");
 		}
 		this.unitsOfPlaster += units;
+		this.notifyObservers();
 	}
 
 	/**
@@ -107,6 +109,7 @@ public class Warehouse
 					"Either an invalid amount of plaster was given to this method, or either adding the given amount will result in an overflow of the warehouse.");
 		}
 		this.medication.addAll(medication);
+		this.notifyObservers();
 	}
 
 	/**
@@ -125,10 +128,14 @@ public class Warehouse
 	 *            The item to add
 	 */
 	public void reserveItem(WarehouseItem i) {
-		if (removeAndReserveFrom(i, meals))
+		if (removeAndReserveFrom(i, meals)){
+			this.notifyObservers();
 			return;
-		if (removeAndReserveFrom(i, medication))
+		}
+		if (removeAndReserveFrom(i, medication)){
+			this.notifyObservers();
 			return;
+		}
 	}
 
 	/**
@@ -153,6 +160,7 @@ public class Warehouse
 		} else {
 			throw new InvalidAmountException("Invalid amount of meals given to warehouse!");
 		}
+		this.notifyObservers();
 	}
 	
 	/**
@@ -169,6 +177,7 @@ public class Warehouse
 		if (t.contains(i)) {
 			t.remove(i);
 			reserved.add(i);
+			this.notifyObservers();
 			return true;
 		}
 		return false;
@@ -188,6 +197,7 @@ public class Warehouse
 					"There are too many meals.");
 		}
 		this.meals.addAll(meals);
+		this.notifyObservers();
 	}
 
 	public boolean hasPlaster(int plaster) {
@@ -220,17 +230,18 @@ public class Warehouse
 		return new LinkedList<Meal>(this.meals);
 	}
 
-	public void setPlaster(int newPlasterAmount) {
-		this.unitsOfPlaster = newPlasterAmount;
-	}
-
-	public void setMedicaton(LinkedList<Medication> newMedication) {
-		this.medication = newMedication;
-	}
-
-	public void setMeals(LinkedList<Meal> newMeals) {
-		this.meals = new LinkedList<Meal>(newMeals);
-	}
+//	private void setPlaster(int newPlasterAmount) {
+//		this.unitsOfPlaster = newPlasterAmount;
+//		this.notifyObservers();
+//	}
+//
+//	private void setMedicaton(LinkedList<Medication> newMedication) {
+//		this.medication = newMedication;
+//	}
+//
+//	private void setMeals(LinkedList<Meal> newMeals) {
+//		this.meals = new LinkedList<Meal>(newMeals);
+//	}
 
 	public int amountOfMeals() {
 		return this.meals.size();

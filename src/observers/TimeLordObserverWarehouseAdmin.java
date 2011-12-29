@@ -10,7 +10,7 @@ import users.WarehouseAdmin;
  */
 public class TimeLordObserverWarehouseAdmin implements Observer
 {
-	private WarehouseAdmin myWarehouseAdmin;
+	private WarehouseAdmin warehouseAdmin;
 	
 	/**
 	 * Default constructor.
@@ -19,8 +19,8 @@ public class TimeLordObserverWarehouseAdmin implements Observer
 	 *            The WarehouseAdmin this observer should notify, should it get
 	 *            notified.
 	 */
-	public TimeLordObserverWarehouseAdmin (WarehouseAdmin w) {
-		this.myWarehouseAdmin = w;
+	public TimeLordObserverWarehouseAdmin (WarehouseAdmin warehouseAdmin) {
+		this.warehouseAdmin = warehouseAdmin;
 	}
 	
 	@Override
@@ -28,7 +28,7 @@ public class TimeLordObserverWarehouseAdmin implements Observer
 		if (!(newDate instanceof HospitalDate))
 			throw new IllegalArgumentException(
 					"Object given to TimeLordObserver was not a hospital date!");
-		this.myWarehouseAdmin.update((HospitalDate)newDate);
+		this.warehouseAdmin.update((HospitalDate)newDate);
 	}
 
 }
