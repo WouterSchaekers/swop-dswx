@@ -52,7 +52,7 @@ public class Scheduler
 	public ScheduledTask schedule(UnscheduledTask unscheduledTask)
 			throws InvalidTimeSlotException, InvalidSchedulingRequestException,
 			InvalidResourceException, InvalidHospitalDateArgument {
-
+//XXX:Wouter fix het tis leuk en gemakelijk !
 		long duration = unscheduledTask.getDuration();
 		LinkedList<LinkedList<Schedulable>> listOfSchedulables = new LinkedList<LinkedList<Schedulable>>(
 				unscheduledTask.getResourcePool());
@@ -76,6 +76,7 @@ public class Scheduler
 		ScheduledTask schedTask = schedule(patient, duration, startDate,
 				HospitalDate.END_OF_TIME, listOfSchedulables,
 				new LinkedList<Schedulable>(), treeMatrix, fullOccurences, 0);
+		startDate = schedTask.getStartDate();
 		if (unscheduledTask.mustBeBackToBack()
 				&& !this.isBackToBack(startDate, schedTask.getResources()
 						.get(0))) {
