@@ -81,7 +81,6 @@ public abstract class UnscheduledTask extends Task
 		return this.extraTime;
 	}
 
-	// TODO: check of deze dingen public moeten zijn of package visible
 	@Basic
 	public long getDuration() {
 		return this.duration;
