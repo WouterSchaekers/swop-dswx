@@ -2,7 +2,6 @@ package scheduler.task.scheduled;
 
 import java.util.Collection;
 import java.util.LinkedList;
-import javax.swing.Spring;
 import patient.PatientFile;
 import be.kuleuven.cs.som.annotate.Basic;
 import scheduler.HospitalDate;
@@ -60,11 +59,6 @@ public class ScheduledTask extends Task
 	 */
 	public HospitalDate getStartDate() {
 		return new HospitalDate(this.mySlot.getStartPoint().getDate());
-	}
-	public Spring tostring()
-	{
-		return null;
-		
 	}
 	public String toString()
 	{
