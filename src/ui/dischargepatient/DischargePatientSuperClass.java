@@ -1,6 +1,15 @@
 package ui.dischargepatient;
 
-public class DischargePatientSuperClass
+import ui.Usecase;
+import ui.UserinterfaceData;
+
+public abstract class DischargePatientSuperClass extends Usecase
 {
 
+	public DischargePatientSuperClass(UserinterfaceData data) {
+		super(data);
+		// TODO Auto-generated constructor stub
+	}
+
+	
 }

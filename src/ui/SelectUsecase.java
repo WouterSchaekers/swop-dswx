@@ -1,8 +1,29 @@
 package ui;
 
+import java.util.Arrays;
+import java.util.Collection;
+import help.Collections;
+import help.Filter;
+import controllers.AddHospitalEquipmentController;
+import controllers.AdvanceTimeController;
+import controllers.ApproveDiagnosisController;
+import controllers.CreateUserController;
+import controllers.DischargePatientController;
+import controllers.EnterDiagnoseController;
+import controllers.LoginController;
+import controllers.MedicalTestController;
+import controllers.PatientFileOpenController;
+import controllers.RegisterPatientController;
+import ui.addhospitalequipment.AddHopsitalEquipment;
 import ui.addhospitalstaff.CreateUser;
+import ui.advancetime.AdvanceTimeSuperClass;
+import ui.approvediagnosis.ApproveDiagnosis;
+import ui.consultpatientfile.ConsultPatientFile;
+import ui.dischargepatient.DischargePatient;
+import ui.enterdiagnosis.EnderDiagnosis;
 import ui.login.IsAllowedToLogin;
 import ui.logout.LogOut;
+import ui.ordermedicaltest.MedicalTestCommand;
 import ui.ordermedicaltest.OrderMedicalTest;
 import ui.registerpatient.RegisterPatient;
 
@@ -13,6 +34,7 @@ import ui.registerpatient.RegisterPatient;
 
 public class SelectUsecase extends Usecase
 {
+	
 	/**
 	 * This enumeration is created to simplify the different use cases.
 	 * 
@@ -24,18 +46,118 @@ public class SelectUsecase extends Usecase
 	 * 
 	 * 
 	 */
+	private interface Creator{
+		Usecase create(UserinterfaceData data)throws Exception;
+	}
 	enum usecases
 	{
-		login("login"), RegisterPatient("register patient"), nothing(
-				"do nothing"), logout("logout"), orderMedicalTest(
-				"order medical test"), exitSystem("exit system"), createUser("Create User");
-		String description;
+		login("login",new Creator(){
 
+			@Override
+			public Usecase create(UserinterfaceData data) throws Exception {
+				new LoginController(data.getDataPasser());
+				return new IsAllowedToLogin(data); 
+			}}),
+		logout("logout",new Creator(){
+
+			@Override
+			public Usecase create(UserinterfaceData data) throws Exception {
+				return new LogOut(data); 
+			}}),
+		RegisterPatient("register patient",new Creator(){
+
+			@Override
+			public Usecase create(UserinterfaceData data) throws Exception {
+				new RegisterPatientController(data.getLoginController(), data.getDataPasser());
+				return new RegisterPatient(data); 
+			}}), 
+	orderMedicalTest("order medical test",new Creator(){
+
+		@Override
+		public Usecase create(UserinterfaceData data) throws Exception {
+			new MedicalTestController(data.getLoginController(), data.getPatientFileOpenController(), data.getDataPasser());
+			return new OrderMedicalTest(data); 
+		}}),
+	addHospitalEquipment("add hospital equipment",new Creator(){
+
+		@Override
+		public Usecase create(UserinterfaceData data) throws Exception {
+			new AddHospitalEquipmentController(data.getLoginController(),data.getDataPasser());
+			return new AddHopsitalEquipment(data); 
+		}}),
+	addhospitalstaff("add hospital staff",new Creator(){
+
+		@Override
+		public Usecase create(UserinterfaceData data) throws Exception {
+			new CreateUserController(data.getLoginController(), data.getDataPasser());
+			return new CreateUser(data); 
+		}}),
+	advanceTime("advance time",new Creator(){
+
+		@Override
+		public Usecase create(UserinterfaceData data) throws Exception {
+			new AdvanceTimeController(data.getLoginController(), data.getDataPasser());
+			return new AdvanceTimeSuperClass(data); 
+		}}),
+	enterDiagnose("enter diagnose",new Creator(){
+
+		@Override
+		public Usecase create(UserinterfaceData data) throws Exception {
+			new EnterDiagnoseController(data.getLoginController(), data.getPatientFileOpenController());
+			return new EnderDiagnosis(data); 
+		}}),
+	approveDiagnose("approve diagnose",new Creator(){
+
+		@Override
+		public Usecase create(UserinterfaceData data) throws Exception {
+			new ApproveDiagnosisController(data.getLoginController());
+			return new ApproveDiagnosis(data); 
+		}}),
+	consultpatientfile("consult patient file",new Creator(){
+
+		@Override
+		public Usecase create(UserinterfaceData data) throws Exception {
+			new PatientFileOpenController(data.getDataPasser(),data.getLoginController());
+			return new OrderMedicalTest(data); 
+		}}),
+	dischargePatient("Discharge patient",new Creator(){
+
+		@Override
+		public Usecase create(UserinterfaceData data) throws Exception {
+			new DischargePatientController(data.getLoginController(), data.getDataPasser());
+			return new DischargePatient(data); 
+		}}), 
+	exitSystem("exit system",new Creator(){
+
+		@Override
+		public Usecase create(UserinterfaceData data) throws Exception {
+			return null; 
+		}}), 
+	createUser("Create User",new Creator(){
+
+		@Override
+		public Usecase create(UserinterfaceData data) throws Exception {
+			new MedicalTestController(data.getLoginController(), data.getPatientFileOpenController(), data.getDataPasser());
+			return new OrderMedicalTest(data); 
+		}});
+		String description;
+		Creator creator;
+		boolean canbeactivated(UserinterfaceData data)
+		{
+			try{
+			this.creator.create(data);
+			}catch(Exception e)
+			{
+				return false;
+			}
+			return true;
+			}
 		/**
 		 * Gives a description of each different use case
 		 */
-		private usecases(String descr) {
+		private usecases(String descr,Creator create) {
 			this.description = descr;
+			this.creator=create;
 		}
 
 		/**
@@ -49,7 +171,7 @@ public class SelectUsecase extends Usecase
 			for (usecases u : usecases.values())
 				if (u.ordinal() == i)
 					return u;
-			return nothing;
+			return null;
 		}
 	}
 
@@ -71,6 +193,15 @@ public class SelectUsecase extends Usecase
 	 */
 	@Override
 	public Usecase Execute() {
+		Collection<usecases> usecas = Collections.filter(Arrays.asList(usecases.values()), new Filter()
+		{
+			
+			@Override
+			public <T> boolean allows(T arg) {
+				return((usecases)arg).canbeactivated(data);
+			}
+		});
+		
 		System.out.println("Select what you would like to do: ");
 		System.out.println("type the number of the new usecase");
 		for (usecases u : usecases.values())

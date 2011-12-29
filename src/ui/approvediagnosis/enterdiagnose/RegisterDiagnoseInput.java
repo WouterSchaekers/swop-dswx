@@ -1,33 +1,47 @@
 
 package ui.approvediagnosis.enterdiagnose;
+import controllers.interfaces.DiagnoseIN;
+import exceptions.InvalidDiagnoseException;
+import exceptions.InvalidDoctorException;
+import exceptions.InvalidLoginControllerException;
+import exceptions.InvalidPatientFileOpenController;
 import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
+import ui.approvediagnosis.ApproveDiagnosisData;
+import ui.approvediagnosis.ApproveDiagnosisSuper;
+import ui.approvediagnosis.ShowResultingTreatment;
 
-public class RegisterDiagnoseInput extends EnterDiagnoseSuperClass
+public class RegisterDiagnoseInput extends ApproveDiagnosisSuper
 {
 
 	public RegisterDiagnoseInput(UserinterfaceData data,
-			EnterDiagnoseData chaindata) {
+			ApproveDiagnosisData chaindata) {
 		super(data,chaindata);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public Usecase Execute() {
-		System.out.println("Would you like a second opinion on this diagnose?");
-		System.out.println("Yes:y No:n Quit :q");
-		String v = input.nextLine();
-		if(v.equalsIgnoreCase("q"))
-			return new SelectUsecase(data);
-		if(v.equalsIgnoreCase("n"))
-			return new NoSecondOpinionForDiagnose(data, chaindata);
-		if(v.equalsIgnoreCase("y")){
-			return new SelectDoctorForSecondOpinion(data,chaindata);
-		}else{
-			System.out.println("Entered something wrong");
-			return this;
+		DiagnoseIN diagnose=null;
+		try {
+	diagnose=	this.chaindata.getEnterDiagnoseController().enterDiagnose(data.getLoginController(), data.getPatientFileOpenController(), chaindata.getDiagnoseString(), chaindata.getOtherDoctor());
+		} catch (InvalidLoginControllerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidPatientFileOpenController e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidDiagnoseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidDoctorException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		chaindata.setDiagnose(diagnose);
+		return new ShowResultingTreatment(data,chaindata);
+		
 	}
 
 }
