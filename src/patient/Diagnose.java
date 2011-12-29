@@ -167,12 +167,12 @@ public class Diagnose extends Observable implements DiagnoseIN
 		return doc.equals(this.needsSecOpFrom());
 	}
 
-	/**
-	 * @return true if secOp.equals(this.getDiagnosis())
-	 */
-	private boolean evaluateSecOp(String secOp) {
-		return secOp.equalsIgnoreCase(this.getDiagnosis());
-	}
+//	/**
+//	 * @return true if secOp.equals(this.getDiagnosis())
+//	 */
+//	private boolean evaluateSecOp(String secOp) {
+//		return secOp.equalsIgnoreCase(this.getDiagnosis());
+//	}
 
 	/**
 	 * This method assigns an extra Treatment to this Diagnose.

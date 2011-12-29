@@ -15,7 +15,7 @@ public class EnterNewDiagnose extends ApproveDiagnosisSuper
 	@Override
 	public Usecase Execute() {
 				
-		chaindata.getController().disApproveDiagnose(data.getLoginController(),selected, selected);
+	//	chaindata.getController().disApproveDiagnose(data.getLoginController(),selected, selected);
 		return null;
 	}
 

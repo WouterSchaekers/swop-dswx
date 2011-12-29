@@ -17,7 +17,7 @@ public class AdvanceTimeSuperClass extends Usecase
 	}
 	
 	@Override
-	public Usecase Execute() throws InvalidHospitalDateArgument {
+	public Usecase Execute() {
 		//Create controller
 		AdvanceTimeController controller = null;
 		try {

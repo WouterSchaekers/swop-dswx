@@ -4,12 +4,11 @@ import help.Collections;
 import help.Filter;
 import java.util.ArrayList;
 import java.util.Collection;
-import patient.Diagnose;
+import ui.Usecase;
+import ui.UserinterfaceData;
 import controllers.ApproveDiagnosisController;
 import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.PatientFileIN;
-import ui.Usecase;
-import ui.UserinterfaceData;
 
 public class ShowDiagnosisOptionsToApprove extends ApproveDiagnosisSuper
 {

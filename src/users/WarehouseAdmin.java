@@ -130,6 +130,7 @@ public class WarehouseAdmin extends User
 	}
 
 	// TODO
+	@SuppressWarnings("unused")
 	private void updateOrders(HospitalDate newDate) {
 
 	}
@@ -185,6 +186,8 @@ public class WarehouseAdmin extends User
 	 *         newTime.
 	 * @throws InvalidHospitalDateArgument
 	 */
+	@SuppressWarnings("unused")
+	//TODO: why not used?
 	private int amountOfOrdersTill(HospitalDate lastDate)
 			throws InvalidHospitalDateArgument {
 		HospitalDate nextDate = new HospitalDate(

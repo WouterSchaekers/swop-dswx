@@ -27,7 +27,7 @@ public class PatientFileOpenControllerTest
 	public void setUp() throws Exception {
 		um = new UserManager();
 		pfm = new PatientFileManager();
-		data = new DataPasser(um, pfm, null);
+		data = new DataPasser(um, pfm, null,null, null);
 
 	}
 

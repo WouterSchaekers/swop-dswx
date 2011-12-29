@@ -2,6 +2,10 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import patient.PatientFile;
+import users.Doctor;
+import users.Nurse;
+import users.User;
 import controllers.interfaces.AppointmentIN;
 import controllers.interfaces.PatientFileIN;
 import controllers.interfaces.UserIN;
@@ -14,13 +18,6 @@ import exceptions.InvalidRequirementException;
 import exceptions.InvalidResourceException;
 import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidTimeSlotException;
-import patient.PatientFile;
-import scheduler.Scheduler;
-import scheduler.task.scheduled.Appointment;
-import scheduler.task.unscheduled.UnscheduledAppointment;
-import users.Nurse;
-import users.User;
-import users.Doctor;
 
 public class RegisterPatientController
 {
@@ -80,8 +77,8 @@ public class RegisterPatientController
 					"No patientfile has been opened yet");
 		if (f.isDischarged())
 			throw new IllegalArgumentException(f.getName()
-					+ " is not checked in");
-		return new Appointment(data.getScheduler().schedule(new UnscheduledAppointment((Doctor)u,data.getScheduler().getCurrentSystemTime())));//  new Scheduler().schedule(duration, startDate, neededSchedulables, occurences);
+					+ " is not checked in");//XXX: fix thig asap
+		return null;//new Appointment(data.getScheduler().schedule(new UnscheduledAppointment((Doctor)u,data.getScheduler().getSystemTime())));//  new Scheduler().schedule(duration, startDate, neededSchedulables, occurences);
 	}
 
 	public void createNewPatient(DataPasser dataPasser2, String name) throws InvalidNameException {

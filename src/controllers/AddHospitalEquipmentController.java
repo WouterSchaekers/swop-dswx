@@ -1,7 +1,6 @@
 package controllers;
 
 import java.util.Collection;
-import machine.Machine;
 import machine.MachineBuilder;
 import machine.MachinePool;
 import users.HospitalAdmin;

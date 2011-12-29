@@ -1,7 +1,6 @@
 package ui;
 
 import controllers.DataPasser;
-import exceptions.InvalidHospitalDateArgument;
 
 public class UserInterface
 {
