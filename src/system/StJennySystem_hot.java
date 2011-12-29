@@ -34,9 +34,11 @@ public class StJennySystem_hot
 	
 	public static void main(String[] args) throws InvalidTimeLordException {
 	StJennySystem_hot t = StJennySystem_hot.instance();
-	UserinterfaceData data = new UserinterfaceData(new DataPasser(t.state.userManager,t.state.patientFileManager, t.state.scheduler));
+	UserinterfaceData data = new UserinterfaceData(new DataPasser(t.state.userManager,t.state.patientFileManager, t.state.scheduler, null, null));
 	UCHandler handler = new UCHandler(data);
-	handler.start();
+
+		handler.start();
+	
 	}
 	
 }

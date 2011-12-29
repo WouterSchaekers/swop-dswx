@@ -29,6 +29,5 @@ public abstract class Usecase
 	 * @return
 	 * @throws InvalidHospitalDateArgument 
 	 */
-	public abstract Usecase Execute() throws InvalidHospitalDateArgument;
-
+	public abstract Usecase Execute() ;
 };

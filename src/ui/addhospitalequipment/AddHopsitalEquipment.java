@@ -1,7 +1,6 @@
 package ui.addhospitalequipment;
 
 import controllers.AddHospitalEquipmentController;
-import exceptions.ControllerException;
 import exceptions.InvalidLoginControllerException;
 import ui.SelectUsecase;
 import ui.Usecase;

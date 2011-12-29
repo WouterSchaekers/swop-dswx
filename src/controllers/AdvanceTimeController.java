@@ -2,7 +2,6 @@ package controllers;
 
 import scheduler.HospitalDate;
 import scheduler.TimeLord;
-import exceptions.InvalidLocationException;
 import exceptions.InvalidLoginControllerException;
 
 public class AdvanceTimeController
@@ -18,7 +17,10 @@ public class AdvanceTimeController
 	}
 
 	private boolean isValidLoginController(LoginController loginController) {
-		
+		if(this.loginController==null || this.loginController.equals(loginController))
+			return true;
+		if(loginController==null)
+			return false;
 		return false;
 	}
 

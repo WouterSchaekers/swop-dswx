@@ -1,14 +1,13 @@
 package ui.addhospitalequipment;
 
-import exceptions.InvalidLocationException;
-import exceptions.InvalidLoginControllerException;
-import exceptions.InvalidSerialException;
-import exceptions.InvalidTimeSlotException;
-import machine.Machine;
 import machine.MachineBuilder;
 import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
+import exceptions.InvalidLocationException;
+import exceptions.InvalidLoginControllerException;
+import exceptions.InvalidSerialException;
+import exceptions.InvalidTimeSlotException;
 
 public class BuildMachine extends AddHospitalEquipmentSuperClass
 {

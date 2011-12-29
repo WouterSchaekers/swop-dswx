@@ -53,7 +53,12 @@ public class ApproveDiagnosisController
 		if(!isValidLoginController(loginController2))
 			throw new InvalidLoginControllerException("");
 		if(selected instanceof Diagnose)
-			((Diagnose)selected).disaprove(replacement);
+			try {
+				((Diagnose)selected).disaprove(replacement);
+			} catch (ApproveDiagnoseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 
 }

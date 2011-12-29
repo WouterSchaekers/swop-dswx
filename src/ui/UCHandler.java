@@ -46,7 +46,7 @@ public class UCHandler
 	 * @throws InvalidHospitalDateArgument 
 	 * 
 	 */
-	public void start() throws InvalidHospitalDateArgument {
+	public void start() {
 		while (true) {
 			if ((currentUIView = currentUIView.Execute()) instanceof ExitSystem)
 				return;
