@@ -1,18 +1,21 @@
 package external;
 
 import java.util.Collection;
-import javax.swing.Spring;
 
 public class StockProvider
 {
-	//XXX:: waaroom is dit generic help !@
-	private Collection<StockOrder<Spring>> orders;
+	private Collection<StockOrder> orders;
 
-	public void setOrders(Collection<StockOrder<Spring>> orders) {
+	public void setOrders(Collection<StockOrder> orders) {
 		this.orders = orders;
 	}
+	
+	//TODO fix dat het exceptions throwt
+	public void addOrder(StockOrder o) {
+		this.orders.add(o);
+	}
 
-	public Collection<StockOrder<Spring>> getOrders() {
+	public Collection<StockOrder> getOrders() {
 		return orders;
 	}
 }
