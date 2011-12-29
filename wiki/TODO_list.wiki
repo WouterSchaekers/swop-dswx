@@ -6,7 +6,7 @@
 
 = Wie is er momenteel waaraan bezig? =
 <p>
-Dieter: Diagnosis<p>
+Dieter: Usecases hacken<p>
 Stefaan:
   * als de tijd vooruit gaat, moeten de volgende dingen gebeuren:
     * Alle TimeTables moeten geupdate worden.
