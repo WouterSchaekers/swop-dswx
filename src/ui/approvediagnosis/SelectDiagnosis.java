@@ -37,21 +37,24 @@ public class SelectDiagnosis extends ApproveDiagnosisSuper
 			return new SelectUsecase(data);
 		if(inString.equalsIgnoreCase("y"))
 		{
+			DiagnoseIN diagnose=null;
 			try {
-				chaindata.getController().approveDiagnose(data.getLoginController(),selected);
+				diagnose=chaindata.getController().approveDiagnose(data.getLoginController(),selected);
 			} catch (InvalidLoginControllerException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.out.println("you are not allowed to do that sorry");
+				return new SelectUsecase(data);
 			} catch (ApproveDiagnoseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.out.println("Diagnose was not approved, something went wrong");
+				return new SelectUsecase(data);
 			}
-			return null;
+			System.out.println("Diagnose succesfully approved !");
+			System.out.println(" ");
+			chaindata.setCreatedDiagnose(diagnose);
+			return new DisplayScheduledTreatment(data,chaindata);
 		}
 		if(inString.equals("n"))
 		{
 			return new EnterNewDiagnose(data,chaindata);
-		
 		}
 		System.out.println("Wrong input, please try again");
 		chaindata.getAllTheDiagnosis().add(selected);
