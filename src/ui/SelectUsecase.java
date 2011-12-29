@@ -2,8 +2,10 @@ package ui;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import help.Collections;
 import help.Filter;
 import controllers.AddHospitalEquipmentController;
@@ -16,17 +18,14 @@ import controllers.LoginController;
 import controllers.MedicalTestController;
 import controllers.PatientFileOpenController;
 import controllers.RegisterPatientController;
-import scheduler.HospitalDate;
 import ui.addhospitalequipment.AddHopsitalEquipment;
 import ui.addhospitalstaff.CreateUser;
 import ui.advancetime.AdvanceTimeSuperClass;
 import ui.approvediagnosis.ApproveDiagnosis;
-import ui.consultpatientfile.ConsultPatientFile;
 import ui.dischargepatient.DischargePatient;
 import ui.enterdiagnosis.EnderDiagnosis;
 import ui.login.IsAllowedToLogin;
 import ui.logout.LogOut;
-import ui.ordermedicaltest.MedicalTestCommand;
 import ui.ordermedicaltest.OrderMedicalTest;
 import ui.registerpatient.RegisterPatient;
 
@@ -194,6 +193,7 @@ public class SelectUsecase extends Usecase
 	 * In this method the initial chain is started. You can choose the different
 	 * use cases.
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public Usecase Execute() {
 		Collection<usecases> executableUsecases = Collections.filter(Arrays.asList(usecases.values()), new Filter()
@@ -211,17 +211,29 @@ public class SelectUsecase extends Usecase
 		}
 		Map<Integer,String> selectionOptions = new HashMap<Integer, String>();
 		int i=0;
-		for(String string:menuOptions.keySet())
-		{
-			selectionOptions.put(i++, string);
+	Collection<Entry<String,usecases>>	t= menuOptions.entrySet();
+	Object[] array = t.toArray();
+	Arrays.sort(array,new Comparator()
+	{
+
+		@Override
+		public int compare(Object o1, Object o2) {
+			return new Integer(((Entry<String,usecases>)o1).getValue().ordinal()).compareTo(new Integer(((Entry<String,usecases>)o2).getValue().ordinal()));
+			
+		}
+	});	
+	i=0;
+		for(Object entry:array)
+		{	
+			selectionOptions.put(i++,((Entry<String,usecases>)entry).getKey());
 		}
 		
 		System.out.println("Select what you would like to do: ");
 		System.out.println("type the number of the new usecase");
 		i=0;
-		for(String string:menuOptions.keySet())
-		{
-			System.out.println(i+++string);
+		for(Object entry:array)
+		{	
+			System.out.println(i+++((Entry<String,usecases>)entry).getKey());
 		}
 		String in = input.nextLine();
 		try {
