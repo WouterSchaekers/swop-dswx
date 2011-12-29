@@ -214,7 +214,16 @@ public class Diagnose extends Observable implements DiagnoseIN
 		return t != null;
 	}
 
-	public void disapprove(DiagnoseIN replacement) {
-		//XXX DIETERRRRRRRRRRRRRRRRRRRRRRRRR
-	}
+
+	public void disaprove(DiagnoseIN replacement) throws ApproveDiagnoseException {
+		if(!isMarkedForSecOp())
+			throw new ApproveDiagnoseException();
+		this.approved=false;
+		this.secOpFlag=false;
+		this.attending=null;
+		this.secopDoc=null;
+		
+}
+	
+
 }
