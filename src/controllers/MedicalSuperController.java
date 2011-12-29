@@ -7,7 +7,7 @@ package controllers;
  */
 public class MedicalSuperController extends SuperController
 {
-	private ConsultPatientFileController cpf; // the cpf for this
+	private PatientFileOpenController cpf; // the cpf for this
 												// supercontroller
 
 	/**
@@ -28,7 +28,7 @@ public class MedicalSuperController extends SuperController
 	 *             if the logincontroller or cpf are null.
 	 */
 	public MedicalSuperController(LoginController lc,
-			ConsultPatientFileController cpf) throws IllegalArgumentException {
+			PatientFileOpenController cpf) throws IllegalArgumentException {
 		super(lc);
 		if (cpf == null)
 			throw new IllegalArgumentException("cpf is null!");
@@ -40,7 +40,7 @@ public class MedicalSuperController extends SuperController
 	 * 
 	 * @return the cpf.
 	 */
-	protected ConsultPatientFileController getConsultPatientFileController() {
+	protected PatientFileOpenController getConsultPatientFileController() {
 		return cpf;
 	}
 

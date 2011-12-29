@@ -47,9 +47,8 @@ public class UCHandler
 	 * 
 	 */
 	public void start() {
-		while (true) {
-			if ((currentUIView = currentUIView.Execute()) instanceof ExitSystem)
-				return;
+		while (currentUIView!=null) {
+			currentUIView = currentUIView.Execute();			
 		}
 
 	}

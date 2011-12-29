@@ -2,6 +2,8 @@ package ui;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import help.Collections;
 import help.Filter;
 import controllers.AddHospitalEquipmentController;
@@ -14,6 +16,7 @@ import controllers.LoginController;
 import controllers.MedicalTestController;
 import controllers.PatientFileOpenController;
 import controllers.RegisterPatientController;
+import scheduler.HospitalDate;
 import ui.addhospitalequipment.AddHopsitalEquipment;
 import ui.addhospitalstaff.CreateUser;
 import ui.advancetime.AdvanceTimeSuperClass;
@@ -193,7 +196,7 @@ public class SelectUsecase extends Usecase
 	 */
 	@Override
 	public Usecase Execute() {
-		Collection<usecases> usecas = Collections.filter(Arrays.asList(usecases.values()), new Filter()
+		Collection<usecases> executableUsecases = Collections.filter(Arrays.asList(usecases.values()), new Filter()
 		{
 			
 			@Override
@@ -201,38 +204,38 @@ public class SelectUsecase extends Usecase
 				return((usecases)arg).canbeactivated(data);
 			}
 		});
+		Map<String, usecases> menuOptions = new HashMap<String, SelectUsecase.usecases>();
+		for(usecases usecase:executableUsecases)
+		{
+			menuOptions.put(usecase.description, usecase);
+		}
+		Map<Integer,String> selectionOptions = new HashMap<Integer, String>();
+		int i=0;
+		for(String string:menuOptions.keySet())
+		{
+			selectionOptions.put(i++, string);
+		}
 		
 		System.out.println("Select what you would like to do: ");
 		System.out.println("type the number of the new usecase");
-		for (usecases u : usecases.values())
-			System.out.println(u.ordinal() + " : " + u.description);
+		i=0;
+		for(String string:menuOptions.keySet())
+		{
+			System.out.println(i+++string);
+		}
 		String in = input.nextLine();
-		int i;
 		try {
 			i = new Integer(in);
 		} catch (NumberFormatException num) {
 			System.out.println(in + " is not a valid number");
 			return this;
 		}
-		usecases u = usecases.fromInt(i);
-		switch (u) {
-		case login:
-			return new IsAllowedToLogin(data);
-		case RegisterPatient:
-			return new RegisterPatient(data);
-		case logout:
-			return new LogOut(data);
-		case orderMedicalTest:
-			return new OrderMedicalTest(data);
-		case exitSystem:
-			return new ExitSystem(data);
-		case createUser:
-			return new CreateUser(data);
-		default:
-			break;
+		if(!selectionOptions.keySet().contains(i))
+			return this;
+		try {
+			return menuOptions.get(selectionOptions.get(i)).creator.create(data);
+		} catch (Exception e) {
 		}
-		;
-
 		return this;
 	}
 

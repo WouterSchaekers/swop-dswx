@@ -1,6 +1,5 @@
 package controllers;
 
-import scheduler.task.TaskManager;
 
 /**
  * This class can be used to do schedule medical tests etc...
@@ -23,10 +22,12 @@ public class MedicalTestController extends MedicalSuperController
 	 * @throws IllegalArgumentException
 	 *             if one of the parameters is null.
 	 */
+	//TODO: create this :p
 	public MedicalTestController(LoginController lc,
-			ConsultPatientFileController cpf, DataPasser dp, TaskManager t)
+			PatientFileOpenController cpf, DataPasser dp)
 			throws IllegalArgumentException {
 		super(lc, cpf);
+		
 	}
 	
 
