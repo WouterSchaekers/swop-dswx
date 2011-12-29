@@ -13,7 +13,7 @@ Stefaan:
     * Het warehouse moet geupdate worden.
     * De TaskManager moet zijn queues updaten, indien er tijdsafhankelijke constraints zijn voor Schedulables.
     * ...<p>
-Wouter: SchedulerTest<p>
+Wouter: Observers<p>
 
 = Things that have been crossed off = 
   * Treatment Factories gemaakt en getest
