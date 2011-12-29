@@ -2,13 +2,10 @@ package scheduler.task;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Observable;
-import scheduler.HospitalDate;
+import java.util.Queue;
 import scheduler.Scheduler;
-import scheduler.task.scheduled.ScheduledTask;
 import scheduler.task.unscheduled.UnscheduledTask;
 import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidDurationException;
@@ -32,7 +29,7 @@ public class TaskManager extends Observable
 {
 	private Collection<UnscheduledTask> taskQueue = new LinkedList<UnscheduledTask>();
 	private Scheduler myScheduler;
-	
+
 	/**
 	 * Default constructor. Creates a new taskamanger and appoints it a
 	 * sheduler.
@@ -41,11 +38,10 @@ public class TaskManager extends Observable
 	 *            The scheduler to be stored in this TaskManager for current
 	 *            system time purposes.
 	 */
-	public TaskManager(Scheduler s)
-	{
-		this.myScheduler=s;
+	public TaskManager(Scheduler s) {
+		this.myScheduler = s;
 	}
-	
+
 	/**
 	 * This method has to be called in order to update the Queue at the right
 	 * times in the flow of the program. It will check if any of the Tasks in
@@ -59,59 +55,63 @@ public class TaskManager extends Observable
 	 * @throws QueueException
 	 * @throws InvalidSchedulingRequestException
 	 * @throws InvalidTimeSlotException
-	 * @throws InvalidResourceException 
-	 * @throws InvalidHospitalDateArgument 
+	 * @throws InvalidResourceException
+	 * @throws InvalidHospitalDateArgument
 	 */
-	private HashMap<ScheduledTask,HospitalDate> updateQueue() throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidSchedulingRequestException, InvalidTimeSlotException, InvalidResourceException, InvalidHospitalDateArgument {
-		HashMap<ScheduledTask, HospitalDate> returnValue = new HashMap<ScheduledTask, HospitalDate>();
-		Queue<UnscheduledTask> newQueue = new LinkedList<UnscheduledTask>(this.taskQueue);
+	private void updateQueue() throws QueueException, InvalidDurationException,
+			InvalidSchedulingRequestException,
+			InvalidSchedulingRequestException, InvalidTimeSlotException,
+			InvalidResourceException, InvalidHospitalDateArgument {
+		Queue<UnscheduledTask> newQueue = new LinkedList<UnscheduledTask>(
+				this.taskQueue);
 		for (UnscheduledTask curTask : this.taskQueue) {
 			if (curTask.canBeScheduled()) {
-				ScheduledTask d = this.myScheduler().schedule(curTask);
-				returnValue.put(d, d.getStartDate());
+				this.myScheduler().schedule(curTask);
+
 			} else {
 				newQueue.add(curTask);
 			}
-		}//TODO: remove new scheduler hieruit!
-		//XXX: de sysout o_O'
-		System.out.println("The following things have been scheduled at the following dates: ");
-		for(ScheduledTask t : returnValue.keySet())
-			System.out.println(t + " at " + returnValue.get(t));
+		}
 		this.taskQueue = newQueue;
-		return returnValue;
+
 	}
-	
+
 	private Scheduler myScheduler() {
 		return this.myScheduler;
 	}
 
 	/**
-	 * This method will add a Task to this TaskManager's queue. Note that you should probably update the queue of this TaskManager after adding a Task.
+	 * This method will add a Task to this TaskManager's queue. Note that you
+	 * should probably update the queue of this TaskManager after adding a Task.
+	 * 
 	 * @param t
-	 * The task to add.
-	 * @throws InvalidTimeSlotException 
-	 * @throws InvalidSchedulingRequestException 
-	 * @throws InvalidDurationException 
-	 * @throws QueueException 
+	 *            The task to add.
+	 * @throws InvalidTimeSlotException
+	 * @throws InvalidSchedulingRequestException
+	 * @throws InvalidDurationException
+	 * @throws QueueException
 	 */
-	public void addTask(UnscheduledTask t) throws QueueException, InvalidDurationException, InvalidSchedulingRequestException, InvalidTimeSlotException {
+	public void addTask(UnscheduledTask t) throws QueueException,
+			InvalidDurationException, InvalidSchedulingRequestException,
+			InvalidTimeSlotException {
 		if (!isValidTask(t))
-			throw new IllegalArgumentException("Task t in addTask of the TaskManager is not a valid queueable Task!");
+			throw new IllegalArgumentException(
+					"Task t in addTask of the TaskManager is not a valid queueable Task!");
 		this.taskQueue.add(t);
 	}
-	
+
 	/**
 	 * @return True if t is a valid Task that can be queued in this TM.
 	 */
 	private boolean isValidTask(UnscheduledTask t) {
 		return t != null;
 	}
-	
+
 	@Basic
 	public Collection<Task> getTaskQueue() {
 		return new ArrayList<Task>(taskQueue);
 	}
-	
+
 	/**
 	 * This method should be called when any observer notices anything relevant
 	 * to the TaskManager. The TaskManager will update its queue and schedule
@@ -124,6 +124,7 @@ public class TaskManager extends Observable
 	public void update() {
 		try {
 			this.updateQueue();
-		} catch (Exception e) {}
+		} catch (Exception e) {
+		}
 	}
 }
