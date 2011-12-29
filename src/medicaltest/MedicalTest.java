@@ -12,7 +12,7 @@ import exceptions.*;
 public abstract class MedicalTest implements Schedulable
 {
 	public final long DURATION;
-	private TimeTable myTimeTable;
+	private TimeTable timeTable;
 	
 	/**
 	 * Default constructor.
@@ -32,7 +32,7 @@ public abstract class MedicalTest implements Schedulable
 			throw new InvalidDurationException("The duration of a MedicalTest must be strictly positive!");
 
 		this.DURATION = duration;
-		this.myTimeTable = new TimeTable();
+		this.timeTable = new TimeTable();
 	}
 	
 	/**
@@ -43,18 +43,18 @@ public abstract class MedicalTest implements Schedulable
 	}
 	
 	public boolean canBeScheduledOn(HospitalDate startDate, HospitalDate stopDate)throws InvalidSchedulingRequestException {
-		return this.myTimeTable.hasFreeSlotAt(startDate,stopDate);
+		return this.timeTable.hasFreeSlotAt(startDate,stopDate);
 	}
 
 	public TimeTable getTimeTable() throws InvalidTimeSlotException {
-		return new TimeTable(this.myTimeTable.getTimeSlots());
+		return new TimeTable(this.timeTable.getTimeSlots());
 	}
 	
 	public void scheduleAt(TimeSlot timeSlot) throws InvalidSchedulingRequestException{
 		if(!isValidTimeSlot(timeSlot)) 
 			throw new InvalidSchedulingRequestException("Trying to schedule an invalid TimeSlot!");
 		
-		this.myTimeTable.addTimeSlot(timeSlot);
+		this.timeTable.addTimeSlot(timeSlot);
 	}
 	
 	private boolean isValidTimeSlot(TimeSlot t) throws InvalidSchedulingRequestException{
@@ -65,5 +65,9 @@ public abstract class MedicalTest implements Schedulable
 	public TimeSlot getFirstFreeSlotBetween(HospitalDate startDate,
 			HospitalDate stopDate, long duration) throws InvalidSchedulingRequestException, InvalidTimeSlotException {
 		return this.getTimeTable().getFirstFreeSlotBetween(startDate, stopDate, duration);
+	}
+	
+	public void updateTimeTable(HospitalDate newDate){
+		this.timeTable.updateTimeTable(newDate);
 	}
 }

@@ -29,4 +29,8 @@ public abstract class SchedulableUser extends User implements Schedulable
 	public TimeTable getTimeTable() throws InvalidTimeSlotException {
 		return new TimeTable(this.timeTable.getTimeSlots());
 	}
+	
+	public void updateTimeTable(HospitalDate newDate){
+		this.timeTable.updateTimeTable(newDate);
+	}
 }

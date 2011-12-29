@@ -1,6 +1,8 @@
 package users;
 
 import java.util.*;
+import scheduler.HospitalDate;
+import scheduler.task.Schedulable;
 import controllers.interfaces.DoctorIN;
 import controllers.interfaces.NurseIN;
 import controllers.interfaces.UserIN;
@@ -106,5 +108,13 @@ public class UserManager
 		if (users.contains(newUser))
 			throw new UserAlreadyExistsException(newUser.name);
 		this.users.add(newUser);
+	}
+	
+	public void updateTimeTables(HospitalDate newDate){
+		for(User user : users){
+			if(user instanceof Schedulable){
+				((Schedulable)user).updateTimeTable(newDate);
+			}
+		}
 	}
 }
