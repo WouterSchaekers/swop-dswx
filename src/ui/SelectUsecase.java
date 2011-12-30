@@ -15,19 +15,25 @@ import controllers.ApproveDiagnosisController;
 import controllers.CreateUserController;
 import controllers.DischargePatientController;
 import controllers.EnterDiagnoseController;
+import controllers.EnterMedicaltestResultController;
 import controllers.LoginController;
 import controllers.MedicalTestController;
 import controllers.PatientFileOpenController;
+import controllers.PrescribeTreatmentController;
 import controllers.RegisterPatientController;
 import ui.addhospitalequipment.AddHopsitalEquipment;
 import ui.addhospitalstaff.CreateUser;
 import ui.advancetime.AdvanceTimeSuperClass;
 import ui.approvediagnosis.ApproveDiagnosis;
+import ui.closepatientfile.ClosePatientFile;
 import ui.dischargepatient.DischargePatient;
 import ui.enterdiagnosis.EnderDiagnosis;
+import ui.entermedicaltestresult.EnterMedicalTestResult;
+import ui.fillstockinwarehouse.FillStockInWarehouseController;
 import ui.login.IsAllowedToLogin;
 import ui.logout.LogOut;
 import ui.ordermedicaltest.OrderMedicalTest;
+import ui.prescribetreatment.PrescribeTreatment;
 import ui.registerpatient.RegisterPatient;
 
 /**
@@ -142,7 +148,37 @@ public class SelectUsecase extends Usecase
 		public Usecase create(UserinterfaceData data) throws Exception {
 			new MedicalTestController(data.getLoginController(), data.getPatientFileOpenController(), data.getDataPasser());
 			return new OrderMedicalTest(data); 
-		}});
+		}}),
+		closePatientFile("Close patient file,", new Creator(){
+
+			@Override
+			public Usecase create(UserinterfaceData data) throws Exception {
+				return new ClosePatientFile(data);
+				
+			}
+			
+		}),enterMedicalTestResult("Enter medtest result:", new Creator()
+		{
+			public Usecase create(UserinterfaceData data) throws Exception{
+				new EnterMedicaltestResultController(data.getLoginController(),data.getDataPasser());
+				return new EnterMedicalTestResult(data);
+				
+			}
+		}),fillStockInWarehouse("Fill stock in warehouse",new Creator(){
+
+			@Override
+			public Usecase create(UserinterfaceData data) throws Exception {
+				new FillStockInWarehouseController(data.getLoginController(),data.getDataPasser());
+				return null;
+			}
+		}),prescribeTreatment("Prescribe treatment", new Creator(){
+
+			@Override
+			public Usecase create(UserinterfaceData data) throws Exception {
+				new PrescribeTreatmentController(data);
+				return new PrescribeTreatment(data);
+			}
+		});
 		String description;
 		Creator creator;
 		boolean canbeactivated(UserinterfaceData data)
