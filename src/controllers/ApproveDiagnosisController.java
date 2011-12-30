@@ -16,7 +16,8 @@ public class ApproveDiagnosisController
 	public ApproveDiagnosisController(LoginController loginc) throws InvalidLoginControllerException {
 		if(!isValidLoginController(loginc))
 			throw new InvalidLoginControllerException("invalid");
-				this.loginController=loginc;
+		
+		this.loginController=loginc;
 	}
 
 	private boolean isValidLoginController(LoginController loginc) {
@@ -26,7 +27,7 @@ public class ApproveDiagnosisController
 			return false;
 		if(!(loginc.getUserIN() instanceof Doctor))
 			return false;
-		if(this.loginController==null||!this.loginController.equals(loginc))
+		if(this.loginController!=null&&!this.loginController.equals(loginc))
 			return false;
 		return true;
 	}

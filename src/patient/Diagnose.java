@@ -125,6 +125,7 @@ public class Diagnose extends Observable implements DiagnoseIN
 			throw new ApproveDiagnoseException();
 		this.approved = true;
 		this.unmarkForSecOp();
+		this.notifyObservers();
 	}
 
 	/**
@@ -149,7 +150,7 @@ public class Diagnose extends Observable implements DiagnoseIN
 	 * @return True if doc is a valid doctor for this Diagnose.
 	 */
 	private boolean canHaveAsDoctor(Doctor doc) {
-		return !(doc.equals(null));
+		return !(doc==null);
 	}
 
 	/**

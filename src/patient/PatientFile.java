@@ -1,8 +1,11 @@
 package patient;
 
 import java.util.*;
+import observers.DiagnoseObserverTaskManager;
 import medicaltest.XRayScan;
 import scheduler.HospitalDate;
+import scheduler.task.TaskManager;
+import users.Doctor;
 import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.PatientFileIN;
@@ -136,5 +139,20 @@ public class PatientFile implements PatientFileIN
 		Collection<DiagnoseIN> rv = new ArrayList<DiagnoseIN>();
 		rv.addAll(diagnosis);
 		return rv;
+	}
+	public static Diagnose createDiagnose(String diag,Doctor attending,TaskManager taskmanager) throws InvalidDoctorException, InvalidDiagnoseException
+	{
+		Diagnose d =new Diagnose(attending, diag);
+		d.addObserver(new DiagnoseObserverTaskManager(taskmanager));
+		return d;
+		
+	}
+	public static Diagnose createDiagnoseSecondOp(String diag,Doctor attending,Doctor secondop, TaskManager taskmanager) throws InvalidDoctorException, InvalidDiagnoseException
+	{
+		Diagnose d =new Diagnose(attending, diag);
+		d.addObserver(new DiagnoseObserverTaskManager(taskmanager));
+		d.markForSecOp(secondop);
+		return d;
+		
 	}
 }

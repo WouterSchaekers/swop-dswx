@@ -60,14 +60,15 @@ public class EnterDiagnoseController
 		if (this.loginController != null
 				&& !loginc.equals(this.loginController))
 			return false;
-		if (!(this.loginController.getUser() instanceof Doctor))
+		if (!(loginc.getUser() instanceof Doctor))
 			return false;
+		
 		return true;
 	}
 
 	public DiagnoseIN enterDiagnose(LoginController loginController2,
 			PatientFileOpenController patientFileOpenController, String diag,
-			DoctorIN choice) throws InvalidLoginControllerException,
+			DoctorIN choice, DataPasser data) throws InvalidLoginControllerException,
 			InvalidPatientFileOpenController, InvalidDiagnoseException,
 			InvalidDoctorException {
 		if (!isValidLoginController(loginController2))
@@ -75,8 +76,7 @@ public class EnterDiagnoseController
 		if (!isValidPatientFileOpenController(patientFileOpenController,
 				loginController2))
 			throw new InvalidPatientFileOpenController("");
-		Diagnose d = new Diagnose((Doctor) loginController2.getUser(), diag);
-		d.markForSecOp((Doctor) choice);
+		Diagnose d =PatientFile.createDiagnoseSecondOp(diag, (Doctor)loginController2.getUser(),(Doctor) choice, data.getTaskmanager());
 		((PatientFile) patientFileOpenController.getPatientFile())
 				.addDiagnosis(d);
 		return d;

@@ -25,7 +25,8 @@ public class StJennySystem_hot
 			state.userManager.createHospitalAdmin("Wouter");
 			state.userManager.createNurse("jenny");
 			state.userManager.createDoctor("stef");
-			
+			state.userManager.createDoctor("abra");
+			state.patientFileManager.registerPatient("jos");
 		} catch (UserAlreadyExistsException e) {
 			System.out.println("Fatal error at system startup, Wouter already exists.");
 		} catch (InvalidNameException e) {
