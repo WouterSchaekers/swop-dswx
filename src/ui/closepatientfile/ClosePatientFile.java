@@ -17,6 +17,7 @@ public class ClosePatientFile extends Usecase
 	public Usecase Execute() {
 		try {
 			data.getPatientFileOpenController().closePatientFile(data.getLoginController());
+			data.setRegpatctrl(null);
 		} catch (InvalidLoginControllerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -31,7 +31,7 @@ public class ShowDiagnosisOptionsToApprove extends ApproveDiagnosisSuper
 			@Override
 			public <T> boolean allows(T arg) {
 				DiagnoseIN d= (DiagnoseIN)arg;
-				return d.isApproved()&&d.needsSecOpFrom().equals(ShowDiagnosisOptionsToApprove.this.data.getLoginController().getUserIN());
+				return !d.isApproved()&&d.needsSecOpFrom().equals(ShowDiagnosisOptionsToApprove.this.data.getLoginController().getUserIN());
 			}
 		});
 		chaindata.setUnapprovedDiagnoses(d);

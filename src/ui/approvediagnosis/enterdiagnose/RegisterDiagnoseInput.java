@@ -24,18 +24,14 @@ public class RegisterDiagnoseInput extends ApproveDiagnosisSuper
 	public Usecase Execute() {
 		DiagnoseIN diagnose=null;
 		try {
-	diagnose=	this.chaindata.getEnterDiagnoseController().enterDiagnose(data.getLoginController(), data.getPatientFileOpenController(), chaindata.getDiagnoseString(), chaindata.getOtherDoctor());
+	diagnose=	this.chaindata.getEnterDiagnoseController().enterDiagnose(data.getLoginController(), data.getPatientFileOpenController(), chaindata.getDiagnoseString(), chaindata.getOtherDoctor(),data.getDataPasser());
 		} catch (InvalidLoginControllerException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InvalidPatientFileOpenController e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InvalidDiagnoseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InvalidDoctorException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		chaindata.setDiagnose(diagnose);

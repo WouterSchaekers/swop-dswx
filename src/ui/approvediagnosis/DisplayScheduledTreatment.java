@@ -1,5 +1,6 @@
 package ui.approvediagnosis;
 
+import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
 import controllers.interfaces.DiagnoseIN;
@@ -20,7 +21,7 @@ public class DisplayScheduledTreatment extends ApproveDiagnosisSuper
 		diagnose.getTreatments();
 		for(TreatmentIN treatment: diagnose.getTreatments())
 			System.out.println(treatment);
-		return null;
+		return new SelectUsecase(data);
 	}
 
 }
