@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.Collection;
+import medicaltest.MedicalTest;
 import users.Nurse;
 import exceptions.InvalidLoginControllerException;
 
@@ -23,6 +25,12 @@ public class EnterMedicaltestResultController
 			return false;
 		
 		return true;
+	}
+	public Collection<MedicalTest> allMedicalTests(LoginController loginController2) {
+		
+		return null;
+		// TODO Auto-generated method stub
+		
 	}
 
 }
