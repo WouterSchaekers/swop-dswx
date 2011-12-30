@@ -25,7 +25,7 @@ public class LogOut extends Usecase
 		if (data.getLoginController() != null)
 			System.out.println(data.getLoginController().getUserIN().getName()
 					+ "succesfully logged out.");
-		this.data.setLoginc(null);
+		this.data.reset();
 		return new SelectUsecase(data);
 	}
 

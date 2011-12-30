@@ -6,6 +6,9 @@ import exceptions.InvalidTimeSlotException;
 
 public class UltraSoundScannerBuilder extends MachineBuilder
 {
+	UltraSoundScannerBuilder(MachinePool pool) {
+		super(pool);
+	}
 	public String toString()
 	{
 		return "UltraSoundScanner factory";

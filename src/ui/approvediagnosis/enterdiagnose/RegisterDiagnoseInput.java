@@ -1,16 +1,15 @@
 
 package ui.approvediagnosis.enterdiagnose;
-import controllers.interfaces.DiagnoseIN;
-import exceptions.InvalidDiagnoseException;
-import exceptions.InvalidDoctorException;
-import exceptions.InvalidLoginControllerException;
-import exceptions.InvalidPatientFileOpenController;
-import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
 import ui.approvediagnosis.ApproveDiagnosisData;
 import ui.approvediagnosis.ApproveDiagnosisSuper;
 import ui.approvediagnosis.ShowResultingTreatment;
+import controllers.interfaces.DiagnoseIN;
+import exceptions.InvalidDiagnoseException;
+import exceptions.InvalidDoctorException;
+import exceptions.InvalidLoginControllerException;
+import exceptions.InvalidPatientFileOpenController;
 
 public class RegisterDiagnoseInput extends ApproveDiagnosisSuper
 {

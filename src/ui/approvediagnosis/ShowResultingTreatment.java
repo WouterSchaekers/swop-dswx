@@ -1,9 +1,9 @@
 package ui.approvediagnosis;
 
-import controllers.interfaces.TreatmentIN;
 import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
+import controllers.interfaces.TreatmentIN;
 
 public class ShowResultingTreatment extends ApproveDiagnosisSuper
 {

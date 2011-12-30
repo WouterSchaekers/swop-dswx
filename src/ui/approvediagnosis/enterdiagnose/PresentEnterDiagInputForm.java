@@ -5,7 +5,6 @@ import ui.Usecase;
 import ui.UserinterfaceData;
 import ui.approvediagnosis.ApproveDiagnosisData;
 import ui.approvediagnosis.ApproveDiagnosisSuper;
-import ui.approvediagnosis.ShowResultingTreatment;
 
 public class PresentEnterDiagInputForm extends ApproveDiagnosisSuper
 {

@@ -1,10 +1,15 @@
 package scheduler;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.LinkedList;
+import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidTimeSlotException;
-import be.kuleuven.cs.som.annotate.Basic;
 
 /**
  * A class consisting of timeslots that always have a start- and end moment. The

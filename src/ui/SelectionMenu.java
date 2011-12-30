@@ -17,16 +17,19 @@ public class SelectionMenu<T>
 		int i = 0;
 		Map<Integer, T> m = new HashMap<Integer, T>();
 		for (String s : map.keySet()) {
-			System.out.println(i++ + ":" + s);
-			m.put(i, map.get(s));
+			System.out.println(i + ":" + s);
+			m.put(i++, map.get(s));
 		}
 		String input = scanner.nextLine();
+		try{
 		i = new Integer(input);
 		if(m.containsKey(i))
 			return m.get(i);
 		else
 		{
 			System.out.println("invalid menu option");
+			return null;
+		}}catch(NumberFormatException e){
 			return null;
 		}
 

@@ -1,13 +1,13 @@
 package ui.approvediagnosis;
 
 import java.util.Collection;
-import controllers.interfaces.DiagnoseIN;
-import exceptions.ApproveDiagnoseException;
-import exceptions.InvalidLoginControllerException;
 import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
 import ui.approvediagnosis.enterdiagnose.EnderDiagnosis;
+import controllers.interfaces.DiagnoseIN;
+import exceptions.ApproveDiagnoseException;
+import exceptions.InvalidLoginControllerException;
 
 public class SelectDiagnosis extends ApproveDiagnosisSuper
 {

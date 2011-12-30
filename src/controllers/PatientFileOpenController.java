@@ -2,11 +2,12 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import patient.PatientFile;
+import users.Doctor;
 import controllers.interfaces.DoctorIN;
 import controllers.interfaces.PatientFileIN;
 import controllers.interfaces.UserIN;
-import patient.PatientFile;
-import users.Doctor;
+import exceptions.InvalidLoginControllerException;
 
 public class PatientFileOpenController
 {
@@ -15,20 +16,29 @@ public class PatientFileOpenController
 	LoginController lc;
 
 	public PatientFileOpenController(DataPasser data,
-			LoginController loginController) {
+			LoginController loginController)
+			throws InvalidLoginControllerException {
 		this.data = data;
-		if (loginController == null)
-			throw new NullPointerException("Logincontroller is null");
-
-		if (loginController.getUser() == null)
-			throw new NullPointerException("User is null");
-
-
-		if (!(loginController.getUser() instanceof Doctor))
-			throw new IllegalArgumentException("This user is not a doctor!");
-
+		if (!isValidLoginController(loginController))
+			throw new InvalidLoginControllerException("");
 		this.lc = loginController;
 		doctor = (DoctorIN) loginController.getUser();
+	}
+
+	public boolean isValidLoginController(LoginController loginController) {
+		if (loginController == null)
+			return false;
+
+		if (loginController.getUser() == null)
+			return false;
+
+		if (!(loginController.getUser() instanceof Doctor))
+			return false;
+
+		if (this.doctor!=null&&!loginController.getUser().equals(doctor))
+			return false;
+
+		return true;
 	}
 
 	public LoginController getLoginController() {
@@ -44,30 +54,17 @@ public class PatientFileOpenController
 		return RV;
 	}
 
-	public boolean validLoginController(LoginController loginController) {
-		if (loginController == null)
-			return false;
-
-		if (loginController.getUser() == null)
-			return false;
-
-
-		if (loginController.getUser() instanceof Doctor)
-			return false;
-
-		if (loginController.getUser() != doctor)
-			return false;
-
-		return true;
-	}
 
 	PatientFile pf;
 
-	public void openPatientFile(PatientFileIN pfdto) {
-		if(pfdto instanceof PatientFile)
+	public void openPatientFile(PatientFileIN pfdto,LoginController loginc) throws InvalidLoginControllerException {
+		if(!isValidLoginController(loginc))
+			throw new InvalidLoginControllerException("");
+		if (pfdto instanceof PatientFile)
 			this.pf = (PatientFile) pfdto;
 		else
-			throw new IllegalArgumentException(pfdto+" is not a valid patient file");
+			throw new IllegalArgumentException(pfdto
+					+ " is not a valid patient file");
 	}
 
 	public PatientFileIN getPatientFile() {
@@ -78,10 +75,13 @@ public class PatientFileOpenController
 		return this.doctor;
 	}
 
-	public void closePatientFile() {
-		this.data=null;
-		this.doctor=null;
-		this.lc=null;
+	public void closePatientFile(LoginController loginc)
+			throws InvalidLoginControllerException {
+		if (!isValidLoginController(loginc))
+			throw new InvalidLoginControllerException("");
+		this.data = null;
+		this.doctor = null;
+		this.lc = null;
 	}
 
 }

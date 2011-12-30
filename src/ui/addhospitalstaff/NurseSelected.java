@@ -14,7 +14,6 @@ public class NurseSelected extends Usecase
 	public NurseSelected(UserinterfaceData data, CreateUserController c) {
 		super(data);
 		this.c=c;
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -24,13 +23,15 @@ public class NurseSelected extends Usecase
 		try {
 			c.createNurse(arg,data.getLoginController(),data.getDataPasser());
 		} catch (UserAlreadyExistsException e) {
-			// TODO Auto-generated catch block
+			
 			System.out.println("User already exists : error");
 			return new SelectUsecase(data);
 		} catch (InvalidNameException e) {
 			System.out.println("name provided was invalid" + e);
+			return new SelectUsecase(data);
+			
 		} catch (InvalidTimeSlotException e) {
-			//wut?
+		
 		}
 		System.out.println("Nurse "+arg+"succesfully created");
 		return new SelectUsecase(data);

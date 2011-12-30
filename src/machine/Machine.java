@@ -1,6 +1,5 @@
 package machine;
 
-import java.util.*;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidSerialException;
@@ -21,7 +20,6 @@ public abstract class Machine implements Schedulable
 	private final int serial;
 	private String location = "";
 	private TimeTable timeTable;
-	protected static Collection<Integer> usedSerials=new ArrayList<Integer>();
 	/**
 	 * Default constructor.
 	 * 
@@ -33,16 +31,12 @@ public abstract class Machine implements Schedulable
 	 *		If the location provided is null or an empty string.
 	 * @throws InvalidTimeSlotException 
 	 */
-	public Machine(int serial, String location)
+	Machine(int serial, String location)
 			throws InvalidLocationException, InvalidSerialException, InvalidTimeSlotException {
 		if (location == null || location == "") {
 			throw new InvalidLocationException("Location is not set or empty.");
 		}
-		if (usedSerials.contains(serial)) {
-			throw new InvalidSerialException(
-					"Serial must be different from zero.");
-		}
-		usedSerials.add(serial);
+		
 		this.serial = serial;
 		this.location = location;
 		this.timeTable = new TimeTable();

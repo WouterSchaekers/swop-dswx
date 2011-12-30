@@ -238,7 +238,7 @@ public class SchedulerTest
 			InvalidDurationException, InvalidOccurencesException,
 			InvalidAmountException, InvalidHospitalDateException,
 			InvalidHospitalDateArgument {
-		ScheduledTask t = s.schedule(unsched6);
+		s.schedule(unsched6);
 	}
 
 	@Test

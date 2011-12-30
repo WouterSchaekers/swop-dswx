@@ -2,9 +2,9 @@ package controllers;
 
 import patient.Diagnose;
 import patient.PatientFile;
+import users.Doctor;
 import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.DoctorIN;
-import users.Doctor;
 import exceptions.InvalidDiagnoseException;
 import exceptions.InvalidDoctorException;
 import exceptions.InvalidLoginControllerException;
@@ -40,7 +40,7 @@ public class EnterDiagnoseController
 			LoginController loginc) {
 		if (patientFileOpenController == null)
 			return false;
-		if (!patientFileOpenController.validLoginController(loginc))
+		if (!patientFileOpenController.isValidLoginController(loginc))
 			return false;
 		if (patientFileOpenController.getPatientFile() == null)
 			return false;

@@ -1,10 +1,10 @@
 package controllers;
 
+import users.HospitalAdmin;
+import users.UserManager;
 import exceptions.InvalidNameException;
 import exceptions.InvalidTimeSlotException;
 import exceptions.UserAlreadyExistsException;
-import users.HospitalAdmin;
-import users.UserManager;
 
 public class CreateUserController
 {

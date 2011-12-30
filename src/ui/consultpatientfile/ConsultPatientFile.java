@@ -3,7 +3,7 @@ package ui.consultpatientfile;
 import ui.UserinterfaceData;
 import ui.Usecase;
 
-public class ConsultPatientFile extends Usecase
+public class ConsultPatientFile extends ConsultPatientFileSuperclass
 {
 
 	public ConsultPatientFile(UserinterfaceData data) {
@@ -12,8 +12,7 @@ public class ConsultPatientFile extends Usecase
 
 	@Override
 	public Usecase Execute() {
-		ConsutlPatientFileData d = new ConsutlPatientFileData();
-		return new ListUndischargedPatients(data, d);
+		return new ListUndischargedPatients(data,chaindata);
 	}
 
 }

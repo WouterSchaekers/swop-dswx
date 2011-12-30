@@ -1,13 +1,13 @@
 package ui.approvediagnosis.enterdiagnose;
 
-import controllers.EnterDiagnoseController;
-import exceptions.InvalidLoginControllerException;
-import exceptions.InvalidPatientFileOpenController;
 import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
 import ui.approvediagnosis.ApproveDiagnosisData;
 import ui.approvediagnosis.ApproveDiagnosisSuper;
+import controllers.EnterDiagnoseController;
+import exceptions.InvalidLoginControllerException;
+import exceptions.InvalidPatientFileOpenController;
 
 public class EnderDiagnosis extends ApproveDiagnosisSuper
 {

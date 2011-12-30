@@ -1,9 +1,9 @@
 package controllers;
 
-import exceptions.InvalidNameException;
 import patient.PatientFile;
 import patient.PatientFileManager;
 import users.Nurse;
+import exceptions.InvalidNameException;
 
 /**
  * This class is used to register and check in patients in the hospital.

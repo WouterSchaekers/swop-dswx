@@ -4,8 +4,12 @@ import exceptions.InvalidLocationException;
 import exceptions.InvalidSerialException;
 import exceptions.InvalidTimeSlotException;
 
-public class BloodanalyzerBuilder extends MachineBuilder
+public class BloodanalyserBuilder extends MachineBuilder
 {
+	
+	BloodanalyserBuilder(MachinePool pool) {
+		super(pool);
+	}
 	public String toString()
 	{
 		return "Blood analysis factory";
@@ -13,6 +17,6 @@ public class BloodanalyzerBuilder extends MachineBuilder
 	}
 	public Machine build(int serial,String location) throws InvalidLocationException, InvalidSerialException, InvalidTimeSlotException
 	{
-		return new BloodAnalyser(serial, location);
+		return pool.createBloodAnalyser(serial,location);
 	}
 }

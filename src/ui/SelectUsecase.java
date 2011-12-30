@@ -1,35 +1,19 @@
 package ui;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
+import help.*;
 import help.Collections;
-import help.Filter;
-import controllers.AddHospitalEquipmentController;
-import controllers.AdvanceTimeController;
-import controllers.ApproveDiagnosisController;
-import controllers.CreateUserController;
-import controllers.DischargePatientController;
-import controllers.EnterDiagnoseController;
-import controllers.EnterMedicaltestResultController;
-import controllers.LoginController;
-import controllers.MedicalTestController;
-import controllers.PatientFileOpenController;
-import controllers.PrescribeTreatmentController;
-import controllers.RegisterPatientController;
+import controllers.*;
 import ui.addhospitalequipment.AddHopsitalEquipment;
 import ui.addhospitalstaff.CreateUser;
 import ui.advancetime.AdvanceTimeSuperClass;
 import ui.approvediagnosis.ApproveDiagnosis;
 import ui.closepatientfile.ClosePatientFile;
+import ui.consultpatientfile.ConsultPatientFile;
 import ui.dischargepatient.DischargePatient;
 import ui.enterdiagnosis.EnderDiagnosis;
 import ui.entermedicaltestresult.EnterMedicalTestResult;
-import ui.fillstockinwarehouse.FillStockInWarehouseController;
 import ui.login.IsAllowedToLogin;
 import ui.logout.LogOut;
 import ui.ordermedicaltest.OrderMedicalTest;
@@ -71,6 +55,7 @@ public class SelectUsecase extends Usecase
 
 			@Override
 			public Usecase create(UserinterfaceData data) throws Exception {
+				
 				return new LogOut(data); 
 			}}),
 		RegisterPatient("register patient",new Creator(){
@@ -127,21 +112,16 @@ public class SelectUsecase extends Usecase
 		@Override
 		public Usecase create(UserinterfaceData data) throws Exception {
 			new PatientFileOpenController(data.getDataPasser(),data.getLoginController());
-			return new OrderMedicalTest(data); 
+			return new ConsultPatientFile(data); 
 		}}),
 	dischargePatient("Discharge patient",new Creator(){
 
 		@Override
 		public Usecase create(UserinterfaceData data) throws Exception {
-			new DischargePatientController(data.getLoginController(), data.getDataPasser());
+			new DischargePatientController(data.getLoginController(), data.getPatientFileOpenController());
 			return new DischargePatient(data); 
 		}}), 
-	exitSystem("exit system",new Creator(){
-
-		@Override
-		public Usecase create(UserinterfaceData data) throws Exception {
-			return null; 
-		}}), 
+	
 	createUser("Create User",new Creator(){
 
 		@Override
@@ -153,6 +133,8 @@ public class SelectUsecase extends Usecase
 
 			@Override
 			public Usecase create(UserinterfaceData data) throws Exception {
+				if(data.getPatientFileOpenController()==null||!data.getPatientFileOpenController().isValidLoginController(data.getLoginController()))
+					throw new Exception();
 				return new ClosePatientFile(data);
 				
 			}
@@ -175,10 +157,15 @@ public class SelectUsecase extends Usecase
 
 			@Override
 			public Usecase create(UserinterfaceData data) throws Exception {
-				new PrescribeTreatmentController(data);
+				new PrescribeTreatmentController(data.getLoginController(),data.getPatientFileOpenController());
 				return new PrescribeTreatment(data);
 			}
-		});
+		}),exitSystem("exit system",new Creator(){
+
+			@Override
+			public Usecase create(UserinterfaceData data) throws Exception {
+				return null; 
+			}});
 		String description;
 		Creator creator;
 		boolean canbeactivated(UserinterfaceData data)
