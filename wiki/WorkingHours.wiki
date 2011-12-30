@@ -54,4 +54,6 @@
 || 28/12/11: 11u50 -> 15u30 || 3 DSW || 3.67 || updateWarehouse, canBeScheduled en usecases || ||
 || 28/12/11: 16u15 -> 18u || 3 DSW || 1.75 || updateWarehouse, schedulerTest en diagnosis || ||
 || 28/12/11: 18u40 ->  19u00 || 2 DS || 0.5 || usecases, observers || Wouter moest eten ||
-|| 29/12/11: 12u00 -> || 3 DSW || || Usecases, observers, scheduling and other unit tests || ||
+|| 29/12/11: 12u00 -> 15u00|| 3 DSW || 3 || Usecases, observers, scheduling || ||
+|| 29/12/11: 16u00 -> 17u30|| 3 DSW || 1.5 || Usecases, observers, scheduling || ||
+|| 29/12/11: 18u00 -> 00u45|| 3 DSW || 6.67 || Usecases, observers, report || ||
