@@ -7,7 +7,7 @@
   * Dieter slaan
   * Bidirectionele binding tussen TaskManager en Schedulable
   * Meer code coverage (Junit!)
-
+  * ScheduledTasks !!!!!!!!!!!!!!!!
 = Wie is er momenteel waaraan bezig? =
 <p>
 Dieter: Usecases hacken<p>
