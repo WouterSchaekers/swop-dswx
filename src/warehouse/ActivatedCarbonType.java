@@ -8,4 +8,9 @@ public class ActivatedCarbonType implements MedicationType
 	public boolean equals(MedicationType medicationType){
 		return medicationType instanceof ActivatedCarbon;
 	}
+	
+	@Override
+	public String toString(){
+		return "ActivatedCarbon";
+	}
 }

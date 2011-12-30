@@ -13,5 +13,4 @@ public class ActivatedCarbon extends Medication implements WarehouseItem
 	public boolean hasPassedDate(HospitalDate date) {
 		return this.getExpiryDate().after(date);
 	}
-
 }
