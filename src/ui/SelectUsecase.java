@@ -19,6 +19,7 @@ import ui.logout.LogOut;
 import ui.ordermedicaltest.OrderMedicalTest;
 import ui.prescribetreatment.PrescribeTreatment;
 import ui.registerpatient.RegisterPatient;
+import ui.reviewpatient.ReviewPatient;
 
 /**
  * This class represents a menu to select what a user wants to do. You can
@@ -49,13 +50,16 @@ public class SelectUsecase extends Usecase
 			@Override
 			public Usecase create(UserinterfaceData data) throws Exception {
 				new LoginController(data.getDataPasser());
+				if(data.getLoginController()!=null)
+					throw new Exception();
 				return new IsAllowedToLogin(data); 
 			}}),
 		logout("logout",new Creator(){
 
 			@Override
 			public Usecase create(UserinterfaceData data) throws Exception {
-				
+				if(data.getLoginController()==null)
+					throw new Exception();
 				return new LogOut(data); 
 			}}),
 		RegisterPatient("register patient",new Creator(){
@@ -111,9 +115,22 @@ public class SelectUsecase extends Usecase
 
 		@Override
 		public Usecase create(UserinterfaceData data) throws Exception {
+			if(data.getPatientFileOpenController() !=null)
+				throw new Exception();
 			new PatientFileOpenController(data.getDataPasser(),data.getLoginController());
+			
 			return new ConsultPatientFile(data); 
 		}}),
+		reviewPatienfFile("Review patient file", new Creator(){
+
+			@Override
+			public Usecase create(UserinterfaceData data) throws Exception {
+				if(data.getPatientFileOpenController()==null)
+					throw new Exception();
+				return new ReviewPatient(data);
+			}
+			
+		}),
 	dischargePatient("Discharge patient",new Creator(){
 
 		@Override
@@ -121,14 +138,6 @@ public class SelectUsecase extends Usecase
 			new DischargePatientController(data.getLoginController(), data.getPatientFileOpenController());
 			return new DischargePatient(data); 
 		}}), 
-	
-	createUser("Create User",new Creator(){
-
-		@Override
-		public Usecase create(UserinterfaceData data) throws Exception {
-			new MedicalTestController(data.getLoginController(), data.getPatientFileOpenController(), data.getDataPasser());
-			return new OrderMedicalTest(data); 
-		}}),
 		closePatientFile("Close patient file,", new Creator(){
 
 			@Override
@@ -220,7 +229,6 @@ public class SelectUsecase extends Usecase
 	@SuppressWarnings("unchecked")
 	@Override
 	public Usecase Execute() {
-		//XXX:maak het mooit !
 		Collection<usecases> executableUsecases = Collections.filter(Arrays.asList(usecases.values()), new Filter()
 		{
 			
@@ -234,11 +242,12 @@ public class SelectUsecase extends Usecase
 		{
 			menuOptions.put(usecase.description, usecase);
 		}
-		Map<Integer,String> selectionOptions = new HashMap<Integer, String>();
+	
+	
 		int i=0;
 	Collection<Entry<String,usecases>>	t= menuOptions.entrySet();
 	Object[] array = t.toArray();
-	Arrays.sort(array,new Comparator<Object>()
+	Arrays.sort(array,new Comparator()
 	{
 
 		@Override
@@ -247,7 +256,8 @@ public class SelectUsecase extends Usecase
 			
 		}
 	});	
-	i=0;
+	Map<Integer,String> selectionOptions = new HashMap<Integer, String>();
+		i=0;
 		for(Object entry:array)
 		{	
 			selectionOptions.put(++i,((Entry<String,usecases>)entry).getKey());
@@ -257,7 +267,7 @@ public class SelectUsecase extends Usecase
 		System.out.println("type the number of the new usecase");
 		i=0;
 		for(Object entry:array)
-		{	
+		{
 			System.out.println(++i+": "+((Entry<String,usecases>)entry).getKey());
 		}
 		String in = input.nextLine();
