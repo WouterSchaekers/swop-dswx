@@ -1,9 +1,9 @@
 package ui.approvediagnosis;
 
-import controllers.ApproveDiagnosisController;
-import exceptions.InvalidLoginControllerException;
 import ui.Usecase;
 import ui.UserinterfaceData;
+import controllers.ApproveDiagnosisController;
+import exceptions.InvalidLoginControllerException;
 
 public class ApproveDiagnosis extends ApproveDiagnosisSuper
 {

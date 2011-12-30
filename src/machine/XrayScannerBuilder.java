@@ -6,13 +6,17 @@ import exceptions.InvalidTimeSlotException;
 
 public class XrayScannerBuilder extends MachineBuilder
 {
+	XrayScannerBuilder(MachinePool pool) {
+		super(pool);
+
+	}
 	public String toString()
 	{
 		return "XrayScanner factory";
 	}
 	public XRayScanner build(int serial,String location) throws InvalidLocationException, InvalidSerialException, InvalidTimeSlotException
 	{
-		return new XRayScanner(serial, location);
+		return pool.createXrayScanner(serial, location);
 		
 	}
 }

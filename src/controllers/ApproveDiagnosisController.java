@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import patient.Diagnose;
 import users.Doctor;
-import controllers.DataPasser;
-import controllers.LoginController;
 import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.PatientFileIN;
 import exceptions.ApproveDiagnoseException;

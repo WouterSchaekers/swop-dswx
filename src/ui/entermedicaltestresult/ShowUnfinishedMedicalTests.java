@@ -13,8 +13,7 @@ public class ShowUnfinishedMedicalTests extends EnterMedicalTestResultSuperClass
 
 	@Override
 	public Usecase Execute() {
-		chaindata.getMedtestcontroller().allMedicalTests(data.getLoginController())
+		chaindata.getMedtestcontroller().allMedicalTests(data.getLoginController());
 		return null;
 	}
-
 }

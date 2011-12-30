@@ -1,9 +1,6 @@
 package test;
 
-import machine.BloodAnalyser;
 import machine.MachinePool;
-import machine.UltraSoundScanner;
-import machine.XRayScanner;
 import patient.PatientFile;
 import patient.PatientFileManager;
 import scheduler.HospitalDate;
@@ -87,9 +84,9 @@ public class DefaultHospital
 		um.createDoctor("Stef");
 		um.createDoctor("Simon");
 		um.createHospitalAdmin("Frits");
-		mp.addMachine(new XRayScanner(0, "Links"));
-		mp.addMachine(new BloodAnalyser(1,"Extreem Rechts"));
-		mp.addMachine(new UltraSoundScanner(2, "Kim Jung-Il"));
+		mp.createBloodAnalyser(1, "plaza");
+		mp.createXrayScanner(2,"A");
+		mp.createUltraSoundScanner(3, "lobby");
 		pfm.registerPatient("Zieke Dieter");
 		pfm.registerPatient("Wouter");
 		PatientFile Dieter = pfm.getPatientFileFrom("Zieke Dieter");

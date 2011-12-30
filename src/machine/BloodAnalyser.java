@@ -14,7 +14,7 @@ public class BloodAnalyser extends Machine
 	 * {@link Machine#Machine(int, String)} 
 	 * @throws InvalidTimeSlotException 
 	 * */
-	public BloodAnalyser(int serial, String location)
+	BloodAnalyser(int serial, String location)
 			throws InvalidLocationException, InvalidSerialException, InvalidTimeSlotException {
 		super(serial, location);
 	}

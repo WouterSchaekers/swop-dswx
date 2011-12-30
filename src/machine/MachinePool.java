@@ -3,6 +3,9 @@ package machine;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import exceptions.InvalidLocationException;
+import exceptions.InvalidSerialException;
+import exceptions.InvalidTimeSlotException;
 import scheduler.HospitalDate;
 
 /**
@@ -38,12 +41,32 @@ public class MachinePool
 
 
 	public Collection<MachineBuilder> getAllBuilders() {
-		return Arrays.asList(new BloodanalyzerBuilder(),new UltraSoundScannerBuilder(),new XrayScannerBuilder());
+		return Arrays.asList(new BloodanalyserBuilder(this),new UltraSoundScannerBuilder(this),new XrayScannerBuilder(this));
 	}
 	
 	public void updateTimeTables(HospitalDate newDate){
 		for(Machine machine : allMachines){
 			machine.updateTimeTable(newDate);
 		}
+	}
+
+	public XRayScanner createXrayScanner(int serial, String location) throws InvalidSerialException, InvalidLocationException, InvalidTimeSlotException {
+		this.alreadyContains(serial);
+		return new XRayScanner(serial, location);
+	}
+	public UltraSoundScanner createUltraSoundScanner(int serial,String location) throws InvalidSerialException, InvalidLocationException, InvalidTimeSlotException
+	{
+		this.alreadyContains(serial);
+		return new UltraSoundScanner(serial, location);
+	}
+	private void alreadyContains(int serial) throws InvalidSerialException {
+		for(Machine m: allMachines)
+			if(m.getSerial()==serial)
+				throw new InvalidSerialException();
+	}
+
+	public BloodAnalyser createBloodAnalyser(int serial, String location) throws InvalidSerialException, InvalidLocationException, InvalidTimeSlotException {
+		alreadyContains(serial);
+		return new BloodAnalyser(serial, location);
 	}
 }

@@ -1,9 +1,6 @@
 package scheduler;
 
 import java.util.Observable;
-import scheduler.task.TaskManager;
-import users.UserManager;
-import users.WarehouseAdmin;
 
 /**
  * This class can be used to store the current system time in.

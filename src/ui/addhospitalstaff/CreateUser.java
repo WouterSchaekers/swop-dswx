@@ -8,7 +8,6 @@ public class CreateUser extends Usecase
 
 	public CreateUser(UserinterfaceData data) {
 		super(data);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

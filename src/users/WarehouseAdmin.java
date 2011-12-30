@@ -3,6 +3,7 @@ package users;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Observable;
+import controllers.interfaces.WarehouseAdminIN;
 import patient.PatientFileManager;
 import scheduler.HospitalDate;
 import treatment.Medication;
@@ -20,7 +21,7 @@ import external.StockOrder;
  * This class represents the administrator of the warehouse that is in the
  * hospital.
  */
-public class WarehouseAdmin extends User
+public class WarehouseAdmin extends User implements WarehouseAdminIN
 {
 	private Warehouse warehouse;
 	private PatientFileManager pfm;
@@ -114,7 +115,8 @@ public class WarehouseAdmin extends User
 			if (!m.hasPassedDate(newTime))
 				newMeds.add(m);
 		}
-		this.warehouse.setMedicaton(newMeds);
+		//XXX fix
+	//	this.warehouse.setMedicaton(newMeds);
 	}
 
 	/**
@@ -161,7 +163,8 @@ public class WarehouseAdmin extends User
 			if(!m.hasPassedDate(expDate))
 				newMealCol.add(m);
 		}
-		this.warehouse.setMeals(newMealCol);
+	//XXX fix
+		//	this.warehouse.setMeals(newMealCol);
 	}
 
 	/**

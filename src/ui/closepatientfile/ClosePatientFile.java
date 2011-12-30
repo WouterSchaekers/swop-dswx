@@ -1,5 +1,6 @@
 package ui.closepatientfile;
 
+import exceptions.InvalidLoginControllerException;
 import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
@@ -14,8 +15,14 @@ public class ClosePatientFile extends Usecase
 
 	@Override
 	public Usecase Execute() {
-		data.getPatientFileOpenController().closePatientFile();
+		try {
+			data.getPatientFileOpenController().closePatientFile(data.getLoginController());
+		} catch (InvalidLoginControllerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return new SelectUsecase(data);
 	}
+	
 	
 }

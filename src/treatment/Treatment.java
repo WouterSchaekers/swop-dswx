@@ -15,8 +15,6 @@ public abstract class Treatment implements TreatmentIN
 
 	private Collection<Result> results = new ArrayList<Result>();
 	private long duration;
-	// all childclasses will have their names be final and static and will use
-	// this var to store that information in
 	/**
 	 * Default constructor.
 	 * 

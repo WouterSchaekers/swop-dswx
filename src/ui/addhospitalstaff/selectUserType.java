@@ -10,7 +10,6 @@ public class selectUserType extends Usecase
 	
 	public selectUserType(UserinterfaceData data) {
 		super(data);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

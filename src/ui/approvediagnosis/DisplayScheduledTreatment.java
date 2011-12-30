@@ -1,10 +1,9 @@
 package ui.approvediagnosis;
 
-import java.util.Iterator;
-import controllers.interfaces.DiagnoseIN;
-import controllers.interfaces.TreatmentIN;
 import ui.Usecase;
 import ui.UserinterfaceData;
+import controllers.interfaces.DiagnoseIN;
+import controllers.interfaces.TreatmentIN;
 
 public class DisplayScheduledTreatment extends ApproveDiagnosisSuper
 {

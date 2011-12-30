@@ -76,4 +76,9 @@ public class UserinterfaceData
 		return regpatctrl;
 	}
 
+	public void reset() {
+		this.loginc=null;
+		this.regpatctrl=null;
+	}
+
 }

@@ -2,9 +2,9 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import controllers.interfaces.UserIN;
 import users.User;
 import users.UserManager;
+import controllers.interfaces.UserIN;
 
 /**
  * This class will be used as a login controller. There will be a 1:1 relation
