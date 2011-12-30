@@ -3,7 +3,7 @@ package warehouse;
 import scheduler.HospitalDate;
 
 
-public class Meal implements Expirable, WarehouseItem
+public class Meal implements Expirable
 {
 	private final HospitalDate expiryDate;
 	public Meal(HospitalDate expiryDate) {
