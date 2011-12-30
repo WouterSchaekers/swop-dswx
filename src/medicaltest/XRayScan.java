@@ -1,5 +1,6 @@
 package medicaltest;
 
+import result.Result;
 import scheduler.HospitalDate;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidNameException;
@@ -48,6 +49,12 @@ public class XRayScan extends MedicalTest
 		this.bodypart = bodypart;
 		this.num = num;
 		this.zoomlevel = zoomlevel;
+	}
+
+	@Override
+	public void setResult(Result r) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

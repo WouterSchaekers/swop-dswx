@@ -1,5 +1,6 @@
 package treatment;
 
+import result.Result;
 import scheduler.HospitalDate;
 import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.*;
@@ -60,5 +61,11 @@ public class Cast extends Treatment
 		if(!isValidLength(length))
 			throw new InvalidLengthException("Invalid length assigned to setLength() in Cast!");
 		this.length = length;
+	}
+
+	@Override
+	public void setResult(Result r) {
+		// TODO Auto-generated method stub
+		
 	}
 }

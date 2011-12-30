@@ -1,5 +1,6 @@
 package medicaltest;
 
+import result.Result;
 import scheduler.HospitalDate;
 import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidDurationException;
@@ -42,6 +43,12 @@ public class BloodAnalysis extends MedicalTest
 	@Basic
 	public String getFocus() {
 		return this.focus;
+	}
+
+	@Override
+	public void setResult(Result r) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

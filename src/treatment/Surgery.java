@@ -1,5 +1,6 @@
 package treatment;
 
+import result.Result;
 import scheduler.HospitalDate;
 import exceptions.InvalidDescriptionException;
 import be.kuleuven.cs.som.annotate.Basic;
@@ -41,6 +42,12 @@ public class Surgery extends Treatment
 	 */
 	private boolean isValidDescription(String d) {
 		return !d.equals("");
+	}
+
+	@Override
+	public void setResult(Result r) {
+		// TODO Auto-generated method stub
+		
 	}
 		
 }
