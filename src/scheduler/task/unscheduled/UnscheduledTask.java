@@ -59,6 +59,7 @@ public abstract class UnscheduledTask extends Task
 		this.systemTime = systemTime;
 		this.backToBack = backToBack;
 		this.duration = duration;
+		this.extraTime = extraTime;
 	}
 
 	/**
