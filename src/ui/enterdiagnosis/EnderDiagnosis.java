@@ -12,15 +12,8 @@ public class EnderDiagnosis extends EnterDiagnoseSuperClass
 {
 	public EnderDiagnosis(UserinterfaceData data) {
 		super(data);
-		// TODO Auto-generated constructor stub
 	}
 
-	public Diagnose getDiagnose()
-	{
-		
-		return null;
-		
-	}
 
 	@Override
 	public Usecase Execute() {
@@ -36,9 +29,7 @@ public class EnderDiagnosis extends EnterDiagnoseSuperClass
 			return new SelectUsecase(data);
 		}
 		this.chaindata.setController(c);
-		//Now we can do shit!
-		
-		System.out.println("En");
+		//Controller created
 		return new PresentEnterDiagInputForm(data,chaindata);
 	}
 
