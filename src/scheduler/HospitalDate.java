@@ -124,13 +124,13 @@ public class HospitalDate
 	 *             if the arguments are non sensible
 	 */
 	public HospitalDate(int year, int month, int day, int hour, int minute,
-			int second) throws InvalidHospitalDateArgument {
-		if (!validArguments(year, month, day, hour, minute, second))
-			throw new InvalidHospitalDateArgument();
-
+			int second) {
+//		if (!validArguments(year, month, day, hour, minute, second)){
+//			System.out.println(year + " " + month + " " + day + " " + hour + " " + minute + " " + second);
+//			throw new InvalidHospitalDateArgument();
+//		}
 		gregorianCalendar = new GregorianCalendar(year, month, day, hour,
 				minute, second);
-
 	}
 
 	/**
@@ -144,21 +144,21 @@ public class HospitalDate
 	 * @param second
 	 * @return
 	 */
-	private boolean validArguments(int year, int month, int day, int hour,
-			int minute, int second) {
-		boolean rv = true;
-		rv &= month > 0;
-		rv &= month < 13;
-		rv &= day > 0;
-		rv &= day < 32;
-		rv &= hour >= 0;
-		rv &= hour < 25;
-		rv &= minute >= 0;
-		rv &= minute < 60;
-		rv &= second >= 0;
-		rv &= second < 60;
-		return rv;
-	}
+//	private boolean validArguments(int year, int month, int day, int hour,
+//			int minute, int second) {
+//		boolean rv = true;
+//		rv &= month > 0;
+//		rv &= month < 13;
+//		rv &= day > 0;
+//		rv &= day < 32;
+//		rv &= hour >= 0;
+//		rv &= hour < 25;
+//		rv &= minute >= 0;
+//		rv &= minute < 60;
+//		rv &= second >= 0;
+//		rv &= second < 60;
+//		return rv;
+//	}
 
 	/**
 	 * @return The year.
@@ -218,7 +218,7 @@ public class HospitalDate
 	 * @return The hour of the day.
 	 */
 	public int getHour() {
-		return gregorianCalendar.get(GregorianCalendar.HOUR);
+		return gregorianCalendar.get(GregorianCalendar.HOUR_OF_DAY);
 	}
 
 	/**
