@@ -23,6 +23,9 @@ public class StJennySystem_hot
 		this.state=new HospitalState();
 		try {
 			state.userManager.createHospitalAdmin("Wouter");
+			state.userManager.createNurse("jenny");
+			state.userManager.createDoctor("stef");
+			
 		} catch (UserAlreadyExistsException e) {
 			System.out.println("Fatal error at system startup, Wouter already exists.");
 		} catch (InvalidNameException e) {
@@ -34,7 +37,7 @@ public class StJennySystem_hot
 	
 	public static void main(String[] args) throws InvalidTimeLordException {
 	StJennySystem_hot t = StJennySystem_hot.instance();
-	UserinterfaceData data = new UserinterfaceData(new DataPasser(t.state.userManager,t.state.patientFileManager, t.state.scheduler, null, null));
+	UserinterfaceData data = new UserinterfaceData(new DataPasser(t.state.userManager,t.state.patientFileManager, t.state.scheduler,t.state.machinePool, t.state.taskManager,t.state.systemTime));
 	UCHandler handler = new UCHandler(data);
 
 		handler.start();

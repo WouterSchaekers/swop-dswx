@@ -12,12 +12,14 @@ import controllers.interfaces.PatientFileIN;
 import controllers.interfaces.UserIN;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
+import exceptions.InvalidHospitalDateArgument;
 import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidOccurencesException;
 import exceptions.InvalidRequirementException;
 import exceptions.InvalidResourceException;
 import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidTimeSlotException;
+import exceptions.QueueException;
 
 public class SelectDoctor extends Usecase
 {
@@ -75,6 +77,12 @@ public class SelectDoctor extends Usecase
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InvalidHospitalDateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (QueueException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidHospitalDateArgument e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

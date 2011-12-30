@@ -3,6 +3,8 @@ package controllers;
 import java.util.ArrayList;
 import java.util.Collection;
 import patient.PatientFile;
+import scheduler.task.scheduled.Appointment;
+import scheduler.task.unscheduled.UnscheduledAppointment;
 import users.Doctor;
 import users.Nurse;
 import users.User;
@@ -11,6 +13,7 @@ import controllers.interfaces.PatientFileIN;
 import controllers.interfaces.UserIN;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
+import exceptions.InvalidHospitalDateArgument;
 import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidOccurencesException;
@@ -18,6 +21,7 @@ import exceptions.InvalidRequirementException;
 import exceptions.InvalidResourceException;
 import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidTimeSlotException;
+import exceptions.QueueException;
 
 public class RegisterPatientController
 {
@@ -54,7 +58,7 @@ public class RegisterPatientController
 	}
 
 	public AppointmentIN CreateAppointMent(UserIN user,
-			PatientFileIN pfile, DataPasser data) throws InvalidTimeSlotException, InvalidSchedulingRequestException, InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidRequirementException, InvalidAmountException, InvalidHospitalDateException {
+			PatientFileIN pfile, DataPasser data) throws InvalidTimeSlotException, InvalidSchedulingRequestException, InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidRequirementException, InvalidAmountException, InvalidHospitalDateException, QueueException, InvalidHospitalDateArgument {
 		User u;
 		PatientFile f;
 		if(user instanceof User)
@@ -77,8 +81,9 @@ public class RegisterPatientController
 					"No patientfile has been opened yet");
 		if (f.isDischarged())
 			throw new IllegalArgumentException(f.getName()
-					+ " is not checked in");//XXX: fix thig asap
-		return null;//new Appointment(data.getScheduler().schedule(new UnscheduledAppointment((Doctor)u,data.getScheduler().getSystemTime())));//  new Scheduler().schedule(duration, startDate, neededSchedulables, occurences);
+					+ " is not checked in");
+		return new Appointment(dataPasser.getTaskmanager().addTask(new UnscheduledAppointment((PatientFile)pfile,(Doctor)u,dataPasser.getTimeLord().getSystemTime())));
+		
 	}
 
 	public void createNewPatient(DataPasser dataPasser2, String name) throws InvalidNameException {

@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Map.Entry;
 import help.Collections;
@@ -196,6 +197,7 @@ public class SelectUsecase extends Usecase
 	@SuppressWarnings("unchecked")
 	@Override
 	public Usecase Execute() {
+		//XXX:maak het mooit !
 		Collection<usecases> executableUsecases = Collections.filter(Arrays.asList(usecases.values()), new Filter()
 		{
 			
@@ -225,7 +227,7 @@ public class SelectUsecase extends Usecase
 	i=0;
 		for(Object entry:array)
 		{	
-			selectionOptions.put(i++,((Entry<String,usecases>)entry).getKey());
+			selectionOptions.put(++i,((Entry<String,usecases>)entry).getKey());
 		}
 		
 		System.out.println("Select what you would like to do: ");
@@ -233,7 +235,7 @@ public class SelectUsecase extends Usecase
 		i=0;
 		for(Object entry:array)
 		{	
-			System.out.println(i+++((Entry<String,usecases>)entry).getKey());
+			System.out.println(++i+": "+((Entry<String,usecases>)entry).getKey());
 		}
 		String in = input.nextLine();
 		try {
