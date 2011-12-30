@@ -56,3 +56,5 @@
 || 29/12/11: 12u00 -> 15u00|| 3 DSW || 3 || Usecases, observers, scheduling || ||
 || 29/12/11: 16u00 -> 17u30|| 3 DSW || 1.5 || Usecases, observers, scheduling || ||
 || 29/12/11: 18u00 -> 00u45|| 3 DSW || 6.67 || Usecases, observers, report || ||
+|| 30/12/11: 10u30 -> 14u00 || 3 DSW || 3.5 || Usecases, report, unit testing || ||
+|| 30/12/11: 16u00 -> || 3 DSW || || Usecases, report, unit testing || ||
