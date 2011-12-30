@@ -4,6 +4,7 @@ import machine.MachinePool;
 import patient.PatientFileManager;
 import scheduler.Scheduler;
 import scheduler.TimeLord;
+import scheduler.task.TaskManager;
 import users.UserManager;
 
 /**
@@ -16,6 +17,7 @@ public class DataPasser
 	private final PatientFileManager pfm;
 	private final MachinePool machinePool;
 	private TimeLord theDoctor;
+	private TaskManager taskmanager;
 
 	/**
 	 * Default constructor.
@@ -28,11 +30,13 @@ public class DataPasser
 	 *            a scheduler
 	 */
 	public DataPasser(UserManager userm, PatientFileManager pfm,
-			Scheduler scheduler,MachinePool machine,TimeLord doctor) {
+			Scheduler scheduler,MachinePool machine,TaskManager taskmanager,TimeLord doctor) {
 		this.userm = userm;
 		this.pfm = pfm;
 		this.scheduler = scheduler;
 		this.machinePool=machine;
+		this.theDoctor=doctor;
+		this.taskmanager=taskmanager;
 		this.theDoctor=doctor;
 	}
 
@@ -63,6 +67,10 @@ public class DataPasser
 
 	public TimeLord getTimeLord() {
 		return theDoctor;
+	}
+
+	 TaskManager getTaskmanager() {
+		 return this.taskmanager;
 	}
 
 }
