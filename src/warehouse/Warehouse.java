@@ -117,6 +117,10 @@ public class Warehouse extends Observable
 		this.medication.addAll(medication);
 		this.notifyObservers();
 	}
+	
+	public LinkedList<Medication> getMedication(){
+		return new LinkedList<Medication>(this.medication);
+	}
 
 	/**
 	 * @return True if amount is a valid amount of Medication to add to this
