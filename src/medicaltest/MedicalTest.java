@@ -1,10 +1,14 @@
 package medicaltest;
 
+import result.Result;
 import scheduler.HospitalDate;
 import scheduler.TimeSlot;
 import scheduler.TimeTable;
 import scheduler.task.Schedulable;
-import exceptions.*;
+import exceptions.InvalidDurationException;
+import exceptions.InvalidNameException;
+import exceptions.InvalidSchedulingRequestException;
+import exceptions.InvalidTimeSlotException;
 
 /**
  * This class represents a medical test.
@@ -13,6 +17,7 @@ public abstract class MedicalTest implements Schedulable
 {
 	public final long DURATION;
 	private TimeTable timeTable;
+	private Result myResult;
 	
 	/**
 	 * Default constructor.
@@ -70,4 +75,6 @@ public abstract class MedicalTest implements Schedulable
 	public void updateTimeTable(HospitalDate newDate){
 		this.timeTable.updateTimeTable(newDate);
 	}
+	
+	public abstract void setResult(Result r);
 }

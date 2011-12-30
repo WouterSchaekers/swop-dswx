@@ -1,5 +1,6 @@
 package treatment;
 
+import result.Result;
 import scheduler.HospitalDate;
 import warehouse.Expirable;
 import warehouse.WarehouseItem;
@@ -93,4 +94,8 @@ public abstract class Medication extends Treatment implements Expirable,Warehous
 			return false;
 		}
 	}
+	
+	public void setResult(Result r) {
+		//TODO implement 
+		;}
 }

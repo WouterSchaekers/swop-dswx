@@ -1,5 +1,6 @@
 package medicaltest;
 
+import result.Result;
 import scheduler.HospitalDate;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidNameException;
@@ -42,6 +43,12 @@ public class UltraSoundScan extends MedicalTest
 		this.scaninfo = scaninfo;
 		this.recordVid = recordVid;
 		this.recordImages = recordImages;
+	}
+
+	@Override
+	public void setResult(Result r) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

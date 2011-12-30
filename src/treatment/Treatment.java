@@ -52,4 +52,6 @@ public abstract class Treatment implements TreatmentIN
 	public Collection<Result> getAllResults() {
 		return new ArrayList<Result>(results);
 	}
+	
+	public abstract void setResult(Result r);
 }
