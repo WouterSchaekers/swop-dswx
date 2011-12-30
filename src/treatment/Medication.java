@@ -101,8 +101,4 @@ public abstract class Medication extends Treatment implements Expirable,Warehous
 	public void setResult(Result r) {
 		//TODO implement 
 	}
-	
-	protected void setMedicationType(MedicationType medicationType){
-		
-	}
 }

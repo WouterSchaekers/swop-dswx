@@ -22,12 +22,10 @@ public class Warehouse extends Observable
 	public static final int MAX_UNITS_OF_PLASTER = 8;
 	public static final int MAX_UNITS_OF_MEDICATION = 10;
 	public static final int MAX_UNITS_OF_MEALS = 120;
-	public static final long TIME_FOR_EXPIRATION = 
+	public static final long TIME_FOR_EXPIRATION = HospitalDate.ONE_YEAR;
 	private int unitsOfPlaster;
 	private LinkedList<Medication> medication;
 	private LinkedList<Meal> meals;
-
-	private Collection<WarehouseItem> reserved;
 	private HospitalDate prevDate;
 
 	/**
@@ -44,7 +42,6 @@ public class Warehouse extends Observable
 			throws InvalidHospitalDateException {
 		medication = new LinkedList<Medication>();
 		meals = new LinkedList<Meal>();
-		reserved = new ArrayList<WarehouseItem>();
 		this.unitsOfPlaster = MAX_UNITS_OF_PLASTER;
 		for (int i = 0; i < MAX_UNITS_OF_MEALS; i++) {
 			this.meals.add(new Meal(startDate));
@@ -68,7 +65,7 @@ public class Warehouse extends Observable
 	 */
 	private boolean canHaveAsDate(HospitalDate d) {
 		return d != null
-				&& d.after(new HospitalDate(HospitalDate.START_OF_TIME));
+				&& (prevDate == null || d.after(new HospitalDate(HospitalDate.START_OF_TIME)));
 	}
 
 	/**
@@ -95,6 +92,14 @@ public class Warehouse extends Observable
 		return amount >= 0
 				&& this.unitsOfPlaster + amount <= MAX_UNITS_OF_PLASTER;
 	}
+	
+	public boolean hasPlaster(int plaster) {
+		return this.unitsOfPlaster >= plaster;
+	}
+	
+	public int getPlaster() {
+		return this.unitsOfPlaster;
+	}
 
 	/**
 	 * This method will add medication to this hospital.
@@ -119,71 +124,32 @@ public class Warehouse extends Observable
 	 */
 	private boolean isValidAmountOfMedicationToAdd(int amount) {
 		return amount >= 0
-				&& this.medication.size() + medication.size() <= MAX_UNITS_OF_MEDICATION;
-	}
-
-	/**
-	 * This method allows one to reserve an item to the Warehouse.
-	 * 
-	 * @param i
-	 *            The item to add
-	 */
-	public void reserveItem(WarehouseItem i) {
-		if (removeAndReserveFrom(i, meals)){
-			this.notifyObservers();
-			return;
-		}
-		if (removeAndReserveFrom(i, medication)){
-			this.notifyObservers();
-			return;
-		}
-	}
-
-	/**
-	 * Eats amount amount of meals from this warehouse.
-	 * 
-	 * @throws MealException
-	 * @throws InvalidAmountException 
-	 */
-	public void eatMeals(int amount) throws MealException, InvalidAmountException {
-		LinkedList<Meal> newMeals = new LinkedList<Meal>();
-		if (amount > 0) {
-			if (amount < meals.size()) {
-				for (int i = amount; i < meals.size(); i++) {
-					newMeals.add(this.meals.get(i));
-				}
-			} else {
-				this.meals = newMeals;
-				throw new MealException("The warehouse ran out of meals! The people are hungry!");
-			}
-			this.meals = newMeals;
-			
-		} else {
-			throw new InvalidAmountException("Invalid amount of meals given to warehouse!");
-		}
-		this.notifyObservers();
+				&& this.medication.size() + amount <= MAX_UNITS_OF_MEDICATION;
 	}
 	
-	/**
-	 * Removes and reserves an item from the warehouse if possible.
-	 * 
-	 * @param i
-	 *            The item to remove.
-	 * @param t
-	 *            The collection from which to remove it from.
-	 * @return True if the element was removed, false if it wasn't.
-	 */
-	private <T extends WarehouseItem> boolean removeAndReserveFrom(
-			WarehouseItem i, Collection<T> t) {
-		if (t.contains(i)) {
-			t.remove(i);
-			reserved.add(i);
-			this.notifyObservers();
-			return true;
-		}
-		return false;
+	public boolean hasMedication(MedicationType medicationType, int amount) {
+		return this.medication.size() >= this.getMedicationList(medicationType).size();
 	}
-
+	
+	public Medication getMedication(MedicationType medicationType) throws WarehouseException {
+		LinkedList<Medication> medicationList = this.getMedicationList(medicationType);
+		if(medicationList.size() == 0){
+			throw new WarehouseException("The medication of type " + medicationType.toString() + " is not available anymore.");
+		}
+		return this.getMedicationList(medicationType).get(0);
+	}
+	
+	private LinkedList<Medication> getMedicationList(MedicationType medicationType){
+		LinkedList<Medication> medicationList = new LinkedList<Medication>();
+		for(int i = 0; i < this.medication.size(); i++){
+			Medication curMedication = this.medication.get(i);
+			if(curMedication.medicationType.equals(medicationType)){
+				medicationList.add(curMedication);
+			}
+		}
+		return medicationList;
+	}
+	
 	/**
 	 * This method will add meals to this hospital.
 	 * 
@@ -193,20 +159,38 @@ public class Warehouse extends Observable
 	 */
 	public void addMeals(Collection<Meal> meals)
 			throws WarehouseOverCapacityException {
-		if (this.meals.size() + meals.size() > MAX_UNITS_OF_MEALS) {
-			throw new WarehouseOverCapacityException(
-					"There are too many meals.");
-		}
 		this.meals.addAll(meals);
 		this.notifyObservers();
 	}
-
-	public boolean hasPlaster(int plaster) {
-		return this.unitsOfPlaster >= plaster;
+	
+	/**
+	 * Eats amount amount of meals from this warehouse.
+	 * 
+	 * @throws MealException
+	 * @throws InvalidAmountException 
+	 */
+	public void eatMeals(int amount) throws MealException, InvalidAmountException {
+		if (amount > 0) {
+			if (amount < meals.size()) {
+				for (int i = 0; i < amount; i++){
+					meals.remove(0);
+				}
+			} else {
+				this.meals = new LinkedList<Meal>();
+				throw new MealException("The warehouse ran out of meals! The people are hungry!");
+			}
+		} else {
+			throw new InvalidAmountException("Invalid amount of meals given to warehouse!");
+		}
+		this.notifyObservers();
 	}
-
-	public boolean hasMedication(int plaster) {
-		return this.unitsOfPlaster >= plaster;
+	
+	public boolean hasMeals(int meals) {
+		return this.amountOfMeals() >= meals;
+	}
+	
+	public int amountOfMeals(){
+		return this.meals.size();
 	}
 
 	@Basic
@@ -214,22 +198,14 @@ public class Warehouse extends Observable
 		return this.prevDate;
 	}
 
-	@Basic
-	public void setPreviousDate(HospitalDate newDate) {
-		this.prevDate = newDate;
-	}
+//	@Basic
+//	public void setPreviousDate(HospitalDate newDate) {
+//		this.prevDate = newDate;
+//	}
 
-	public int getPlaster() {
-		return this.unitsOfPlaster;
-	}
-
-	public LinkedList<Medication> getMedication() {
-		return new LinkedList<Medication>(this.medication);
-	}
-
-	public LinkedList<Meal> getMeals() {
-		return new LinkedList<Meal>(this.meals);
-	}
+//	public LinkedList<Meal> getMeals() {
+//		return new LinkedList<Meal>(this.meals);
+//	}
 
 //	private void setPlaster(int newPlasterAmount) {
 //		this.unitsOfPlaster = newPlasterAmount;
@@ -243,8 +219,4 @@ public class Warehouse extends Observable
 //	private void setMeals(LinkedList<Meal> newMeals) {
 //		this.meals = new LinkedList<Meal>(newMeals);
 //	}
-
-	public int amountOfMeals() {
-		return this.meals.size();
-	}
 }
