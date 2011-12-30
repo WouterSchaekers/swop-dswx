@@ -3,8 +3,6 @@ package ui.login;
 import java.util.Collection;
 import ui.UserinterfaceData;
 import ui.Usecase;
-import users.HospitalAdmin;
-import users.WarehouseAdmin;
 import controllers.interfaces.DoctorIN;
 import controllers.interfaces.HospitalAdminIN;
 import controllers.interfaces.NurseIN;

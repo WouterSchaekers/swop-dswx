@@ -3,7 +3,6 @@ package ui.enterdiagnosis;
 import controllers.EnterDiagnoseController;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileOpenController;
-import patient.Diagnose;
 import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;

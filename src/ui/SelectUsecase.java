@@ -238,7 +238,7 @@ public class SelectUsecase extends Usecase
 		int i=0;
 	Collection<Entry<String,usecases>>	t= menuOptions.entrySet();
 	Object[] array = t.toArray();
-	Arrays.sort(array,new Comparator()
+	Arrays.sort(array,new Comparator<Object>()
 	{
 
 		@Override
