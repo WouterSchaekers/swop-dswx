@@ -21,7 +21,7 @@ public abstract class Task
 	 * scheduled after the taskQueue in TaskManager has been updated.
 	 */
 	private String userDefinedID = "defaultID";
-	private PatientFile patient;
+	protected PatientFile patient;
 	
 	public Task(PatientFile p){
 		if(p == null){

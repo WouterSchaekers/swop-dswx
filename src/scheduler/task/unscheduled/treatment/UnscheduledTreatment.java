@@ -41,4 +41,9 @@ public abstract class UnscheduledTreatment extends UnscheduledTask
 		sched.addAll(this.userManager.getAllNurses());
 		return rv;
 	}
+	
+	@Override
+	public HospitalDate getFirstSchedulingDateSince(HospitalDate hospitalDate){
+		return hospitalDate;
+	}
 }

@@ -3,6 +3,7 @@ package treatment;
 import result.Result;
 import scheduler.HospitalDate;
 import warehouse.Expirable;
+import warehouse.MedicationType;
 import warehouse.WarehouseItem;
 
 /**
@@ -16,6 +17,7 @@ public abstract class Medication extends Treatment implements Expirable,Warehous
 	private boolean sensitive = false; // whether or not if the medication is
 										// sensitive
 	public final HospitalDate expiryDate;
+	public final MedicationType medicationType;
 
 	/**
 	 * Default constructor.
@@ -25,11 +27,12 @@ public abstract class Medication extends Treatment implements Expirable,Warehous
 	 * @param sensitive
 	 *            Whether or not the meds are sensitive.
 	 */
-	public Medication(String description, boolean sensitive, HospitalDate expiryDate) {
+	public Medication(String description, boolean sensitive, HospitalDate expiryDate, MedicationType medicationType) {
 		super(HospitalDate.ONE_MINUTE*20);
+		this.expiryDate = expiryDate;
+		this.medicationType = medicationType;
 		setDescription(description);
 		setSensitive(sensitive);
-		this.expiryDate = expiryDate;
 	}
 
 	/**
@@ -97,5 +100,9 @@ public abstract class Medication extends Treatment implements Expirable,Warehous
 	
 	public void setResult(Result r) {
 		//TODO implement 
-		;}
+	}
+	
+	protected void setMedicationType(MedicationType medicationType){
+		
+	}
 }
