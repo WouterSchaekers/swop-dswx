@@ -30,6 +30,11 @@ public abstract class UnscheduledMedicalTest extends UnscheduledTask
 	}
 	
 	@Override
+	public HospitalDate getFirstSchedulingDateSince(HospitalDate hospitalDate){
+		return hospitalDate;
+	}
+	
+	@Override
 	public boolean canBeScheduled() {
 		return this.getMachinePool().size() > 0 && this.userManager.getAllNurses().size() > 0;
 	}

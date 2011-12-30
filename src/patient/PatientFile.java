@@ -1,6 +1,7 @@
 package patient;
 
 import java.util.*;
+import medicaltest.XRayScan;
 import scheduler.HospitalDate;
 import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.DiagnoseIN;
@@ -94,12 +95,20 @@ public class PatientFile implements PatientFileIN
 	 * The current system time.
 	 * @return The amount of xrays this patient has had in the last year.
 	 */
-	public int amountOfXraysThisYear(HospitalDate curDate) {
+	public int amountOfXraysThisYear(HospitalDate hospitalDate) {
+		int amount = 0;
 		for(HospitalDate xr : this.xrays) {
-			if(xr.getTimeBetween(curDate) > HospitalDate.ONE_YEAR)
-				xrays.remove(xr);
+			if(hospitalDate.before(xr) && xr.getTimeBetween(hospitalDate) <= HospitalDate.ONE_YEAR)
+				amount++;
 		}
-		return xrays.size();
+		return amount;
+	}
+	
+	public HospitalDate getFirstNewXRaySchedDate(HospitalDate hospitalDate){
+		if(this.amountOfXraysThisYear(hospitalDate) >= 9){
+			return new HospitalDate(this.xrays.get(xrays.size()-10).getTimeSinceStart() + XRayScan.DURATION);
+		}
+		return hospitalDate;
 	}
 	
 	@Basic

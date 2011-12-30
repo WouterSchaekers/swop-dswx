@@ -48,4 +48,9 @@ public class UnscheduledAppointment extends UnscheduledTask
 		rv.get(0).add(d);
 		return rv;
 	}
+	
+	@Override
+	public HospitalDate getFirstSchedulingDateSince(HospitalDate hospitalDate){
+		return hospitalDate;
+	}
 }

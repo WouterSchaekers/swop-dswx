@@ -22,6 +22,7 @@ public class Warehouse extends Observable
 	public static final int MAX_UNITS_OF_PLASTER = 8;
 	public static final int MAX_UNITS_OF_MEDICATION = 10;
 	public static final int MAX_UNITS_OF_MEALS = 120;
+	public static final long TIME_FOR_EXPIRATION = 
 	private int unitsOfPlaster;
 	private LinkedList<Medication> medication;
 	private LinkedList<Meal> meals;
@@ -46,16 +47,16 @@ public class Warehouse extends Observable
 		reserved = new ArrayList<WarehouseItem>();
 		this.unitsOfPlaster = MAX_UNITS_OF_PLASTER;
 		for (int i = 0; i < MAX_UNITS_OF_MEALS; i++) {
-			this.meals.add(new Meal(null));
+			this.meals.add(new Meal(startDate));
 		}
-		this.medication.add(new ActivatedCarbon(false, null));
-		this.medication.add(new Aspirin(false, null));
-		this.medication.add(new Misc(false, null));
-		this.medication.add(new SleepingTablets(false, null));
-		this.medication.add(new Vitamins(false, null));
-		this.medication.add(new ActivatedCarbon(false, null));
-		this.medication.add(new Aspirin(false, null));
-		this.medication.add(new Misc(false, null));
+		this.medication.add(new ActivatedCarbon(false, startDate));
+		this.medication.add(new Aspirin(false, startDate));
+		this.medication.add(new Misc(false, startDate));
+		this.medication.add(new SleepingTablets(false, startDate));
+		this.medication.add(new Vitamins(false, startDate));
+		this.medication.add(new ActivatedCarbon(false, startDate));
+		this.medication.add(new Aspirin(false, startDate));
+		this.medication.add(new Misc(false, startDate));
 		if (!this.canHaveAsDate(startDate))
 			throw new InvalidHospitalDateException(
 					"Invalid date given to Warehouse!");

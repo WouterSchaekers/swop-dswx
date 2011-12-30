@@ -63,4 +63,9 @@ public class UnscheduledTaskTestClass extends UnscheduledTask
 	public boolean canBeScheduled() {
 		return false;
 	}
+
+	@Override
+	public HospitalDate getFirstSchedulingDateSince(HospitalDate hospitalDate) {
+		return hospitalDate;
+	}
 }

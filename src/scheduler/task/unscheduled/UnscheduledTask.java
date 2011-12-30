@@ -106,4 +106,6 @@ public abstract class UnscheduledTask extends Task
 	public abstract LinkedList<Integer> getOccurences();
 
 	public abstract LinkedList<LinkedList<Schedulable>> getResourcePool();
+	
+	public abstract HospitalDate getFirstSchedulingDateSince(HospitalDate hospitalDate);
 }

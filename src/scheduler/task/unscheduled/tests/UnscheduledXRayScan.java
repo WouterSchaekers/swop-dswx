@@ -24,6 +24,11 @@ public class UnscheduledXRayScan extends UnscheduledMedicalTest
 			InvalidHospitalDateException {
 		super(p, BloodAnalysis.DURATION, currentSystemTime, userManager, machinePool);
 	}
+	
+	@Override
+	public HospitalDate getFirstSchedulingDateSince(HospitalDate hospitalDate){
+		return this.patient.getFirstNewXRaySchedDate(hospitalDate);
+	}
 
 	@Override
 	public LinkedList<LinkedList<Schedulable>> getResourcePool() {
