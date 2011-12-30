@@ -3,7 +3,7 @@ package warehouse;
 import scheduler.HospitalDate;
 import treatment.Medication;
 
-public class Aspirin extends Medication implements WarehouseItem
+public class Aspirin extends Medication
 {
 	public Aspirin(boolean sensitive, HospitalDate expirationDate) {
 		super("Aspirin", sensitive, expirationDate, new AspirinType());

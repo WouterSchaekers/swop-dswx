@@ -4,12 +4,11 @@ import result.Result;
 import scheduler.HospitalDate;
 import warehouse.Expirable;
 import warehouse.MedicationType;
-import warehouse.WarehouseItem;
 
 /**
  * This class represent treatment by medication.
  */
-public abstract class Medication extends Treatment implements Expirable,WarehouseItem
+public abstract class Medication extends Treatment implements Expirable
 {
 	// the name of each treatment will be final and will be used later on to
 	// determine which treatment a Treatment is.

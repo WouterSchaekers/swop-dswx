@@ -19,7 +19,7 @@ public class TimeLordObserverWarehouseAdmin implements Observer
 	 *            The WarehouseAdmin this observer should notify, should it get
 	 *            notified.
 	 */
-	public TimeLordObserverWarehouseAdmin (WarehouseAdmin warehouseAdmin) {
+	public TimeLordObserverWarehouseAdmin(WarehouseAdmin warehouseAdmin) {
 		this.warehouseAdmin = warehouseAdmin;
 	}
 	

@@ -154,6 +154,13 @@ public class Warehouse extends Observable
 		return medicationList;
 	}
 	
+	public void removeMedication(Medication medication) throws WarehouseException{
+		if(this.medication.contains(medication)){
+			throw new WarehouseException("Medication cannot be removed.");
+		}
+		this.medication.remove(medication);
+	}
+	
 	/**
 	 * This method will add meals to this hospital.
 	 * 
@@ -165,6 +172,14 @@ public class Warehouse extends Observable
 			throws WarehouseOverCapacityException {
 		this.meals.addAll(meals);
 		this.notifyObservers();
+	}
+	
+	public LinkedList<Meal> getMeals(){
+		return new LinkedList<Meal>(this.meals);
+	}
+	
+	public boolean hasMeals(int meals) {
+		return this.amountOfMeals() >= meals;
 	}
 	
 	/**
@@ -189,12 +204,15 @@ public class Warehouse extends Observable
 		this.notifyObservers();
 	}
 	
-	public boolean hasMeals(int meals) {
-		return this.amountOfMeals() >= meals;
-	}
-	
 	public int amountOfMeals(){
 		return this.meals.size();
+	}
+	
+	public void removeMeal(Meal meal) throws WarehouseException{
+		if(this.meals.contains(meal)){
+			throw new WarehouseException("Meal cannot be removed.");
+		}
+		this.meals.remove(meal);
 	}
 
 	@Basic
