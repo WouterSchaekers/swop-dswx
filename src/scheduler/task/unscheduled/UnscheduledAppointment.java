@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import patient.PatientFile;
 import scheduler.HospitalDate;
 import scheduler.task.Schedulable;
+import scheduler.task.scheduled.ScheduledTask;
 import users.Doctor;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
@@ -52,5 +53,10 @@ public class UnscheduledAppointment extends UnscheduledTask
 	@Override
 	public HospitalDate getFirstSchedulingDateSince(HospitalDate hospitalDate){
 		return hospitalDate;
+	}
+
+	@Override
+	public void setScheduled(ScheduledTask task) {
+		
 	}
 }

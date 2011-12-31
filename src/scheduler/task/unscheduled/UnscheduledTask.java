@@ -5,6 +5,7 @@ import patient.PatientFile;
 import scheduler.HospitalDate;
 import scheduler.task.Schedulable;
 import scheduler.task.Task;
+import scheduler.task.scheduled.ScheduledTask;
 import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
@@ -108,4 +109,6 @@ public abstract class UnscheduledTask extends Task
 	public abstract LinkedList<LinkedList<Schedulable>> getResourcePool();
 	
 	public abstract HospitalDate getFirstSchedulingDateSince(HospitalDate hospitalDate);
+
+	public abstract void setScheduled(ScheduledTask task) ;
 }

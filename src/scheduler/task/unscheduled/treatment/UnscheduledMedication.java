@@ -17,7 +17,6 @@ import exceptions.InvalidResourceException;
 
 public class UnscheduledMedication extends UnscheduledTreatment
 {
-	private Medication medication;
 	private Warehouse warehouse;
 
 	/**
@@ -38,14 +37,11 @@ public class UnscheduledMedication extends UnscheduledTreatment
 			throws InvalidResourceException, InvalidDurationException,
 			InvalidOccurencesException, InvalidAmountException,
 			InvalidHospitalDateException {
-		super(p, diagnose, 2 * HospitalDate.ONE_HOUR, systemTime, userManager);
-		this.medication = medication;
+		super(p, diagnose, 2 * HospitalDate.ONE_HOUR, systemTime, userManager,medication);
 		this.warehouse = warehouse;
 	}
 
-	public Medication getMedication() {
-		return this.medication;
-	}
+	
 
 	@Override
 	public boolean canBeScheduled() {
@@ -65,9 +61,10 @@ public class UnscheduledMedication extends UnscheduledTreatment
 		{
 			@Override
 			public <T> boolean allows(T arg) {
-				return arg.getClass().equals(UnscheduledMedication.this.medication.getClass());
+				return arg.getClass().equals(UnscheduledMedication.this.getMytreatment().getClass());
 			}
 		}));
 		return medicationPool;
 	}
+
 }
