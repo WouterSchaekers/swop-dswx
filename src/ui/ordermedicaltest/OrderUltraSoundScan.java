@@ -1,19 +1,6 @@
 package ui.ordermedicaltest;
 
-import exceptions.InvalidAmountException;
-import exceptions.InvalidDurationException;
-import exceptions.InvalidHospitalDateArgument;
-import exceptions.InvalidHospitalDateException;
-import exceptions.InvalidLoginControllerException;
-import exceptions.InvalidNameException;
-import exceptions.InvalidOccurencesException;
-import exceptions.InvalidPatientFileException;
-import exceptions.InvalidResourceException;
-import exceptions.InvalidTimeSlotException;
-import exceptions.InvalidTreatmentException;
-import medicaltest.MedicalTest;
 import medicaltest.UltraSoundScanFactory;
-import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
 
