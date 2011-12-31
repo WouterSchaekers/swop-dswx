@@ -1,14 +1,13 @@
 = TODOs =
   * Treatment factory (optional)
   * Documentatie schrijven (optional)
-  * Bidirectionele binding tussen TaskManager en Schedulable
   * Meer code coverage (Junit!)
   * ScheduledTasks !!!!!!!!!!!!!!!!
 = Wie is er momenteel waaraan bezig? =
 <p>
-Dieter: Usecases hacken<p>
+Dieter: JUnit<p>
 Stefaan: ver slagen<p>
-Wouter: Bidirectionele binding tussen TaskManager en Schedulable<p>
+Wouter: Laatste usecase hacken<p>
 
 = Things that have been crossed off = 
   * Treatment Factories gemaakt en getest
@@ -36,6 +35,7 @@ Wouter: Bidirectionele binding tussen TaskManager en Schedulable<p>
   * warehouseadmin
   * Bij unscheduled classes zorgen dat die requirements lazy gemaakt worden, (dit door de voorstelling van onze requirements :) )
   * Observers
+  * Bidirectionele binding tussen TaskManager en Schedulable
 
 = Next Iteration =
   * factories maken voor Medication & Machine.
