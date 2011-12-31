@@ -28,7 +28,7 @@ public class TimeLordObserverWarehouseAdmin implements Observer
 		if (!(newDate instanceof HospitalDate))
 			throw new IllegalArgumentException(
 					"Object given to TimeLordObserver was not a hospital date!");
-		this.warehouseAdmin.update((HospitalDate)newDate);
+		this.warehouseAdmin.updateTime((HospitalDate)newDate);
 	}
 
 }

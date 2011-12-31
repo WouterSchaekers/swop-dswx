@@ -26,7 +26,10 @@ public class Warehouse extends Observable
 	private int unitsOfPlaster;
 	private LinkedList<Medication> medication;
 	private LinkedList<Meal> meals;
-	private HospitalDate prevDate;
+	private HospitalDate curDate;
+	private boolean orderedPlaster;
+	private boolean orderedMedication;
+	private boolean orderedMeals;
 
 	/**
 	 * Default constructor. Fields will be initialised. Also the warehouse stock
@@ -57,7 +60,7 @@ public class Warehouse extends Observable
 		if (!this.canHaveAsDate(startDate))
 			throw new InvalidHospitalDateException(
 					"Invalid date given to Warehouse!");
-		this.prevDate = startDate;
+		this.curDate = startDate;
 	}
 
 	/**
@@ -65,7 +68,7 @@ public class Warehouse extends Observable
 	 */
 	private boolean canHaveAsDate(HospitalDate d) {
 		return d != null
-				&& (prevDate == null || d.after(new HospitalDate(HospitalDate.START_OF_TIME)));
+				&& (curDate == null || d.after(new HospitalDate(HospitalDate.START_OF_TIME)));
 	}
 
 	/**
@@ -216,14 +219,14 @@ public class Warehouse extends Observable
 	}
 
 	@Basic
-	public HospitalDate getPreviousDate() {
-		return this.prevDate;
+	public HospitalDate getDate() {
+		return this.curDate;
 	}
 
-//	@Basic
-//	public void setPreviousDate(HospitalDate newDate) {
-//		this.prevDate = newDate;
-//	}
+	@Basic
+	public void setDate(HospitalDate newDate) {
+		this.curDate = newDate;
+	}
 
 //	public LinkedList<Meal> getMeals() {
 //		return new LinkedList<Meal>(this.meals);
