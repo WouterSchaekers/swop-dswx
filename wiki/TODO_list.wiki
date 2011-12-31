@@ -1,10 +1,6 @@
 = TODOs =
   * Treatment factory (optional)
   * Documentatie schrijven (optional)
-  * Verslag schrijven
-  * Observers
-  * Usecases
-  * Dieter slaan
   * Bidirectionele binding tussen TaskManager en Schedulable
   * Meer code coverage (Junit!)
   * ScheduledTasks !!!!!!!!!!!!!!!!
