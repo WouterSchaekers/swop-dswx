@@ -12,7 +12,7 @@ public class BloodanalyserBuilder extends MachineBuilder
 	}
 	public String toString()
 	{
-		return "Blood analysis factory";
+		return "Blood analyzer";
 		
 	}
 	public Machine build(int serial,String location) throws InvalidLocationException, InvalidSerialException, InvalidTimeSlotException

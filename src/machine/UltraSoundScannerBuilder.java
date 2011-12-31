@@ -11,7 +11,7 @@ public class UltraSoundScannerBuilder extends MachineBuilder
 	}
 	public String toString()
 	{
-		return "UltraSoundScanner factory";
+		return "UltraSoundScanner";
 		
 	}
 	public UltraSoundScanner build(int serial,String location) throws InvalidLocationException, InvalidSerialException, InvalidTimeSlotException
