@@ -1,0 +1,25 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{State of affairs}{}% 2
+\BOOKMARK [1][-]{section.3}{The design}{}% 3
+\BOOKMARK [2][-]{subsection.3.1}{Patientfilemanager, patientfile, diagnose, treatment}{section.3}% 4
+\BOOKMARK [3][-]{subsubsection.3.1.1}{Solution}{subsection.3.1}% 5
+\BOOKMARK [3][-]{subsubsection.3.1.2}{Alternative solution}{subsection.3.1}% 6
+\BOOKMARK [2][-]{subsection.3.2}{MedicalTest, Treatment, Machine and Medication}{section.3}% 7
+\BOOKMARK [2][-]{subsection.3.3}{Current version of Scheduler}{section.3}% 8
+\BOOKMARK [3][-]{subsubsection.3.3.1}{HospitalDate}{subsection.3.3}% 9
+\BOOKMARK [3][-]{subsubsection.3.3.2}{TimeTable}{subsection.3.3}% 10
+\BOOKMARK [3][-]{subsubsection.3.3.3}{TimePoint}{subsection.3.3}% 11
+\BOOKMARK [3][-]{subsubsection.3.3.4}{TimeSlot}{subsection.3.3}% 12
+\BOOKMARK [3][-]{subsubsection.3.3.5}{Schedulable}{subsection.3.3}% 13
+\BOOKMARK [3][-]{subsubsection.3.3.6}{Constraints}{subsection.3.3}% 14
+\BOOKMARK [3][-]{subsubsection.3.3.7}{Task, UnscheduledTask, ScheduledTask, TaskManager}{subsection.3.3}% 15
+\BOOKMARK [2][-]{subsection.3.4}{Alternatives and older versions of Scheduler}{section.3}% 16
+\BOOKMARK [3][-]{subsubsection.3.4.1}{Original version}{subsection.3.4}% 17
+\BOOKMARK [3][-]{subsubsection.3.4.2}{First revision}{subsection.3.4}% 18
+\BOOKMARK [3][-]{subsubsection.3.4.3}{Second revision}{subsection.3.4}% 19
+\BOOKMARK [1][-]{section.4}{Use cases}{}% 20
+\BOOKMARK [1][-]{section.5}{Other relevant changes}{}% 21
+\BOOKMARK [2][-]{subsection.5.1}{Domain protection - not leaking internal data structures}{section.5}% 22
+\BOOKMARK [2][-]{subsection.5.2}{Defensive programming}{section.5}% 23
+\BOOKMARK [1][-]{section.6}{Testing and code coverage}{}% 24
+\BOOKMARK [1][-]{section.7}{Conclusion and outro}{}% 25
