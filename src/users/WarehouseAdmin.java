@@ -6,7 +6,13 @@ import patient.PatientFileManager;
 import scheduler.DummyDate;
 import scheduler.HospitalDate;
 import treatment.Medication;
+import warehouse.ActivatedCarbonType;
+import warehouse.AspirinType;
 import warehouse.Meal;
+import warehouse.MedicationType;
+import warehouse.MiscType;
+import warehouse.SleepingTabletsType;
+import warehouse.VitaminsType;
 import warehouse.Warehouse;
 import controllers.interfaces.WarehouseAdminIN;
 import exceptions.InvalidAmountException;
@@ -23,6 +29,12 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN
 {
 	private Warehouse warehouse;
 	private PatientFileManager patientFileManager;
+	private boolean orderedPlaster;
+	private boolean orderedMedication;
+	private boolean orderedMeals;
+	private int plasterExpected;
+	private int medicationExpected;
+	private int mealsExpected;
 
 	/**
 	 * Default constructor. Will appoint this admin his warehouse.
@@ -39,6 +51,9 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN
 		super("The Warehouse administrator");
 		this.warehouse = warehouse;
 		this.patientFileManager = patientFileManager;
+		this.plasterExpected = 0;
+		this.medicationExpected = 0;
+		this.mealsExpected = 0;
 	}
 
 	/**
@@ -79,7 +94,8 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN
 		warehouse.addMeals(meals);
 	}
 
-	public void updateTime(HospitalDate newDate) throws MealException, InvalidAmountException, WarehouseException{
+	public void updateTime(HospitalDate newDate) throws MealException,
+			InvalidAmountException, WarehouseException {
 		this.removeExpiredMedication(newDate);
 		this.advanceTime(newDate);
 	}
@@ -98,7 +114,8 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN
 		while (curDate.before(newDate)) {
 			boolean updated = false;
 			for (int i = 0; i < mealTimes.size(); i++) {
-				HospitalDate newCurDate = mealTimes.get(i).combineWithHospitalDate(curDate);
+				HospitalDate newCurDate = mealTimes.get(i)
+						.combineWithHospitalDate(curDate);
 				if (curDate.before(newCurDate)) {
 					this.removeExpiredMeals(curDate);
 					warehouse.eatMeals(amountOfPatients);
@@ -109,42 +126,14 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN
 			if (!updated) {
 				HospitalDate newCurDate = new HospitalDate(curDate.getYear(),
 						curDate.getMonth(), curDate.getDay() + 1, 0, 0, 0);
-				if(newCurDate.before(newDate)){
+				if (newCurDate.before(newDate)) {
 					curDate = newCurDate;
-				}
-				else{
+				} else {
 					curDate = newDate;
 				}
 			}
 		}
 	}
-
-	// /**
-	// * This method should be called whenever there's a change in time. The
-	// * warehouse will then update its stock accordingly.
-	// *
-	// * @param newTime
-	// * The new system time.
-	// */
-	// public void update(HospitalDate newTime) {
-	// this.removeExpiredItems(newTime);
-	// try {
-	// this.orderMoreMeds();
-	// } catch (InvalidHospitalDateArgument e1) {
-	// System.out.println(e1.getMessage());
-	// }
-	// try {
-	// this.updateMeals(newTime);
-	// } catch (Exception e) {
-	// System.out.println(e.getMessage());
-	// }
-	// this.warehouse.setPreviousDate(newTime);
-	// }
-	
-//	private void removeExpiredItems(HospitalDate newDate) throws WarehouseException{
-//		this.removeExpiredMeals(newDate);
-//		this.removeExpiredMedication(newDate);
-//	}
 
 	private void removeExpiredMeals(HospitalDate newDate)
 			throws WarehouseException {
@@ -166,105 +155,61 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN
 		}
 	}
 
-	// /**
-	// * Will update the amount of meals stored in the warehouse after the
-	// system
-	// * time has changed.
-	// *
-	// * @param newTime
-	// * The new system time.
-	// * @throws InvalidHospitalDateArgument
-	// * @throws MealException
-	// * @throws InvalidAmountException
-	// */
-	// private void updateMeals(HospitalDate newTime)
-	// throws InvalidHospitalDateArgument, MealException,
-	// InvalidAmountException {
-	// HospitalDate prevDate = this.warehouse.getPreviousDate();
-	// HospitalDate nextDate = new HospitalDate(prevDate.getTimeSinceStart() +
-	// timeToNextMeal(prevDate));
-	// HospitalDate orderTime;
-	//
-	// while (nextDate.before(newTime)) {
-	// this.removeExpiredMeals(nextDate);
-	// this.eatMeals();
-	//
-	// orderTime = new HospitalDate(prevDate.getYear(), prevDate.getMonth(),
-	// prevDate.getDay(), 23, 59, 00);
-	// if(nextDate.after(orderTime))
-	// this.orderMoreMeals(nextDate);
-	//
-	// prevDate = nextDate;
-	// nextDate = new HospitalDate(prevDate.getTimeSinceStart() +
-	// timeToNextMeal(prevDate));
-	// }
-	//
-	// }
-	//
-	// /**
-	// * Will eat the needed amount of meals for 1 meal time.
-	// * @throws InvalidHospitalDateArgument
-	// * @throws InvalidAmountException
-	// * @throws MealException
-	// */
-	// private void eatMeals() throws MealException, InvalidAmountException {
-	// int amountOfPatients = this.patientFileManager.amountOfActivePatients();
-	// this.warehouse.eatMeals(amountOfPatients);
-	// }
-	//
-	// /**
-	// * Will order more meals at the end of a day.
-	// *
-	// * @throws InvalidHospitalDateArgument
-	// */
-	// private void orderMoreMeals(HospitalDate newTime) throws
-	// InvalidHospitalDateArgument {
-	//
-	// int amountOfMealsToOrder = 15 +
-	// this.patientFileManager.amountOfActivePatients() * 3 * 2 -
-	// this.warehouse.amountOfMeals();
-	// StockOrder s = new StockOrder(amountOfMealsToOrder);
-	// // TODO: fix import en associatie naar stock importer.
-	// }
-	//
-	// /**
-	// * Will order more meds.
-	// *
-	// * @throws InvalidHospitalDateArgument
-	// */
-	// private void orderMoreMeds() throws InvalidHospitalDateArgument {
-	// LinkedList<Medication> oldMeds = this.warehouse.getMedication();
-	// StockOrder[] s = new StockOrder[2];
-	// if(oldMeds.size() < Warehouse.MAX_UNITS_OF_MEDICATION/2) {
-	// s[0] = new StockOrder(Warehouse.MAX_UNITS_OF_MEDICATION -
-	// oldMeds.size());
-	// }
-	// s[1] = new StockOrder(Warehouse.MAX_UNITS_OF_PLASTER -
-	// this.warehouse.getPlaster());
-	// // TODO: fix import en associatie naar stock importer.
-	// }
-	//
-	// /**
-	// * @return The amount of millis till the next meal takes place.
-	// * @throws InvalidHospitalDateArgument
-	// */
-	// private long timeToNextMeal(HospitalDate nextDate)
-	// throws InvalidHospitalDateArgument {
-	// HospitalDate[] meals = {
-	// new HospitalDate(nextDate.getYear(), nextDate.getMonth(),
-	// nextDate.getDay(), 8, 0, 0),
-	// new HospitalDate(nextDate.getYear(), nextDate.getMonth(),
-	// nextDate.getDay(), 12, 0, 0),
-	// new HospitalDate(nextDate.getYear(), nextDate.getMonth(),
-	// nextDate.getDay(), 18, 0, 0) };
-	// HospitalDate breakfastNextDay = new HospitalDate(
-	// meals[0].getTimeSinceStart() + HospitalDate.ONE_DAY);
-	// for (int i = 0; i < meals.length; i++) {
-	// if (meals[i].after(nextDate))
-	// return nextDate.getTimeBetween(meals[i]);
-	// }
-	// // if breakfast, lunch and dinner have already passed, the next meal
-	// // will be tomorrow and breakfast.
-	// return nextDate.getTimeBetween(breakfastNextDay);
-	// }
+	public void updateStock() {
+		this.updatePlaster();
+		this.updateMedication();
+	}
+
+	private void updatePlaster() {
+		if (!this.orderedPlaster
+				&& this.warehouse.amountOfPlaster() < this.warehouse.MAX_UNITS_OF_PLASTER) {
+			this.orderPlaster(this.warehouse.MAX_UNITS_OF_PLASTER
+					- this.warehouse.amountOfPlaster());
+		}
+	}
+
+	private void orderPlaster(int amount) {
+		this.orderedPlaster = true;
+		// TODO
+	}
+
+	private void updateMedication() {
+		if (!this.orderedMedication
+				&& this.warehouse.amountOfMedication() < this.warehouse.MAX_UNITS_OF_MEDICATION / 2) {
+			this.orderMedication(this.warehouse.MAX_UNITS_OF_MEDICATION
+					- this.warehouse.amountOfMedication());
+		}
+	}
+
+	private void orderMedication(int amount) {
+		ActivatedCarbonType activatedCarbonType = new ActivatedCarbonType();
+		AspirinType aspirinType = new AspirinType();
+		MiscType miscType = new MiscType();
+		SleepingTabletsType sleepingTabletsType = new SleepingTabletsType();
+		VitaminsType vitaminsType = new VitaminsType();
+		LinkedList<MedicationType> medicationTypes = new LinkedList<MedicationType>();
+		medicationTypes.add(activatedCarbonType);
+		medicationTypes.add(aspirinType);
+		medicationTypes.add(miscType);
+		medicationTypes.add(sleepingTabletsType);
+		medicationTypes.add(vitaminsType);
+		while (amount-- > 0) {
+			this.orderMedication(medicationTypes.get((int) (Math.random() * 5)));
+		}
+	}
+
+	private void orderMedication(MedicationType medicationType) {
+		this.orderedMedication = true;
+		// TODO
+	}
+
+	private void updateMeals(int amountOfActivePatients) {
+		int amountOfMealsToBeOrdered = 15 + 6 * amountOfActivePatients
+				- this.warehouse.amountOfMeals();
+		this.orderMeals(amountOfMealsToBeOrdered);
+	}
+
+	private void orderMeals(int amount) {
+		this.orderedMeals = true;
+	}
 }

@@ -1,6 +1,5 @@
 package warehouse;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Observable;
@@ -19,17 +18,14 @@ import exceptions.WarehouseOverCapacityException;
  */
 public class Warehouse extends Observable
 {
-	public static final int MAX_UNITS_OF_PLASTER = 8;
-	public static final int MAX_UNITS_OF_MEDICATION = 10;
-	public static final int MAX_UNITS_OF_MEALS = 120;
-	public static final long TIME_FOR_EXPIRATION = HospitalDate.ONE_YEAR;
+	public final int MAX_UNITS_OF_PLASTER;
+	public final int MAX_UNITS_OF_MEDICATION;
+	public final int MAX_UNITS_OF_MEALS;
+	public final long TIME_FOR_EXPIRATION = HospitalDate.ONE_YEAR;
 	private int unitsOfPlaster;
 	private LinkedList<Medication> medication;
 	private LinkedList<Meal> meals;
 	private HospitalDate curDate;
-	private boolean orderedPlaster;
-	private boolean orderedMedication;
-	private boolean orderedMeals;
 
 	/**
 	 * Default constructor. Fields will be initialised. Also the warehouse stock
@@ -43,6 +39,9 @@ public class Warehouse extends Observable
 	 */
 	public Warehouse(HospitalDate startDate)
 			throws InvalidHospitalDateException {
+		this.MAX_UNITS_OF_PLASTER = 8;
+		this.MAX_UNITS_OF_MEDICATION = 10;
+		this.MAX_UNITS_OF_MEALS = 120;
 		medication = new LinkedList<Medication>();
 		meals = new LinkedList<Meal>();
 		this.unitsOfPlaster = MAX_UNITS_OF_PLASTER;
@@ -100,7 +99,7 @@ public class Warehouse extends Observable
 		return this.unitsOfPlaster >= plaster;
 	}
 	
-	public int getPlaster() {
+	public int amountOfPlaster() {
 		return this.unitsOfPlaster;
 	}
 
@@ -124,6 +123,10 @@ public class Warehouse extends Observable
 	public LinkedList<Medication> getMedication(){
 		return new LinkedList<Medication>(this.medication);
 	}
+	
+	public int amountOfMedication(){
+		return this.medication.size();
+	}
 
 	/**
 	 * @return True if amount is a valid amount of Medication to add to this
@@ -144,6 +147,10 @@ public class Warehouse extends Observable
 			throw new WarehouseException("The medication of type " + medicationType.toString() + " is not available anymore.");
 		}
 		return this.getMedicationList(medicationType).get(0);
+	}
+	
+	public int medicationOfThisType(MedicationType medicationType){
+		return this.getMedicationList(medicationType).size();
 	}
 	
 	private LinkedList<Medication> getMedicationList(MedicationType medicationType){
