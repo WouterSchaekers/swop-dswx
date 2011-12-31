@@ -1,5 +1,7 @@
 package machine;
 
+import java.util.Collection;
+import java.util.LinkedList;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidSerialException;
@@ -8,6 +10,7 @@ import scheduler.HospitalDate;
 import scheduler.TimeSlot;
 import scheduler.TimeTable;
 import scheduler.task.Schedulable;
+import scheduler.task.scheduled.ScheduledTask;
 
 /**
  * This class represents a machine in the hospital.
@@ -20,6 +23,7 @@ public abstract class Machine implements Schedulable
 	private final int serial;
 	private String location = "";
 	private TimeTable timeTable;
+	protected Collection<ScheduledTask> scheduledTasks;
 	/**
 	 * Default constructor.
 	 * 
@@ -40,6 +44,7 @@ public abstract class Machine implements Schedulable
 		this.serial = serial;
 		this.location = location;
 		this.timeTable = new TimeTable();
+		this.scheduledTasks = new LinkedList<ScheduledTask>();
 	}
 
 	/**
@@ -82,5 +87,13 @@ public abstract class Machine implements Schedulable
 	
 	public void updateTimeTable(HospitalDate newDate){
 		this.timeTable.updateTimeTable(newDate);
+	}
+	
+	public Collection<ScheduledTask> getScheduledTasks(){
+		return this.scheduledTasks;
+	}
+	
+	public void addScheduledTask(ScheduledTask scheduledTask){
+		this.scheduledTasks.add(scheduledTask);
 	}
 }

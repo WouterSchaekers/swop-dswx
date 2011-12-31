@@ -1,8 +1,10 @@
 package scheduler.task;
 
+import java.util.Collection;
 import scheduler.HospitalDate;
 import scheduler.TimeSlot;
 import scheduler.TimeTable;
+import scheduler.task.scheduled.ScheduledTask;
 import exceptions.InvalidHospitalDateArgument;
 import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidTimeSlotException;
@@ -26,4 +28,8 @@ public interface Schedulable
 			HospitalDate stopDate, long duration) throws InvalidSchedulingRequestException, InvalidTimeSlotException, InvalidHospitalDateArgument;
 	
 	public void updateTimeTable(HospitalDate newDate);
+	
+	public Collection<ScheduledTask> getScheduledTasks();
+	
+	public void addScheduledTask(ScheduledTask scheduledTask);
 }

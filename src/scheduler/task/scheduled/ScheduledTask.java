@@ -34,6 +34,7 @@ public class ScheduledTask extends Task
 			throw new InvalidResourceException("Invalid resource passed to Task constructor!");
 		}
 		this.myResources = Task.cloneCollection(resources);
+		this.addTaskToResources();
 		this.mySlot = timeSlot;
 	}
 	
@@ -45,6 +46,12 @@ public class ScheduledTask extends Task
 	@Basic
 	public LinkedList<Schedulable> getResources() {
 		return super.cloneCollection(myResources);
+	}
+	
+	private void addTaskToResources(){
+		for(int i = 0; i < this.myResources.size(); i++){
+			this.myResources.get(i).addScheduledTask(this);
+		}
 	}
 	
 	/**
