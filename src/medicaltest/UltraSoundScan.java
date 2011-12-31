@@ -74,4 +74,15 @@ public class UltraSoundScan extends MedicalTest
 		return new UnscheduledUltraSound(file, systemtime.getSystemTime(), userm, pool, this);
 	}
 
+	@Override
+	public String appointMentInfo() {
+		String rv = "";
+		rv+="Ultra Sound Scan \n";
+		if(getScheduledTask()!=null){
+			rv+="for \t:\t"+getScheduledTask().getPatient().getName()+"\n";
+			rv+="at \t:\t" + getScheduledTask().getTimeSlot().getStartPoint()+"\ttill\t"+getScheduledTask().getTimeSlot().getStopPoint();
+		}
+		return rv;
+	}
+
 }

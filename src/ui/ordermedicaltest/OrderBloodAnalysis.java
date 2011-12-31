@@ -19,7 +19,6 @@ public class OrderBloodAnalysis extends OrderMedicalTestSuperClass
 		System.out.println("What would you like to focus on in the tests? ");
 		in = input.nextLine();
 		System.out.println("\n");
-
 			try{
 				factory.setFocus(in);
 			}catch(IllegalArgumentException e)
@@ -40,6 +39,7 @@ try{
 	System.out.println("Invalid number of analysis provided try again");
 	return this;
 }
+
 
 		return new ScheduleMedicalTest(data, chaindata);
 	}

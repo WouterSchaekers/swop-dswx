@@ -1,7 +1,7 @@
 package ui.ordermedicaltest;
 
-import ui.UserinterfaceData;
 import ui.Usecase;
+import ui.UserinterfaceData;
 
 public abstract class OrderMedicalTestSuperClass extends Usecase
 {

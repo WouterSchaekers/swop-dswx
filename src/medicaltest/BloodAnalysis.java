@@ -69,6 +69,20 @@ public class BloodAnalysis extends MedicalTest
 			TaskManager taskmanager,MachinePool pool) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException {
 		return new UnscheduledBloodTest(file, systemtime.getSystemTime(), userm, pool, this);
 	}
+	
+	/**
+	 * Method to see the schedule state of this object
+	 */
+	@Override
+	public String appointMentInfo() {
+		String rv = "";
+		rv+="Blood analysis \n";
+		if(getScheduledTask()!=null){
+			rv+="for \t:\t"+getScheduledTask().getPatient().getName()+"\n";
+			rv+="at \t:\t" + getScheduledTask().getTimeSlot().getStartPoint()+"\ttill\t"+getScheduledTask().getTimeSlot().getStopPoint();
+		}
+		return rv;
+	}
 
 	
 

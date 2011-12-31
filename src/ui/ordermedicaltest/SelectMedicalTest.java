@@ -1,8 +1,10 @@
 package ui.ordermedicaltest;
 
 import java.util.Collection;
+
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileException;
+
 import medicaltest.BloodAnalysisFactory;
 import medicaltest.MedicalTestFactory;
 import medicaltest.UltraSoundScanFactory;
@@ -10,6 +12,8 @@ import medicaltest.XRayScanFactory;
 import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
+import exceptions.InvalidLoginControllerException;
+import exceptions.InvalidPatientFileException;
 
 public class SelectMedicalTest extends OrderMedicalTestSuperClass
 {
@@ -20,9 +24,7 @@ public class SelectMedicalTest extends OrderMedicalTestSuperClass
 
 	@Override
 	public Usecase Execute() {
-		System.out
-				.println("\nWhich one would you like to order? (please type the name as it appears on your screen)\n");
-		String s = input.nextLine();
+
 		Collection<MedicalTestFactory> factories;
 		try {
 			factories	 = this.chaindata
@@ -36,23 +38,57 @@ public class SelectMedicalTest extends OrderMedicalTestSuperClass
 			System.out.println("invalid patientfile");
 			return new SelectUsecase(data);
 		}
-		
-		
-		return new SelectUsecase(data);
+		// we now have all the factories that can create a medical test object we will now do so :)
+		System.out.println("Select the medical test you would like to order for "+data.getPatientFileOpenController().getPatientFile().getName() +".");
+		System.out.println("1: Ultra sound scan");
+		System.out.println("2: Blood analysis");
+		System.out.println("3: XrayScan");
+		System.out.println("Q: quit");
+		String in = input.nextLine();
+		if(in.equalsIgnoreCase("q"))
+			return new SelectUsecase(data);
+		int menuoption;
+		try{
+			menuoption = new Integer(in);
+		}catch(Exception e){
+			System.out.println("invalid nubmer try again");
+			return this;
+		}
+		switch(menuoption)
+		{
+		case 1:
+			chaindata.setFactory(getultra(factories));
+			return new OrderUltraSoundScan(data,chaindata);
+		case 2:
+			chaindata.setFactory(getBlood(factories));
+			return new OrderBloodAnalysis(data, chaindata);
+		case 3:
+			chaindata.setFactory(getXray(factories));
+			return new OrderXrayScan(data,chaindata);
+			default:
+				System.out.println("Not valid input !");
+				return this;
+		}
 	}
-	
-	private String name(MedicalTestFactory fac) {
-		if(fac instanceof UltraSoundScanFactory)
-			return"UltraSoundScan ";
-		if(fac instanceof XRayScanFactory)
-			return"X-RayScan ";
-		if(fac instanceof BloodAnalysisFactory)
-			return"BloodAnalysis ";
-		return "";
+	private UltraSoundScanFactory getultra(Collection<MedicalTestFactory> facs)
+	{
+		for(MedicalTestFactory f:facs)
+			if(f instanceof UltraSoundScanFactory)
+				return (UltraSoundScanFactory)f;
+		return null;
+	}private BloodAnalysisFactory getBlood(Collection<MedicalTestFactory> facs)
+	{
+		for(MedicalTestFactory f:facs)
+			if(f instanceof BloodAnalysisFactory)
+				return (BloodAnalysisFactory)f;
+		return null;
+	}private XRayScanFactory getXray(Collection<MedicalTestFactory> facs)
+	{
+		for(MedicalTestFactory f:facs)
+			if(f instanceof XRayScanFactory)
+				return (XRayScanFactory)f;
+		return null;
 	}
 
-	public static void main(String[] args) {
-
-	}
 
 }

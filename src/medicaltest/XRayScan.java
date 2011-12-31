@@ -79,4 +79,15 @@ public class XRayScan extends MedicalTest
 		return new UnscheduledXRayScan(file, systemtime.getSystemTime(), userm, pool, this);
 	}
 
+	@Override
+	public String appointMentInfo() {
+		String rv = "";
+		rv+="Xray Scan\n";
+		if(getScheduledTask()!=null){
+			rv+="for \t:\t"+getScheduledTask().getPatient().getName()+"\n";
+			rv+="at \t:\t" + getScheduledTask().getTimeSlot().getStartPoint()+"\ttill\t"+getScheduledTask().getTimeSlot().getStopPoint();
+		}
+		return rv;
+	}
+
 }

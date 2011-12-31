@@ -21,8 +21,8 @@ public class Warehouse extends Observable
 	public final int MAX_UNITS_OF_PLASTER;
 	public final int MAX_UNITS_OF_MEDICATION;
 	public final int MAX_UNITS_OF_MEALS;
-	private LinkedList<Plaster> plaster;
 	private LinkedList<Medication> medication;
+	private LinkedList<Plaster> plaster;
 	private LinkedList<Meal> meals;
 	private HospitalDate curDate;
 
@@ -42,6 +42,7 @@ public class Warehouse extends Observable
 		this.MAX_UNITS_OF_MEDICATION = 10;
 		this.MAX_UNITS_OF_MEALS = 120;
 		medication = new LinkedList<Medication>();
+		plaster = new LinkedList<Plaster>();
 		meals = new LinkedList<Meal>();
 		for(int i = 0; i < this.MAX_UNITS_OF_PLASTER; i++){
 			this.plaster.add(new Plaster());

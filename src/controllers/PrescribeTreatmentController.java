@@ -2,7 +2,7 @@ package controllers;
 
 import patient.Diagnose;
 import treatment.Treatment;
-import users.WarehouseAdmin;
+import users.Doctor;
 import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.TreatmentIN;
 import exceptions.InvalidLoginControllerException;
@@ -32,7 +32,7 @@ public class PrescribeTreatmentController
 	private boolean isValidLoginController(LoginController loginController) {
 		if(loginController==null)
 			return false;
-		if(!(loginController.getUser() instanceof WarehouseAdmin))
+		if(!(loginController.getUser() instanceof Doctor))
 			return false;
 		if(this.loginc!=null && this.loginc.equals(loginController))
 			return false;

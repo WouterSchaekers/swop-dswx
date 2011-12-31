@@ -14,7 +14,6 @@ public class ListAvailableTreatments extends PrescribeTreatmentSuper
 	@Override
 	public Usecase Execute() {
 		chaindata.getPrescribeTreatmentController().getAllAvailableTreatments(data.getLoginController(),data.getPatientFileOpenController());
-		
 		System.out.println("");
 		return null;
 	}
