@@ -3,7 +3,7 @@ package ui.entermedicaltestresult;
 import ui.Usecase;
 import ui.UserinterfaceData;
 
-public class EnterMedicalTestResultSuperClass extends Usecase
+public abstract class EnterMedicalTestResultSuperClass extends Usecase
 {
 	
 	protected EnterMedicalTestResultData chaindata;
@@ -18,11 +18,5 @@ public class EnterMedicalTestResultSuperClass extends Usecase
 		
 	}
 	
-
-	@Override
-	public Usecase Execute() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

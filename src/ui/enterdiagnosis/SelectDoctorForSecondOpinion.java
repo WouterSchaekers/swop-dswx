@@ -21,7 +21,6 @@ public class SelectDoctorForSecondOpinion extends EnterDiagnoseSuperClass
 	SelectDoctorForSecondOpinion(UserinterfaceData data,
 			EnterDiagnoseData chaindata) {
 		super(data, chaindata);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -33,7 +32,6 @@ public class SelectDoctorForSecondOpinion extends EnterDiagnoseSuperClass
 			
 			@Override
 			public <T> boolean allows(T arg) {
-				// TODO Auto-generated method stub
 				return arg instanceof DoctorIN;
 			}
 		}))

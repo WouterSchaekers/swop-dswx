@@ -81,8 +81,11 @@ public class UltraSoundScan extends MedicalTest
 		if(getScheduledTask()!=null){
 			rv+="for \t:\t"+getScheduledTask().getPatient().getName()+"\n";
 			rv+="at \t:\t" + getScheduledTask().getTimeSlot().getStartPoint()+"\ttill\t"+getScheduledTask().getTimeSlot().getStopPoint();
+		}else{
+			rv +="Scan is not yet Scheduled";
 		}
 		return rv;
 	}
+	public Result getResult(){return result;}
 
 }

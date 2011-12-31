@@ -1,8 +1,8 @@
 package ui.ordermedicaltest;
 
 import medicaltest.BloodAnalysisFactory;
-import ui.UserinterfaceData;
 import ui.Usecase;
+import ui.UserinterfaceData;
 
 public class OrderBloodAnalysis extends OrderMedicalTestSuperClass
 {

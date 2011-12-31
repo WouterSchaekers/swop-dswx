@@ -20,12 +20,12 @@ public class CreateNewPatient extends Usecase
 		System.out.println("Create a new Patient in the database");
 		System.out.println("enter name:");
 		String name = input.nextLine();
-		//TODO; fix
+
 		try {
 			rpc.createNewPatient(data.getDataPasser(), name);
 		} catch (InvalidNameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("name provided was invalid");
+			return this;
 		}
 		return new DisplayAllPatients(data, rpc);
 	}

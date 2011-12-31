@@ -1,10 +1,6 @@
 package ui.ordermedicaltest;
 
 import java.util.Collection;
-
-import exceptions.InvalidLoginControllerException;
-import exceptions.InvalidPatientFileException;
-
 import medicaltest.BloodAnalysisFactory;
 import medicaltest.MedicalTestFactory;
 import medicaltest.UltraSoundScanFactory;

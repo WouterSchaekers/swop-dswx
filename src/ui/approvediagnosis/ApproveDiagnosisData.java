@@ -15,7 +15,6 @@ public class ApproveDiagnosisData
 	private EnterDiagnoseController enterDiagController;
 	private String diagnoseString;
 	private DoctorIN otherDoctor;
-	private DiagnoseIN newDiagnose;
 	public void setOtherDoctor(DoctorIN doc)
 	{
 		this.otherDoctor=doc;
@@ -74,7 +73,6 @@ public class ApproveDiagnosisData
 		return otherDoctor;
 	}
 	public void setDiagnose(DiagnoseIN diagnose2) {
-		this.newDiagnose=diagnose2;
 	}
 
 }

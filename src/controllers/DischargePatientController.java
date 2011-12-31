@@ -1,6 +1,8 @@
 package controllers;
 
+import patient.PatientFile;
 import users.Doctor;
+import exceptions.DischargePatienException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileException;
 public class DischargePatientController
@@ -31,5 +33,14 @@ public class DischargePatientController
 		return true;
 		
 	}
-
+	
+	public void dischargePatient(LoginController loginc,PatientFileOpenController pfc,DataPasser dataPasser) throws InvalidLoginControllerException, InvalidPatientFileException, DischargePatienException
+	{
+		if(!isValidLoginController(loginc))
+			throw new InvalidLoginControllerException("");
+		if(!isValidPatientFileOpenController(pfc, loginc))
+			throw new InvalidPatientFileException();
+		dataPasser.getPatientFileManager().checkOut((PatientFile) pfc.getPatientFile());
+		
+	}
 }

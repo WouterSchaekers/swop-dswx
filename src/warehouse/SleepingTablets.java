@@ -9,9 +9,5 @@ public class SleepingTablets extends Medication
 		super("Sleeping Tablets", sensitive, expirationDate, new SleepingTabletsType());
 	}
 
-	@Override
-	public HospitalDate getExpiryDate() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 }

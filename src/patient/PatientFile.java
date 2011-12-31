@@ -9,7 +9,9 @@ import scheduler.task.TaskManager;
 import users.Doctor;
 import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.DiagnoseIN;
+import controllers.interfaces.MedicalTestIN;
 import controllers.interfaces.PatientFileIN;
+import controllers.interfaces.TreatmentIN;
 import exceptions.*;
 
 /**
@@ -25,9 +27,10 @@ public class PatientFile implements PatientFileIN
 	private Collection<Diagnose> diagnosis = new ArrayList<Diagnose>();
 	private boolean discharged = false;
 	private ArrayList<HospitalDate> xrays = new ArrayList<HospitalDate>();
+	private Collection<MedicalTest> medicaltests= new ArrayList<MedicalTest>();
 	
 	/**
-	 * Default Constructor.
+	 *()lt Constructor.
 	 * 
 	 * @param patientname
 	 *            The name of the patient to whom this patient file belongs to.
@@ -63,9 +66,26 @@ public class PatientFile implements PatientFileIN
 
 	/**
 	 * This function discharges this patient.
+	 * @throws DischargePatienException 
 	 */
-	public void discharge() {
+	void discharge() throws DischargePatienException {
+		if(!canBeDischarged())
+			throw new DischargePatienException();
 		this.discharged = true;
+	}
+
+	private boolean canBeDischarged() {
+		for(Diagnose d:diagnosis){
+			if(d.isMarkedForSecOp())
+				return false;
+			for(TreatmentIN t:d.getTreatments())
+				if(!t.hasFinished())
+					return false;
+			for(MedicalTest m:medicaltests)
+				if(!m.hasFinished())
+					return false;
+		}
+		return true;
 	}
 
 	/**
@@ -156,9 +176,18 @@ public class PatientFile implements PatientFileIN
 		return d;
 		
 	}
-	//TODO moe moet deees ?
 	public void addMedicalTest(MedicalTest create) {
-		//this.medicaltests=
+		this.medicaltests.add(create);
 		
+	}
+
+	@Override
+	public Collection<TreatmentIN> getAllTreatments() {
+		return null;//not yet implemented
+	}
+
+	@Override
+	public Collection<MedicalTestIN> getallMedicalTests() {
+		return new ArrayList<MedicalTestIN>(medicaltests);
 	}
 }

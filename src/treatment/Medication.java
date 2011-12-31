@@ -9,8 +9,9 @@ import warehouse.StockItem;
 
 /**
  * This class represent treatment by medication.
-*/
-public abstract class Medication extends Treatment implements Expirable,MedicationIN,StockItem
+ */
+public abstract class Medication extends Treatment implements Expirable,
+		MedicationIN, StockItem
 
 {
 	// the name of each treatment will be final and will be used later on to
@@ -20,6 +21,7 @@ public abstract class Medication extends Treatment implements Expirable,Medicati
 										// sensitive
 	public final HospitalDate expiryDate;
 	public final MedicationType medicationType;
+	private Result r;
 
 	/**
 	 * Default constructor.
@@ -29,8 +31,9 @@ public abstract class Medication extends Treatment implements Expirable,Medicati
 	 * @param sensitive
 	 *            Whether or not the meds are sensitive.
 	 */
-	public Medication(String description, boolean sensitive, HospitalDate expiryDate, MedicationType medicationType) {
-		super(HospitalDate.ONE_MINUTE*20);
+	public Medication(String description, boolean sensitive,
+			HospitalDate expiryDate, MedicationType medicationType) {
+		super(HospitalDate.ONE_MINUTE * 20);
 		this.expiryDate = expiryDate;
 		this.medicationType = medicationType;
 		setDescription(description);
@@ -41,7 +44,7 @@ public abstract class Medication extends Treatment implements Expirable,Medicati
 	 * @return Information about this medicinal treatment.
 	 */
 	public String information() {
-		return toString()+ ": " + getDescription() + " " + sensitiveText()
+		return toString() + ": " + getDescription() + " " + sensitiveText()
 				+ ".";
 	}
 
@@ -86,21 +89,27 @@ public abstract class Medication extends Treatment implements Expirable,Medicati
 	public void setSensitive(boolean sensitive) {
 		this.sensitive = sensitive;
 	}
-	
-	public HospitalDate getExpiryDate(){
+
+	public HospitalDate getExpiryDate() {
 		return this.expiryDate;
 	}
-	
-	public boolean hasPassedDate(HospitalDate date){
-		if(this.expiryDate.before(date)){
+
+	public boolean hasPassedDate(HospitalDate date) {
+		if (this.expiryDate.before(date)) {
 			return true;
-		}
-		else{
+		} else {
 			return false;
 		}
 	}
-	
+
 	public void setResult(Result r) {
-		//TODO implement 
+
+		this.r = r;
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public boolean hasFinished() {
+		return r != null;
 	}
 }

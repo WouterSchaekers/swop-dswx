@@ -1,9 +1,6 @@
 package controllers;
 
 import javax.naming.OperationNotSupportedException;
-import patient.Diagnose;
-import treatment.Treatment;
-import users.Doctor;
 import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.TreatmentIN;
 import exceptions.InvalidLoginControllerException;
@@ -12,8 +9,8 @@ import exceptions.InvalidTreatmentException;
 public class PrescribeTreatmentController
 {
 
-	private LoginController loginc;
-	private PatientFileOpenController pfcontroller;
+//	private LoginController loginc;
+//	private PatientFileOpenController pfcontroller;
 
 	public PrescribeTreatmentController(LoginController loginc,PatientFileOpenController pfcontroller) throws InvalidLoginControllerException, InvalidPatientFileException, OperationNotSupportedException {
 		throw new OperationNotSupportedException();
@@ -25,21 +22,21 @@ public class PrescribeTreatmentController
 //		this.pfcontroller=pfcontroller;
 	}
 
-	private boolean isValidPatienFileOpenController(
-			PatientFileOpenController pfcontroller) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	private boolean isValidLoginController(LoginController loginController) {
-		if(loginController==null)
-			return false;
-		if(!(loginController.getUser() instanceof Doctor))
-			return false;
-		if(this.loginc!=null && this.loginc.equals(loginController))
-			return false;
-		return true;
-	}
+//	private boolean isValidPatienFileOpenController(
+//			PatientFileOpenController pfcontroller) {
+//		
+//		return false;
+//	}
+//
+//	private boolean isValidLoginController(LoginController loginController) {
+//		if(loginController==null)
+//			return false;
+//		if(!(loginController.getUser() instanceof Doctor))
+//			return false;
+//		if(this.loginc!=null && this.loginc.equals(loginController))
+//			return false;
+//		return true;
+//	}
 
 	public TreatmentIN prescribeCast(DiagnoseIN diagnose,TreatmentIN  treatment) throws InvalidTreatmentException, OperationNotSupportedException
 	{

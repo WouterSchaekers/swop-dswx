@@ -2,7 +2,6 @@ package ui.ordermedicaltest;
 
 import medicaltest.MedicalTest;
 import medicaltest.MedicalTestFactory;
-import medicaltest.UltraSoundScanFactory;
 import controllers.MedicalTestController;
 
 public class MedicalTestData

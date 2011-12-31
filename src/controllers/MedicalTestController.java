@@ -25,7 +25,6 @@ public class MedicalTestController
 {
 
 	private LoginController logincontroller;
-	private PatientFileOpenController patientFileOpenController;
 	/**
 	 * Default constructor.
 	 * 
@@ -51,7 +50,6 @@ public class MedicalTestController
 		if(!isValidPatientFileOpenController(cpf,lc))
 			throw new InvalidPatientFileException();
 		this.logincontroller=lc;
-		this.patientFileOpenController=cpf;
 		
 	}
 

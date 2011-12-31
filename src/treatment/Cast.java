@@ -68,6 +68,12 @@ public class Cast extends Treatment implements CastIN
 	public void setResult(Result r) {
 		
 	}
+
+	@Override
+	public boolean hasFinished() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 
 
