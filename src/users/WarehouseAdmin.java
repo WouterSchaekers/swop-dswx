@@ -49,13 +49,17 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN
 	 *            the amount of active patients in its hospital.
 	 * @throws InvalidNameException
 	 */
-	public WarehouseAdmin(Warehouse warehouse, StockProvider stockProvider,
+	public WarehouseAdmin(String name, Warehouse warehouse, StockProvider stockProvider,
 			PatientFileManager patientFileManager) throws InvalidNameException {
-		super("The Warehouse administrator");
+		super(name);
 		this.warehouse = warehouse;
 		this.stockProvider = stockProvider;
 		this.patientFileManager = patientFileManager;
 		this.mealsExpected = 0;
+	}
+	
+	public StockProvider getStockProvider(){
+		return this.stockProvider;
 	}
 
 	/**

@@ -6,6 +6,7 @@ import scheduler.Scheduler;
 import scheduler.TimeLord;
 import scheduler.task.TaskManager;
 import users.UserManager;
+import users.WarehouseAdmin;
 import warehouse.Warehouse;
 
 /**
@@ -75,7 +76,10 @@ public class DataPasser
 	 TaskManager getTaskmanager() {
 		 return this.taskmanager;
 	}
-
+	 
+	 public WarehouseAdmin getWarehouseAdmin(){
+		 return this.userm.getWarehouseAdmin();
+	 }
 	public Warehouse getWareHouse() {
 		return warehouse;
 	}
