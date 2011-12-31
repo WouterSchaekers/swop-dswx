@@ -1,7 +1,6 @@
 package ui.ordermedicaltest;
 
 import medicaltest.BloodAnalysisFactory;
-import help.ValidUseCaseInputChecker;
 import ui.UserinterfaceData;
 import ui.Usecase;
 

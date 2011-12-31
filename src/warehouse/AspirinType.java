@@ -1,5 +1,7 @@
 package warehouse;
 
+import scheduler.HospitalDate;
+
 public class AspirinType implements MedicationType
 {
 	public AspirinType() {
@@ -13,5 +15,10 @@ public class AspirinType implements MedicationType
 	@Override
 	public String toString(){
 		return "Aspirin";
+	}
+
+	@Override
+	public Aspirin create(HospitalDate expirationDate) {
+		return new Aspirin(false, expirationDate);
 	}
 }

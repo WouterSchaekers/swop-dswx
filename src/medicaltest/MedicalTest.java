@@ -7,7 +7,6 @@ import scheduler.HospitalDate;
 import scheduler.TimeLord;
 import scheduler.TimeSlot;
 import scheduler.TimeTable;
-import scheduler.task.Schedulable;
 import scheduler.task.TaskManager;
 import scheduler.task.scheduled.ScheduledTask;
 import scheduler.task.unscheduled.tests.UnscheduledMedicalTest;

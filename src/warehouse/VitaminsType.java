@@ -1,5 +1,7 @@
 package warehouse;
 
+import scheduler.HospitalDate;
+
 public class VitaminsType implements MedicationType
 {
 	public VitaminsType() {
@@ -13,5 +15,10 @@ public class VitaminsType implements MedicationType
 	@Override
 	public String toString(){
 		return "Vitamins";
+	}
+
+	@Override
+	public Vitamins create(HospitalDate expirationDate) {
+		return new Vitamins(false, expirationDate);
 	}
 }

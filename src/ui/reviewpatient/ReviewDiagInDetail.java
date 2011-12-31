@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.TreatmentIN;
-import treatment.Treatment;
 import ui.Usecase;
 import ui.UserinterfaceData;
 

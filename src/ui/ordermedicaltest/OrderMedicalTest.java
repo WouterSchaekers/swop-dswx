@@ -6,7 +6,6 @@ import exceptions.InvalidPatientFileException;
 import ui.SelectUsecase;
 import ui.UserinterfaceData;
 import ui.Usecase;
-import users.Doctor;
 
 public class OrderMedicalTest extends OrderMedicalTestSuperClass
 {

@@ -3,7 +3,6 @@ package treatment;
 import controllers.interfaces.CastIN;
 import result.Result;
 import scheduler.HospitalDate;
-import scheduler.task.scheduled.ScheduledTask;
 import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.*;
 
