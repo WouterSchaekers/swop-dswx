@@ -37,8 +37,6 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN
 	private StockProvider stockProvider;
 	private boolean orderedPlaster;
 	private boolean orderedMedication;
-	private int plasterExpected;
-	private int medicationExpected;
 	private int mealsExpected;
 
 	/**
@@ -57,8 +55,6 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN
 		this.warehouse = warehouse;
 		this.stockProvider = stockProvider;
 		this.patientFileManager = patientFileManager;
-		this.plasterExpected = 0;
-		this.medicationExpected = 0;
 		this.mealsExpected = 0;
 	}
 
@@ -188,7 +184,6 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN
 
 	private void orderPlaster(int amount) {
 		this.orderedPlaster = true;
-		this.plasterExpected = amount;
 		while(amount-- > 0){
 			this.stockProvider.orderPlaster(this);
 		}
@@ -214,7 +209,6 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN
 		medicationTypes.add(miscType);
 		medicationTypes.add(sleepingTabletsType);
 		medicationTypes.add(vitaminsType);
-		this.medicationExpected = amount;
 		while (amount-- > 0) {
 			this.orderMedication(medicationTypes.get((int) (Math.random() * 5)));
 		}
@@ -234,6 +228,7 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN
 					- (this.warehouse.amountOfMeals() + this.mealsExpected);
 		}
 		this.orderMeals(amountOfMealsToBeOrdered);
+		this.mealsExpected = amountOfMealsToBeOrdered;
 	}
 
 	private void orderMeals(int amount) {
@@ -244,13 +239,16 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN
 	
 	public void addPlasterOrder(PlasterOrder plasterOrder) throws WarehouseException{
 		this.warehouse.addPlaster(plasterOrder.getStockItem());
+		this.orderedPlaster = false;
 	}
 	
 	public void addMedicationOrder(MedicationOrder medicationOrder) throws WarehouseException {
 		this.warehouse.addMedication(medicationOrder.getStockItem());
+		this.orderedMedication = false;
 	}
 	
 	public void addMealOrder(MealOrder mealOrder) throws WarehouseOverCapacityException{
 		this.warehouse.addMeal(mealOrder.getStockItem());
+		this.orderedPlaster = false;
 	}
 }
