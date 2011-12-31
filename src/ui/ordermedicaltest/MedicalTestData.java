@@ -1,42 +1,15 @@
 package ui.ordermedicaltest;
 
+import medicaltest.BloodAnalysisFactory;
 import medicaltest.MedicalTest;
+import medicaltest.MedicalTestFactory;
 import controllers.MedicalTestController;
 
 public class MedicalTestData
 {
 	private MedicalTest m;
 	private MedicalTestController mc;
-	private String bodypart;
-	private int amount;
-	private String focus;
-	private boolean recVid;
-	private boolean recImg;
-	private int zoomlevel;
-
-	public int getZoomlevel() {
-		return this.zoomlevel;
-	}
-
-	public void setZoomlevel(int zoomlevel) {
-		this.zoomlevel = zoomlevel;
-	}
-
-	public String getBodypart() {
-		return this.bodypart;
-	}
-
-	public void setBodyPart(String bodypart) {
-		this.bodypart = bodypart;
-	}
-
-	public int getAmount() {
-		return this.amount;
-	}
-
-	public void setAmount(int amount) {
-		this.amount = amount;
-	}
+	private MedicalTestFactory factory;
 
 	public void setMedTestController(MedicalTestController mc) {
 		this.mc = mc;
@@ -54,28 +27,11 @@ public class MedicalTestData
 		return this.m;
 	}
 
-	public String getFocus() {
-		return this.focus;
+	public MedicalTestFactory getFactory() {
+		// TODO Auto-generated method stub
+		return factory;
 	}
 
-	public void setFocus(String bodypart) {
-		this.bodypart = bodypart;
-	}
 
-	public void setVid(boolean vid) {
-		this.recVid = vid;
-	}
-
-	public boolean getVid() {
-		return this.recVid;
-	}
-
-	public void setImg(boolean img) {
-		this.recImg = img;
-	}
-
-	public boolean getImg() {
-		return this.recImg;
-	}
 
 }

@@ -13,7 +13,7 @@ public class EnterDiagnoseData
 		this.diag = diag;
 	}
 
-	public EnterDiagnoseController getC() {
+	public EnterDiagnoseController getController() {
 		return c;
 	}
 

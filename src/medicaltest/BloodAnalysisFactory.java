@@ -84,4 +84,5 @@ public class BloodAnalysisFactory extends MedicalTestFactory
 	private boolean isValidNumberOfAnalysis(int numberOfAnalysis) {
 		return numberOfAnalysis > 0;
 	}
+	
 }
