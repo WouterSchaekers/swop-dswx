@@ -1,6 +1,5 @@
 package ui.ordermedicaltest;
 
-import medicaltest.BloodAnalysisFactory;
 import medicaltest.MedicalTest;
 import medicaltest.MedicalTestFactory;
 import controllers.MedicalTestController;

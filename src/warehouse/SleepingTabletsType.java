@@ -1,5 +1,7 @@
 package warehouse;
 
+import scheduler.HospitalDate;
+
 public class SleepingTabletsType implements MedicationType
 {
 	public SleepingTabletsType() {
@@ -13,5 +15,10 @@ public class SleepingTabletsType implements MedicationType
 	@Override
 	public String toString(){
 		return "SleepingTablets";
+	}
+
+	@Override
+	public SleepingTablets create(HospitalDate expirationDate) {
+		return new SleepingTablets(false, expirationDate);
 	}
 }

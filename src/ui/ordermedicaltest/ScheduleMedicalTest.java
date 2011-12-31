@@ -1,6 +1,5 @@
 package ui.ordermedicaltest;
 
-import medicaltest.FactoryInstantiation;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidNameException;

@@ -1,5 +1,7 @@
 package warehouse;
 
+import scheduler.HospitalDate;
+
 public class ActivatedCarbonType implements MedicationType
 {
 	public ActivatedCarbonType(){}
@@ -12,5 +14,9 @@ public class ActivatedCarbonType implements MedicationType
 	@Override
 	public String toString(){
 		return "ActivatedCarbon";
+	}
+	
+	public ActivatedCarbon create(HospitalDate expirationDate){
+		return new ActivatedCarbon(false, expirationDate);
 	}
 }

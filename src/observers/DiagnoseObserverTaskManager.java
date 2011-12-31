@@ -2,8 +2,6 @@ package observers;
 
 import java.util.Observable;
 import java.util.Observer;
-import patient.Diagnose;
-import scheduler.HospitalDate;
 import scheduler.task.TaskManager;
 
 public class DiagnoseObserverTaskManager implements Observer

@@ -1,8 +1,6 @@
 package ui.ordermedicaltest;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileException;
 import medicaltest.BloodAnalysisFactory;
@@ -10,7 +8,6 @@ import medicaltest.MedicalTestFactory;
 import medicaltest.UltraSoundScanFactory;
 import medicaltest.XRayScanFactory;
 import ui.SelectUsecase;
-import ui.SelectionMenu;
 import ui.Usecase;
 import ui.UserinterfaceData;
 
