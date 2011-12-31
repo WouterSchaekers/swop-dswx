@@ -11,6 +11,7 @@ import warehouse.AspirinType;
 import warehouse.Meal;
 import warehouse.MedicationType;
 import warehouse.MiscType;
+import warehouse.Plaster;
 import warehouse.SleepingTabletsType;
 import warehouse.StockProvider;
 import warehouse.VitaminsType;
@@ -66,8 +67,8 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN
 	 *            The amount of plaster to add to the warehouse.
 	 * @throws WarehouseException
 	 */
-	public void addPlaster(int units) throws WarehouseException {
-		warehouse.addPlaster(units);
+	public void addPlaster(Collection<Plaster> plaster) throws WarehouseException {
+		warehouse.addPlaster(plaster);
 	}
 
 	/**
