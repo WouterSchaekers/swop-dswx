@@ -12,6 +12,7 @@ import warehouse.Meal;
 import warehouse.MedicationType;
 import warehouse.MiscType;
 import warehouse.SleepingTabletsType;
+import warehouse.StockProvider;
 import warehouse.VitaminsType;
 import warehouse.Warehouse;
 import controllers.interfaces.WarehouseAdminIN;
@@ -29,9 +30,9 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN
 {
 	private Warehouse warehouse;
 	private PatientFileManager patientFileManager;
+	private StockProvider stockProvider;
 	private boolean orderedPlaster;
 	private boolean orderedMedication;
-	private boolean orderedMeals;
 	private int plasterExpected;
 	private int medicationExpected;
 	private int mealsExpected;
@@ -46,10 +47,11 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN
 	 *            the amount of active patients in its hospital.
 	 * @throws InvalidNameException
 	 */
-	public WarehouseAdmin(Warehouse warehouse,
+	public WarehouseAdmin(Warehouse warehouse, StockProvider stockProvider,
 			PatientFileManager patientFileManager) throws InvalidNameException {
 		super("The Warehouse administrator");
 		this.warehouse = warehouse;
+		this.stockProvider = stockProvider;
 		this.patientFileManager = patientFileManager;
 		this.plasterExpected = 0;
 		this.medicationExpected = 0;
@@ -106,6 +108,7 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN
 		DummyDate breakfast = new DummyDate(8, 0, 0);
 		DummyDate dinner = new DummyDate(12, 0, 0);
 		DummyDate supper = new DummyDate(18, 0, 0);
+		DummyDate updateMeals = new DummyDate(23, 59, 0);
 		mealTimes.add(breakfast);
 		mealTimes.add(dinner);
 		mealTimes.add(supper);
@@ -116,15 +119,26 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN
 			for (int i = 0; i < mealTimes.size(); i++) {
 				HospitalDate newCurDate = mealTimes.get(i)
 						.combineWithHospitalDate(curDate);
-				if (curDate.before(newCurDate)) {
-					this.removeExpiredMeals(curDate);
+				if (curDate.before(newCurDate)
+						&& (newCurDate.before(newDate) || newCurDate
+								.equals(newDate))) {
+					this.removeExpiredMeals(newCurDate);
 					warehouse.eatMeals(amountOfPatients);
 					curDate = newCurDate;
 					updated = true;
+					break;
 				}
 			}
 			if (!updated) {
-				HospitalDate newCurDate = new HospitalDate(curDate.getYear(),
+				HospitalDate newCurDate = updateMeals
+						.combineWithHospitalDate(curDate);
+				if (curDate.before(newCurDate)
+						&& (newCurDate.before(newDate) || newCurDate
+								.equals(newDate))) {
+					this.updateMeals(amountOfPatients);
+					curDate = newCurDate;
+				}
+				newCurDate = new HospitalDate(curDate.getYear(),
 						curDate.getMonth(), curDate.getDay() + 1, 0, 0, 0);
 				if (newCurDate.before(newDate)) {
 					curDate = newCurDate;
@@ -170,6 +184,7 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN
 
 	private void orderPlaster(int amount) {
 		this.orderedPlaster = true;
+		this.plasterExpected = amount;
 		// TODO
 	}
 
@@ -193,23 +208,29 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN
 		medicationTypes.add(miscType);
 		medicationTypes.add(sleepingTabletsType);
 		medicationTypes.add(vitaminsType);
+		this.medicationExpected = amount;
 		while (amount-- > 0) {
 			this.orderMedication(medicationTypes.get((int) (Math.random() * 5)));
 		}
+		this.orderedMedication = true;
 	}
 
 	private void orderMedication(MedicationType medicationType) {
-		this.orderedMedication = true;
 		// TODO
 	}
 
 	private void updateMeals(int amountOfActivePatients) {
 		int amountOfMealsToBeOrdered = 15 + 6 * amountOfActivePatients
-				- this.warehouse.amountOfMeals();
+				- this.warehouse.amountOfMeals() - this.mealsExpected;
+		if (amountOfMealsToBeOrdered > this.warehouse.MAX_UNITS_OF_MEALS
+				- (this.warehouse.amountOfMeals() + this.mealsExpected)) {
+			amountOfMealsToBeOrdered = this.warehouse.MAX_UNITS_OF_MEALS
+					- (this.warehouse.amountOfMeals() + this.mealsExpected);
+		}
 		this.orderMeals(amountOfMealsToBeOrdered);
 	}
 
 	private void orderMeals(int amount) {
-		this.orderedMeals = true;
+		// TODO
 	}
 }
