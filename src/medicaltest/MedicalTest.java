@@ -13,7 +13,7 @@ import exceptions.InvalidTimeSlotException;
 /**
  * This class represents a medical test.
  */
-public abstract class MedicalTest implements Schedulable
+public abstract class MedicalTest 
 {
 	public final long DURATION;
 	private TimeTable timeTable;
@@ -66,11 +66,7 @@ public abstract class MedicalTest implements Schedulable
 		return t != null && this.canBeScheduledOn(t.getStartPoint().getDate(), t.getStopPoint().getDate());
 	}
 	
-	@Override
-	public TimeSlot getFirstFreeSlotBetween(HospitalDate startDate,
-			HospitalDate stopDate, long duration) throws InvalidSchedulingRequestException, InvalidTimeSlotException {
-		return this.getTimeTable().getFirstFreeSlotBetween(startDate, stopDate, duration);
-	}
+
 	
 	public void updateTimeTable(HospitalDate newDate){
 		this.timeTable.updateTimeTable(newDate);
