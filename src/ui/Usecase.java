@@ -8,8 +8,7 @@ import exceptions.InvalidHospitalDateArgument;
  * r
  * 
  */
-// TODO: change the name of this class because it represents a command and not a
-// usecase
+// TODO: change the name of this class because it represents a command and not a usecase.
 public abstract class Usecase
 {
 	protected static Scanner input;

@@ -8,7 +8,6 @@ public abstract class DischargePatientSuperClass extends Usecase
 
 	public DischargePatientSuperClass(UserinterfaceData data) {
 		super(data);
-		// TODO Auto-generated constructor stub
 	}
 
 	

@@ -13,7 +13,6 @@ public class EnderDiagnosis extends ApproveDiagnosisSuper
 {
 	public EnderDiagnosis(UserinterfaceData data, ApproveDiagnosisData chaindata) {
 		super(data, chaindata);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

@@ -15,7 +15,6 @@ public class ShowMachineTypes extends AddHospitalEquipmentSuperClass
 	public ShowMachineTypes(UserinterfaceData data,
 			AddHospitalEquipmentData chaindata) {
 		super(data, chaindata);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

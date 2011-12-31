@@ -13,7 +13,6 @@ public class AdvanceTimeSuperClass extends Usecase
 
 	public AdvanceTimeSuperClass(UserinterfaceData data) {
 		super(data);
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
@@ -23,8 +22,8 @@ public class AdvanceTimeSuperClass extends Usecase
 		try {
 			controller = new AdvanceTimeController(data.getLoginController(), data.getDataPasser());
 		} catch (InvalidLoginControllerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Invalid login");
+			return new SelectUsecase(data);
 		}
 		System.out.println("Advance the time to a new point in time:");
 		System.out.println("Input: format is DD-MM-YYYY:hh:mm:ss");
@@ -53,7 +52,6 @@ public class AdvanceTimeSuperClass extends Usecase
 		hospitalDate = new HospitalDate(year,month,day,hour,min,sec);
 		controller.setNewSystemTime(hospitalDate);
 		System.out.println("succesfull !");
-		// TODO Auto-generated method stub
 		return new SelectUsecase(data);
 	}
 	public static void main(String[] args) throws InvalidHospitalDateArgument {

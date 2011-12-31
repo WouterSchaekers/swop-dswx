@@ -72,7 +72,6 @@ public class UnscheduledTaskTestClass extends UnscheduledTask
 
 	@Override
 	public void setScheduled(ScheduledTask task) {
-		// TODO Auto-generated method stub
 		
 	}
 }
