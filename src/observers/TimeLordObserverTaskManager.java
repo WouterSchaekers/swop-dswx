@@ -12,7 +12,7 @@ public class TimeLordObserverTaskManager implements Observer
 {
 	private TaskManager taskManager;
 	private HospitalDate previousDate;
-	
+
 	/**
 	 * Default constructor.
 	 * 
@@ -20,19 +20,20 @@ public class TimeLordObserverTaskManager implements Observer
 	 *            The TaskManager this observer should notify, should it get
 	 *            notified.
 	 */
-	public TimeLordObserverTaskManager(TaskManager taskManager, HospitalDate initialDate) {
+	public TimeLordObserverTaskManager(TaskManager taskManager,
+			HospitalDate initialDate) {
 		this.taskManager = taskManager;
 		this.previousDate = initialDate;
 	}
-	
+
 	@Override
 	public void update(Observable o, Object newDate) {
 		if (!(newDate instanceof HospitalDate))
 			throw new IllegalArgumentException(
 					"Object given to TimeLordObserver was not a hospital date!");
-		if(this.previousDate.before((HospitalDate) newDate)){
+		if (this.previousDate.before((HospitalDate) newDate)) {
 			this.taskManager.update();
 		}
-		previousDate = (HospitalDate)newDate;
+		previousDate = (HospitalDate) newDate;
 	}
 }

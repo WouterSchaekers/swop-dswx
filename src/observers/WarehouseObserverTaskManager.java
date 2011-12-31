@@ -15,5 +15,4 @@ public class WarehouseObserverTaskManager implements Observer
 	public void update(Observable o, Object arg) {
 		taskManager.update();
 	}
-
 }

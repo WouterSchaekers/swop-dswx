@@ -2,9 +2,6 @@ package observers;
 
 import java.util.Observable;
 import java.util.Observer;
-import exceptions.InvalidAmountException;
-import exceptions.MealException;
-import exceptions.WarehouseException;
 import scheduler.HospitalDate;
 import users.WarehouseAdmin;
 
@@ -14,7 +11,7 @@ import users.WarehouseAdmin;
 public class TimeLordObserverWarehouseAdmin implements Observer
 {
 	private WarehouseAdmin warehouseAdmin;
-	
+
 	/**
 	 * Default constructor.
 	 * 
@@ -25,14 +22,14 @@ public class TimeLordObserverWarehouseAdmin implements Observer
 	public TimeLordObserverWarehouseAdmin(WarehouseAdmin warehouseAdmin) {
 		this.warehouseAdmin = warehouseAdmin;
 	}
-	
+
 	@Override
 	public void update(Observable o, Object newDate) {
 		if (!(newDate instanceof HospitalDate))
 			throw new IllegalArgumentException(
 					"Object given to TimeLordObserver was not a hospital date!");
 		try {
-			this.warehouseAdmin.updateTime((HospitalDate)newDate);
+			this.warehouseAdmin.updateTime((HospitalDate) newDate);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

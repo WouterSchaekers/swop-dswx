@@ -8,17 +8,18 @@ import warehouse.StockProvider;
 public class TimeLordObserverStockProvider implements Observer
 {
 	StockProvider stockProvider;
-	
-	TimeLordObserverStockProvider(StockProvider stockProvider){
+
+	TimeLordObserverStockProvider(StockProvider stockProvider) {
 		this.stockProvider = stockProvider;
 	}
+
 	@Override
 	public void update(Observable arg0, Object newDate) {
 		if (!(newDate instanceof HospitalDate))
 			throw new IllegalArgumentException(
 					"Object given to TimeLordObserver was not a hospital date!");
 		try {
-			this.stockProvider.updateTime((HospitalDate)newDate);
+			this.stockProvider.updateTime((HospitalDate) newDate);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
