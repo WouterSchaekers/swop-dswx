@@ -11,14 +11,23 @@ public class StockProvider
 	private LinkedList<PlasterOrder> orderedPlaster;
 	private LinkedList<MedicationOrder> orderedMedication;
 	private LinkedList<MealOrder> orderedMeals;
+	private LinkedList<String> stockItems;
+	private LinkedList<LinkedList<? extends StockOrder>> orderedItems;
 	private HospitalDate curDate;
 	private int extraHour;
-	
 	
 	public StockProvider(){
 		this.orderedPlaster = new LinkedList<PlasterOrder>();
 		this.orderedMedication = new LinkedList<MedicationOrder>();
 		this.orderedMeals = new LinkedList<MealOrder>();
+		this.orderedItems = new LinkedList<LinkedList<? extends StockOrder>>();
+		this.orderedItems.add(this.orderedPlaster);
+		this.orderedItems.add(this.orderedMedication);
+		this.orderedItems.add(this.orderedMeals);
+		this.stockItems = new LinkedList<String>();
+		this.stockItems.add("Plaster");
+		this.stockItems.add("Medication");
+		this.stockItems.add("Meal");
 		this.curDate = new HospitalDate();
 		this.extraHour = 2;
 	}
@@ -43,33 +52,48 @@ public class StockProvider
 	}
 	
 	private void updatePlaster(HospitalDate hospitalDate) throws WarehouseException{
-		for(int i = 0; i < orderedPlaster.size(); i++){
-			PlasterOrder curPlasterOrder = orderedPlaster.get(i);
+		LinkedList<PlasterOrder> copyOrderedPlaster = new LinkedList<PlasterOrder>();
+		for(int i = 0; i < this.orderedPlaster.size(); i++){
+			PlasterOrder curPlasterOrder = this.orderedPlaster.get(i);
 			if(this.mayBeReleased(this.orderedPlaster.get(i), hospitalDate)){
 				WarehouseAdmin warehouseAdmin = curPlasterOrder.getWarehouseAdmin();
 				warehouseAdmin.addPlasterOrder(curPlasterOrder);
 			}
+			else{
+				copyOrderedPlaster.add(curPlasterOrder);
+			}
 		}
+		this.orderedPlaster = copyOrderedPlaster;
 	}
 	
 	private void updateMedication(HospitalDate hospitalDate) throws WarehouseException{
-		for(int i = 0; i < orderedMedication.size(); i++){
-			MedicationOrder curMedicationOrder = orderedMedication.get(i);
+		LinkedList<MedicationOrder> copyOrderedMedication = new LinkedList<MedicationOrder>();
+		for(int i = 0; i < this.orderedMedication.size(); i++){
+			MedicationOrder curMedicationOrder = this.orderedMedication.get(i);
 			if(this.mayBeReleased(this.orderedMedication.get(i), hospitalDate)){
 				WarehouseAdmin warehouseAdmin = curMedicationOrder.getWarehouseAdmin();
 				warehouseAdmin.addMedicationOrder(curMedicationOrder);
 			}
+			else{
+				copyOrderedMedication.add(curMedicationOrder);
+			}
 		}
+		this.orderedMedication = copyOrderedMedication;
 	}
 	
 	private void updateMeals(HospitalDate hospitalDate) throws WarehouseException, WarehouseOverCapacityException{
-		for(int i = 0; i < orderedMeals.size(); i++){
-			MealOrder curMealOrder = orderedMeals.get(i);
+		LinkedList<MealOrder> copyOrderedMeals = new LinkedList<MealOrder>();
+		for(int i = 0; i < this.orderedMeals.size(); i++){
+			MealOrder curMealOrder = this.orderedMeals.get(i);
 			if(this.mayBeReleased(this.orderedMeals.get(i), hospitalDate)){
 				WarehouseAdmin warehouseAdmin = curMealOrder.getWarehouseAdmin();
 				warehouseAdmin.addMealOrder(curMealOrder);
 			}
+			else{
+				copyOrderedMeals.add(curMealOrder);
+			}
 		}
+		this.orderedMeals = copyOrderedMeals;
 	}
 	
 	private boolean mayBeReleased(StockOrder stockOrder, HospitalDate hospitalDate){
@@ -78,5 +102,13 @@ public class StockProvider
 			return true;
 		}
 		return false;
+	}
+	
+	public LinkedList<String> getStockItemNames(){
+		return this.stockItems;
+	}
+	
+	public LinkedList<LinkedList<? extends StockOrder>> getOrderedItems(){
+		return this.orderedItems;
 	}
 }
