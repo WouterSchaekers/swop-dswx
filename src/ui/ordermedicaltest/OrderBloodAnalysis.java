@@ -1,10 +1,11 @@
 package ui.ordermedicaltest;
 
+import medicaltest.BloodAnalysisFactory;
 import help.ValidUseCaseInputChecker;
 import ui.UserinterfaceData;
 import ui.Usecase;
 
-public class OrderBloodAnalysis extends MedicalTestCommand
+public class OrderBloodAnalysis extends OrderMedicalTestSuperClass
 {
 
 	public OrderBloodAnalysis(UserinterfaceData data, MedicalTestData medData) {
@@ -14,32 +15,34 @@ public class OrderBloodAnalysis extends MedicalTestCommand
 	@Override
 	public Usecase Execute() {
 		String in = "";
-
-		// FOCUS
+		BloodAnalysisFactory factory = (BloodAnalysisFactory) chaindata.getFactory();
+		
 		System.out.println("What would you like to focus on in the tests? ");
 		in = input.nextLine();
 		System.out.println("\n");
 
-		if (ValidUseCaseInputChecker.isValidStringResponse(in))
-			medData.setFocus(in);
-		else {
-			System.out.println("You did not specify a valid focus!");
-			return this;
-		}
+			try{
+				factory.setFocus(in);
+			}catch(IllegalArgumentException e)
+			{
+				System.out.println("focus invalid");
+				System.out.println("You did not specify a valid focus!");
+				return this;
+			}
 
 		// AMOUNT OF ANALYSIS
 		System.out.println("How many analyses would you like to make? ");
 		in = (input.nextLine());
 		System.out.println("\n");
+try{
+		factory.setNumberOfAnalysis(Integer.parseInt(in));
+}catch(Exception e)
+{
+	System.out.println("Invalid number of analysis provided try again");
+	return this;
+}
 
-		if (ValidUseCaseInputChecker.isNumeric(in))
-			medData.setAmount(Integer.parseInt(in));
-		else {
-			System.out.println("Invalid amount of analyses!");
-			return this;
-		}
-
-		return new ScheduleBloodAnalysis(data, medData);
+		return new ScheduleMedicalTest(data, chaindata);
 	}
 
 }

@@ -1,28 +1,38 @@
 package ui.ordermedicaltest;
 
+import controllers.MedicalTestController;
+import exceptions.InvalidLoginControllerException;
+import exceptions.InvalidPatientFileException;
 import ui.SelectUsecase;
 import ui.UserinterfaceData;
 import ui.Usecase;
 import users.Doctor;
 
-public class OrderMedicalTest extends MedicalTestCommand
+public class OrderMedicalTest extends OrderMedicalTestSuperClass
 {
 
 	public OrderMedicalTest(UserinterfaceData data) {
 		super(data);
-		this.medData = new MedicalTestData();
 	}
 
 	@Override
 	public Usecase Execute() {
-		// check if the person initiating this chain is allowed to.
-		if (data.getLoginController().getUserIN() instanceof Doctor) {
-			return new PatientFileOpenChecker(data, medData);
-		} else {
-			System.out.println(data.getLoginController().getUserIN().getName()
-					+ " is not a doctor in this hospital");
+		MedicalTestController orderMedTestController ;
+		try {
+			orderMedTestController= new MedicalTestController(
+					data.getLoginController(),
+					data.getPatientFileOpenController(), data.getDataPasser());
+		} catch (IllegalArgumentException e) {
+			System.out.println("");
+			return new SelectUsecase(data);
+		} catch (InvalidLoginControllerException e) {
+			System.out.println("Not allowed to do this !");
+			return new SelectUsecase(data);
+		} catch (InvalidPatientFileException e) {
+			System.out.println("No patientfile open.");
 			return new SelectUsecase(data);
 		}
+		chaindata.setMedTestController(orderMedTestController);
+		return new SelectMedicalTest(data,chaindata);
 	}
-
 }

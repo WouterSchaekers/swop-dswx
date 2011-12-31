@@ -47,7 +47,7 @@ public class SelectDoctorForSecondOpinion extends EnterDiagnoseSuperClass
 		choice = t.execute();
 		}while(choice==null);
 		try {
-			chaindata.getC().enterDiagnose(data.getLoginController(),data.getPatientFileOpenController(),chaindata.getDiag(),choice, data.getDataPasser());
+			chaindata.getController().enterDiagnose(data.getLoginController(),data.getPatientFileOpenController(),chaindata.getDiag(),choice, data.getDataPasser());
 		} catch (InvalidLoginControllerException e) {
 			System.out.println("Priviliged action please log in again");
 			return new SelectUsecase(data);

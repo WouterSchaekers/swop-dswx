@@ -2,6 +2,7 @@ package patient;
 
 import java.util.*;
 import observers.DiagnoseObserverTaskManager;
+import medicaltest.MedicalTest;
 import medicaltest.XRayScan;
 import scheduler.HospitalDate;
 import scheduler.task.TaskManager;
@@ -153,6 +154,11 @@ public class PatientFile implements PatientFileIN
 		d.addObserver(new DiagnoseObserverTaskManager(taskmanager));
 		d.markForSecOp(secondop);
 		return d;
+		
+	}
+	//TODO moe moet deees ?
+	public void addMedicalTest(MedicalTest create) {
+		//this.medicaltests=
 		
 	}
 }

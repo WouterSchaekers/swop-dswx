@@ -19,7 +19,7 @@ public class NoSecondOpinionForDiagnose extends EnterDiagnoseSuperClass
 	@Override
 	public Usecase Execute() {
 		try {
-			chaindata.getC().enterDiagnose(data.getLoginController(), data.getPatientFileOpenController(), chaindata.getDiag());
+			chaindata.getController().enterDiagnose(data.getLoginController(), data.getPatientFileOpenController(), chaindata.getDiag());
 		} catch (InvalidLoginControllerException e) {
 			System.out.println("Priviliged action please log in again");
 			return new SelectUsecase(data);
