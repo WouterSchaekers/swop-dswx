@@ -67,9 +67,9 @@
 Total: 171.8u
 
 <u>aanwezig gedurende</u> : <br>
-Dieter: 115.3u <br>
-Stefaan: 167.3u <br>
-Wouter: 149.3 <br>
+Dieter: 115.3u - 67%<br>
+Stefaan: 167.3u - 97%<br>
+Wouter: 149.3 - 87% <br>
 
 = Iteratie 3 =
 || *Timepoint* || *Members* || *Workload* || *Purpose* || *Comments* ||
