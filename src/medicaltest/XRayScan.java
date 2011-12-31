@@ -1,9 +1,21 @@
 package medicaltest;
 
+import machine.MachinePool;
+import patient.PatientFile;
 import result.Result;
 import scheduler.HospitalDate;
+import scheduler.TimeLord;
+import scheduler.task.TaskManager;
+import scheduler.task.unscheduled.tests.UnscheduledMedicalTest;
+import scheduler.task.unscheduled.tests.UnscheduledXRayScan;
+import users.UserManager;
+import warehouse.Warehouse;
+import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
+import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidNameException;
+import exceptions.InvalidOccurencesException;
+import exceptions.InvalidResourceException;
 import exceptions.InvalidTimeSlotException;
 
 public class XRayScan extends MedicalTest
@@ -55,6 +67,16 @@ public class XRayScan extends MedicalTest
 	public void setResult(Result r) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public UnscheduledMedicalTest getUnscheduled(UserManager userm,
+			Warehouse warehouse, PatientFile file, TimeLord systemtime,
+			TaskManager taskmanager, MachinePool pool)
+			throws InvalidResourceException, InvalidDurationException,
+			InvalidOccurencesException, InvalidAmountException,
+			InvalidHospitalDateException {
+		return new UnscheduledXRayScan(file, systemtime.getSystemTime(), userm, pool, this);
 	}
 
 }

@@ -1,10 +1,22 @@
 package medicaltest;
 
+import machine.MachinePool;
+import patient.PatientFile;
 import result.Result;
 import scheduler.HospitalDate;
+import scheduler.TimeLord;
+import scheduler.task.TaskManager;
+import scheduler.task.unscheduled.tests.UnscheduledBloodTest;
+import scheduler.task.unscheduled.tests.UnscheduledMedicalTest;
+import users.UserManager;
+import warehouse.Warehouse;
 import be.kuleuven.cs.som.annotate.Basic;
+import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
+import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidNameException;
+import exceptions.InvalidOccurencesException;
+import exceptions.InvalidResourceException;
 import exceptions.InvalidTimeSlotException;
 
 /**
@@ -50,5 +62,14 @@ public class BloodAnalysis extends MedicalTest
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public UnscheduledMedicalTest getUnscheduled(UserManager userm,
+			Warehouse warehouse, PatientFile file, TimeLord systemtime,
+			TaskManager taskmanager,MachinePool pool) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException {
+		return new UnscheduledBloodTest(file, systemtime.getSystemTime(), userm, pool, this);
+	}
+
+	
 
 }
