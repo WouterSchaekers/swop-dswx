@@ -1,7 +1,7 @@
 \BOOKMARK [1][-]{section.1}{Introduction}{}% 1
 \BOOKMARK [1][-]{section.2}{State of affairs}{}% 2
 \BOOKMARK [1][-]{section.3}{The design}{}% 3
-\BOOKMARK [2][-]{subsection.3.1}{Patientfilemanager, patientfile, diagnose, treatment}{section.3}% 4
+\BOOKMARK [2][-]{subsection.3.1}{PatientFileManager, PatientFile, Diagnose, Treatment}{section.3}% 4
 \BOOKMARK [3][-]{subsubsection.3.1.1}{Solution}{subsection.3.1}% 5
 \BOOKMARK [3][-]{subsubsection.3.1.2}{Alternative solution}{subsection.3.1}% 6
 \BOOKMARK [2][-]{subsection.3.2}{MedicalTest, Treatment, Machine and Medication}{section.3}% 7
