@@ -9,6 +9,7 @@ import scheduler.TimeLord;
 import scheduler.task.TaskManager;
 import users.UserManager;
 import users.WarehouseAdmin;
+import warehouse.StockProvider;
 import warehouse.Warehouse;
 import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidLocationException;
@@ -39,6 +40,7 @@ public class DefaultHospital
 {
 	public UserManager um;
 	public Scheduler s;
+	public StockProvider sp;
 	public PatientFileManager pfm;
 	public Warehouse wh;
 	public MachinePool mp;
@@ -73,7 +75,8 @@ public class DefaultHospital
 		um = new UserManager();
 		wh = new Warehouse(new HospitalDate((new HospitalDate().getTimeSinceStart()) + 1));
 		pfm = new PatientFileManager();
-		wha = new WarehouseAdmin(wh, pfm);
+		sp = new StockProvider();
+		wha = new WarehouseAdmin(wh, sp, pfm);
 		tm = new TaskManager(s);
 		tl = new TimeLord();
 		s = new Scheduler(tl);

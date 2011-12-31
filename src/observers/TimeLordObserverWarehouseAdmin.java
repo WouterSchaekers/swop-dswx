@@ -2,6 +2,9 @@ package observers;
 
 import java.util.Observable;
 import java.util.Observer;
+import exceptions.InvalidAmountException;
+import exceptions.MealException;
+import exceptions.WarehouseException;
 import scheduler.HospitalDate;
 import users.WarehouseAdmin;
 
@@ -28,7 +31,11 @@ public class TimeLordObserverWarehouseAdmin implements Observer
 		if (!(newDate instanceof HospitalDate))
 			throw new IllegalArgumentException(
 					"Object given to TimeLordObserver was not a hospital date!");
-		this.warehouseAdmin.updateTime((HospitalDate)newDate);
+		try {
+			this.warehouseAdmin.updateTime((HospitalDate)newDate);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
