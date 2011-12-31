@@ -28,4 +28,9 @@ public class MealOrder extends StockOrder
 		return new Meal(new HospitalDate(orderDate.getTimeSinceStart()
 				+ this.TIME_FOR_EXPIRATION));
 	}
+	
+	@Override
+	public String toString(){
+		return "Meal";
+	}
 }

@@ -1,6 +1,7 @@
 package warehouse;
 
 import java.util.LinkedList;
+import exceptions.InvalidCategoryNameException;
 import exceptions.WarehouseException;
 import exceptions.WarehouseOverCapacityException;
 import scheduler.HospitalDate;
@@ -110,5 +111,15 @@ public class StockProvider
 	
 	public LinkedList<LinkedList<? extends StockOrder>> getOrderedItems(){
 		return this.orderedItems;
+	}
+	
+	public LinkedList<? extends StockOrder> getCorrespondingOrderedItems(String itemName) throws InvalidCategoryNameException{
+		LinkedList<String> stockItemNames = this.getStockItemNames();
+		for(int i = 0; i < stockItemNames.size(); i++){
+			if(stockItemNames.get(i).equals(itemName)){
+				return this.getOrderedItems().get(i);
+			}
+		}
+		throw new InvalidCategoryNameException("This category does not exist. Please try again.");
 	}
 }

@@ -24,5 +24,4 @@ public class Meal implements Expirable, StockItem
 			return false;
 		}
 	}
-	
 }
