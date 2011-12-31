@@ -1,6 +1,5 @@
 package ui.ordermedicaltest;
 
-import machine.XrayScannerBuilder;
 import medicaltest.XRayScanFactory;
 import ui.Usecase;
 import ui.UserinterfaceData;

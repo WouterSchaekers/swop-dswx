@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import be.kuleuven.cs.som.annotate.Basic;
+import exceptions.DischargePatienException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidPatientFileException;
 
@@ -30,8 +31,9 @@ public class PatientFileManager
 	 * 
 	 * @param patientFile
 	 *            The patientfile of the patient who is checking out.
+	 * @throws DischargePatienException 
 	 */
-	public void checkOut(PatientFile patientFile) {
+	public void checkOut(PatientFile patientFile) throws DischargePatienException {
 		patientFile.discharge();
 	}
 

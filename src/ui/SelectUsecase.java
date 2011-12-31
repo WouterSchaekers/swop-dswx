@@ -1,10 +1,13 @@
 package ui;
 
-import java.util.*;
-import java.util.Map.Entry;
-import help.*;
 import help.Collections;
-import controllers.*;
+import help.Filter;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 import ui.addhospitalequipment.AddHopsitalEquipment;
 import ui.addhospitalstaff.CreateUser;
 import ui.advancetime.AdvanceTimeSuperClass;
@@ -20,6 +23,19 @@ import ui.ordermedicaltest.OrderMedicalTest;
 import ui.prescribetreatment.PrescribeTreatment;
 import ui.registerpatient.RegisterPatient;
 import ui.reviewpatient.ReviewPatient;
+import controllers.AddHospitalEquipmentController;
+import controllers.AdvanceTimeController;
+import controllers.ApproveDiagnosisController;
+import controllers.CreateUserController;
+import controllers.DischargePatientController;
+import controllers.EnterDiagnoseController;
+import controllers.EnterMedicaltestResultController;
+import controllers.FillStockInWarehouseController;
+import controllers.LoginController;
+import controllers.MedicalTestController;
+import controllers.PatientFileOpenController;
+import controllers.PrescribeTreatmentController;
+import controllers.RegisterPatientController;
 
 /**
  * This class represents a menu to select what a user wants to do. You can
@@ -247,7 +263,7 @@ public class SelectUsecase extends Usecase
 		int i=0;
 	Collection<Entry<String,usecases>>	t= menuOptions.entrySet();
 	Object[] array = t.toArray();
-	Arrays.sort(array,new Comparator()
+	Arrays.sort(array,new Comparator<Object>()
 	{
 
 		@Override

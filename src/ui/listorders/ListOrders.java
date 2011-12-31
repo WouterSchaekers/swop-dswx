@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
-import users.WarehouseAdmin;
 import warehouse.StockOrder;
 import warehouse.StockProvider;
 import controllers.DataPasser;

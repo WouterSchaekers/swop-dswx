@@ -12,6 +12,7 @@ import scheduler.task.scheduled.ScheduledTask;
 import scheduler.task.unscheduled.tests.UnscheduledMedicalTest;
 import users.UserManager;
 import warehouse.Warehouse;
+import controllers.interfaces.MedicalTestIN;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidHospitalDateException;
@@ -24,7 +25,7 @@ import exceptions.InvalidTimeSlotException;
 /**
  * This class represents a medical test.
  */
-public abstract class MedicalTest
+public abstract class MedicalTest implements MedicalTestIN
 {
 	public final long DURATION;
 	private TimeTable timeTable;
@@ -99,4 +100,11 @@ public abstract class MedicalTest
 	public abstract UnscheduledMedicalTest getUnscheduled(UserManager userm, Warehouse warehouse, PatientFile file, TimeLord systemtime, TaskManager taskmanager,MachinePool pool) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException ;
 	protected ScheduledTask getScheduledTask(){return ScheduledTask;}
 	public abstract String appointMentInfo();
+
+	public boolean hasFinished() {
+		if(this.myResult==null)
+			return false;
+		return true;
+	}
+	
 }

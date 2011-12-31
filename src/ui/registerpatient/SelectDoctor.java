@@ -3,23 +3,14 @@ package ui.registerpatient;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import ui.UserinterfaceData;
+import ui.SelectUsecase;
 import ui.Usecase;
+import ui.UserinterfaceData;
 import users.Doctor;
 import controllers.RegisterPatientController;
 import controllers.interfaces.AppointmentIN;
 import controllers.interfaces.PatientFileIN;
 import controllers.interfaces.UserIN;
-import exceptions.InvalidAmountException;
-import exceptions.InvalidDurationException;
-import exceptions.InvalidHospitalDateArgument;
-import exceptions.InvalidHospitalDateException;
-import exceptions.InvalidOccurencesException;
-import exceptions.InvalidRequirementException;
-import exceptions.InvalidResourceException;
-import exceptions.InvalidSchedulingRequestException;
-import exceptions.InvalidTimeSlotException;
-import exceptions.QueueException;
 
 public class SelectDoctor extends Usecase
 {
@@ -55,36 +46,9 @@ public class SelectDoctor extends Usecase
 		AppointmentIN app = null;
 		try {
 			app = rpc.CreateAppointMent(map.get(name), pfile,data.getDataPasser());
-		} catch (InvalidTimeSlotException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidSchedulingRequestException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidResourceException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidDurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidOccurencesException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidRequirementException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidAmountException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidHospitalDateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (QueueException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidHospitalDateArgument e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (Exception e) {
+			System.out.println("Internal system error");
+			return new SelectUsecase(data);
 		}
 		return new DisplayAppointment(data, app);
 	}

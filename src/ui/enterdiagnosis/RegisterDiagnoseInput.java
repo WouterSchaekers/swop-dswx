@@ -10,7 +10,6 @@ public class RegisterDiagnoseInput extends EnterDiagnoseSuperClass
 	public RegisterDiagnoseInput(UserinterfaceData data,
 			EnterDiagnoseData chaindata) {
 		super(data,chaindata);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

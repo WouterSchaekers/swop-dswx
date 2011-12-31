@@ -23,6 +23,7 @@ public class MedicaltestDispatcher
 	public void dispatch(MedicalTest test,UserManager userm,Warehouse warehouse,PatientFile file,TimeLord systemtime,TaskManager taskmanager, MachinePool pool) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException, InvalidTreatmentException, InvalidTimeSlotException, InvalidHospitalDateArgument
 	{
 		UnscheduledMedicalTest t = test.getUnscheduled(userm,warehouse,file,systemtime,taskmanager, pool);
+		file.addMedicalTest(test);
 		taskmanager.addTask(t);
 	}
 

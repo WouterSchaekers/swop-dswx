@@ -10,7 +10,6 @@ import medicaltest.UltraSoundScan;
 import patient.PatientFile;
 import scheduler.HospitalDate;
 import scheduler.task.Schedulable;
-import scheduler.task.scheduled.ScheduledTask;
 import users.UserManager;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;

@@ -50,5 +50,11 @@ public class Surgery extends Treatment implements SurgeryIN
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public boolean hasFinished() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 		
 }

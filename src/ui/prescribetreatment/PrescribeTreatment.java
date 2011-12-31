@@ -1,8 +1,5 @@
 package ui.prescribetreatment;
 
-import controllers.PrescribeTreatmentController;
-import exceptions.InvalidLoginControllerException;
-import exceptions.InvalidPatientFileException;
 import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
@@ -16,19 +13,20 @@ public class PrescribeTreatment extends PrescribeTreatmentSuper
 
 	@Override
 	public Usecase Execute() {
-		PrescribeTreatmentController controller ;
-		try {
-			controller= new PrescribeTreatmentController(data.getLoginController(), data.getPatientFileOpenController());
-		} catch (InvalidLoginControllerException e) {
-			System.out.println("invalid login");
-			return new SelectUsecase(data);
-		} catch (InvalidPatientFileException e) {
-			System.out.println("invalid patient");
-			return new SelectUsecase(data);
-		}
-		//YEEY we can do things now
-		chaindata.setPrescribeTreatmentController(controller);
-		return new ListDiagnoses(data,chaindata) ;
+		//PrescribeTreatmentController controller ;
+		
+//		try {
+//			controller= new PrescribeTreatmentController(data.getLoginController(), data.getPatientFileOpenController());
+//		} catch (InvalidLoginControllerException e) {
+//			System.out.println("invalid login");
+//			return new SelectUsecase(data);
+//		} catch (InvalidPatientFileException e) {
+//			System.out.println("invalid patient");
+//			return new SelectUsecase(data);
+//		}
+//		//YEEY we can do things now
+		//chaindata.setPrescribeTreatmentController(controller);
+		return new SelectUsecase(data) ;
 	}
 
 }

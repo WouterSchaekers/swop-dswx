@@ -11,4 +11,8 @@ public interface PatientFileIN
 
 	public Collection<DiagnoseIN> getAlldiagnosis();
 
+	public Collection<TreatmentIN> getAllTreatments();
+
+	public Collection<MedicalTestIN> getallMedicalTests();
+
 }

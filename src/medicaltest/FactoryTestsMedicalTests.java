@@ -1,6 +1,6 @@
 package medicaltest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 import java.util.Collection;
 import org.junit.Test;
 import exceptions.InvalidDurationException;
