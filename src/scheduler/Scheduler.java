@@ -367,6 +367,10 @@ public class Scheduler
 		return true;
 	}
 
+	/**
+	 * Removes the doubles from toCheck.
+	 * @throws InvalidSchedulingRequestException
+	 */
 	private void deleteDoubles(LinkedList<LinkedList<Schedulable>> toCheck)
 			throws InvalidSchedulingRequestException {
 		for (int i = 0; i < toCheck.size(); i++) {
