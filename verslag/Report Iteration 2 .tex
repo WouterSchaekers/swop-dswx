@@ -13,8 +13,7 @@
 \maketitle
 
 \section{Introduction}
-Let's start off by saying we have the feeling that iteration two went a lot better than iteration one.
-\\*After the feedback session of iteration one, Thibault decided to drop out of the course. We were left with only three members. We failed to make the deadline for the report on the testing strategy.
+After the feedback session of iteration one, Thibault decided to drop out of the course. We were left with only three members. We failed to make the deadline for the report on the testing strategy.
 \\*However, we did not let that get to us or let it influence the quality of the report, design and code we made. In fact, we put a maximum amount of effort in doing the assignment as best as we could.\newline
 
 Firstly, we will give you a state of affairs and some numbers about the project. Next, we will discuss the big picture from the current software design we made. We'll specifically elaborate on the Scheduler and everything related to it, seeing as we have put the bigger part of our work in creating a scheduler that is very decent. Then we will list some of the "temporary fixes" we implemented, but that we have planned to be improved due to iteration 3. Finally we'll try to draw a couple of conclusions and give you a brief view on our experience of this iteration.
@@ -23,9 +22,9 @@ Firstly, we will give you a state of affairs and some numbers about the project.
 \pagebreak
 
 \section{State of affairs}
-We have managed to successfully create a design of every aspect of the assignment. The implementation is almost done, but not just yet. Due to a lack of time(which was probably induced by the fact we hadn't brought iteration one to an end), we were forced to implement a couple of things in a "dirty" kind of fashion. We, however, will implement our actual design by the deadline of iteration three for the following things:
+We have managed to successfully create a design of every aspect of the assignment. The implementation is almost done, but not just yet. Due to a lack of time (which was probably induced by the fact we hadn't brought iteration one to an end), we were forced to implement a couple of things in a "dirty" kind of fashion. We, however, will implement our actual design by the deadline of iteration three for the following things:
 \begin{enumerate}
-\item{The way medication items (vitamins, asprin,...) gets handled is currently by using instanceof. We plan to implement a factory pattern here in the future.}
+\item{The way medication items (vitamins, asprin,...) get handled is currently by using instanceof. We plan to implement a factory pattern here in the future.}
 \item{Machines should also be implemented by using a factory pattern instead of "builders".}
 \item{Treatments aswell, will be implemented with a factory pattern.}
 \item{UnscheduledTaskTest class contains a lot of seemingly random stuff and will be refactored to something cleaner.}
@@ -53,12 +52,16 @@ In this chapter we will inform you about the design we've made and will elaborat
 \end{itemize}
 All communication from the user with the system has to pass through the layer of controllers (same goes the other way around) to assure that our system does what it is supposed to without getting in an inconsistent state.
 \\On the next four pages you will find a class diagram of the system layer of our program. We find this to be the most interesting layer as the controller layer is fairly analogous to what controllers normally look like and as talking about the user interface layer will not inform the reader about what he/she probably would like to know. In order to read the class diagram as it was originally constructed, we would advise you to put the pages next to eachother from left to right. As big class diagrams tend to not be legible, we'd like to refer to an online version of this diagram just in case: \url{http://www.student.kuleuven.be/~s0214045/class%20diagram.png} .\\
+\includegraphics[width=170mm]{left1.png}\\
+\includegraphics[width=170mm]{left2.png}\\
+\includegraphics[width=170mm]{middle.png}\\
+\includegraphics[width=170mm]{right.png}\\
 
-\subsection{Patientfilemanager, patientfile, diagnose, treatment}
+\subsection{PatientFileManager, PatientFile, Diagnose, Treatment}
 We had a question about where we should store what treament is associated with what diagnosis. In our eyes, there were two possible solutions.
 
 \subsubsection{Solution}
-\underline{Description}: We give PatientFile a field that is a collection of all Diagnosis ever made for this patientfile. Also Diagnosis gets a field that is a collection of all Treatments that have been made for this diagnosis.
+\underline{Description}: We give PatientFile a field that is a collection of all diagnosis ever made for this PatientFile. Also Diagnose gets a field that is a collection of all Treatments that have been created for itself.
 \\*\underline{Pro}: Low coupling, high cohesion and information expert for PatientFile are in good shape. PatientFile only has one dependency and does not need to manage treatments on its own.
 \\*\underline{Contra}: There will be a deep level of function calls if a list of Treatments is needed: from the controller level all the way over to the Treatment level.
 \begin{center}
@@ -69,18 +72,14 @@ After a meeting with our project advisor, we noticed that in this solution, the 
 \subsubsection{Alternative solution}
 \underline{Description}: We keep a map from Diagnose to Treatment in PatientFile.
 \\*\underline{Pro}: Easy and efficient access to Treatments.
-\\*\underline{Contra}: Gives the patientfile too much responsibility. Also violates the information expert GRASP pattern. 
+\\*\underline{Contra}: Gives the PatientFile too much responsibility.
 \begin{center}
 \includegraphics[width=130mm, height=27mm]{patientfilediagfail.jpg}
 \end{center}
-As stated above, we did not chose to implement this solution after noticing that it violated information expert.\\
-\includegraphics[width=170mm]{left1.png}\\
-\includegraphics[width=170mm]{left2.png}\\
-\includegraphics[width=170mm]{middle.png}\\
-\includegraphics[width=170mm]{right.png}\\
+As stated above, we did not chose to implement this solution after noticing that it violated information expert.
 
 \subsection{MedicalTest, Treatment, Machine and Medication}
-While trying to figure out a design that allows us to schedule things in a decent way, we stumbled upon the following problem a couple of times: how can we know at run time what different sorts of MedicalTests, Machines,... there are? The first possible solutions we saw turned out to be outdated after we had a college on design patterns. In the end we decided to implement factory patterns for MedicalTest, Treatment, Machine and Medication. So far, we only found the time to implement the factory pattern for MedicalTest.
+While trying to figure out a design that allows us to schedule things in a decent way, we experienced the following problem a couple of times: how can we know at run time what different kinds of MedicalTests, Machines,... there are? The first possible solutions we saw turned out to be outdated after we had a lecture on design patterns. In the end we decided to implement factory patterns for MedicalTest, Treatment, Machine and Medication. 
 \\*The advantages of using a factory pattern is that it's very high cohesion and low coupling; we could very easily remove the factory pattern from the design and still have a relatively stable design. A disadvantage, however, is that, should a new kind of MedicalTest etc... be needed, we'll have to update the class in which all specific factories are stored in aswell as create a new specific factory. We find that the advantages clearly outweigh the disadvantages here, which is why we are very confident about our decision.
 \newline Now we'll take a brief look at the alternative solutions we had in mind aswell as their advantages and disadvantages.
 
@@ -93,23 +92,23 @@ public enum {
 \end{lstlisting}
 \underline{Advantages}: Easy to implement and understand.
 \\*\underline{Disadvantages}: Results in a design with very high coupling. Also written code will not be easily adaptable. The result would be highly similar to using instanceof to determine what kind of MedicalTest a child class of MedicalTest is: unmaintainable. If we would ever need to add or remove a MedicalTest, we would, in this scenario, have to change a very high percentage of code. This means a relatively high chance on accidentally creating bugs. Trying to avoid this would only be possible by keeping a list of all locations in which we have to do something different depending on the type of MedicalTest at hand, which is as exactly silly as it sounds.
-\\Clearly, using an enumeration to solve this problem is not a very good way of doing things.
+\\Clearly, using an enumeration is not a very good way to solve this problem.
 
 \subsubsection{Mapping Strings onto Objects}
-\dots We never really regarded towards this option as a viable solution to the problem. We're just mentioning this to be sure we're giving full and accurate information in the report.
-\\*\underline{Description}: This concept is very similar to the enumeration except we'll have all child classes keep a String of their type. E.g. A blood analysis would keep a public final static String containing "BLOODANALYSIS".
+\dots We never really regarded towards this option as a viable solution to the problem. We're mentioning it to be sure we're giving complete and accurate information in the report.
+\\*\underline{Description}: This concept is very similar to the enumeration one, except we'll have all child classes keep a String of what their type is. E.g. A blood analysis would keep a public final static String containing "BLOODANALYSIS".
 \\*\underline{Advantages}: Easy to implement and easy to understand for people just joining in on the project at any time.
-\\*\underline{Disadvantages}: Besides the fact that this option is nothing short of a \emph{dirty} hack and not an elegant solution at all, the disadvantages of using an enumeration also return here.
+\\*\underline{Disadvantages}: Besides the fact that this option is nothing short of a \emph{dirty} hack, the disadvantages of using an enumeration also return here.
 \\*In conclusion: this solution is even more crazy than what it may have looked like in the title.
 
 \subsubsection{Blueprints}
-\underline{Description}: This option is interesting to think about. The basic idea is to create templates for different MedicalTests, Machines,\dots. This way, by giving a certain blueprint to a single factory, the factory would create something that meets all the demands of the blueprint. After reading up on design patterns, we see that this solution is a sort of mixture between the prototype and abstract factory design patterns.
+\underline{Description}: This option is interesting to think about. The basic idea is to create templates (=blueprints) for different MedicalTests, Machines,\dots. This way, by giving a certain blueprint to a single factory, the factory would create something that meets all the demands of the blueprint. After reading up on design patterns, we see that this solution is a sort of mixture between the prototype and abstract factory design patterns.
 \\*\underline{Advantages}: It would be possible, even at run time, to dynamically create new MedicalTests, Machines or even completely new concepts! Low coupling and high cohesion are satisfied in this design. information expert is a bit hazy: blueprints know precisely what they have to, but what about the factory?
 \\*\underline{Disadvantages}: The one factory that would turn blueprints into the desired objects, would turn out to be a colosal class with way too much responsibilities and a lot of unclean code.
 \\Looks can be deceiving! In spite of this option looking attractive to us at the first sight, we decided that using a real design pattern would probably be better concerning GRASP. Looking back now, we think we have made the right choice.
 
 \subsubsection{Important notes}
-It is important to note that not all of the design patterns we want to implement have been implemented yet. Currently the Machine-, Medication- and Treatment problems are still in a sort of hackish state:
+It is important to note that not all of the design patterns we want to implement, have been implemented yet. Currently the Machine-, Medication- and Treatment problems are still in a sort of hackish state:
 \begin{itemize}
 \item{In the current version, all types of Machines are stored in a MachinePool. They get created by "\textless machinetype\textgreater builder"s (i.e. "XRayScannerBuilder"). Builders are a softened up version of the factory pattern. We had implemented these builders before we found out about the existence of design patterns and just didn't get to updating it yet.}
 \item{The different types of Treatments are also stored in a TreatmentPool. We do not have a builder thing going here. Instead, again due to lack of time, we currently decide what kind of Treatment to create depending on the step of a certain use case that the program is in. For instance, if the user replied they want to create a surgery treatment, we'll create an UnscheduledSurgery. This UnscheduledSurgery becomes a ScheduledSurgery after it's been scheduled. The ScheduledSurgery will keep a Surgery object stored as one of its fields. In this Surgery object, the data about the surgery will be stored.}
@@ -166,12 +165,12 @@ Schedulable objects have three methods worth mentioning:
 These methods should do what their names suggest they do. canBeScheduledOn() will return true if the object executing the method finds that all it’s privately kept constraints have been met and that its TimeTable allows it to be scheduled at the given interval of time. getTimeTable() will get and return the TimeTable of the Schedulable in question. scheduleAt() will schedule the Schedulable at the given TimeSlot if possible.
 
 \subsubsection{Constraints}
-There are a lot of constraints related to time and scheduling in this assignment. I.e.: nurses only work between 8AM and 5PM, Treatments can be registered before being scheduled, everything must be scheduled at least 1 hour in advance of the current system time, a patient may only get ten XRay scans per year,\dots. Most of these constraints can be taken care of by either canBeScheduled() in Schedulable, or the use case. As there are use cases, we can be assume some things are given for the implementation of several functions in the system layer of our model.
-\\*A constraint that has risen a problem was the fact that a Diagnose can already have a Treatment without it being scheduled, if the Diagnose is not approved yet at the time of the creation of the Treatment. We'll elaborate on this in the sections below.
+There are a lot of constraints related to time and scheduling in this assignment. I.e.: nurses only work between 8AM and 5PM, Treatments can be registered before being scheduled, everything must be scheduled at least 1 hour in advance of the current system time, a patient may only get ten XRay scans per year,\dots. Most of these constraints can be taken care of by canBeScheduled() in Schedulable. 
+\\*A constraint that has risen a problem was the fact that a Diagnose can already have a Treatment without it being scheduled if the Diagnose is not approved yet at the time of the creation of the Treatment. We'll elaborate on this in the sections below.
 
 \subsubsection{Task, UnscheduledTask, ScheduledTask, TaskManager}
-Task, UnscheduledTask and ScheduledTask are all abstract classes that represent things that can be (or already have been) scheduled. UnscheduledTasks are Tasks that haven't been scheduled yet. Once they can be successfully scheduled by Scheduler, they can be removed from the taskqueue kept by TaskManager and turned into ScheduledTasks. The ScheduledTasks get stored in the resources that are to execute the ScheduledTask so that giving the user sensible output concerning todos is almost trivial.
-\\* As is, it is possible a Task can't be immediately scheduled after creation. Possible reasons for this could be: the warehouse has run out of stock of an item required by the Task just recently created or the Task that can't be scheduled is a Treatment for a Diagnose that has not been approved yet. We managed to solve both of those problems by implementing the observer pattern. We now have a couple of Observers that get notified at the right times and that then tell the TaskManager to update its queue as some changes in the system has triggered the observer watching it.
+Task, UnscheduledTask and ScheduledTask are all abstract classes that represent things that can be (or already have been) scheduled. UnscheduledTasks are Tasks that haven't been scheduled yet. Once they can be successfully scheduled by Scheduler, they can be removed from the task queue kept by TaskManager and turned into ScheduledTasks. The ScheduledTasks get stored in the Schedulables that are to execute the ScheduledTask so that giving the user sensible output concerning todos is almost trivial.
+\\* As is, it is possible a Task can't be immediately scheduled after creation. Possible reasons for this could be: the warehouse has run out of stock of an item required by the Task that was just created or the Task that can't be scheduled is a Treatment for a Diagnose that has not been approved yet. We managed to solve both of those problems by implementing the observer pattern. We now have a couple of Observers that get notified at the right times and that then tell the TaskManager to update its queue as some changes in the system has triggered the observer watching it.
 
 \subsubsection{TimeLord}
 TimeLord is the class that keeps track of the current system time. We have chosen to create a seperate class for that purpose only. The alternative was to keep the current system time stored in Scheduler. However, we felt like this does not fall under the responsibilities of Scheduler. 
@@ -343,7 +342,9 @@ Currently there are 4 classes for every 1 kind of MedicalTest and 4 classes for 
 The amount of code coverage was also rather low. We will have to write more unit tests during the next iteration.
 
 \section{Conclusion}
-We have worked as best we could to make up for the failure of iteration one in this iteration. We have achieved a lot but 
+We have worked as best we could to make up for the failure of iteration one. We have achieved a lot but still have some road left ahead of us. 
+\\Conceptually everything should be okay. However, the implementation of things right now is not exactly as we would like it to be. We had to make a deadline which lead us to quickly implement some things in a \emph{dirtier} way.
+
 \pagebreak
 \section{Appendix I - Class diagram of the first revision of the scheduling system}
 \includegraphics[width=200mm, height=120mm, angle=90]{schedulerfail0.jpg}
