@@ -12,7 +12,7 @@
 <p>
 Dieter: Usecases hacken<p>
 Stefaan: ver slagen<p>
-Wouter: Observers<p>
+Wouter: Bidirectionele binding tussen TaskManager en Schedulable<p>
 
 = Things that have been crossed off = 
   * Treatment Factories gemaakt en getest
@@ -39,6 +39,7 @@ Wouter: Observers<p>
   * warehouse
   * warehouseadmin
   * Bij unscheduled classes zorgen dat die requirements lazy gemaakt worden, (dit door de voorstelling van onze requirements :) )
+  * Observers
 
 = Next Iteration =
   * factories maken voor Medication & Machine.
