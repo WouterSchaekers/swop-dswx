@@ -70,6 +70,15 @@ public class Warehouse extends Observable
 		return d != null
 				&& (curDate == null || d.after(new HospitalDate(HospitalDate.START_OF_TIME)));
 	}
+	
+	public void addPlaster(Plaster plaster) throws WarehouseException {
+		if (!isValidAmountOfPlasterToAdd(1)) {
+			throw new WarehouseException(
+					"Either an invalid amount of plaster was given to this method, or either adding the given amount will result in an overflow of the warehouse. ");
+		}
+		this.plaster.add(plaster);
+		this.notifyObservers();
+	}
 
 	/**
 	 * This method will add plaster to this warehouse.
@@ -118,6 +127,16 @@ public class Warehouse extends Observable
 					"Either an invalid amount of plaster was given to this method, or either adding the given amount will result in an overflow of the warehouse.");
 		}
 		this.medication.addAll(medication);
+		this.notifyObservers();
+	}
+	
+	public void addMedication(Medication medication)
+			throws WarehouseException {
+		if (!isValidAmountOfMedicationToAdd(1)) {
+			throw new WarehouseException(
+					"Either an invalid amount of plaster was given to this method, or either adding the given amount will result in an overflow of the warehouse.");
+		}
+		this.medication.add(medication);
 		this.notifyObservers();
 	}
 	
@@ -182,6 +201,12 @@ public class Warehouse extends Observable
 	public void addMeals(Collection<Meal> meals)
 			throws WarehouseOverCapacityException {
 		this.meals.addAll(meals);
+		this.notifyObservers();
+	}
+
+	public void addMeal(Meal meal)
+			throws WarehouseOverCapacityException {
+		this.meals.add(meal);
 		this.notifyObservers();
 	}
 	

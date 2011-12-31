@@ -9,9 +9,12 @@ import treatment.Medication;
 import warehouse.ActivatedCarbonType;
 import warehouse.AspirinType;
 import warehouse.Meal;
+import warehouse.MealOrder;
+import warehouse.MedicationOrder;
 import warehouse.MedicationType;
 import warehouse.MiscType;
 import warehouse.Plaster;
+import warehouse.PlasterOrder;
 import warehouse.SleepingTabletsType;
 import warehouse.StockProvider;
 import warehouse.VitaminsType;
@@ -186,7 +189,9 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN
 	private void orderPlaster(int amount) {
 		this.orderedPlaster = true;
 		this.plasterExpected = amount;
-		// TODO
+		while(amount-- > 0){
+			this.stockProvider.orderPlaster(this);
+		}
 	}
 
 	private void updateMedication() {
@@ -232,6 +237,20 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN
 	}
 
 	private void orderMeals(int amount) {
-		// TODO
+		while(amount-- > 0){
+			this.stockProvider.orderMeal(this);
+		}
+	}
+	
+	public void addPlasterOrder(PlasterOrder plasterOrder) throws WarehouseException{
+		this.warehouse.addPlaster(plasterOrder.getStockItem());
+	}
+	
+	public void addMedication(MedicationOrder medicationOrder) throws WarehouseException {
+		this.warehouse.addMedication(medicationOrder.getStockItem());
+	}
+	
+	public void addMeal(MealOrder mealOrder){
+		this.warehouse.addMeal(mealOrder.getStockItem());
 	}
 }
