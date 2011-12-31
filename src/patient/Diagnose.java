@@ -125,6 +125,7 @@ public class Diagnose extends Observable implements DiagnoseIN
 			throw new ApproveDiagnoseException();
 		this.approved = true;
 		this.unmarkForSecOp();
+		this.setChanged();
 		this.notifyObservers();
 	}
 

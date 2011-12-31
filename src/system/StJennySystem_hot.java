@@ -10,8 +10,8 @@ import exceptions.UserAlreadyExistsException;
 
 public class StJennySystem_hot
 {
-	private static StJennySystem_hot instance;
-	private final HospitalState state;
+	 static StJennySystem_hot instance;
+	 final HospitalState state;
 	public static StJennySystem_hot instance() throws InvalidTimeLordException
 	{
 		if(instance==null)
