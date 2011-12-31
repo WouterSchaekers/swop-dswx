@@ -1,14 +1,16 @@
 package treatment;
 
+import controllers.interfaces.CastIN;
 import result.Result;
 import scheduler.HospitalDate;
+import scheduler.task.scheduled.ScheduledTask;
 import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.*;
 
 /**
  * This class represents a treatment by cast.
  */
-public class Cast extends Treatment
+public class Cast extends Treatment implements CastIN
 {
 	private String bodyPart;
 	private int length;
@@ -65,7 +67,9 @@ public class Cast extends Treatment
 
 	@Override
 	public void setResult(Result r) {
-		// TODO Auto-generated method stub
 		
 	}
+	
+
+
 }

@@ -6,6 +6,7 @@ import controllers.interfaces.TreatmentIN;
 import exceptions.InvalidResultException;
 import be.kuleuven.cs.som.annotate.Basic;
 import result.Result;
+import scheduler.task.scheduled.ScheduledTask;
 
 /**
  * This class is the superclass of all treatments.
@@ -13,6 +14,7 @@ import result.Result;
 public abstract class Treatment implements TreatmentIN
 {
 
+	ScheduledTask scheduledTask;
 	private Collection<Result> results = new ArrayList<Result>();
 	private long duration;
 	/**
@@ -52,4 +54,9 @@ public abstract class Treatment implements TreatmentIN
 	}
 	
 	public abstract void setResult(Result r);
+
+	public void setScheduled(ScheduledTask task) {
+		this.scheduledTask=task;
+	}
+
 }

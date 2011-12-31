@@ -7,8 +7,6 @@ public class DischargePatientController
 {
 
 	private LoginController logincontroller;
-	private PatientFileOpenController patientfilecontroller;
-
 	public DischargePatientController(LoginController loginController,
 			PatientFileOpenController patienfile) throws InvalidLoginControllerException, InvalidPatientFileException {
 		if(!isValidLoginController(loginController))
@@ -16,7 +14,6 @@ public class DischargePatientController
 		if(!isValidPatientFileOpenController(patienfile, loginController))
 			throw new InvalidPatientFileException();
 		this.logincontroller =loginController;
-		this.patientfilecontroller=patienfile;
 	}
 
 	private boolean isValidPatientFileOpenController(

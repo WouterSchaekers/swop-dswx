@@ -1,9 +1,13 @@
 package controllers;
 
+import patient.Diagnose;
+import treatment.Treatment;
 import users.WarehouseAdmin;
+import controllers.interfaces.DiagnoseIN;
+import controllers.interfaces.TreatmentIN;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileException;
-
+import exceptions.InvalidTreatmentException;
 public class PrescribeTreatmentController
 {
 
@@ -33,5 +37,12 @@ public class PrescribeTreatmentController
 		if(this.loginc!=null && this.loginc.equals(loginController))
 			return false;
 		return true;
+	}
+
+	public TreatmentIN prescribeCast(DiagnoseIN diagnose,TreatmentIN  treatment) throws InvalidTreatmentException
+	{
+		((Diagnose) diagnose).assignTreatment((Treatment)treatment);
+		return null;
+		
 	}
 }

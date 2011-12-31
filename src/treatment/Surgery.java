@@ -1,5 +1,6 @@
 package treatment;
 
+import controllers.interfaces.SurgeryIN;
 import result.Result;
 import scheduler.HospitalDate;
 import exceptions.InvalidDescriptionException;
@@ -8,7 +9,7 @@ import be.kuleuven.cs.som.annotate.Basic;
 /**
  * This class represents a surgical treatment.
  */
-public class Surgery extends Treatment
+public class Surgery extends Treatment implements SurgeryIN
 {
 	public static final String TREATMENTNAME = "Surgery";
 	private String description = "";
