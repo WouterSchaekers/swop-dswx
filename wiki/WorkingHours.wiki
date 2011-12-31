@@ -58,5 +58,6 @@
 || 29/12/11: 18u00 -> 00u45|| 3 DSW || 6.67 || Usecases, observers, report || ||
 || 30/12/11: 10u30 -> 14u00 || 3 DSW || 3.5 || Usecases, report, unit testing || ||
 || 30/12/11: 16u00 -> 18u30 || 3 DSW || 2.5 || Usecases, report, unit testing || ||
-|| 30/12/11: 20u00 -> 1u00 || 3 DSW || || Usecases, report, observers, stock management || ||
-|| 31/12/11: 01u30 -> 04u15|| 3 DSW || || Usecases, report, stock management || Dieter gaat nu tot 09u00 slapen. ||
+|| 31/12/11: 01u30 -> 04u15|| 3 DSW || 3 || Usecases, report, stock management || Dieter gaat nu tot 09u00 slapen. ||
+|| 31/12/11: 05u00 -> 08u00 || 2 SW || 3 || report, stock management, testing, observers || Dieter is net opgestaan! ||
+|| 31/12/11: 08u00 -> || 3 DSW || || report, stock management, testing, usecases, observers || ||
