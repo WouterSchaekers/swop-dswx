@@ -28,7 +28,7 @@ public class PatientFileOpenControllerTest
 	public void setUp() throws Exception {
 		um = new UserManager();
 		hospital = new DefaultHospital();
-		this.data=new DataPasser(hospital.um, hospital.pfm, hospital.s, hospital.mp, hospital.tm, hospital.tl);
+		this.data=new DataPasser(hospital.um, hospital.pfm, hospital.s, hospital.mp, hospital.tm, hospital.tl, null);
 
 	}
 
