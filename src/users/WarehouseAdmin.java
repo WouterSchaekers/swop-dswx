@@ -246,11 +246,11 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN
 		this.warehouse.addPlaster(plasterOrder.getStockItem());
 	}
 	
-	public void addMedication(MedicationOrder medicationOrder) throws WarehouseException {
+	public void addMedicationOrder(MedicationOrder medicationOrder) throws WarehouseException {
 		this.warehouse.addMedication(medicationOrder.getStockItem());
 	}
 	
-	public void addMeal(MealOrder mealOrder) throws WarehouseOverCapacityException{
+	public void addMealOrder(MealOrder mealOrder) throws WarehouseOverCapacityException{
 		this.warehouse.addMeal(mealOrder.getStockItem());
 	}
 }
