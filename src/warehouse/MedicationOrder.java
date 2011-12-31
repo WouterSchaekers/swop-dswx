@@ -3,16 +3,17 @@ package warehouse;
 import scheduler.HospitalDate;
 import treatment.Medication;
 import users.HospitalAdmin;
+import users.WarehouseAdmin;
 
 public class MedicationOrder extends StockOrder
 {
 	private final HospitalDate orderDate;
-	private final HospitalAdmin hospitalAdmin;
 	private final MedicationType medicationType;
+	private final WarehouseAdmin warehouseAdmin;
 	
-	public MedicationOrder(HospitalDate orderDate, HospitalAdmin hospitalAdmin, MedicationType medicationType){
+	public MedicationOrder(HospitalDate orderDate, WarehouseAdmin warehouseAdmin, MedicationType medicationType){
 		this.orderDate = orderDate;
-		this.hospitalAdmin = hospitalAdmin;
+		this.warehouseAdmin = warehouseAdmin;
 		this.medicationType = medicationType;
 	}
 	
@@ -22,8 +23,8 @@ public class MedicationOrder extends StockOrder
 	}
 	
 	@Override
-	public HospitalAdmin getHospitalAdmin(){
-		return this.hospitalAdmin;
+	public WarehouseAdmin getWarehouseAdmin(){
+		return this.warehouseAdmin;
 	}
 
 	@Override

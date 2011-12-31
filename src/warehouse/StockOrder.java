@@ -1,15 +1,15 @@
 package warehouse;
 
 import scheduler.HospitalDate;
-import users.HospitalAdmin;
+import users.WarehouseAdmin;
 
 public abstract class StockOrder
 {
 	public final long TIME_FOR_EXPIRATION = HospitalDate.ONE_YEAR;
-	
+
 	public abstract HospitalDate getOrderDate();
-	
-	public abstract HospitalAdmin getHospitalAdmin();
-	
+
+	public abstract WarehouseAdmin getWarehouseAdmin();
+
 	public abstract StockItem getStockItem();
 }

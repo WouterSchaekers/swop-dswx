@@ -1,26 +1,26 @@
 package warehouse;
 
 import scheduler.HospitalDate;
-import users.HospitalAdmin;
+import users.WarehouseAdmin;
 
 public class PlasterOrder extends StockOrder implements StockItem
 {
 	private final HospitalDate orderDate;
-	private final HospitalAdmin hospitalAdmin;
-	
-	public PlasterOrder(HospitalDate orderDate, HospitalAdmin hospitalAdmin){
+	private final WarehouseAdmin warehouseAdmin;
+
+	public PlasterOrder(HospitalDate orderDate, WarehouseAdmin warehouseAdmin) {
 		this.orderDate = orderDate;
-		this.hospitalAdmin = hospitalAdmin;
+		this.warehouseAdmin = warehouseAdmin;
 	}
-	
+
 	@Override
-	public HospitalDate getOrderDate(){
+	public HospitalDate getOrderDate() {
 		return new HospitalDate(this.orderDate);
 	}
-	
+
 	@Override
-	public HospitalAdmin getHospitalAdmin(){
-		return this.hospitalAdmin;
+	public WarehouseAdmin getWarehouseAdmin() {
+		return this.warehouseAdmin;
 	}
 
 	@Override

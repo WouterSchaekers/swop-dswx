@@ -217,7 +217,7 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN
 	}
 
 	private void orderMedication(MedicationType medicationType) {
-		// TODO
+		this.stockProvider.orderMedication(this, medicationType);
 	}
 
 	private void updateMeals(int amountOfActivePatients) {
