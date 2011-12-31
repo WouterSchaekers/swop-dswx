@@ -6,6 +6,7 @@ import scheduler.Scheduler;
 import scheduler.TimeLord;
 import scheduler.task.TaskManager;
 import users.UserManager;
+import warehouse.Warehouse;
 
 /**
  * This class will serve as a data transmitter.
@@ -18,6 +19,7 @@ public class DataPasser
 	private final MachinePool machinePool;
 	private TimeLord theDoctor;
 	private TaskManager taskmanager;
+	private Warehouse warehouse;
 
 	/**
 	 * Default constructor.
@@ -30,7 +32,7 @@ public class DataPasser
 	 *            a scheduler
 	 */
 	public DataPasser(UserManager userm, PatientFileManager pfm,
-			Scheduler scheduler,MachinePool machine,TaskManager taskmanager,TimeLord doctor) {
+			Scheduler scheduler,MachinePool machine,TaskManager taskmanager,TimeLord doctor,Warehouse warhouse) {
 		this.userm = userm;
 		this.pfm = pfm;
 		this.scheduler = scheduler;
@@ -38,6 +40,7 @@ public class DataPasser
 		this.theDoctor=doctor;
 		this.taskmanager=taskmanager;
 		this.theDoctor=doctor;
+		this.warehouse=warhouse;
 	}
 
 	/**
@@ -71,6 +74,10 @@ public class DataPasser
 
 	 TaskManager getTaskmanager() {
 		 return this.taskmanager;
+	}
+
+	public Warehouse getWareHouse() {
+		return warehouse;
 	}
 
 }

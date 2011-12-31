@@ -97,4 +97,6 @@ public abstract class MedicalTest
 	}
 
 	public abstract UnscheduledMedicalTest getUnscheduled(UserManager userm, Warehouse warehouse, PatientFile file, TimeLord systemtime, TaskManager taskmanager,MachinePool pool) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException ;
+	protected ScheduledTask getScheduledTask(){return ScheduledTask;}
+	public abstract String appointMentInfo();
 }

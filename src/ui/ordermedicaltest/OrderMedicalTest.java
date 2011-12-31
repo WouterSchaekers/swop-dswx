@@ -1,11 +1,11 @@
 package ui.ordermedicaltest;
 
+import ui.SelectUsecase;
+import ui.Usecase;
+import ui.UserinterfaceData;
 import controllers.MedicalTestController;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileException;
-import ui.SelectUsecase;
-import ui.UserinterfaceData;
-import ui.Usecase;
 
 public class OrderMedicalTest extends OrderMedicalTestSuperClass
 {

@@ -6,8 +6,16 @@ import medicaltest.MedicalTest;
 import medicaltest.MedicalTestFactory;
 import medicaltest.MedicalTests;
 import users.Doctor;
+import exceptions.InvalidAmountException;
+import exceptions.InvalidDurationException;
+import exceptions.InvalidHospitalDateArgument;
+import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidLoginControllerException;
+import exceptions.InvalidOccurencesException;
 import exceptions.InvalidPatientFileException;
+import exceptions.InvalidResourceException;
+import exceptions.InvalidTimeSlotException;
+import exceptions.InvalidTreatmentException;
 
 
 /**
@@ -48,7 +56,7 @@ public class MedicalTestController
 	}
 
 	private boolean isValidPatientFileOpenController(
-		PatientFileOpenController cpf,LoginController loginc) {
+		PatientFileOpenController patientFileOpenController,LoginController loginc) {
 		if (patientFileOpenController == null)
 			return false;
 		if (!patientFileOpenController.isValidLoginController(loginc))
@@ -83,13 +91,13 @@ public class MedicalTestController
 
 	public void addMedicaltest(LoginController loginController2,
 			PatientFileOpenController patientFileOpenController2,
-			MedicalTest create) throws InvalidLoginControllerException, InvalidPatientFileException {
+			MedicalTest create,DataPasser data) throws InvalidLoginControllerException, InvalidPatientFileException, InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException, InvalidTreatmentException, InvalidTimeSlotException, InvalidHospitalDateArgument {
 		if(!isValidLoginController(loginController2))
 			throw new InvalidLoginControllerException("");
 		if(!isValidPatientFileOpenController(patientFileOpenController2, loginController2))
 			throw new InvalidPatientFileException();
-	((PatientFile)	patientFileOpenController2.getPatientFile()).addMedicalTest(create);
-	//XXX hoe moet dees eigelijk gebeuren?
+		new MedicaltestDispatcher().dispatch(create,data.getUserManager(),data.getWareHouse(),(PatientFile) patientFileOpenController2.getPatientFile(),data.getTimeLord(),data.getTaskmanager(),data.getMachinePool());
+
 	}
 	
 

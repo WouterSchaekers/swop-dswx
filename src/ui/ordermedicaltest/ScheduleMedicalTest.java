@@ -1,45 +1,101 @@
 package ui.ordermedicaltest;
 
-import exceptions.InvalidDurationException;
-import exceptions.InvalidLoginControllerException;
-import exceptions.InvalidNameException;
-import exceptions.InvalidPatientFileException;
-import exceptions.InvalidTimeSlotException;
+
+import medicaltest.MedicalTest;
+import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
+import exceptions.FactoryInstantiationException;
+import exceptions.InvalidAmountException;
+import exceptions.InvalidDurationException;
+import exceptions.InvalidHospitalDateArgument;
+import exceptions.InvalidHospitalDateException;
+import exceptions.InvalidLoginControllerException;
+import exceptions.InvalidNameException;
+import exceptions.InvalidOccurencesException;
+import exceptions.InvalidPatientFileException;
+import exceptions.InvalidResourceException;
+import exceptions.InvalidTimeSlotException;
+import exceptions.InvalidTreatmentException;
 
 public class ScheduleMedicalTest extends OrderMedicalTestSuperClass
 {
 
 	public ScheduleMedicalTest(UserinterfaceData uiData, MedicalTestData medData) {
 		super(uiData, medData);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public Usecase Execute() {
+		MedicalTest t = null;
 		try {
-			chaindata.getMedTestController().addMedicaltest(data.getLoginController(),data.getPatientFileOpenController(),chaindata.getFactory().create());
-		} catch (InvalidLoginControllerException e) {
+			t = chaindata.getFactory().create();
+		} catch (InvalidNameException e1) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidPatientFileException e) {
+			e1.printStackTrace();
+		} catch (InvalidDurationException e1) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidNameException e) {
+			e1.printStackTrace();
+		} catch (InvalidTimeSlotException e1) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidDurationException e) {
+			e1.printStackTrace();
+		} catch (FactoryInstantiationException e1) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidTimeSlotException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (FactoryInstantiation e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e1.printStackTrace();
 		}
-		return null;
+		try {
+			chaindata.getMedTestController().addMedicaltest(data.getLoginController(),data.getPatientFileOpenController(),t, data.getDataPasser());
+		} catch (InvalidLoginControllerException e) {
+			System.out.println("invalid user");
+			return new SelectUsecase(data);
+		} catch (InvalidPatientFileException e) {
+			System.out.println("bad logincontroller");
+			return new SelectUsecase(data);
+			
+		} catch (InvalidDurationException e) {
+
+			System.out.println("internal system error");
+			return new SelectUsecase(data);
+		
+		} catch (InvalidTimeSlotException e) {
+
+			System.out.println("internal system error");
+			return new SelectUsecase(data);
+		
+		} catch (InvalidResourceException e) {
+
+			System.out.println("internal system error");
+			return new SelectUsecase(data);
+			
+		} catch (InvalidOccurencesException e) {
+
+			System.out.println("internal system error");
+			return new SelectUsecase(data);
+			
+		} catch (InvalidAmountException e) {
+
+			System.out.println("internal system error");
+			return new SelectUsecase(data);
+			
+		} catch (InvalidHospitalDateException e) {
+
+			System.out.println("internal system error");
+			return new SelectUsecase(data);
+			
+		} catch (InvalidTreatmentException e) {
+
+			System.out.println("internal system error");
+			return new SelectUsecase(data);
+			
+		} catch (InvalidHospitalDateArgument e) {
+
+			System.out.println("internal system error");
+			return new SelectUsecase(data);
+		
+		} 
+		System.out.println("Your medicaltest has now been scheduled !");
+		System.out.println(t.appointMentInfo());
+		return new SelectUsecase(data);
 	}
 
 }

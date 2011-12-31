@@ -2,6 +2,7 @@ package ui.ordermedicaltest;
 
 import medicaltest.MedicalTest;
 import medicaltest.MedicalTestFactory;
+import medicaltest.UltraSoundScanFactory;
 import controllers.MedicalTestController;
 
 public class MedicalTestData
@@ -27,8 +28,11 @@ public class MedicalTestData
 	}
 
 	public MedicalTestFactory getFactory() {
-		// TODO Auto-generated method stub
 		return factory;
+	}
+
+	public void setFactory(MedicalTestFactory getultra) {
+		this.factory = getultra;
 	}
 
 

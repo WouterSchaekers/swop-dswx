@@ -46,9 +46,4 @@ public class UnscheduledUltraSound extends UnscheduledMedicalTest
 		return curMachinePool;
 	}
 
-	@Override
-	public void setScheduled(ScheduledTask task) {
-		// TODO Auto-generated method stub
-		
-	}
 }
