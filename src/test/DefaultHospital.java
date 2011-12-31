@@ -76,7 +76,7 @@ public class DefaultHospital
 		wh = new Warehouse(new HospitalDate((new HospitalDate().getTimeSinceStart()) + 1));
 		pfm = new PatientFileManager();
 		sp = new StockProvider();
-		wha = new WarehouseAdmin(wh, sp, pfm);
+		wha = new WarehouseAdmin("WarehouseAdmin", wh, sp, pfm);
 		tm = new TaskManager(s);
 		tl = new TimeLord();
 		s = new Scheduler(tl);
