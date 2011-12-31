@@ -2,14 +2,22 @@ package observers;
 
 import java.util.Observable;
 import java.util.Observer;
+import users.WarehouseAdmin;
 
 public class WarehouseObserverWarehouseAdmin implements Observer
 {
+	private WarehouseAdmin warehouseAdmin;
 
-	@Override
-	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
-		
+	public WarehouseObserverWarehouseAdmin(WarehouseAdmin warehouseAdmin) {
+		this.warehouseAdmin = warehouseAdmin;
 	}
 
+	@Override
+	public void update(Observable arg0, Object arg) {
+		try {
+			this.warehouseAdmin.updateStock();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

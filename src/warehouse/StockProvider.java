@@ -35,10 +35,11 @@ public class StockProvider
 		this.orderedMeals.add(new MealOrder(this.curDate, warehouseAdmin));
 	}
 	
-	public void updateTime(HospitalDate hospitalDate) throws WarehouseException, WarehouseOverCapacityException{
-		this.updatePlaster(hospitalDate);
-		this.updateMedication(hospitalDate);
-		this.updateMeals(hospitalDate);
+	public void updateTime(HospitalDate newDate) throws WarehouseException, WarehouseOverCapacityException{
+		this.updatePlaster(newDate);
+		this.updateMedication(newDate);
+		this.updateMeals(newDate);
+		this.curDate = newDate;
 	}
 	
 	private void updatePlaster(HospitalDate hospitalDate) throws WarehouseException{
