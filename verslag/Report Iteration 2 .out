@@ -5,21 +5,33 @@
 \BOOKMARK [3][-]{subsubsection.3.1.1}{Solution}{subsection.3.1}% 5
 \BOOKMARK [3][-]{subsubsection.3.1.2}{Alternative solution}{subsection.3.1}% 6
 \BOOKMARK [2][-]{subsection.3.2}{MedicalTest, Treatment, Machine and Medication}{section.3}% 7
-\BOOKMARK [2][-]{subsection.3.3}{Current version of Scheduler}{section.3}% 8
-\BOOKMARK [3][-]{subsubsection.3.3.1}{HospitalDate}{subsection.3.3}% 9
-\BOOKMARK [3][-]{subsubsection.3.3.2}{TimeTable}{subsection.3.3}% 10
-\BOOKMARK [3][-]{subsubsection.3.3.3}{TimePoint}{subsection.3.3}% 11
-\BOOKMARK [3][-]{subsubsection.3.3.4}{TimeSlot}{subsection.3.3}% 12
-\BOOKMARK [3][-]{subsubsection.3.3.5}{Schedulable}{subsection.3.3}% 13
-\BOOKMARK [3][-]{subsubsection.3.3.6}{Constraints}{subsection.3.3}% 14
-\BOOKMARK [3][-]{subsubsection.3.3.7}{Task, UnscheduledTask, ScheduledTask, TaskManager}{subsection.3.3}% 15
-\BOOKMARK [2][-]{subsection.3.4}{Alternatives and older versions of Scheduler}{section.3}% 16
-\BOOKMARK [3][-]{subsubsection.3.4.1}{Original version}{subsection.3.4}% 17
-\BOOKMARK [3][-]{subsubsection.3.4.2}{First revision}{subsection.3.4}% 18
-\BOOKMARK [3][-]{subsubsection.3.4.3}{Second revision}{subsection.3.4}% 19
-\BOOKMARK [1][-]{section.4}{Use cases}{}% 20
-\BOOKMARK [1][-]{section.5}{Other relevant changes}{}% 21
-\BOOKMARK [2][-]{subsection.5.1}{Domain protection - not leaking internal data structures}{section.5}% 22
-\BOOKMARK [2][-]{subsection.5.2}{Defensive programming}{section.5}% 23
-\BOOKMARK [1][-]{section.6}{Testing and code coverage}{}% 24
-\BOOKMARK [1][-]{section.7}{Conclusion and outro}{}% 25
+\BOOKMARK [3][-]{subsubsection.3.2.1}{Using enumerations}{subsection.3.2}% 8
+\BOOKMARK [3][-]{subsubsection.3.2.2}{Mapping Strings onto Objects}{subsection.3.2}% 9
+\BOOKMARK [3][-]{subsubsection.3.2.3}{Blueprints}{subsection.3.2}% 10
+\BOOKMARK [3][-]{subsubsection.3.2.4}{Important notes}{subsection.3.2}% 11
+\BOOKMARK [2][-]{subsection.3.3}{Scheduler}{section.3}% 12
+\BOOKMARK [3][-]{subsubsection.3.3.1}{HospitalDate}{subsection.3.3}% 13
+\BOOKMARK [3][-]{subsubsection.3.3.2}{TimeTable}{subsection.3.3}% 14
+\BOOKMARK [3][-]{subsubsection.3.3.3}{TimeSlot}{subsection.3.3}% 15
+\BOOKMARK [3][-]{subsubsection.3.3.4}{TimePoint}{subsection.3.3}% 16
+\BOOKMARK [3][-]{subsubsection.3.3.5}{Schedulable and SchedulableUser}{subsection.3.3}% 17
+\BOOKMARK [3][-]{subsubsection.3.3.6}{Constraints}{subsection.3.3}% 18
+\BOOKMARK [3][-]{subsubsection.3.3.7}{Task, UnscheduledTask, ScheduledTask, TaskManager}{subsection.3.3}% 19
+\BOOKMARK [3][-]{subsubsection.3.3.8}{TimeLord}{subsection.3.3}% 20
+\BOOKMARK [3][-]{subsubsection.3.3.9}{Observers}{subsection.3.3}% 21
+\BOOKMARK [2][-]{subsection.3.4}{Alternatives for the scheduling problem}{section.3}% 22
+\BOOKMARK [3][-]{subsubsection.3.4.1}{Original version}{subsection.3.4}% 23
+\BOOKMARK [3][-]{subsubsection.3.4.2}{First revision}{subsection.3.4}% 24
+\BOOKMARK [3][-]{subsubsection.3.4.3}{Second revision}{subsection.3.4}% 25
+\BOOKMARK [3][-]{subsubsection.3.4.4}{Third revision}{subsection.3.4}% 26
+\BOOKMARK [1][-]{section.4}{Use cases}{}% 27
+\BOOKMARK [1][-]{section.5}{Other notable changes}{}% 28
+\BOOKMARK [2][-]{subsection.5.1}{No more enumerations!}{section.5}% 29
+\BOOKMARK [2][-]{subsection.5.2}{Domain protection - not leaking internal data structures}{section.5}% 30
+\BOOKMARK [2][-]{subsection.5.3}{Defensive programming}{section.5}% 31
+\BOOKMARK [1][-]{section.6}{Eclemma testing report}{}% 32
+\BOOKMARK [1][-]{section.7}{Todos for next iteration}{}% 33
+\BOOKMARK [1][-]{section.8}{Conclusion}{}% 34
+\BOOKMARK [1][-]{section.9}{Appendix I - Class diagram of the first revision of the scheduling system}{}% 35
+\BOOKMARK [1][-]{section.10}{Appendix II - Class diagram of the second revision of the scheduling system}{}% 36
+\BOOKMARK [1][-]{section.11}{Appendix III - Class diagram of the third revision of the scheduling system}{}% 37
