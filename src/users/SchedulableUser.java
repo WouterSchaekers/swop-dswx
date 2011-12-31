@@ -1,5 +1,7 @@
 package users;
 
+import java.util.Collection;
+import java.util.LinkedList;
 import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidTimeSlotException;
@@ -7,13 +9,16 @@ import scheduler.HospitalDate;
 import scheduler.TimeSlot;
 import scheduler.TimeTable;
 import scheduler.task.Schedulable;
+import scheduler.task.scheduled.ScheduledTask;
 
 public abstract class SchedulableUser extends User implements Schedulable
 {
 	protected TimeTable timeTable = new TimeTable();
+	protected Collection<ScheduledTask> scheduledTasks;
 	protected SchedulableUser(String name) throws InvalidNameException, InvalidTimeSlotException {
 		super(name);
 		this.timeTable = new TimeTable();
+		this.scheduledTasks = new LinkedList<ScheduledTask>();
 	}
 	
 	@Override
@@ -32,5 +37,13 @@ public abstract class SchedulableUser extends User implements Schedulable
 	
 	public void updateTimeTable(HospitalDate newDate){
 		this.timeTable.updateTimeTable(newDate);
+	}
+	
+	public Collection<ScheduledTask> getScheduledTasks(){
+		return this.scheduledTasks;
+	}
+	
+	public void addScheduledTask(ScheduledTask scheduledTask){
+		this.scheduledTasks.add(scheduledTask);
 	}
 }
