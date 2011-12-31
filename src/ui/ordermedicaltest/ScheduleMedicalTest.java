@@ -30,18 +30,9 @@ public class ScheduleMedicalTest extends OrderMedicalTestSuperClass
 		MedicalTest t = null;
 		try {
 			t = chaindata.getFactory().create();
-		} catch (InvalidNameException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (InvalidDurationException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (InvalidTimeSlotException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (FactoryInstantiationException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		} catch (Exception e1) {
+			System.out.println("Medical test failed to create ");
+			return new SelectUsecase(data);
 		}
 		try {
 			chaindata.getMedTestController().addMedicaltest(data.getLoginController(),data.getPatientFileOpenController(),t, data.getDataPasser());
