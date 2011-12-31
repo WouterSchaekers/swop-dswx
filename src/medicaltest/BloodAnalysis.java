@@ -59,7 +59,6 @@ public class BloodAnalysis extends MedicalTest
 
 	@Override
 	public void setResult(Result r) {
-		// TODO Auto-generated method stub
 		
 	}
 

@@ -11,7 +11,6 @@ public class FillStockInWarehouseController
 			DataPasser dataPasser) throws InvalidLoginControllerException {
 		if(!isValidLoginController(loginController))
 			throw new InvalidLoginControllerException("");
-		// TODO Auto-generated constructor stub
 	}
 	private boolean isValidLoginController(LoginController loginController) {
 		if(loginController==null)

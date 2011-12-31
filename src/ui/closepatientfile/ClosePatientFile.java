@@ -10,7 +10,6 @@ public class ClosePatientFile extends Usecase
 
 	public ClosePatientFile(UserinterfaceData data) {
 		super(data);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -19,8 +18,8 @@ public class ClosePatientFile extends Usecase
 			data.getPatientFileOpenController().closePatientFile(data.getLoginController());
 			data.setRegpatctrl(null);
 		} catch (InvalidLoginControllerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("not allowed to do this");
+			return new SelectUsecase(data);
 		}
 		return new SelectUsecase(data);
 	}

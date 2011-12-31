@@ -49,16 +49,12 @@ public class ApproveDiagnosisController
 	}
 
 	public void disApproveDiagnose(LoginController loginController2,
-			DiagnoseIN selected,DiagnoseIN replacement) throws InvalidLoginControllerException {
+			DiagnoseIN selected,DiagnoseIN replacement) throws InvalidLoginControllerException, ApproveDiagnoseException {
 		if(!isValidLoginController(loginController2))
 			throw new InvalidLoginControllerException("");
 		if(selected instanceof Diagnose)
-			try {
-				((Diagnose)selected).disaprove(replacement);
-			} catch (ApproveDiagnoseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			((Diagnose)selected).disaprove(replacement);
+		
 	}
 
 }

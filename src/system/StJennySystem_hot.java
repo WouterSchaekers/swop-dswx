@@ -21,8 +21,6 @@ public class StJennySystem_hot
 			try {
 				instance = new StJennySystem_hot();
 			} catch (InvalidHospitalDateException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 		return instance;
 	}
@@ -43,11 +41,7 @@ public class StJennySystem_hot
 		} catch (InvalidTimeSlotException e) {
 			System.out.println("Fatal error at system startup.");
 		} catch (InvalidSerialException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (InvalidLocationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 	

@@ -71,7 +71,6 @@ public class Cast extends Treatment implements CastIN
 
 	@Override
 	public boolean hasFinished() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	

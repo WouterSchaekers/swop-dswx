@@ -56,7 +56,6 @@ public class UnscheduledXRayScan extends UnscheduledMedicalTest
 
 	@Override
 	public void setScheduled(ScheduledTask task) {
-		// TODO Auto-generated method stub
 		
 	}
 }

@@ -11,7 +11,6 @@ public class ShowResultingTreatment extends ApproveDiagnosisSuper
 	public ShowResultingTreatment(UserinterfaceData data,
 			ApproveDiagnosisData chaindata) {
 		super(data, chaindata);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

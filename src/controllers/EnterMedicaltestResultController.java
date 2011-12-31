@@ -29,7 +29,6 @@ public class EnterMedicaltestResultController
 	public Collection<MedicalTest> allMedicalTests(LoginController loginController2) {
 		
 		return null;
-		// TODO Auto-generated method stub
 		
 	}
 

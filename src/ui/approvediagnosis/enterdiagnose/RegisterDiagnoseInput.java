@@ -17,7 +17,6 @@ public class RegisterDiagnoseInput extends ApproveDiagnosisSuper
 	public RegisterDiagnoseInput(UserinterfaceData data,
 			ApproveDiagnosisData chaindata) {
 		super(data,chaindata);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
