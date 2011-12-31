@@ -12,7 +12,7 @@ public class XrayScannerBuilder extends MachineBuilder
 	}
 	public String toString()
 	{
-		return "XrayScanner factory";
+		return "XrayScanner";
 	}
 	public XRayScanner build(int serial,String location) throws InvalidLocationException, InvalidSerialException, InvalidTimeSlotException
 	{

@@ -32,6 +32,7 @@ public class BuildMachine extends AddHospitalEquipmentSuperClass
 			System.out.println("please try again");
 			return this;
 		}
+		System.out.println("Enter location :");
 		String location = input.nextLine();
 		MachineBuilder b = chainData.getMachineBuilder();
 		{
