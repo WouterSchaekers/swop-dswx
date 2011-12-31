@@ -1,5 +1,6 @@
 package controllers;
 
+import javax.naming.OperationNotSupportedException;
 import patient.Diagnose;
 import treatment.Treatment;
 import users.Doctor;
@@ -14,13 +15,14 @@ public class PrescribeTreatmentController
 	private LoginController loginc;
 	private PatientFileOpenController pfcontroller;
 
-	public PrescribeTreatmentController(LoginController loginc,PatientFileOpenController pfcontroller) throws InvalidLoginControllerException, InvalidPatientFileException {
-		if(!isValidLoginController(loginc))
-			throw new InvalidLoginControllerException("");
-		if(!isValidPatienFileOpenController(pfcontroller))
-			throw new InvalidPatientFileException();
-		this.loginc=loginc;
-		this.pfcontroller=pfcontroller;
+	public PrescribeTreatmentController(LoginController loginc,PatientFileOpenController pfcontroller) throws InvalidLoginControllerException, InvalidPatientFileException, OperationNotSupportedException {
+		throw new OperationNotSupportedException();
+//		if(!isValidLoginController(loginc))
+//			throw new InvalidLoginControllerException("");
+//		if(!isValidPatienFileOpenController(pfcontroller))
+//			throw new InvalidPatientFileException();
+//		this.loginc=loginc;
+//		this.pfcontroller=pfcontroller;
 	}
 
 	private boolean isValidPatienFileOpenController(
@@ -39,10 +41,11 @@ public class PrescribeTreatmentController
 		return true;
 	}
 
-	public TreatmentIN prescribeCast(DiagnoseIN diagnose,TreatmentIN  treatment) throws InvalidTreatmentException
+	public TreatmentIN prescribeCast(DiagnoseIN diagnose,TreatmentIN  treatment) throws InvalidTreatmentException, OperationNotSupportedException
 	{
-		((Diagnose) diagnose).assignTreatment((Treatment)treatment);
-		return null;
+		throw new OperationNotSupportedException();
+//		((Diagnose) diagnose).assignTreatment((Treatment)treatment);
+//		return null;
 		
 	}
 }
