@@ -1,6 +1,5 @@
 package warehouse;
 
-public class StockOrder
+public interface StockOrder
 {
-
 }
