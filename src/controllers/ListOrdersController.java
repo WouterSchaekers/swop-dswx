@@ -1,6 +1,10 @@
 package controllers;
 
+import java.util.LinkedList;
 import users.WarehouseAdmin;
+import warehouse.StockOrder;
+import warehouse.StockProvider;
+import exceptions.InvalidCategoryNameException;
 import exceptions.InvalidLoginControllerException;
 
 public class ListOrdersController
@@ -21,5 +25,13 @@ public class ListOrdersController
 		if(this.loginController!=null && this.loginController.equals(loginController))
 			return false;
 		return true;
+	}
+	
+	public LinkedList<String> getStockItemNames(StockProvider stockProvider){
+		return stockProvider.getStockItemNames();
+	}
+	
+	public LinkedList<? extends StockOrder> getCorrespondingOrderedItems(StockProvider stockProvider, String itemName) throws InvalidCategoryNameException{
+		return stockProvider.getCorrespondingOrderedItems(itemName);
 	}
 }

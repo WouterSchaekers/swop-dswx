@@ -12,4 +12,9 @@ public abstract class StockOrder
 	public abstract WarehouseAdmin getWarehouseAdmin();
 
 	public abstract StockItem getStockItem();
+	
+	@Override
+	public String toString(){
+		return this.getStockItem().toString() + " ordered on " + this.getOrderDate();
+	}
 }

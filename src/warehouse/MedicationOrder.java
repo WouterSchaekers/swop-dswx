@@ -33,4 +33,9 @@ public class MedicationOrder extends StockOrder
 				this.orderDate.getTimeSinceStart()
 				+ this.TIME_FOR_EXPIRATION));
 	}
+	
+	@Override
+	public String toString(){
+		return "Meal";
+	}
 }

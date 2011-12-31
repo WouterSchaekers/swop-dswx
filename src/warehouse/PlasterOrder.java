@@ -27,4 +27,9 @@ public class PlasterOrder extends StockOrder implements StockItem
 	public Plaster getStockItem() {
 		return new Plaster();
 	}
+	
+	@Override
+	public String toString(){
+		return "Plaster";
+	}
 }
