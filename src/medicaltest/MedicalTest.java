@@ -1,13 +1,24 @@
 package medicaltest;
 
+import machine.MachinePool;
+import patient.PatientFile;
 import result.Result;
 import scheduler.HospitalDate;
+import scheduler.TimeLord;
 import scheduler.TimeSlot;
 import scheduler.TimeTable;
 import scheduler.task.Schedulable;
+import scheduler.task.TaskManager;
 import scheduler.task.scheduled.ScheduledTask;
+import scheduler.task.unscheduled.tests.UnscheduledMedicalTest;
+import users.UserManager;
+import warehouse.Warehouse;
+import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
+import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidNameException;
+import exceptions.InvalidOccurencesException;
+import exceptions.InvalidResourceException;
 import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidTimeSlotException;
 
@@ -85,4 +96,6 @@ public abstract class MedicalTest
 		this.ScheduledTask = task;
 
 	}
+
+	public abstract UnscheduledMedicalTest getUnscheduled(UserManager userm, Warehouse warehouse, PatientFile file, TimeLord systemtime, TaskManager taskmanager,MachinePool pool) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException ;
 }
