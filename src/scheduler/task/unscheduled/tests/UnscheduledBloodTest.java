@@ -18,11 +18,12 @@ import exceptions.InvalidResourceException;
 
 public class UnscheduledBloodTest extends UnscheduledMedicalTest
 {
-	public UnscheduledBloodTest(PatientFile p, HospitalDate currentSystemTime, UserManager userManager, MachinePool machinePool)
+	public UnscheduledBloodTest(PatientFile p, HospitalDate currentSystemTime, UserManager userManager, MachinePool machinePool,BloodAnalysis analysis)
 			throws InvalidResourceException, InvalidDurationException,
 			InvalidOccurencesException, InvalidAmountException,
 			InvalidHospitalDateException {
-		super(p, BloodAnalysis.DURATION, currentSystemTime, userManager, machinePool);
+		super(p, BloodAnalysis.DURATION, currentSystemTime, userManager, machinePool,analysis);
+		
 	}
 
 	@Override
@@ -43,5 +44,6 @@ public class UnscheduledBloodTest extends UnscheduledMedicalTest
 			}
 		}));
 		return curMachinePool;
+		
 	}
 }

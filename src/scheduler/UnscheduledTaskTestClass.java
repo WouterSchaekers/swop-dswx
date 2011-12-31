@@ -3,6 +3,7 @@ package scheduler;
 import java.util.LinkedList;
 import patient.PatientFile;
 import scheduler.task.Schedulable;
+import scheduler.task.scheduled.ScheduledTask;
 import scheduler.task.unscheduled.UnscheduledTask;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
@@ -67,5 +68,11 @@ public class UnscheduledTaskTestClass extends UnscheduledTask
 	@Override
 	public HospitalDate getFirstSchedulingDateSince(HospitalDate hospitalDate) {
 		return hospitalDate;
+	}
+
+	@Override
+	public void setScheduled(ScheduledTask task) {
+		// TODO Auto-generated method stub
+		
 	}
 }

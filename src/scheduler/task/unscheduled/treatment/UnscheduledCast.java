@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import patient.Diagnose;
 import patient.PatientFile;
 import scheduler.HospitalDate;
-import treatment.Cast;
+import treatment.Treatment;
 import users.UserManager;
 import warehouse.Warehouse;
 import exceptions.InvalidAmountException;
@@ -16,7 +16,6 @@ import exceptions.InvalidResourceException;
 public class UnscheduledCast extends UnscheduledTreatment
 {
 	private Warehouse warehouse;
-	private Cast cast;
 
 	/**
 	 * @param p
@@ -31,17 +30,17 @@ public class UnscheduledCast extends UnscheduledTreatment
 	 * @throws InvalidHospitalDateException
 	 */
 	public UnscheduledCast(PatientFile p, Diagnose diagnose,
-			HospitalDate systemTime, Cast cast, UserManager userManager,
+			HospitalDate systemTime, Treatment cast, UserManager userManager,
 			Warehouse warehouse) throws InvalidResourceException,
 			InvalidDurationException, InvalidOccurencesException,
 			InvalidAmountException, InvalidHospitalDateException {
-		super(p, diagnose, 2 * HospitalDate.ONE_HOUR, systemTime, userManager);
-		this.cast = cast;
+		super(p, diagnose, 2 * HospitalDate.ONE_HOUR, systemTime, userManager,cast);
+
 		this.warehouse = warehouse;
 	}
 
-	public Cast getCast() {
-		return cast;
+	public Treatment getCast() {
+		return getMytreatment();
 	}
 
 	@Override
@@ -55,4 +54,6 @@ public class UnscheduledCast extends UnscheduledTreatment
 		rv.add(1);
 		return rv;
 	}
+
+
 }

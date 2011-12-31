@@ -5,7 +5,9 @@ import patient.Diagnose;
 import patient.PatientFile;
 import scheduler.HospitalDate;
 import scheduler.task.Schedulable;
+import scheduler.task.scheduled.ScheduledTask;
 import scheduler.task.unscheduled.UnscheduledTask;
+import treatment.Treatment;
 import users.UserManager;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
@@ -17,14 +19,16 @@ public abstract class UnscheduledTreatment extends UnscheduledTask
 {
 	private UserManager userManager;
 	private Diagnose diagnose;
+	private final Treatment mytreatment;
 
 	public UnscheduledTreatment(PatientFile p, Diagnose diagnose,
-			long duration, HospitalDate systemTime, UserManager userManager) throws InvalidResourceException,
+			long duration, HospitalDate systemTime, UserManager userManager,Treatment treatment) throws InvalidResourceException,
 			InvalidDurationException, InvalidOccurencesException,
 			InvalidAmountException, InvalidHospitalDateException {
 		super(p, duration, systemTime, HospitalDate.ONE_HOUR, true);
 		this.diagnose = diagnose;
 		this.userManager = userManager;
+		this.mytreatment = treatment;
 	}
 
 	@Override
@@ -46,4 +50,15 @@ public abstract class UnscheduledTreatment extends UnscheduledTask
 	public HospitalDate getFirstSchedulingDateSince(HospitalDate hospitalDate){
 		return hospitalDate;
 	}
+
+	public Treatment getMytreatment() {
+		return mytreatment;
+	}
+	@Override
+	public void setScheduled(ScheduledTask task)
+	{
+		this.mytreatment.setScheduled(task);
+	}
+	
+
 }

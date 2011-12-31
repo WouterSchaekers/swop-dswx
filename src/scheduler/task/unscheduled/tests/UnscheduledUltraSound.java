@@ -6,9 +6,11 @@ import java.util.LinkedList;
 import machine.MachinePool;
 import machine.UltraSoundScanner;
 import medicaltest.BloodAnalysis;
+import medicaltest.UltraSoundScan;
 import patient.PatientFile;
 import scheduler.HospitalDate;
 import scheduler.task.Schedulable;
+import scheduler.task.scheduled.ScheduledTask;
 import users.UserManager;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
@@ -18,11 +20,11 @@ import exceptions.InvalidResourceException;
 
 public class UnscheduledUltraSound extends UnscheduledMedicalTest
 {
-	public UnscheduledUltraSound(PatientFile p, HospitalDate currentSystemTime, UserManager userManager, MachinePool machinePool)
+	public UnscheduledUltraSound(PatientFile p, HospitalDate currentSystemTime, UserManager userManager, MachinePool machinePool,UltraSoundScan ultraSoundScan)
 			throws InvalidResourceException, InvalidDurationException,
 			InvalidOccurencesException, InvalidAmountException,
 			InvalidHospitalDateException {
-		super(p, BloodAnalysis.DURATION, currentSystemTime, userManager, machinePool);
+		super(p, BloodAnalysis.DURATION, currentSystemTime, userManager, machinePool,ultraSoundScan);
 	}
 
 	@Override
@@ -42,5 +44,11 @@ public class UnscheduledUltraSound extends UnscheduledMedicalTest
 			}
 		}));
 		return curMachinePool;
+	}
+
+	@Override
+	public void setScheduled(ScheduledTask task) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -9,6 +9,7 @@ import patient.Diagnose;
 import patient.PatientFile;
 import scheduler.HospitalDate;
 import scheduler.task.Schedulable;
+import treatment.Surgery;
 import users.UserManager;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
@@ -34,10 +35,10 @@ public class UnscheduledSurgery extends UnscheduledTreatment
 	 */
 	public UnscheduledSurgery(PatientFile p, Diagnose diagnose,
 			HospitalDate systemTime, UserManager userManager,
-			MachinePool machinePool) throws InvalidResourceException,
+			MachinePool machinePool,Surgery surgery) throws InvalidResourceException,
 			InvalidDurationException, InvalidOccurencesException,
 			InvalidAmountException, InvalidHospitalDateException {
-		super(p, diagnose, 3 * HospitalDate.ONE_HOUR, systemTime, userManager);
+		super(p, diagnose, 3 * HospitalDate.ONE_HOUR, systemTime, userManager,surgery);
 		this.machinePool = machinePool;
 	}
 	
@@ -63,5 +64,4 @@ public class UnscheduledSurgery extends UnscheduledTreatment
 		LinkedList<Integer> rv = new LinkedList<Integer>();
 		rv.add(1);
 		return rv;
-	}
-}
+	}}

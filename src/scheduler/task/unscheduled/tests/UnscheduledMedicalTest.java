@@ -2,9 +2,11 @@ package scheduler.task.unscheduled.tests;
 
 import java.util.LinkedList;
 import machine.MachinePool;
+import medicaltest.MedicalTest;
 import patient.PatientFile;
 import scheduler.HospitalDate;
 import scheduler.task.Schedulable;
+import scheduler.task.scheduled.ScheduledTask;
 import scheduler.task.unscheduled.UnscheduledTask;
 import users.UserManager;
 import exceptions.InvalidAmountException;
@@ -17,9 +19,10 @@ public abstract class UnscheduledMedicalTest extends UnscheduledTask
 {
 	private UserManager userManager;
 	protected MachinePool machinePool;
+	private MedicalTest analysis;
 
 	public UnscheduledMedicalTest(PatientFile p, long duration,
-			HospitalDate currentSystemTime, UserManager userManager, MachinePool machinePool)
+			HospitalDate currentSystemTime, UserManager userManager, MachinePool machinePool, MedicalTest analysis)
 			throws InvalidResourceException, InvalidDurationException,
 			InvalidOccurencesException, InvalidAmountException,
 			InvalidHospitalDateException {
@@ -27,6 +30,7 @@ public abstract class UnscheduledMedicalTest extends UnscheduledTask
 				true);
 		this.userManager = userManager;
 		this.machinePool = machinePool;
+		this.analysis=analysis;
 	}
 	
 	@Override
@@ -57,4 +61,9 @@ public abstract class UnscheduledMedicalTest extends UnscheduledTask
 	}
 	
 	protected abstract LinkedList<Schedulable> getMachinePool();
+
+	@Override
+	public void setScheduled(ScheduledTask task) {
+		this.analysis.setScheduledTask(task);		
+	}
 }

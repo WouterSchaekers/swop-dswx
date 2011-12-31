@@ -6,9 +6,11 @@ import java.util.LinkedList;
 import machine.MachinePool;
 import machine.XRayScanner;
 import medicaltest.BloodAnalysis;
+import medicaltest.XRayScan;
 import patient.PatientFile;
 import scheduler.HospitalDate;
 import scheduler.task.Schedulable;
+import scheduler.task.scheduled.ScheduledTask;
 import users.UserManager;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
@@ -19,12 +21,12 @@ import exceptions.InvalidResourceException;
 public class UnscheduledXRayScan extends UnscheduledMedicalTest
 {
 	public UnscheduledXRayScan(PatientFile p, HospitalDate currentSystemTime,
-			UserManager userManager, MachinePool machinePool)
+			UserManager userManager, MachinePool machinePool,XRayScan analysis)
 			throws InvalidResourceException, InvalidDurationException,
 			InvalidOccurencesException, InvalidAmountException,
 			InvalidHospitalDateException {
 		super(p, BloodAnalysis.DURATION, currentSystemTime, userManager,
-				machinePool);
+				machinePool, analysis);
 	}
 
 	@Override
@@ -50,5 +52,11 @@ public class UnscheduledXRayScan extends UnscheduledMedicalTest
 					}
 				}));
 		return curMachinePool;
+	}
+
+	@Override
+	public void setScheduled(ScheduledTask task) {
+		// TODO Auto-generated method stub
+		
 	}
 }
