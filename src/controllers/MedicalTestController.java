@@ -18,8 +18,6 @@ public class MedicalTestController
 
 	private LoginController logincontroller;
 	private PatientFileOpenController patientFileOpenController;
-	private DataPasser datapasser;
-
 	/**
 	 * Default constructor.
 	 * 
@@ -46,7 +44,6 @@ public class MedicalTestController
 			throw new InvalidPatientFileException();
 		this.logincontroller=lc;
 		this.patientFileOpenController=cpf;
-		this.datapasser=dp;
 		
 	}
 

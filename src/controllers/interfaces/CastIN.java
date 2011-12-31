@@ -1,5 +1,6 @@
 package controllers.interfaces;
 
-public interface TreatmentIN
+public interface CastIN
 {
+
 }
