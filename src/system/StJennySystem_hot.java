@@ -14,6 +14,7 @@ import exceptions.UserAlreadyExistsException;
 public class StJennySystem_hot
 {
 	 static StJennySystem_hot instance;
+	private static boolean extendd;
 	 final HospitalState state;
 	public static StJennySystem_hot instance() throws InvalidTimeLordException
 	{
@@ -29,11 +30,8 @@ public class StJennySystem_hot
 		this.state=new HospitalState();
 		try {
 			state.userManager.createHospitalAdmin("Wouter");
-			state.userManager.createNurse("jenny");
-			state.userManager.createDoctor("stef");
-	state.userManager.createDoctor("abra");
-	state.machinePool.addMachine(state.machinePool.createUltraSoundScanner(234, "jonathan"));
-			state.patientFileManager.registerPatient("jos");
+			if(extendd)
+				extraInfo();
 		} catch (UserAlreadyExistsException e) {
 			System.out.println("Fatal error at system startup, Wouter already exists.");
 		} catch (InvalidNameException e) {
@@ -44,12 +42,23 @@ public class StJennySystem_hot
 		} catch (InvalidLocationException e) {
 		}
 	}
+	private void extraInfo() throws UserAlreadyExistsException,
+			InvalidNameException, InvalidTimeSlotException,
+			InvalidSerialException, InvalidLocationException {
+		state.userManager.createNurse("jenny");
+		state.userManager.createDoctor("stef");
+		state.userManager.createDoctor("abra");
+		state.machinePool.addMachine(state.machinePool.createUltraSoundScanner(234, "jonathan"));
+		state.patientFileManager.registerPatient("jos");
+	}
 	
 	public static void main(String[] args) throws InvalidTimeLordException {
+	if(args.length!=0)
+		if(args[0].equals("-e"))
+			StJennySystem_hot.extendd=true;
 	StJennySystem_hot t = StJennySystem_hot.instance();
 	UserinterfaceData data = new UserinterfaceData(new DataPasser(t.state.userManager,t.state.patientFileManager, t.state.scheduler,t.state.machinePool, t.state.taskManager,t.state.systemTime,t.state.warehouse));
 	UCHandler handler = new UCHandler(data);
-
 		handler.start();
 	
 	}
