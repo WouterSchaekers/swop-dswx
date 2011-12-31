@@ -1,5 +1,6 @@
 package medicaltest;
 
+import exceptions.FactoryInstantiationException;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidTimeSlotException;
@@ -92,10 +93,10 @@ public class XRayScanFactory extends MedicalTestFactory
 	@Override
 	public MedicalTest create() throws InvalidNameException,
 			InvalidDurationException, InvalidTimeSlotException,
-			FactoryInstantiation {
+			FactoryInstantiationException {
 		if (this.ready())
 			return new XRayScan(bodypart,num,zoomlevel);
-		throw new FactoryInstantiation();
+		throw new FactoryInstantiationException();
 	}
 
 }
