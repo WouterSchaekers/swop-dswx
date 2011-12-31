@@ -4,8 +4,8 @@ import help.Collections;
 import help.Filter;
 import java.util.LinkedList;
 import machine.MachinePool;
+import machine.XRayScanner;
 import medicaltest.BloodAnalysis;
-import medicaltest.XRayScan;
 import patient.PatientFile;
 import scheduler.HospitalDate;
 import scheduler.task.Schedulable;
@@ -18,15 +18,17 @@ import exceptions.InvalidResourceException;
 
 public class UnscheduledXRayScan extends UnscheduledMedicalTest
 {
-	public UnscheduledXRayScan(PatientFile p, HospitalDate currentSystemTime, UserManager userManager, MachinePool machinePool)
+	public UnscheduledXRayScan(PatientFile p, HospitalDate currentSystemTime,
+			UserManager userManager, MachinePool machinePool)
 			throws InvalidResourceException, InvalidDurationException,
 			InvalidOccurencesException, InvalidAmountException,
 			InvalidHospitalDateException {
-		super(p, BloodAnalysis.DURATION, currentSystemTime, userManager, machinePool);
+		super(p, BloodAnalysis.DURATION, currentSystemTime, userManager,
+				machinePool);
 	}
-	
+
 	@Override
-	public HospitalDate getFirstSchedulingDateSince(HospitalDate hospitalDate){
+	public HospitalDate getFirstSchedulingDateSince(HospitalDate hospitalDate) {
 		return this.patient.getFirstNewXRaySchedDate(hospitalDate);
 	}
 
@@ -36,16 +38,17 @@ public class UnscheduledXRayScan extends UnscheduledMedicalTest
 		rv.add(this.getMachinePool());
 		return rv;
 	}
-	
-	protected LinkedList<Schedulable> getMachinePool(){
+
+	protected LinkedList<Schedulable> getMachinePool() {
 		LinkedList<Schedulable> curMachinePool = new LinkedList<Schedulable>();
-		curMachinePool.addAll(Collections.filter(this.machinePool.getAllMachines(), new Filter()
-		{
-			@Override
-			public <T> boolean allows(T arg) {
-				return arg instanceof XRayScan;
-			}
-		}));
+		curMachinePool.addAll(Collections.filter(
+				this.machinePool.getAllMachines(), new Filter()
+				{
+					@Override
+					public <T> boolean allows(T arg) {
+						return arg instanceof XRayScanner;
+					}
+				}));
 		return curMachinePool;
 	}
 }
