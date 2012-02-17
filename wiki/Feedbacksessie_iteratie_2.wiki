@@ -1,0 +1,37 @@
+= Verslag =
+  * Interactiediagramma's missen.
+  * Relevante methodes op UML missen.
+  * De UML en de code stemmen op sommige plaatsen niet overeen met elkaar (vb: ScheduledTask wordt door geen enkele ander klasse geëxtend)
+  * Eclemma test report: code coverage veel te laag.
+
+= Design = 
+  * Warehouse:
+    * reserveItem() van Medication is nog niet geïmplementeerd.
+    * Ontwerp is niet echt optimaal: een aantal keer code duplicatie met MAX_UNITS_OF... . Gebruik een gepast design pattern.
+  * PatientFile:
+    * Er zijn create()-methodes die statisch zijn.
+    * Geen patientklasse. We zouden deze wel moeten aanmaken:
+      * Stel, er komt nieuwe data over de patient bij... waar ligt de grens van data in de pf bij te houden?
+      * Indien 1 patient naar 2 verschillende ziekenhuizen gaat is hij nog steeds dezelfde patient, maar heeft dan wel verschillende patientfiles.
+    * ScheduledTest-usecase: louche auto-complete constructies.
+    * PatientFile:
+      * canBeDischarged() is min of meer een heruitvinding van dynamic binding
+      * Diagnose en MedicalTest zitten in aparte Collections; afgeleide informatie.
+  * Read-only interfaces die overbodig zijn: schrappen of een grotere interface maken die veel 'lege' interfaces omvat.
+  * Documenteren van in welke eenheid de tijd op domeinniveau e.d. wordt gebruikt.
+  * Alles moet volledig defensief zijn (de eventuele genomen shortcuts door tijdsgebrek moeten dus op een degelijke manier gecode worden).
+  * set-methodes aanbieden en ze dan niet gebruiken? -> beter schrappen
+  * Medication setten gooit een exception...
+  * Machine: interne datastructuren mogen niet gelekt worden. (Collection van ScheduledTasks).
+  * Een klasse Hospital zou handig zijn. Zo kan er aan de controllers het hospital doorgegeven worden in plaats van een hele racem parameters. (DataBlob)
+  * PatientFileManager checkt de naam van een nieuwe PatientFile in plaats van de PatientFile dit zelf te laten doen (of in een toekomstig nieuw design: Patient?).
+  * StockProvider <=> Warehouse (de betekenis achter deze noot ontgaat me compleet)
+  * StockItem is nog steeds leeg. Deze moet gebruikt worden om code duplicatie zoals hierboven vermeld te vermijden.
+  * Result kan zonder geassociëerde MedicalTest of Treatment gecreëerd worden. Een ontwerp maken dat bepaalde Results typisch maakt aan hun respectievelijk bijhoorende ResultHaving.
+  * Exceptions die nogal vreemd lijken op niveau van de domeinlaag en toch nooit kunnen voorkomen mogen gecatcht worden met de nodige error output.
+  * Medication is momenteel een Treatment en een StockItem... maak er 2 verschillende klasses van.
+  * De MedicalTest of -Treatment bijhouden in diens van een bijhorende Scheduled- of UnscheduledTask.
+  * Diagnose heeft TaskManager als rechtstreekse listener; geen obs.
+
+= Mail =
+Zodra de opgave online staat, is het aangeraden een e-mailtje te sturen naar de vervangende project begeleider met daarin de vraag voor een minder zware opgave aangezien het groepje maar uit 3, in plaats van 4, leden bestaat.
