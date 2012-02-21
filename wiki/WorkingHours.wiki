@@ -73,3 +73,4 @@ Wouter: 149.3 - 87% <br>
 
 = Iteratie 3 =
 || *Timepoint* || *Members* || *Workload* || *Purpose* || *Comments* ||
+|| 21/2/11: 15u00 -> 16u30 || 2 SW || 1.5 || Create todo list && prioritise || Dieter had LAN-party en wou "uitmaffen".||
