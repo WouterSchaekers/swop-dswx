@@ -1,13 +1,13 @@
 == WareHouse ==
 
-Doel: </br>
-Zorgen dat alle warehouse items op 1 plaats kunnen bijgehouden worden, per warehouse item type moet er een limiet kunnen opgelegd worden. De plaats waar we deze info bijhouden lijkt me best in warehouse zelf.</br>
-</br>
-Nodig:</br>
+Doel: <br>
+Zorgen dat alle warehouse items op 1 plaats kunnen bijgehouden worden, per warehouse item type moet er een limiet kunnen opgelegd worden. De plaats waar we deze info bijhouden lijkt me best in warehouse zelf.<br>
+<br>
+Nodig:<br>
 
 
 1: WAREHOUSEITEMTYPE is dit een methode van warehouseitem?</br>
-[[[code]]]
+{{{
 WareHouseItem i = new SleepingTablet();
 
 \/\/Option one
@@ -19,4 +19,4 @@ i.getType(); \/\/ < geeft een int terug of iets van het type ItemType
              \/\/ dit lijkt nogal loos om daarvoor de inheritance tree te copieren
              \/\/ Mischien een string?
 
-[[[/code]]]  
+}}}
