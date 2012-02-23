@@ -1,7 +1,7 @@
 == WareHouse ==
 
 Doel: <br>
-Zorgen dat alle warehouse items op 1 plaats kunnen bijgehouden worden, per warehouse item type moet er een limiet kunnen opgelegd worden. De plaats waar we deze info bijhouden lijkt me best in warehouse zelf.<br>
+Zorgen dat alle [WareHouseItem]s op 1 plaats kunnen bijgehouden worden, per warehouse item type moet er een limiet kunnen opgelegd worden. De plaats waar we deze info bijhouden lijkt me best in warehouse zelf.<br>
 <br>
 Nodig:<br>
 
