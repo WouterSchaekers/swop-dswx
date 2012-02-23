@@ -1,0 +1,22 @@
+== WareHouse ==
+
+Doel: \\
+Zorgen dat alle warehouse items op 1 plaats kunnen bijgehouden worden, per warehouse item type moet er een limiet kunnen opgelegd worden. De plaats waar we deze info bijhouden lijkt me best in warehouse zelf.\\
+\\
+Nodig:\\
+
+
+1: WAREHOUSEITEMTYPE is dit een methode van warehouseitem? \\
+[[[code]]]
+WareHouseItem i = new SleepingTablet();
+
+\/\/Option one
+
+i.getClass(); \/\/  Voordeel dat het altijd uniek is.
+
+i.getType(); \/\/ < geeft een int terug of iets van het type ItemType
+             \/\/ <voordeel dat het meer vrijheid geeft aan de itemtypes maar dit 
+             \/\/ dit lijkt nogal loos om daarvoor de inheritance tree te copieren
+             \/\/ Mischien een string?
+
+[[[/code]]]  
