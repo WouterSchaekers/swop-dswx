@@ -12,11 +12,11 @@ WareHouseItem i = new SleepingTablet();
 
 //Option one
 
-i.getClass(); \/\/  Voordeel dat het altijd uniek is.
+i.getClass();//  Voordeel dat het altijd uniek is.
 
-i.getType(); \/\/ < geeft een int terug of iets van het type ItemType
-             \/\/ <voordeel dat het meer vrijheid geeft aan de itemtypes maar dit 
-             \/\/ dit lijkt nogal loos om daarvoor de inheritance tree te copieren
-             \/\/ Mischien een string?
+i.getType(); // < geeft een int terug of iets van het type ItemType
+             // <voordeel dat het meer vrijheid geeft aan de itemtypes maar dit 
+             // dit lijkt nogal loos om daarvoor de inheritance tree te copieren
+             // Mischien een string?
 
 }}}
