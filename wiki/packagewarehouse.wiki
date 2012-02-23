@@ -1,0 +1,4 @@
+Alle klassen die in het package warehouse zitten en belangrijk zijn:<br>
+
+[WareHouse] : de klasse die alle WareHouseItemsBijhou
+[WareHouseItem] : de abstracte klasse die een warehouse item voorsteld
