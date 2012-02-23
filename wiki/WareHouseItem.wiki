@@ -1,0 +1,3 @@
+== WareHouseItem ==
+
+Heeft deze een methode getItemType nodig?
