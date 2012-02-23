@@ -1,3 +1,5 @@
 == WareHouseItem ==
 
+Wordt bevat en gemanaged door [WareHouse] . 
+
 Heeft deze een methode getItemType nodig?
