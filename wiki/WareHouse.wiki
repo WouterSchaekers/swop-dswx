@@ -10,7 +10,7 @@ Nodig:<br>
 {{{
 WareHouseItem i = new SleepingTablet();
 
-\/\/Option one
+//Option one
 
 i.getClass(); \/\/  Voordeel dat het altijd uniek is.
 
