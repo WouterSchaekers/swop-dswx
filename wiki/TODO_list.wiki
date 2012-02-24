@@ -11,6 +11,7 @@ zie de feedbacksessie van iteratie 2.
 == TODOs ==
   * documentatie
     * Schedulable doc: updateTimeTable dient voor advance time, niet om een Schedulable een nieuwe time table toe te wijzen of iets dergelijks..
+    * create dummy date in Nurse
     * ...
 = Wie is er momenteel waaraan bezig? =
 <p>
