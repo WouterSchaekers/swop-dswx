@@ -49,7 +49,7 @@ public class UserManager
 	public Nurse createNurse(String string) throws UserAlreadyExistsException,
 			InvalidNameException, InvalidTimeSlotException {
 		Nurse newUser = new Nurse(string);
-		AddUser(newUser);
+		addUser(newUser);
 		return newUser;
 	}
 
@@ -59,7 +59,7 @@ public class UserManager
 			throws UserAlreadyExistsException, InvalidNameException {
 		WarehouseAdmin newUser = new WarehouseAdmin(string, warehouse,
 				stockProvider, patientFileManager);
-		AddUser(newUser);
+		addUser(newUser);
 		return newUser;
 	}
 
@@ -78,7 +78,7 @@ public class UserManager
 			throws UserAlreadyExistsException, InvalidNameException,
 			InvalidTimeSlotException {
 		HospitalAdmin newUser = new HospitalAdmin(string);
-		AddUser(newUser);
+		addUser(newUser);
 		return newUser;
 	}
 
@@ -96,7 +96,7 @@ public class UserManager
 	public Doctor createDoctor(String name) throws UserAlreadyExistsException,
 			InvalidNameException, InvalidTimeSlotException {
 		Doctor newUser = new Doctor(name);
-		AddUser(newUser);
+		addUser(newUser);
 		return newUser;
 	}
 
@@ -132,7 +132,7 @@ public class UserManager
 	 * @param newUser
 	 * @throws UserAlreadyExistsException
 	 */
-	private void AddUser(User newUser) throws UserAlreadyExistsException {
+	private void addUser(User newUser) throws UserAlreadyExistsException {
 		if (users.contains(newUser))
 			throw new UserAlreadyExistsException(newUser.name);
 		this.users.add(newUser);
