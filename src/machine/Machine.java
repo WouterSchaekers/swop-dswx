@@ -24,6 +24,7 @@ public abstract class Machine implements Schedulable
 	private String location = "";
 	private TimeTable timeTable;
 	protected Collection<ScheduledTask> scheduledTasks;
+	
 	/**
 	 * Default constructor.
 	 * 
@@ -85,14 +86,17 @@ public abstract class Machine implements Schedulable
 		return this.getTimeTable().getFirstFreeSlotBetween(startDate, stopDate, duration);
 	}
 	
+	@Override
 	public void updateTimeTable(HospitalDate newDate){
 		this.timeTable.updateTimeTable(newDate);
 	}
 	
+	@Override
 	public Collection<ScheduledTask> getScheduledTasks(){
 		return this.scheduledTasks;
 	}
 	
+	@Override
 	public void addScheduledTask(ScheduledTask scheduledTask){
 		this.scheduledTasks.add(scheduledTask);
 	}
