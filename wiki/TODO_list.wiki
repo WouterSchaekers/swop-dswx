@@ -1,13 +1,22 @@
-= TODOs =
+= TODOs left over from iteration 2 =
   * Treatment factory (optional)
   * Documentatie schrijven (optional)
   * Meer code coverage (Junit!)
   * ScheduledTasks !!!!!!!!!!!!!!!!
+  * factories maken voor Medication & Machine.
+
+= TODOs starting iteration 3
+== FeedbackSession TODOs ==
+zie de feedbacksessie van iteratie 2.
+== TODOs ==
+  * documentatie
+    * Schedulable doc: updateTimeTable dient voor advance time, niet om een Schedulable een nieuwe time table toe te wijzen of iets dergelijks..
+    * ...
 = Wie is er momenteel waaraan bezig? =
 <p>
-Dieter: JUnit<p>
-Stefaan: ver slagen<p>
-Wouter: Laatste usecase hacken<p>
+Dieter: domain model<p>
+Stefaan: UML<p>
+Wouter: test scenarios<p>
 
 = Things that have been crossed off = 
   * Treatment Factories gemaakt en getest
@@ -36,6 +45,3 @@ Wouter: Laatste usecase hacken<p>
   * Bij unscheduled classes zorgen dat die requirements lazy gemaakt worden, (dit door de voorstelling van onze requirements :) )
   * Observers
   * Bidirectionele binding tussen TaskManager en Schedulable
-
-= Next Iteration =
-  * factories maken voor Medication & Machine.
