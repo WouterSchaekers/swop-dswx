@@ -9,7 +9,7 @@ import exceptions.InvalidTimeSlotException;
 
 public class Doctor extends SchedulableUser implements DoctorIN
 {
-	public Doctor(String name) throws InvalidNameException, InvalidTimeSlotException {
+	public Doctor(String name) throws InvalidNameException {
 		super(name);
 	}
 

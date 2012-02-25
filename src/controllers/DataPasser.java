@@ -1,10 +1,12 @@
 package controllers;
 
+import controllers.interfaces.HospitalStateI;
 import machine.MachinePool;
 import patient.PatientFileManager;
 import scheduler.Scheduler;
 import scheduler.TimeLord;
 import scheduler.task.TaskManager;
+import system.HospitalState;
 import users.UserManager;
 import users.WarehouseAdmin;
 import warehouse.Warehouse;
@@ -21,6 +23,7 @@ public class DataPasser
 	private TimeLord theDoctor;
 	private TaskManager taskmanager;
 	private Warehouse warehouse;
+	private HospitalState hospital;
 
 	/**
 	 * Default constructor.
@@ -34,6 +37,7 @@ public class DataPasser
 	 */
 	public DataPasser(UserManager userm, PatientFileManager pfm,
 			Scheduler scheduler,MachinePool machine,TaskManager taskmanager,TimeLord doctor,Warehouse warhouse) {
+		
 		this.userm = userm;
 		this.pfm = pfm;
 		this.scheduler = scheduler;
@@ -42,6 +46,15 @@ public class DataPasser
 		this.taskmanager=taskmanager;
 		this.theDoctor=doctor;
 		this.warehouse=warhouse;
+	}
+
+	public DataPasser(HospitalState hospital) {
+		this(hospital.userManager,hospital.patientFileManager,hospital.scheduler,hospital.machinePool,hospital.taskManager,hospital.systemTime,hospital.warehouse);
+		this.hospital = hospital;
+	}
+	public HospitalStateI hospital()
+	{
+		return hospital;
 	}
 
 	/**

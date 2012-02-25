@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidSerialException;
-import exceptions.InvalidTimeSlotException;
 import scheduler.HospitalDate;
 
 /**
@@ -50,11 +49,11 @@ public class MachinePool
 		}
 	}
 
-	public XRayScanner createXrayScanner(int serial, String location) throws InvalidSerialException, InvalidLocationException, InvalidTimeSlotException {
+	public XRayScanner createXrayScanner(int serial, String location) throws InvalidSerialException, InvalidLocationException {
 		this.alreadyContains(serial);
 		return new XRayScanner(serial, location);
 	}
-	public UltraSoundScanner createUltraSoundScanner(int serial,String location) throws InvalidSerialException, InvalidLocationException, InvalidTimeSlotException
+	public UltraSoundScanner createUltraSoundScanner(int serial,String location) throws InvalidSerialException, InvalidLocationException
 	{
 		this.alreadyContains(serial);
 		return new UltraSoundScanner(serial, location);
@@ -65,7 +64,7 @@ public class MachinePool
 				throw new InvalidSerialException();
 	}
 
-	public BloodAnalyser createBloodAnalyser(int serial, String location) throws InvalidSerialException, InvalidLocationException, InvalidTimeSlotException {
+	public BloodAnalyser createBloodAnalyser(int serial, String location) throws InvalidSerialException, InvalidLocationException {
 		alreadyContains(serial);
 		return new BloodAnalyser(serial, location);
 	}

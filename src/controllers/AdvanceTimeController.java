@@ -3,33 +3,28 @@ package controllers;
 import scheduler.HospitalDate;
 import scheduler.TimeLord;
 import users.HospitalAdmin;
+import users.User;
 import exceptions.InvalidLoginControllerException;
 
-public class AdvanceTimeController
+public class AdvanceTimeController extends NeedsLoginController
 {
 
-	private LoginController loginController;
 	private TimeLord	timelord;
 	public AdvanceTimeController(LoginController loginController, DataPasser data) throws InvalidLoginControllerException {
-		if(!isValidLoginController(loginController))
-			throw new InvalidLoginControllerException("");
-		this.loginController=loginController;
+		super(loginController);
 		timelord = data.getTimeLord();
 	}
 
-	private boolean isValidLoginController(LoginController loginController) {
-		if(loginController==null)
-			return false;
-		if(!(loginController.getUser() instanceof HospitalAdmin))
-			return false;
-		if(this.loginController!=null && this.loginController.equals(loginController))
-			return false;
-		return true;
-	}
+	
 
 	public void setNewSystemTime(HospitalDate hospitalDate) {
 		this.timelord.setSystemTime(hospitalDate);
 		
+	}
+
+	@Override
+	boolean validUser(User u) {
+		return u instanceof HospitalAdmin;
 	}
 
 }

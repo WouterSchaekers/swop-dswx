@@ -1,20 +1,20 @@
 package controllers;
 
 import java.util.Collection;
+import controllers.interfaces.HospitalStateI;
+import system.HospitalState;
+import users.HospitalAdmin;
+import users.User;
 import machine.MachineBuilder;
 import machine.MachinePool;
-import users.HospitalAdmin;
-import controllers.interfaces.UserIN;
 import exceptions.ControllerException;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidSerialException;
-import exceptions.InvalidTimeSlotException;
 
-public class AddHospitalEquipmentController
+public class AddHospitalEquipmentController extends NeedsLoginController
 {
 	MachinePool machinePool;
-	LoginController loginControler;
 
 	/**
 	 * Default constructor to add hospital equipment to the hospital system All
@@ -25,33 +25,16 @@ public class AddHospitalEquipmentController
 	 * @throws InvalidLoginControllerException
 	 */
 	public AddHospitalEquipmentController(LoginController loginController,
-			DataPasser passer) throws InvalidLoginControllerException {
-		if (!isValidLoginController(loginController))
-			throw new InvalidLoginControllerException("");
-		this.loginControler = loginController;
-		this.machinePool = passer.getMachinePool();
+			HospitalStateI state) throws InvalidLoginControllerException {
+		super(loginController);
+		this.machinePool = ((HospitalState) state).machinePool;
 
 	}
 
-	/**
-	 * Checks if the provided logingcontroller provides sufficient rights to
-	 * create/use this hospitalEquipementController
-	 * 
-	 * @param loginController
-	 * @return
-	 */
-	private boolean isValidLoginController(LoginController loginController) {
-		UserIN i = loginController.getUser();
-		if (i == null)
-			return false;
-		if (!(i instanceof HospitalAdmin))
-			return false;
-		if (this.loginControler == null)
-			return true;
-		else if (!this.loginControler.equals(loginController)) {
-			return false;
-		}
-		return true;
+	public AddHospitalEquipmentController(LoginController loginController,
+			DataPasser dataPasser) throws InvalidLoginControllerException {
+		super(loginController);
+		this.machinePool = dataPasser.getMachinePool();
 	}
 
 	public Collection<MachineBuilder> getAllMachines(
@@ -65,11 +48,17 @@ public class AddHospitalEquipmentController
 	public void createMachine(MachineBuilder b, int serial, String location,
 			LoginController loginController)
 			throws InvalidLoginControllerException, InvalidLocationException,
-			InvalidSerialException, InvalidTimeSlotException {
+			InvalidSerialException {
+		//TODO: remove invalid timeslot exception
 		if (!isValidLoginController(loginController))
 			throw new InvalidLoginControllerException("");
 		machinePool.addMachine(b.build(serial, location));
 
+	}
+	
+	@Override
+	boolean validUser(User u) {
+		return u instanceof HospitalAdmin;
 	}
 
 }

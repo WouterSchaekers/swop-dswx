@@ -7,7 +7,6 @@ import ui.UserinterfaceData;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidSerialException;
-import exceptions.InvalidTimeSlotException;
 
 public class BuildMachine extends AddHospitalEquipmentSuperClass
 {
@@ -44,8 +43,6 @@ public class BuildMachine extends AddHospitalEquipmentSuperClass
 			} catch (InvalidSerialException e) {
 				System.out.println("Invalid serial ");
 				return this;
-			} catch (InvalidTimeSlotException e) {
-
 			} catch (InvalidLoginControllerException e) {
 				System.out.println("Not allowed to do that sorry");
 				return new SelectUsecase(data);

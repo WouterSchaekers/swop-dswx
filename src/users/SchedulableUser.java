@@ -15,7 +15,7 @@ public abstract class SchedulableUser extends User implements Schedulable
 {
 	protected TimeTable timeTable = new TimeTable();
 	protected Collection<ScheduledTask> scheduledTasks;
-	protected SchedulableUser(String name) throws InvalidNameException, InvalidTimeSlotException {
+	protected SchedulableUser(String name) throws InvalidNameException {
 		super(name);
 		this.timeTable = new TimeTable();
 		this.scheduledTasks = new LinkedList<ScheduledTask>();

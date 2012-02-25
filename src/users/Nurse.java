@@ -28,8 +28,7 @@ public class Nurse extends SchedulableUser implements NurseIN
 	 * @throws InvalidNameException
 	 * @throws InvalidTimeSlotException
 	 */
-	public Nurse(String name) throws InvalidNameException,
-			InvalidTimeSlotException {
+	public Nurse(String name) throws InvalidNameException  {
 		super(name);
 	}
 

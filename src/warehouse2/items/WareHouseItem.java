@@ -9,5 +9,5 @@ public abstract class WareHouseItem
 	{
 		this._expiryDate = expiryDate.clone();
 	}
-	public abstract HospitalDate getExpiryDate();
+	public  HospitalDate getExpiryDate(){return _expiryDate;}
 }
