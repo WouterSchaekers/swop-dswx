@@ -2,7 +2,6 @@ package machine;
 
 import exceptions.InvalidLocationException;
 import exceptions.InvalidSerialException;
-import exceptions.InvalidTimeSlotException;
 
 public class BloodanalyserBuilder extends MachineBuilder
 {
@@ -15,7 +14,7 @@ public class BloodanalyserBuilder extends MachineBuilder
 		return "Blood analyzer";
 		
 	}
-	public Machine build(int serial,String location) throws InvalidLocationException, InvalidSerialException, InvalidTimeSlotException
+	public Machine build(int serial,String location) throws InvalidLocationException, InvalidSerialException
 	{
 		return pool.createBloodAnalyser(serial,location);
 	}

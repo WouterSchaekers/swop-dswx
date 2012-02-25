@@ -16,10 +16,10 @@ public class StandardWareHouseTest
 		return new SleepingTablet(new HospitalDate());
 	}
 	@Test
-	public void initTest()
+	public void initTest() throws WareHouseOverFlowException
 	{
 		WareHouse w = new StandardHospitalWareHouse();
-		
+		w.add(null);
 	}
 	@Test
 	public void addOneItem() throws WareHouseOverFlowException

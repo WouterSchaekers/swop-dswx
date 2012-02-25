@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import system.HospitalState;
 import users.User;
 import users.UserManager;
 import controllers.interfaces.UserIN;
@@ -31,6 +32,10 @@ public class LoginController
 		if (!isValidData(data))
 			throw new IllegalArgumentException("datapasser is invalid!");
 		this.um = data.getUserManager();
+	}
+
+	 LoginController(HospitalState hospital) {
+		this(new DataPasser(hospital));
 	}
 
 	/**

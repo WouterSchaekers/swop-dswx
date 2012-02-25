@@ -1,5 +1,6 @@
 package system;
 
+import controllers.interfaces.HospitalStateI;
 import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidTimeLordException;
 import machine.MachinePool;
@@ -10,7 +11,7 @@ import scheduler.task.TaskManager;
 import users.UserManager;
 import warehouse.Warehouse;
 
-public class HospitalState
+public class HospitalState implements HospitalStateI
 {
 	public final TimeLord systemTime;
 	public final UserManager userManager;
@@ -26,7 +27,8 @@ public class HospitalState
 	 * @throws InvalidTimeLordException 
 	 * @throws InvalidHospitalDateException 
 	 */
-	public HospitalState() throws InvalidTimeLordException, InvalidHospitalDateException {
+	public HospitalState()  {
+		try{
 		this.systemTime = new TimeLord();
 		this.userManager = new UserManager();
 		this.machinePool = new MachinePool();
@@ -34,6 +36,10 @@ public class HospitalState
 		this.scheduler = new Scheduler(this.systemTime);
 		this.taskManager = new TaskManager(this.scheduler);
 		this.warehouse=new Warehouse(systemTime.getSystemTime());
+		}catch(Exception e)
+		{
+			throw new Error();
+		}
 	}
 
 }

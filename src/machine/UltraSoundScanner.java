@@ -15,7 +15,7 @@ public class UltraSoundScanner extends Machine
 	 * @throws InvalidTimeSlotException 
 	 * */
 	UltraSoundScanner(int serial, String location)
-			throws InvalidLocationException, InvalidSerialException, InvalidTimeSlotException {
+			throws InvalidLocationException, InvalidSerialException {
 		super(serial, location);
 	}
 

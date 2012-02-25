@@ -36,8 +36,8 @@ public abstract class Machine implements Schedulable
 	 *		If the location provided is null or an empty string.
 	 * @throws InvalidTimeSlotException 
 	 */
-	Machine(int serial, String location)
-			throws InvalidLocationException, InvalidSerialException, InvalidTimeSlotException {
+	Machine(int serial, String location)// TODO : removed invalid timeslot exception
+			throws InvalidLocationException, InvalidSerialException {
 		if (location == null || location == "") {
 			throw new InvalidLocationException("Location is not set or empty.");
 		}

@@ -6,7 +6,7 @@ import exceptions.InvalidNameException;
 public class HospitalAdmin extends User implements HospitalAdminIN
 {
 
-	protected HospitalAdmin(String name) throws InvalidNameException {
+	public HospitalAdmin(String name) throws InvalidNameException {
 		super(name);
 	}
 

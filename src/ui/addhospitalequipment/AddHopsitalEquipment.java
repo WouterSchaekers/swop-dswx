@@ -24,7 +24,7 @@ public class AddHopsitalEquipment extends AddHospitalEquipmentSuperClass
 		AddHospitalEquipmentController c = null;
 		try {
 			 c = new AddHospitalEquipmentController(
-					data.getLoginController(), data.getDataPasser());
+					data.getLoginController(), data.getDataPasser().hospital());
 		} catch (InvalidLoginControllerException e) {
 			System.out.println("invalid login controller, user not logged in");
 			return new SelectUsecase(data);

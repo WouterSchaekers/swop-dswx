@@ -41,9 +41,9 @@ public class TimeTable
 	public TimeTable(TimeSlot... slots) throws InvalidTimeSlotException {
 		this(new LinkedList<TimeSlot>(Arrays.asList(slots)));
 	}
-
-	public TimeTable() throws InvalidTimeSlotException {
-		this(new LinkedList<TimeSlot>());
+	//TODO: consider replacing these with methods since you cant catch these exceptions =/
+	public TimeTable()  {
+		this.timeSlots = new LinkedList<TimeSlot>();
 	}
 
 	/**
