@@ -87,6 +87,7 @@ public class TaskManager extends Observable
 	 * 
 	 * @param t
 	 *            The task to add.
+	 * @return returns null if t can't be scheduled at this time.
 	 * @throws InvalidTimeSlotException
 	 * @throws InvalidSchedulingRequestException
 	 * @throws InvalidDurationException
@@ -104,8 +105,6 @@ public class TaskManager extends Observable
 			this.taskQueue.add(t);
 			return null;
 		} 
-
-
 	}
 
 	private ScheduledTask schedule(UnscheduledTask t)
