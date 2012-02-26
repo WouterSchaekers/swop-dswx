@@ -3,46 +3,30 @@ package controllers;
 import patient.PatientFile;
 import system.HospitalState;
 import users.Doctor;
-import users.HospitalAdmin;
+import users.User;
 import exceptions.DischargePatienException;
+import exceptions.InvalidHospitalStateException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileException;
-public class DischargePatientController
+import exceptions.InvalidPatientFileOpenController;
+public class DischargePatientController extends NeedsLoginAndPatientFileController
 {
 
-	private LoginController logincontroller;
-	public DischargePatientController(LoginController loginController,
-			PatientFileOpenController patienfile) throws InvalidLoginControllerException, InvalidPatientFileException {
-		if(!isValidLoginController(loginController))
-			throw new InvalidLoginControllerException("");
-		if(!isValidPatientFileOpenController(patienfile, loginController))
-			throw new InvalidPatientFileException();
-		this.logincontroller =loginController;
+	public DischargePatientController(HospitalState state,LoginController loginController,
+			PatientFileOpenController patienfile) throws InvalidLoginControllerException, InvalidPatientFileException, InvalidHospitalStateException, InvalidPatientFileOpenController {
+		super(state,loginController,patienfile	);
 	}
 
-	private boolean isValidPatientFileOpenController(
-			PatientFileOpenController patienfile,LoginController loginController) {
-		return patienfile.isValidLoginController(loginController);
-	}
-
-	private boolean isValidLoginController(LoginController loginController) {
-		if(loginController==null)
-			return false;
-		if(!(loginController.getUser()instanceof Doctor))
-			return false;
-		if(this.logincontroller!=null&&this.logincontroller.equals(loginController))
-			return false;
-		return true;
-		
-	}
 	
-	public void dischargePatient(LoginController loginc,PatientFileOpenController pfc,HospitalState hospitalState) throws InvalidLoginControllerException, InvalidPatientFileException, DischargePatienException
-	{
-		if(!isValidLoginController(loginc))
-			throw new InvalidLoginControllerException("");
-		if(!isValidPatientFileOpenController(pfc, loginc))
-			throw new InvalidPatientFileException();
+	public void dischargePatient(LoginController loginc,PatientFileOpenController pfc,HospitalState hospitalState) throws InvalidLoginControllerException, InvalidPatientFileException, DischargePatienException, InvalidPatientFileOpenController
+	{	
+		super.checkValidity(loginc, pfc);
 		hospitalState.getPatientFileManager().checkOut((PatientFile) pfc.getPatientFile());
 		
+	}
+
+	@Override
+	boolean validUser(User u) {
+		return u instanceof Doctor;
 	}
 }

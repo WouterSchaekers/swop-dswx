@@ -1,19 +1,19 @@
 package ui.listorders;
 
 import java.util.LinkedList;
+import system.HospitalState;
 import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
 import warehouse.StockOrder;
 import warehouse.StockProvider;
-import controllers.DataPasser;
 import controllers.ListOrdersController;
 import exceptions.InvalidCategoryNameException;
 import exceptions.InvalidLoginControllerException;
 
 public class ListOrders extends ListOrdersSuper
 {
-	DataPasser dataPasser;
+	HospitalState dataPasser;
 	public ListOrders(UserinterfaceData data) {
 		super(data);
 		dataPasser = data.getDataPasser();

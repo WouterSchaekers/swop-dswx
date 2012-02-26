@@ -57,7 +57,7 @@ public class StJennySystem_hot
 		if(args[0].equals("-e"))
 			StJennySystem_hot.extendd=true;
 	StJennySystem_hot t = StJennySystem_hot.instance();
-	UserinterfaceData data = new UserinterfaceData(new DataPasser(t.state.getUserManager(),t.state.getPatientFileManager(), t.state.getScheduler(),t.state.getMachinePool(), t.state.getTaskManager(),t.state.getSystemTime(),t.state.getWarehouse()));
+	UserinterfaceData data = null;//new UserinterfaceData(new DataPasser(t.state.getUserManager(),t.state.getPatientFileManager(), t.state.getScheduler(),t.state.getMachinePool(), t.state.getTaskManager(),t.state.getSystemTime(),t.state.getWarehouse()));
 	UCHandler handler = new UCHandler(data);
 		handler.start();
 	

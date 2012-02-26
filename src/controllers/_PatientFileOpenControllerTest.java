@@ -3,7 +3,7 @@ package controllers;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
-import test.DefaultHospital;
+import system.HospitalState;
 import users.Doctor;
 import users.Nurse;
 import users.UserManager;
@@ -13,23 +13,21 @@ import exceptions.InvalidNameException;
 import exceptions.InvalidTimeSlotException;
 import exceptions.UserAlreadyExistsException;
 
-public class PatientFileOpenControllerTest
+public class _PatientFileOpenControllerTest
 {
-	private DataPasser data;
+	private HospitalState data;
 	private UserManager um;
 	private PatientFileOpenController pfoc;
 	private LoginController lc;
 	private Doctor d;
 	private Nurse n;
 	private UserIN u;
-	DefaultHospital hospital;
+	HospitalState hospital;
 
 	@Before
 	public void setUp() throws Exception {
 		um = new UserManager();
-		hospital = new DefaultHospital();
-		this.data=new DataPasser(hospital.um, hospital.pfm, hospital.s, hospital.mp, hospital.tm, hospital.tl, null);
-
+		hospital = new HospitalState();
 	}
 
 	@Test

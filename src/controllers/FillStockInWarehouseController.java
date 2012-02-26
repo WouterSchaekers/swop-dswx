@@ -1,25 +1,25 @@
 package controllers;
 
+import system.HospitalState;
+import users.User;
 import users.WarehouseAdmin;
+import exceptions.InvalidHospitalStateException;
 import exceptions.InvalidLoginControllerException;
 
-public class FillStockInWarehouseController
+public class FillStockInWarehouseController extends NeedsLoginController
 {
 
-	private LoginController loginController;
-	public FillStockInWarehouseController(LoginController loginController,
-			DataPasser dataPasser) throws InvalidLoginControllerException {
-		if(!isValidLoginController(loginController))
-			throw new InvalidLoginControllerException("");
+	public FillStockInWarehouseController(HospitalState hospitalState,
+			LoginController controller) throws InvalidLoginControllerException,
+			InvalidHospitalStateException {
+		super(hospitalState, controller);
 	}
-	private boolean isValidLoginController(LoginController loginController) {
-		if(loginController==null)
-			return false;
-		if(!(loginController.getUser() instanceof WarehouseAdmin))
-			return false;
-		if(this.loginController!=null && this.loginController.equals(loginController))
-			return false;
-		return true;
+
+	@Override
+	boolean validUser(User u) {
+		return u instanceof WarehouseAdmin;
 	}
+
+	
 
 }
