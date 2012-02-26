@@ -19,6 +19,7 @@ public abstract class NeedsLoginController extends MasterController
 		else
 			throw new InvalidLoginControllerException("");
 	}
+	
 	/**
 	 * Checks if the provided logingcontroller provides sufficient rights to
 	 * create/use this hospitalEquipementController

@@ -2,34 +2,35 @@ package controllers;
 
 import java.util.Collection;
 import medicaltest.MedicalTest;
+import system.HospitalState;
 import users.Nurse;
+import users.Doctor;
+import users.User;
+import exceptions.InvalidHospitalStateException;
 import exceptions.InvalidLoginControllerException;
+import exceptions.InvalidPatientFileOpenController;
 
-public class EnterMedicaltestResultController
+public class EnterMedicaltestResultController extends
+		NeedsLoginAndPatientFileController
 {
-	LoginController logincontroller;
-	public EnterMedicaltestResultController(LoginController loginController,
-			DataPasser dataPasser) throws InvalidLoginControllerException {
-		if(!isValidLoginController(loginController))
-			throw new InvalidLoginControllerException("");
-		this.logincontroller=loginController;
+	public EnterMedicaltestResultController(HospitalState state,
+			LoginController loginController, PatientFileOpenController pfoc)
+			throws InvalidLoginControllerException,
+			InvalidHospitalStateException, InvalidPatientFileOpenController {
+		super(state, loginController, pfoc);
 	}
-	private boolean isValidLoginController(LoginController loginController2) {
-		if(loginController2==null)
-			return false;
-		if(logincontroller!=null&&!logincontroller.equals(loginController2))
-			return false;
-		if(loginController2.getUser()==null)
-			return false;
-		if(!(loginController2.getUser() instanceof Nurse))
-			return false;
-		
-		return true;
-	}
-	public Collection<MedicalTest> allMedicalTests(LoginController loginController2) {
-		
+
+	public Collection<MedicalTest> allMedicalTests(
+			LoginController loginController2,PatientFileOpenController patientFile) throws InvalidLoginControllerException, InvalidPatientFileOpenController {
+		checkValidity(loginController2, patientFile);
+
 		return null;
-		
+
+	}
+
+	@Override
+	boolean validUser(User u) {
+		return u instanceof Doctor;
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.Collection;
 import patient.PatientFile;
 import scheduler.task.scheduled.Appointment;
 import scheduler.task.unscheduled.UnscheduledAppointment;
+import system.HospitalState;
 import users.Doctor;
 import users.Nurse;
 import users.User;
@@ -15,6 +16,8 @@ import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidHospitalDateArgument;
 import exceptions.InvalidHospitalDateException;
+import exceptions.InvalidHospitalStateException;
+import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidOccurencesException;
 import exceptions.InvalidRequirementException;
@@ -23,23 +26,20 @@ import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidTimeSlotException;
 import exceptions.QueueException;
 
-public class RegisterPatientController
+
+//TODO: check usecase register patient
+public class RegisterPatientController extends NeedsLoginController
 {
-	PatientFile openPatientFile;
-	DataPasser dataPasser;
 
 	public RegisterPatientController(LoginController loginController,
-			DataPasser dataPasser) {
-		if (!(loginController.getUser() instanceof Nurse)) {
-			throw new IllegalArgumentException(loginController.getUser()
-					.getName() + " is not a Nurse.");
-		}
-		this.dataPasser = dataPasser;
+			HospitalState state) throws InvalidLoginControllerException, InvalidHospitalStateException {
+		super(state,loginController);
 	}
 
-	public Collection<PatientFileIN> getAllPatients() {
+	public Collection<PatientFileIN> getAllPatients(LoginController loginc) throws InvalidLoginControllerException {
+		checkValidity(loginc);
 		Collection<PatientFileIN> RV = new ArrayList<PatientFileIN>();
-		for (PatientFile file : dataPasser.getPatientFileManager()
+		for (PatientFile file : hospitalState.getPatientFileManager()
 				.getAllPatientFiles())
 			RV.add(file);
 		return RV;
@@ -47,48 +47,31 @@ public class RegisterPatientController
 
 	public void registerPatient(PatientFileIN file) {
 		PatientFile f;
-			
 		if(file instanceof PatientFile)
 			f=(PatientFile)file;
 		else
 			throw new IllegalArgumentException(file + " is not a valid patientfile");
 		
-		this.dataPasser.getPatientFileManager().checkIn(f);
-		this.openPatientFile = f;
+		this.hospitalState.getPatientFileManager().checkIn(f);
 	}
 
 	public AppointmentIN CreateAppointMent(UserIN user,
-			PatientFileIN pfile, DataPasser data) throws InvalidTimeSlotException, InvalidSchedulingRequestException, InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidRequirementException, InvalidAmountException, InvalidHospitalDateException, QueueException, InvalidHospitalDateArgument {
-		User u;
-		PatientFile f;
-		if(user instanceof User)
-			u=(User)user;
-		else
-			throw new IllegalArgumentException();
-		if(pfile instanceof PatientFile)
-			f=(PatientFile)pfile;
-		else
-			throw new IllegalArgumentException();
-		
-			
-		if (u == null || f == null)
-			throw new IllegalArgumentException("null objects are illegal");
-		if (!(u instanceof Doctor))
-			throw new IllegalArgumentException(u.getName()
-					+ "is not a doctor");
-		if (this.openPatientFile == null)
-			throw new IllegalStateException(
-					"No patientfile has been opened yet");
-		if (f.isDischarged())
-			throw new IllegalArgumentException(f.getName()
-					+ " is not checked in");
-		return new Appointment(dataPasser.getTaskmanager().addTask(new UnscheduledAppointment((PatientFile)pfile,(Doctor)u,dataPasser.getTimeLord().getSystemTime())));
-		
+			PatientFileOpenController  pfile, HospitalState state,LoginController loginc) throws InvalidLoginControllerException{
+	checkValidity(loginc);
+	//TODO fix this shit ffs
+	//	return new Appointment(hospitalState.getTaskManager().addTask(new UnscheduledAppointment((PatientFile)pfile.getPatientFile(),loginControler.getu,dataPasser.getTimeLord().getSystemTime())));
+		return null;
 	}
 
-	public void createNewPatient(DataPasser dataPasser2, String name) throws InvalidNameException {
+	public void createNewPatient(HospitalState dataPasser2, String name) throws InvalidNameException {
 		dataPasser2.getPatientFileManager().registerPatient(name);
 
+	}
+
+	@Override
+	boolean validUser(User u) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

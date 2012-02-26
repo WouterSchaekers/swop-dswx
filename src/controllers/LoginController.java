@@ -28,15 +28,13 @@ public class LoginController
 	 * @throws IllegalArgumentException
 	 *             if (!isValidData(data))
 	 */
-	public LoginController(DataPasser data) throws IllegalArgumentException {
+	public LoginController(HospitalState data) throws IllegalArgumentException {
 		if (!isValidData(data))
 			throw new IllegalArgumentException("datapasser is invalid!");
 		this.um = data.getUserManager();
 	}
 
-	 LoginController(HospitalState hospital) {
-		this(new DataPasser(hospital));
-	}
+
 
 	/**
 	 * This method checks if data is a valid datapasser for the logincontroller.
@@ -45,7 +43,7 @@ public class LoginController
 	 *            The data to check
 	 * @return False if data == null || data.getUserManager() == null
 	 */
-	private boolean isValidData(DataPasser data) {
+	private boolean isValidData(HospitalState data) {
 		return !(data == null || data.getUserManager() == null);
 	}
 

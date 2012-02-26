@@ -3,6 +3,7 @@ package controllers;
 import java.util.ArrayList;
 import java.util.Collection;
 import patient.PatientFile;
+import system.HospitalState;
 import users.Doctor;
 import controllers.interfaces.DoctorIN;
 import controllers.interfaces.PatientFileIN;
@@ -11,11 +12,11 @@ import exceptions.InvalidLoginControllerException;
 
 public class PatientFileOpenController
 {
-	DataPasser data;
+	HospitalState data;
 	DoctorIN doctor;
 	LoginController lc;
 
-	public PatientFileOpenController(DataPasser data,
+	public PatientFileOpenController(HospitalState data,
 			LoginController loginController)
 			throws InvalidLoginControllerException {
 		this.data = data;

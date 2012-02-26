@@ -44,6 +44,7 @@ public class _AddHospitalEquipmentTest
 		loginController.logIn(Doctor);
 		addHospitalEquipmentController = new AddHospitalEquipmentController(loginController, hospital);		
 	}
+	
 	@Test
 	public void authenticationTest3() throws InvalidLoginControllerException, InvalidHospitalStateException {
 		loginController.logIn(hospitad);

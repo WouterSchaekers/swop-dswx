@@ -8,7 +8,7 @@ package controllers;
 //import scheduler.Scheduler;
 //import users.*;
 
-public class LoginControllerTests
+public class _LoginControllerTests
 {
 //	UserManager um;
 //	LoginController lc;

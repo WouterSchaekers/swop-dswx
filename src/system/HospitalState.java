@@ -11,7 +11,7 @@ import scheduler.task.TaskManager;
 import users.UserManager;
 import warehouse.Warehouse;
 
-public class HospitalState implements HospitalStateI
+public class HospitalState 
 {
 	private final UserManager userManager;
 	private final MachinePool machinePool;
