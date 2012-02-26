@@ -2,16 +2,19 @@ package controllers;
 
 import patient.PatientFile;
 import patient.PatientFileManager;
+import system.HospitalState;
 import users.Nurse;
+import users.User;
+import exceptions.InvalidHospitalStateException;
+import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidNameException;
 
 /**
  * This class is used to register and check in patients in the hospital.
  */
-public class CheckinController extends SuperController
+public class CheckinController extends NeedsLoginController
 {
 	private PatientFileManager pfm = null; // the pfm for this checkincontroller
-
 	/**
 	 * Default constructor.
 	 * 
@@ -19,13 +22,12 @@ public class CheckinController extends SuperController
 	 *            The logincontroller for this checkincontroller.
 	 * @param pfm
 	 *            The patientfilemanager for this checkincontroller.
+	 * @throws InvalidLoginControllerException 
+	 * @throws InvalidHospitalStateException 
 	 */
-	public CheckinController(LoginController lc, PatientFileManager pfm) {
-		super(lc);
-		if (!(lc.getUser() instanceof Nurse))
-			throw new IllegalArgumentException(
-					"User registering the patient is not a nurse!");
-		this.pfm = pfm;
+	public CheckinController(LoginController lc, HospitalState hospitalState) throws InvalidLoginControllerException, InvalidHospitalStateException {
+		super(hospitalState, lc);
+		this.pfm = hospitalState.getPatientFileManager();
 	}
 
 	/**
@@ -47,6 +49,12 @@ public class CheckinController extends SuperController
 	 */
 	public PatientFile signUpNewPatient(String name) throws InvalidNameException {
 		return pfm.registerPatient(name);
+	}
+
+	@Override
+	boolean validUser(User u) {
+		return u instanceof Nurse;
+		//TODO: Check if correct
 	}
 
 }

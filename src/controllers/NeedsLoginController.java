@@ -1,14 +1,19 @@
 package controllers;
 
+import org.hamcrest.core.IsInstanceOf;
+import system.HospitalState;
+import ui.login.Login;
 import users.User;
+import exceptions.InvalidHospitalStateException;
 import exceptions.InvalidLoginControllerException;
 
-public abstract class NeedsLoginController
+public abstract class NeedsLoginController extends MasterController
 {
 
 	protected LoginController loginControler;
-	public NeedsLoginController(LoginController controller) throws InvalidLoginControllerException
+	public NeedsLoginController(HospitalState hospitalState, LoginController controller) throws InvalidLoginControllerException, InvalidHospitalStateException
 	{
+		super(hospitalState);
 		if(isValidLoginController(controller))
 			this.loginControler=controller;
 		else
@@ -35,5 +40,10 @@ public abstract class NeedsLoginController
 		return true;
 	}
 	abstract boolean validUser(User u);
+	
+	void checkValidity(LoginController loginc) throws InvalidLoginControllerException{
+		if(!isValidLoginController(loginc))
+			throw new InvalidLoginControllerException("abra");
+	}
 	
 }
