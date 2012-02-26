@@ -60,6 +60,8 @@ public class _AddHospitalEquipmentTest
 			break;
 		}
 		addHospitalEquipmentController.createMachine(m ,3,"jozef",loginController);
+		assertTrue(hospital.machinePool.getAllMachines().size()==1);
 	}
+	
 	
 }
