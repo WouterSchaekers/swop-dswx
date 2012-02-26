@@ -57,7 +57,7 @@ public class SelectUsecase extends Usecase
 	 * 
 	 */
 	private interface Creator{
-		Usecase create(UserinterfaceData data)throws Exception;
+		Usecase create(UserinterfaceData data) throws Exception;
 	}
 	enum usecases
 	{
@@ -110,7 +110,7 @@ public class SelectUsecase extends Usecase
 
 		@Override
 		public Usecase create(UserinterfaceData data) throws Exception {
-			new AdvanceTimeController(data.getLoginController(), data.getDataPasser());
+			//TODO new AdvanceTimeController(data.getLoginController(), data.getDataPasser());
 			return new AdvanceTimeSuperClass(data); 
 		}}),
 	enterDiagnose("enter diagnose",new Creator(){

@@ -19,12 +19,12 @@ public class AdvanceTimeSuperClass extends Usecase
 	public Usecase Execute() {
 		//Create controller
 		AdvanceTimeController controller = null;
-		try {
-			controller = new AdvanceTimeController(data.getLoginController(), data.getDataPasser());
-		} catch (InvalidLoginControllerException e) {
-			System.out.println("Invalid login");
-			return new SelectUsecase(data);
-		}
+//		try {
+			controller = null; //TODO new AdvanceTimeController(data.getLoginController(), data.getDataPasser());
+//		} catch (InvalidLoginControllerException e) {
+//			System.out.println("Invalid login");
+//			return new SelectUsecase(data);
+//		}
 		System.out.println("Advance the time to a new point in time:");
 		System.out.println("Input: format is DD-MM-YYYY:hh:mm:ss");
 		String date = input.nextLine();

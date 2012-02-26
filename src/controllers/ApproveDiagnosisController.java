@@ -3,38 +3,25 @@ package controllers;
 import java.util.ArrayList;
 import java.util.Collection;
 import patient.Diagnose;
+import system.HospitalState;
 import users.Doctor;
+import users.User;
 import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.PatientFileIN;
 import exceptions.ApproveDiagnoseException;
+import exceptions.InvalidHospitalStateException;
 import exceptions.InvalidLoginControllerException;
 
-public class ApproveDiagnosisController
+public class ApproveDiagnosisController extends NeedsLoginController
 {
-	LoginController loginController;
 	
-	public ApproveDiagnosisController(LoginController loginc) throws InvalidLoginControllerException {
-		if(!isValidLoginController(loginc))
-			throw new InvalidLoginControllerException("invalid");
-		
-		this.loginController=loginc;
+	public ApproveDiagnosisController(HospitalState hospitalState, LoginController loginc) throws InvalidLoginControllerException, InvalidHospitalStateException {
+		super(hospitalState, loginc);
 	}
 
-	private boolean isValidLoginController(LoginController loginc) {
-		if(loginc==null)
-			return false;
-		if(!loginc.loggedIn())
-			return false;
-		if(!(loginc.getUserIN() instanceof Doctor))
-			return false;
-		if(this.loginController!=null&&!this.loginController.equals(loginc))
-			return false;
-		return true;
-	}
-
-	public Collection<PatientFileIN> getAllPatienFiles(DataPasser dataPasser) {
+	public Collection<PatientFileIN> getAllPatienFiles() {
 		Collection<PatientFileIN> f = new ArrayList<PatientFileIN>();
-		f.addAll(dataPasser.getPatientFileManager().getAllPatientFiles());
+		f.addAll(hospitalState.getPatientFileManager().getAllPatientFiles());
 		return f;
 	}
 
@@ -55,6 +42,11 @@ public class ApproveDiagnosisController
 		if(selected instanceof Diagnose)
 			((Diagnose)selected).disaprove(replacement);
 		
+	}
+
+	@Override
+	boolean validUser(User u) {
+		return u instanceof Doctor;
 	}
 
 }

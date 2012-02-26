@@ -1,13 +1,13 @@
 package controllers;
 
 import java.util.Collection;
-import controllers.interfaces.HospitalStateI;
 import system.HospitalState;
 import users.HospitalAdmin;
 import users.User;
 import machine.MachineBuilder;
 import machine.MachinePool;
 import exceptions.ControllerException;
+import exceptions.InvalidHospitalStateException;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidSerialException;
@@ -23,18 +23,13 @@ public class AddHospitalEquipmentController extends NeedsLoginController
 	 * @param loginController
 	 * @throws ControllerException
 	 * @throws InvalidLoginControllerException
+	 * @throws InvalidHospitalStateException 
 	 */
 	public AddHospitalEquipmentController(LoginController loginController,
-			HospitalStateI state) throws InvalidLoginControllerException {
-		super(loginController);
-		this.machinePool = ((HospitalState) state).machinePool;
+			HospitalState state) throws InvalidLoginControllerException, InvalidHospitalStateException {
+		super(state, loginController);
+		this.machinePool = state.getMachinePool();
 
-	}
-
-	public AddHospitalEquipmentController(LoginController loginController,
-			DataPasser dataPasser) throws InvalidLoginControllerException {
-		super(loginController);
-		this.machinePool = dataPasser.getMachinePool();
 	}
 
 	public Collection<MachineBuilder> getAllMachines(

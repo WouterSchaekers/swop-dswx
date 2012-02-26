@@ -2,15 +2,17 @@ package controllers;
 
 import patient.Diagnose;
 import patient.PatientFile;
+import system.HospitalState;
 import users.Doctor;
 import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.DoctorIN;
 import exceptions.InvalidDiagnoseException;
 import exceptions.InvalidDoctorException;
+import exceptions.InvalidHospitalStateException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileOpenController;
 
-public class EnterDiagnoseController
+public class EnterDiagnoseController extends NeedsLoginAndPatientFileController
 {
 	private LoginController loginController;
 
@@ -23,28 +25,14 @@ public class EnterDiagnoseController
 	 *            The patient that has
 	 * @throws InvalidLoginControllerException
 	 * @throws InvalidPatientFileOpenController
+	 * @throws InvalidHospitalStateException 
 	 */
-	public EnterDiagnoseController(LoginController loginc,
+	public EnterDiagnoseController(HospitalState hospitalState, LoginController loginc,
 			PatientFileOpenController patientFileOpenController)
 			throws InvalidLoginControllerException,
-			InvalidPatientFileOpenController {
-		if (!isValidLoginController(loginc))
-			throw new InvalidLoginControllerException("");
-		if (!isValidPatientFileOpenController(patientFileOpenController, loginc))
-			throw new InvalidPatientFileOpenController("");
+			InvalidPatientFileOpenController, InvalidHospitalStateException {
+		super(hospitalState, loginc, patientFileOpenController);
 		this.loginController = loginc;
-	}
-
-	private boolean isValidPatientFileOpenController(
-			PatientFileOpenController patientFileOpenController,
-			LoginController loginc) {
-		if (patientFileOpenController == null)
-			return false;
-		if (!patientFileOpenController.isValidLoginController(loginc))
-			return false;
-		if (patientFileOpenController.getPatientFile() == null)
-			return false;
-		return true;
 	}
 
 	/**
@@ -54,27 +42,15 @@ public class EnterDiagnoseController
 	 * @param loginc
 	 * @return
 	 */
-	private boolean isValidLoginController(LoginController loginc) {
-		if (loginc == null)
-			return false;
-		if (this.loginController != null
-				&& !loginc.equals(this.loginController))
-			return false;
-		if (!(loginc.getUser() instanceof Doctor))
-			return false;
-		
-		return true;
-	}
 
 	public DiagnoseIN enterDiagnose(LoginController loginController2,
 			PatientFileOpenController patientFileOpenController, String diag,
-			DoctorIN choice, DataPasser data) throws InvalidLoginControllerException,
+			DoctorIN choice, HospitalState hospitalState) throws InvalidLoginControllerException,
 			InvalidPatientFileOpenController, InvalidDiagnoseException,
 			InvalidDoctorException {
 		if (!isValidLoginController(loginController2))
 			throw new InvalidLoginControllerException("");
-		if (!isValidPatientFileOpenController(patientFileOpenController,
-				loginController2))
+		if (!isValidPatientFileOpenController(patientFileOpenController))
 			throw new InvalidPatientFileOpenController("");
 		Diagnose d =PatientFile.createDiagnoseSecondOp(diag, (Doctor)loginController2.getUser(),(Doctor) choice, data.getTaskmanager());
 		((PatientFile) patientFileOpenController.getPatientFile())
@@ -89,8 +65,7 @@ public class EnterDiagnoseController
 			InvalidDoctorException {
 		if (!isValidLoginController(loginController2))
 			throw new InvalidLoginControllerException("");
-		if (!isValidPatientFileOpenController(patientFileOpenController,
-				loginController2))
+		if (!isValidPatientFileOpenController(patientFileOpenController))
 			throw new InvalidPatientFileOpenController("");
 		Diagnose d = new Diagnose((Doctor) loginController2.getUser(), diag);
 		((PatientFile) patientFileOpenController.getPatientFile())
