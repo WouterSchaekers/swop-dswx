@@ -6,5 +6,14 @@ De controllers package dient om een scheiding te houden tussen het systeem en de
 
 
 = Details =
-Aanmaken van controllers, er is een dependency tree ( sommige controllers hebben informatie van andere controllers nodig.
+Aanmaken van controllers, er is een dependency tree ( sommige controllers hebben informatie van andere controllers nodig. 
 [LoginController] 
+
+= 1 Controller per usecase =
+
+* voordelen
+Strikte aflijning van welke usecases we aanbieden en op welke manier we dit doen. 
+
+* nadelen
+
+Code duplication, het is niet duidelijk waar een docter zijn afspraken kan checken of waar nieuwe afspraken gemaakt moeten worden.
