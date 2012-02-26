@@ -17,3 +17,6 @@ Strikte aflijning van welke usecases we aanbieden en op welke manier we dit doen
 * nadelen
 
 Code duplication, het is niet duidelijk waar een docter zijn afspraken kan checken of waar nieuwe afspraken gemaakt moeten worden.
+
+Andere verwoording:
+De manier waarop de controllers zijn geïmpelenteerd, is eigenlijk niet de manier waarop we dat willen. Op dit moment is het zo dat voor elke usecase een aparte controller is gemaakt. Dit zorgt voor codeduplicatie (bijvoorbeeld appointments die kunnen gemaakt worden op twee verschillende plaatsen.
