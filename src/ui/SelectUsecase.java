@@ -117,14 +117,14 @@ public class SelectUsecase extends Usecase
 
 		@Override
 		public Usecase create(UserinterfaceData data) throws Exception {
-			new EnterDiagnoseController(data.getLoginController(), data.getPatientFileOpenController());
+			new EnterDiagnoseController(null, data.getLoginController(), data.getPatientFileOpenController());
 			return new EnderDiagnosis(data); 
 		}}),
 	approveDiagnose("approve diagnose",new Creator(){
 
 		@Override
 		public Usecase create(UserinterfaceData data) throws Exception {
-			new ApproveDiagnosisController(data.getLoginController());
+			new ApproveDiagnosisController(data.getDataPasser(),data.getLoginController());
 			return new ApproveDiagnosis(data); 
 		}}),
 	consultpatientfile("consult patient file",new Creator(){
@@ -151,7 +151,7 @@ public class SelectUsecase extends Usecase
 
 		@Override
 		public Usecase create(UserinterfaceData data) throws Exception {
-			new DischargePatientController(data.getLoginController(), data.getPatientFileOpenController());
+			//TODO: new DischargePatientController(data.getLoginController(), data.getPatientFileOpenController());
 			return new DischargePatient(data); 
 		}}), 
 		closePatientFile("Close patient file,", new Creator(){
@@ -167,7 +167,7 @@ public class SelectUsecase extends Usecase
 		}),enterMedicalTestResult("Enter medtest result:", new Creator()
 		{
 			public Usecase create(UserinterfaceData data) throws Exception{
-				new EnterMedicaltestResultController(data.getLoginController(),data.getDataPasser());
+				//TODO new EnterMedicaltestResultController(data.getLoginController(),data.getDataPasser());
 				return new EnterMedicalTestResult(data);
 				
 			}
@@ -175,7 +175,7 @@ public class SelectUsecase extends Usecase
 
 			@Override
 			public Usecase create(UserinterfaceData data) throws Exception {
-				new FillStockInWarehouseController(data.getLoginController(),data.getDataPasser());
+				new FillStockInWarehouseController(data.getDataPasser(),data.getLoginController());
 				return null;
 			}
 		}),prescribeTreatment("Prescribe treatment", new Creator(){

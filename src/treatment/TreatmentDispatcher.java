@@ -31,12 +31,14 @@ public class TreatmentDispatcher
 		((Diagnose)Diagnose).assignTreatment((Treatment)treatment);
 		taskmanager.addTask(newCast);
 	}
+	
 	public void dispatchMedication(MedicationIN med,DiagnoseIN Diagnose,UserManager userm,Warehouse warehouse,PatientFile file,TimeLord systemtime,TaskManager taskmanager) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException, InvalidTreatmentException, InvalidTimeSlotException, InvalidHospitalDateArgument
 	{
 		UnscheduledMedication m = new UnscheduledMedication(file,(Diagnose) Diagnose, systemtime.getSystemTime(),(Medication) med, userm, warehouse);
 		((Diagnose)Diagnose).assignTreatment((Treatment)med);
 		taskmanager.addTask(m);
 	}
+	
 	public void dispatchSurgery(SurgeryIN treatment,DiagnoseIN Diagnose,UserManager userm,MachinePool pool,PatientFile file,TimeLord systemtime,TaskManager taskmanager) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException, InvalidTreatmentException, InvalidTimeSlotException, InvalidHospitalDateArgument
 	{
 		UnscheduledSurgery newSurg = new UnscheduledSurgery(file,(Diagnose) Diagnose, systemtime.getSystemTime(), userm, pool, (Surgery)treatment);

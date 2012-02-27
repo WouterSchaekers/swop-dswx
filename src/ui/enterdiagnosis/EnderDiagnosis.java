@@ -1,6 +1,7 @@
 package ui.enterdiagnosis;
 
 import controllers.EnterDiagnoseController;
+import exceptions.InvalidHospitalStateException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileOpenController;
 import ui.SelectUsecase;
@@ -17,15 +18,18 @@ public class EnderDiagnosis extends EnterDiagnoseSuperClass
 	@Override
 	public Usecase Execute() {
 		//Create controller
-		EnterDiagnoseController c;
+		EnterDiagnoseController c =null;
 		try {
-			c = new EnterDiagnoseController(data.getLoginController(),data.getPatientFileOpenController());
+			c = new EnterDiagnoseController(data.getDataPasser(), data.getLoginController(),data.getPatientFileOpenController());
 		} catch (InvalidLoginControllerException e) {
 			System.out.println("Invalid login aborting");
 			return new SelectUsecase(data);
 		} catch (InvalidPatientFileOpenController e) {
 			System.out.println("No patient file opened fatal error ");
 			return new SelectUsecase(data);
+		} catch (InvalidHospitalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		this.chaindata.setController(c);
 		//Controller created

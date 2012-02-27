@@ -45,7 +45,7 @@ public class SelectDoctor extends Usecase
 
 		AppointmentIN app = null;
 		try {
-			app = rpc.CreateAppointMent(map.get(name), pfile,data.getDataPasser());
+			app = null;//rpc.CreateAppointMent(map.get(name), pfile,data.getDataPasser());
 		} catch (Exception e) {
 			System.out.println("Internal system error");
 			return new SelectUsecase(data);

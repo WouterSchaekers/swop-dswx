@@ -2,8 +2,10 @@ package ui.dischargepatient;
 
 import controllers.DischargePatientController;
 import exceptions.DischargePatienException;
+import exceptions.InvalidHospitalStateException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileException;
+import exceptions.InvalidPatientFileOpenController;
 import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
@@ -19,7 +21,15 @@ public class DischargePatient extends DischargePatientSuperClass
 	public Usecase Execute() {
 		DischargePatientController controller = null;
 		try {
-			controller	 = new DischargePatientController(data.getLoginController(), data.getPatientFileOpenController());
+			try {
+				controller	 = new DischargePatientController(data.getDataPasser(), data.getLoginController(), data.getPatientFileOpenController());
+			} catch (InvalidHospitalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvalidPatientFileOpenController e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} catch (InvalidLoginControllerException e) {
 			System.out.println("not allowed to do this");
 			return new SelectUsecase(data);
@@ -38,6 +48,9 @@ public class DischargePatient extends DischargePatientSuperClass
 		} catch (DischargePatienException e) {
 			System.out.println("Patient cant be discharged yet ");
 			return new SelectUsecase(data);
+		} catch (InvalidPatientFileOpenController e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		System.out.println("Patient was succesfully discharged !");
 		return new SelectUsecase(data);

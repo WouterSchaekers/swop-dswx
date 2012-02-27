@@ -23,7 +23,7 @@ public class DoctorSelected extends Usecase
 		System.out.println("Enter the doctors name:");
 		String arg = input.nextLine();
 		try {
-			c.createDoctor(arg, data.getLoginController(), data.getDataPasser());
+			c.createDoctor(arg, data.getLoginController());
 		} catch (UserAlreadyExistsException e) {
 			System.out.println("User already exists : error");
 			return new SelectUsecase(data);

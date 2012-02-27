@@ -1,5 +1,7 @@
 package ui.entermedicaltestresult;
 
+import exceptions.InvalidLoginControllerException;
+import exceptions.InvalidPatientFileOpenController;
 import ui.Usecase;
 import ui.UserinterfaceData;
 
@@ -13,7 +15,15 @@ public class ShowUnfinishedMedicalTests extends EnterMedicalTestResultSuperClass
 
 	@Override
 	public Usecase Execute() {
-		chaindata.getMedtestcontroller().allMedicalTests(data.getLoginController());
+		try {
+			chaindata.getMedtestcontroller().allMedicalTests(data.getLoginController(), data.getPatientFileOpenController());
+		} catch (InvalidLoginControllerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidPatientFileOpenController e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
 	}
 }
