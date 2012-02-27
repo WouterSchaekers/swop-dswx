@@ -28,7 +28,8 @@ public class ListOrders extends ListOrdersSuper
 		} catch (InvalidLoginControllerException e) {
 			return null;
 		}
-		StockProvider stockProvider = this.dataPasser.getWarehouseAdmin().getStockProvider();
+		StockProvider stockProvider = null;
+		//TODO: make this  StockProvider stockProvider = this.dataPasser.getWarehouseAdmin().getStockProvider();
 		LinkedList<String> stockItemNames = listOrdersController.getStockItemNames(stockProvider);
 		System.out.println("Please choose a category.");
 		for(int i = 0; i < stockItemNames.size(); i++){

@@ -10,6 +10,7 @@ import ui.Usecase;
 import ui.UserinterfaceData;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileException;
+import exceptions.InvalidPatientFileOpenController;
 
 public class SelectMedicalTest extends OrderMedicalTestSuperClass
 {
@@ -21,7 +22,7 @@ public class SelectMedicalTest extends OrderMedicalTestSuperClass
 	@Override
 	public Usecase Execute() {
 
-		Collection<MedicalTestFactory> factories;
+		Collection<MedicalTestFactory> factories = null;
 		try {
 			factories	 = this.chaindata
 					.getMedTestController().getMedicalTestFactories(
@@ -33,6 +34,9 @@ public class SelectMedicalTest extends OrderMedicalTestSuperClass
 		} catch (InvalidPatientFileException e) {
 			System.out.println("invalid patientfile");
 			return new SelectUsecase(data);
+		} catch (InvalidPatientFileOpenController e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		// we now have all the factories that can create a medical test object we will now do so :)
 		System.out.println("Select the medical test you would like to order for "+data.getPatientFileOpenController().getPatientFile().getName() +".");

@@ -1,7 +1,6 @@
 package ui;
 
 import system.HospitalState;
-import controllers.DataPasser;
 import controllers.LoginController;
 import controllers.PatientFileOpenController;
 

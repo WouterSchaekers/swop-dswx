@@ -1,6 +1,5 @@
 package system;
 
-import controllers.interfaces.HospitalStateI;
 import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidTimeLordException;
 import machine.MachinePool;

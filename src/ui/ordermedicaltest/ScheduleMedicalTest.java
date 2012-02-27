@@ -12,6 +12,7 @@ import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidOccurencesException;
 import exceptions.InvalidPatientFileException;
+import exceptions.InvalidPatientFileOpenController;
 import exceptions.InvalidResourceException;
 import exceptions.InvalidTimeSlotException;
 import exceptions.InvalidTreatmentException;
@@ -81,6 +82,9 @@ public class ScheduleMedicalTest extends OrderMedicalTestSuperClass
 			System.out.println("internal system error");
 			return new SelectUsecase(data);
 		
+		} catch (InvalidPatientFileOpenController e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} 
 		System.out.println("Your medicaltest has now been scheduled !");
 		System.out.println(t.appointMentInfo());

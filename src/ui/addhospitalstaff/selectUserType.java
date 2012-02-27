@@ -1,6 +1,8 @@
 package ui.addhospitalstaff;
 
 import controllers.CreateUserController;
+import exceptions.InvalidHospitalStateException;
+import exceptions.InvalidLoginControllerException;
 import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
@@ -14,7 +16,16 @@ public class selectUserType extends Usecase
 
 	@Override
 	public Usecase Execute() {
-		CreateUserController c = new CreateUserController(data.getLoginController(), data.getDataPasser());
+		CreateUserController c = null;
+		try {
+			c = new CreateUserController(data.getLoginController(), data.getDataPasser());
+		} catch (InvalidLoginControllerException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (InvalidHospitalStateException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		for(usertype u:usertype.values())
 			System.out.println(u.ordinal()+": "+u.toString());
 		System.out.println("q to quit");

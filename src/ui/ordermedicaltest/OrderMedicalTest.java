@@ -4,8 +4,10 @@ import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
 import controllers.MedicalTestController;
+import exceptions.InvalidHospitalStateException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileException;
+import exceptions.InvalidPatientFileOpenController;
 
 public class OrderMedicalTest extends OrderMedicalTestSuperClass
 {
@@ -16,7 +18,7 @@ public class OrderMedicalTest extends OrderMedicalTestSuperClass
 
 	@Override
 	public Usecase Execute() {
-		MedicalTestController orderMedTestController ;
+		MedicalTestController orderMedTestController = null ;
 		try {
 			orderMedTestController= new MedicalTestController(
 					data.getLoginController(),
@@ -30,6 +32,12 @@ public class OrderMedicalTest extends OrderMedicalTestSuperClass
 		} catch (InvalidPatientFileException e) {
 			System.out.println("No patientfile open.");
 			return new SelectUsecase(data);
+		} catch (InvalidHospitalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidPatientFileOpenController e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		chaindata.setMedTestController(orderMedTestController);
 		return new SelectMedicalTest(data,chaindata);

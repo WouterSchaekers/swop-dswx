@@ -20,7 +20,7 @@ public class ShowDiagnosisOptionsToApprove extends ApproveDiagnosisSuper
 	@Override
 	public Usecase Execute() {
 		ApproveDiagnosisController c =chaindata.getController();
-		Collection<PatientFileIN> patienfiles=c.getAllPatienFiles(data.getDataPasser());
+		Collection<PatientFileIN> patienfiles=c.getAllPatienFiles();
 
 		Collection< DiagnoseIN> d = new ArrayList<DiagnoseIN>();
 		for(PatientFileIN pf:patienfiles)

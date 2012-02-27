@@ -2,7 +2,6 @@ package system;
 
 import ui.UCHandler;
 import ui.UserinterfaceData;
-import controllers.DataPasser;
 import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidNameException;

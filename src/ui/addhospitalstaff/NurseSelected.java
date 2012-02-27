@@ -21,7 +21,7 @@ public class NurseSelected extends Usecase
 		System.out.println("Enter the name of the nurse!");
 		String arg= input.nextLine();
 		try {
-			c.createNurse(arg,data.getLoginController(),data.getDataPasser());
+			c.createNurse(arg,data.getLoginController());
 		} catch (UserAlreadyExistsException e) {
 			
 			System.out.println("User already exists : error");

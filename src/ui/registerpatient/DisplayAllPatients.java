@@ -6,6 +6,7 @@ import ui.UserinterfaceData;
 import ui.Usecase;
 import controllers.RegisterPatientController;
 import controllers.interfaces.PatientFileIN;
+import exceptions.InvalidLoginControllerException;
 
 public class DisplayAllPatients extends Usecase
 {
@@ -22,9 +23,14 @@ public class DisplayAllPatients extends Usecase
 	@Override
 	public Usecase Execute() {
 		System.out.println("List of all patients:");
-		for (PatientFileIN patient : rpc.getAllPatients()) {
-			namePatientMap.put(patient.getName(), patient);
-			System.out.println(patient.getName());
+		try {
+			for (PatientFileIN patient : rpc.getAllPatients(data.getLoginController())) {
+				namePatientMap.put(patient.getName(), patient);
+				System.out.println(patient.getName());
+			}
+		} catch (InvalidLoginControllerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return new EnterPatientName(data, namePatientMap, rpc);
 	}

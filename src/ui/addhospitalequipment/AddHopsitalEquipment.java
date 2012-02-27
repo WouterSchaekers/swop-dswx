@@ -1,6 +1,7 @@
 package ui.addhospitalequipment;
 
 import controllers.AddHospitalEquipmentController;
+import exceptions.InvalidHospitalStateException;
 import exceptions.InvalidLoginControllerException;
 import ui.SelectUsecase;
 import ui.Usecase;
@@ -24,10 +25,13 @@ public class AddHopsitalEquipment extends AddHospitalEquipmentSuperClass
 		AddHospitalEquipmentController c = null;
 		try {
 			 c = new AddHospitalEquipmentController(
-					data.getLoginController(), data.getDataPasser().hospital());
+					data.getLoginController(), data.getDataPasser());
 		} catch (InvalidLoginControllerException e) {
 			System.out.println("invalid login controller, user not logged in");
 			return new SelectUsecase(data);
+		} catch (InvalidHospitalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		chainData.add(c);
 		//Controller is created now yeya !
