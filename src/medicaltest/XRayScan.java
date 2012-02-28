@@ -79,7 +79,7 @@ public class XRayScan extends MedicalTest
 	}
 
 	@Override
-	public String appointMentInfo() {
+	public String appointmentInfo() {
 		String rv = "";
 		rv+="Xray Scan\n";
 		if(getScheduledTask()!=null){

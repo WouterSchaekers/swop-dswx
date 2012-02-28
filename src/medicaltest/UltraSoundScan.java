@@ -75,7 +75,7 @@ public class UltraSoundScan extends MedicalTest
 	}
 
 	@Override
-	public String appointMentInfo() {
+	public String appointmentInfo() {
 		String rv = "";
 		rv+="Ultra Sound Scan \n";
 		if(getScheduledTask()!=null){

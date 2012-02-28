@@ -73,7 +73,7 @@ public class BloodAnalysis extends MedicalTest
 	 * Method to see the schedule state of this object
 	 */
 	@Override
-	public String appointMentInfo() {
+	public String appointmentInfo() {
 		String rv = "";
 		rv+="Blood analysis \n";
 		if(getScheduledTask()!=null){

@@ -87,7 +87,7 @@ public class ScheduleMedicalTest extends OrderMedicalTestSuperClass
 			e.printStackTrace();
 		} 
 		System.out.println("Your medicaltest has now been scheduled !");
-		System.out.println(t.appointMentInfo());
+		System.out.println(t.appointmentInfo());
 		return new SelectUsecase(data);
 	}
 

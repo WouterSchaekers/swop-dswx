@@ -99,7 +99,7 @@ public abstract class MedicalTest implements MedicalTestIN
 
 	public abstract UnscheduledMedicalTest getUnscheduled(UserManager userm, Warehouse warehouse, PatientFile file, TimeLord systemtime, TaskManager taskmanager,MachinePool pool) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException ;
 	protected ScheduledTask getScheduledTask(){return ScheduledTask;}
-	public abstract String appointMentInfo();
+	public abstract String appointmentInfo();
 
 	public boolean hasFinished() {
 		if(this.myResult==null)

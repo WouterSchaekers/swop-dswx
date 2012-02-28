@@ -18,7 +18,7 @@ public class ReviewMedicalTests extends Usecase
 		System.out.println("Medical tests for:"+pf.getName());
 		for(MedicalTestIN test:pf.getallMedicalTests())
 			{
-			System.out.println(test.appointMentInfo());
+			System.out.println(test.appointmentInfo());
 			}
 			System.out.println("In dept reviewing is not yet enabled.");
 		return new ReviewMore(data);
