@@ -6,9 +6,8 @@
 || 24/2/11: 13u00 -> 16u00 || 3 DSW || 3 || More of the above... || <lunch> ||
 || 24/2/11: 17u10 -> 18u15 || 1 S || 1 || completing the UML further || ||
 || 25/2/11: 17u00 -> 18u00 || 1 D || 1 || Making domain model + browsing code looking for possible refactorings. || ||
-|| 26/2/11: 15u45 -> 18u00 || 3 DSW || Browsing code for more refactorings; completing the UML || ||
-|| 26/2/11: 19u00 -> 20u00 || 3 DSW || More of the above... || ||
-
+|| 26/2/11: 15u45 -> 18u00 || 3 DSW ||2.25 || Browsing code for more refactorings; completing the UML || ||
+|| 26/2/11: 19u00 -> 20u00 || 3 DSW || 1 || More of the above... || ||
 
 = Iteratie 2 =
 || *Timepoint* || *Members* || *Workload* || *Purpose* || *Comments* ||
