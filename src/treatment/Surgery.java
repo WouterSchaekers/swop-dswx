@@ -11,7 +11,6 @@ import be.kuleuven.cs.som.annotate.Basic;
  */
 public class Surgery extends Treatment implements SurgeryIN
 {
-	public static final String TREATMENTNAME = "Surgery";
 	private String description = "";
 
 	/**
