@@ -22,6 +22,10 @@ public class UltraSoundScan extends MedicalTest
 {
 
 	public final static long DURATION = 30 * HospitalDate.ONE_MINUTE;
+	private final String scaninfo;
+	private final boolean recordVid;
+	private final boolean recordImages;
+	private Result result;
 
 	public String getScaninfo() {
 		return scaninfo;
@@ -34,11 +38,6 @@ public class UltraSoundScan extends MedicalTest
 	public boolean hasImageRecordingEnabled() {
 		return recordImages;
 	}
-
-	private final String scaninfo;
-	private final boolean recordVid;
-	private final boolean recordImages;
-	private Result result;
 
 	/**
 	 * Default constructor.
