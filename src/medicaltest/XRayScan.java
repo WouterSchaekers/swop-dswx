@@ -22,6 +22,8 @@ public class XRayScan extends MedicalTest
 {
 	public final static long DURATION = 15 * HospitalDate.ONE_MINUTE;
 	private final String bodypart;
+	private int num;
+	private float zoomlevel;
 
 	public int getNum() {
 		return num;
@@ -42,9 +44,6 @@ public class XRayScan extends MedicalTest
 	public String getBodypart() {
 		return bodypart;
 	}
-
-	private int num;
-	private float zoomlevel;
 
 	/**
 	 * Default constructor.
