@@ -2,8 +2,12 @@
 || *Timepoint* || *Members* || *Workload* || *Purpose* || *Comments* ||
 || 21/2/11: 15u00 -> 16u30 || 2 SW || 1.5 || Create todo list && prioritise || ||
 || 23/2/11: 14u30 -> 15u30 || 1 D || 1 || WareHouse een beetje gefixt|| ||
-|| 24/2/11; 10u30 -> 12u30|| 3 DSW || 2 || Completing the todo list; creating testing scenarios, creating the new domain model, completing the missing elements in the UML of the domain layer || ||
-|| 24/2/11: 13u15 -> || 3 DSW || || More of the above... || <lunch>||
+|| 24/2/11; 10u30 -> 12u30 || 3 DSW || 2 || Completing the todo list; creating testing scenarios, creating the new domain model, completing the missing elements in the UML of the domain layer || ||
+|| 24/2/11: 13u00 -> 16u00 || 3 DSW || 3 || More of the above... || <lunch> ||
+|| 24/2/11: 17u10 -> 18u15 || 1 S || 1 || completing the UML further || ||
+|| 25/2/11: 17u00 -> 18u00 || 1 D || 1 || Making domain model + browsing code looking for possible refactorings. || ||
+|| 26/2/11: 15u45 -> 18u00 || 3 DSW || Browsing code for more refactorings; completing the UML || ||
+|| 26/2/11: 19u00 -> 20u00 || 3 DSW || More of the above... || ||
 
 
 = Iteratie 2 =
