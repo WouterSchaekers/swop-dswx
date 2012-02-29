@@ -1,11 +1,11 @@
 package warehouse;
 
 import java.util.LinkedList;
+import scheduler.HospitalDate;
+import users.WarehouseAdmin;
 import exceptions.InvalidCategoryNameException;
 import exceptions.WarehouseException;
 import exceptions.WarehouseOverCapacityException;
-import scheduler.HospitalDate;
-import users.WarehouseAdmin;
 
 public class StockProvider
 {
@@ -16,8 +16,8 @@ public class StockProvider
 	private LinkedList<LinkedList<? extends StockOrder>> orderedItems;
 	private HospitalDate curDate;
 	private int extraHour;
-	
-	public StockProvider(){
+
+	public StockProvider() {
 		this.orderedPlaster = new LinkedList<PlasterOrder>();
 		this.orderedMedication = new LinkedList<MedicationOrder>();
 		this.orderedMeals = new LinkedList<MealOrder>();
@@ -32,94 +32,105 @@ public class StockProvider
 		this.curDate = new HospitalDate();
 		this.extraHour = 2;
 	}
-	
-	public void orderPlaster(WarehouseAdmin warehouseAdmin){
+
+	public void orderPlaster(WarehouseAdmin warehouseAdmin) {
 		this.orderedPlaster.add(new PlasterOrder(this.curDate, warehouseAdmin));
 	}
-	
-	public void orderMedication(WarehouseAdmin warehouseAdmin, MedicationType medicationType){
-		this.orderedMedication.add(new MedicationOrder(this.curDate, warehouseAdmin, medicationType));
+
+	public void orderMedication(WarehouseAdmin warehouseAdmin,
+			MedicationType medicationType) {
+		this.orderedMedication.add(new MedicationOrder(this.curDate,
+				warehouseAdmin, medicationType));
 	}
-	
-	public void orderMeal(WarehouseAdmin warehouseAdmin){
+
+	public void orderMeal(WarehouseAdmin warehouseAdmin) {
 		this.orderedMeals.add(new MealOrder(this.curDate, warehouseAdmin));
 	}
-	
-	public void updateTime(HospitalDate newDate) throws WarehouseException, WarehouseOverCapacityException{
+
+	public void updateTime(HospitalDate newDate) throws WarehouseException,
+			WarehouseOverCapacityException {
 		this.updatePlaster(newDate);
 		this.updateMedication(newDate);
 		this.updateMeals(newDate);
 		this.curDate = newDate;
 	}
-	
-	private void updatePlaster(HospitalDate hospitalDate) throws WarehouseException{
+
+	private void updatePlaster(HospitalDate hospitalDate)
+			throws WarehouseException {
 		LinkedList<PlasterOrder> copyOrderedPlaster = new LinkedList<PlasterOrder>();
-		for(int i = 0; i < this.orderedPlaster.size(); i++){
+		for (int i = 0; i < this.orderedPlaster.size(); i++) {
 			PlasterOrder curPlasterOrder = this.orderedPlaster.get(i);
-			if(this.mayBeReleased(this.orderedPlaster.get(i), hospitalDate)){
-				WarehouseAdmin warehouseAdmin = curPlasterOrder.getWarehouseAdmin();
+			if (this.mayBeReleased(this.orderedPlaster.get(i), hospitalDate)) {
+				WarehouseAdmin warehouseAdmin = curPlasterOrder
+						.getWarehouseAdmin();
 				warehouseAdmin.addPlasterOrder(curPlasterOrder);
-			}
-			else{
+			} else {
 				copyOrderedPlaster.add(curPlasterOrder);
 			}
 		}
 		this.orderedPlaster = copyOrderedPlaster;
 	}
-	
-	private void updateMedication(HospitalDate hospitalDate) throws WarehouseException{
+
+	private void updateMedication(HospitalDate hospitalDate)
+			throws WarehouseException {
 		LinkedList<MedicationOrder> copyOrderedMedication = new LinkedList<MedicationOrder>();
-		for(int i = 0; i < this.orderedMedication.size(); i++){
+		for (int i = 0; i < this.orderedMedication.size(); i++) {
 			MedicationOrder curMedicationOrder = this.orderedMedication.get(i);
-			if(this.mayBeReleased(this.orderedMedication.get(i), hospitalDate)){
-				WarehouseAdmin warehouseAdmin = curMedicationOrder.getWarehouseAdmin();
+			if (this.mayBeReleased(this.orderedMedication.get(i), hospitalDate)) {
+				WarehouseAdmin warehouseAdmin = curMedicationOrder
+						.getWarehouseAdmin();
 				warehouseAdmin.addMedicationOrder(curMedicationOrder);
-			}
-			else{
+			} else {
 				copyOrderedMedication.add(curMedicationOrder);
 			}
 		}
 		this.orderedMedication = copyOrderedMedication;
 	}
-	
-	private void updateMeals(HospitalDate hospitalDate) throws WarehouseException, WarehouseOverCapacityException{
+
+	private void updateMeals(HospitalDate hospitalDate)
+			throws WarehouseException, WarehouseOverCapacityException {
 		LinkedList<MealOrder> copyOrderedMeals = new LinkedList<MealOrder>();
-		for(int i = 0; i < this.orderedMeals.size(); i++){
+		for (int i = 0; i < this.orderedMeals.size(); i++) {
 			MealOrder curMealOrder = this.orderedMeals.get(i);
-			if(this.mayBeReleased(this.orderedMeals.get(i), hospitalDate)){
-				WarehouseAdmin warehouseAdmin = curMealOrder.getWarehouseAdmin();
+			if (this.mayBeReleased(this.orderedMeals.get(i), hospitalDate)) {
+				WarehouseAdmin warehouseAdmin = curMealOrder
+						.getWarehouseAdmin();
 				warehouseAdmin.addMealOrder(curMealOrder);
-			}
-			else{
+			} else {
 				copyOrderedMeals.add(curMealOrder);
 			}
 		}
 		this.orderedMeals = copyOrderedMeals;
 	}
-	
-	private boolean mayBeReleased(StockOrder stockOrder, HospitalDate hospitalDate){
+
+	private boolean mayBeReleased(StockOrder stockOrder,
+			HospitalDate hospitalDate) {
 		HospitalDate orderedDate = stockOrder.getOrderDate();
-		if(!hospitalDate.before(new HospitalDate(orderedDate.getYear(), orderedDate.getMonth(), orderedDate.getDay() + this.extraHour, 6, 0, 0))){
+		if (!hospitalDate.before(new HospitalDate(orderedDate.getYear(),
+				orderedDate.getMonth(), orderedDate.getDay() + this.extraHour,
+				6, 0, 0))) {
 			return true;
 		}
 		return false;
 	}
-	
-	public LinkedList<String> getStockItemNames(){
+
+	public LinkedList<String> getStockItemNames() {
 		return this.stockItems;
 	}
-	
-	public LinkedList<LinkedList<? extends StockOrder>> getOrderedItems(){
+
+	public LinkedList<LinkedList<? extends StockOrder>> getOrderedItems() {
 		return this.orderedItems;
 	}
-	
-	public LinkedList<? extends StockOrder> getCorrespondingOrderedItems(String itemName) throws InvalidCategoryNameException{
+
+	public LinkedList<? extends StockOrder> getCorrespondingOrderedItems(
+			String itemName) throws InvalidCategoryNameException {
 		LinkedList<String> stockItemNames = this.getStockItemNames();
-		for(int i = 0; i < stockItemNames.size(); i++){
-			if(stockItemNames.get(i).equals(itemName)){
+		for (int i = 0; i < stockItemNames.size(); i++) {
+			if (stockItemNames.get(i).equals(itemName)) {
 				return this.getOrderedItems().get(i);
 			}
 		}
-		throw new InvalidCategoryNameException("This category does not exist. Please try again.");
+		throw new InvalidCategoryNameException(
+				"This category does not exist. Please try again.");
 	}
 }

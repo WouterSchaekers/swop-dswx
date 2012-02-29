@@ -9,13 +9,11 @@ public class SleepingTablet extends WareHouseItem
 		super(expiryDate);
 		// TODO Auto-generated constructor stub
 	}
-	
-	
 
 	@Override
 	public HospitalDate getExpiryDate() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 }

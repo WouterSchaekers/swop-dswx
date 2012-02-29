@@ -10,12 +10,13 @@ import exceptions.InvalidTimeSlotException;
 public class XRayScanner extends Machine
 {
 	/**
-	 * Creates an XRayScanner scanner, exceptions are thrown as in the super class: 
-	 * {@link Machine#Machine(int, String)} 
-	 * @throws InvalidTimeSlotException 
+	 * Creates an XRayScanner scanner, exceptions are thrown as in the super
+	 * class: {@link Machine#Machine(int, String)}
+	 * 
+	 * @throws InvalidTimeSlotException
 	 * */
-	XRayScanner(int serial, String location)
-			throws InvalidLocationException, InvalidSerialException {
+	XRayScanner(int serial, String location) throws InvalidLocationException,
+			InvalidSerialException {
 		super(serial, location);
 	}
 
@@ -25,7 +26,8 @@ public class XRayScanner extends Machine
 	}
 
 	@Override
-	public boolean canBeScheduledOn(HospitalDate startDate, HospitalDate stopDate) {
+	public boolean canBeScheduledOn(HospitalDate startDate,
+			HospitalDate stopDate) {
 		return this.getTimeTable().hasFreeSlotAt(startDate, stopDate);
 	}
 }

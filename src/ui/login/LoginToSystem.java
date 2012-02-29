@@ -1,9 +1,9 @@
 package ui.login;
 
-import controllers.interfaces.UserIN;
-import ui.UserinterfaceData;
 import ui.SelectUsecase;
 import ui.Usecase;
+import ui.UserinterfaceData;
+import controllers.interfaces.UserIN;
 
 /**
  * In this class the current user will log in to the system.

@@ -59,32 +59,37 @@ public class BloodAnalysis extends MedicalTest
 
 	@Override
 	public void setResult(Result r) {
-		
+
 	}
 
 	@Override
 	public UnscheduledMedicalTest getUnscheduled(UserManager userm,
 			Warehouse warehouse, PatientFile file, TimeLord systemtime,
-			TaskManager taskmanager,MachinePool pool) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException {
-		return new UnscheduledBloodTest(file, systemtime.getSystemTime(), userm, pool, this);
+			TaskManager taskmanager, MachinePool pool)
+			throws InvalidResourceException, InvalidDurationException,
+			InvalidOccurencesException, InvalidAmountException,
+			InvalidHospitalDateException {
+		return new UnscheduledBloodTest(file, systemtime.getSystemTime(),
+				userm, pool, this);
 	}
-	
+
 	/**
 	 * Method to see the schedule state of this object
 	 */
 	@Override
 	public String appointmentInfo() {
 		String rv = "";
-		rv+="Blood analysis \n";
-		if(getScheduledTask()!=null){
-			rv+="for \t:\t"+getScheduledTask().getPatient().getName()+"\n";
-			rv+="at \t:\t" + getScheduledTask().getTimeSlot().getStartPoint()+"\ttill\t"+getScheduledTask().getTimeSlot().getStopPoint();
-		}else{
-			rv +="Scan is not yet Scheduled";
+		rv += "Blood analysis \n";
+		if (getScheduledTask() != null) {
+			rv += "for \t:\t" + getScheduledTask().getPatient().getName()
+					+ "\n";
+			rv += "at \t:\t" + getScheduledTask().getTimeSlot().getStartPoint()
+					+ "\ttill\t"
+					+ getScheduledTask().getTimeSlot().getStopPoint();
+		} else {
+			rv += "Scan is not yet Scheduled";
 		}
 		return rv;
 	}
-
-	
 
 }

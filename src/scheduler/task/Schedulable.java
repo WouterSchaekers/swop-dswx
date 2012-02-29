@@ -25,11 +25,13 @@ public interface Schedulable
 			throws InvalidSchedulingRequestException;
 
 	public TimeSlot getFirstFreeSlotBetween(HospitalDate startDate,
-			HospitalDate stopDate, long duration) throws InvalidSchedulingRequestException, InvalidTimeSlotException, InvalidHospitalDateArgument;
-	
+			HospitalDate stopDate, long duration)
+			throws InvalidSchedulingRequestException, InvalidTimeSlotException,
+			InvalidHospitalDateArgument;
+
 	public void updateTimeTable(HospitalDate newDate);
-	
+
 	public Collection<ScheduledTask> getScheduledTasks();
-	
+
 	public void addScheduledTask(ScheduledTask scheduledTask);
 }

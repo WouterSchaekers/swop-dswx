@@ -1,8 +1,8 @@
 package ui.logout;
 
-import ui.UserinterfaceData;
 import ui.SelectUsecase;
 import ui.Usecase;
+import ui.UserinterfaceData;
 
 /**
  * This class will log out the current user of the system.

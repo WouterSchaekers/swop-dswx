@@ -8,13 +8,14 @@ public abstract class ApproveDiagnosisSuper extends Usecase
 
 	protected ApproveDiagnosisData chaindata;
 
-	protected ApproveDiagnosisSuper(UserinterfaceData data, ApproveDiagnosisData chaindata) {
+	protected ApproveDiagnosisSuper(UserinterfaceData data,
+			ApproveDiagnosisData chaindata) {
 		super(data);
-		this.chaindata=chaindata;
+		this.chaindata = chaindata;
 	}
-	protected ApproveDiagnosisSuper(UserinterfaceData data)
-	{
-		this(data,new ApproveDiagnosisData());
+
+	protected ApproveDiagnosisSuper(UserinterfaceData data) {
+		this(data, new ApproveDiagnosisData());
 	}
-	
+
 }

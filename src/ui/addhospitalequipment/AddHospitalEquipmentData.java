@@ -10,8 +10,8 @@ public class AddHospitalEquipmentData
 	private MachineBuilder machineBuilder;
 
 	public void add(AddHospitalEquipmentController c) {
-		this.hospitalEquipController =c;
-		
+		this.hospitalEquipController = c;
+
 	}
 
 	public AddHospitalEquipmentController getController() {
@@ -19,8 +19,8 @@ public class AddHospitalEquipmentData
 	}
 
 	public void add(MachineBuilder builder) {
-		this.machineBuilder=builder;
-		
+		this.machineBuilder = builder;
+
 	}
 
 	public MachineBuilder getMachineBuilder() {

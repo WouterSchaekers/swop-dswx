@@ -22,7 +22,8 @@ public abstract class UnscheduledTreatment extends UnscheduledTask
 	private final Treatment mytreatment;
 
 	public UnscheduledTreatment(PatientFile p, Diagnose diagnose,
-			long duration, HospitalDate systemTime, UserManager userManager,Treatment treatment) throws InvalidResourceException,
+			long duration, HospitalDate systemTime, UserManager userManager,
+			Treatment treatment) throws InvalidResourceException,
 			InvalidDurationException, InvalidOccurencesException,
 			InvalidAmountException, InvalidHospitalDateException {
 		super(p, duration, systemTime, HospitalDate.ONE_HOUR, true);
@@ -45,20 +46,19 @@ public abstract class UnscheduledTreatment extends UnscheduledTask
 		sched.addAll(this.userManager.getAllNurses());
 		return rv;
 	}
-	
+
 	@Override
-	public HospitalDate getFirstSchedulingDateSince(HospitalDate hospitalDate){
+	public HospitalDate getFirstSchedulingDateSince(HospitalDate hospitalDate) {
 		return hospitalDate;
 	}
 
 	public Treatment getMytreatment() {
 		return mytreatment;
 	}
+
 	@Override
-	public void setScheduled(ScheduledTask task)
-	{
+	public void setScheduled(ScheduledTask task) {
 		this.mytreatment.setScheduled(task);
 	}
-	
 
 }

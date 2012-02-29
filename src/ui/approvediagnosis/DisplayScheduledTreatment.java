@@ -19,7 +19,7 @@ public class DisplayScheduledTreatment extends ApproveDiagnosisSuper
 		System.out.println("Scheduled treatment :");
 		DiagnoseIN diagnose = chaindata.getDiagnose();
 		diagnose.getTreatments();
-		for(TreatmentIN treatment: diagnose.getTreatments())
+		for (TreatmentIN treatment : diagnose.getTreatments())
 			System.out.println(treatment);
 		return new SelectUsecase(data);
 	}

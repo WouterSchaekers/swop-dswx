@@ -1,11 +1,11 @@
 package ui.addhospitalequipment;
 
-import controllers.AddHospitalEquipmentController;
-import exceptions.InvalidHospitalStateException;
-import exceptions.InvalidLoginControllerException;
 import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
+import controllers.AddHospitalEquipmentController;
+import exceptions.InvalidHospitalStateException;
+import exceptions.InvalidLoginControllerException;
 
 public class AddHopsitalEquipment extends AddHospitalEquipmentSuperClass
 {
@@ -24,8 +24,8 @@ public class AddHopsitalEquipment extends AddHospitalEquipmentSuperClass
 		// Step one create the controller that is to be used
 		AddHospitalEquipmentController c = null;
 		try {
-			 c = new AddHospitalEquipmentController(
-					data.getLoginController(), data.getDataPasser());
+			c = new AddHospitalEquipmentController(data.getLoginController(),
+					data.getDataPasser());
 		} catch (InvalidLoginControllerException e) {
 			System.out.println("invalid login controller, user not logged in");
 			return new SelectUsecase(data);
@@ -34,8 +34,8 @@ public class AddHopsitalEquipment extends AddHospitalEquipmentSuperClass
 			e.printStackTrace();
 		}
 		chainData.add(c);
-		//Controller is created now yeya !
-		return new ShowMachineTypes(data,chainData);
+		// Controller is created now yeya !
+		return new ShowMachineTypes(data, chainData);
 	}
 
 }

@@ -15,5 +15,5 @@ public class Medication extends WareHouseItem
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 }

@@ -1,7 +1,5 @@
 package system;
 
-import exceptions.InvalidHospitalDateException;
-import exceptions.InvalidTimeLordException;
 import machine.MachinePool;
 import patient.PatientFileManager;
 import scheduler.Scheduler;
@@ -9,8 +7,10 @@ import scheduler.TimeLord;
 import scheduler.task.TaskManager;
 import users.UserManager;
 import warehouse.Warehouse;
+import exceptions.InvalidHospitalDateException;
+import exceptions.InvalidTimeLordException;
 
-public class HospitalState 
+public class HospitalState
 {
 	private final UserManager userManager;
 	private final MachinePool machinePool;
@@ -67,8 +67,10 @@ public class HospitalState
 			throw new Error();
 		}
 	}
-	
-	public HospitalState(TimeLord timeLord, UserManager userManager, MachinePool machinePool, PatientFileManager patientFileManager, Scheduler scheduler, TaskManager taskManager, Warehouse warehouse){
+
+	public HospitalState(TimeLord timeLord, UserManager userManager,
+			MachinePool machinePool, PatientFileManager patientFileManager,
+			Scheduler scheduler, TaskManager taskManager, Warehouse warehouse) {
 		this.systemTime = timeLord;
 		this.userManager = userManager;
 		this.machinePool = machinePool;

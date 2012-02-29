@@ -1,8 +1,8 @@
 package ui.registerpatient;
 
 import java.util.Map;
-import ui.UserinterfaceData;
 import ui.Usecase;
+import ui.UserinterfaceData;
 import controllers.RegisterPatientController;
 import controllers.interfaces.PatientFileIN;
 

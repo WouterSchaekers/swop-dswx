@@ -18,19 +18,21 @@ public class OrderXrayScan extends OrderMedicalTestSuperClass
 		System.out.println("Enter the bodypart that is to be scanned");
 		String in = input.nextLine();
 		fac.setBodyPart(in);
-		System.out.println("Enter zoom level : number between 1 and 3 ( float)");
-		float zoom  =-1;
+		System.out
+				.println("Enter zoom level : number between 1 and 3 ( float)");
+		float zoom = -1;
 		boolean go = true;
-		do{try{
-			in = input.nextLine();
-			zoom = new Float(in);
-			fac.setZoomLevel(zoom);
-			go=false;
-		}catch(Exception e){
-			System.out.println("Invalid number input try againS");
-			continue;
+		do {
+			try {
+				in = input.nextLine();
+				zoom = new Float(in);
+				fac.setZoomLevel(zoom);
+				go = false;
+			} catch (Exception e) {
+				System.out.println("Invalid number input try againS");
+				continue;
 			}
-		}while(go);
+		} while (go);
 		chaindata.setFactory(fac);
 		return new ScheduleMedicalTest(data, chaindata);
 	}

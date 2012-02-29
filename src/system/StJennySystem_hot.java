@@ -12,54 +12,64 @@ import exceptions.UserAlreadyExistsException;
 
 public class StJennySystem_hot
 {
-	 static StJennySystem_hot instance;
+	static StJennySystem_hot instance;
 	private static boolean extendd;
-	 final HospitalState state;
-	public static StJennySystem_hot instance() throws InvalidTimeLordException
-	{
-		if(instance==null)
+	final HospitalState state;
+
+	public static StJennySystem_hot instance() throws InvalidTimeLordException {
+		if (instance == null)
 			try {
 				instance = new StJennySystem_hot();
 			} catch (InvalidHospitalDateException e) {
 			}
 		return instance;
 	}
-	private StJennySystem_hot() throws InvalidTimeLordException, InvalidHospitalDateException
-	{
-		this.state=new HospitalState();
+
+	private StJennySystem_hot() throws InvalidTimeLordException,
+			InvalidHospitalDateException {
+		this.state = new HospitalState();
 		try {
 			state.getUserManager().createHospitalAdmin("Wouter");
-			if(extendd)
+			if (extendd)
 				extraInfo();
 		} catch (UserAlreadyExistsException e) {
-			System.out.println("Fatal error at system startup, Wouter already exists.");
+			System.out
+					.println("Fatal error at system startup, Wouter already exists.");
 		} catch (InvalidNameException e) {
-			System.out.println("Fatal error at system startup, Wouter is cool.");
+			System.out
+					.println("Fatal error at system startup, Wouter is cool.");
 		} catch (InvalidTimeSlotException e) {
 			System.out.println("Fatal error at system startup.");
 		} catch (InvalidSerialException e) {
 		} catch (InvalidLocationException e) {
 		}
 	}
+
 	private void extraInfo() throws UserAlreadyExistsException,
 			InvalidNameException, InvalidTimeSlotException,
 			InvalidSerialException, InvalidLocationException {
 		state.getUserManager().createNurse("jenny");
 		state.getUserManager().createDoctor("stef");
 		state.getUserManager().createDoctor("abra");
-		state.getMachinePool().addMachine(state.getMachinePool().createUltraSoundScanner(234, "jonathan"));
+		state.getMachinePool()
+				.addMachine(
+						state.getMachinePool().createUltraSoundScanner(234,
+								"jonathan"));
 		state.getPatientFileManager().registerPatient("jos");
 	}
-	
+
 	public static void main(String[] args) throws InvalidTimeLordException {
-	if(args.length!=0)
-		if(args[0].equals("-e"))
-			StJennySystem_hot.extendd=true;
-	StJennySystem_hot t = StJennySystem_hot.instance();
-	UserinterfaceData data = null;//new UserinterfaceData(new DataPasser(t.state.getUserManager(),t.state.getPatientFileManager(), t.state.getScheduler(),t.state.getMachinePool(), t.state.getTaskManager(),t.state.getSystemTime(),t.state.getWarehouse()));
-	UCHandler handler = new UCHandler(data);
+		if (args.length != 0)
+			if (args[0].equals("-e"))
+				StJennySystem_hot.extendd = true;
+		StJennySystem_hot t = StJennySystem_hot.instance();
+		UserinterfaceData data = null;// new UserinterfaceData(new
+										// DataPasser(t.state.getUserManager(),t.state.getPatientFileManager(),
+										// t.state.getScheduler(),t.state.getMachinePool(),
+										// t.state.getTaskManager(),t.state.getSystemTime(),t.state.getWarehouse()));
+		UCHandler handler = new UCHandler(data);
 		handler.start();
-	
+
 	}
-	
+
 }

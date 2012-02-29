@@ -117,11 +117,11 @@ public class UserManager
 			t.add(u);
 		return UserFilter.DoctorFilter(t);
 	}
-	
-	public WarehouseAdmin getWarehouseAdmin(){
+
+	public WarehouseAdmin getWarehouseAdmin() {
 		WarehouseAdmin warehouseAdmin = null;
-		for(User u : users)
-			if(u instanceof WarehouseAdmin)
+		for (User u : users)
+			if (u instanceof WarehouseAdmin)
 				warehouseAdmin = (WarehouseAdmin) u;
 		return warehouseAdmin;
 	}

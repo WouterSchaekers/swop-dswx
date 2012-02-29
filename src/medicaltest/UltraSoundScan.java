@@ -59,8 +59,8 @@ public class UltraSoundScan extends MedicalTest
 
 	@Override
 	public void setResult(Result r) {
-		this.result =r;
-		
+		this.result = r;
+
 	}
 
 	@Override
@@ -70,21 +70,28 @@ public class UltraSoundScan extends MedicalTest
 			throws InvalidResourceException, InvalidDurationException,
 			InvalidOccurencesException, InvalidAmountException,
 			InvalidHospitalDateException {
-		return new UnscheduledUltraSound(file, systemtime.getSystemTime(), userm, pool, this);
+		return new UnscheduledUltraSound(file, systemtime.getSystemTime(),
+				userm, pool, this);
 	}
 
 	@Override
 	public String appointmentInfo() {
 		String rv = "";
-		rv+="Ultra Sound Scan \n";
-		if(getScheduledTask()!=null){
-			rv+="for \t:\t"+getScheduledTask().getPatient().getName()+"\n";
-			rv+="at \t:\t" + getScheduledTask().getTimeSlot().getStartPoint()+"\ttill\t"+getScheduledTask().getTimeSlot().getStopPoint();
-		}else{
-			rv +="Scan is not yet Scheduled";
+		rv += "Ultra Sound Scan \n";
+		if (getScheduledTask() != null) {
+			rv += "for \t:\t" + getScheduledTask().getPatient().getName()
+					+ "\n";
+			rv += "at \t:\t" + getScheduledTask().getTimeSlot().getStartPoint()
+					+ "\ttill\t"
+					+ getScheduledTask().getTimeSlot().getStopPoint();
+		} else {
+			rv += "Scan is not yet Scheduled";
 		}
 		return rv;
 	}
-	public Result getResult(){return result;}
+
+	public Result getResult() {
+		return result;
+	}
 
 }

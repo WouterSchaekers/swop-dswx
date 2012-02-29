@@ -18,12 +18,14 @@ import exceptions.InvalidResourceException;
 
 public class UnscheduledBloodTest extends UnscheduledMedicalTest
 {
-	public UnscheduledBloodTest(PatientFile p, HospitalDate currentSystemTime, UserManager userManager, MachinePool machinePool,BloodAnalysis analysis)
-			throws InvalidResourceException, InvalidDurationException,
-			InvalidOccurencesException, InvalidAmountException,
-			InvalidHospitalDateException {
-		super(p, BloodAnalysis.DURATION, currentSystemTime, userManager, machinePool,analysis);
-		
+	public UnscheduledBloodTest(PatientFile p, HospitalDate currentSystemTime,
+			UserManager userManager, MachinePool machinePool,
+			BloodAnalysis analysis) throws InvalidResourceException,
+			InvalidDurationException, InvalidOccurencesException,
+			InvalidAmountException, InvalidHospitalDateException {
+		super(p, BloodAnalysis.DURATION, currentSystemTime, userManager,
+				machinePool, analysis);
+
 	}
 
 	@Override
@@ -32,18 +34,19 @@ public class UnscheduledBloodTest extends UnscheduledMedicalTest
 		rv.add(this.getMachinePool());
 		return rv;
 	}
-	
+
 	@Override
-	protected LinkedList<Schedulable> getMachinePool(){
+	protected LinkedList<Schedulable> getMachinePool() {
 		LinkedList<Schedulable> curMachinePool = new LinkedList<Schedulable>();
-		curMachinePool.addAll(Collections.filter(this.machinePool.getAllMachines(), new Filter()
-		{
-			@Override
-			public <T> boolean allows(T arg) {
-				return arg instanceof BloodAnalyser;
-			}
-		}));
+		curMachinePool.addAll(Collections.filter(
+				this.machinePool.getAllMachines(), new Filter()
+				{
+					@Override
+					public <T> boolean allows(T arg) {
+						return arg instanceof BloodAnalyser;
+					}
+				}));
 		return curMachinePool;
-		
+
 	}
 }

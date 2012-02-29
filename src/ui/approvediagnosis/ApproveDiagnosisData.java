@@ -15,31 +15,32 @@ public class ApproveDiagnosisData
 	private EnterDiagnoseController enterDiagController;
 	private String diagnoseString;
 	private DoctorIN otherDoctor;
-	public void setOtherDoctor(DoctorIN doc)
-	{
-		this.otherDoctor=doc;
+
+	public void setOtherDoctor(DoctorIN doc) {
+		this.otherDoctor = doc;
 	}
+
 	public void add(ApproveDiagnosisController controller) {
 		this.approveDiagnosisController = controller;
-		
+
 	}
 
 	public ApproveDiagnosisController getController() {
-	return approveDiagnosisController;
-}
+		return approveDiagnosisController;
+	}
 
 	public void setUnapprovedDiagnoses(Collection<DiagnoseIN> d) {
-		this.d=d;
-		
+		this.d = d;
+
 	}
-	public Collection<DiagnoseIN> getAllTheDiagnosis()
-	{
+
+	public Collection<DiagnoseIN> getAllTheDiagnosis() {
 		return d;
 	}
 
 	public void setCreatedDiagnose(DiagnoseIN diagnose) {
-		this.diagnose=diagnose;
-		
+		this.diagnose = diagnose;
+
 	}
 
 	public DiagnoseIN getDiagnose() {
@@ -47,18 +48,18 @@ public class ApproveDiagnosisData
 	}
 
 	public void setController(EnterDiagnoseController c) {
-		this.enterDiagController=c;
-		
+		this.enterDiagController = c;
+
 	}
 
 	public void setDiagnose(String in) {
 		this.setDiagnoseString(in);
-		
+
 	}
 
 	public EnterDiagnoseController getEnterDiagnoseController() {
 		return this.enterDiagController;
-		
+
 	}
 
 	public void setDiagnoseString(String diagnoseString) {
@@ -72,6 +73,7 @@ public class ApproveDiagnosisData
 	public DoctorIN getOtherDoctor() {
 		return otherDoctor;
 	}
+
 	public void setDiagnose(DiagnoseIN diagnose2) {
 	}
 

@@ -8,6 +8,7 @@ import java.util.Observable;
 public class TimeLord extends Observable
 {
 	private HospitalDate systemTime;
+
 	/**
 	 * Constructor that will create a new TimeLord that will have its current
 	 * system time as the beginning of time (@see: HospitalDate)

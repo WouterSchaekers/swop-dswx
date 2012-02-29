@@ -2,8 +2,8 @@ package ui.registerpatient;
 
 import java.util.HashMap;
 import java.util.Map;
-import ui.UserinterfaceData;
 import ui.Usecase;
+import ui.UserinterfaceData;
 import controllers.RegisterPatientController;
 import controllers.interfaces.PatientFileIN;
 import exceptions.InvalidLoginControllerException;
@@ -24,7 +24,8 @@ public class DisplayAllPatients extends Usecase
 	public Usecase Execute() {
 		System.out.println("List of all patients:");
 		try {
-			for (PatientFileIN patient : rpc.getAllPatients(data.getLoginController())) {
+			for (PatientFileIN patient : rpc.getAllPatients(data
+					.getLoginController())) {
 				namePatientMap.put(patient.getName(), patient);
 				System.out.println(patient.getName());
 			}

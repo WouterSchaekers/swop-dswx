@@ -19,11 +19,13 @@ import exceptions.InvalidResourceException;
 
 public class UnscheduledUltraSound extends UnscheduledMedicalTest
 {
-	public UnscheduledUltraSound(PatientFile p, HospitalDate currentSystemTime, UserManager userManager, MachinePool machinePool,UltraSoundScan ultraSoundScan)
-			throws InvalidResourceException, InvalidDurationException,
-			InvalidOccurencesException, InvalidAmountException,
-			InvalidHospitalDateException {
-		super(p, BloodAnalysis.DURATION, currentSystemTime, userManager, machinePool,ultraSoundScan);
+	public UnscheduledUltraSound(PatientFile p, HospitalDate currentSystemTime,
+			UserManager userManager, MachinePool machinePool,
+			UltraSoundScan ultraSoundScan) throws InvalidResourceException,
+			InvalidDurationException, InvalidOccurencesException,
+			InvalidAmountException, InvalidHospitalDateException {
+		super(p, BloodAnalysis.DURATION, currentSystemTime, userManager,
+				machinePool, ultraSoundScan);
 	}
 
 	@Override
@@ -32,16 +34,17 @@ public class UnscheduledUltraSound extends UnscheduledMedicalTest
 		rv.add(this.getMachinePool());
 		return rv;
 	}
-	
-	protected LinkedList<Schedulable> getMachinePool(){
+
+	protected LinkedList<Schedulable> getMachinePool() {
 		LinkedList<Schedulable> curMachinePool = new LinkedList<Schedulable>();
-		curMachinePool.addAll(Collections.filter(this.machinePool.getAllMachines(), new Filter()
-		{
-			@Override
-			public <T> boolean allows(T arg) {
-				return arg instanceof UltraSoundScanner;
-			}
-		}));
+		curMachinePool.addAll(Collections.filter(
+				this.machinePool.getAllMachines(), new Filter()
+				{
+					@Override
+					public <T> boolean allows(T arg) {
+						return arg instanceof UltraSoundScanner;
+					}
+				}));
 		return curMachinePool;
 	}
 

@@ -8,8 +8,9 @@ public class StartTimePoint extends TimePoint
 {
 	/**
 	 * Constructor where a HospitalDate is given.
+	 * 
 	 * @param d
-	 * The date of this time point.
+	 *            The date of this time point.
 	 */
 	public StartTimePoint(HospitalDate d) {
 		super(d);
@@ -27,7 +28,9 @@ public class StartTimePoint extends TimePoint
 	}
 
 	/**
-	 * Use this constructor if you would like to have this StartTimePoint be a clone of another TimePoint.(same date)
+	 * Use this constructor if you would like to have this StartTimePoint be a
+	 * clone of another TimePoint.(same date)
+	 * 
 	 * @param t
 	 */
 	public StartTimePoint(TimePoint t) {
@@ -48,15 +51,16 @@ public class StartTimePoint extends TimePoint
 	public boolean isEnd() {
 		return false;
 	}
+
 	@Override
 	public String toString() {
 		return "Start: " + this.getDate();
 	}
+
 	@Override
-	public boolean equals(Object o)
-	{
-		if(!(o instanceof StartTimePoint))
+	public boolean equals(Object o) {
+		if (!(o instanceof StartTimePoint))
 			return false;
-		return this.getDate().equals(((StartTimePoint)o).getDate());
+		return this.getDate().equals(((StartTimePoint) o).getDate());
 	}
 }

@@ -92,10 +92,12 @@ public class TaskManager extends Observable
 	 * @throws InvalidSchedulingRequestException
 	 * @throws InvalidDurationException
 	 * @throws QueueException
-	 * @throws InvalidHospitalDateArgument 
-	 * @throws InvalidResourceException 
+	 * @throws InvalidHospitalDateArgument
+	 * @throws InvalidResourceException
 	 */
-	public ScheduledTask addTask(UnscheduledTask t) throws InvalidTimeSlotException, InvalidResourceException, InvalidHospitalDateArgument   {
+	public ScheduledTask addTask(UnscheduledTask t)
+			throws InvalidTimeSlotException, InvalidResourceException,
+			InvalidHospitalDateArgument {
 		if (!isValidTask(t))
 			throw new IllegalArgumentException(
 					"Task t in addTask of the TaskManager is not a valid queueable Task!");
@@ -104,17 +106,18 @@ public class TaskManager extends Observable
 		} catch (InvalidSchedulingRequestException e) {
 			this.taskQueue.add(t);
 			return null;
-		} 
+		}
 	}
 
 	private ScheduledTask schedule(UnscheduledTask t)
 			throws InvalidTimeSlotException, InvalidSchedulingRequestException,
 			InvalidResourceException, InvalidHospitalDateArgument {
-		ScheduledTask task= this.myScheduler.schedule(t);
+		ScheduledTask task = this.myScheduler.schedule(t);
 		t.setScheduled(task);
 
 		return task;
 	}
+
 	/**
 	 * @return True if t is a valid Task that can be queued in this TM.
 	 */

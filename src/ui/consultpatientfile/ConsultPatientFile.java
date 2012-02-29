@@ -1,7 +1,7 @@
 package ui.consultpatientfile;
 
-import ui.UserinterfaceData;
 import ui.Usecase;
+import ui.UserinterfaceData;
 
 public class ConsultPatientFile extends ConsultPatientFileSuperclass
 {
@@ -12,7 +12,7 @@ public class ConsultPatientFile extends ConsultPatientFileSuperclass
 
 	@Override
 	public Usecase Execute() {
-		return new ListUndischargedPatients(data,chaindata);
+		return new ListUndischargedPatients(data, chaindata);
 	}
 
 }

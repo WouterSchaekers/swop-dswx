@@ -3,13 +3,17 @@ package patient;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Observable;
+import treatment.Treatment;
+import users.Doctor;
+import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.DoctorIN;
 import controllers.interfaces.TreatmentIN;
-import be.kuleuven.cs.som.annotate.Basic;
-import exceptions.*;
-import treatment.Treatment;
-import users.Doctor;
+import exceptions.ApproveDiagnoseException;
+import exceptions.InvalidDiagnoseException;
+import exceptions.InvalidDisaprovementException;
+import exceptions.InvalidDoctorException;
+import exceptions.InvalidTreatmentException;
 
 /**
  * This class represents a diagnosis that's given to a patient after admission
@@ -19,15 +23,15 @@ import users.Doctor;
 public class Diagnose extends Observable implements DiagnoseIN
 {
 
-	private String diag = ""; 
+	private String diag = "";
 	private boolean approved = false;
 	private boolean secOpFlag = false;
 	private Doctor attending = null;
-	private Doctor secopDoc = null; 
+	private Doctor secopDoc = null;
 	/**
-	 * the  treatments associated with this  diagnosis
+	 * the treatments associated with this diagnosis
 	 */
-	private Collection<Treatment> treatments = new ArrayList<Treatment>(); 
+	private Collection<Treatment> treatments = new ArrayList<Treatment>();
 
 	/**
 	 * Default constructor. Initialises fields.
@@ -41,11 +45,13 @@ public class Diagnose extends Observable implements DiagnoseIN
 	 * @throws InvalidDiagnoseException
 	 *             if !isValidDiagnosis(diag)
 	 */
-	public Diagnose(Doctor doc, String diag) throws InvalidDoctorException,InvalidDiagnoseException {
+	public Diagnose(Doctor doc, String diag) throws InvalidDoctorException,
+			InvalidDiagnoseException {
 		if (!this.canHaveAsDoctor(doc))
 			throw new InvalidDoctorException("Doctor is invalid!");
 		if (!this.isValidDiagnosis(diag))
-			throw new InvalidDiagnoseException("Diagnose in Diagnoseconstructor is invalid!");
+			throw new InvalidDiagnoseException(
+					"Diagnose in Diagnoseconstructor is invalid!");
 		this.attending = doc;
 		this.diag = diag;
 	}
@@ -62,25 +68,26 @@ public class Diagnose extends Observable implements DiagnoseIN
 	 *             if (!canGvieSecondOpionion(from))
 	 * @throws InvalidDiagnoseException
 	 *             if (!isValidDiagnosis(diag))
-	 * @throws InvalidDisaprovementException 
+	 * @throws InvalidDisaprovementException
 	 */
 	public void disapprove(Doctor from, Diagnose replacement)
-			throws InvalidDoctorException, InvalidDiagnoseException, InvalidDisaprovementException {
-		if(!canBeReplacedWith(replacement))
+			throws InvalidDoctorException, InvalidDiagnoseException,
+			InvalidDisaprovementException {
+		if (!canBeReplacedWith(replacement))
 			throw new InvalidDisaprovementException();
 		if (!canGiveSecondOpinion(from))
 			throw new InvalidDoctorException(
 					"The given Doctor cannot give a second opinion on the selected Diagnose because he's not been asked to do so!");
 		if (!isValidDiagnosis(diag))
 			throw new InvalidDiagnoseException(
-					"Invalid Diagnose for second opinion!"); 
+					"Invalid Diagnose for second opinion!");
 		this.disapprove();
 	}
 
 	private boolean canBeReplacedWith(Diagnose replacement) {
 		boolean rv = this.secopDoc.equals(replacement.attending);
-		rv&= (this.attending.equals(replacement.secopDoc));
-		rv&= replacement.secOpFlag;
+		rv &= (this.attending.equals(replacement.secopDoc));
+		rv &= replacement.secOpFlag;
 		return rv;
 	}
 
@@ -103,7 +110,7 @@ public class Diagnose extends Observable implements DiagnoseIN
 
 	@Basic
 	public DoctorIN needsSecOpFrom() {
-		DoctorIN rv = (DoctorIN)(this.secopDoc);
+		DoctorIN rv = (DoctorIN) (this.secopDoc);
 		return rv;
 	}
 
@@ -117,11 +124,12 @@ public class Diagnose extends Observable implements DiagnoseIN
 
 	/**
 	 * Approves this diagnosis.
-	 * @throws ApproveDiagnoseException 
-	 * 	If this diagnose was not marked for second opinion.
+	 * 
+	 * @throws ApproveDiagnoseException
+	 *             If this diagnose was not marked for second opinion.
 	 */
 	public void approve() throws ApproveDiagnoseException {
-		if(!isMarkedForSecOp())
+		if (!isMarkedForSecOp())
 			throw new ApproveDiagnoseException();
 		this.approved = true;
 		this.unmarkForSecOp();
@@ -151,7 +159,7 @@ public class Diagnose extends Observable implements DiagnoseIN
 	 * @return True if doc is a valid doctor for this Diagnose.
 	 */
 	private boolean canHaveAsDoctor(Doctor doc) {
-		return !(doc==null);
+		return !(doc == null);
 	}
 
 	/**
@@ -169,23 +177,25 @@ public class Diagnose extends Observable implements DiagnoseIN
 		return doc.equals(this.needsSecOpFrom());
 	}
 
-//	/**
-//	 * @return true if secOp.equals(this.getDiagnosis())
-//	 */
-//	private boolean evaluateSecOp(String secOp) {
-//		return secOp.equalsIgnoreCase(this.getDiagnosis());
-//	}
+	// /**
+	// * @return true if secOp.equals(this.getDiagnosis())
+	// */
+	// private boolean evaluateSecOp(String secOp) {
+	// return secOp.equalsIgnoreCase(this.getDiagnosis());
+	// }
 
 	/**
 	 * This method assigns an extra Treatment to this Diagnose.
+	 * 
 	 * @param t
-	 * The new Treatment.
+	 *            The new Treatment.
 	 * @throws InvalidTreatmentException
-	 * if(!isValidTreatment(t))
+	 *             if(!isValidTreatment(t))
 	 */
 	public void assignTreatment(Treatment t) throws InvalidTreatmentException {
 		if (!isValidTreatment(t))
-			throw new InvalidTreatmentException("Trying to associate an invalid treatment for a diagnosis!");
+			throw new InvalidTreatmentException(
+					"Trying to associate an invalid treatment for a diagnosis!");
 		treatments.add(t);
 	}
 
@@ -216,16 +226,15 @@ public class Diagnose extends Observable implements DiagnoseIN
 		return t != null;
 	}
 
-
-	public void disaprove(DiagnoseIN replacement) throws ApproveDiagnoseException {
-		if(!isMarkedForSecOp())
+	public void disaprove(DiagnoseIN replacement)
+			throws ApproveDiagnoseException {
+		if (!isMarkedForSecOp())
 			throw new ApproveDiagnoseException();
-		this.approved=false;
-		this.secOpFlag=false;
-		this.attending=null;
-		this.secopDoc=null;
-		
-}
-	
+		this.approved = false;
+		this.secOpFlag = false;
+		this.attending = null;
+		this.secopDoc = null;
+
+	}
 
 }

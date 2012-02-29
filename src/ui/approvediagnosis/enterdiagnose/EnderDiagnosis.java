@@ -21,7 +21,8 @@ public class EnderDiagnosis extends ApproveDiagnosisSuper
 		// Create controller
 		EnterDiagnoseController c = null;
 		try {
-			c = new EnterDiagnoseController(data.getDataPasser(), data.getLoginController(),
+			c = new EnterDiagnoseController(data.getDataPasser(),
+					data.getLoginController(),
 					data.getPatientFileOpenController());
 		} catch (InvalidLoginControllerException e) {
 			System.out.println("Invalid login aborting");

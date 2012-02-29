@@ -5,7 +5,7 @@ public class InvalidPatientFileOpenController extends Exception
 
 	public InvalidPatientFileOpenController(String string) {
 		super(string);
-		}
+	}
 
 	/**
 	 * 

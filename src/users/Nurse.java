@@ -1,8 +1,8 @@
 package users;
 
-import controllers.interfaces.NurseIN;
 import scheduler.HospitalDate;
 import scheduler.TimeSlot;
+import controllers.interfaces.NurseIN;
 import exceptions.InvalidHospitalDateArgument;
 import exceptions.InvalidNameException;
 import exceptions.InvalidSchedulingRequestException;
@@ -28,7 +28,7 @@ public class Nurse extends SchedulableUser implements NurseIN
 	 * @throws InvalidNameException
 	 * @throws InvalidTimeSlotException
 	 */
-	public Nurse(String name) throws InvalidNameException  {
+	public Nurse(String name) throws InvalidNameException {
 		super(name);
 	}
 
@@ -49,7 +49,8 @@ public class Nurse extends SchedulableUser implements NurseIN
 	@Override
 	public TimeSlot getFirstFreeSlotBetween(HospitalDate startDate,
 			HospitalDate stopDate, long duration)
-			throws InvalidSchedulingRequestException, InvalidTimeSlotException, InvalidHospitalDateArgument {
+			throws InvalidSchedulingRequestException, InvalidTimeSlotException,
+			InvalidHospitalDateArgument {
 		HospitalDate tmpStartWorkingHour = new HospitalDate(1, 1, 1,
 				Nurse.STARTHOUR, 1, 1);
 		HospitalDate tmpStopWorkingHour = new HospitalDate(1, 1, 1,
@@ -84,7 +85,8 @@ public class Nurse extends SchedulableUser implements NurseIN
 				duration);
 	}
 
-	private HospitalDate createDummyDate(HospitalDate hospitalDate) throws InvalidHospitalDateArgument {
+	private HospitalDate createDummyDate(HospitalDate hospitalDate)
+			throws InvalidHospitalDateArgument {
 		return new HospitalDate(1, 1, 1, hospitalDate.getHour(),
 				hospitalDate.getMinute(), hospitalDate.getSecond());
 	}

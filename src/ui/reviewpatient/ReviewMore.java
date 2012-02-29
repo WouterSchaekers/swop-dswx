@@ -15,9 +15,9 @@ public class ReviewMore extends Usecase
 	public Usecase Execute() {
 		System.out.print("Would you like to review more of this patient? y/n");
 		String in = input.nextLine();
-		if(in.equalsIgnoreCase("y"))
+		if (in.equalsIgnoreCase("y"))
 			return new ReviewPatient(data);
-		if(in.equalsIgnoreCase("n"))
+		if (in.equalsIgnoreCase("n"))
 			return new SelectUsecase(data);
 		System.out.println("unknown input entered");
 		return this;

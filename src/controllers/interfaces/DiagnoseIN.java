@@ -5,7 +5,7 @@ import java.util.Collection;
 /**
  * @see
  * @author Dieter
- *
+ * 
  */
 public interface DiagnoseIN
 {

@@ -37,11 +37,10 @@ public class UnscheduledMedication extends UnscheduledTreatment
 			throws InvalidResourceException, InvalidDurationException,
 			InvalidOccurencesException, InvalidAmountException,
 			InvalidHospitalDateException {
-		super(p, diagnose, 2 * HospitalDate.ONE_HOUR, systemTime, userManager,medication);
+		super(p, diagnose, 2 * HospitalDate.ONE_HOUR, systemTime, userManager,
+				medication);
 		this.warehouse = warehouse;
 	}
-
-	
 
 	@Override
 	public boolean canBeScheduled() {
@@ -54,16 +53,19 @@ public class UnscheduledMedication extends UnscheduledTreatment
 		rv.add(1);
 		return rv;
 	}
-	
-	protected LinkedList<Medication> getMedicationPool(){
+
+	protected LinkedList<Medication> getMedicationPool() {
 		LinkedList<Medication> medicationPool = new LinkedList<Medication>();
-		medicationPool.addAll(Collections.filter(this.warehouse.getMedication(), new Filter() 
-		{
-			@Override
-			public <T> boolean allows(T arg) {
-				return arg.getClass().equals(UnscheduledMedication.this.getMytreatment().getClass());
-			}
-		}));
+		medicationPool.addAll(Collections.filter(
+				this.warehouse.getMedication(), new Filter()
+				{
+					@Override
+					public <T> boolean allows(T arg) {
+						return arg.getClass().equals(
+								UnscheduledMedication.this.getMytreatment()
+										.getClass());
+					}
+				}));
 		return medicationPool;
 	}
 

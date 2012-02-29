@@ -9,7 +9,7 @@ import exceptions.InvalidReportException;
 public class UltraSoundResult extends Result
 {
 	private MassType massType;
-	
+
 	/**
 	 * Default constructor. Will initialise all fields.
 	 * 
@@ -19,11 +19,12 @@ public class UltraSoundResult extends Result
 	 *            The type of the mass found.
 	 * @throws InvalidReportException
 	 */
-	public UltraSoundResult(String report, MassType massType) throws InvalidReportException {
+	public UltraSoundResult(String report, MassType massType)
+			throws InvalidReportException {
 		super(report);
 		this.massType = massType;
 	}
-	
+
 	@Basic
 	public MassType getMassType() {
 		return this.massType;

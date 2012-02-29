@@ -7,20 +7,22 @@ import scheduler.task.TaskManager;
 public class DiagnoseObserverTaskManager implements Observer
 {
 	private TaskManager taskmanager;
+
 	/**
 	 * 
 	 * @param d
 	 * @param taskmanager
 	 */
-	public DiagnoseObserverTaskManager( TaskManager taskmanager) {
+	public DiagnoseObserverTaskManager(TaskManager taskmanager) {
 		this.taskmanager = taskmanager;
 	}
+
 	/**
 	 * 
 	 */
 	@Override
 	public void update(Observable arg0, Object diag) {
-			this.taskmanager.update();
+		this.taskmanager.update();
 
 	}
 

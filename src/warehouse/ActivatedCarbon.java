@@ -6,7 +6,8 @@ import treatment.Medication;
 public class ActivatedCarbon extends Medication
 {
 	public ActivatedCarbon(boolean sensitive, HospitalDate expirationDate) {
-		super("Activated Carbon", sensitive, expirationDate, new ActivatedCarbonType());
+		super("Activated Carbon", sensitive, expirationDate,
+				new ActivatedCarbonType());
 	}
 
 	@Override

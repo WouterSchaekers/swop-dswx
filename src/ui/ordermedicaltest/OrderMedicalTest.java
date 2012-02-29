@@ -18,9 +18,9 @@ public class OrderMedicalTest extends OrderMedicalTestSuperClass
 
 	@Override
 	public Usecase Execute() {
-		MedicalTestController orderMedTestController = null ;
+		MedicalTestController orderMedTestController = null;
 		try {
-			orderMedTestController= new MedicalTestController(
+			orderMedTestController = new MedicalTestController(
 					data.getLoginController(),
 					data.getPatientFileOpenController(), data.getDataPasser());
 		} catch (IllegalArgumentException e) {
@@ -40,6 +40,6 @@ public class OrderMedicalTest extends OrderMedicalTestSuperClass
 			e.printStackTrace();
 		}
 		chaindata.setMedTestController(orderMedTestController);
-		return new SelectMedicalTest(data,chaindata);
+		return new SelectMedicalTest(data, chaindata);
 	}
 }

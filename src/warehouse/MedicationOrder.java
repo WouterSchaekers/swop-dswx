@@ -29,13 +29,12 @@ public class MedicationOrder extends StockOrder
 
 	@Override
 	public Medication getStockItem() {
-		return medicationType.create(new HospitalDate(
-				this.orderDate.getTimeSinceStart()
-				+ this.TIME_FOR_EXPIRATION));
+		return medicationType.create(new HospitalDate(this.orderDate
+				.getTimeSinceStart() + this.TIME_FOR_EXPIRATION));
 	}
-	
+
 	@Override
-	public String toString(){
+	public String toString() {
 		return "Meal";
 	}
 }

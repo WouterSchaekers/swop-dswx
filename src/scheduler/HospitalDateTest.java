@@ -7,7 +7,7 @@ import org.junit.Test;
 public class HospitalDateTest
 {
 	@Test
-	public void Constructor0Test(){
+	public void Constructor0Test() {
 		HospitalDate h = new HospitalDate();
 		assertTrue(h.getYear() == HospitalDate.START_YEAR);
 		assertTrue(h.getMonth() == HospitalDate.START_MONTH);
@@ -16,22 +16,22 @@ public class HospitalDateTest
 		assertTrue(h.getMinute() == HospitalDate.START_MINUTE);
 		assertTrue(h.getSecond() == HospitalDate.START_SECOND);
 	}
-	
+
 	@Test
-	public void Constructor1Test(){
+	public void Constructor1Test() {
 		HospitalDate h = new HospitalDate(1000000);
 		assertTrue(h.getTimeSinceStart() == 1000000);
 	}
+
 	@Test
-	public void cloneTest()
-	{
+	public void cloneTest() {
 		HospitalDate h = new HospitalDate(1000000);
 		assertTrue(h.equals(h.clone()));
-		
+
 	}
-	
+
 	@Test
-	public void setTimeTest(){
+	public void setTimeTest() {
 		HospitalDate h = new HospitalDate();
 		h.setYear(2011);
 		h.setMonth(11);
@@ -46,14 +46,14 @@ public class HospitalDateTest
 		assertTrue(h.getMinute() == 11);
 		assertTrue(h.getSecond() == 11);
 	}
-	
+
 	@Test
-	public void toStringTest(){
+	public void toStringTest() {
 		System.out.println(new HospitalDate(0));
 	}
-	
+
 	@Test
-	public void beforeTest(){
+	public void beforeTest() {
 		HospitalDate h0 = new HospitalDate(1000);
 		HospitalDate h1 = new HospitalDate(1000);
 		HospitalDate h2 = new HospitalDate(1001);

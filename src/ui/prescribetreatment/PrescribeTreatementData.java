@@ -7,12 +7,13 @@ public class PrescribeTreatementData
 {
 	PrescribeTreatmentController c;
 	DiagnoseIN DiagnoseToTreat;
+
 	public DiagnoseIN getDiagnoseToTreat() {
 		return DiagnoseToTreat;
 	}
 
 	public void setDiagnoseToTreat(DiagnoseIN diagnoseIN) {
-	this.DiagnoseToTreat=diagnoseIN;	
+		this.DiagnoseToTreat = diagnoseIN;
 	}
 
 	public PrescribeTreatmentController getPrescribeTreatmentController() {
@@ -22,6 +23,5 @@ public class PrescribeTreatementData
 	public void setPrescribeTreatmentController(PrescribeTreatmentController c) {
 		this.c = c;
 	}
-
 
 }

@@ -17,26 +17,28 @@ public class UnscheduledAppointment extends UnscheduledTask
 {
 	private Doctor requiredDoctor;
 
-	public UnscheduledAppointment(PatientFile p, Doctor d, HospitalDate currentsystemtime)
-			throws InvalidResourceException, InvalidDurationException,
-			InvalidOccurencesException, InvalidRequirementException,
-			InvalidAmountException, InvalidHospitalDateException {
-		super(p, 30 * HospitalDate.ONE_MINUTE, currentsystemtime, HospitalDate.ONE_HOUR, true);
+	public UnscheduledAppointment(PatientFile p, Doctor d,
+			HospitalDate currentsystemtime) throws InvalidResourceException,
+			InvalidDurationException, InvalidOccurencesException,
+			InvalidRequirementException, InvalidAmountException,
+			InvalidHospitalDateException {
+		super(p, 30 * HospitalDate.ONE_MINUTE, currentsystemtime,
+				HospitalDate.ONE_HOUR, true);
 		this.requiredDoctor = d;
 	}
-	
+
 	@Override
 	public boolean canBeScheduled() {
 		return true;
 	}
-	
+
 	@Override
 	public LinkedList<Integer> getOccurences() {
 		LinkedList<Integer> rv = new LinkedList<Integer>();
 		rv.add(1);
 		return rv;
 	}
-	
+
 	@Override
 	public LinkedList<LinkedList<Schedulable>> getResourcePool() {
 		return createResourceListOfOneDoctor(requiredDoctor);
@@ -49,14 +51,14 @@ public class UnscheduledAppointment extends UnscheduledTask
 		rv.get(0).add(d);
 		return rv;
 	}
-	
+
 	@Override
-	public HospitalDate getFirstSchedulingDateSince(HospitalDate hospitalDate){
+	public HospitalDate getFirstSchedulingDateSince(HospitalDate hospitalDate) {
 		return hospitalDate;
 	}
 
 	@Override
 	public void setScheduled(ScheduledTask task) {
-		
+
 	}
 }

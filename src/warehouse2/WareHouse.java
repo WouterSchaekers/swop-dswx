@@ -5,9 +5,10 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import warehouse2.items.WareHouseItem;
+
 /**
  * Draft version of WareHouse class
- *
+ * 
  */
 public class WareHouse
 {

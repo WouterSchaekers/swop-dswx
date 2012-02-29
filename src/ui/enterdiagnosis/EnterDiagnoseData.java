@@ -25,13 +25,13 @@ public class EnterDiagnoseData
 	private EnterDiagnoseController c;
 
 	public void setController(EnterDiagnoseController c) {
-		this.c=c;
-		
+		this.c = c;
+
 	}
 
 	public void setDiagnose(String in) {
-		this.diag=in;
-		
+		this.diag = in;
+
 	}
-	
+
 }

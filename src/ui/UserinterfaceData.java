@@ -77,8 +77,8 @@ public class UserinterfaceData
 	}
 
 	public void reset() {
-		this.loginc=null;
-		this.regpatctrl=null;
+		this.loginc = null;
+		this.regpatctrl = null;
 	}
 
 }

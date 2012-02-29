@@ -34,7 +34,8 @@ public class UnscheduledCast extends UnscheduledTreatment
 			Warehouse warehouse) throws InvalidResourceException,
 			InvalidDurationException, InvalidOccurencesException,
 			InvalidAmountException, InvalidHospitalDateException {
-		super(p, diagnose, 2 * HospitalDate.ONE_HOUR, systemTime, userManager,cast);
+		super(p, diagnose, 2 * HospitalDate.ONE_HOUR, systemTime, userManager,
+				cast);
 
 		this.warehouse = warehouse;
 	}
@@ -54,6 +55,5 @@ public class UnscheduledCast extends UnscheduledTreatment
 		rv.add(1);
 		return rv;
 	}
-
 
 }

@@ -1,6 +1,5 @@
 package exceptions;
 
-
 public class InvalidRequirementException extends Exception
 {
 

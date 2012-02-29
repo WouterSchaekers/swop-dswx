@@ -2,7 +2,7 @@ package exceptions;
 
 public class InvalidTimeSlotException extends java.lang.Exception
 {
-	
+
 	public InvalidTimeSlotException(String args1) {
 		super(args1);
 	}

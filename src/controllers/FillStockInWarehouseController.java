@@ -20,6 +20,4 @@ public class FillStockInWarehouseController extends NeedsLoginController
 		return u instanceof WarehouseAdmin;
 	}
 
-	
-
 }

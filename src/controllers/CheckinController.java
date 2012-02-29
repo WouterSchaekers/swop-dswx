@@ -15,6 +15,7 @@ import exceptions.InvalidNameException;
 public class CheckinController extends NeedsLoginController
 {
 	private PatientFileManager pfm = null; // the pfm for this checkincontroller
+
 	/**
 	 * Default constructor.
 	 * 
@@ -22,10 +23,12 @@ public class CheckinController extends NeedsLoginController
 	 *            The logincontroller for this checkincontroller.
 	 * @param pfm
 	 *            The patientfilemanager for this checkincontroller.
-	 * @throws InvalidLoginControllerException 
-	 * @throws InvalidHospitalStateException 
+	 * @throws InvalidLoginControllerException
+	 * @throws InvalidHospitalStateException
 	 */
-	public CheckinController(LoginController lc, HospitalState hospitalState) throws InvalidLoginControllerException, InvalidHospitalStateException {
+	public CheckinController(LoginController lc, HospitalState hospitalState)
+			throws InvalidLoginControllerException,
+			InvalidHospitalStateException {
 		super(hospitalState, lc);
 		this.pfm = hospitalState.getPatientFileManager();
 	}
@@ -45,16 +48,17 @@ public class CheckinController extends NeedsLoginController
 	 * This method can be used to register a new patient.
 	 * 
 	 * @return the patientfile
-	 * @throws InvalidNameException 
+	 * @throws InvalidNameException
 	 */
-	public PatientFile signUpNewPatient(String name) throws InvalidNameException {
+	public PatientFile signUpNewPatient(String name)
+			throws InvalidNameException {
 		return pfm.registerPatient(name);
 	}
 
 	@Override
 	boolean validUser(User u) {
 		return u instanceof Nurse;
-		//TODO: Check if correct
+		// TODO: Check if correct
 	}
 
 }

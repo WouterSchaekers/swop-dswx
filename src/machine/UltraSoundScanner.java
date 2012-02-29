@@ -10,9 +10,10 @@ import exceptions.InvalidTimeSlotException;
 public class UltraSoundScanner extends Machine
 {
 	/**
-	 * Creates an ultrasound scanner, exceptions are thrown as in the super class: 
-	 * {@link Machine#Machine(int, String)} 
-	 * @throws InvalidTimeSlotException 
+	 * Creates an ultrasound scanner, exceptions are thrown as in the super
+	 * class: {@link Machine#Machine(int, String)}
+	 * 
+	 * @throws InvalidTimeSlotException
 	 * */
 	UltraSoundScanner(int serial, String location)
 			throws InvalidLocationException, InvalidSerialException {
@@ -25,7 +26,8 @@ public class UltraSoundScanner extends Machine
 	}
 
 	@Override
-	public boolean canBeScheduledOn(HospitalDate startDate, HospitalDate stopDate) {
+	public boolean canBeScheduledOn(HospitalDate startDate,
+			HospitalDate stopDate) {
 		return this.getTimeTable().hasFreeSlotAt(startDate, stopDate);
 	}
 }

@@ -32,7 +32,8 @@ public class _PatientFileOpenControllerTest
 
 	@Test
 	public void testPatientFileOpenControllerSucces()
-			throws UserAlreadyExistsException, InvalidNameException, InvalidTimeSlotException, InvalidLoginControllerException {
+			throws UserAlreadyExistsException, InvalidNameException,
+			InvalidTimeSlotException, InvalidLoginControllerException {
 		lc = new LoginController(data);
 		d = um.createDoctor("Jef");
 		u = d;
@@ -40,16 +41,17 @@ public class _PatientFileOpenControllerTest
 		pfoc = new PatientFileOpenController(data, lc);
 	}
 
-	@Test(
-			expected = InvalidLoginControllerException.class)
-	public void testGetLoginControllerFail() throws InvalidLoginControllerException {
+	@Test(expected = InvalidLoginControllerException.class)
+	public void testGetLoginControllerFail()
+			throws InvalidLoginControllerException {
 		lc = new LoginController(data);
 		pfoc = new PatientFileOpenController(data, null);
 	}
 
-	@Test(
-			expected = InvalidLoginControllerException.class)
-	public void testGetLoginControllerFail2() throws UserAlreadyExistsException, InvalidNameException, InvalidTimeSlotException, InvalidLoginControllerException {
+	@Test(expected = InvalidLoginControllerException.class)
+	public void testGetLoginControllerFail2()
+			throws UserAlreadyExistsException, InvalidNameException,
+			InvalidTimeSlotException, InvalidLoginControllerException {
 		lc = new LoginController(data);
 		n = um.createNurse("Sandrien");
 		u = n;
@@ -58,7 +60,8 @@ public class _PatientFileOpenControllerTest
 
 	@Test
 	public void testValidLoginControllerSucces()
-			throws UserAlreadyExistsException, InvalidNameException, InvalidTimeSlotException, InvalidLoginControllerException {
+			throws UserAlreadyExistsException, InvalidNameException,
+			InvalidTimeSlotException, InvalidLoginControllerException {
 		lc = new LoginController(data);
 		d = um.createDoctor("Jef");
 		u = d;
@@ -67,10 +70,10 @@ public class _PatientFileOpenControllerTest
 		assertTrue(pfoc.isValidLoginController(lc));
 	}
 
-	@Test(
-			expected = InvalidLoginControllerException.class)
+	@Test(expected = InvalidLoginControllerException.class)
 	public void testValidLoginControllerFail()
-			throws UserAlreadyExistsException, InvalidNameException, InvalidTimeSlotException, InvalidLoginControllerException {
+			throws UserAlreadyExistsException, InvalidNameException,
+			InvalidTimeSlotException, InvalidLoginControllerException {
 		lc = new LoginController(data);
 		n = um.createNurse("Margo");
 		u = n;

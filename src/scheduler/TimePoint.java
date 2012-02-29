@@ -11,7 +11,8 @@ public abstract class TimePoint implements Comparable<TimePoint>
 {
 	private HospitalDate hospitalDate;
 	/**
-	 * This comparator compares 2 Time Points where this timepoint is a starttimepoint.
+	 * This comparator compares 2 Time Points where this timepoint is a
+	 * starttimepoint.
 	 */
 	public static final Comparator<TimePoint> ComparatorsStartFirst = new Comparator<TimePoint>()
 	{
@@ -20,7 +21,7 @@ public abstract class TimePoint implements Comparable<TimePoint>
 			if (o1.compareTo(o2) == 0) {
 				if (o1.isStart() && o2.isEnd())
 					return 1;
-				if (o1.isEnd()&& o2.isStart())
+				if (o1.isEnd() && o2.isStart())
 					return -1;
 				return 0;
 			} else
@@ -28,16 +29,16 @@ public abstract class TimePoint implements Comparable<TimePoint>
 		}
 	};
 	/**
-	 * This comparator compares 2 Time Points where 
+	 * This comparator compares 2 Time Points where
 	 */
 	public static final Comparator<TimePoint> ComparatorsEndFirst = new Comparator<TimePoint>()
 	{
 		@Override
 		public int compare(TimePoint o1, TimePoint o2) {
 			if (o1.compareTo(o2) == 0) {
-				if (o1.isStart()&& o2.isEnd())
+				if (o1.isStart() && o2.isEnd())
 					return -1;
-				if (o1.isEnd()&& o2.isStart())
+				if (o1.isEnd() && o2.isStart())
 					return 1;
 				return 0;
 			} else
@@ -53,34 +54,34 @@ public abstract class TimePoint implements Comparable<TimePoint>
 	 *             if the given date is null or the timetype is null.
 	 */
 	protected TimePoint(HospitalDate d) {
-		if (d == null )
+		if (d == null)
 			throw new IllegalArgumentException(
 					"Invalid date or TimeType in constructor-call of TimePoint!");
-	
+
 		this.hospitalDate = d;
 	}
-	
+
 	/**
 	 * Constructor where amount of millis since system start can be given to.
+	 * 
 	 * @param timeInMillis
-	 * Amount of millis since system start.
+	 *            Amount of millis since system start.
 	 */
-	protected TimePoint(long timeInMillis ){
+	protected TimePoint(long timeInMillis) {
 		this(new HospitalDate(timeInMillis));
 	}
-	
+
 	/**
 	 * Constructor where another TimePoint is given that results in this
 	 * TimePoint being a clone of the given one.
 	 * 
 	 * @param t
-	 * The TimePoint on which this TimePoint is to be based on.
+	 *            The TimePoint on which this TimePoint is to be based on.
 	 */
-	protected TimePoint(TimePoint t){
+	protected TimePoint(TimePoint t) {
 		this(t.getDate());
 	}
 
-	
 	@Basic
 	public HospitalDate getDate() {
 		return this.hospitalDate;
@@ -108,12 +109,12 @@ public abstract class TimePoint implements Comparable<TimePoint>
 	/**
 	 * @return True if this is a start-timepoint.
 	 */
-	public abstract boolean isStart(); 
+	public abstract boolean isStart();
 
 	/**
 	 * @return True if this is an end-timepoint
 	 */
-	public abstract boolean isEnd(); 
+	public abstract boolean isEnd();
 
 	/**
 	 * @return the time between this TimePoint and t.
@@ -139,7 +140,8 @@ public abstract class TimePoint implements Comparable<TimePoint>
 	}
 
 	/**
-	 * Checks wether this timepoint lies between the two other timepoints, including the first point, but excluding the last point.
+	 * Checks wether this timepoint lies between the two other timepoints,
+	 * including the first point, but excluding the last point.
 	 * 
 	 * @param timePoint
 	 *            The timepoint that has to lie between the other two timepoints
@@ -147,17 +149,18 @@ public abstract class TimePoint implements Comparable<TimePoint>
 	 *            The timepoint that has to lie before or on the first timepoint
 	 * @param after
 	 *            The timepoint that has to lie behind the first timepoint
-	 * @return True if the first timepoint lies between the other two timepoints or on the first point
+	 * @return True if the first timepoint lies between the other two timepoints
+	 *         or on the first point
 	 */
 	public boolean isBetweenExcludingEndPoint(TimePoint before, TimePoint after) {
 		return (this.getTime() - before.getTime() >= 0)
 				&& (after.getTime() - this.getTime() > 0);
 	}
-	
+
 	@Override
 	public abstract String toString();
-	
+
 	@Override
 	public abstract TimePoint clone();
-	
+
 }
