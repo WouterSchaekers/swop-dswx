@@ -43,7 +43,7 @@ public abstract class MedicalTest implements MedicalTestIN
 	 *             If(!isValidDuration(duration))
 	 * @throws InvalidTimeSlotException
 	 */
-	public MedicalTest(long duration) throws InvalidDurationException, InvalidTimeSlotException {
+	public MedicalTest(long duration) throws InvalidDurationException {
 
 		if (!isValidDuration(duration))
 			throw new InvalidDurationException(
