@@ -4,36 +4,36 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import scheduler.HospitalDate;
 import warehouse2.StandardHospitalWareHouse;
-import warehouse2.WareHouse;
+import warehouse2.Warehouse;
 import warehouse2.WareHouseOverFlowException;
 import warehouse2.items.SleepingTablet;
-import warehouse2.items.WareHouseItem;
+import warehouse2.items.EpirableWarehouseItem;
 
 public class StandardWareHouseTest
 {
-	private WareHouseItem sleepingT() {
+	private EpirableWarehouseItem sleepingT() {
 		return new SleepingTablet(new HospitalDate());
 	}
 
 	@Test
 	public void initTest() throws WareHouseOverFlowException {
-		WareHouse w = new StandardHospitalWareHouse();
+		Warehouse w = new StandardHospitalWareHouse();
 		w.add(null);
 	}
 
 	@Test
 	public void addOneItem() throws WareHouseOverFlowException {
-		WareHouse w = new StandardHospitalWareHouse();
+		Warehouse w = new StandardHospitalWareHouse();
 		w.add(sleepingT());
 		w.add(sleepingT());
 		w.add(sleepingT());
-		assertTrue(w.getCurrentCountFor(sleepingT()) == 3);
+		assertTrue(w.getCurrentCountFor(sleepingT().getClass()) == 3);
 	}
 
 	@Test(expected = WareHouseOverFlowException.class)
 	public void addOneToMany() throws WareHouseOverFlowException {
-		WareHouse w = new StandardHospitalWareHouse();
-		for (int i = 0; i < w.getMaxCount(sleepingT()) + 1; i++)
+		Warehouse w = new StandardHospitalWareHouse();
+		for (int i = 0; i < w.getMaxCount(sleepingT().getClass()) + 1; i++)
 			w.add(sleepingT());
 	}
 }
