@@ -5,14 +5,12 @@ import scheduler.TimeSlot;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidSerialException;
-import exceptions.InvalidTimeSlotException;
 
 public class SurgicalEquipment extends Machine
 {
 
 	public SurgicalEquipment(int serial, String location)
-			throws InvalidLocationException, InvalidSerialException,
-			InvalidTimeSlotException {
+			throws InvalidLocationException, InvalidSerialException {
 		super(serial, location);
 	}
 

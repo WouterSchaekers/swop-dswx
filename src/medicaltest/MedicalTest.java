@@ -16,7 +16,6 @@ import controllers.interfaces.MedicalTestIN;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidHospitalDateException;
-import exceptions.InvalidNameException;
 import exceptions.InvalidOccurencesException;
 import exceptions.InvalidResourceException;
 import exceptions.InvalidSchedulingRequestException;
@@ -44,7 +43,6 @@ public abstract class MedicalTest implements MedicalTestIN
 	 * @throws InvalidTimeSlotException
 	 */
 	public MedicalTest(long duration) throws InvalidDurationException {
-
 		if (!isValidDuration(duration))
 			throw new InvalidDurationException(
 					"The duration of a MedicalTest must be strictly positive!");

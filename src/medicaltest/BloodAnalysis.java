@@ -14,7 +14,6 @@ import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidHospitalDateException;
-import exceptions.InvalidNameException;
 import exceptions.InvalidOccurencesException;
 import exceptions.InvalidResourceException;
 import exceptions.InvalidTimeSlotException;
@@ -40,8 +39,7 @@ public class BloodAnalysis extends MedicalTest
 	 * 
 	 * @throws InvalidTimeSlotException
 	 */
-	BloodAnalysis(int amount, String focus) throws InvalidNameException,
-			InvalidDurationException, InvalidTimeSlotException {
+	BloodAnalysis(int amount, String focus) throws InvalidDurationException {
 		super(BloodAnalysis.DURATION);
 		this.amount = amount;
 		this.focus = focus;
