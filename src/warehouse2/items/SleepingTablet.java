@@ -2,7 +2,7 @@ package warehouse2.items;
 
 import scheduler.HospitalDate;
 
-public class SleepingTablet extends WareHouseItem
+public class SleepingTablet extends EpirableWarehouseItem
 {
 
 	public SleepingTablet(HospitalDate expiryDate) {

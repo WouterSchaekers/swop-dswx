@@ -3,7 +3,7 @@ package warehouse2;
 import warehouse2.items.Medication;
 import warehouse2.items.SleepingTablet;
 
-public class StandardHospitalWareHouse extends WareHouse
+public class StandardHospitalWareHouse extends Warehouse
 {
 	public StandardHospitalWareHouse() {
 		super();

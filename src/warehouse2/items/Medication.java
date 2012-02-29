@@ -2,18 +2,19 @@ package warehouse2.items;
 
 import scheduler.HospitalDate;
 
-public class Medication extends WareHouseItem
+public abstract class Medication extends EpirableWarehouseItem
 {
+	private final String _description;
 
-	public Medication(HospitalDate expiryDate) {
-		super(expiryDate);
-		// TODO Auto-generated constructor stub
+	public String getDescription() {
+		return _description;
 	}
 
-	@Override
-	public HospitalDate getExpiryDate() {
-		// TODO Auto-generated method stub
-		return null;
+
+	public Medication(HospitalDate expiryDate, 
+			String description) {
+		super(expiryDate);
+		this._description = description;
 	}
 
 }
