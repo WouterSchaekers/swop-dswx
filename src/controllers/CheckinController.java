@@ -49,16 +49,16 @@ public class CheckinController extends NeedsLoginController
 	 * 
 	 * @return the patientfile
 	 * @throws InvalidNameException
+	 * @throws InvalidLoginControllerException
 	 */
-	public PatientFile signUpNewPatient(String name)
-			throws InvalidNameException {
+	public PatientFile signUpNewPatient(LoginController loginc, String name)
+			throws InvalidNameException, InvalidLoginControllerException {
+		checkValidity(loginc);
 		return pfm.registerPatient(name);
 	}
 
 	@Override
 	boolean validUser(User u) {
 		return u instanceof Nurse;
-		// TODO: Check if correct
 	}
-
 }

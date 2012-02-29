@@ -6,6 +6,7 @@ import ui.Usecase;
 import ui.UserinterfaceData;
 import controllers.AdvanceTimeController;
 import exceptions.InvalidHospitalDateArgument;
+import exceptions.InvalidLoginControllerException;
 
 public class AdvanceTimeSuperClass extends Usecase
 {
@@ -51,7 +52,12 @@ public class AdvanceTimeSuperClass extends Usecase
 
 		HospitalDate hospitalDate = null;
 		hospitalDate = new HospitalDate(year, month, day, hour, min, sec);
-		controller.setNewSystemTime(hospitalDate);
+		try {
+			controller.setNewSystemTime(null, hospitalDate);
+		} catch (InvalidLoginControllerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println("succesfull !");
 		return new SelectUsecase(data);
 	}

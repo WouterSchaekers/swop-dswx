@@ -9,6 +9,7 @@ import ui.UserinterfaceData;
 import controllers.ApproveDiagnosisController;
 import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.PatientFileIN;
+import exceptions.InvalidLoginControllerException;
 
 public class ShowDiagnosisOptionsToApprove extends ApproveDiagnosisSuper
 {
@@ -21,10 +22,18 @@ public class ShowDiagnosisOptionsToApprove extends ApproveDiagnosisSuper
 	@Override
 	public Usecase Execute() {
 		ApproveDiagnosisController c = chaindata.getController();
-		Collection<PatientFileIN> patienfiles = c.getAllPatienFiles();
+		Collection<PatientFileIN> patientfiles;
+		//TODO FIX THIS
+		patientfiles = null;
+		try {
+			patientfiles = c.getAllPatienFiles(null);
+		} catch (InvalidLoginControllerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		Collection<DiagnoseIN> d = new ArrayList<DiagnoseIN>();
-		for (PatientFileIN pf : patienfiles)
+		for (PatientFileIN pf : patientfiles)
 			d.addAll(pf.getAlldiagnosis());
 		d = Collections.filter(d, new Filter()
 		{
