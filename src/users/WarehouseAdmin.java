@@ -49,16 +49,17 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN
 	 *            the amount of active patients in its hospital.
 	 * @throws InvalidNameException
 	 */
-	public WarehouseAdmin(String name, Warehouse warehouse, StockProvider stockProvider,
-			PatientFileManager patientFileManager) throws InvalidNameException {
+	public WarehouseAdmin(String name, Warehouse warehouse,
+			StockProvider stockProvider, PatientFileManager patientFileManager)
+			throws InvalidNameException {
 		super(name);
 		this.warehouse = warehouse;
 		this.stockProvider = stockProvider;
 		this.patientFileManager = patientFileManager;
 		this.mealsExpected = 0;
 	}
-	
-	public StockProvider getStockProvider(){
+
+	public StockProvider getStockProvider() {
 		return this.stockProvider;
 	}
 
@@ -70,7 +71,8 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN
 	 *            The amount of plaster to add to the warehouse.
 	 * @throws WarehouseException
 	 */
-	public void addPlaster(Collection<Plaster> plaster) throws WarehouseException {
+	public void addPlaster(Collection<Plaster> plaster)
+			throws WarehouseException {
 		warehouse.addPlaster(plaster);
 	}
 
@@ -188,7 +190,7 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN
 
 	private void orderPlaster(int amount) {
 		this.orderedPlaster = true;
-		while(amount-- > 0){
+		while (amount-- > 0) {
 			this.stockProvider.orderPlaster(this);
 		}
 	}
@@ -236,22 +238,25 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN
 	}
 
 	private void orderMeals(int amount) {
-		while(amount-- > 0){
+		while (amount-- > 0) {
 			this.stockProvider.orderMeal(this);
 		}
 	}
-	
-	public void addPlasterOrder(PlasterOrder plasterOrder) throws WarehouseException{
+
+	public void addPlasterOrder(PlasterOrder plasterOrder)
+			throws WarehouseException {
 		this.warehouse.addPlaster(plasterOrder.getStockItem());
 		this.orderedPlaster = false;
 	}
-	
-	public void addMedicationOrder(MedicationOrder medicationOrder) throws WarehouseException {
+
+	public void addMedicationOrder(MedicationOrder medicationOrder)
+			throws WarehouseException {
 		this.warehouse.addMedication(medicationOrder.getStockItem());
 		this.orderedMedication = false;
 	}
-	
-	public void addMealOrder(MealOrder mealOrder) throws WarehouseOverCapacityException{
+
+	public void addMealOrder(MealOrder mealOrder)
+			throws WarehouseOverCapacityException {
 		this.warehouse.addMeal(mealOrder.getStockItem());
 		this.orderedPlaster = false;
 	}

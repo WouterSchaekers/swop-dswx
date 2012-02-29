@@ -1,8 +1,8 @@
 package ui.registerpatient;
 
-import ui.UserinterfaceData;
 import ui.SelectUsecase;
 import ui.Usecase;
+import ui.UserinterfaceData;
 import controllers.interfaces.AppointmentIN;
 
 public class DisplayAppointment extends Usecase

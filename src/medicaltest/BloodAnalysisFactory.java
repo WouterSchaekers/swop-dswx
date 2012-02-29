@@ -8,11 +8,13 @@ public class BloodAnalysisFactory extends MedicalTestFactory
 {
 	private String focus;
 	private int numberOfAnalysis;
+
 	/**
-	 * Default constructor, only visible in the package since you have to create 
+	 * Default constructor, only visible in the package since you have to create
 	 * the factories in the MedicalTestsClass
 	 */
-	BloodAnalysisFactory() {}
+	BloodAnalysisFactory() {
+	}
 
 	/**
 	 * Method to set the focus of the bloodanalysis
@@ -84,5 +86,5 @@ public class BloodAnalysisFactory extends MedicalTestFactory
 	private boolean isValidNumberOfAnalysis(int numberOfAnalysis) {
 		return numberOfAnalysis > 0;
 	}
-	
+
 }

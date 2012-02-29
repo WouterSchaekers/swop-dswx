@@ -1,12 +1,12 @@
 package ui.enterdiagnosis;
 
+import ui.SelectUsecase;
+import ui.Usecase;
+import ui.UserinterfaceData;
 import controllers.EnterDiagnoseController;
 import exceptions.InvalidHospitalStateException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileOpenController;
-import ui.SelectUsecase;
-import ui.Usecase;
-import ui.UserinterfaceData;
 
 public class EnderDiagnosis extends EnterDiagnoseSuperClass
 {
@@ -14,13 +14,14 @@ public class EnderDiagnosis extends EnterDiagnoseSuperClass
 		super(data);
 	}
 
-
 	@Override
 	public Usecase Execute() {
-		//Create controller
-		EnterDiagnoseController c =null;
+		// Create controller
+		EnterDiagnoseController c = null;
 		try {
-			c = new EnterDiagnoseController(data.getDataPasser(), data.getLoginController(),data.getPatientFileOpenController());
+			c = new EnterDiagnoseController(data.getDataPasser(),
+					data.getLoginController(),
+					data.getPatientFileOpenController());
 		} catch (InvalidLoginControllerException e) {
 			System.out.println("Invalid login aborting");
 			return new SelectUsecase(data);
@@ -32,9 +33,8 @@ public class EnderDiagnosis extends EnterDiagnoseSuperClass
 			e.printStackTrace();
 		}
 		this.chaindata.setController(c);
-		//Controller created
-		return new PresentEnterDiagInputForm(data,chaindata);
+		// Controller created
+		return new PresentEnterDiagInputForm(data, chaindata);
 	}
-
 
 }

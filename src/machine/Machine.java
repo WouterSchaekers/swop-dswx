@@ -2,19 +2,20 @@ package machine;
 
 import java.util.Collection;
 import java.util.LinkedList;
-import exceptions.InvalidLocationException;
-import exceptions.InvalidSchedulingRequestException;
-import exceptions.InvalidSerialException;
-import exceptions.InvalidTimeSlotException;
 import scheduler.HospitalDate;
 import scheduler.TimeSlot;
 import scheduler.TimeTable;
 import scheduler.task.Schedulable;
 import scheduler.task.scheduled.ScheduledTask;
+import exceptions.InvalidLocationException;
+import exceptions.InvalidSchedulingRequestException;
+import exceptions.InvalidSerialException;
+import exceptions.InvalidTimeSlotException;
 
 /**
  * This class represents a machine in the hospital.
- * @Invar serial is unique for every machine object	
+ * 
+ * @Invar serial is unique for every machine object
  */
 
 public abstract class Machine implements Schedulable
@@ -24,24 +25,25 @@ public abstract class Machine implements Schedulable
 	private String location = "";
 	private TimeTable timeTable;
 	protected Collection<ScheduledTask> scheduledTasks;
-	
+
 	/**
 	 * Default constructor.
 	 * 
 	 * @param serial
 	 *            The serial of this machine.
-	 *@throws InvalidSerialException
-	 *		If the serial provided is already contained in the system.
-	 *@throws InvalidLocationException
-	 *		If the location provided is null or an empty string.
-	 * @throws InvalidTimeSlotException 
+	 * @throws InvalidSerialException
+	 *             If the serial provided is already contained in the system.
+	 * @throws InvalidLocationException
+	 *             If the location provided is null or an empty string.
+	 * @throws InvalidTimeSlotException
 	 */
-	Machine(int serial, String location)// TODO : removed invalid timeslot exception
+	Machine(int serial, String location)// TODO : removed invalid timeslot
+										// exception
 			throws InvalidLocationException, InvalidSerialException {
 		if (location == null || location == "") {
 			throw new InvalidLocationException("Location is not set or empty.");
 		}
-		
+
 		this.serial = serial;
 		this.location = location;
 		this.timeTable = new TimeTable();
@@ -61,8 +63,10 @@ public abstract class Machine implements Schedulable
 	public String getLocation() {
 		return this.location;
 	}
+
 	/**
-	 * There is only one machine object associated with a serial number, this is a class invariant.
+	 * There is only one machine object associated with a serial number, this is
+	 * a class invariant.
 	 */
 	@Override
 	public boolean equals(Object o) {
@@ -71,33 +75,36 @@ public abstract class Machine implements Schedulable
 		return false;
 
 	}
-	
+
 	@Override
-	public TimeTable getTimeTable(){
+	public TimeTable getTimeTable() {
 		return this.timeTable;
 	}
 
 	@Override
-	public abstract boolean canBeScheduledOn(HospitalDate startDate, HospitalDate stopDate);
-	
+	public abstract boolean canBeScheduledOn(HospitalDate startDate,
+			HospitalDate stopDate);
+
 	@Override
 	public TimeSlot getFirstFreeSlotBetween(HospitalDate startDate,
-			HospitalDate stopDate, long duration) throws InvalidSchedulingRequestException, InvalidTimeSlotException {
-		return this.getTimeTable().getFirstFreeSlotBetween(startDate, stopDate, duration);
+			HospitalDate stopDate, long duration)
+			throws InvalidSchedulingRequestException, InvalidTimeSlotException {
+		return this.getTimeTable().getFirstFreeSlotBetween(startDate, stopDate,
+				duration);
 	}
-	
+
 	@Override
-	public void updateTimeTable(HospitalDate newDate){
+	public void updateTimeTable(HospitalDate newDate) {
 		this.timeTable.updateTimeTable(newDate);
 	}
-	
+
 	@Override
-	public Collection<ScheduledTask> getScheduledTasks(){
+	public Collection<ScheduledTask> getScheduledTasks() {
 		return this.scheduledTasks;
 	}
-	
+
 	@Override
-	public void addScheduledTask(ScheduledTask scheduledTask){
+	public void addScheduledTask(ScheduledTask scheduledTask) {
 		this.scheduledTasks.add(scheduledTask);
 	}
 }

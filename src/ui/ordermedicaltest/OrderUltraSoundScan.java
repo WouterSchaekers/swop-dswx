@@ -49,7 +49,7 @@ public class OrderUltraSoundScan extends OrderMedicalTestSuperClass
 		}
 		chaindata.setFactory(fac);
 		return new ScheduleMedicalTest(data, chaindata);
-	
+
 	}
 
 }

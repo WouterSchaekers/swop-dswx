@@ -10,5 +10,4 @@ public class HospitalAdmin extends User implements HospitalAdminIN
 		super(name);
 	}
 
-
 }

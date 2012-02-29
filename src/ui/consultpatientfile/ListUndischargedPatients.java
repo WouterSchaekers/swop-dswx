@@ -34,9 +34,9 @@ public class ListUndischargedPatients extends ConsultPatientFileSuperclass
 		Collection<PatientFileIN> patientfiles = chaindata
 				.getPatientfileOpenController().getAllPatientFiles(
 						data.getLoginController());
-		if(patientfiles.isEmpty())
-		{
-			System.out.println("No patients registered in this hospital, sorry!");
+		if (patientfiles.isEmpty()) {
+			System.out
+					.println("No patients registered in this hospital, sorry!");
 			return new SelectUsecase(data);
 		}
 		for (PatientFileIN file : patientfiles) {
@@ -53,14 +53,17 @@ public class ListUndischargedPatients extends ConsultPatientFileSuperclass
 			return this;
 		} else {
 			try {
-	chaindata.getPatientfileOpenController().openPatientFile(map.get(patientName), data.getLoginController());
+				chaindata.getPatientfileOpenController().openPatientFile(
+						map.get(patientName), data.getLoginController());
 			} catch (InvalidLoginControllerException e) {
 				System.out.println("Login exception, not allowed to do this");
 				return new SelectUsecase(data);
 			}
 		}
 		data.setRegpatctrl(chaindata.getPatientfileOpenController());
-		System.out.println("Patient :"+ chaindata.getPatientfileOpenController().getPatientFile().getName()+"'s file opened succesfully!");
+		System.out.println("Patient :"
+				+ chaindata.getPatientfileOpenController().getPatientFile()
+						.getName() + "'s file opened succesfully!");
 		return new SelectUsecase(data);
 	}
 

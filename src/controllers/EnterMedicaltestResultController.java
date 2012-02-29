@@ -3,7 +3,6 @@ package controllers;
 import java.util.Collection;
 import medicaltest.MedicalTest;
 import system.HospitalState;
-import users.Nurse;
 import users.Doctor;
 import users.User;
 import exceptions.InvalidHospitalStateException;
@@ -21,7 +20,10 @@ public class EnterMedicaltestResultController extends
 	}
 
 	public Collection<MedicalTest> allMedicalTests(
-			LoginController loginController2,PatientFileOpenController patientFile) throws InvalidLoginControllerException, InvalidPatientFileOpenController {
+			LoginController loginController2,
+			PatientFileOpenController patientFile)
+			throws InvalidLoginControllerException,
+			InvalidPatientFileOpenController {
 		checkValidity(loginController2, patientFile);
 
 		return null;

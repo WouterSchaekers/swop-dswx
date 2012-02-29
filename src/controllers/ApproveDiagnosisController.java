@@ -14,8 +14,10 @@ import exceptions.InvalidLoginControllerException;
 
 public class ApproveDiagnosisController extends NeedsLoginController
 {
-	
-	public ApproveDiagnosisController(HospitalState hospitalState, LoginController loginc) throws InvalidLoginControllerException, InvalidHospitalStateException {
+
+	public ApproveDiagnosisController(HospitalState hospitalState,
+			LoginController loginc) throws InvalidLoginControllerException,
+			InvalidHospitalStateException {
 		super(hospitalState, loginc);
 	}
 
@@ -26,22 +28,24 @@ public class ApproveDiagnosisController extends NeedsLoginController
 	}
 
 	public DiagnoseIN approveDiagnose(LoginController loginController2,
-			DiagnoseIN selected) throws InvalidLoginControllerException, ApproveDiagnoseException {
-		if(!isValidLoginController(loginController2))
+			DiagnoseIN selected) throws InvalidLoginControllerException,
+			ApproveDiagnoseException {
+		if (!isValidLoginController(loginController2))
 			throw new InvalidLoginControllerException("");
-		if(selected instanceof Diagnose)
-			((Diagnose)selected).approve();
+		if (selected instanceof Diagnose)
+			((Diagnose) selected).approve();
 		return selected;
-		
+
 	}
 
 	public void disApproveDiagnose(LoginController loginController2,
-			DiagnoseIN selected,DiagnoseIN replacement) throws InvalidLoginControllerException, ApproveDiagnoseException {
-		if(!isValidLoginController(loginController2))
+			DiagnoseIN selected, DiagnoseIN replacement)
+			throws InvalidLoginControllerException, ApproveDiagnoseException {
+		if (!isValidLoginController(loginController2))
 			throw new InvalidLoginControllerException("");
-		if(selected instanceof Diagnose)
-			((Diagnose)selected).disaprove(replacement);
-		
+		if (selected instanceof Diagnose)
+			((Diagnose) selected).disaprove(replacement);
+
 	}
 
 	@Override

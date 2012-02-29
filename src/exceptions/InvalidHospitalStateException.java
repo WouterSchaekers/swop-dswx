@@ -11,5 +11,5 @@ public class InvalidHospitalStateException extends Exception
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 }

@@ -8,7 +8,7 @@ public class StopTimePoint extends TimePoint
 {
 	/**
 	 * @param d
-	 * The date of this Endpoint.
+	 *            The date of this Endpoint.
 	 */
 	public StopTimePoint(HospitalDate d) {
 		super(d);
@@ -16,7 +16,7 @@ public class StopTimePoint extends TimePoint
 
 	/**
 	 * @param l
-	 * The amount of milliseconds since the start of time.
+	 *            The amount of milliseconds since the start of time.
 	 */
 	public StopTimePoint(long l) {
 		super(l);
@@ -24,7 +24,7 @@ public class StopTimePoint extends TimePoint
 
 	/**
 	 * @param t
-	 * Another timepoint that serves as the base for this endpoint.
+	 *            Another timepoint that serves as the base for this endpoint.
 	 */
 	public StopTimePoint(TimePoint t) {
 		super(t);

@@ -1,8 +1,8 @@
 package ui.login;
 
-import ui.UserinterfaceData;
 import ui.SelectUsecase;
 import ui.Usecase;
+import ui.UserinterfaceData;
 
 /**
  * Class to check whether a person is allowed to log in.

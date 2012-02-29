@@ -34,8 +34,6 @@ public class LoginController
 		this.um = data.getUserManager();
 	}
 
-
-
 	/**
 	 * This method checks if data is a valid datapasser for the logincontroller.
 	 * 
@@ -51,11 +49,11 @@ public class LoginController
 	 * @return A collection of all users currently in the system.
 	 */
 	public Collection<UserIN> getAllUsers() {
-		ArrayList<UserIN> users= new ArrayList<UserIN>();
-		for(User u:um.getAllUsers())
-				users.add(u);
+		ArrayList<UserIN> users = new ArrayList<UserIN>();
+		for (User u : um.getAllUsers())
+			users.add(u);
 		return users;
-		
+
 	}
 
 	/**
@@ -65,9 +63,9 @@ public class LoginController
 	 *             if the user == null
 	 */
 	public void logIn(UserIN user) throws IllegalArgumentException {
-		if (!isValidUser((User)user))
+		if (!isValidUser((User) user))
 			throw new IllegalArgumentException("The given user is null!");
-		this.user = (User)user;
+		this.user = (User) user;
 		loggedIn = true;
 	}
 
@@ -104,18 +102,16 @@ public class LoginController
 	public UserIN getUserIN() {
 		return user;
 	}
+
 	/**
 	 * Equality test
 	 */
 	@Override
-	public boolean equals(Object o)
-	{
-		if(!(o instanceof LoginController))
+	public boolean equals(Object o) {
+		if (!(o instanceof LoginController))
 			return false;
 		LoginController that = (LoginController) o;
-	return	
-		this.loggedIn	==	that.loggedIn
-		&this.user.equals(that.user);
-	}	
+		return this.loggedIn == that.loggedIn & this.user.equals(that.user);
+	}
 
 }

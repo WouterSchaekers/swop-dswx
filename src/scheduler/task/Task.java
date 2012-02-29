@@ -22,15 +22,16 @@ public abstract class Task
 	 */
 	private String userDefinedID = "defaultID";
 	protected PatientFile patient;
-	
-	public Task(PatientFile p){
-		if(p == null){
-			throw new IllegalArgumentException("The given patient may not be null.");
+
+	public Task(PatientFile p) {
+		if (p == null) {
+			throw new IllegalArgumentException(
+					"The given patient may not be null.");
 		}
 		this.patient = p;
 	}
-	
-	public PatientFile getPatient(){
+
+	public PatientFile getPatient() {
 		return this.patient;
 	}
 

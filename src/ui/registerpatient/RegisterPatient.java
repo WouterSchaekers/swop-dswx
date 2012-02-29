@@ -1,7 +1,7 @@
 package ui.registerpatient;
 
-import ui.UserinterfaceData;
 import ui.Usecase;
+import ui.UserinterfaceData;
 
 /**
  * This class registers a patient for the use case and proceeds to the next step

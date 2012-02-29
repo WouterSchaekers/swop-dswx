@@ -1,9 +1,10 @@
 package patient;
 
-import java.util.*;
-import observers.DiagnoseObserverTaskManager;
+import java.util.ArrayList;
+import java.util.Collection;
 import medicaltest.MedicalTest;
 import medicaltest.XRayScan;
+import observers.DiagnoseObserverTaskManager;
 import scheduler.HospitalDate;
 import scheduler.task.TaskManager;
 import users.Doctor;
@@ -12,12 +13,15 @@ import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.MedicalTestIN;
 import controllers.interfaces.PatientFileIN;
 import controllers.interfaces.TreatmentIN;
-import exceptions.*;
+import exceptions.DischargePatienException;
+import exceptions.InvalidDiagnoseException;
+import exceptions.InvalidDoctorException;
+import exceptions.InvalidNameException;
 
 /**
  * This class represents the patient file of a patient.
  */
-public class PatientFile implements PatientFileIN 
+public class PatientFile implements PatientFileIN
 {
 
 	private String name = "";
@@ -27,10 +31,10 @@ public class PatientFile implements PatientFileIN
 	private Collection<Diagnose> diagnosis = new ArrayList<Diagnose>();
 	private boolean discharged = false;
 	private ArrayList<HospitalDate> xrays = new ArrayList<HospitalDate>();
-	private Collection<MedicalTest> medicaltests= new ArrayList<MedicalTest>();
-	
+	private Collection<MedicalTest> medicaltests = new ArrayList<MedicalTest>();
+
 	/**
-	 *()lt Constructor.
+	 * ()lt Constructor.
 	 * 
 	 * @param patientname
 	 *            The name of the patient to whom this patient file belongs to.
@@ -38,22 +42,24 @@ public class PatientFile implements PatientFileIN
 	 *             if(!isValidName(patientname))
 	 */
 	public PatientFile(String patientname) throws InvalidNameException {
-		if(!isValidName(patientname))
-			throw new InvalidNameException("The given patientname is not valid!");
+		if (!isValidName(patientname))
+			throw new InvalidNameException(
+					"The given patientname is not valid!");
 		this.name = patientname;
 	}
-	
+
 	/**
 	 * This method will add a Diagnose to this PatientFile.
 	 * 
 	 * @param d
 	 *            The Diagnose to add.
 	 * @throws InvalidDiagnoseException
-	 * if(!isValidDiagnose(d)) 
+	 *             if(!isValidDiagnose(d))
 	 */
 	public void addDiagnosis(Diagnose d) throws InvalidDiagnoseException {
-		if(!isValidDiagnose(d))
-			throw new InvalidDiagnoseException("The given Diagnose is not a valid!");
+		if (!isValidDiagnose(d))
+			throw new InvalidDiagnoseException(
+					"The given Diagnose is not a valid!");
 		this.diagnosis.add(d);
 	}
 
@@ -66,23 +72,24 @@ public class PatientFile implements PatientFileIN
 
 	/**
 	 * This function discharges this patient.
-	 * @throws DischargePatienException 
+	 * 
+	 * @throws DischargePatienException
 	 */
 	void discharge() throws DischargePatienException {
-		if(!canBeDischarged())
+		if (!canBeDischarged())
 			throw new DischargePatienException();
 		this.discharged = true;
 	}
 
 	private boolean canBeDischarged() {
-		for(Diagnose d:diagnosis){
-			if(d.isMarkedForSecOp())
+		for (Diagnose d : diagnosis) {
+			if (d.isMarkedForSecOp())
 				return false;
-			for(TreatmentIN t:d.getTreatments())
-				if(!t.hasFinished())
+			for (TreatmentIN t : d.getTreatments())
+				if (!t.hasFinished())
 					return false;
-			for(MedicalTest m:medicaltests)
-				if(!m.hasFinished())
+			for (MedicalTest m : medicaltests)
+				if (!m.hasFinished())
 					return false;
 		}
 		return true;
@@ -94,14 +101,14 @@ public class PatientFile implements PatientFileIN
 	private boolean isValidDiagnose(Diagnose d) {
 		return d != null;
 	}
-	
+
 	/**
 	 * @return True if d is a valid name.
 	 */
 	private boolean isValidName(String n) {
 		return !n.equals("");
 	}
-	
+
 	/**
 	 * This method must be called if an XRrayScan is ordered for this patient.
 	 * It is needed to keep track of the amount of xrays a patient has had in
@@ -113,28 +120,30 @@ public class PatientFile implements PatientFileIN
 	public void addXRay(HospitalDate d) {
 		xrays.add(d);
 	}
-	
+
 	/**
 	 * @param curDate
-	 * The current system time.
+	 *            The current system time.
 	 * @return The amount of xrays this patient has had in the last year.
 	 */
 	public int amountOfXraysThisYear(HospitalDate hospitalDate) {
 		int amount = 0;
-		for(HospitalDate xr : this.xrays) {
-			if(hospitalDate.before(xr) && xr.getTimeBetween(hospitalDate) <= HospitalDate.ONE_YEAR)
+		for (HospitalDate xr : this.xrays) {
+			if (hospitalDate.before(xr)
+					&& xr.getTimeBetween(hospitalDate) <= HospitalDate.ONE_YEAR)
 				amount++;
 		}
 		return amount;
 	}
-	
-	public HospitalDate getFirstNewXRaySchedDate(HospitalDate hospitalDate){
-		if(this.amountOfXraysThisYear(hospitalDate) >= 9){
-			return new HospitalDate(this.xrays.get(xrays.size()-10).getTimeSinceStart() + XRayScan.DURATION);
+
+	public HospitalDate getFirstNewXRaySchedDate(HospitalDate hospitalDate) {
+		if (this.amountOfXraysThisYear(hospitalDate) >= 9) {
+			return new HospitalDate(this.xrays.get(xrays.size() - 10)
+					.getTimeSinceStart() + XRayScan.DURATION);
 		}
 		return hospitalDate;
 	}
-	
+
 	@Basic
 	public boolean isDischarged() {
 		return this.discharged;
@@ -161,29 +170,34 @@ public class PatientFile implements PatientFileIN
 		rv.addAll(diagnosis);
 		return rv;
 	}
-	public static Diagnose createDiagnose(String diag,Doctor attending,TaskManager taskmanager) throws InvalidDoctorException, InvalidDiagnoseException
-	{
-		Diagnose d =new Diagnose(attending, diag);
+
+	public static Diagnose createDiagnose(String diag, Doctor attending,
+			TaskManager taskmanager) throws InvalidDoctorException,
+			InvalidDiagnoseException {
+		Diagnose d = new Diagnose(attending, diag);
 		d.addObserver(new DiagnoseObserverTaskManager(taskmanager));
 		return d;
-		
+
 	}
-	public static Diagnose createDiagnoseSecondOp(String diag,Doctor attending,Doctor secondop, TaskManager taskmanager) throws InvalidDoctorException, InvalidDiagnoseException
-	{
-		Diagnose d =new Diagnose(attending, diag);
+
+	public static Diagnose createDiagnoseSecondOp(String diag,
+			Doctor attending, Doctor secondop, TaskManager taskmanager)
+			throws InvalidDoctorException, InvalidDiagnoseException {
+		Diagnose d = new Diagnose(attending, diag);
 		d.addObserver(new DiagnoseObserverTaskManager(taskmanager));
 		d.markForSecOp(secondop);
 		return d;
-		
+
 	}
+
 	public void addMedicalTest(MedicalTest create) {
 		this.medicaltests.add(create);
-		
+
 	}
 
 	@Override
 	public Collection<TreatmentIN> getAllTreatments() {
-		return null;//not yet implemented
+		return null;// not yet implemented
 	}
 
 	@Override

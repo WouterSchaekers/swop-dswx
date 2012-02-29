@@ -36,7 +36,7 @@ public class PatientFileOpenController
 		if (!(loginController.getUser() instanceof Doctor))
 			return false;
 
-		if (this.doctor!=null&&!loginController.getUser().equals(doctor))
+		if (this.doctor != null && !loginController.getUser().equals(doctor))
 			return false;
 
 		return true;
@@ -55,11 +55,11 @@ public class PatientFileOpenController
 		return RV;
 	}
 
-
 	PatientFile pf;
 
-	public void openPatientFile(PatientFileIN pfdto,LoginController loginc) throws InvalidLoginControllerException {
-		if(!isValidLoginController(loginc))
+	public void openPatientFile(PatientFileIN pfdto, LoginController loginc)
+			throws InvalidLoginControllerException {
+		if (!isValidLoginController(loginc))
 			throw new InvalidLoginControllerException("");
 		if (pfdto instanceof PatientFile)
 			this.pf = (PatientFile) pfdto;

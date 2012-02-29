@@ -39,16 +39,17 @@ public class UCHandler
 		currentUIView = new SelectUsecase(data);
 		Usecase.setScanner(new Scanner(System.in));
 	}
-	
+
 	/**
 	 * Here each command is called and executed, this returns a new command that
 	 * then will be executed, until the exitSystem command is returned.
-	 * @throws InvalidHospitalDateArgument 
+	 * 
+	 * @throws InvalidHospitalDateArgument
 	 * 
 	 */
 	public void start() {
-		while (currentUIView!=null) {
-			currentUIView = currentUIView.Execute();			
+		while (currentUIView != null) {
+			currentUIView = currentUIView.Execute();
 		}
 
 	}

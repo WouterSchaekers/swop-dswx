@@ -64,7 +64,7 @@ public class XRayScan extends MedicalTest
 
 	@Override
 	public void setResult(Result r) {
-		
+
 	}
 
 	@Override
@@ -74,18 +74,22 @@ public class XRayScan extends MedicalTest
 			throws InvalidResourceException, InvalidDurationException,
 			InvalidOccurencesException, InvalidAmountException,
 			InvalidHospitalDateException {
-		return new UnscheduledXRayScan(file, systemtime.getSystemTime(), userm, pool, this);
+		return new UnscheduledXRayScan(file, systemtime.getSystemTime(), userm,
+				pool, this);
 	}
 
 	@Override
 	public String appointmentInfo() {
 		String rv = "";
-		rv+="Xray Scan\n";
-		if(getScheduledTask()!=null){
-			rv+="for \t:\t"+getScheduledTask().getPatient().getName()+"\n";
-			rv+="at \t:\t" + getScheduledTask().getTimeSlot().getStartPoint()+"\ttill\t"+getScheduledTask().getTimeSlot().getStopPoint();
-		}else{
-			rv +="Scan is not yet Scheduled";
+		rv += "Xray Scan\n";
+		if (getScheduledTask() != null) {
+			rv += "for \t:\t" + getScheduledTask().getPatient().getName()
+					+ "\n";
+			rv += "at \t:\t" + getScheduledTask().getTimeSlot().getStartPoint()
+					+ "\ttill\t"
+					+ getScheduledTask().getTimeSlot().getStopPoint();
+		} else {
+			rv += "Scan is not yet Scheduled";
 		}
 		return rv;
 	}

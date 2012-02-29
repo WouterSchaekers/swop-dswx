@@ -10,5 +10,4 @@ public abstract class DischargePatientSuperClass extends Usecase
 		super(data);
 	}
 
-	
 }

@@ -15,8 +15,10 @@ public class Doctor extends SchedulableUser implements DoctorIN
 
 	@Override
 	public TimeSlot getFirstFreeSlotBetween(HospitalDate startDate,
-			HospitalDate stopDate, long duration) throws InvalidSchedulingRequestException, InvalidTimeSlotException {
-		return this.getTimeTable().getFirstFreeSlotBetween(startDate, stopDate, duration);
+			HospitalDate stopDate, long duration)
+			throws InvalidSchedulingRequestException, InvalidTimeSlotException {
+		return this.getTimeTable().getFirstFreeSlotBetween(startDate, stopDate,
+				duration);
 	}
-	
+
 }

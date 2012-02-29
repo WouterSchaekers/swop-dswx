@@ -10,12 +10,13 @@ import exceptions.InvalidTimeSlotException;
 public class BloodAnalyser extends Machine
 {
 	/**
-	 * Creates an BloodAnalyser scanner, exceptions are thrown as in the super class: 
-	 * {@link Machine#Machine(int, String)} 
-	 * @throws InvalidTimeSlotException 
+	 * Creates an BloodAnalyser scanner, exceptions are thrown as in the super
+	 * class: {@link Machine#Machine(int, String)}
+	 * 
+	 * @throws InvalidTimeSlotException
 	 * */
-	BloodAnalyser(int serial, String location)
-			throws InvalidLocationException, InvalidSerialException {
+	BloodAnalyser(int serial, String location) throws InvalidLocationException,
+			InvalidSerialException {
 		super(serial, location);
 	}
 
@@ -25,7 +26,8 @@ public class BloodAnalyser extends Machine
 	}
 
 	@Override
-	public boolean canBeScheduledOn(HospitalDate startDate, HospitalDate stopDate) {
+	public boolean canBeScheduledOn(HospitalDate startDate,
+			HospitalDate stopDate) {
 		return this.getTimeTable().hasFreeSlotAt(startDate, stopDate);
 	}
 

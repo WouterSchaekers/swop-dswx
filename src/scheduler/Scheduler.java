@@ -76,8 +76,10 @@ public class Scheduler
 				HospitalDate.END_OF_TIME, listOfSchedulables,
 				new LinkedList<Schedulable>(), treeMatrix, fullOccurences, 0);
 		boolean isScheduled = false;
-		if (schedTask.getStartDate().equals(startDate) || !unscheduledTask.mustBeBackToBack()
-				|| this.isBackToBack(schedTask.getStartDate(), schedTask.getResources().get(0))) {
+		if (schedTask.getStartDate().equals(startDate)
+				|| !unscheduledTask.mustBeBackToBack()
+				|| this.isBackToBack(schedTask.getStartDate(), schedTask
+						.getResources().get(0))) {
 			isScheduled = true;
 		}
 		while (!isScheduled) {
@@ -369,6 +371,7 @@ public class Scheduler
 
 	/**
 	 * Removes the doubles from toCheck.
+	 * 
 	 * @throws InvalidSchedulingRequestException
 	 */
 	private void deleteDoubles(LinkedList<LinkedList<Schedulable>> toCheck)

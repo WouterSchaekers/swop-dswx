@@ -13,8 +13,7 @@ import exceptions.InvalidOccurencesException;
 import exceptions.InvalidResourceException;
 
 /**
- * Class created for testing purposes only!
- * DO NOT USE THIS!
+ * Class created for testing purposes only! DO NOT USE THIS!
  */
 public class UnscheduledTaskTestClass extends UnscheduledTask
 {
@@ -27,21 +26,23 @@ public class UnscheduledTaskTestClass extends UnscheduledTask
 			LinkedList<LinkedList<Schedulable>> s, LinkedList<Integer> occ,
 			boolean backToBack) throws InvalidResourceException,
 			InvalidDurationException, InvalidOccurencesException,
-			InvalidAmountException, InvalidHospitalDateException, InvalidNameException {
-		super(new PatientFile("Dieter"), duration, creationTime, extraTime, backToBack);
+			InvalidAmountException, InvalidHospitalDateException,
+			InvalidNameException {
+		super(new PatientFile("Dieter"), duration, creationTime, extraTime,
+				backToBack);
 		this.requirements = r;
 		this.schedulables = s;
 		this.occurences = occ;
 	}
-	
-	public LinkedList<Schedulable> getRequirements(){
+
+	public LinkedList<Schedulable> getRequirements() {
 		return this.requirements;
 	}
 
 	@Override
 	public LinkedList<LinkedList<Schedulable>> getResourcePool() {
 		LinkedList<LinkedList<Schedulable>> allSchedulables = new LinkedList<LinkedList<Schedulable>>();
-		for(int i = 0; i < requirements.size(); i++){
+		for (int i = 0; i < requirements.size(); i++) {
 			LinkedList<Schedulable> tempList = new LinkedList<Schedulable>();
 			tempList.add(requirements.get(i));
 			allSchedulables.add(tempList);
@@ -53,7 +54,7 @@ public class UnscheduledTaskTestClass extends UnscheduledTask
 	@Override
 	public LinkedList<Integer> getOccurences() {
 		LinkedList<Integer> allOccurences = new LinkedList<Integer>();
-		for(int i = 0; i < requirements.size(); i++){
+		for (int i = 0; i < requirements.size(); i++) {
 			allOccurences.add(1);
 		}
 		allOccurences.addAll(this.occurences);
@@ -72,6 +73,6 @@ public class UnscheduledTaskTestClass extends UnscheduledTask
 
 	@Override
 	public void setScheduled(ScheduledTask task) {
-		
+
 	}
 }

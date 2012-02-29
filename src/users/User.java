@@ -8,8 +8,9 @@ public abstract class User implements UserIN
 	protected String name;
 
 	protected User(String name) throws InvalidNameException {
-		if(!isValidName(name))
-			throw new InvalidNameException("Invalid name given in constructor of User!");
+		if (!isValidName(name))
+			throw new InvalidNameException(
+					"Invalid name given in constructor of User!");
 		this.name = name;
 	}
 

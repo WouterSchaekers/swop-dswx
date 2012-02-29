@@ -2,11 +2,11 @@ package treatment;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import controllers.interfaces.TreatmentIN;
-import exceptions.InvalidResultException;
-import be.kuleuven.cs.som.annotate.Basic;
 import result.Result;
 import scheduler.task.scheduled.ScheduledTask;
+import be.kuleuven.cs.som.annotate.Basic;
+import controllers.interfaces.TreatmentIN;
+import exceptions.InvalidResultException;
 
 /**
  * This class is the superclass of all treatments.
@@ -17,6 +17,7 @@ public abstract class Treatment implements TreatmentIN
 	ScheduledTask scheduledTask;
 	private Collection<Result> results = new ArrayList<Result>();
 	private long duration;
+
 	/**
 	 * Default constructor.
 	 * 
@@ -24,23 +25,26 @@ public abstract class Treatment implements TreatmentIN
 	 *            The name of this treatment.
 	 */
 	public Treatment(long duration) {
-		this.duration=duration;
+		this.duration = duration;
 	}
-	
-	public long getDuration(){
+
+	public long getDuration() {
 		return duration;
 	}
+
 	/**
 	 * Method to add a result to an existing treatment
-	 * @throws InvalidResultException 
+	 * 
+	 * @throws InvalidResultException
 	 * 
 	 */
 	public void addResult(Result r) throws InvalidResultException {
-		if(!isValidResult(r))
-			throw new InvalidResultException("Invalid Result in addResult from Treatment");
+		if (!isValidResult(r))
+			throw new InvalidResultException(
+					"Invalid Result in addResult from Treatment");
 		this.results.add(r);
 	}
-	
+
 	/**
 	 * @return True if r is a valid Result.
 	 */
@@ -52,11 +56,11 @@ public abstract class Treatment implements TreatmentIN
 	public Collection<Result> getAllResults() {
 		return new ArrayList<Result>(results);
 	}
-	
+
 	public abstract void setResult(Result r);
 
 	public void setScheduled(ScheduledTask task) {
-		this.scheduledTask=task;
+		this.scheduledTask = task;
 	}
 
 }

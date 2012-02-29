@@ -1,7 +1,6 @@
 package controllers;
 
-import static org.junit.Assert.*;
-import machine.MachineBuilder;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import system.HospitalState;
@@ -23,7 +22,7 @@ public class _ApproveDiagnosisControllerTest
 	User nurse;
 	User doctor;
 	User hospitad;
-	
+
 	@Before
 	public void setup() throws InvalidNameException {
 		hospital = new HospitalState();
@@ -34,24 +33,34 @@ public class _ApproveDiagnosisControllerTest
 	}
 
 	@Test(expected = InvalidLoginControllerException.class)
-	public void authenticationTest1() throws InvalidLoginControllerException, InvalidHospitalStateException {
+	public void authenticationTest1() throws InvalidLoginControllerException,
+			InvalidHospitalStateException {
 		loginController.logIn(nurse);
-		addHospitalEquipmentController = new AddHospitalEquipmentController(loginController, hospital);		
+		addHospitalEquipmentController = new AddHospitalEquipmentController(
+				loginController, hospital);
 	}
-	
+
 	@Test(expected = InvalidLoginControllerException.class)
-	public void authenticationTest2() throws InvalidLoginControllerException, InvalidHospitalStateException {
+	public void authenticationTest2() throws InvalidLoginControllerException,
+			InvalidHospitalStateException {
 		loginController.logIn(hospitad);
-		addHospitalEquipmentController = new AddHospitalEquipmentController(loginController, hospital);		
+		addHospitalEquipmentController = new AddHospitalEquipmentController(
+				loginController, hospital);
 	}
+
 	@Test
-	public void authenticationTest3() throws InvalidLoginControllerException, InvalidHospitalStateException {
+	public void authenticationTest3() throws InvalidLoginControllerException,
+			InvalidHospitalStateException {
 		loginController.logIn(doctor);
-		addHospitalEquipmentController = new AddHospitalEquipmentController(loginController, hospital);		
-		assertTrue(addHospitalEquipmentController.isValidLoginController(loginController));
+		addHospitalEquipmentController = new AddHospitalEquipmentController(
+				loginController, hospital);
+		assertTrue(addHospitalEquipmentController
+				.isValidLoginController(loginController));
 	}
+
 	@Test
-	public void test() throws InvalidLoginControllerException, InvalidLocationException, InvalidSerialException {
-		//TODO TEST
+	public void test() throws InvalidLoginControllerException,
+			InvalidLocationException, InvalidSerialException {
+		// TODO TEST
 	}
 }

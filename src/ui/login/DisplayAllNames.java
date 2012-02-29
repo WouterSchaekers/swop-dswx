@@ -1,8 +1,8 @@
 package ui.login;
 
 import java.util.Collection;
-import ui.UserinterfaceData;
 import ui.Usecase;
+import ui.UserinterfaceData;
 import controllers.interfaces.DoctorIN;
 import controllers.interfaces.HospitalAdminIN;
 import controllers.interfaces.NurseIN;
@@ -34,20 +34,20 @@ public class DisplayAllNames extends LoginCommand
 		Collection<UserIN> userCol = data.getLoginController().getAllUsers();
 
 		for (UserIN u : userCol) {
-			System.out.println("* " + u.getName()+" "+type(u) );
+			System.out.println("* " + u.getName() + " " + type(u));
 		}
 
 		return new Login(data, loginData);
 	}
 
 	private String type(UserIN u) {
-		if(u instanceof DoctorIN)
-			return"Doc";
-		if(u instanceof NurseIN)
+		if (u instanceof DoctorIN)
+			return "Doc";
+		if (u instanceof NurseIN)
 			return "Nurse";
-		if(u instanceof HospitalAdminIN)
+		if (u instanceof HospitalAdminIN)
 			return "Hospital admin";
-		if(u instanceof WarehouseAdminIN)
+		if (u instanceof WarehouseAdminIN)
 			return "Warehouse admin";
 		return "unknown";
 	}

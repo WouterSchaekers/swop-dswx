@@ -1,9 +1,9 @@
 package ui.registerpatient;
 
-import controllers.RegisterPatientController;
-import ui.UserinterfaceData;
 import ui.SelectUsecase;
 import ui.Usecase;
+import ui.UserinterfaceData;
+import controllers.RegisterPatientController;
 
 /**
  * This class

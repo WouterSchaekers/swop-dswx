@@ -1,9 +1,9 @@
 package ui.registerpatient;
 
+import ui.Usecase;
+import ui.UserinterfaceData;
 import controllers.RegisterPatientController;
 import exceptions.InvalidNameException;
-import ui.UserinterfaceData;
-import ui.Usecase;
 
 public class CreateNewPatient extends Usecase
 {

@@ -20,7 +20,7 @@ import exceptions.InvalidResourceException;
 public class UnscheduledSurgery extends UnscheduledTreatment
 {
 	private MachinePool machinePool;
-	
+
 	/**
 	 * @param p
 	 * @param diagnose
@@ -35,22 +35,25 @@ public class UnscheduledSurgery extends UnscheduledTreatment
 	 */
 	public UnscheduledSurgery(PatientFile p, Diagnose diagnose,
 			HospitalDate systemTime, UserManager userManager,
-			MachinePool machinePool,Surgery surgery) throws InvalidResourceException,
-			InvalidDurationException, InvalidOccurencesException,
-			InvalidAmountException, InvalidHospitalDateException {
-		super(p, diagnose, 3 * HospitalDate.ONE_HOUR, systemTime, userManager,surgery);
+			MachinePool machinePool, Surgery surgery)
+			throws InvalidResourceException, InvalidDurationException,
+			InvalidOccurencesException, InvalidAmountException,
+			InvalidHospitalDateException {
+		super(p, diagnose, 3 * HospitalDate.ONE_HOUR, systemTime, userManager,
+				surgery);
 		this.machinePool = machinePool;
 	}
-	
-	protected LinkedList<Schedulable> getMachinePool(){
+
+	protected LinkedList<Schedulable> getMachinePool() {
 		LinkedList<Schedulable> machinePool = new LinkedList<Schedulable>();
-		machinePool.addAll(Collections.filter(this.machinePool.getAllMachines(), new Filter()
-		{
-			@Override
-			public <T> boolean allows(T arg) {
-				return arg instanceof SurgicalEquipment;
-			}
-		}));
+		machinePool.addAll(Collections.filter(
+				this.machinePool.getAllMachines(), new Filter()
+				{
+					@Override
+					public <T> boolean allows(T arg) {
+						return arg instanceof SurgicalEquipment;
+					}
+				}));
 		return machinePool;
 	}
 
@@ -64,4 +67,5 @@ public class UnscheduledSurgery extends UnscheduledTreatment
 		LinkedList<Integer> rv = new LinkedList<Integer>();
 		rv.add(1);
 		return rv;
-	}}
+	}
+}

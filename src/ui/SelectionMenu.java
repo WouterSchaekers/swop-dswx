@@ -8,12 +8,13 @@ public class SelectionMenu<T>
 {
 	private Map<String, T> map;
 	private Scanner scanner = new Scanner(System.in);
+
 	public SelectionMenu(Map<String, T> map) {
 		this.map = map;
 	}
 
 	public T execute() {
-		
+
 		int i = 0;
 		Map<Integer, T> m = new HashMap<Integer, T>();
 		for (String s : map.keySet()) {
@@ -21,15 +22,15 @@ public class SelectionMenu<T>
 			m.put(i++, map.get(s));
 		}
 		String input = scanner.nextLine();
-		try{
-		i = new Integer(input);
-		if(m.containsKey(i))
-			return m.get(i);
-		else
-		{
-			System.out.println("invalid menu option");
-			return null;
-		}}catch(NumberFormatException e){
+		try {
+			i = new Integer(input);
+			if (m.containsKey(i))
+				return m.get(i);
+			else {
+				System.out.println("invalid menu option");
+				return null;
+			}
+		} catch (NumberFormatException e) {
 			return null;
 		}
 

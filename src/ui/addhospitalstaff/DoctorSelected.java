@@ -1,12 +1,12 @@
 package ui.addhospitalstaff;
 
+import ui.SelectUsecase;
+import ui.Usecase;
+import ui.UserinterfaceData;
 import controllers.CreateUserController;
 import exceptions.InvalidNameException;
 import exceptions.InvalidTimeSlotException;
 import exceptions.UserAlreadyExistsException;
-import ui.SelectUsecase;
-import ui.Usecase;
-import ui.UserinterfaceData;
 
 public class DoctorSelected extends Usecase
 {
@@ -15,7 +15,7 @@ public class DoctorSelected extends Usecase
 
 	public DoctorSelected(UserinterfaceData data, CreateUserController c) {
 		super(data);
-		this.c=c;
+		this.c = c;
 	}
 
 	@Override
@@ -30,9 +30,9 @@ public class DoctorSelected extends Usecase
 		} catch (InvalidNameException e) {
 			System.out.println("name provided was invalid" + e);
 		} catch (InvalidTimeSlotException e) {
-			
+
 		}
-		System.out.println("Doctor "+ arg +" was succesfully created" );
+		System.out.println("Doctor " + arg + " was succesfully created");
 		return new SelectUsecase(data);
 	}
 

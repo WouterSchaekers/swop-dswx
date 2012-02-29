@@ -1,6 +1,6 @@
 package warehouse2.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import scheduler.HospitalDate;
 import warehouse2.StandardHospitalWareHouse;
@@ -11,30 +11,29 @@ import warehouse2.items.WareHouseItem;
 
 public class StandardWareHouseTest
 {
-	private WareHouseItem sleepingT()
-	{
+	private WareHouseItem sleepingT() {
 		return new SleepingTablet(new HospitalDate());
 	}
+
 	@Test
-	public void initTest() throws WareHouseOverFlowException
-	{
+	public void initTest() throws WareHouseOverFlowException {
 		WareHouse w = new StandardHospitalWareHouse();
 		w.add(null);
 	}
+
 	@Test
-	public void addOneItem() throws WareHouseOverFlowException
-	{
+	public void addOneItem() throws WareHouseOverFlowException {
 		WareHouse w = new StandardHospitalWareHouse();
 		w.add(sleepingT());
 		w.add(sleepingT());
 		w.add(sleepingT());
-		assertTrue(w.getCurrentCountFor(sleepingT())==3);
+		assertTrue(w.getCurrentCountFor(sleepingT()) == 3);
 	}
+
 	@Test(expected = WareHouseOverFlowException.class)
-	public void addOneToMany() throws WareHouseOverFlowException
-	{
+	public void addOneToMany() throws WareHouseOverFlowException {
 		WareHouse w = new StandardHospitalWareHouse();
-		for(int i = 0 ; i < w.getMaxCount(sleepingT())+1;i ++)
+		for (int i = 0; i < w.getMaxCount(sleepingT()) + 1; i++)
 			w.add(sleepingT());
 	}
 }

@@ -1,11 +1,11 @@
 package treatment;
 
-import controllers.interfaces.MedicationIN;
 import result.Result;
 import scheduler.HospitalDate;
 import warehouse.Expirable;
 import warehouse.MedicationType;
 import warehouse.StockItem;
+import controllers.interfaces.MedicationIN;
 
 /**
  * This class represent treatment by medication.

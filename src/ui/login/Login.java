@@ -1,7 +1,7 @@
 package ui.login;
 
-import ui.UserinterfaceData;
 import ui.Usecase;
+import ui.UserinterfaceData;
 
 /**
  * In this class the user can give his name to log in. When this is done the

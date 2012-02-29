@@ -20,7 +20,8 @@ public class MedicationResult extends Result
 	 *            has had an abnormal reacton.
 	 * @throws InvalidReportException
 	 */
-	public MedicationResult(String report, boolean abnormalReaction) throws InvalidReportException{
+	public MedicationResult(String report, boolean abnormalReaction)
+			throws InvalidReportException {
 		super(report);
 		this.abnormalReaction = abnormalReaction;
 	}

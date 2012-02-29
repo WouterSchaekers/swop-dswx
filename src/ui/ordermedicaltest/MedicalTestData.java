@@ -34,6 +34,4 @@ public class MedicalTestData
 		this.factory = getultra;
 	}
 
-
-
 }

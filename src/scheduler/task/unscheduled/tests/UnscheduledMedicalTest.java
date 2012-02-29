@@ -22,25 +22,26 @@ public abstract class UnscheduledMedicalTest extends UnscheduledTask
 	private MedicalTest analysis;
 
 	public UnscheduledMedicalTest(PatientFile p, long duration,
-			HospitalDate currentSystemTime, UserManager userManager, MachinePool machinePool, MedicalTest analysis)
+			HospitalDate currentSystemTime, UserManager userManager,
+			MachinePool machinePool, MedicalTest analysis)
 			throws InvalidResourceException, InvalidDurationException,
 			InvalidOccurencesException, InvalidAmountException,
 			InvalidHospitalDateException {
-		super(p, duration, currentSystemTime, HospitalDate.ONE_HOUR,
-				true);
+		super(p, duration, currentSystemTime, HospitalDate.ONE_HOUR, true);
 		this.userManager = userManager;
 		this.machinePool = machinePool;
-		this.analysis=analysis;
+		this.analysis = analysis;
 	}
-	
+
 	@Override
-	public HospitalDate getFirstSchedulingDateSince(HospitalDate hospitalDate){
+	public HospitalDate getFirstSchedulingDateSince(HospitalDate hospitalDate) {
 		return hospitalDate;
 	}
-	
+
 	@Override
 	public boolean canBeScheduled() {
-		return this.getMachinePool().size() > 0 && this.userManager.getAllNurses().size() > 0;
+		return this.getMachinePool().size() > 0
+				&& this.userManager.getAllNurses().size() > 0;
 	}
 
 	@Override
@@ -59,11 +60,11 @@ public abstract class UnscheduledMedicalTest extends UnscheduledTask
 		rv.add(1);
 		return rv;
 	}
-	
+
 	protected abstract LinkedList<Schedulable> getMachinePool();
 
 	@Override
 	public void setScheduled(ScheduledTask task) {
-		this.analysis.setScheduledTask(task);		
+		this.analysis.setScheduledTask(task);
 	}
 }

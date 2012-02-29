@@ -105,8 +105,9 @@ public class SchedulerTest
 				HospitalDate.START_OF_TIME, 0, new LinkedList<Schedulable>(),
 				listOfSchedulables, occurences4, true);
 		unsched5 = new UnscheduledTaskTestClass(5000l,
-				HospitalDate.START_OF_TIME, HospitalDate.ONE_HOUR, new LinkedList<Schedulable>(),
-				listOfSchedulables, occurences5, true);
+				HospitalDate.START_OF_TIME, HospitalDate.ONE_HOUR,
+				new LinkedList<Schedulable>(), listOfSchedulables, occurences5,
+				true);
 		LinkedList<Schedulable> jonathan = new LinkedList<Schedulable>();
 		jonathan.add(listOfDoctors.get(0));
 		unsched6 = new UnscheduledTaskTestClass(1500l,
@@ -256,9 +257,12 @@ public class SchedulerTest
 			InvalidSchedulingRequestException, InvalidResourceException,
 			InvalidHospitalDateArgument {
 		ScheduledTask t0 = s.schedule(unsched5);
-		assertTrue(t0.getStartDate().equals(new HospitalDate(HospitalDate.ONE_HOUR)));
+		assertTrue(t0.getStartDate().equals(
+				new HospitalDate(HospitalDate.ONE_HOUR)));
 		ScheduledTask t1 = s.schedule(unsched5);
-		assertTrue(t1.getStartDate().equals(new HospitalDate(HospitalDate.ONE_HOUR + 5*HospitalDate.ONE_SECOND)));
+		assertTrue(t1.getStartDate().equals(
+				new HospitalDate(HospitalDate.ONE_HOUR + 5
+						* HospitalDate.ONE_SECOND)));
 	}
 
 	private void makeBusyAt(Schedulable s, long startMillis, long stopMillis)

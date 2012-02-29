@@ -21,12 +21,14 @@ public class SurgeryResult extends Result
 	 * @throws InvalidReportException
 	 * @throws InvalidSpecialCareException
 	 */
-	public SurgeryResult(String report, String specialCare) throws InvalidReportException, InvalidSpecialCareException {
+	public SurgeryResult(String report, String specialCare)
+			throws InvalidReportException, InvalidSpecialCareException {
 		super(report);
-		if(!super.canHaveAsDetail(specialCare))
-			throw new InvalidSpecialCareException("Invalid special care given to surgery result!");
+		if (!super.canHaveAsDetail(specialCare))
+			throw new InvalidSpecialCareException(
+					"Invalid special care given to surgery result!");
 	}
-	
+
 	@Basic
 	public String getSpecialCare() {
 		return this.specialCare;

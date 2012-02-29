@@ -15,17 +15,18 @@ public class ApproveDiagnosis extends ApproveDiagnosisSuper
 
 	@Override
 	public Usecase Execute() {
-		//create controller!
+		// create controller!
 		ApproveDiagnosisController controller = null;
 		try {
-			controller = new ApproveDiagnosisController(data.getDataPasser(), data.getLoginController());
+			controller = new ApproveDiagnosisController(data.getDataPasser(),
+					data.getLoginController());
 		} catch (InvalidLoginControllerException e) {
 			System.out.println();
 		} catch (InvalidHospitalStateException e) {
-			
+
 		}
 		this.chaindata.add(controller);
-		return new ShowDiagnosisOptionsToApprove(data,chaindata);
+		return new ShowDiagnosisOptionsToApprove(data, chaindata);
 	}
 
 }

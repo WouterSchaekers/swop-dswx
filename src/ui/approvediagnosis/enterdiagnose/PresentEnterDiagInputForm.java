@@ -9,32 +9,32 @@ import ui.approvediagnosis.ApproveDiagnosisSuper;
 public class PresentEnterDiagInputForm extends ApproveDiagnosisSuper
 {
 
-	
-
 	public PresentEnterDiagInputForm(UserinterfaceData data,
 			ApproveDiagnosisData chaindata) {
-		super(data,chaindata);
+		super(data, chaindata);
 	}
 
 	@Override
 	public Usecase Execute() {
-		System.out.println("Entering new diagnose for patient"+data.getPatientFileOpenController().getPatientFile().getName());
+		System.out.println("Entering new diagnose for patient"
+				+ data.getPatientFileOpenController().getPatientFile()
+						.getName());
 		System.out.println("Please enter the diagnose !");
 		System.out.println();
 		System.out.println("Diagnose:");
 		String in = input.nextLine();
-		System.out.println("Input entered, are you content with this as your diagnose?");
+		System.out
+				.println("Input entered, are you content with this as your diagnose?");
 		System.out.println(in);
 		System.out.println("Yes:y No:n");
 		String v = input.nextLine();
-		if(v.equalsIgnoreCase("n"))
+		if (v.equalsIgnoreCase("n"))
 			return this;
-		if(v.equalsIgnoreCase("y")){
+		if (v.equalsIgnoreCase("y")) {
 			chaindata.setDiagnose(in);
-			return new RegisterDiagnoseInput(data,chaindata);
+			return new RegisterDiagnoseInput(data, chaindata);
 		}
-		
-		
+
 		return new SelectUsecase(data);
 	}
 

@@ -31,9 +31,10 @@ public class PatientFileManager
 	 * 
 	 * @param patientFile
 	 *            The patientfile of the patient who is checking out.
-	 * @throws DischargePatienException 
+	 * @throws DischargePatienException
 	 */
-	public void checkOut(PatientFile patientFile) throws DischargePatienException {
+	public void checkOut(PatientFile patientFile)
+			throws DischargePatienException {
 		patientFile.discharge();
 	}
 

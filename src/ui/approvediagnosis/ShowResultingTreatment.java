@@ -16,7 +16,8 @@ public class ShowResultingTreatment extends ApproveDiagnosisSuper
 	@Override
 	public Usecase Execute() {
 		System.out.println("Resulting treatment :");
-		for(TreatmentIN treatment : this.chaindata.getDiagnose().getTreatments())
+		for (TreatmentIN treatment : this.chaindata.getDiagnose()
+				.getTreatments())
 			System.out.println(treatment);
 		return new SelectUsecase(data);
 	}

@@ -8,9 +8,10 @@ public abstract class AddHospitalEquipmentSuperClass extends Usecase
 
 	protected AddHospitalEquipmentData chainData;
 
-	public AddHospitalEquipmentSuperClass(UserinterfaceData data,AddHospitalEquipmentData chaindata) {
+	public AddHospitalEquipmentSuperClass(UserinterfaceData data,
+			AddHospitalEquipmentData chaindata) {
 		super(data);
-		this.chainData=chaindata;
+		this.chainData = chaindata;
 	}
 
 }

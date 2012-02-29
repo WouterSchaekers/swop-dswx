@@ -21,7 +21,7 @@ import exceptions.InvalidResourceException;
 public class UnscheduledXRayScan extends UnscheduledMedicalTest
 {
 	public UnscheduledXRayScan(PatientFile p, HospitalDate currentSystemTime,
-			UserManager userManager, MachinePool machinePool,XRayScan analysis)
+			UserManager userManager, MachinePool machinePool, XRayScan analysis)
 			throws InvalidResourceException, InvalidDurationException,
 			InvalidOccurencesException, InvalidAmountException,
 			InvalidHospitalDateException {
@@ -56,6 +56,6 @@ public class UnscheduledXRayScan extends UnscheduledMedicalTest
 
 	@Override
 	public void setScheduled(ScheduledTask task) {
-		
+
 	}
 }

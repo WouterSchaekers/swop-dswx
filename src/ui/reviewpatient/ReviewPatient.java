@@ -1,10 +1,10 @@
 package ui.reviewpatient;
 
-import controllers.LoginController;
-import controllers.PatientFileOpenController;
 import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
+import controllers.LoginController;
+import controllers.PatientFileOpenController;
 
 public class ReviewPatient extends Usecase
 {
@@ -15,20 +15,22 @@ public class ReviewPatient extends Usecase
 
 	@Override
 	public Usecase Execute() {
-		if(!validPatientFileOpen(data.getLoginController(),data.getPatientFileOpenController()))
-		{
+		if (!validPatientFileOpen(data.getLoginController(),
+				data.getPatientFileOpenController())) {
 			System.out.println("You have no rights doing this.");
 		}
-		System.out.println("What would you like to review of patient:" +data.getPatientFileOpenController().getPatientFile().getName());
+		System.out.println("What would you like to review of patient:"
+				+ data.getPatientFileOpenController().getPatientFile()
+						.getName());
 		System.out.println("1: review diagnoses");
 		System.out.println("2: review medical tests");
 		System.out.println("Q: quit");
 		String in = input.nextLine();
-		if(in.equalsIgnoreCase("1"))
+		if (in.equalsIgnoreCase("1"))
 			return new ReviewDiagnosis(data);
-		if(in.equalsIgnoreCase("2"))
+		if (in.equalsIgnoreCase("2"))
 			return new ReviewMedicalTests(data);
-		if(in.equalsIgnoreCase("Q"))
+		if (in.equalsIgnoreCase("Q"))
 			return new SelectUsecase(data);
 		System.out.println("invalid input try again");
 		return this;
@@ -36,11 +38,11 @@ public class ReviewPatient extends Usecase
 
 	private boolean validPatientFileOpen(LoginController loginController,
 			PatientFileOpenController patientFileOpenController) {
-		if(loginController==null||patientFileOpenController==null)
+		if (loginController == null || patientFileOpenController == null)
 			return false;
-		if(!patientFileOpenController.isValidLoginController(loginController))
+		if (!patientFileOpenController.isValidLoginController(loginController))
 			return false;
-		if(patientFileOpenController.getPatientFile()==null)
+		if (patientFileOpenController.getPatientFile() == null)
 			return false;
 		return true;
 	}

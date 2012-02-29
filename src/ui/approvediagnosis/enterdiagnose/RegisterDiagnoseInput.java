@@ -1,5 +1,5 @@
-
 package ui.approvediagnosis.enterdiagnose;
+
 import ui.Usecase;
 import ui.UserinterfaceData;
 import ui.approvediagnosis.ApproveDiagnosisData;
@@ -16,14 +16,18 @@ public class RegisterDiagnoseInput extends ApproveDiagnosisSuper
 
 	public RegisterDiagnoseInput(UserinterfaceData data,
 			ApproveDiagnosisData chaindata) {
-		super(data,chaindata);
+		super(data, chaindata);
 	}
 
 	@Override
 	public Usecase Execute() {
-		DiagnoseIN diagnose=null;
+		DiagnoseIN diagnose = null;
 		try {
-	diagnose=	this.chaindata.getEnterDiagnoseController().enterDiagnose(data.getLoginController(), data.getPatientFileOpenController(), chaindata.getDiagnoseString(), chaindata.getOtherDoctor(),data.getDataPasser());
+			diagnose = this.chaindata.getEnterDiagnoseController()
+					.enterDiagnose(data.getLoginController(),
+							data.getPatientFileOpenController(),
+							chaindata.getDiagnoseString(),
+							chaindata.getOtherDoctor(), data.getDataPasser());
 		} catch (InvalidLoginControllerException e) {
 			e.printStackTrace();
 		} catch (InvalidPatientFileOpenController e) {
@@ -34,8 +38,8 @@ public class RegisterDiagnoseInput extends ApproveDiagnosisSuper
 			e.printStackTrace();
 		}
 		chaindata.setDiagnose(diagnose);
-		return new ShowResultingTreatment(data,chaindata);
-		
+		return new ShowResultingTreatment(data, chaindata);
+
 	}
 
 }

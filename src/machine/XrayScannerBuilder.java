@@ -9,13 +9,14 @@ public class XrayScannerBuilder extends MachineBuilder
 		super(pool);
 
 	}
-	public String toString()
-	{
+
+	public String toString() {
 		return "XrayScanner";
 	}
-	public XRayScanner build(int serial,String location) throws InvalidLocationException, InvalidSerialException
-	{
+
+	public XRayScanner build(int serial, String location)
+			throws InvalidLocationException, InvalidSerialException {
 		return pool.createXrayScanner(serial, location);
-		
+
 	}
 }

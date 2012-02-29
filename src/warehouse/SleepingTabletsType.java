@@ -11,9 +11,9 @@ public class SleepingTabletsType implements MedicationType
 	public boolean equals(MedicationType medicationType) {
 		return medicationType instanceof SleepingTabletsType;
 	}
-	
+
 	@Override
-	public String toString(){
+	public String toString() {
 		return "SleepingTablets";
 	}
 

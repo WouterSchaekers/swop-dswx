@@ -1,7 +1,7 @@
 package ui.login;
 
-import ui.UserinterfaceData;
 import ui.Usecase;
+import ui.UserinterfaceData;
 import controllers.LoginController;
 
 /**

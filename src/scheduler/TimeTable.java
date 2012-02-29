@@ -41,8 +41,10 @@ public class TimeTable
 	public TimeTable(TimeSlot... slots) throws InvalidTimeSlotException {
 		this(new LinkedList<TimeSlot>(Arrays.asList(slots)));
 	}
-	//TODO: consider replacing these with methods since you cant catch these exceptions =/
-	public TimeTable()  {
+
+	// TODO: consider replacing these with methods since you cant catch these
+	// exceptions =/
+	public TimeTable() {
 		this.timeSlots = new LinkedList<TimeSlot>();
 	}
 
@@ -77,7 +79,8 @@ public class TimeTable
 	 * @throws InvalidSchedulingRequestException
 	 *             The timeslot cannot be scheduled in this timetable
 	 */
-	public void addTimeSlot(TimeSlot timeSlot) throws InvalidSchedulingRequestException {
+	public void addTimeSlot(TimeSlot timeSlot)
+			throws InvalidSchedulingRequestException {
 		if (!this.hasFreeSlotAt(timeSlot) || timeSlot == null) {
 			throw new InvalidSchedulingRequestException(
 					"Can't schedule at given timeSlot!");
@@ -114,25 +117,27 @@ public class TimeTable
 		HospitalDate d1 = HospitalDate.START_OF_TIME;
 		// the end of time is here :)
 		HospitalDate d2 = HospitalDate.END_OF_TIME;
-		TimeSlot t = new TimeSlot(new StartTimePoint(d1),
-				new StopTimePoint(d2));
+		TimeSlot t = new TimeSlot(new StartTimePoint(d1), new StopTimePoint(d2));
 		returnValue = new TimeTable();
 
 		if (timeSlots.isEmpty())
 			return new TimeTable(t);
-		if (timeSlots.get(0).getStartPoint().getTime() != d1.getTimeSinceStart()) {
-			returnValue.addTimeSlot(new TimeSlot(new StartTimePoint(d1), new StopTimePoint(timeSlots.get(0)
-					.getStartPoint().getDate())));
+		if (timeSlots.get(0).getStartPoint().getTime() != d1
+				.getTimeSinceStart()) {
+			returnValue.addTimeSlot(new TimeSlot(new StartTimePoint(d1),
+					new StopTimePoint(timeSlots.get(0).getStartPoint()
+							.getDate())));
 		}
 		for (int i = 0; i < timeSlots.size() - 1; i++) {
-			returnValue.addTimeSlot(new TimeSlot(new StartTimePoint(timeSlots.get(i)
-					.getStopPoint().getDate()), new StopTimePoint(
+			returnValue.addTimeSlot(new TimeSlot(new StartTimePoint(timeSlots
+					.get(i).getStopPoint().getDate()), new StopTimePoint(
 					timeSlots.get(i + 1).getStartPoint().getDate())));
 		}
-		if(timeSlots.get(this.timeSlots.size()-1).getStopPoint().getDate().getTimeSinceStart()!=d2.getTimeSinceStart()){
+		if (timeSlots.get(this.timeSlots.size() - 1).getStopPoint().getDate()
+				.getTimeSinceStart() != d2.getTimeSinceStart()) {
 			returnValue.addTimeSlot(new TimeSlot(new StartTimePoint(timeSlots
-				.get(this.timeSlots.size() - 1).getStopPoint().getDate()
-				), new StopTimePoint(d2)));
+					.get(this.timeSlots.size() - 1).getStopPoint().getDate()),
+					new StopTimePoint(d2)));
 		}
 		return returnValue;
 	}
@@ -160,61 +165,79 @@ public class TimeTable
 		}
 		return rv;
 	}
-	
-	public TimeSlot getFirstFreeSlotFrom(HospitalDate hospitalDate) throws InvalidSchedulingRequestException, InvalidTimeSlotException{
+
+	public TimeSlot getFirstFreeSlotFrom(HospitalDate hospitalDate)
+			throws InvalidSchedulingRequestException, InvalidTimeSlotException {
 		TimeTable x = this.invert();
 		LinkedList<TimeSlot> allTimeSlots = x.timeSlots;
-		for(TimeSlot t : allTimeSlots){
-			if(!t.getStartPoint().getDate().before(hospitalDate)){
+		for (TimeSlot t : allTimeSlots) {
+			if (!t.getStartPoint().getDate().before(hospitalDate)) {
 				return t;
 			}
 		}
-		StopTimePoint newStopPoint = new StopTimePoint(allTimeSlots.get(allTimeSlots.size()-1).getStopPoint().getDate());
+		StopTimePoint newStopPoint = new StopTimePoint(allTimeSlots
+				.get(allTimeSlots.size() - 1).getStopPoint().getDate());
 		return new TimeSlot(new StartTimePoint(hospitalDate), newStopPoint);
 	}
-	
-	public TimeSlot getFirstFreeSlotBetween(HospitalDate startDate, HospitalDate stopDate, long duration) throws InvalidSchedulingRequestException, InvalidTimeSlotException{
+
+	public TimeSlot getFirstFreeSlotBetween(HospitalDate startDate,
+			HospitalDate stopDate, long duration)
+			throws InvalidSchedulingRequestException, InvalidTimeSlotException {
 		TimeTable x = this.invert();
-		for(TimeSlot t : x.timeSlots){
+		for (TimeSlot t : x.timeSlots) {
 			HospitalDate startDateOfTimeSlot = t.getStartPoint().getDate();
 			HospitalDate stopDateOfTimeSlot = t.getStopPoint().getDate();
-			if(!startDateOfTimeSlot.before(startDate)){
-				if(stopDateOfTimeSlot.before(stopDate) && stopDateOfTimeSlot.getTimeSinceStart() - startDateOfTimeSlot.getTimeSinceStart() >= duration){
-					return new TimeSlot(new StartTimePoint(startDateOfTimeSlot), new StopTimePoint(stopDateOfTimeSlot));
+			if (!startDateOfTimeSlot.before(startDate)) {
+				if (stopDateOfTimeSlot.before(stopDate)
+						&& stopDateOfTimeSlot.getTimeSinceStart()
+								- startDateOfTimeSlot.getTimeSinceStart() >= duration) {
+					return new TimeSlot(
+							new StartTimePoint(startDateOfTimeSlot),
+							new StopTimePoint(stopDateOfTimeSlot));
+				} else if (!stopDateOfTimeSlot.before(stopDate)
+						&& stopDate.getTimeSinceStart()
+								- startDateOfTimeSlot.getTimeSinceStart() >= duration) {
+					return new TimeSlot(
+							new StartTimePoint(startDateOfTimeSlot),
+							new StopTimePoint(stopDate));
 				}
-				else if(!stopDateOfTimeSlot.before(stopDate) && stopDate.getTimeSinceStart() - startDateOfTimeSlot.getTimeSinceStart() >= duration){
-					return new TimeSlot(new StartTimePoint(startDateOfTimeSlot), new StopTimePoint(stopDate));
-				}
-			}
-			else{
-				if(stopDateOfTimeSlot.before(stopDate) && stopDateOfTimeSlot.getTimeSinceStart() - startDate.getTimeSinceStart() >= duration){
-					return new TimeSlot(new StartTimePoint(startDate), new StopTimePoint(stopDateOfTimeSlot));
-				}
-				else if(!stopDateOfTimeSlot.before(stopDate) && stopDate.getTimeSinceStart() - startDate.getTimeSinceStart() >= duration){
-					return new TimeSlot(new StartTimePoint(startDate), new StopTimePoint(stopDate));
+			} else {
+				if (stopDateOfTimeSlot.before(stopDate)
+						&& stopDateOfTimeSlot.getTimeSinceStart()
+								- startDate.getTimeSinceStart() >= duration) {
+					return new TimeSlot(new StartTimePoint(startDate),
+							new StopTimePoint(stopDateOfTimeSlot));
+				} else if (!stopDateOfTimeSlot.before(stopDate)
+						&& stopDate.getTimeSinceStart()
+								- startDate.getTimeSinceStart() >= duration) {
+					return new TimeSlot(new StartTimePoint(startDate),
+							new StopTimePoint(stopDate));
 				}
 			}
 		}
-		throw new IllegalStateException("No more free slots available between the given Start -and EndDate!");
+		throw new IllegalStateException(
+				"No more free slots available between the given Start -and EndDate!");
 	}
 
 	public boolean hasFreeSlotAt(HospitalDate startDate, HospitalDate stopDate) {
-		return this.hasFreeSlotAt(new TimeSlot(new StartTimePoint(startDate
-				), new StopTimePoint(stopDate)));
+		return this.hasFreeSlotAt(new TimeSlot(new StartTimePoint(startDate),
+				new StopTimePoint(stopDate)));
 	}
-	
-	public HospitalDate getNextHospitalDateAfter(HospitalDate hospitalDate) throws InvalidHospitalDateException{
+
+	public HospitalDate getNextHospitalDateAfter(HospitalDate hospitalDate)
+			throws InvalidHospitalDateException {
 		HospitalDate firstDate = null;
-		for(TimeSlot t : timeSlots){
+		for (TimeSlot t : timeSlots) {
 			HospitalDate curDate = t.getStartPoint().getDate();
-			if(hospitalDate.before(curDate)){
-				if(firstDate == null || firstDate.before(curDate)){
+			if (hospitalDate.before(curDate)) {
+				if (firstDate == null || firstDate.before(curDate)) {
 					firstDate = curDate;
 				}
 			}
 		}
-		if(firstDate == null){
-			throw new InvalidHospitalDateException("There are no more dates available.");
+		if (firstDate == null) {
+			throw new InvalidHospitalDateException(
+					"There are no more dates available.");
 		}
 		return firstDate;
 	}
@@ -234,10 +257,10 @@ public class TimeTable
 		}
 		return true;
 	}
-	
-	public boolean isBackToBack(HospitalDate startDate){
-		for (TimeSlot thisSlot : this.timeSlots){
-			if(thisSlot.isToBack(startDate)){
+
+	public boolean isBackToBack(HospitalDate startDate) {
+		for (TimeSlot thisSlot : this.timeSlots) {
+			if (thisSlot.isToBack(startDate)) {
 				return true;
 			}
 		}
@@ -258,8 +281,7 @@ public class TimeTable
 				+ that.timeSlots.size() * 2];
 		LinkedList<TimeSlot> rv = new LinkedList<TimeSlot>();
 		int i = 0;
-		for (TimeSlot t : this.timeSlots) 
-		{
+		for (TimeSlot t : this.timeSlots) {
 			allPoints[i++] = t.getStartPoint();
 			allPoints[i++] = t.getStopPoint();
 		}
@@ -271,9 +293,8 @@ public class TimeTable
 		Arrays.sort(allPoints, TimePoint.ComparatorsStartFirst);
 		i = 0;
 		while (i < allPoints.length) {
-			TimeSlot t = new TimeSlot(new StartTimePoint(new HospitalDate(0)
-					), new StopTimePoint(new HospitalDate(3)
-					));
+			TimeSlot t = new TimeSlot(new StartTimePoint(new HospitalDate(0)),
+					new StopTimePoint(new HospitalDate(3)));
 			t.setStartPoint(allPoints[i]);
 			int endcount = 1;
 			while (endcount > 0) {
@@ -299,7 +320,7 @@ public class TimeTable
 	 *            The timetable which has to be intersected with this one.
 	 * @return A new timetable that has all the busy-slots of both timetables.
 	 * @throws InvalidTimeSlotException
-	 * @throws InvalidSchedulingRequestException 
+	 * @throws InvalidSchedulingRequestException
 	 */
 	public TimeTable getIntersect(TimeTable that)
 			throws InvalidTimeSlotException, InvalidSchedulingRequestException {
@@ -320,10 +341,10 @@ public class TimeTable
 	 */
 	public void eliminateOverlap() {
 		TimePoint[] timePoints = new TimePoint[this.timeSlots.size() * 2];
-		for (int i = 0; i < this.timeSlots.size(); i++){
+		for (int i = 0; i < this.timeSlots.size(); i++) {
 			TimeSlot t = timeSlots.get(i);
-			timePoints[2*i] = t.getStartPoint();
-			timePoints[2*i+1] = t.getStopPoint();
+			timePoints[2 * i] = t.getStartPoint();
+			timePoints[2 * i + 1] = t.getStopPoint();
 		}
 		Arrays.sort(timePoints, TimePoint.ComparatorsEndFirst);
 		ArrayList<TimePoint> simplifiedTimePoints = new ArrayList<TimePoint>();
@@ -348,19 +369,20 @@ public class TimeTable
 			}
 		}
 		LinkedList<TimeSlot> newTimeSlots = new LinkedList<TimeSlot>();
-		for (int i = 0; i < simplifiedTimePoints.size()-1; i = i + 2){
-			TimeSlot timeSlot = new TimeSlot(simplifiedTimePoints.get(i), simplifiedTimePoints.get(i+1));
+		for (int i = 0; i < simplifiedTimePoints.size() - 1; i = i + 2) {
+			TimeSlot timeSlot = new TimeSlot(simplifiedTimePoints.get(i),
+					simplifiedTimePoints.get(i + 1));
 			newTimeSlots.add(timeSlot);
 		}
 		this.timeSlots = newTimeSlots;
 	}
-	
-	public TimePoint[] getTimePoints(){
-		TimePoint[] timePoints = new TimePoint[this.timeSlots.size()*2];
-		for(int i = 0; i < this.timeSlots.size(); i++){
+
+	public TimePoint[] getTimePoints() {
+		TimePoint[] timePoints = new TimePoint[this.timeSlots.size() * 2];
+		for (int i = 0; i < this.timeSlots.size(); i++) {
 			TimeSlot currentTimeSlot = this.timeSlots.get(i).clone();
-			timePoints[i*2] = currentTimeSlot.getStartPoint();
-			timePoints[i*2+1] = currentTimeSlot.getStopPoint();
+			timePoints[i * 2] = currentTimeSlot.getStartPoint();
+			timePoints[i * 2 + 1] = currentTimeSlot.getStopPoint();
 		}
 		return timePoints;
 	}
@@ -375,15 +397,14 @@ public class TimeTable
 	 * @return A TimeTable that's the intersection of all given tables and this
 	 *         table.
 	 * @throws InvalidTimeSlotException
-	 * @throws InvalidSchedulingRequestException 
+	 * @throws InvalidSchedulingRequestException
 	 */
-	public static TimeTable intersectAll(Collection<TimeTable> tables) throws InvalidTimeSlotException, InvalidSchedulingRequestException
-	{
+	public static TimeTable intersectAll(Collection<TimeTable> tables)
+			throws InvalidTimeSlotException, InvalidSchedulingRequestException {
 		TimeTable table = new TimeTable();
 		table = table.invert();
-		for(TimeTable t:tables)
-		{
-			table=table.getIntersect(t);
+		for (TimeTable t : tables) {
+			table = table.getIntersect(t);
 		}
 		return table;
 	}
@@ -395,15 +416,15 @@ public class TimeTable
 	public LinkedList<TimeSlot> getTimeSlots() {
 		this.sortTimeSlots();
 		LinkedList<TimeSlot> rv = new LinkedList<TimeSlot>();
-		for(TimeSlot s : this.timeSlots)
+		for (TimeSlot s : this.timeSlots)
 			rv.add(s.clone());
 		return rv;
 	}
-	
-	public void updateTimeTable(HospitalDate newDate){
+
+	public void updateTimeTable(HospitalDate newDate) {
 		LinkedList<TimeSlot> newTimeSlots = new LinkedList<TimeSlot>();
-		for(TimeSlot timeSlot : timeSlots){
-			if(timeSlot.getStopPoint().getDate().before(newDate)){
+		for (TimeSlot timeSlot : timeSlots) {
+			if (timeSlot.getStopPoint().getDate().before(newDate)) {
 				newTimeSlots.add(timeSlot);
 			}
 		}
@@ -456,14 +477,14 @@ public class TimeTable
 		}
 		return true;
 	}
-	
+
 	@Override
 	public TimeTable clone() {
 		LinkedList<TimeSlot> newTimeSlots = new LinkedList<TimeSlot>();
-		for(TimeSlot timeSlot : this.getTimeSlots()){
+		for (TimeSlot timeSlot : this.getTimeSlots()) {
 			newTimeSlots.add(timeSlot);
 		}
-		TimeTable newTimeTable = null; 
+		TimeTable newTimeTable = null;
 		try {
 			newTimeTable = new TimeTable(newTimeSlots);
 		} catch (InvalidTimeSlotException e) {
