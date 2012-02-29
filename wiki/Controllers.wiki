@@ -20,3 +20,6 @@ Code duplication, het is niet duidelijk waar een docter zijn afspraken kan check
 
 Andere verwoording:
 De manier waarop de controllers zijn geïmpelenteerd, is eigenlijk niet de manier waarop we dat willen. Op dit moment is het zo dat voor elke usecase een aparte controller is gemaakt. Dit zorgt voor codeduplicatie (bijvoorbeeld appointments die kunnen gemaakt worden op twee verschillende plaatsen.
+
+= Autenthication =
+* enkel bij creatie of ook bij het oproepen van methodes.
