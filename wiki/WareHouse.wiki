@@ -29,3 +29,5 @@ Enum:<br>
 getType():<br>
 + Niet werken met getClass(). Waarom niet? -> Weet niet precies het Class werkt.<br>
 - Moet uniek zijn.<br>
+
+reflection vs factory vs types vs zoals het nu is.
