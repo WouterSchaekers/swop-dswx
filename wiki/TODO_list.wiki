@@ -46,3 +46,6 @@ Wouter: test scenarios<p>
   * Bij unscheduled classes zorgen dat die requirements lazy gemaakt worden, (dit door de voorstelling van onze requirements :) )
   * Observers
   * Bidirectionele binding tussen TaskManager en Schedulable
+
+= Eigen bevindingen =
+  * Authentication in de controllers.
