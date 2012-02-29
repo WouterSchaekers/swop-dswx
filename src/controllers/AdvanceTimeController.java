@@ -25,8 +25,10 @@ public class AdvanceTimeController extends NeedsLoginController
 	 * A new systemtime is set.
 	 * 
 	 * @param hospitalDate
+	 * @throws InvalidLoginControllerException 
 	 */
-	public void setNewSystemTime(HospitalDate hospitalDate) {
+	public void setNewSystemTime(LoginController loginc, HospitalDate hospitalDate) throws InvalidLoginControllerException {
+		checkValidity(loginc);
 		this.timelord.setSystemTime(hospitalDate);
 
 	}

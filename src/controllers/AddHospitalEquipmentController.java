@@ -42,19 +42,15 @@ public class AddHospitalEquipmentController extends NeedsLoginController
 	}
 
 	public void createMachine(MachineBuilder b, int serial, String location,
-			LoginController loginController)
+			LoginController loginc)
 			throws InvalidLoginControllerException, InvalidLocationException,
 			InvalidSerialException {
-		// TODO: remove invalid timeslot exception
-		if (!isValidLoginController(loginController))
-			throw new InvalidLoginControllerException("");
+		checkValidity(loginc);
 		machinePool.addMachine(b.build(serial, location));
-
 	}
 
 	@Override
 	boolean validUser(User u) {
 		return u instanceof HospitalAdmin;
 	}
-
 }

@@ -3,6 +3,7 @@ package controllers;
 import java.util.ArrayList;
 import java.util.Collection;
 import patient.Diagnose;
+import sun.rmi.runtime.Log;
 import system.HospitalState;
 import users.Doctor;
 import users.User;
@@ -21,7 +22,8 @@ public class ApproveDiagnosisController extends NeedsLoginController
 		super(hospitalState, loginc);
 	}
 
-	public Collection<PatientFileIN> getAllPatienFiles() {
+	public Collection<PatientFileIN> getAllPatienFiles(LoginController loginc) throws InvalidLoginControllerException {
+		checkValidity(loginc);
 		Collection<PatientFileIN> f = new ArrayList<PatientFileIN>();
 		f.addAll(hospitalState.getPatientFileManager().getAllPatientFiles());
 		return f;
@@ -30,8 +32,7 @@ public class ApproveDiagnosisController extends NeedsLoginController
 	public DiagnoseIN approveDiagnose(LoginController loginController2,
 			DiagnoseIN selected) throws InvalidLoginControllerException,
 			ApproveDiagnoseException {
-		if (!isValidLoginController(loginController2))
-			throw new InvalidLoginControllerException("");
+		checkValidity(loginController2);
 		if (selected instanceof Diagnose)
 			((Diagnose) selected).approve();
 		return selected;
@@ -41,8 +42,7 @@ public class ApproveDiagnosisController extends NeedsLoginController
 	public void disApproveDiagnose(LoginController loginController2,
 			DiagnoseIN selected, DiagnoseIN replacement)
 			throws InvalidLoginControllerException, ApproveDiagnoseException {
-		if (!isValidLoginController(loginController2))
-			throw new InvalidLoginControllerException("");
+		checkValidity(loginController2);
 		if (selected instanceof Diagnose)
 			((Diagnose) selected).disaprove(replacement);
 
