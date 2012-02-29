@@ -13,7 +13,6 @@ import warehouse.Warehouse;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidHospitalDateException;
-import exceptions.InvalidNameException;
 import exceptions.InvalidOccurencesException;
 import exceptions.InvalidResourceException;
 import exceptions.InvalidTimeSlotException;
@@ -27,6 +26,23 @@ public class UltraSoundScan extends MedicalTest
 	private final boolean recordImages;
 	private Result result;
 
+	/**
+	 * Default constructor.
+	 * 
+	 * @param recordImages
+	 * @param recordVid
+	 * @param scaninfo
+	 * @throws InvalidTimeSlotException
+	 * @see MedicalTest("UltraSoundScan")
+	 */
+	UltraSoundScan(String scaninfo, boolean recordVid, boolean recordImages)
+			throws InvalidDurationException {
+		super(UltraSoundScan.DURATION);
+		this.scaninfo = scaninfo;
+		this.recordVid = recordVid;
+		this.recordImages = recordImages;
+	}
+
 	public String getScaninfo() {
 		return scaninfo;
 	}
@@ -38,25 +54,7 @@ public class UltraSoundScan extends MedicalTest
 	public boolean hasImageRecordingEnabled() {
 		return recordImages;
 	}
-
-	/**
-	 * Default constructor.
-	 * 
-	 * @param recordImages
-	 * @param recordVid
-	 * @param scaninfo
-	 * @throws InvalidTimeSlotException
-	 * @see MedicalTest("UltraSoundScan")
-	 */
-	UltraSoundScan(String scaninfo, boolean recordVid, boolean recordImages)
-			throws InvalidNameException, InvalidDurationException,
-			InvalidTimeSlotException {
-		super(UltraSoundScan.DURATION);
-		this.scaninfo = scaninfo;
-		this.recordVid = recordVid;
-		this.recordImages = recordImages;
-	}
-
+	
 	@Override
 	public void setResult(Result r) {
 		this.result = r;
