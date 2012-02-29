@@ -23,9 +23,9 @@ i.getType(); // < geeft een int terug of iets van het type ItemType
 
 Enum vs getType()
 
-Enum:
-+ Simpel.
-- Moeilijk te onderhouden -> niet te voorspellen wat er gebeurt bij uitbreiding.
-getType():
-+ Niet werken met getClass(). Waarom niet? -> Weet niet precies het Class werkt.
-- Moet uniek zijn.
+Enum:</br>
++ Simpel.</br>
+- Moeilijk te onderhouden -> niet te voorspellen wat er gebeurt bij uitbreiding.</br></br>
+getType():</br>
++ Niet werken met getClass(). Waarom niet? -> Weet niet precies het Class werkt.</br>
+- Moet uniek zijn.</br>
