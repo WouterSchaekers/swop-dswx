@@ -56,7 +56,7 @@ public class CheckinController extends NeedsLoginController
 		checkValidity(loginc);
 		return pfm.registerPatient(name);
 	}
-
+	
 	@Override
 	boolean validUser(User u) {
 		return u instanceof Nurse;
