@@ -2,7 +2,7 @@ package warehouse2.stock;
 
 import scheduler.HospitalDate;
 import exceptions.WarehouseOverCapacityException;
-import warehouse2.Warehouse;
+import warehouse.Warehouse;
 import warehouse2.item.WarehouseItemType;
 
 public class StockOrder<T extends WarehouseItemType>

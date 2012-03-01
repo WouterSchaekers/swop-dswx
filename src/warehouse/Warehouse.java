@@ -1,4 +1,4 @@
-package warehouse2;
+package warehouse;
 
 import java.util.Collection;
 import java.util.Map;
