@@ -14,7 +14,7 @@ import exceptions.InvalidSerialException;
 
 public class AddHospitalEquipmentController extends NeedsLoginController
 {
-	MachinePool machinePool;
+	
 
 	/**
 	 * Default constructor to add hospital equipment to the hospital system All
@@ -29,20 +29,18 @@ public class AddHospitalEquipmentController extends NeedsLoginController
 			HospitalState state) throws InvalidLoginControllerException,
 			InvalidHospitalStateException {
 		super(state, loginController);
-		this.machinePool = state.getMachinePool();
 
 	}
 
 	public Collection<MachineBuilder> getAllMachines() {
-		return machinePool.getAllBuilders();
+		return hospitalState.getMachinePool().getAllBuilders();
 	}
 	//TODO : shit wut
 	public void createMachine(MachineBuilder b, int serial, String location)
 			throws InvalidLocationException,
 			InvalidSerialException {
-		machinePool.addMachine(b.build(serial, location));
+		hospitalState.getMachinePool().addMachine(b.build(serial, location));
 	}
-
 	@Override
 	boolean validUser(User u) {
 		return u instanceof HospitalAdmin;
