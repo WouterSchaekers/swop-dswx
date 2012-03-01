@@ -19,12 +19,9 @@ public class EnterMedicaltestResultController extends
 		super(state, loginController, pfoc);
 	}
 
-	public Collection<MedicalTest> allMedicalTests(
-			LoginController loginController2,
-			PatientFileOpenController patientFile)
+	public Collection<MedicalTest> allMedicalTests()
 			throws InvalidLoginControllerException,
 			InvalidPatientFileOpenController {
-		checkValidity(loginController2, patientFile);
 
 		return null;
 

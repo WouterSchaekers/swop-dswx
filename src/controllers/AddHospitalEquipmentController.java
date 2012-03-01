@@ -33,19 +33,13 @@ public class AddHospitalEquipmentController extends NeedsLoginController
 
 	}
 
-	public Collection<MachineBuilder> getAllMachines(
-			LoginController loginController)
-			throws InvalidLoginControllerException {
-		if (!isValidLoginController(loginController))
-			throw new InvalidLoginControllerException("");
+	public Collection<MachineBuilder> getAllMachines() {
 		return machinePool.getAllBuilders();
 	}
-
-	public void createMachine(MachineBuilder b, int serial, String location,
-			LoginController loginc)
-			throws InvalidLoginControllerException, InvalidLocationException,
+	//TODO : shit wut
+	public void createMachine(MachineBuilder b, int serial, String location)
+			throws InvalidLocationException,
 			InvalidSerialException {
-		checkValidity(loginc);
 		machinePool.addMachine(b.build(serial, location));
 	}
 

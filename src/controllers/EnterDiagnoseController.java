@@ -40,30 +40,28 @@ public class EnterDiagnoseController extends NeedsLoginAndPatientFileController
 	 * 
 	 * @param loginc
 	 * @return
+	 * @throws InvalidDiagnoseException 
+	 * @throws InvalidDoctorException 
 	 */
 
-	public DiagnoseIN enterDiagnose(LoginController loginController2,
-			PatientFileOpenController patientFileOpenController, String diag,
-			DoctorIN choice, HospitalState hospitalState)
-			throws InvalidLoginControllerException,
-			InvalidPatientFileOpenController, InvalidDiagnoseException,
-			InvalidDoctorException {
-		checkValidity(loginController2, patientFileOpenController);
+	public DiagnoseIN enterDiagnose( String diag,
+			DoctorIN choice) throws InvalidDoctorException, InvalidDiagnoseException
+			 {
+		
 		Diagnose d = PatientFile.createDiagnoseSecondOp(diag,
-				(Doctor) loginController2.getUser(), (Doctor) choice,
+				(Doctor) loginControler.getUser(), (Doctor) choice,
 				hospitalState.getTaskManager());
-		((PatientFile) patientFileOpenController.getPatientFile())
+		((PatientFile) pfoc.getPatientFile())
 				.addDiagnosis(d);
 		return d;
 	}
 
-	public void enterDiagnose(LoginController loginController2,
+	public void enterDiagnose(
 			PatientFileOpenController patientFileOpenController, String diag)
 			throws InvalidLoginControllerException,
 			InvalidPatientFileOpenController, InvalidDiagnoseException,
 			InvalidDoctorException {
-		checkValidity(loginController2, patientFileOpenController);
-		Diagnose d = new Diagnose((Doctor) loginController2.getUser(), diag);
+		Diagnose d = new Diagnose((Doctor) loginControler.getUser(), diag);
 		((PatientFile) patientFileOpenController.getPatientFile())
 				.addDiagnosis(d);
 

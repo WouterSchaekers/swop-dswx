@@ -72,8 +72,8 @@ public class _AddHospitalEquipmentTest
 			m = b;
 			break;
 		}
-		addHospitalEquipmentController.createMachine(m, 3, "jozef",
-				loginController);
+		addHospitalEquipmentController.createMachine(m, 3, "jozef"
+				);
 		assertTrue(hospital.getMachinePool().getAllMachines().size() == 1);
 	}
 
