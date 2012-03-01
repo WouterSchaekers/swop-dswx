@@ -8,18 +8,7 @@ import patient.PatientFile;
 import system.HospitalState;
 import users.Doctor;
 import users.User;
-import exceptions.InvalidAmountException;
-import exceptions.InvalidDurationException;
-import exceptions.InvalidHospitalDateArgument;
-import exceptions.InvalidHospitalDateException;
-import exceptions.InvalidHospitalStateException;
-import exceptions.InvalidLoginControllerException;
-import exceptions.InvalidOccurencesException;
-import exceptions.InvalidPatientFileException;
-import exceptions.InvalidPatientFileOpenController;
-import exceptions.InvalidResourceException;
-import exceptions.InvalidTimeSlotException;
-import exceptions.InvalidTreatmentException;
+import exceptions.*;
 
 /**
  * This class can be used to do schedule medical tests etc...
@@ -53,29 +42,22 @@ public class MedicalTestController extends NeedsLoginAndPatientFileController
 		super(dp, lc, cpf);
 	}
 
-	public Collection<MedicalTestFactory> getMedicalTestFactories(
-			LoginController loginc,
-			PatientFileOpenController patienfileOpenController)
+	public Collection<MedicalTestFactory> getMedicalTestFactories()
 			throws InvalidLoginControllerException,
 			InvalidPatientFileException, InvalidPatientFileOpenController {
-		checkValidity(loginc, patienfileOpenController);
 		return new MedicalTests().factories();
 
 	}
 
-	public void addMedicaltest(LoginController loginController2,
-			PatientFileOpenController patientFileOpenController2,
-			MedicalTest create, HospitalState data)
+	public void addMedicaltest(MedicalTest create, HospitalState data)
 			throws InvalidLoginControllerException,
 			InvalidPatientFileException, InvalidResourceException,
 			InvalidDurationException, InvalidOccurencesException,
 			InvalidAmountException, InvalidHospitalDateException,
 			InvalidTreatmentException, InvalidTimeSlotException,
 			InvalidHospitalDateArgument, InvalidPatientFileOpenController {
-		checkValidity(loginController2, patientFileOpenController2);
 		new MedicaltestDispatcher().dispatch(create, data.getUserManager(),
-				data.getWarehouse(),
-				(PatientFile) patientFileOpenController2.getPatientFile(),
+				data.getWarehouse(), (PatientFile) pfoc.getPatientFile(),
 				data.getSystemTime(), data.getTaskManager(),
 				data.getMachinePool());
 
