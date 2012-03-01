@@ -1,33 +1,31 @@
 package controllers;
 
 import java.util.LinkedList;
+import system.HospitalState;
+import users.User;
 import users.WarehouseAdmin;
 import warehouse.StockOrder;
 import warehouse.StockProvider;
 import exceptions.InvalidCategoryNameException;
+import exceptions.InvalidHospitalStateException;
 import exceptions.InvalidLoginControllerException;
 
-public class ListOrdersController
+/**
+ * This controller allows you to get the stock orders placed by a warehouse admin.
+ */
+//TODO: fix
+public class ListOrdersController extends NeedsLoginController
 {
-	LoginController loginController;
-
-	public ListOrdersController(LoginController loginController)
-			throws InvalidLoginControllerException {
-		this.loginController = loginController;
-		if (!isValidLoginController(loginController))
-			throw new InvalidLoginControllerException("");
-		this.loginController = loginController;
-	}
-
-	private boolean isValidLoginController(LoginController loginController) {
-		if (loginController == null)
-			return false;
-		if (!(loginController.getUser() instanceof WarehouseAdmin))
-			return false;
-		if (this.loginController != null
-				&& this.loginController.equals(loginController))
-			return false;
-		return true;
+	/**
+	 * Default constructor.
+	 * @param loginController
+	 * @param hospitalState
+	 * @throws InvalidLoginControllerException
+	 * @throws InvalidHospitalStateException
+	 */
+	public ListOrdersController(LoginController loginController, HospitalState hospitalState)
+			throws InvalidLoginControllerException, InvalidHospitalStateException {
+		super(hospitalState, loginController);
 	}
 
 	public LinkedList<String> getStockItemNames(StockProvider stockProvider) {
@@ -38,5 +36,10 @@ public class ListOrdersController
 			StockProvider stockProvider, String itemName)
 			throws InvalidCategoryNameException {
 		return stockProvider.getCorrespondingOrderedItems(itemName);
+	}
+
+	@Override
+	boolean validUser(User u) {
+		return u instanceof WarehouseAdmin;
 	}
 }

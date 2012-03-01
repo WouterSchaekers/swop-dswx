@@ -27,8 +27,6 @@ import exceptions.InvalidTreatmentException;
 public class MedicalTestController extends NeedsLoginAndPatientFileController
 {
 
-	private LoginController logincontroller;
-
 	/**
 	 * Default constructor.
 	 * 
@@ -42,7 +40,6 @@ public class MedicalTestController extends NeedsLoginAndPatientFileController
 	 *            The scheduler of the user whom this controller is to be
 	 *            assigned to.
 	 * @throws IllegalArgumentException
-	 *             if one of the parameters is null.
 	 * @throws InvalidLoginControllerException
 	 * @throws InvalidPatientFileException
 	 * @throws InvalidPatientFileOpenController

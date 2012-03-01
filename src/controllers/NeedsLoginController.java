@@ -43,10 +43,4 @@ public abstract class NeedsLoginController extends MasterController
 
 	abstract boolean validUser(User u);
 
-	void checkValidity(LoginController loginc)
-			throws InvalidLoginControllerException {
-		if (!isValidLoginController(loginc))
-			throw new InvalidLoginControllerException("abra");
-	}
-
 }
