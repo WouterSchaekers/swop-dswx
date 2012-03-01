@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import patient.PatientFile;
 import system.HospitalState;
+import users.Nurse;
 import users.User;
 import controllers.interfaces.AppointmentIN;
 import controllers.interfaces.PatientFileIN;
@@ -24,12 +25,8 @@ public class RegisterPatientController extends NeedsLoginController
 
 	public Collection<PatientFileIN> getAllPatients(LoginController loginc)
 			throws InvalidLoginControllerException {
-		checkValidity(loginc);
-		Collection<PatientFileIN> RV = new ArrayList<PatientFileIN>();
-		for (PatientFile file : hospitalState.getPatientFileManager()
-				.getAllPatientFiles())
-			RV.add(file);
-		return RV;
+		return new ArrayList<PatientFileIN>(hospitalState
+				.getPatientFileManager().getAllPatientFiles());
 	}
 
 	public void registerPatient(PatientFileIN file) {
@@ -43,10 +40,8 @@ public class RegisterPatientController extends NeedsLoginController
 		this.hospitalState.getPatientFileManager().checkIn(f);
 	}
 
-	public AppointmentIN CreateAppointMent(UserIN user,
-			PatientFileOpenController pfile, HospitalState state,
-			LoginController loginc) throws InvalidLoginControllerException {
-		checkValidity(loginc);
+	public AppointmentIN CreateAppointMent(UserIN user, HospitalState state)
+			throws InvalidLoginControllerException {
 		// TODO fix this shit ffs
 		// return new Appointment(hospitalState.getTaskManager().addTask(new
 		// UnscheduledAppointment((PatientFile)pfile.getPatientFile(),loginControler.getu,dataPasser.getTimeLord().getSystemTime())));
@@ -61,8 +56,7 @@ public class RegisterPatientController extends NeedsLoginController
 
 	@Override
 	boolean validUser(User u) {
-		// TODO Auto-generated method stub
-		return false;
+		return u instanceof Nurse;
 	}
 
 }
