@@ -4,8 +4,8 @@ import java.util.LinkedList;
 import system.HospitalState;
 import users.User;
 import users.WarehouseAdmin;
-import warehouse.StockOrder;
-import warehouse.StockProvider;
+import warehouse.stock.StockOrder;
+import warehouse.stock.StockProvider;
 import exceptions.InvalidCategoryNameException;
 import exceptions.InvalidHospitalStateException;
 import exceptions.InvalidLoginControllerException;
@@ -28,14 +28,12 @@ public class ListOrdersController extends NeedsLoginController
 		super(hospitalState, loginController);
 	}
 
-	public LinkedList<String> getStockItemNames(StockProvider stockProvider) {
-		return stockProvider.getStockItemNames();
-	}
+	
 
 	public LinkedList<? extends StockOrder> getCorrespondingOrderedItems(
-			StockProvider stockProvider, String itemName)
+			StockProvider stockProvider)
 			throws InvalidCategoryNameException {
-		return stockProvider.getCorrespondingOrderedItems(itemName);
+				return null;
 	}
 
 	@Override

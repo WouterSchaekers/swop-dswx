@@ -2,16 +2,14 @@ package treatment;
 
 import result.Result;
 import scheduler.HospitalDate;
-import warehouse.Expirable;
-import warehouse.MedicationType;
-import warehouse.StockItem;
 import controllers.interfaces.MedicationIN;
 
 /**
  * This class represent treatment by medication.
  */
-public abstract class Medication extends Treatment implements Expirable,
-		MedicationIN, StockItem
+//XXX: this class represents 2 abstract ideas,this should be fixed
+public abstract class Medication extends Treatment implements 
+		MedicationIN
 
 {
 	// the name of each treatment will be final and will be used later on to
@@ -20,7 +18,7 @@ public abstract class Medication extends Treatment implements Expirable,
 	private boolean sensitive = false; // whether or not if the medication is
 										// sensitive
 	public final HospitalDate expiryDate;
-	public final MedicationType medicationType;
+//	public final MedicationType medicationType;
 	private Result r;
 
 	/**
@@ -32,10 +30,10 @@ public abstract class Medication extends Treatment implements Expirable,
 	 *            Whether or not the meds are sensitive.
 	 */
 	public Medication(String description, boolean sensitive,
-			HospitalDate expiryDate, MedicationType medicationType) {
+			HospitalDate expiryDate) {
 		super(HospitalDate.ONE_MINUTE * 20);
 		this.expiryDate = expiryDate;
-		this.medicationType = medicationType;
+		//this.medicationType = medicationType;
 		setDescription(description);
 		setSensitive(sensitive);
 	}
