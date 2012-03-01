@@ -5,62 +5,38 @@ import java.util.Collection;
 import patient.PatientFile;
 import system.HospitalState;
 import users.Doctor;
+import users.User;
 import controllers.interfaces.DoctorIN;
 import controllers.interfaces.PatientFileIN;
 import controllers.interfaces.UserIN;
+import exceptions.InvalidHospitalStateException;
 import exceptions.InvalidLoginControllerException;
 
-public class PatientFileOpenController
+/**
+ * A controller that allows you to open patientfiles.
+ */
+public class PatientFileOpenController extends NeedsLoginController
 {
-	HospitalState data;
-	DoctorIN doctor;
-	LoginController lc;
+	private HospitalState data;
+	private DoctorIN doctor;
+	private PatientFile pf;
 
 	public PatientFileOpenController(HospitalState data,
 			LoginController loginController)
-			throws InvalidLoginControllerException {
+			throws InvalidHospitalStateException,
+			InvalidLoginControllerException {
+		super(data, loginController);
 		this.data = data;
-		if (!isValidLoginController(loginController))
-			throw new InvalidLoginControllerException("");
-		this.lc = loginController;
 		doctor = (DoctorIN) loginController.getUser();
 	}
 
-	public boolean isValidLoginController(LoginController loginController) {
-		if (loginController == null)
-			return false;
-
-		if (loginController.getUser() == null)
-			return false;
-
-		if (!(loginController.getUser() instanceof Doctor))
-			return false;
-
-		if (this.doctor != null && !loginController.getUser().equals(doctor))
-			return false;
-
-		return true;
+	public Collection<PatientFileIN> getAllPatientFiles() {
+		return new ArrayList<PatientFileIN>(data.getPatientFileManager()
+				.getAllPatientFiles());
 	}
 
-	public LoginController getLoginController() {
-		return this.lc;
-	}
-
-	public Collection<PatientFileIN> getAllPatientFiles(
-			LoginController loginController) {
-		ArrayList<PatientFileIN> RV = new ArrayList<PatientFileIN>();
-		for (PatientFile file : data.getPatientFileManager()
-				.getAllPatientFiles())
-			RV.add(file);
-		return RV;
-	}
-
-	PatientFile pf;
-
-	public void openPatientFile(PatientFileIN pfdto, LoginController loginc)
-			throws InvalidLoginControllerException {
-		if (!isValidLoginController(loginc))
-			throw new InvalidLoginControllerException("");
+	// TODO: heeft pfdto nodig?
+	public void openPatientFile(PatientFileIN pfdto) {
 		if (pfdto instanceof PatientFile)
 			this.pf = (PatientFile) pfdto;
 		else
@@ -76,13 +52,15 @@ public class PatientFileOpenController
 		return this.doctor;
 	}
 
-	public void closePatientFile(LoginController loginc)
-			throws InvalidLoginControllerException {
-		if (!isValidLoginController(loginc))
-			throw new InvalidLoginControllerException("");
+	public void closePatientFile() {
 		this.data = null;
 		this.doctor = null;
-		this.lc = null;
+		this.pf = null;
+	}
+
+	@Override
+	boolean validUser(User u) {
+		return u instanceof Doctor;
 	}
 
 }

@@ -1,52 +1,39 @@
 package controllers;
 
 import javax.naming.OperationNotSupportedException;
+import system.HospitalState;
+import users.Doctor;
+import users.User;
 import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.TreatmentIN;
+import exceptions.InvalidHospitalStateException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileException;
+import exceptions.InvalidPatientFileOpenController;
 import exceptions.InvalidTreatmentException;
 
-public class PrescribeTreatmentController
+public class PrescribeTreatmentController extends NeedsLoginAndPatientFileController
 {
-
-	// private LoginController loginc;
-	// private PatientFileOpenController pfcontroller;
-
+	
 	public PrescribeTreatmentController(LoginController loginc,
-			PatientFileOpenController pfcontroller)
+			PatientFileOpenController pfcontroller, HospitalState state, PatientFileOpenController pfoc)
 			throws InvalidLoginControllerException,
-			InvalidPatientFileException, OperationNotSupportedException {
-		throw new OperationNotSupportedException();
-		// if(!isValidLoginController(loginc))
-		// throw new InvalidLoginControllerException("");
-		// if(!isValidPatienFileOpenController(pfcontroller))
-		// throw new InvalidPatientFileException();
-		// this.loginc=loginc;
-		// this.pfcontroller=pfcontroller;
+			InvalidPatientFileException, OperationNotSupportedException, InvalidHospitalStateException, InvalidPatientFileOpenController {
+		super(state, loginc, pfoc);
 	}
 
-	// private boolean isValidPatienFileOpenController(
-	// PatientFileOpenController pfcontroller) {
-	//
-	// return false;
-	// }
-	//
-	// private boolean isValidLoginController(LoginController loginController) {
-	// if(loginController==null)
-	// return false;
-	// if(!(loginController.getUser() instanceof Doctor))
-	// return false;
-	// if(this.loginc!=null && this.loginc.equals(loginController))
-	// return false;
-	// return true;
-	// }
-
+	//TODO: loziteit!!
 	public TreatmentIN prescribeCast(DiagnoseIN diagnose, TreatmentIN treatment)
 			throws InvalidTreatmentException, OperationNotSupportedException {
 		throw new OperationNotSupportedException();
 		// ((Diagnose) diagnose).assignTreatment((Treatment)treatment);
 		// return null;
+		//
+		// Waarom is een DiagnoseIN een DiagnoseIN? Er kan een Diagnose in!! :D:D:D
+	}
 
+	@Override
+	boolean validUser(User u) {
+		return u instanceof Doctor;
 	}
 }
