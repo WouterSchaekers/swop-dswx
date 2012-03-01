@@ -3,7 +3,7 @@ package warehouse.stock;
 import java.util.ArrayList;
 import java.util.Collection;
 import exceptions.WarehouseOverCapacityException;
-import warehouse2.item.WarehouseItemType;
+import warehouse.item.WarehouseItemType;
 
 public class StockProvider
 {

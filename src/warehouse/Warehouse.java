@@ -3,8 +3,8 @@ package warehouse;
 import java.util.Collection;
 import java.util.Map;
 import exceptions.WarehouseOverCapacityException;
-import warehouse2.item.WarehouseItem;
-import warehouse2.item.WarehouseItemType;
+import warehouse.item.WarehouseItem;
+import warehouse.item.WarehouseItemType;
 
 public class Warehouse
 {

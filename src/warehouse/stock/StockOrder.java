@@ -3,7 +3,7 @@ package warehouse.stock;
 import scheduler.HospitalDate;
 import exceptions.WarehouseOverCapacityException;
 import warehouse.Warehouse;
-import warehouse2.item.WarehouseItemType;
+import warehouse.item.WarehouseItemType;
 
 public class StockOrder<T extends WarehouseItemType>
 {
