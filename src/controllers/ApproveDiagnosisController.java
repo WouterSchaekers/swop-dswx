@@ -22,27 +22,23 @@ public class ApproveDiagnosisController extends NeedsLoginController
 		super(hospitalState, loginc);
 	}
 
-	public Collection<PatientFileIN> getAllPatienFiles(LoginController loginc) throws InvalidLoginControllerException {
-		checkValidity(loginc);
+	public Collection<PatientFileIN> getAllPatienFiles() {
 		Collection<PatientFileIN> f = new ArrayList<PatientFileIN>();
 		f.addAll(hospitalState.getPatientFileManager().getAllPatientFiles());
 		return f;
 	}
 
-	public DiagnoseIN approveDiagnose(LoginController loginController2,
-			DiagnoseIN selected) throws InvalidLoginControllerException,
-			ApproveDiagnoseException {
-		checkValidity(loginController2);
+	// XXX:waarom iets terug geven
+	public DiagnoseIN approveDiagnose(DiagnoseIN selected)
+			throws ApproveDiagnoseException {
 		if (selected instanceof Diagnose)
 			((Diagnose) selected).approve();
 		return selected;
 
 	}
-
-	public void disApproveDiagnose(LoginController loginController2,
-			DiagnoseIN selected, DiagnoseIN replacement)
-			throws InvalidLoginControllerException, ApproveDiagnoseException {
-		checkValidity(loginController2);
+	
+	public void disApproveDiagnose(DiagnoseIN selected, DiagnoseIN replacement)
+			throws  ApproveDiagnoseException {
 		if (selected instanceof Diagnose)
 			((Diagnose) selected).disaprove(replacement);
 

@@ -16,21 +16,15 @@ public class DischargePatientController extends
 
 	public DischargePatientController(HospitalState state,
 			LoginController loginController,
-			PatientFileOpenController patienfile)
-			throws InvalidLoginControllerException,
-			InvalidPatientFileException, InvalidHospitalStateException,
-			InvalidPatientFileOpenController {
+			PatientFileOpenController patienfile) throws InvalidLoginControllerException, InvalidHospitalStateException, InvalidPatientFileOpenController {
 		super(state, loginController, patienfile);
 	}
 
-	public void dischargePatient(LoginController loginc,
-			PatientFileOpenController pfc, HospitalState hospitalState)
-			throws InvalidLoginControllerException,
-			InvalidPatientFileException, DischargePatienException,
-			InvalidPatientFileOpenController {
-		super.checkValidity(loginc, pfc);
+	public void dischargePatient() throws DischargePatienException
+			 {
+		
 		hospitalState.getPatientFileManager().checkOut(
-				(PatientFile) pfc.getPatientFile());
+				(PatientFile) pfoc.getPatientFile());
 
 	}
 

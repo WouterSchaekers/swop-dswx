@@ -51,9 +51,8 @@ public class CheckinController extends NeedsLoginController
 	 * @throws InvalidNameException
 	 * @throws InvalidLoginControllerException
 	 */
-	public PatientFile signUpNewPatient(LoginController loginc, String name)
-			throws InvalidNameException, InvalidLoginControllerException {
-		checkValidity(loginc);
+	public PatientFile signUpNewPatient(String name)
+			throws InvalidNameException {
 		return pfm.registerPatient(name);
 	}
 	
