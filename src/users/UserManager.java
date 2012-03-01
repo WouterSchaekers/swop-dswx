@@ -94,7 +94,7 @@ public class UserManager
 	 * @throws InvalidTimeSlotException
 	 */
 	public Doctor createDoctor(String name) throws UserAlreadyExistsException,
-			InvalidNameException, InvalidTimeSlotException {
+			InvalidNameException {
 		Doctor newUser = new Doctor(name);
 		addUser(newUser);
 		return newUser;
