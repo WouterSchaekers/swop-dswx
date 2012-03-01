@@ -3,6 +3,10 @@ package controllers;
 import system.HospitalState;
 import exceptions.InvalidHospitalStateException;
 
+/**
+ * 
+ */
+//TODO: doc
 class MasterController
 {
 	protected HospitalState hospitalState;

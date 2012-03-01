@@ -6,11 +6,24 @@ import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileOpenController;
 
 //TODO: Stefaan maakt prentje en commentaar.
+/**
+ * This class is the superclass of all controller that need both a logincontroller and a patientfilecontroller.
+ */
 public abstract class NeedsLoginAndPatientFileController extends
 		NeedsLoginController
 {
 	protected PatientFileOpenController pfoc;
 
+	/**
+	 * Default constructor.
+	 * @param hospitalState
+	 * The hospital state for this controller.
+	 * @param controller
+	 * @param pfoc
+	 * @throws InvalidLoginControllerException
+	 * @throws InvalidHospitalStateException
+	 * @throws InvalidPatientFileOpenController
+	 */
 	public NeedsLoginAndPatientFileController(HospitalState hospitalState,
 			LoginController controller, PatientFileOpenController pfoc)
 			throws InvalidLoginControllerException,
@@ -28,16 +41,5 @@ public abstract class NeedsLoginAndPatientFileController extends
 		if (this.pfoc != null)
 			return this.pfoc.equals(pfoc);
 		return true;
-	}
-
-	/*
-	 * 
-	 */
-	void checkValidity(LoginController loginc, PatientFileOpenController pfoc)
-			throws InvalidLoginControllerException,
-			InvalidPatientFileOpenController {
-		super.checkValidity(loginc);
-		if (!isValidPatientFileOpenController(pfoc))
-			throw new InvalidPatientFileOpenController("abra");
 	}
 }
