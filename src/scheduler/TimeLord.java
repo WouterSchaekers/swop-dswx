@@ -7,7 +7,7 @@ import java.util.Observable;
  */
 public class TimeLord extends Observable
 {
-	private HospitalDate systemTime;
+	private HospitalDate systemTime ;
 
 	/**
 	 * Constructor that will create a new TimeLord that will have its current
@@ -22,15 +22,21 @@ public class TimeLord extends Observable
 	 * given date.
 	 */
 	public TimeLord(HospitalDate date) {
-		setSystemTime(date);
+		systemTime = date;
 	}
 
 	public HospitalDate getSystemTime() {
 		return systemTime;
 	}
+	private void addOneMinute()
+	{
+		this.systemTime = new HospitalDate(this.systemTime.getTimeSinceStart()+HospitalDate.ONE_MINUTE);
+		this.notifyObservers();	
 
-	public void setSystemTime(HospitalDate systemTime) {
-		this.systemTime = systemTime;
-		this.notifyObservers();
+	}
+	public void setSystemTime(HospitalDate target) {
+		while(getSystemTime().before(target))
+			addOneMinute();
+		
 	}
 }
