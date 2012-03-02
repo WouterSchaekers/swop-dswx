@@ -34,8 +34,12 @@ public class TimeLord extends Observable
 		this.notifyObservers();	
 
 	}
+	/**
+	 * 
+	 * @param target
+	 */  
 	public void setSystemTime(HospitalDate target) {
-		while(getSystemTime().before(target))
+		while(getSystemTime().before(target) && getSystemTime().getTimeBetween(target)>=HospitalDate.ONE_MINUTE)
 			addOneMinute();
 		
 	}
