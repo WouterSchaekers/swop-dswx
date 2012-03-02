@@ -11,9 +11,9 @@ import users.User;
 import exceptions.*;
 
 /**
- * This class can be used to do schedule medical tests etc...
+ * This class can be used to create medical tests etc...
  */
-public class MedicalTestController extends NeedsLoginAndPatientFileController
+public class OrderMedicalTestController extends NeedsLoginAndPatientFileController
 {
 
 	/**
@@ -34,7 +34,7 @@ public class MedicalTestController extends NeedsLoginAndPatientFileController
 	 * @throws InvalidPatientFileOpenController
 	 * @throws InvalidHospitalStateException
 	 */
-	public MedicalTestController(LoginController lc,
+	public OrderMedicalTestController(LoginController lc,
 			PatientFileOpenController cpf, HospitalState dp)
 			throws IllegalArgumentException, InvalidLoginControllerException,
 			InvalidPatientFileException, InvalidHospitalStateException,
