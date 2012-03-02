@@ -28,6 +28,7 @@ public class TimeLord extends Observable
 	public HospitalDate getSystemTime() {
 		return systemTime;
 	}
+	//XXX: hier waren wwe mee bezig
 	private void addOneMinute()
 	{
 		this.systemTime = new HospitalDate(this.systemTime.getTimeSinceStart()+HospitalDate.ONE_MINUTE);
