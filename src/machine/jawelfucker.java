@@ -3,9 +3,9 @@ package machine;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidSerialException;
 
-public class XrayScannerBuilder extends MachineBuilder
+public class jawelfucker extends cadabra
 {
-	XrayScannerBuilder(MachinePool pool) {
+	jawelfucker(asdf pool) {
 		super(pool);
 
 	}
@@ -14,7 +14,7 @@ public class XrayScannerBuilder extends MachineBuilder
 		return "XrayScanner";
 	}
 
-	public XRayScanner build(int serial, String location)
+	public asdfscanner2 build(int serial, String location)
 			throws InvalidLocationException, InvalidSerialException {
 		return pool.createXrayScanner(serial, location);
 

@@ -7,16 +7,16 @@ import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidSerialException;
 import exceptions.InvalidTimeSlotException;
 
-public class XRayScanner extends Machine
+public class ttttttttttttt extends abracadabra
 {
 	/**
-	 * Creates an XRayScanner scanner, exceptions are thrown as in the super
-	 * class: {@link Machine#Machine(int, String)}
+	 * Creates an ultrasound scanner, exceptions are thrown as in the super
+	 * class: {@link abracadabra#Machine(int, String)}
 	 * 
 	 * @throws InvalidTimeSlotException
 	 * */
-	XRayScanner(int serial, String location) throws InvalidLocationException,
-			InvalidSerialException {
+	ttttttttttttt(int serial, String location)
+			throws InvalidLocationException, InvalidSerialException {
 		super(serial, location);
 	}
 

@@ -7,16 +7,16 @@ import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidSerialException;
 import exceptions.InvalidTimeSlotException;
 
-public class UltraSoundScanner extends Machine
+public class abra extends abracadabra
 {
 	/**
-	 * Creates an ultrasound scanner, exceptions are thrown as in the super
-	 * class: {@link Machine#Machine(int, String)}
+	 * Creates an BloodAnalyser scanner, exceptions are thrown as in the super
+	 * class: {@link abracadabra#Machine(int, String)}
 	 * 
 	 * @throws InvalidTimeSlotException
 	 * */
-	UltraSoundScanner(int serial, String location)
-			throws InvalidLocationException, InvalidSerialException {
+	abra(int serial, String location) throws InvalidLocationException,
+			InvalidSerialException {
 		super(serial, location);
 	}
 
@@ -30,4 +30,5 @@ public class UltraSoundScanner extends Machine
 			HospitalDate stopDate) {
 		return this.getTimeTable().hasFreeSlotAt(startDate, stopDate);
 	}
+
 }
