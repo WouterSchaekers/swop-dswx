@@ -7,6 +7,7 @@ import scheduler.HospitalDate;
 import treatment.Treatment;
 import users.UserManager;
 import warehouse.Warehouse;
+import warehouse.item.PlasterType;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidHospitalDateException;
@@ -46,7 +47,7 @@ public class UnscheduledCast extends UnscheduledTreatment
 
 	@Override
 	public boolean canBeScheduled() {
-		return super.canBeScheduled() && warehouse.hasPlaster(1);
+		return super.canBeScheduled() && warehouse.has(new PlasterType(),1);
 	}
 
 	@Override
