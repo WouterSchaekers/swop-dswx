@@ -30,12 +30,24 @@ public class Warehouse
 		else
 			return 0;
 	}
-	public int getCurrentCount(WarehouseItemType type)
+	public void setMaxCount(WarehouseItemType type,int count)
+	{
+		if(!_maxMap.containsKey(type))
+			_maxMap.put(type.getClass(), count);
+		else
+			return;
+			
+	}
+	private int getCurrentCount(WarehouseItemType type)
 	{
 		int rv= 0;
 		for(WarehouseItem item:_items)
 			if(item.getType().equals(type))
 				rv++;
 		return rv;
+	}
+	public boolean has(WarehouseItemType type,int amount)
+	{
+		return getCurrentCount(type)>=amount;
 	}
 }
