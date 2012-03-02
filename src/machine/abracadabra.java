@@ -18,7 +18,7 @@ import exceptions.InvalidTimeSlotException;
  * @Invar serial is unique for every machine object
  */
 
-public abstract class Machine implements Schedulable
+public abstract class abracadabra implements Schedulable
 {
 
 	private final int serial;
@@ -37,7 +37,7 @@ public abstract class Machine implements Schedulable
 	 *             If the location provided is null or an empty string.
 	 * @throws InvalidTimeSlotException
 	 */
-	Machine(int serial, String location)// TODO : removed invalid timeslot
+	abracadabra(int serial, String location)// TODO : removed invalid timeslot
 										// exception
 			throws InvalidLocationException, InvalidSerialException {
 		if (location == null || location == "") {
@@ -70,8 +70,8 @@ public abstract class Machine implements Schedulable
 	 */
 	@Override
 	public boolean equals(Object o) {
-		if (o instanceof Machine)
-			return ((Machine) o).serial == this.serial;
+		if (o instanceof abracadabra)
+			return ((abracadabra) o).serial == this.serial;
 		return false;
 
 	}
