@@ -1,10 +1,10 @@
 = Communication =
 
 Deze wiki pagina gebruiken we voor communicatie. Iedereen wordt verwacht om de wiki 2 maal daags te checken, zeker in piek-periodes :D
-= Afspraak = 
 
-http://www.doodle.com/u6hbfrd6cvue5irs
-Yeey we hebbe shit gedaan, stefaan of wouter maakt gij ne mail?
+= Volgende Dates =
+  * Dinsdag 06/03 om 14u00<p>
+
 = Prentjes =
 http://imgdumper.nl
 <br> STARCRAFT ^^
@@ -12,15 +12,10 @@ http://imgdumper.nl
 = Mail =
 Voorlopig moeten er geen mails verstuurd worden.
 
-
-= Volgende Dates =
-  * Dinsdag 14/02 om 13u00?<p>
-
-
 = Tussentijds verslagje over de Scheduler =
 <a href="http://www.mediafire.com/?pcdh4zznofc1yy5">Klik hier ^^</a>
 
 
-<p><h1>HET PRENTJE</h1>: <a href="http://www.imgdumper.nl/uploads5/4efe6c750f50b/4efe6c750588b-Class_Diagram1.png">Klik hier ^^</a>
+<p><h1>HET PRENTJE</h1>: <a href="http://www.imgdumper.nl/uploads5/4efe6c750f50b/4efe6c750588b-Class_Diagram1.png">Klik hier ^^ @deprecated</a>
 
 <p><img src="http://www.imgdumper.nl/uploads5/4efe6c750f50b/4efe6c750588b-Class_Diagram1.png">
