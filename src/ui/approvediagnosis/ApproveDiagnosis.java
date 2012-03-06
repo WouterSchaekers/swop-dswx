@@ -3,7 +3,7 @@ package ui.approvediagnosis;
 import ui.Usecase;
 import ui.UserinterfaceData;
 import controllers.ApproveDiagnosisController;
-import exceptions.InvalidHospitalStateException;
+import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 
 public class ApproveDiagnosis extends ApproveDiagnosisSuper
@@ -22,7 +22,7 @@ public class ApproveDiagnosis extends ApproveDiagnosisSuper
 					data.getLoginController());
 		} catch (InvalidLoginControllerException e) {
 			System.out.println();
-		} catch (InvalidHospitalStateException e) {
+		} catch (InvalidHospitalException e) {
 
 		}
 		this.chaindata.add(controller);

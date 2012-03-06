@@ -7,7 +7,7 @@ import users.WarehouseAdmin;
 import warehouse.stock.StockOrder;
 import warehouse.stock.StockProvider;
 import exceptions.InvalidCategoryNameException;
-import exceptions.InvalidHospitalStateException;
+import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 
 /**
@@ -19,13 +19,13 @@ public class ListOrdersController extends NeedsLoginController
 	/**
 	 * Default constructor.
 	 * @param loginController
-	 * @param hospitalState
+	 * @param hospital
 	 * @throws InvalidLoginControllerException
-	 * @throws InvalidHospitalStateException
+	 * @throws InvalidHospitalException
 	 */
-	public ListOrdersController(LoginController loginController, Hospital hospitalState)
-			throws InvalidLoginControllerException, InvalidHospitalStateException {
-		super(hospitalState, loginController);
+	public ListOrdersController(LoginController loginController, Hospital hospital)
+			throws InvalidLoginControllerException, InvalidHospitalException {
+		super(hospital, loginController);
 	}
 
 	

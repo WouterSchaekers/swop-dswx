@@ -1,7 +1,7 @@
 package controllers;
 
 import system.Hospital;
-import exceptions.InvalidHospitalStateException;
+import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileOpenController;
 
@@ -16,19 +16,19 @@ public abstract class NeedsLoginAndPatientFileController extends
 
 	/**
 	 * Default constructor.
-	 * @param hospitalState
+	 * @param hospital
 	 * The hospital state for this controller.
 	 * @param controller
 	 * @param pfoc
 	 * @throws InvalidLoginControllerException
-	 * @throws InvalidHospitalStateException
+	 * @throws InvalidHospitalException
 	 * @throws InvalidPatientFileOpenController
 	 */
-	public NeedsLoginAndPatientFileController(Hospital hospitalState,
+	public NeedsLoginAndPatientFileController(Hospital hospital,
 			LoginController controller, PatientFileOpenController pfoc)
 			throws InvalidLoginControllerException,
-			InvalidHospitalStateException, InvalidPatientFileOpenController {
-		super(hospitalState, controller);
+			InvalidHospitalException, InvalidPatientFileOpenController {
+		super(hospital, controller);
 		if (!isValidPatientFileOpenController(pfoc)) {
 			throw new InvalidPatientFileOpenController("");
 		}

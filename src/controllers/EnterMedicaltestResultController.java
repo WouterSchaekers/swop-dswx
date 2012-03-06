@@ -5,18 +5,18 @@ import medicaltest.MedicalTest;
 import system.Hospital;
 import users.Doctor;
 import users.User;
-import exceptions.InvalidHospitalStateException;
+import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileOpenController;
 
 public class EnterMedicaltestResultController extends
 		NeedsLoginAndPatientFileController
 {
-	public EnterMedicaltestResultController(Hospital state,
+	public EnterMedicaltestResultController(Hospital hospital,
 			LoginController loginController, PatientFileOpenController pfoc)
 			throws InvalidLoginControllerException,
-			InvalidHospitalStateException, InvalidPatientFileOpenController {
-		super(state, loginController, pfoc);
+			InvalidHospitalException, InvalidPatientFileOpenController {
+		super(hospital, loginController, pfoc);
 	}
 
 	public Collection<MedicalTest> allMedicalTests()

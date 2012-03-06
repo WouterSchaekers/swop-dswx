@@ -10,21 +10,21 @@ import users.User;
 import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.PatientFileIN;
 import exceptions.ApproveDiagnoseException;
-import exceptions.InvalidHospitalStateException;
+import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 
 public class ApproveDiagnosisController extends NeedsLoginController
 {
 
-	public ApproveDiagnosisController(Hospital hospitalState,
+	public ApproveDiagnosisController(Hospital hospital,
 			LoginController loginc) throws InvalidLoginControllerException,
-			InvalidHospitalStateException {
-		super(hospitalState, loginc);
+			InvalidHospitalException {
+		super(hospital, loginc);
 	}
 
 	public Collection<PatientFileIN> getAllPatienFiles() {
 		Collection<PatientFileIN> f = new ArrayList<PatientFileIN>();
-		f.addAll(hospitalState.getPatientFileManager().getAllPatientFiles());
+		f.addAll(hospital.getPatientFileManager().getAllPatientFiles());
 		return f;
 	}
 

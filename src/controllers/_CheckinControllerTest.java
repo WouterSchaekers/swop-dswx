@@ -5,7 +5,7 @@ import machine.MachineBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import patient.PatientFile;
-import exceptions.InvalidHospitalStateException;
+import exceptions.InvalidHospitalException;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidNameException;
@@ -36,7 +36,7 @@ public class _CheckinControllerTest
 	
 	@Test(expected = InvalidLoginControllerException.class)
 	public void authenticationTest1() throws InvalidLoginControllerException,
-			InvalidHospitalStateException {
+			InvalidHospitalException {
 		loginController.logIn(doctor);
 		checkinController = new CheckinController(
 				loginController, hospital);
@@ -44,7 +44,7 @@ public class _CheckinControllerTest
 	
 	@Test(expected = InvalidLoginControllerException.class)
 	public void authenticationTest2() throws InvalidLoginControllerException,
-			InvalidHospitalStateException {
+			InvalidHospitalException {
 		loginController.logIn(hospitad);
 		checkinController = new CheckinController(
 				loginController, hospital);
@@ -52,7 +52,7 @@ public class _CheckinControllerTest
 	
 	@Test
 	public void authenticationTest3() throws InvalidLoginControllerException,
-			InvalidHospitalStateException {
+			InvalidHospitalException {
 		loginController.logIn(nurse);
 		checkinController = new CheckinController(
 				loginController, hospital);
@@ -61,7 +61,7 @@ public class _CheckinControllerTest
 	@Test
 	public void test() throws InvalidLoginControllerException,
 			InvalidLocationException, InvalidSerialException,
-			InvalidHospitalStateException, InvalidNameException {
+			InvalidHospitalException, InvalidNameException {
 		loginController.logIn(nurse);
 		checkinController = new CheckinController(loginController, hospital);
 		checkinController.signUpNewPatient("Thibault");

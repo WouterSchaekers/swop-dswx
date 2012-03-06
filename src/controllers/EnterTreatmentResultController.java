@@ -3,7 +3,7 @@ package controllers;
 import system.Hospital;
 import users.Nurse;
 import users.User;
-import exceptions.InvalidHospitalStateException;
+import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileOpenController;
 
@@ -14,11 +14,11 @@ public class EnterTreatmentResultController extends
 		NeedsLoginAndPatientFileController
 {
 
-	public EnterTreatmentResultController(Hospital hospitalState,
+	public EnterTreatmentResultController(Hospital hospital,
 			LoginController controller, PatientFileOpenController pfoc)
 			throws InvalidLoginControllerException,
-			InvalidHospitalStateException, InvalidPatientFileOpenController {
-		super(hospitalState, controller, pfoc);
+			InvalidHospitalException, InvalidPatientFileOpenController {
+		super(hospital, controller, pfoc);
 	}
 
 	@Override

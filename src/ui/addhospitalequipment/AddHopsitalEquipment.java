@@ -4,7 +4,7 @@ import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
 import controllers.AddHospitalEquipmentController;
-import exceptions.InvalidHospitalStateException;
+import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 
 public class AddHopsitalEquipment extends AddHospitalEquipmentSuperClass
@@ -29,7 +29,7 @@ public class AddHopsitalEquipment extends AddHospitalEquipmentSuperClass
 		} catch (InvalidLoginControllerException e) {
 			System.out.println("invalid login controller, user not logged in");
 			return new SelectUsecase(data);
-		} catch (InvalidHospitalStateException e) {
+		} catch (InvalidHospitalException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

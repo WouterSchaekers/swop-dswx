@@ -9,7 +9,7 @@ import users.User;
 import controllers.interfaces.AppointmentIN;
 import controllers.interfaces.PatientFileIN;
 import controllers.interfaces.UserIN;
-import exceptions.InvalidHospitalStateException;
+import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidNameException;
 
@@ -18,14 +18,14 @@ public class RegisterPatientController extends NeedsLoginController
 {
 
 	public RegisterPatientController(LoginController loginController,
-			Hospital state) throws InvalidLoginControllerException,
-			InvalidHospitalStateException {
-		super(state, loginController);
+			Hospital hospital) throws InvalidLoginControllerException,
+			InvalidHospitalException {
+		super(hospital, loginController);
 	}
 
 	public Collection<PatientFileIN> getAllPatients(LoginController loginc)
 			throws InvalidLoginControllerException {
-		return new ArrayList<PatientFileIN>(hospitalState
+		return new ArrayList<PatientFileIN>(hospital
 				.getPatientFileManager().getAllPatientFiles());
 	}
 
@@ -37,10 +37,10 @@ public class RegisterPatientController extends NeedsLoginController
 			throw new IllegalArgumentException(file
 					+ " is not a valid patientfile");
 
-		this.hospitalState.getPatientFileManager().checkIn(f);
+		this.hospital.getPatientFileManager().checkIn(f);
 	}
 
-	public AppointmentIN CreateAppointMent(UserIN user, Hospital state)
+	public AppointmentIN CreateAppointMent(UserIN user, Hospital hospital)
 			throws InvalidLoginControllerException {
 		// TODO fix this shit ffs
 		// return new Appointment(hospitalState.getTaskManager().addTask(new

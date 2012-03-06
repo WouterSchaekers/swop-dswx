@@ -32,14 +32,14 @@ public class OrderMedicalTestController extends NeedsLoginAndPatientFileControll
 	 * @throws InvalidLoginControllerException
 	 * @throws InvalidPatientFileException
 	 * @throws InvalidPatientFileOpenController
-	 * @throws InvalidHospitalStateException
+	 * @throws InvalidHospitalException
 	 */
 	public OrderMedicalTestController(LoginController lc,
-			PatientFileOpenController cpf, Hospital dp)
+			PatientFileOpenController cpf, Hospital hospital)
 			throws IllegalArgumentException, InvalidLoginControllerException,
-			InvalidPatientFileException, InvalidHospitalStateException,
+			InvalidPatientFileException, InvalidHospitalException,
 			InvalidPatientFileOpenController {
-		super(dp, lc, cpf);
+		super(hospital, lc, cpf);
 	}
 
 	public Collection<MedicalTestFactory> getMedicalTestFactories()

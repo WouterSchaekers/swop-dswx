@@ -4,7 +4,7 @@ import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
 import controllers.EnterMedicaltestResultController;
-import exceptions.InvalidHospitalStateException;
+import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileOpenController;
 
@@ -26,7 +26,7 @@ public class EnterMedicalTestResult extends EnterMedicalTestResultSuperClass
 		} catch (InvalidLoginControllerException e) {
 			System.out.println("not allowed to do this ");
 			return new SelectUsecase(data);
-		} catch (InvalidHospitalStateException e) {
+		} catch (InvalidHospitalException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InvalidPatientFileOpenController e) {

@@ -4,7 +4,7 @@ import system.Hospital;
 import users.HospitalAdmin;
 import users.User;
 import users.UserManager;
-import exceptions.InvalidHospitalStateException;
+import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidTimeSlotException;
@@ -13,21 +13,21 @@ import exceptions.UserAlreadyExistsException;
 public class CreateUserController extends NeedsLoginController
 {
 	public CreateUserController(LoginController loginController,
-			Hospital hospitalState)
+			Hospital hospital)
 			throws InvalidLoginControllerException,
-			InvalidHospitalStateException {
-		super(hospitalState, loginController);
+			InvalidHospitalException {
+		super(hospital, loginController);
 	}
 
 	public void createNurse(String nurse)
 			throws UserAlreadyExistsException, InvalidNameException,
 			InvalidTimeSlotException {
-		hospitalState.getUserManager().createNurse(nurse);
+		hospital.getUserManager().createNurse(nurse);
 	}
 
 	public void createDoctor(String nurse, LoginController l) throws UserAlreadyExistsException, InvalidNameException
 			 {
-		hospitalState.getUserManager().createDoctor(nurse);
+		hospital.getUserManager().createDoctor(nurse);
 	}
 
 	@Override

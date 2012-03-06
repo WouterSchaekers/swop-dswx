@@ -5,7 +5,7 @@ import patient.PatientFileManager;
 import system.Hospital;
 import users.Nurse;
 import users.User;
-import exceptions.InvalidHospitalStateException;
+import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidNameException;
 
@@ -24,13 +24,13 @@ public class CheckinController extends NeedsLoginController
 	 * @param pfm
 	 *            The patientfilemanager for this checkincontroller.
 	 * @throws InvalidLoginControllerException
-	 * @throws InvalidHospitalStateException
+	 * @throws InvalidHospitalException
 	 */
-	public CheckinController(LoginController lc, Hospital hospitalState)
+	public CheckinController(LoginController lc, Hospital hospital)
 			throws InvalidLoginControllerException,
-			InvalidHospitalStateException {
-		super(hospitalState, lc);
-		this.pfm = hospitalState.getPatientFileManager();
+			InvalidHospitalException {
+		super(hospital, lc);
+		this.pfm = hospital.getPatientFileManager();
 	}
 
 	/**

@@ -5,7 +5,7 @@ import system.Hospital;
 import users.Doctor;
 import users.User;
 import exceptions.DischargePatienException;
-import exceptions.InvalidHospitalStateException;
+import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileException;
 import exceptions.InvalidPatientFileOpenController;
@@ -14,16 +14,16 @@ public class DischargePatientController extends
 		NeedsLoginAndPatientFileController
 {
 
-	public DischargePatientController(Hospital state,
+	public DischargePatientController(Hospital hospital,
 			LoginController loginController,
-			PatientFileOpenController patienfile) throws InvalidLoginControllerException, InvalidHospitalStateException, InvalidPatientFileOpenController {
-		super(state, loginController, patienfile);
+			PatientFileOpenController patienfile)
+			throws InvalidLoginControllerException, InvalidHospitalException,
+			InvalidPatientFileOpenController {
+		super(hospital, loginController, patienfile);
 	}
 
-	public void dischargePatient() throws DischargePatienException
-			 {
-		
-		hospitalState.getPatientFileManager().checkOut(
+	public void dischargePatient() throws DischargePatienException {
+		hospital.getPatientFileManager().checkOut(
 				(PatientFile) pfoc.getPatientFile());
 
 	}

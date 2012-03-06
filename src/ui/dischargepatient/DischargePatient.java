@@ -5,7 +5,7 @@ import ui.Usecase;
 import ui.UserinterfaceData;
 import controllers.DischargePatientController;
 import exceptions.DischargePatienException;
-import exceptions.InvalidHospitalStateException;
+import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileException;
 import exceptions.InvalidPatientFileOpenController;
@@ -25,7 +25,7 @@ public class DischargePatient extends DischargePatientSuperClass
 				controller = new DischargePatientController(
 						data.getDataPasser(), data.getLoginController(),
 						data.getPatientFileOpenController());
-			} catch (InvalidHospitalStateException e) {
+			} catch (InvalidHospitalException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (InvalidPatientFileOpenController e) {

@@ -8,7 +8,7 @@ import users.Doctor;
 import users.HospitalAdmin;
 import users.Nurse;
 import users.User;
-import exceptions.InvalidHospitalStateException;
+import exceptions.InvalidHospitalException;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidNameException;
@@ -34,7 +34,7 @@ public class _ApproveDiagnosisControllerTest
 
 	@Test(expected = InvalidLoginControllerException.class)
 	public void authenticationTest1() throws InvalidLoginControllerException,
-			InvalidHospitalStateException {
+			InvalidHospitalException {
 		loginController.logIn(nurse);
 		addHospitalEquipmentController = new AddHospitalEquipmentController(
 				loginController, hospital);
@@ -42,7 +42,7 @@ public class _ApproveDiagnosisControllerTest
 
 	@Test(expected = InvalidLoginControllerException.class)
 	public void authenticationTest2() throws InvalidLoginControllerException,
-			InvalidHospitalStateException {
+			InvalidHospitalException {
 		loginController.logIn(hospitad);
 		addHospitalEquipmentController = new AddHospitalEquipmentController(
 				loginController, hospital);
@@ -50,7 +50,7 @@ public class _ApproveDiagnosisControllerTest
 
 	@Test
 	public void authenticationTest3() throws InvalidLoginControllerException,
-			InvalidHospitalStateException {
+			InvalidHospitalException {
 		loginController.logIn(doctor);
 		addHospitalEquipmentController = new AddHospitalEquipmentController(
 				loginController, hospital);

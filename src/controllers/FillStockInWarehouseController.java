@@ -3,16 +3,16 @@ package controllers;
 import system.Hospital;
 import users.User;
 import users.WarehouseAdmin;
-import exceptions.InvalidHospitalStateException;
+import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 
 public class FillStockInWarehouseController extends NeedsLoginController
 {
 
-	public FillStockInWarehouseController(Hospital hospitalState,
+	public FillStockInWarehouseController(Hospital hospital,
 			LoginController controller) throws InvalidLoginControllerException,
-			InvalidHospitalStateException {
-		super(hospitalState, controller);
+			InvalidHospitalException {
+		super(hospital, controller);
 	}
 
 	@Override

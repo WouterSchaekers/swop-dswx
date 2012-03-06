@@ -3,7 +3,7 @@ package controllers;
 import system.Hospital;
 import users.HospitalAdmin;
 import users.User;
-import exceptions.InvalidHospitalStateException;
+import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 
 /**
@@ -15,10 +15,10 @@ public class AddHospitalStaffController extends NeedsLoginController
 	/**
 	 * Default constructor for this controller.
 	 */
-	public AddHospitalStaffController(Hospital hospitalState,
+	public AddHospitalStaffController(Hospital hospital,
 			LoginController controller) throws InvalidLoginControllerException,
-			InvalidHospitalStateException {
-		super(hospitalState, controller);
+			InvalidHospitalException {
+		super(hospital, controller);
 	}
 
 	@Override
