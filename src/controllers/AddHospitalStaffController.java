@@ -1,24 +1,29 @@
 package controllers;
 
+import system.HospitalState;
+import users.HospitalAdmin;
+import users.User;
 import exceptions.InvalidHospitalStateException;
 import exceptions.InvalidLoginControllerException;
-import system.HospitalState;
-import users.User;
 
+/**
+ * Allows you to add hospital staff to the hospital.
+ */
 public class AddHospitalStaffController extends NeedsLoginController
 {
 
+	/**
+	 * Default constructor for this controller.
+	 */
 	public AddHospitalStaffController(HospitalState hospitalState,
 			LoginController controller) throws InvalidLoginControllerException,
 			InvalidHospitalStateException {
 		super(hospitalState, controller);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	boolean validUser(User u) {
-		// TODO Auto-generated method stub
-		return false;
+		return u instanceof HospitalAdmin;
 	}
 
 }

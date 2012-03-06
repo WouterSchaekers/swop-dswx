@@ -29,7 +29,7 @@ import controllers.CreateUserController;
 import controllers.EnterDiagnoseController;
 import controllers.FillStockInWarehouseController;
 import controllers.LoginController;
-import controllers.MedicalTestController;
+import controllers.OrderMedicalTestController;
 import controllers.PatientFileOpenController;
 import controllers.PrescribeTreatmentController;
 import controllers.RegisterPatientController;
@@ -93,7 +93,7 @@ public class SelectUsecase extends Usecase
 
 			@Override
 			public Usecase create(UserinterfaceData data) throws Exception {
-				new MedicalTestController(data.getLoginController(),
+				new OrderMedicalTestController(data.getLoginController(),
 						data.getPatientFileOpenController(),
 						data.getDataPasser());
 				return new OrderMedicalTest(data);

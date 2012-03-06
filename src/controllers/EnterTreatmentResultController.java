@@ -1,11 +1,15 @@
 package controllers;
 
+import system.HospitalState;
+import users.Nurse;
+import users.User;
 import exceptions.InvalidHospitalStateException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileOpenController;
-import system.HospitalState;
-import users.User;
 
+/**
+ * Use this controller to enter the result of a treatment.
+ */
 public class EnterTreatmentResultController extends
 		NeedsLoginAndPatientFileController
 {
@@ -15,13 +19,11 @@ public class EnterTreatmentResultController extends
 			throws InvalidLoginControllerException,
 			InvalidHospitalStateException, InvalidPatientFileOpenController {
 		super(hospitalState, controller, pfoc);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	boolean validUser(User u) {
-		// TODO Auto-generated method stub
-		return false;
+		return u instanceof Nurse;
 	}
 
 }

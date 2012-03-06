@@ -2,19 +2,19 @@ package ui.ordermedicaltest;
 
 import medicaltest.MedicalTest;
 import medicaltest.MedicalTestFactory;
-import controllers.MedicalTestController;
+import controllers.OrderMedicalTestController;
 
 public class MedicalTestData
 {
 	private MedicalTest m;
-	private MedicalTestController mc;
+	private OrderMedicalTestController mc;
 	private MedicalTestFactory factory;
 
-	public void setMedTestController(MedicalTestController mc) {
+	public void setMedTestController(OrderMedicalTestController mc) {
 		this.mc = mc;
 	}
 
-	public MedicalTestController getMedTestController() {
+	public OrderMedicalTestController getMedTestController() {
 		return this.mc;
 	}
 

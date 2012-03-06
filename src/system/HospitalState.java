@@ -7,9 +7,12 @@ import scheduler.TimeLord;
 import scheduler.task.TaskManager;
 import users.UserManager;
 import warehouse.Warehouse;
-import exceptions.InvalidHospitalDateException;
-import exceptions.InvalidTimeLordException;
+import be.kuleuven.cs.som.annotate.Basic;
 
+/**
+ * This class represents a hospital. It can be used to pass a bunch of data to
+ * the controllers in a fashionable way.
+ */
 public class HospitalState
 {
 	private final UserManager userManager;
@@ -20,39 +23,8 @@ public class HospitalState
 	private final Warehouse warehouse;
 	private final TimeLord systemTime;
 
-	public TimeLord getSystemTime() {
-		return systemTime;
-	}
-
-	public UserManager getUserManager() {
-		return userManager;
-	}
-
-	public MachinePool getMachinePool() {
-		return machinePool;
-	}
-
-	public PatientFileManager getPatientFileManager() {
-		return patientFileManager;
-	}
-
-	public TaskManager getTaskManager() {
-		return taskManager;
-	}
-
-	public Scheduler getScheduler() {
-		return scheduler;
-	}
-
-	public Warehouse getWarehouse() {
-		return warehouse;
-	}
-
 	/**
-	 * Initializes an empty hospital
-	 * 
-	 * @throws InvalidTimeLordException
-	 * @throws InvalidHospitalDateException
+	 * Initializes an empty hospital.
 	 */
 	public HospitalState() {
 		try {
@@ -62,12 +34,29 @@ public class HospitalState
 			this.patientFileManager = new PatientFileManager();
 			this.scheduler = new Scheduler(this.systemTime);
 			this.taskManager = new TaskManager(this.scheduler);
-			this.warehouse = new Warehouse(systemTime.getSystemTime());
+			this.warehouse = new Warehouse(); //TODO: check of hier echt wel geen argumenten moeten meegegeven worden.
 		} catch (Exception e) {
 			throw new Error();
 		}
 	}
 
+	/**
+	 * Constructor that creates a new hospital with the given data as initial equipment.
+	 * @param timeLord
+	 * The TimeLord to be associated with this hospital.
+	 * @param userManager
+	 * The UserManager that's associated with this hospital.
+	 * @param machinePool
+	 * The MachinePool of this hospital.
+	 * @param patientFileManager
+	 * The PatientFileManager for this hospital.
+	 * @param scheduler
+	 * The Scheduler for this hospital.
+	 * @param taskManager
+	 * The TaskManager for this hospital.
+	 * @param warehouse
+	 * The Warehouse for this hospital.
+	 */
 	public HospitalState(TimeLord timeLord, UserManager userManager,
 			MachinePool machinePool, PatientFileManager patientFileManager,
 			Scheduler scheduler, TaskManager taskManager, Warehouse warehouse) {
@@ -79,5 +68,41 @@ public class HospitalState
 		this.taskManager = taskManager;
 		this.warehouse = warehouse;
 	}
+	
+	@Basic
+	public TimeLord getSystemTime() {
+		return systemTime;
+	}
+	
+	@Basic
+	public UserManager getUserManager() {
+		return userManager;
+	}
+	
+	@Basic
+	public MachinePool getMachinePool() {
+		return machinePool;
+	}
+
+	@Basic
+	public PatientFileManager getPatientFileManager() {
+		return patientFileManager;
+	}
+	
+	@Basic
+	public TaskManager getTaskManager() {
+		return taskManager;
+	}
+
+	@Basic
+	public Scheduler getScheduler() {
+		return scheduler;
+	}
+
+	@Basic
+	public Warehouse getWarehouse() {
+		return warehouse;
+	}
+
 
 }
