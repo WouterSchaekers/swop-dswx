@@ -1,7 +1,7 @@
 package controllers;
 
 import patient.PatientFile;
-import system.HospitalState;
+import system.Hospital;
 import users.Doctor;
 import users.User;
 import exceptions.DischargePatienException;
@@ -14,7 +14,7 @@ public class DischargePatientController extends
 		NeedsLoginAndPatientFileController
 {
 
-	public DischargePatientController(HospitalState state,
+	public DischargePatientController(Hospital state,
 			LoginController loginController,
 			PatientFileOpenController patienfile) throws InvalidLoginControllerException, InvalidHospitalStateException, InvalidPatientFileOpenController {
 		super(state, loginController, patienfile);

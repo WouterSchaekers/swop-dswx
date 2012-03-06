@@ -2,7 +2,7 @@ package controllers;
 
 import java.util.Collection;
 import medicaltest.MedicalTest;
-import system.HospitalState;
+import system.Hospital;
 import users.Doctor;
 import users.User;
 import exceptions.InvalidHospitalStateException;
@@ -12,7 +12,7 @@ import exceptions.InvalidPatientFileOpenController;
 public class EnterMedicaltestResultController extends
 		NeedsLoginAndPatientFileController
 {
-	public EnterMedicaltestResultController(HospitalState state,
+	public EnterMedicaltestResultController(Hospital state,
 			LoginController loginController, PatientFileOpenController pfoc)
 			throws InvalidLoginControllerException,
 			InvalidHospitalStateException, InvalidPatientFileOpenController {

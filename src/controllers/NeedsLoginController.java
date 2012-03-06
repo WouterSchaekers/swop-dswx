@@ -1,6 +1,6 @@
 package controllers;
 
-import system.HospitalState;
+import system.Hospital;
 import users.User;
 import exceptions.InvalidHospitalStateException;
 import exceptions.InvalidLoginControllerException;
@@ -10,7 +10,7 @@ public abstract class NeedsLoginController extends MasterController
 
 	protected LoginController loginControler;
 
-	public NeedsLoginController(HospitalState hospitalState,
+	public NeedsLoginController(Hospital hospitalState,
 			LoginController controller) throws InvalidLoginControllerException,
 			InvalidHospitalStateException {
 		super(hospitalState);

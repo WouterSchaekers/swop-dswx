@@ -3,7 +3,7 @@ package controllers;
 import java.util.ArrayList;
 import java.util.Collection;
 import patient.PatientFile;
-import system.HospitalState;
+import system.Hospital;
 import users.Doctor;
 import users.User;
 import controllers.interfaces.DoctorIN;
@@ -17,11 +17,11 @@ import exceptions.InvalidLoginControllerException;
  */
 public class PatientFileOpenController extends NeedsLoginController
 {
-	private HospitalState data;
+	private Hospital data;
 	private DoctorIN doctor;
 	private PatientFile pf;
 
-	public PatientFileOpenController(HospitalState data,
+	public PatientFileOpenController(Hospital data,
 			LoginController loginController)
 			throws InvalidHospitalStateException,
 			InvalidLoginControllerException {

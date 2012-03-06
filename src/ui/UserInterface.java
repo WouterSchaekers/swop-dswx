@@ -1,13 +1,13 @@
 package ui;
 
-import system.HospitalState;
+import system.Hospital;
 
 public class UserInterface
 {
 	static UCHandler usecaseController;
-	HospitalState data;
+	Hospital data;
 
-	public UserInterface(HospitalState data) {
+	public UserInterface(Hospital data) {
 		UserinterfaceData blob = new UserinterfaceData(data);
 		usecaseController = new UCHandler(blob);
 		this.data = data;

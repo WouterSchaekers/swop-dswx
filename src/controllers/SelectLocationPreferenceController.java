@@ -1,6 +1,6 @@
 package controllers;
 
-import system.HospitalState;
+import system.Hospital;
 import users.Doctor;
 import users.User;
 import exceptions.InvalidHospitalStateException;
@@ -9,7 +9,7 @@ import exceptions.InvalidLoginControllerException;
 public class SelectLocationPreferenceController extends NeedsLoginController
 {
 
-	public SelectLocationPreferenceController(HospitalState hospitalState,
+	public SelectLocationPreferenceController(Hospital hospitalState,
 			LoginController controller) throws InvalidLoginControllerException,
 			InvalidHospitalStateException {
 		super(hospitalState, controller);

@@ -2,7 +2,7 @@ package controllers;
 
 import patient.PatientFile;
 import patient.PatientFileManager;
-import system.HospitalState;
+import system.Hospital;
 import users.Nurse;
 import users.User;
 import exceptions.InvalidHospitalStateException;
@@ -26,7 +26,7 @@ public class CheckinController extends NeedsLoginController
 	 * @throws InvalidLoginControllerException
 	 * @throws InvalidHospitalStateException
 	 */
-	public CheckinController(LoginController lc, HospitalState hospitalState)
+	public CheckinController(LoginController lc, Hospital hospitalState)
 			throws InvalidLoginControllerException,
 			InvalidHospitalStateException {
 		super(hospitalState, lc);

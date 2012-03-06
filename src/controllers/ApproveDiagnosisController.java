@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import patient.Diagnose;
 import sun.rmi.runtime.Log;
-import system.HospitalState;
+import system.Hospital;
 import users.Doctor;
 import users.User;
 import controllers.interfaces.DiagnoseIN;
@@ -16,7 +16,7 @@ import exceptions.InvalidLoginControllerException;
 public class ApproveDiagnosisController extends NeedsLoginController
 {
 
-	public ApproveDiagnosisController(HospitalState hospitalState,
+	public ApproveDiagnosisController(Hospital hospitalState,
 			LoginController loginc) throws InvalidLoginControllerException,
 			InvalidHospitalStateException {
 		super(hospitalState, loginc);

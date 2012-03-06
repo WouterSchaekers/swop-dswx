@@ -1,7 +1,7 @@
 package ui.listorders;
 
 import java.util.LinkedList;
-import system.HospitalState;
+import system.Hospital;
 import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
@@ -13,7 +13,7 @@ import exceptions.InvalidLoginControllerException;
 
 public class ListOrders extends ListOrdersSuper
 {
-	HospitalState dataPasser;
+	Hospital dataPasser;
 
 	public ListOrders(UserinterfaceData data) {
 		super(data);

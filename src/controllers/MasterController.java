@@ -1,6 +1,6 @@
 package controllers;
 
-import system.HospitalState;
+import system.Hospital;
 import exceptions.InvalidHospitalStateException;
 
 /**
@@ -9,9 +9,9 @@ import exceptions.InvalidHospitalStateException;
 //TODO: doc
 class MasterController
 {
-	protected HospitalState hospitalState;
+	protected Hospital hospitalState;
 
-	MasterController(HospitalState hospitalState)
+	MasterController(Hospital hospitalState)
 			throws InvalidHospitalStateException {
 		if (!isValidHospitalState(hospitalState)) {
 			throw new InvalidHospitalStateException("lskdjflke");
@@ -19,7 +19,7 @@ class MasterController
 		this.hospitalState = hospitalState;
 	}
 
-	private boolean isValidHospitalState(HospitalState hospitalState) {
+	private boolean isValidHospitalState(Hospital hospitalState) {
 		return hospitalState != null;
 	}
 

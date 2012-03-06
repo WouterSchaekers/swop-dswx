@@ -3,7 +3,7 @@ package controllers;
 import java.util.ArrayList;
 import java.util.Collection;
 import patient.PatientFile;
-import system.HospitalState;
+import system.Hospital;
 import users.Nurse;
 import users.User;
 import controllers.interfaces.AppointmentIN;
@@ -18,7 +18,7 @@ public class RegisterPatientController extends NeedsLoginController
 {
 
 	public RegisterPatientController(LoginController loginController,
-			HospitalState state) throws InvalidLoginControllerException,
+			Hospital state) throws InvalidLoginControllerException,
 			InvalidHospitalStateException {
 		super(state, loginController);
 	}
@@ -40,7 +40,7 @@ public class RegisterPatientController extends NeedsLoginController
 		this.hospitalState.getPatientFileManager().checkIn(f);
 	}
 
-	public AppointmentIN CreateAppointMent(UserIN user, HospitalState state)
+	public AppointmentIN CreateAppointMent(UserIN user, Hospital state)
 			throws InvalidLoginControllerException {
 		// TODO fix this shit ffs
 		// return new Appointment(hospitalState.getTaskManager().addTask(new
@@ -48,7 +48,7 @@ public class RegisterPatientController extends NeedsLoginController
 		return null;
 	}
 
-	public void createNewPatient(HospitalState dataPasser2, String name)
+	public void createNewPatient(Hospital dataPasser2, String name)
 			throws InvalidNameException {
 		dataPasser2.getPatientFileManager().registerPatient(name);
 

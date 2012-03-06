@@ -1,6 +1,6 @@
 package controllers;
 
-import system.HospitalState;
+import system.Hospital;
 import users.Nurse;
 import users.User;
 import exceptions.InvalidHospitalStateException;
@@ -14,7 +14,7 @@ public class EnterTreatmentResultController extends
 		NeedsLoginAndPatientFileController
 {
 
-	public EnterTreatmentResultController(HospitalState hospitalState,
+	public EnterTreatmentResultController(Hospital hospitalState,
 			LoginController controller, PatientFileOpenController pfoc)
 			throws InvalidLoginControllerException,
 			InvalidHospitalStateException, InvalidPatientFileOpenController {
