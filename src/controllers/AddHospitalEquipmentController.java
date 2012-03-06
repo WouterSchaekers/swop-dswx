@@ -25,7 +25,6 @@ public class AddHospitalEquipmentController extends NeedsLoginController
 			Hospital hospital) throws InvalidLoginControllerException,
 			InvalidHospitalException {
 		super(hospital, loginController);
-
 	}
 
 	/**
@@ -35,7 +34,6 @@ public class AddHospitalEquipmentController extends NeedsLoginController
 		return hospital.getMachinePool().getAllBuilders();
 	}
 
-	
 	/**
 	 * Creates a new machine from the given machine builder and adds it to the
 	 * hospital.

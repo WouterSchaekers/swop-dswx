@@ -16,47 +16,37 @@ import exceptions.InvalidNameException;
 //TODO: check usecase register patient
 public class RegisterPatientController extends NeedsLoginController
 {
-
 	public RegisterPatientController(LoginController loginController,
 			Hospital hospital) throws InvalidLoginControllerException,
 			InvalidHospitalException {
 		super(hospital, loginController);
 	}
 
-	public Collection<PatientFileIN> getAllPatients(LoginController loginc)
-			throws InvalidLoginControllerException {
-		return new ArrayList<PatientFileIN>(hospital
-				.getPatientFileManager().getAllPatientFiles());
+	public Collection<PatientFileIN> getAllPatients() {
+		return new ArrayList<PatientFileIN>(hospital.getPatientFileManager()
+				.getAllPatientFiles());
 	}
 
-	public void registerPatient(PatientFileIN file) {
-		PatientFile f;
-		if (file instanceof PatientFile)
-			f = (PatientFile) file;
-		else
-			throw new IllegalArgumentException(file
+	public void registerPatient(PatientFileIN patientFile) {
+		if (!(patientFile instanceof PatientFile))
+			throw new IllegalArgumentException(patientFile
 					+ " is not a valid patientfile");
-
-		this.hospital.getPatientFileManager().checkIn(f);
+		this.hospital.getPatientFileManager()
+				.checkIn((PatientFile) patientFile);
 	}
 
-	public AppointmentIN CreateAppointMent(UserIN user, Hospital hospital)
+	public AppointmentIN CreateAppointment(UserIN user, Hospital hospital)
 			throws InvalidLoginControllerException {
-		// TODO fix this shit ffs
-		// return new Appointment(hospitalState.getTaskManager().addTask(new
-		// UnscheduledAppointment((PatientFile)pfile.getPatientFile(),loginControler.getu,dataPasser.getTimeLord().getSystemTime())));
 		return null;
 	}
 
-	public void createNewPatient(Hospital dataPasser2, String name)
+	public void createNewPatient(Hospital hospital, String name)
 			throws InvalidNameException {
-		dataPasser2.getPatientFileManager().registerPatient(name);
-
+		hospital.getPatientFileManager().registerPatient(name);
 	}
 
 	@Override
 	boolean validUser(User u) {
 		return u instanceof Nurse;
 	}
-
 }

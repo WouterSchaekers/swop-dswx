@@ -17,7 +17,7 @@ public abstract class NeedsLoginController extends MasterController
 		if (isValidLoginController(controller))
 			this.loginControler = controller;
 		else
-			throw new InvalidLoginControllerException("");
+			throw new InvalidLoginControllerException("This loginController is invalid.");
 	}
 
 	/**

@@ -13,7 +13,7 @@ import exceptions.InvalidOccurencesException;
 import exceptions.InvalidRequirementException;
 import exceptions.InvalidResourceException;
 
-public class UnscheduledAppointment extends UnscheduledTask
+public class UnscheduledAppointment extends UnscheduledTask1
 {
 	private Doctor requiredDoctor;
 

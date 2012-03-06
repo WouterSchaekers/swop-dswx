@@ -30,19 +30,19 @@ public class LoginController
 	 */
 	public LoginController(Hospital hospital) throws IllegalArgumentException {
 		if (!isValidData(hospital))
-			throw new IllegalArgumentException("datapasser is invalid!");
+			throw new IllegalArgumentException("Hospital is invalid!");
 		this.um = hospital.getUserManager();
 	}
 
 	/**
 	 * This method checks if data is a valid datapasser for the logincontroller.
 	 * 
-	 * @param data
-	 *            The data to check
-	 * @return False if data == null || data.getUserManager() == null
+	 * @param hospital
+	 *            The hospital to check
+	 * @return False if hospital == null || hospital.getUserManager() == null
 	 */
-	private boolean isValidData(Hospital data) {
-		return !(data == null || data.getUserManager() == null);
+	private boolean isValidData(Hospital hospital) {
+		return !(hospital == null || hospital.getUserManager() == null);
 	}
 
 	/**
@@ -53,7 +53,6 @@ public class LoginController
 		for (User u : um.getAllUsers())
 			users.add(u);
 		return users;
-
 	}
 
 	/**
@@ -113,5 +112,4 @@ public class LoginController
 		LoginController that = (LoginController) o;
 		return this.loggedIn == that.loggedIn & this.user.equals(that.user);
 	}
-
 }

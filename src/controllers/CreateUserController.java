@@ -13,20 +13,18 @@ import exceptions.UserAlreadyExistsException;
 public class CreateUserController extends NeedsLoginController
 {
 	public CreateUserController(LoginController loginController,
-			Hospital hospital)
-			throws InvalidLoginControllerException,
+			Hospital hospital) throws InvalidLoginControllerException,
 			InvalidHospitalException {
 		super(hospital, loginController);
 	}
 
-	public void createNurse(String nurse)
-			throws UserAlreadyExistsException, InvalidNameException,
-			InvalidTimeSlotException {
+	public void createNurse(String nurse) throws UserAlreadyExistsException,
+			InvalidNameException, InvalidTimeSlotException {
 		hospital.getUserManager().createNurse(nurse);
 	}
 
-	public void createDoctor(String nurse, LoginController l) throws UserAlreadyExistsException, InvalidNameException
-			 {
+	public void createDoctor(String nurse, LoginController l)
+			throws UserAlreadyExistsException, InvalidNameException {
 		hospital.getUserManager().createDoctor(nurse);
 	}
 
