@@ -24,10 +24,3 @@ Het domein model is over het algemeen OK. Enkele dingen die ofwel beter moeten o
   * examenvraag: Factory patroon om in de UI een lijstje te printen met alle available medicaltests is niet de "normale" oplossing. Welk design pattern is wel goed?
   * De builders voor machines zijn OK omdat alle machines dezelfde signatuur hebben (verslag!)
   * TaskManager een observer maken van TimeLord = OK.
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
