@@ -1,5 +1,3 @@
-The report of the meeting of March 6th 2012
-
 = Domein model =
 
 Het domein model is over het algemeen OK. Enkele dingen die ofwel beter moeten ofwel in het verslag zeker vermeld moeten worden:
