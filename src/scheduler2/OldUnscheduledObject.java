@@ -1,0 +1,75 @@
+package scheduler2;
+
+import java.util.LinkedList;
+import patient.PatientFile;
+import exceptions.InvalidAmountException;
+import exceptions.InvalidDurationException;
+import exceptions.InvalidHospitalDateException;
+import exceptions.InvalidOccurencesException;
+import exceptions.InvalidResourceException;
+import scheduler.HospitalDate;
+import scheduler.task.Schedulable;
+import scheduler.task.scheduled.ScheduledTask;
+import scheduler.task.unscheduled.UnscheduledTask;
+import system.HospitalState;
+
+//TODO: is dit de moeite ffs 
+public class OldUnscheduledObject extends UnscheduledTask
+{
+	public OldUnscheduledObject(UnscheduledTask task,HospitalState state) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException
+	{
+		super(getpf(task,state),duration(task,state),getSysTime(task,state),getExtraTime(task,state),getBackToBackness(task,state));
+	}
+	private static boolean getBackToBackness(UnscheduledTask task,
+			HospitalState state) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	private static long getExtraTime(UnscheduledTask task, HospitalState state) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	private static HospitalDate getSysTime(UnscheduledTask task,
+			HospitalState state) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	private static long duration(UnscheduledTask task, HospitalState state) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	private static PatientFile getpf(UnscheduledTask task, HospitalState state) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public boolean canBeScheduled() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public LinkedList<Integer> getOccurences() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public LinkedList<LinkedList<Schedulable>> getResourcePool() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public HospitalDate getFirstSchedulingDateSince(HospitalDate hospitalDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setScheduled(ScheduledTask task) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
