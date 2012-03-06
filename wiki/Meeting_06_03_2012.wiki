@@ -1,4 +1,4 @@
-#The report of the meeting of March 6th 2012
+The report of the meeting of March 6th 2012
 
 = Domein model =
 
