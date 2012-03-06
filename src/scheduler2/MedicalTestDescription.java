@@ -2,7 +2,7 @@ package scheduler2;
 
 import java.util.Collection;
 
-public class MedicalTestDescription extends TaskDescription
+public abstract class MedicalTestDescription extends TaskDescription
 {
 
 	@Override
