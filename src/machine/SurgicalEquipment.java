@@ -6,10 +6,10 @@ import exceptions.InvalidLocationException;
 import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidSerialException;
 
-public class aaaaaaaaaaaaaaaa extends abracadabra
+public class SurgicalEquipment extends Machine
 {
 
-	public aaaaaaaaaaaaaaaa(int serial, String location)
+	public SurgicalEquipment(int serial, String location)
 			throws InvalidLocationException, InvalidSerialException {
 		super(serial, location);
 	}

@@ -3,19 +3,20 @@ package machine;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidSerialException;
 
-public class abrascanner extends cadabra
+public class BloodanalyserBuilder extends MachineBuilder
 {
-	abrascanner(asdf pool) {
+
+	BloodanalyserBuilder(MachinePool pool) {
 		super(pool);
 	}
 
 	public String toString() {
-		return "UltraSoundScanner";
+		return "Blood analyzer";
 
 	}
 
-	public ttttttttttttt build(int serial, String location)
+	public Machine build(int serial, String location)
 			throws InvalidLocationException, InvalidSerialException {
-		return new ttttttttttttt(serial, location);
+		return pool.createBloodAnalyser(serial, location);
 	}
 }

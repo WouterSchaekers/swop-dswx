@@ -7,15 +7,15 @@ import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidSerialException;
 import exceptions.InvalidTimeSlotException;
 
-public class asdfscanner2 extends abracadabra
+public class BloodAnalyser extends Machine
 {
 	/**
-	 * Creates an XRayScanner scanner, exceptions are thrown as in the super
-	 * class: {@link abracadabra#Machine(int, String)}
+	 * Creates an BloodAnalyser scanner, exceptions are thrown as in the super
+	 * class: {@link Machine#Machine(int, String)}
 	 * 
 	 * @throws InvalidTimeSlotException
 	 * */
-	asdfscanner2(int serial, String location) throws InvalidLocationException,
+	BloodAnalyser(int serial, String location) throws InvalidLocationException,
 			InvalidSerialException {
 		super(serial, location);
 	}
@@ -30,4 +30,5 @@ public class asdfscanner2 extends abracadabra
 			HospitalDate stopDate) {
 		return this.getTimeTable().hasFreeSlotAt(startDate, stopDate);
 	}
+
 }
