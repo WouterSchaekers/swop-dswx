@@ -3,14 +3,14 @@ package machine;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidSerialException;
 
-public abstract class cadabra
+public abstract class MachineBuilder
 {
-	protected asdf pool;
+	protected MachinePool pool;
 
-	cadabra(asdf pool) {
+	MachineBuilder(MachinePool pool) {
 		this.pool = pool;
 	}
 
-	public abstract abracadabra build(int serial, String location)
+	public abstract Machine build(int serial, String location)
 			throws InvalidLocationException, InvalidSerialException;
 }

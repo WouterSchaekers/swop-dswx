@@ -10,16 +10,16 @@ import exceptions.InvalidSerialException;
 /**
  * This class is merely a collection of all machines in existence.
  */
-public class asdf
+public class MachinePool
 {
-	private Collection<abracadabra> allMachines = new ArrayList<abracadabra>();;
+	private Collection<Machine> allMachines = new ArrayList<Machine>();;
 
 	/**
 	 * Adds a machine to the machine pool
 	 * 
 	 * @param m
 	 */
-	public void addMachine(abracadabra m) {
+	public void addMachine(Machine m) {
 		allMachines.add(m);
 	}
 
@@ -28,7 +28,7 @@ public class asdf
 	 * 
 	 * @param m
 	 */
-	public void removeMachine(abracadabra m) {
+	public void removeMachine(Machine m) {
 		allMachines.remove(m);
 	}
 
@@ -37,43 +37,43 @@ public class asdf
 	 * 
 	 * @return
 	 */
-	public Collection<abracadabra> getAllMachines() {
-		return new ArrayList<abracadabra>(this.allMachines);
+	public Collection<Machine> getAllMachines() {
+		return new ArrayList<Machine>(this.allMachines);
 	}
 
-	public Collection<cadabra> getAllBuilders() {
-		return Arrays.asList(new abra2(this),
-				new abrascanner(this),
-				new jawelfucker(this));
+	public Collection<MachineBuilder> getAllBuilders() {
+		return Arrays.asList(new BloodanalyserBuilder(this),
+				new UltraSoundScannerBuilder(this),
+				new XrayScannerBuilder(this));
 	}
 
 	public void updateTimeTables(HospitalDate newDate) {
-		for (abracadabra machine : allMachines) {
+		for (Machine machine : allMachines) {
 			machine.updateTimeTable(newDate);
 		}
 	}
 
-	public asdfscanner2 createXrayScanner(int serial, String location)
+	public XRayScanner createXrayScanner(int serial, String location)
 			throws InvalidSerialException, InvalidLocationException {
 		this.alreadyContains(serial);
-		return new asdfscanner2(serial, location);
+		return new XRayScanner(serial, location);
 	}
 
-	public ttttttttttttt createUltraSoundScanner(int serial, String location)
+	public UltraSoundScanner createUltraSoundScanner(int serial, String location)
 			throws InvalidSerialException, InvalidLocationException {
 		this.alreadyContains(serial);
-		return new ttttttttttttt(serial, location);
+		return new UltraSoundScanner(serial, location);
 	}
 
 	private void alreadyContains(int serial) throws InvalidSerialException {
-		for (abracadabra m : allMachines)
+		for (Machine m : allMachines)
 			if (m.getSerial() == serial)
 				throw new InvalidSerialException();
 	}
 
-	public abra createBloodAnalyser(int serial, String location)
+	public BloodAnalyser createBloodAnalyser(int serial, String location)
 			throws InvalidSerialException, InvalidLocationException {
 		alreadyContains(serial);
-		return new abra(serial, location);
+		return new BloodAnalyser(serial, location);
 	}
 }
