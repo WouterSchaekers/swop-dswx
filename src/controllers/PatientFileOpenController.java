@@ -17,7 +17,7 @@ import exceptions.InvalidLoginControllerException;
  */
 public class PatientFileOpenController extends NeedsLoginController
 {
-	private Hospital data;
+	private Hospital hospital;
 	private DoctorIN doctor;
 	private PatientFile pf;
 
@@ -26,12 +26,12 @@ public class PatientFileOpenController extends NeedsLoginController
 			throws InvalidHospitalException,
 			InvalidLoginControllerException {
 		super(hospital, loginController);
-		this.data = hospital;
+		this.hospital = hospital;
 		doctor = (DoctorIN) loginController.getUser();
 	}
 
 	public Collection<PatientFileIN> getAllPatientFiles() {
-		return new ArrayList<PatientFileIN>(data.getPatientFileManager()
+		return new ArrayList<PatientFileIN>(hospital.getPatientFileManager()
 				.getAllPatientFiles());
 	}
 
@@ -53,7 +53,7 @@ public class PatientFileOpenController extends NeedsLoginController
 	}
 
 	public void closePatientFile() {
-		this.data = null;
+		this.hospital = null;
 		this.doctor = null;
 		this.pf = null;
 	}

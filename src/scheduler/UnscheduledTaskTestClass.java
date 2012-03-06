@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import patient.PatientFile;
 import scheduler.task.Schedulable;
 import scheduler.task.scheduled.ScheduledTask;
-import scheduler.task.unscheduled.UnscheduledTask;
+import scheduler.task.unscheduled.UnscheduledTask1;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidHospitalDateException;
@@ -15,7 +15,7 @@ import exceptions.InvalidResourceException;
 /**
  * Class created for testing purposes only! DO NOT USE THIS!
  */
-public class UnscheduledTaskTestClass extends UnscheduledTask
+public class UnscheduledTaskTestClass extends UnscheduledTask1
 {
 	private LinkedList<Schedulable> requirements;
 	private LinkedList<LinkedList<Schedulable>> schedulables;

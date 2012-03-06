@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import scheduler.task.Schedulable;
 import scheduler.task.scheduled.ScheduledTask;
-import scheduler.task.unscheduled.UnscheduledTask;
+import scheduler.task.unscheduled.UnscheduledTask1;
 import users.UserManager;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
@@ -37,13 +37,13 @@ public class SchedulerTest
 	LinkedList<Integer> occurences6;
 	LinkedList<Integer> occurences7;
 	LinkedList<Integer> fullOccurences;
-	UnscheduledTask unsched1;
-	UnscheduledTask unsched2;
-	UnscheduledTask unsched3;
-	UnscheduledTask unsched4;
-	UnscheduledTask unsched5;
-	UnscheduledTask unsched6;
-	UnscheduledTask unsched7;
+	UnscheduledTask1 unsched1;
+	UnscheduledTask1 unsched2;
+	UnscheduledTask1 unsched3;
+	UnscheduledTask1 unsched4;
+	UnscheduledTask1 unsched5;
+	UnscheduledTask1 unsched6;
+	UnscheduledTask1 unsched7;
 	Scheduler s;
 
 	@Before
