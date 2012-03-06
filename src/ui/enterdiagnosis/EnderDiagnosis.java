@@ -4,7 +4,7 @@ import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
 import controllers.EnterDiagnoseController;
-import exceptions.InvalidHospitalStateException;
+import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileOpenController;
 
@@ -28,7 +28,7 @@ public class EnderDiagnosis extends EnterDiagnoseSuperClass
 		} catch (InvalidPatientFileOpenController e) {
 			System.out.println("No patient file opened fatal error ");
 			return new SelectUsecase(data);
-		} catch (InvalidHospitalStateException e) {
+		} catch (InvalidHospitalException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

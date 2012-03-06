@@ -28,10 +28,10 @@ public class LoginController
 	 * @throws IllegalArgumentException
 	 *             if (!isValidData(data))
 	 */
-	public LoginController(Hospital hospitalState) throws IllegalArgumentException {
-		if (!isValidData(hospitalState))
+	public LoginController(Hospital hospital) throws IllegalArgumentException {
+		if (!isValidData(hospital))
 			throw new IllegalArgumentException("datapasser is invalid!");
-		this.um = hospitalState.getUserManager();
+		this.um = hospital.getUserManager();
 	}
 
 	/**

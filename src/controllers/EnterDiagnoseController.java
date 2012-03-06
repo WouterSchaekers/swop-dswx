@@ -9,7 +9,7 @@ import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.DoctorIN;
 import exceptions.InvalidDiagnoseException;
 import exceptions.InvalidDoctorException;
-import exceptions.InvalidHospitalStateException;
+import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileOpenController;
 
@@ -24,14 +24,13 @@ public class EnterDiagnoseController extends NeedsLoginAndPatientFileController
 	 *            The patient that has
 	 * @throws InvalidLoginControllerException
 	 * @throws InvalidPatientFileOpenController
-	 * @throws InvalidHospitalStateException
+	 * @throws InvalidHospitalException
 	 */
-	public EnterDiagnoseController(Hospital hospitalState,
-			LoginController loginc,
+	public EnterDiagnoseController(Hospital hospital, LoginController loginc,
 			PatientFileOpenController patientFileOpenController)
 			throws InvalidLoginControllerException,
-			InvalidPatientFileOpenController, InvalidHospitalStateException {
-		super(hospitalState, loginc, patientFileOpenController);
+			InvalidPatientFileOpenController, InvalidHospitalException {
+		super(hospital, loginc, patientFileOpenController);
 	}
 
 	/**
@@ -40,19 +39,17 @@ public class EnterDiagnoseController extends NeedsLoginAndPatientFileController
 	 * 
 	 * @param loginc
 	 * @return
-	 * @throws InvalidDiagnoseException 
-	 * @throws InvalidDoctorException 
+	 * @throws InvalidDiagnoseException
+	 * @throws InvalidDoctorException
 	 */
 
-	public DiagnoseIN enterDiagnose( String diag,
-			DoctorIN choice) throws InvalidDoctorException, InvalidDiagnoseException
-			 {
-		
+	public DiagnoseIN enterDiagnose(String diag, DoctorIN choice)
+			throws InvalidDoctorException, InvalidDiagnoseException {
+
 		Diagnose d = PatientFile.createDiagnoseSecondOp(diag,
 				(Doctor) loginControler.getUser(), (Doctor) choice,
-				hospitalState.getTaskManager());
-		((PatientFile) pfoc.getPatientFile())
-				.addDiagnosis(d);
+				hospital.getTaskManager());
+		((PatientFile) pfoc.getPatientFile()).addDiagnosis(d);
 		return d;
 	}
 

@@ -1,9 +1,9 @@
 package exceptions;
 
-public class InvalidHospitalStateException extends Exception
+public class InvalidHospitalException extends Exception
 {
 
-	public InvalidHospitalStateException(String string) {
+	public InvalidHospitalException(String string) {
 		// TODO Auto-generated constructor stub
 	}
 

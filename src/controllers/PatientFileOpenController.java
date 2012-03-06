@@ -9,7 +9,7 @@ import users.User;
 import controllers.interfaces.DoctorIN;
 import controllers.interfaces.PatientFileIN;
 import controllers.interfaces.UserIN;
-import exceptions.InvalidHospitalStateException;
+import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 
 /**
@@ -21,12 +21,12 @@ public class PatientFileOpenController extends NeedsLoginController
 	private DoctorIN doctor;
 	private PatientFile pf;
 
-	public PatientFileOpenController(Hospital data,
+	public PatientFileOpenController(Hospital hospital,
 			LoginController loginController)
-			throws InvalidHospitalStateException,
+			throws InvalidHospitalException,
 			InvalidLoginControllerException {
-		super(data, loginController);
-		this.data = data;
+		super(hospital, loginController);
+		this.data = hospital;
 		doctor = (DoctorIN) loginController.getUser();
 	}
 

@@ -4,7 +4,7 @@ import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
 import controllers.CreateUserController;
-import exceptions.InvalidHospitalStateException;
+import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 
 public class selectUserType extends Usecase
@@ -23,7 +23,7 @@ public class selectUserType extends Usecase
 		} catch (InvalidLoginControllerException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		} catch (InvalidHospitalStateException e1) {
+		} catch (InvalidHospitalException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}

@@ -4,7 +4,7 @@ import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
 import controllers.OrderMedicalTestController;
-import exceptions.InvalidHospitalStateException;
+import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileException;
 import exceptions.InvalidPatientFileOpenController;
@@ -32,7 +32,7 @@ public class OrderMedicalTest extends OrderMedicalTestSuperClass
 		} catch (InvalidPatientFileException e) {
 			System.out.println("No patientfile open.");
 			return new SelectUsecase(data);
-		} catch (InvalidHospitalStateException e) {
+		} catch (InvalidHospitalException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InvalidPatientFileOpenController e) {

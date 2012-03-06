@@ -8,7 +8,7 @@ import users.Doctor;
 import users.Nurse;
 import users.UserManager;
 import controllers.interfaces.UserIN;
-import exceptions.InvalidHospitalStateException;
+import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidTimeSlotException;
@@ -34,7 +34,7 @@ public class _PatientFileOpenControllerTest
 	@Test
 	public void testPatientFileOpenControllerSucces()
 			throws UserAlreadyExistsException, InvalidNameException,
-			InvalidTimeSlotException, InvalidLoginControllerException, InvalidHospitalStateException {
+			InvalidTimeSlotException, InvalidLoginControllerException, InvalidHospitalException {
 		lc = new LoginController(data);
 		d = um.createDoctor("Jef");
 		u = d;
@@ -44,7 +44,7 @@ public class _PatientFileOpenControllerTest
 
 	@Test(expected = InvalidLoginControllerException.class)
 	public void testGetLoginControllerFail()
-			throws InvalidLoginControllerException, InvalidHospitalStateException {
+			throws InvalidLoginControllerException, InvalidHospitalException {
 		lc = new LoginController(data);
 		pfoc = new PatientFileOpenController(data, null);
 	}
@@ -52,7 +52,7 @@ public class _PatientFileOpenControllerTest
 	@Test(expected = InvalidLoginControllerException.class)
 	public void testGetLoginControllerFail2()
 			throws UserAlreadyExistsException, InvalidNameException,
-			InvalidTimeSlotException, InvalidLoginControllerException, InvalidHospitalStateException {
+			InvalidTimeSlotException, InvalidLoginControllerException, InvalidHospitalException {
 		lc = new LoginController(data);
 		n = um.createNurse("Sandrien");
 		u = n;
@@ -62,7 +62,7 @@ public class _PatientFileOpenControllerTest
 	@Test
 	public void testValidLoginControllerSucces()
 			throws UserAlreadyExistsException, InvalidNameException,
-			InvalidTimeSlotException, InvalidLoginControllerException, InvalidHospitalStateException {
+			InvalidTimeSlotException, InvalidLoginControllerException, InvalidHospitalException {
 		lc = new LoginController(data);
 		d = um.createDoctor("Jef");
 		u = d;
@@ -74,7 +74,7 @@ public class _PatientFileOpenControllerTest
 	@Test(expected = InvalidLoginControllerException.class)
 	public void testValidLoginControllerFail()
 			throws UserAlreadyExistsException, InvalidNameException,
-			InvalidTimeSlotException, InvalidLoginControllerException, InvalidHospitalStateException {
+			InvalidTimeSlotException, InvalidLoginControllerException, InvalidHospitalException {
 		lc = new LoginController(data);
 		n = um.createNurse("Margo");
 		u = n;

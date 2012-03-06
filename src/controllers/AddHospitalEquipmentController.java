@@ -19,12 +19,12 @@ public class AddHospitalEquipmentController extends NeedsLoginController
 	 * @param loginController
 	 * @throws ControllerException
 	 * @throws InvalidLoginControllerException
-	 * @throws InvalidHospitalStateException
+	 * @throws InvalidHospitalException
 	 */
 	public AddHospitalEquipmentController(LoginController loginController,
-			Hospital state) throws InvalidLoginControllerException,
-			InvalidHospitalStateException {
-		super(state, loginController);
+			Hospital hospital) throws InvalidLoginControllerException,
+			InvalidHospitalException {
+		super(hospital, loginController);
 
 	}
 
@@ -32,7 +32,7 @@ public class AddHospitalEquipmentController extends NeedsLoginController
 	 * @return All the machines currently in the hospital.
 	 */
 	public Collection<MachineBuilder> getAllMachines() {
-		return hospitalState.getMachinePool().getAllBuilders();
+		return hospital.getMachinePool().getAllBuilders();
 	}
 
 	
@@ -43,7 +43,7 @@ public class AddHospitalEquipmentController extends NeedsLoginController
 	// TODO : Fix these parameters
 	public void createMachine(MachineBuilder b, int serial, String location)
 			throws InvalidLocationException, InvalidSerialException {
-		hospitalState.getMachinePool().addMachine(b.build(serial, location));
+		hospital.getMachinePool().addMachine(b.build(serial, location));
 	}
 
 	@Override

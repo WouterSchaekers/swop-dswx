@@ -5,7 +5,7 @@ import scheduler.TimeLord;
 import system.Hospital;
 import users.HospitalAdmin;
 import users.User;
-import exceptions.InvalidHospitalStateException;
+import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 
 public class AdvanceTimeController extends NeedsLoginController
@@ -14,11 +14,11 @@ public class AdvanceTimeController extends NeedsLoginController
 	private TimeLord timelord;
 
 	public AdvanceTimeController(LoginController loginController,
-			Hospital hospitalState)
+			Hospital hospital)
 			throws InvalidLoginControllerException,
-			InvalidHospitalStateException {
-		super(hospitalState, loginController);
-		timelord = hospitalState.getSystemTime();
+			InvalidHospitalException {
+		super(hospital, loginController);
+		timelord = hospital.getSystemTime();
 	}
 
 	/**

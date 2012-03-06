@@ -6,7 +6,7 @@ import users.Doctor;
 import users.User;
 import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.TreatmentIN;
-import exceptions.InvalidHospitalStateException;
+import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileException;
 import exceptions.InvalidPatientFileOpenController;
@@ -16,10 +16,10 @@ public class PrescribeTreatmentController extends NeedsLoginAndPatientFileContro
 {
 	
 	public PrescribeTreatmentController(LoginController loginc,
-			PatientFileOpenController pfcontroller, Hospital state, PatientFileOpenController pfoc)
+			PatientFileOpenController pfcontroller, Hospital hospital, PatientFileOpenController pfoc)
 			throws InvalidLoginControllerException,
-			InvalidPatientFileException, OperationNotSupportedException, InvalidHospitalStateException, InvalidPatientFileOpenController {
-		super(state, loginc, pfoc);
+			InvalidPatientFileException, OperationNotSupportedException, InvalidHospitalException, InvalidPatientFileOpenController {
+		super(hospital, loginc, pfoc);
 	}
 
 	//TODO: loziteit!!
