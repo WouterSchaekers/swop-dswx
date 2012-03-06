@@ -5,7 +5,7 @@ import java.util.Collection;
 import patient.PatientFileManager;
 import scheduler.HospitalDate;
 import scheduler.task.Schedulable;
-import warehouse.StockProvider;
+import warehouse.stock.StockProvider;
 import warehouse.Warehouse;
 import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.DoctorIN;
