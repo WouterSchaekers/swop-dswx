@@ -1,9 +1,10 @@
 package controllers;
 
+import system.HospitalState;
+import users.Doctor;
+import users.User;
 import exceptions.InvalidHospitalStateException;
 import exceptions.InvalidLoginControllerException;
-import system.HospitalState;
-import users.User;
 
 public class SelectLocationPreferenceController extends NeedsLoginController
 {
@@ -12,13 +13,11 @@ public class SelectLocationPreferenceController extends NeedsLoginController
 			LoginController controller) throws InvalidLoginControllerException,
 			InvalidHospitalStateException {
 		super(hospitalState, controller);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	boolean validUser(User u) {
-		// TODO Auto-generated method stub
-		return false;
+		return u instanceof Doctor;
 	}
 
 }

@@ -3,7 +3,7 @@ package ui.ordermedicaltest;
 import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
-import controllers.MedicalTestController;
+import controllers.OrderMedicalTestController;
 import exceptions.InvalidHospitalStateException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileException;
@@ -18,9 +18,9 @@ public class OrderMedicalTest extends OrderMedicalTestSuperClass
 
 	@Override
 	public Usecase Execute() {
-		MedicalTestController orderMedTestController = null;
+		OrderMedicalTestController orderMedTestController = null;
 		try {
-			orderMedTestController = new MedicalTestController(
+			orderMedTestController = new OrderMedicalTestController(
 					data.getLoginController(),
 					data.getPatientFileOpenController(), data.getDataPasser());
 		} catch (IllegalArgumentException e) {
