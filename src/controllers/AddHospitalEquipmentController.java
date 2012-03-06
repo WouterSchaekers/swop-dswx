@@ -2,7 +2,7 @@ package controllers;
 
 import java.util.Collection;
 import machine.MachineBuilder;
-import system.HospitalState;
+import system.Hospital;
 import users.HospitalAdmin;
 import users.User;
 import exceptions.*;
@@ -22,7 +22,7 @@ public class AddHospitalEquipmentController extends NeedsLoginController
 	 * @throws InvalidHospitalStateException
 	 */
 	public AddHospitalEquipmentController(LoginController loginController,
-			HospitalState state) throws InvalidLoginControllerException,
+			Hospital state) throws InvalidLoginControllerException,
 			InvalidHospitalStateException {
 		super(state, loginController);
 

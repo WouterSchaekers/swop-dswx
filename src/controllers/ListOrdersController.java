@@ -1,7 +1,7 @@
 package controllers;
 
 import java.util.LinkedList;
-import system.HospitalState;
+import system.Hospital;
 import users.User;
 import users.WarehouseAdmin;
 import warehouse.stock.StockOrder;
@@ -23,7 +23,7 @@ public class ListOrdersController extends NeedsLoginController
 	 * @throws InvalidLoginControllerException
 	 * @throws InvalidHospitalStateException
 	 */
-	public ListOrdersController(LoginController loginController, HospitalState hospitalState)
+	public ListOrdersController(LoginController loginController, Hospital hospitalState)
 			throws InvalidLoginControllerException, InvalidHospitalStateException {
 		super(hospitalState, loginController);
 	}

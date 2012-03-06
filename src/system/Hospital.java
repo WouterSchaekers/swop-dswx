@@ -13,7 +13,7 @@ import be.kuleuven.cs.som.annotate.Basic;
  * This class represents a hospital. It can be used to pass a bunch of data to
  * the controllers in a fashionable way.
  */
-public class HospitalState
+public class Hospital
 {
 	private final UserManager userManager;
 	private final MachinePool machinePool;
@@ -26,7 +26,7 @@ public class HospitalState
 	/**
 	 * Initializes an empty hospital.
 	 */
-	public HospitalState() {
+	public Hospital() {
 		try {
 			this.systemTime = new TimeLord();
 			this.userManager = new UserManager();
@@ -57,7 +57,7 @@ public class HospitalState
 	 * @param warehouse
 	 * The Warehouse for this hospital.
 	 */
-	public HospitalState(TimeLord timeLord, UserManager userManager,
+	public Hospital(TimeLord timeLord, UserManager userManager,
 			MachinePool machinePool, PatientFileManager patientFileManager,
 			Scheduler scheduler, TaskManager taskManager, Warehouse warehouse) {
 		this.systemTime = timeLord;

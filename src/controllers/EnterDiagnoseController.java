@@ -2,7 +2,7 @@ package controllers;
 
 import patient.Diagnose;
 import patient.PatientFile;
-import system.HospitalState;
+import system.Hospital;
 import users.Doctor;
 import users.User;
 import controllers.interfaces.DiagnoseIN;
@@ -26,7 +26,7 @@ public class EnterDiagnoseController extends NeedsLoginAndPatientFileController
 	 * @throws InvalidPatientFileOpenController
 	 * @throws InvalidHospitalStateException
 	 */
-	public EnterDiagnoseController(HospitalState hospitalState,
+	public EnterDiagnoseController(Hospital hospitalState,
 			LoginController loginc,
 			PatientFileOpenController patientFileOpenController)
 			throws InvalidLoginControllerException,

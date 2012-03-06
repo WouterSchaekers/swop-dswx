@@ -11,34 +11,34 @@ import scheduler.HospitalDate;
 import scheduler.task.Schedulable;
 import scheduler.task.scheduled.ScheduledTask;
 import scheduler.task.unscheduled.UnscheduledTask;
-import system.HospitalState;
+import system.Hospital;
 
 //TODO: is dit de moeite ffs 
 public class OldUnscheduledObject extends UnscheduledTask
 {
-	public OldUnscheduledObject(UnscheduledTask task,HospitalState state) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException
+	public OldUnscheduledObject(UnscheduledTask task,Hospital state) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException
 	{
 		super(getpf(task,state),duration(task,state),getSysTime(task,state),getExtraTime(task,state),getBackToBackness(task,state));
 	}
 	private static boolean getBackToBackness(UnscheduledTask task,
-			HospitalState state) {
+			Hospital state) {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	private static long getExtraTime(UnscheduledTask task, HospitalState state) {
+	private static long getExtraTime(UnscheduledTask task, Hospital state) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 	private static HospitalDate getSysTime(UnscheduledTask task,
-			HospitalState state) {
+			Hospital state) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	private static long duration(UnscheduledTask task, HospitalState state) {
+	private static long duration(UnscheduledTask task, Hospital state) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	private static PatientFile getpf(UnscheduledTask task, HospitalState state) {
+	private static PatientFile getpf(UnscheduledTask task, Hospital state) {
 		// TODO Auto-generated method stub
 		return null;
 	}

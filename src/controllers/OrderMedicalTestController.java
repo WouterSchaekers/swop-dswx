@@ -5,7 +5,7 @@ import medicaltest.MedicalTest;
 import medicaltest.MedicalTestFactory;
 import medicaltest.MedicalTests;
 import patient.PatientFile;
-import system.HospitalState;
+import system.Hospital;
 import users.Doctor;
 import users.User;
 import exceptions.*;
@@ -35,7 +35,7 @@ public class OrderMedicalTestController extends NeedsLoginAndPatientFileControll
 	 * @throws InvalidHospitalStateException
 	 */
 	public OrderMedicalTestController(LoginController lc,
-			PatientFileOpenController cpf, HospitalState dp)
+			PatientFileOpenController cpf, Hospital dp)
 			throws IllegalArgumentException, InvalidLoginControllerException,
 			InvalidPatientFileException, InvalidHospitalStateException,
 			InvalidPatientFileOpenController {
@@ -49,7 +49,7 @@ public class OrderMedicalTestController extends NeedsLoginAndPatientFileControll
 
 	}
 
-	public void addMedicaltest(MedicalTest create, HospitalState data)
+	public void addMedicaltest(MedicalTest create, Hospital data)
 			throws InvalidLoginControllerException,
 			InvalidPatientFileException, InvalidResourceException,
 			InvalidDurationException, InvalidOccurencesException,

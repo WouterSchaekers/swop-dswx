@@ -10,7 +10,7 @@ import exceptions.InvalidLocationException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidSerialException;
-import system.HospitalState;
+import system.Hospital;
 import users.Doctor;
 import users.HospitalAdmin;
 import users.Nurse;
@@ -18,7 +18,7 @@ import users.User;
 
 public class _CheckinControllerTest
 {
-	HospitalState hospital;
+	Hospital hospital;
 	LoginController loginController;
 	CheckinController checkinController;
 	User nurse;
@@ -27,7 +27,7 @@ public class _CheckinControllerTest
 	
 	@Before
 	public void setup() throws InvalidNameException {
-		hospital = new HospitalState();
+		hospital = new Hospital();
 		loginController = new LoginController(hospital);
 		nurse = new Nurse("jenny");
 		doctor = new Doctor("jonathan");

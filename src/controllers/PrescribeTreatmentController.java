@@ -1,7 +1,7 @@
 package controllers;
 
 import javax.naming.OperationNotSupportedException;
-import system.HospitalState;
+import system.Hospital;
 import users.Doctor;
 import users.User;
 import controllers.interfaces.DiagnoseIN;
@@ -16,7 +16,7 @@ public class PrescribeTreatmentController extends NeedsLoginAndPatientFileContro
 {
 	
 	public PrescribeTreatmentController(LoginController loginc,
-			PatientFileOpenController pfcontroller, HospitalState state, PatientFileOpenController pfoc)
+			PatientFileOpenController pfcontroller, Hospital state, PatientFileOpenController pfoc)
 			throws InvalidLoginControllerException,
 			InvalidPatientFileException, OperationNotSupportedException, InvalidHospitalStateException, InvalidPatientFileOpenController {
 		super(state, loginc, pfoc);

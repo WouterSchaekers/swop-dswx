@@ -1,6 +1,6 @@
 package ui;
 
-import system.HospitalState;
+import system.Hospital;
 import controllers.LoginController;
 import controllers.PatientFileOpenController;
 
@@ -11,7 +11,7 @@ public class UserinterfaceData
 {
 	private LoginController loginc;
 	private PatientFileOpenController regpatctrl;
-	private HospitalState data;
+	private Hospital data;
 
 	/**
 	 * Default constructor.
@@ -19,7 +19,7 @@ public class UserinterfaceData
 	 * @param data
 	 *            The datapasser for this dataobject.
 	 */
-	public UserinterfaceData(HospitalState data) {
+	public UserinterfaceData(Hospital data) {
 		this.data = data;
 	}
 
@@ -50,7 +50,7 @@ public class UserinterfaceData
 	 * @param data
 	 *            The datapasser.
 	 */
-	public void setData(HospitalState data) {
+	public void setData(Hospital data) {
 		this.data = data;
 
 	}
@@ -65,7 +65,7 @@ public class UserinterfaceData
 	/**
 	 * @return The datapasser of this dataobject.
 	 */
-	public HospitalState getDataPasser() {
+	public Hospital getDataPasser() {
 		return data;
 	}
 

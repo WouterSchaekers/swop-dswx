@@ -1,6 +1,6 @@
 package controllers;
 
-import system.HospitalState;
+import system.Hospital;
 import users.HospitalAdmin;
 import users.User;
 import users.UserManager;
@@ -13,7 +13,7 @@ import exceptions.UserAlreadyExistsException;
 public class CreateUserController extends NeedsLoginController
 {
 	public CreateUserController(LoginController loginController,
-			HospitalState hospitalState)
+			Hospital hospitalState)
 			throws InvalidLoginControllerException,
 			InvalidHospitalStateException {
 		super(hospitalState, loginController);

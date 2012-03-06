@@ -3,7 +3,7 @@ package controllers;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
-import system.HospitalState;
+import system.Hospital;
 import users.Doctor;
 import users.Nurse;
 import users.UserManager;
@@ -16,19 +16,19 @@ import exceptions.UserAlreadyExistsException;
 
 public class _PatientFileOpenControllerTest
 {
-	private HospitalState data;
+	private Hospital data;
 	private UserManager um;
 	private PatientFileOpenController pfoc;
 	private LoginController lc;
 	private Doctor d;
 	private Nurse n;
 	private UserIN u;
-	HospitalState hospital;
+	Hospital hospital;
 
 	@Before
 	public void setUp() throws Exception {
 		um = new UserManager();
-		hospital = new HospitalState();
+		hospital = new Hospital();
 	}
 
 	@Test

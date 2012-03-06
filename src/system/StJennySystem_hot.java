@@ -14,7 +14,7 @@ public class StJennySystem_hot
 {
 	static StJennySystem_hot instance;
 	private static boolean extendd;
-	final HospitalState state;
+	final Hospital state;
 
 	public static StJennySystem_hot instance() throws InvalidTimeLordException {
 		if (instance == null)
@@ -27,7 +27,7 @@ public class StJennySystem_hot
 
 	private StJennySystem_hot() throws InvalidTimeLordException,
 			InvalidHospitalDateException {
-		this.state = new HospitalState();
+		this.state = new Hospital();
 		try {
 			state.getUserManager().createHospitalAdmin("Wouter");
 			if (extendd)

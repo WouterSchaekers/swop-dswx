@@ -2,7 +2,7 @@ package controllers;
 
 import scheduler.HospitalDate;
 import scheduler.TimeLord;
-import system.HospitalState;
+import system.Hospital;
 import users.HospitalAdmin;
 import users.User;
 import exceptions.InvalidHospitalStateException;
@@ -14,7 +14,7 @@ public class AdvanceTimeController extends NeedsLoginController
 	private TimeLord timelord;
 
 	public AdvanceTimeController(LoginController loginController,
-			HospitalState hospitalState)
+			Hospital hospitalState)
 			throws InvalidLoginControllerException,
 			InvalidHospitalStateException {
 		super(hospitalState, loginController);

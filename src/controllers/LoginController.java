@@ -2,7 +2,7 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import system.HospitalState;
+import system.Hospital;
 import users.User;
 import users.UserManager;
 import controllers.interfaces.UserIN;
@@ -28,10 +28,10 @@ public class LoginController
 	 * @throws IllegalArgumentException
 	 *             if (!isValidData(data))
 	 */
-	public LoginController(HospitalState data) throws IllegalArgumentException {
-		if (!isValidData(data))
+	public LoginController(Hospital hospitalState) throws IllegalArgumentException {
+		if (!isValidData(hospitalState))
 			throw new IllegalArgumentException("datapasser is invalid!");
-		this.um = data.getUserManager();
+		this.um = hospitalState.getUserManager();
 	}
 
 	/**
@@ -41,7 +41,7 @@ public class LoginController
 	 *            The data to check
 	 * @return False if data == null || data.getUserManager() == null
 	 */
-	private boolean isValidData(HospitalState data) {
+	private boolean isValidData(Hospital data) {
 		return !(data == null || data.getUserManager() == null);
 	}
 

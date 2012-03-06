@@ -3,7 +3,7 @@ package controllers;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
-import system.HospitalState;
+import system.Hospital;
 import users.Doctor;
 import users.HospitalAdmin;
 import users.Nurse;
@@ -16,7 +16,7 @@ import exceptions.InvalidSerialException;
 
 public class _AdvanceTimeControllerTest
 {
-	HospitalState hospital;
+	Hospital hospital;
 	LoginController loginController;
 	AddHospitalEquipmentController addHospitalEquipmentController;
 	User nurse;
@@ -25,7 +25,7 @@ public class _AdvanceTimeControllerTest
 
 	@Before
 	public void setup() throws InvalidNameException {
-		hospital = new HospitalState();
+		hospital = new Hospital();
 		loginController = new LoginController(hospital);
 		nurse = new Nurse("jenny");
 		Doctor = new Doctor("jonathan");
