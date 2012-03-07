@@ -1,7 +1,6 @@
 package controllers;
 
 import patient.PatientFile;
-import patient.PatientFileManager;
 import system.Hospital;
 import users.Nurse;
 import users.User;
@@ -14,8 +13,7 @@ import exceptions.InvalidNameException;
  */
 public class CheckinController extends NeedsLoginController
 {
-	private PatientFileManager pfm = null; // the pfm for this checkincontroller
-
+	
 	/**
 	 * Default constructor.
 	 * 
@@ -30,7 +28,6 @@ public class CheckinController extends NeedsLoginController
 			throws InvalidLoginControllerException,
 			InvalidHospitalException {
 		super(hospital, lc);
-		this.pfm = hospital.getPatientFileManager();
 	}
 
 	/**
@@ -41,7 +38,7 @@ public class CheckinController extends NeedsLoginController
 	 *            The patient to be checked in.
 	 */
 	public void checkIn(PatientFile patientFile) {
-		pfm.checkIn(patientFile);
+		hospital.getPatientFileManager().checkIn(patientFile);
 	}
 
 	/**
@@ -53,7 +50,7 @@ public class CheckinController extends NeedsLoginController
 	 */
 	public PatientFile signUpNewPatient(String name)
 			throws InvalidNameException {
-		return pfm.registerPatient(name);
+		return hospital.getPatientFileManager().registerPatient(name);
 	}
 	
 	@Override

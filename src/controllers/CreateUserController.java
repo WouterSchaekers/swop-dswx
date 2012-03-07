@@ -3,7 +3,6 @@ package controllers;
 import system.Hospital;
 import users.HospitalAdmin;
 import users.User;
-import users.UserManager;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidNameException;

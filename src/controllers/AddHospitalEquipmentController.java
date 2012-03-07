@@ -5,7 +5,11 @@ import machine.MachineBuilder;
 import system.Hospital;
 import users.HospitalAdmin;
 import users.User;
-import exceptions.*;
+import exceptions.ControllerException;
+import exceptions.InvalidHospitalException;
+import exceptions.InvalidLocationException;
+import exceptions.InvalidLoginControllerException;
+import exceptions.InvalidSerialException;
 
 /**
  * Allows you to add new equipment to the hospital.

@@ -8,7 +8,18 @@ import patient.PatientFile;
 import system.Hospital;
 import users.Doctor;
 import users.User;
-import exceptions.*;
+import exceptions.InvalidAmountException;
+import exceptions.InvalidDurationException;
+import exceptions.InvalidHospitalDateArgument;
+import exceptions.InvalidHospitalDateException;
+import exceptions.InvalidHospitalException;
+import exceptions.InvalidLoginControllerException;
+import exceptions.InvalidOccurencesException;
+import exceptions.InvalidPatientFileException;
+import exceptions.InvalidPatientFileOpenController;
+import exceptions.InvalidResourceException;
+import exceptions.InvalidTimeSlotException;
+import exceptions.InvalidTreatmentException;
 
 /**
  * This class can be used to create medical tests etc...
