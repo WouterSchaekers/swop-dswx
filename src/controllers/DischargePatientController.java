@@ -4,9 +4,10 @@ import patient.PatientFile;
 import system.Hospital;
 import users.Doctor;
 import users.User;
-import exceptions.DischargePatienException;
+import exceptions.DischargePatientException;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
+import exceptions.InvalidPatientFileException;
 import exceptions.InvalidPatientFileOpenController;
 
 public class DischargePatientController extends
@@ -14,17 +15,19 @@ public class DischargePatientController extends
 {
 
 	public DischargePatientController(Hospital hospital,
-			LoginController loginController,
-			ConsultPatientFileController patienfile)
+			LoginController loginController, ConsultPatientFileController cpfc)
 			throws InvalidLoginControllerException, InvalidHospitalException,
-			InvalidPatientFileOpenController {
-		super(hospital, loginController, patienfile);
+			InvalidPatientFileOpenController, InvalidPatientFileException {
+		super(hospital, loginController, cpfc);
+		if (cpfc.getPatientFile().isDischarged())
+			throw new InvalidPatientFileException(
+					"Trying to discharge an invalid patientfile!");
 	}
 
-	public void dischargePatient() throws DischargePatienException {
+	public void dischargePatient() throws DischargePatientException {
+		// TODO: check if unfinished treatments/test/unapproved diag?
 		hospital.getPatientFileManager().checkOut(
 				(PatientFile) pfoc.getPatientFile());
-
 	}
 
 	@Override

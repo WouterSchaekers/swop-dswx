@@ -24,8 +24,8 @@ import ui.prescribetreatment.PrescribeTreatment;
 import ui.registerpatient.RegisterPatient;
 import ui.reviewpatient.ReviewPatient;
 import controllers.AddHospitalEquipmentController;
-import controllers.ApproveDiagnosisController;
-import controllers.CreateUserController;
+import controllers.ApproveDiagnoseController;
+import controllers.AddHospitalStaffController;
 import controllers.EnterDiagnoseController;
 import controllers.FillStockInWarehouseController;
 import controllers.LoginController;
@@ -112,7 +112,7 @@ public class SelectUsecase extends Usecase
 
 			@Override
 			public Usecase create(UserinterfaceData data) throws Exception {
-				new CreateUserController(data.getLoginController(),
+				new AddHospitalStaffController(data.getLoginController(),
 						data.getDataPasser());
 				return new CreateUser(data);
 			}
@@ -139,7 +139,7 @@ public class SelectUsecase extends Usecase
 
 			@Override
 			public Usecase create(UserinterfaceData data) throws Exception {
-				new ApproveDiagnosisController(data.getDataPasser(),
+				new ApproveDiagnoseController(data.getDataPasser(),
 						data.getLoginController());
 				return new ApproveDiagnosis(data);
 			}

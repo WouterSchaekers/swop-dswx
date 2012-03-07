@@ -13,7 +13,7 @@ import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.MedicalTestIN;
 import controllers.interfaces.PatientFileIN;
 import controllers.interfaces.TreatmentIN;
-import exceptions.DischargePatienException;
+import exceptions.DischargePatientException;
 import exceptions.InvalidDiagnoseException;
 import exceptions.InvalidDoctorException;
 import exceptions.InvalidNameException;
@@ -73,11 +73,11 @@ public class PatientFile implements PatientFileIN
 	/**
 	 * This function discharges this patient.
 	 * 
-	 * @throws DischargePatienException
+	 * @throws DischargePatientException
 	 */
-	void discharge() throws DischargePatienException {
+	void discharge() throws DischargePatientException {
 		if (!canBeDischarged())
-			throw new DischargePatienException();
+			throw new DischargePatientException();
 		this.discharged = true;
 	}
 

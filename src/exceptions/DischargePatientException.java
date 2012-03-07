@@ -1,6 +1,6 @@
 package exceptions;
 
-public class DischargePatienException extends Exception
+public class DischargePatientException extends Exception
 {
 
 	/**

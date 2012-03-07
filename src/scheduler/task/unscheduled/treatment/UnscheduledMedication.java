@@ -55,18 +55,20 @@ public class UnscheduledMedication extends UnscheduledTreatment
 	}
 
 	protected LinkedList<Medication> getMedicationPool() {
-		LinkedList<Medication> medicationPool = new LinkedList<Medication>();
-		medicationPool.addAll(Collections.filter(
-				this.warehouse.getMedication(), new Filter()
-				{
-					@Override
-					public <T> boolean allows(T arg) {
-						return arg.getClass().equals(
-								UnscheduledMedication.this.getMytreatment()
-										.getClass());
-					}
-				}));
-		return medicationPool;
+//		LinkedList<Medication> medicationPool = new LinkedList<Medication>();
+//		medicationPool.addAll(Collections.filter(
+//				this.warehouse.getMedication(), new Filter()
+//				{
+//					@Override
+//					public <T> boolean allows(T arg) {
+//						return arg.getClass().equals(
+//								UnscheduledMedication.this.getMytreatment()
+//										.getClass());
+//					}
+//				}));
+//		return medicationPool;
+		return null;
+		//TODO: fix
 	}
 
 }
