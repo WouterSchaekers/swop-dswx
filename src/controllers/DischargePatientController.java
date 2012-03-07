@@ -15,7 +15,7 @@ public class DischargePatientController extends
 
 	public DischargePatientController(Hospital hospital,
 			LoginController loginController,
-			PatientFileOpenController patienfile)
+			ConsultPatientFileController patienfile)
 			throws InvalidLoginControllerException, InvalidHospitalException,
 			InvalidPatientFileOpenController {
 		super(hospital, loginController, patienfile);

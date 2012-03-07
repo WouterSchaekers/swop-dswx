@@ -4,7 +4,7 @@ import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
 import controllers.LoginController;
-import controllers.PatientFileOpenController;
+import controllers.ConsultPatientFileController;
 
 public class ReviewPatient extends Usecase
 {
@@ -37,7 +37,7 @@ public class ReviewPatient extends Usecase
 	}
 
 	private boolean validPatientFileOpen(LoginController loginController,
-			PatientFileOpenController patientFileOpenController) {
+			ConsultPatientFileController patientFileOpenController) {
 		if (loginController == null || patientFileOpenController == null)
 			return false;
 		if (!patientFileOpenController.isValidLoginController(loginController))

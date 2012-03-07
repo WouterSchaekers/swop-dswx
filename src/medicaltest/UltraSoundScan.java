@@ -5,17 +5,11 @@ import patient.PatientFile;
 import result.Result;
 import scheduler.HospitalDate;
 import scheduler.TimeLord;
-import scheduler.task.TaskManager;
 import scheduler.task.unscheduled.tests.UnscheduledMedicalTest;
 import scheduler.task.unscheduled.tests.UnscheduledUltraSound;
 import users.UserManager;
 import warehouse.Warehouse;
-import exceptions.InvalidAmountException;
-import exceptions.InvalidDurationException;
-import exceptions.InvalidHospitalDateException;
-import exceptions.InvalidOccurencesException;
-import exceptions.InvalidResourceException;
-import exceptions.InvalidTimeSlotException;
+import exceptions.*;
 
 public class UltraSoundScan extends MedicalTest
 {
@@ -26,15 +20,6 @@ public class UltraSoundScan extends MedicalTest
 	private final boolean recordImages;
 	private Result result;
 
-	/**
-	 * Default constructor.
-	 * 
-	 * @param recordImages
-	 * @param recordVid
-	 * @param scaninfo
-	 * @throws InvalidTimeSlotException
-	 * @see MedicalTest("UltraSoundScan")
-	 */
 	UltraSoundScan(String scaninfo, boolean recordVid, boolean recordImages)
 			throws InvalidDurationException {
 		super(UltraSoundScan.DURATION);
@@ -60,18 +45,7 @@ public class UltraSoundScan extends MedicalTest
 		this.result = r;
 
 	}
-
-	@Override
-	public UnscheduledMedicalTest getUnscheduled(UserManager userm,
-			Warehouse warehouse, PatientFile file, TimeLord systemtime,
-			TaskManager taskmanager, MachinePool pool)
-			throws InvalidResourceException, InvalidDurationException,
-			InvalidOccurencesException, InvalidAmountException,
-			InvalidHospitalDateException {
-		return new UnscheduledUltraSound(file, systemtime.getSystemTime(),
-				userm, pool, this);
-	}
-
+	
 	@Override
 	public String appointmentInfo() {
 		String rv = "";
@@ -90,6 +64,15 @@ public class UltraSoundScan extends MedicalTest
 
 	public Result getResult() {
 		return result;
+	}
+
+	@Override
+	public UnscheduledMedicalTest getUnscheduled(UserManager userm,
+			Warehouse warehouse, PatientFile file, TimeLord systemTime,
+			MachinePool pool) throws InvalidResourceException,
+			InvalidDurationException, InvalidOccurencesException,
+			InvalidAmountException, InvalidHospitalDateException {
+		return new UnscheduledUltraSound(file, systemTime.getSystemTime(), userm, pool, this);
 	}
 
 }

@@ -6,7 +6,7 @@ import java.util.Map;
 import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
-import controllers.PatientFileOpenController;
+import controllers.ConsultPatientFileController;
 import controllers.interfaces.PatientFileIN;
 import exceptions.InvalidLoginControllerException;
 
@@ -20,9 +20,9 @@ public class ListUndischargedPatients extends ConsultPatientFileSuperclass
 
 	@Override
 	public Usecase Execute() {
-		PatientFileOpenController c;
+		ConsultPatientFileController c;
 		try {
-			c = new PatientFileOpenController(data.getDataPasser(),
+			c = new ConsultPatientFileController(data.getDataPasser(),
 					data.getLoginController());
 		} catch (InvalidLoginControllerException e) {
 			System.out.println("You are not allowed to do this");

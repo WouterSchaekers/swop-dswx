@@ -8,14 +8,14 @@ import exceptions.InvalidLoginControllerException;
 public abstract class NeedsLoginController extends MasterController
 {
 
-	protected LoginController loginControler;
+	protected LoginController loginController;
 
 	public NeedsLoginController(Hospital hospital,
 			LoginController controller) throws InvalidLoginControllerException,
 			InvalidHospitalException {
 		super(hospital);
 		if (isValidLoginController(controller))
-			this.loginControler = controller;
+			this.loginController = controller;
 		else
 			throw new InvalidLoginControllerException("This loginController is invalid.");
 	}
@@ -33,9 +33,9 @@ public abstract class NeedsLoginController extends MasterController
 			return false;
 		if (!validUser(i))
 			return false;
-		if (this.loginControler == null)
+		if (this.loginController == null)
 			return true;
-		else if (!this.loginControler.equals(loginController)) {
+		else if (!this.loginController.equals(loginController)) {
 			return false;
 		}
 		return true;

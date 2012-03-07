@@ -15,7 +15,7 @@ public class EnterTreatmentResultController extends
 {
 
 	public EnterTreatmentResultController(Hospital hospital,
-			LoginController controller, PatientFileOpenController pfoc)
+			LoginController controller, ConsultPatientFileController pfoc)
 			throws InvalidLoginControllerException,
 			InvalidHospitalException, InvalidPatientFileOpenController {
 		super(hospital, controller, pfoc);

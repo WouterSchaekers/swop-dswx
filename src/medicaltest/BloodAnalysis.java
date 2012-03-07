@@ -5,18 +5,12 @@ import patient.PatientFile;
 import result.Result;
 import scheduler.HospitalDate;
 import scheduler.TimeLord;
-import scheduler.task.TaskManager;
 import scheduler.task.unscheduled.tests.UnscheduledBloodTest;
 import scheduler.task.unscheduled.tests.UnscheduledMedicalTest;
 import users.UserManager;
 import warehouse.Warehouse;
 import be.kuleuven.cs.som.annotate.Basic;
-import exceptions.InvalidAmountException;
-import exceptions.InvalidDurationException;
-import exceptions.InvalidHospitalDateException;
-import exceptions.InvalidOccurencesException;
-import exceptions.InvalidResourceException;
-import exceptions.InvalidTimeSlotException;
+import exceptions.*;
 
 /**
  * This class represents a bloodanalysis test.
@@ -31,19 +25,14 @@ public class BloodAnalysis extends MedicalTest
 	 * The focus of this bloodanalysis
 	 */
 	private final String focus;
-
 	public final static long DURATION = 45 * HospitalDate.ONE_MINUTE;
-
-	/**
-	 * Constructor called by the BloodAnalysisFactory
-	 * 
-	 * @throws InvalidTimeSlotException
-	 */
+	
 	BloodAnalysis(int amount, String focus) throws InvalidDurationException {
 		super(BloodAnalysis.DURATION);
 		this.amount = amount;
 		this.focus = focus;
 	}
+
 
 	@Basic
 	public int getAmount() {
@@ -58,17 +47,6 @@ public class BloodAnalysis extends MedicalTest
 	@Override
 	public void setResult(Result r) {
 
-	}
-
-	@Override
-	public UnscheduledMedicalTest getUnscheduled(UserManager userm,
-			Warehouse warehouse, PatientFile file, TimeLord systemtime,
-			TaskManager taskmanager, MachinePool pool)
-			throws InvalidResourceException, InvalidDurationException,
-			InvalidOccurencesException, InvalidAmountException,
-			InvalidHospitalDateException {
-		return new UnscheduledBloodTest(file, systemtime.getSystemTime(),
-				userm, pool, this);
 	}
 
 	/**
@@ -88,6 +66,16 @@ public class BloodAnalysis extends MedicalTest
 			rv += "Scan is not yet Scheduled";
 		}
 		return rv;
+	}
+
+	@Override
+	public UnscheduledMedicalTest getUnscheduled(UserManager userm,
+			Warehouse warehouse, PatientFile file, TimeLord systemTime,
+			MachinePool pool) throws InvalidResourceException,
+			InvalidDurationException, InvalidOccurencesException,
+			InvalidAmountException, InvalidHospitalDateException {
+		return new UnscheduledBloodTest(file, systemTime.getSystemTime(),
+				userm, pool, this);
 	}
 
 }

@@ -177,26 +177,12 @@ public class Diagnose extends Observable implements DiagnoseIN
 		return doc.equals(this.needsSecOpFrom());
 	}
 
-	// /**
-	// * @return true if secOp.equals(this.getDiagnosis())
-	// */
-	// private boolean evaluateSecOp(String secOp) {
-	// return secOp.equalsIgnoreCase(this.getDiagnosis());
-	// }
-
-	/**
-	 * This method assigns an extra Treatment to this Diagnose.
-	 * 
-	 * @param t
-	 *            The new Treatment.
-	 * @throws InvalidTreatmentException
-	 *             if(!isValidTreatment(t))
-	 */
-	public void assignTreatment(Treatment t) throws InvalidTreatmentException {
-		if (!isValidTreatment(t))
+	public void addTreatment(Treatment t) throws InvalidTreatmentException {
+		if (this.isValidTreatment(t))
+			this.treatments.add(t);
+		else
 			throw new InvalidTreatmentException(
-					"Trying to associate an invalid treatment for a diagnosis!");
-		treatments.add(t);
+					"Trying to add invalid treatment to diagnose!");
 	}
 
 	@Basic

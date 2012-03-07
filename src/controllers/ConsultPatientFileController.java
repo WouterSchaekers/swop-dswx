@@ -15,13 +15,13 @@ import exceptions.InvalidLoginControllerException;
 /**
  * A controller that allows you to open patientfiles.
  */
-public class PatientFileOpenController extends NeedsLoginController
+public class ConsultPatientFileController extends NeedsLoginController
 {
 	private Hospital hospital;
 	private DoctorIN doctor;
 	private PatientFile pf;
 
-	public PatientFileOpenController(Hospital hospital,
+	public ConsultPatientFileController(Hospital hospital,
 			LoginController loginController)
 			throws InvalidHospitalException,
 			InvalidLoginControllerException {
@@ -29,13 +29,14 @@ public class PatientFileOpenController extends NeedsLoginController
 		this.hospital = hospital;
 		doctor = (DoctorIN) loginController.getUser();
 	}
-
-	public Collection<PatientFileIN> getAllPatientFiles() {
-		return new ArrayList<PatientFileIN>(hospital.getPatientFileManager()
+	
+	public Collection<PatientFileIN> getActivePatientFiles() {
+		ArrayList<PatientFileIN> pfs = new ArrayList<PatientFileIN>(hospital.getPatientFileManager()
 				.getAllPatientFiles());
+		//TODO: filter		
+		return null;
 	}
 
-	// TODO: heeft pfdto nodig?
 	public void openPatientFile(PatientFileIN pfdto) {
 		if (pfdto instanceof PatientFile)
 			this.pf = (PatientFile) pfdto;

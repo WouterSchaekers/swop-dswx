@@ -1,17 +1,17 @@
 package ui.consultpatientfile;
 
-import controllers.PatientFileOpenController;
+import controllers.ConsultPatientFileController;
 
 class ConsutlPatientFileData
 {
-	PatientFileOpenController pfoc;
+	ConsultPatientFileController pfoc;
 
 	public void setPatientFileOpenController(
-			PatientFileOpenController patientFileOpenController) {
+			ConsultPatientFileController patientFileOpenController) {
 		this.pfoc = patientFileOpenController;
 	}
 
-	public PatientFileOpenController getPatientfileOpenController() {
+	public ConsultPatientFileController getPatientfileOpenController() {
 		return pfoc;
 	}
 
