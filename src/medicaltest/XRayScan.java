@@ -5,18 +5,11 @@ import patient.PatientFile;
 import result.Result;
 import scheduler.HospitalDate;
 import scheduler.TimeLord;
-import scheduler.task.TaskManager;
 import scheduler.task.unscheduled.tests.UnscheduledMedicalTest;
 import scheduler.task.unscheduled.tests.UnscheduledXRayScan;
 import users.UserManager;
 import warehouse.Warehouse;
-import exceptions.InvalidAmountException;
-import exceptions.InvalidDurationException;
-import exceptions.InvalidHospitalDateException;
-import exceptions.InvalidNameException;
-import exceptions.InvalidOccurencesException;
-import exceptions.InvalidResourceException;
-import exceptions.InvalidTimeSlotException;
+import exceptions.*;
 
 public class XRayScan extends MedicalTest
 {
@@ -25,6 +18,15 @@ public class XRayScan extends MedicalTest
 	private int num;
 	private float zoomlevel;
 
+	XRayScan(String bodypart, int num, float zoomlevel)
+			throws InvalidNameException, InvalidDurationException,
+			InvalidTimeSlotException {
+		super(XRayScan.DURATION);
+		this.bodypart = bodypart;
+		this.num = num;
+		this.zoomlevel = zoomlevel;
+	}
+	
 	public int getNum() {
 		return num;
 	}
@@ -45,37 +47,9 @@ public class XRayScan extends MedicalTest
 		return bodypart;
 	}
 
-	/**
-	 * Default constructor.
-	 * 
-	 * @param zoomlevel
-	 * @param num
-	 * @throws InvalidTimeSlotException
-	 * @see MedicalTest("XRayScan",15,patientFile)
-	 */
-	XRayScan(String bodypart, int num, float zoomlevel)
-			throws InvalidNameException, InvalidDurationException,
-			InvalidTimeSlotException {
-		super(XRayScan.DURATION);
-		this.bodypart = bodypart;
-		this.num = num;
-		this.zoomlevel = zoomlevel;
-	}
-
 	@Override
 	public void setResult(Result r) {
 
-	}
-
-	@Override
-	public UnscheduledMedicalTest getUnscheduled(UserManager userm,
-			Warehouse warehouse, PatientFile file, TimeLord systemtime,
-			TaskManager taskmanager, MachinePool pool)
-			throws InvalidResourceException, InvalidDurationException,
-			InvalidOccurencesException, InvalidAmountException,
-			InvalidHospitalDateException {
-		return new UnscheduledXRayScan(file, systemtime.getSystemTime(), userm,
-				pool, this);
 	}
 
 	@Override
@@ -92,6 +66,16 @@ public class XRayScan extends MedicalTest
 			rv += "Scan is not yet Scheduled";
 		}
 		return rv;
+	}
+
+	@Override
+	public UnscheduledMedicalTest getUnscheduled(UserManager userm,
+			Warehouse warehouse, PatientFile file, TimeLord systemTime,
+			MachinePool pool) throws InvalidResourceException,
+			InvalidDurationException, InvalidOccurencesException,
+			InvalidAmountException, InvalidHospitalDateException {
+		return new UnscheduledXRayScan(file, systemTime.getSystemTime(), userm,
+				pool, this);
 	}
 
 }

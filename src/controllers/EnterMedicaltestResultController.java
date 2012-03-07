@@ -13,7 +13,7 @@ public class EnterMedicaltestResultController extends
 		NeedsLoginAndPatientFileController
 {
 	public EnterMedicaltestResultController(Hospital hospital,
-			LoginController loginController, PatientFileOpenController pfoc)
+			LoginController loginController, ConsultPatientFileController pfoc)
 			throws InvalidLoginControllerException,
 			InvalidHospitalException, InvalidPatientFileOpenController {
 		super(hospital, loginController, pfoc);

@@ -23,7 +23,7 @@ public class RegisterCheckin extends Usecase
 
 	@Override
 	public Usecase Execute() {
-		rpc.registerPatient(nameMap.get(name));
+		rpc.checkInPatient(nameMap.get(name));
 		System.out.println(name + " has been checked in");
 		return new SelectDoctor(data, nameMap.get(name), rpc);
 	}

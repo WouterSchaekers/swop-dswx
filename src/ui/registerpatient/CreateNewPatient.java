@@ -22,7 +22,7 @@ public class CreateNewPatient extends Usecase
 		String name = input.nextLine();
 
 		try {
-			rpc.createNewPatient(data.getDataPasser(), name);
+			rpc.registerNewPatient(data.getDataPasser(), name);
 		} catch (InvalidNameException e) {
 			System.out.println("name provided was invalid");
 			return this;

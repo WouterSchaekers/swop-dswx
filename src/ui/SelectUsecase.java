@@ -30,7 +30,7 @@ import controllers.EnterDiagnoseController;
 import controllers.FillStockInWarehouseController;
 import controllers.LoginController;
 import controllers.OrderMedicalTestController;
-import controllers.PatientFileOpenController;
+import controllers.ConsultPatientFileController;
 import controllers.PrescribeTreatmentController;
 import controllers.RegisterPatientController;
 
@@ -150,7 +150,7 @@ public class SelectUsecase extends Usecase
 			public Usecase create(UserinterfaceData data) throws Exception {
 				if (data.getPatientFileOpenController() != null)
 					throw new Exception();
-				new PatientFileOpenController(data.getDataPasser(),
+				new ConsultPatientFileController(data.getDataPasser(),
 						data.getLoginController());
 
 				return new ConsultPatientFile(data);

@@ -44,12 +44,13 @@ public abstract class UnscheduledMedicalTest extends UnscheduledTask1
 				&& this.userManager.getAllNurses().size() > 0;
 	}
 
+	//TODO: Weinig uitbreidbaar gecoded? Wat als doctor nodig?
 	@Override
 	public LinkedList<LinkedList<Schedulable>> getResourcePool() {
 		LinkedList<LinkedList<Schedulable>> rv = new LinkedList<LinkedList<Schedulable>>();
-		LinkedList<Schedulable> l = new LinkedList<Schedulable>();
-		l.addAll(this.userManager.getAllNurses());
-		rv.add(l);
+		LinkedList<Schedulable> list = new LinkedList<Schedulable>();
+		list.addAll(this.userManager.getAllNurses());
+		rv.add(list);
 		return rv;
 	}
 

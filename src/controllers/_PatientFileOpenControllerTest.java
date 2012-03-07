@@ -18,7 +18,7 @@ public class _PatientFileOpenControllerTest
 {
 	private Hospital data;
 	private UserManager um;
-	private PatientFileOpenController pfoc;
+	private ConsultPatientFileController pfoc;
 	private LoginController lc;
 	private Doctor d;
 	private Nurse n;
@@ -39,14 +39,14 @@ public class _PatientFileOpenControllerTest
 		d = um.createDoctor("Jef");
 		u = d;
 		lc.logIn(u);
-		pfoc = new PatientFileOpenController(data, lc);
+		pfoc = new ConsultPatientFileController(data, lc);
 	}
 
 	@Test(expected = InvalidLoginControllerException.class)
 	public void testGetLoginControllerFail()
 			throws InvalidLoginControllerException, InvalidHospitalException {
 		lc = new LoginController(data);
-		pfoc = new PatientFileOpenController(data, null);
+		pfoc = new ConsultPatientFileController(data, null);
 	}
 
 	@Test(expected = InvalidLoginControllerException.class)
@@ -56,7 +56,7 @@ public class _PatientFileOpenControllerTest
 		lc = new LoginController(data);
 		n = um.createNurse("Sandrien");
 		u = n;
-		pfoc = new PatientFileOpenController(data, lc);
+		pfoc = new ConsultPatientFileController(data, lc);
 	}
 
 	@Test
@@ -67,7 +67,7 @@ public class _PatientFileOpenControllerTest
 		d = um.createDoctor("Jef");
 		u = d;
 		lc.logIn(u);
-		pfoc = new PatientFileOpenController(data, lc);
+		pfoc = new ConsultPatientFileController(data, lc);
 		assertTrue(pfoc.isValidLoginController(lc));
 	}
 
@@ -79,6 +79,6 @@ public class _PatientFileOpenControllerTest
 		n = um.createNurse("Margo");
 		u = n;
 		lc.logIn(u);
-		pfoc = new PatientFileOpenController(data, lc);
+		pfoc = new ConsultPatientFileController(data, lc);
 	}
 }

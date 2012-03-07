@@ -34,7 +34,7 @@ public class PatientFile implements PatientFileIN
 	private Collection<MedicalTest> medicaltests = new ArrayList<MedicalTest>();
 
 	/**
-	 * ()lt Constructor.
+	 * Default Constructor.
 	 * 
 	 * @param patientname
 	 *            The name of the patient to whom this patient file belongs to.
@@ -177,7 +177,6 @@ public class PatientFile implements PatientFileIN
 		Diagnose d = new Diagnose(attending, diag);
 		d.addObserver(new DiagnoseObserverTaskManager(taskmanager));
 		return d;
-
 	}
 
 	public static Diagnose createDiagnoseSecondOp(String diag,
@@ -187,12 +186,10 @@ public class PatientFile implements PatientFileIN
 		d.addObserver(new DiagnoseObserverTaskManager(taskmanager));
 		d.markForSecOp(secondop);
 		return d;
-
 	}
 
 	public void addMedicalTest(MedicalTest create) {
 		this.medicaltests.add(create);
-
 	}
 
 	@Override

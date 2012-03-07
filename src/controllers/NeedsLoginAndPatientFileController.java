@@ -12,7 +12,7 @@ import exceptions.InvalidPatientFileOpenController;
 public abstract class NeedsLoginAndPatientFileController extends
 		NeedsLoginController
 {
-	protected PatientFileOpenController pfoc;
+	protected ConsultPatientFileController pfoc;
 
 	/**
 	 * Default constructor.
@@ -25,7 +25,7 @@ public abstract class NeedsLoginAndPatientFileController extends
 	 * @throws InvalidPatientFileOpenController
 	 */
 	public NeedsLoginAndPatientFileController(Hospital hospital,
-			LoginController controller, PatientFileOpenController pfoc)
+			LoginController controller, ConsultPatientFileController pfoc)
 			throws InvalidLoginControllerException,
 			InvalidHospitalException, InvalidPatientFileOpenController {
 		super(hospital, controller);
@@ -35,7 +35,7 @@ public abstract class NeedsLoginAndPatientFileController extends
 		this.pfoc = pfoc;
 	}
 
-	boolean isValidPatientFileOpenController(PatientFileOpenController pfoc) {
+	boolean isValidPatientFileOpenController(ConsultPatientFileController pfoc) {
 		if (pfoc == null)
 			return false;
 		if (this.pfoc != null)

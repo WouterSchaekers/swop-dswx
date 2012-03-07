@@ -2,7 +2,7 @@ package ui;
 
 import system.Hospital;
 import controllers.LoginController;
-import controllers.PatientFileOpenController;
+import controllers.ConsultPatientFileController;
 
 /**
  * This class keeps the information that the user interface needs.
@@ -10,7 +10,7 @@ import controllers.PatientFileOpenController;
 public class UserinterfaceData
 {
 	private LoginController loginc;
-	private PatientFileOpenController regpatctrl;
+	private ConsultPatientFileController regpatctrl;
 	private Hospital data;
 
 	/**
@@ -40,7 +40,7 @@ public class UserinterfaceData
 	 * @param regpatctrl
 	 *            The registerpatientfilecontroller.
 	 */
-	public void setRegpatctrl(PatientFileOpenController regpatctrl) {
+	public void setRegpatctrl(ConsultPatientFileController regpatctrl) {
 		this.regpatctrl = regpatctrl;
 	}
 
@@ -72,7 +72,7 @@ public class UserinterfaceData
 	/**
 	 * @return The RegisterPatientFileController of this dataobject.
 	 */
-	public PatientFileOpenController getPatientFileOpenController() {
+	public ConsultPatientFileController getPatientFileOpenController() {
 		return regpatctrl;
 	}
 

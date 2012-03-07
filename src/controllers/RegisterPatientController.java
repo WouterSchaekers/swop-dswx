@@ -11,7 +11,6 @@ import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidNameException;
 
-//TODO: check usecase register patient
 public class RegisterPatientController extends NeedsLoginController
 {
 	public RegisterPatientController(LoginController loginController,
@@ -25,7 +24,7 @@ public class RegisterPatientController extends NeedsLoginController
 				.getAllPatientFiles());
 	}
 
-	public void registerPatient(PatientFileIN patientFile) {
+	public void checkInPatient(PatientFileIN patientFile) {
 		if (!(patientFile instanceof PatientFile))
 			throw new IllegalArgumentException(patientFile
 					+ " is not a valid patientfile");
@@ -33,17 +32,10 @@ public class RegisterPatientController extends NeedsLoginController
 				.checkIn((PatientFile) patientFile);
 	}
 
-	//TODO: check
-	/**
-	public AppointmentIN CreateAppointment(UserIN user, Hospital hospital)
-			throws InvalidLoginControllerException {
-		return null;
-	}
-	**/
-
-	public void createNewPatient(Hospital hospital, String name)
+	public void registerNewPatient(Hospital hospital, String name)
 			throws InvalidNameException {
 		hospital.getPatientFileManager().registerPatient(name);
+		
 	}
 
 	@Override
