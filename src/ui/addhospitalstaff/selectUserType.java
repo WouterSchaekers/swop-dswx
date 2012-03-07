@@ -3,7 +3,7 @@ package ui.addhospitalstaff;
 import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
-import controllers.CreateUserController;
+import controllers.AddHospitalStaffController;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 
@@ -16,9 +16,9 @@ public class selectUserType extends Usecase
 
 	@Override
 	public Usecase Execute() {
-		CreateUserController c = null;
+		AddHospitalStaffController c = null;
 		try {
-			c = new CreateUserController(data.getLoginController(),
+			c = new AddHospitalStaffController(data.getLoginController(),
 					data.getDataPasser());
 		} catch (InvalidLoginControllerException e1) {
 			// TODO Auto-generated catch block

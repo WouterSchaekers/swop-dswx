@@ -1,7 +1,5 @@
 package controllers;
 
-import patient.PatientFile;
-import scheduler.task.unscheduled.treatment.UnscheduledTreatment;
 import system.Hospital;
 import treatment.Treatment;
 import users.Doctor;
@@ -26,12 +24,7 @@ public class PrescribeTreatmentController extends
 	}
 
 	public void addTreatment(Treatment treatment) {
-		UnscheduledTreatment task = treatment.getUnscheduled(
-				hospital.getUserManager(), hospital.getWarehouse(),
-				(PatientFile) pfoc.getPatientFile(), hospital.getSystemTime(),
-				hospital.getTaskManager(), hospital.getMachinePool());
-		((PatientFile) pfoc.getPatientFile()).getDiagnosis().addTreatment(treatment);
-		hospital.getTaskManager().addTask(t);
+		//TODO: fix
 	}
 
 	@Override

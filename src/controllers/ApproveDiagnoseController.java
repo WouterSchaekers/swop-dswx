@@ -11,14 +11,15 @@ import controllers.interfaces.PatientFileIN;
 import exceptions.ApproveDiagnoseException;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
+import exceptions.InvalidPatientFileOpenController;
 
-public class ApproveDiagnosisController extends NeedsLoginController
+public class ApproveDiagnoseController extends NeedsLoginAndPatientFileController
 {
 
-	public ApproveDiagnosisController(Hospital hospital,
-			LoginController loginc) throws InvalidLoginControllerException,
-			InvalidHospitalException {
-		super(hospital, loginc);
+	public ApproveDiagnoseController(Hospital hospital,
+			LoginController loginc, ConsultPatientFileController cpfc) throws InvalidLoginControllerException,
+			InvalidHospitalException, InvalidPatientFileOpenController {
+		super(hospital, loginc, cpfc);
 	}
 
 	public Collection<PatientFileIN> getAllPatienFiles() {
@@ -27,20 +28,18 @@ public class ApproveDiagnosisController extends NeedsLoginController
 		return f;
 	}
 
-	// XXX:waarom iets terug geven
-	public DiagnoseIN approveDiagnose(DiagnoseIN selected)
-			throws ApproveDiagnoseException {
+	public void approveDiagnose(DiagnoseIN selected) throws ApproveDiagnoseException {
 		if (selected instanceof Diagnose)
 			((Diagnose) selected).approve();
-		return selected;
-
+		else throw new ApproveDiagnoseException("Invalid Diagnose given to ApproveDiagnoseController!");
 	}
 	
-	public void disApproveDiagnose(DiagnoseIN selected, DiagnoseIN replacement)
+	public void disapproveDiagnose(DiagnoseIN selected, DiagnoseIN replacement)
 			throws  ApproveDiagnoseException {
 		if (selected instanceof Diagnose)
 			((Diagnose) selected).disaprove(replacement);
 
+		//TODO: discard original treatment
 	}
 
 	@Override

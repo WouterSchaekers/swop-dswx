@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import ui.Usecase;
 import ui.UserinterfaceData;
-import controllers.ApproveDiagnosisController;
+import controllers.ApproveDiagnoseController;
 import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.PatientFileIN;
 import exceptions.InvalidLoginControllerException;
@@ -21,7 +21,7 @@ public class ShowDiagnosisOptionsToApprove extends ApproveDiagnosisSuper
 
 	@Override
 	public Usecase Execute() {
-		ApproveDiagnosisController c = chaindata.getController();
+		ApproveDiagnoseController c = chaindata.getController();
 		Collection<PatientFileIN> patientfiles;
 		//TODO FIX THIS
 		patientfiles = null;

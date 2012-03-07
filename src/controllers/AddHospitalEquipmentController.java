@@ -38,11 +38,14 @@ public class AddHospitalEquipmentController extends NeedsLoginController
 		return hospital.getMachinePool().getAllBuilders();
 	}
 
+	// XXX: er is blijkbaar, indien men de opgave nauwkeurig bestudeerd, een
+	// merkbaar verschil tussen de location van een machine en zijn
+	// repectievelijke campus.
+
 	/**
 	 * Creates a new machine from the given machine builder and adds it to the
 	 * hospital.
 	 */
-	// TODO : Fix these parameters
 	public void createMachine(MachineBuilder b, int serial, String location)
 			throws InvalidLocationException, InvalidSerialException {
 		hospital.getMachinePool().addMachine(b.build(serial, location));

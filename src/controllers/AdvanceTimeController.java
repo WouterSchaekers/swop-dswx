@@ -14,7 +14,6 @@ public class AdvanceTimeController extends NeedsLoginController
 			Hospital hospital) throws InvalidLoginControllerException,
 			InvalidHospitalException {
 		super(hospital, loginController);
-
 	}
 
 	/**
@@ -26,7 +25,6 @@ public class AdvanceTimeController extends NeedsLoginController
 	public void setNewSystemTime(HospitalDate hospitalDate)
 			throws InvalidLoginControllerException {
 		this.hospital.getSystemTime().setSystemTime(hospitalDate);
-
 	}
 
 	@Override

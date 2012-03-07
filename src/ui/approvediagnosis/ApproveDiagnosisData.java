@@ -1,7 +1,7 @@
 package ui.approvediagnosis;
 
 import java.util.Collection;
-import controllers.ApproveDiagnosisController;
+import controllers.ApproveDiagnoseController;
 import controllers.EnterDiagnoseController;
 import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.DoctorIN;
@@ -9,7 +9,7 @@ import controllers.interfaces.DoctorIN;
 public class ApproveDiagnosisData
 {
 
-	private ApproveDiagnosisController approveDiagnosisController;
+	private ApproveDiagnoseController approveDiagnosisController;
 	private Collection<DiagnoseIN> d;
 	private DiagnoseIN diagnose;
 	private EnterDiagnoseController enterDiagController;
@@ -20,12 +20,12 @@ public class ApproveDiagnosisData
 		this.otherDoctor = doc;
 	}
 
-	public void add(ApproveDiagnosisController controller) {
+	public void add(ApproveDiagnoseController controller) {
 		this.approveDiagnosisController = controller;
 
 	}
 
-	public ApproveDiagnosisController getController() {
+	public ApproveDiagnoseController getController() {
 		return approveDiagnosisController;
 	}
 

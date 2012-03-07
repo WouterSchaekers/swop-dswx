@@ -10,30 +10,23 @@ import exceptions.InvalidCategoryNameException;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 
-/**
- * This controller allows you to get the stock orders placed by a warehouse admin.
- */
-//TODO: fix
 public class ListOrdersController extends NeedsLoginController
 {
-	/**
-	 * Default constructor.
-	 * @param loginController
-	 * @param hospital
-	 * @throws InvalidLoginControllerException
-	 * @throws InvalidHospitalException
-	 */
-	public ListOrdersController(LoginController loginController, Hospital hospital)
-			throws InvalidLoginControllerException, InvalidHospitalException {
+
+	public ListOrdersController(LoginController loginController,
+			Hospital hospital) throws InvalidLoginControllerException,
+			InvalidHospitalException {
 		super(hospital, loginController);
 	}
 
-	
+	public String getCategories() {
+		// TODO: zelfde commentaar als bij de andere string dingen
+		return null;
+	}
 
-	public LinkedList<? extends StockOrder> getCorrespondingOrderedItems(
-			StockProvider stockProvider)
-			throws InvalidCategoryNameException {
-				return null;
+	public LinkedList<? extends StockOrder<?>> getCorrespondingOrderedItems(
+			StockProvider stockProvider) throws InvalidCategoryNameException {
+		return null;
 	}
 
 	@Override

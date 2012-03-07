@@ -33,7 +33,7 @@ public class ConsultPatientFileController extends NeedsLoginController
 	public Collection<PatientFileIN> getActivePatientFiles() {
 		ArrayList<PatientFileIN> pfs = new ArrayList<PatientFileIN>(hospital.getPatientFileManager()
 				.getAllPatientFiles());
-		//TODO: filter		
+		//TODO: filterfix		
 		return null;
 	}
 

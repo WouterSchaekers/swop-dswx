@@ -2,34 +2,37 @@ package controllers;
 
 import java.util.Collection;
 import medicaltest.MedicalTest;
+import result.Result;
 import system.Hospital;
-import users.Doctor;
+import users.Nurse;
 import users.User;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileOpenController;
 
-public class EnterMedicaltestResultController extends
-		NeedsLoginAndPatientFileController
+public class EnterMedicaltestResultController extends NeedsLoginController
 {
 	public EnterMedicaltestResultController(Hospital hospital,
-			LoginController loginController, ConsultPatientFileController pfoc)
-			throws InvalidLoginControllerException,
-			InvalidHospitalException, InvalidPatientFileOpenController {
-		super(hospital, loginController, pfoc);
+			LoginController loginController)
+			throws InvalidLoginControllerException, InvalidHospitalException,
+			InvalidPatientFileOpenController {
+		super(hospital, loginController);
 	}
 
-	public Collection<MedicalTest> allMedicalTests()
+	public Collection<MedicalTest> getResultlessMedicalTests()
 			throws InvalidLoginControllerException,
 			InvalidPatientFileOpenController {
-
 		return null;
+		// TODO: fix
+	}
 
+	public void addResultTo(Result r, MedicalTest medicalTest) {
+		// TODO: implement
 	}
 
 	@Override
 	boolean validUser(User u) {
-		return u instanceof Doctor;
+		return u instanceof Nurse;
 	}
 
 }

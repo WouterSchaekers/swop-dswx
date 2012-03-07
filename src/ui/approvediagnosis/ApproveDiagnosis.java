@@ -2,7 +2,7 @@ package ui.approvediagnosis;
 
 import ui.Usecase;
 import ui.UserinterfaceData;
-import controllers.ApproveDiagnosisController;
+import controllers.ApproveDiagnoseController;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 
@@ -16,9 +16,9 @@ public class ApproveDiagnosis extends ApproveDiagnosisSuper
 	@Override
 	public Usecase Execute() {
 		// create controller!
-		ApproveDiagnosisController controller = null;
+		ApproveDiagnoseController controller = null;
 		try {
-			controller = new ApproveDiagnosisController(data.getDataPasser(),
+			controller = new ApproveDiagnoseController(data.getDataPasser(),
 					data.getLoginController());
 		} catch (InvalidLoginControllerException e) {
 			System.out.println();

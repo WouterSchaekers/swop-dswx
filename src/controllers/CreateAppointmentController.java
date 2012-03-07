@@ -1,35 +1,26 @@
 package controllers;
 
-import java.util.Collection;
-import result.Result;
+import scheduler2.AppointmentDescription;
 import system.Hospital;
-import treatment.Treatment;
 import users.Nurse;
 import users.User;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileOpenController;
 
-/**
- * Use this controller to enter the result of a treatment.
- */
-public class EnterTreatmentResultController extends NeedsLoginController
+public class CreateAppointmentController extends
+		NeedsLoginAndPatientFileController
 {
 
-	public EnterTreatmentResultController(Hospital hospital,
+	public CreateAppointmentController(Hospital hospital,
 			LoginController controller, ConsultPatientFileController pfoc)
 			throws InvalidLoginControllerException, InvalidHospitalException,
 			InvalidPatientFileOpenController {
-		super(hospital, controller);
+		super(hospital, controller, pfoc);
 	}
 
-	public Collection<Treatment> getResultlessTreatments() {
-		// TODO: implement
-		return null;
-	}
-
-	public void addResultTo(Result r, Treatment t) {
-		// TODO: implement
+	public void scheduleNewAppointment(AppointmentDescription appDisc) {
+		// TODO: fix
 	}
 
 	@Override

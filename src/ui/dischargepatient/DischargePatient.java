@@ -4,7 +4,7 @@ import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
 import controllers.DischargePatientController;
-import exceptions.DischargePatienException;
+import exceptions.DischargePatientException;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileException;
@@ -48,7 +48,7 @@ public class DischargePatient extends DischargePatientSuperClass
 		} catch (InvalidPatientFileException e) {
 			System.out.println("invalid patienfile");
 			return new SelectUsecase(data);
-		} catch (DischargePatienException e) {
+		} catch (DischargePatientException e) {
 			System.out.println("Patient cant be discharged yet ");
 			return new SelectUsecase(data);
 		} catch (InvalidPatientFileOpenController e) {

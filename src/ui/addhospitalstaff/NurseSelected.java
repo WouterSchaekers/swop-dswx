@@ -3,16 +3,16 @@ package ui.addhospitalstaff;
 import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
-import controllers.CreateUserController;
+import controllers.AddHospitalStaffController;
 import exceptions.InvalidNameException;
 import exceptions.InvalidTimeSlotException;
 import exceptions.UserAlreadyExistsException;
 
 public class NurseSelected extends Usecase
 {
-	private CreateUserController c;
+	private AddHospitalStaffController c;
 
-	public NurseSelected(UserinterfaceData data, CreateUserController c) {
+	public NurseSelected(UserinterfaceData data, AddHospitalStaffController c) {
 		super(data);
 		this.c = c;
 	}
