@@ -30,6 +30,7 @@ public class Warehouse
 		else
 			return 0;
 	}
+	//TODO: schrijf in verslag waarom getclas()
 	public void setMaxCount(WarehouseItemType type,int count)
 	{
 		if(!_maxMap.containsKey(type))
