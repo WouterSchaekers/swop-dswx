@@ -26,7 +26,7 @@ public class _CheckinControllerTest
 	User hospitad;
 	
 	@Before
-	public void setup() throws InvalidNameException {
+	public void setup() throws InvalidNameException, InvalidHospitalException {
 		hospital = new Hospital();
 		loginController = new LoginController(hospital);
 		nurse = new Nurse("jenny");
