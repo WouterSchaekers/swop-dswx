@@ -130,7 +130,7 @@ public class Diagnose extends Observable implements DiagnoseIN
 	 */
 	public void approve() throws ApproveDiagnoseException {
 		if (!isMarkedForSecOp())
-			throw new ApproveDiagnoseException();
+			throw new ApproveDiagnoseException("Exception at approve time of diagnose");
 		this.approved = true;
 		this.unmarkForSecOp();
 		this.setChanged();
@@ -215,7 +215,7 @@ public class Diagnose extends Observable implements DiagnoseIN
 	public void disaprove(DiagnoseIN replacement)
 			throws ApproveDiagnoseException {
 		if (!isMarkedForSecOp())
-			throw new ApproveDiagnoseException();
+			throw new ApproveDiagnoseException("Invalid state for approvement of diagnose!");
 		this.approved = false;
 		this.secOpFlag = false;
 		this.attending = null;
