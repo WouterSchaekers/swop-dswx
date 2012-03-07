@@ -6,49 +6,27 @@ import system.Hospital;
 import users.User;
 import users.UserManager;
 import controllers.interfaces.UserIN;
+import exceptions.InvalidHospitalException;
 
 /**
  * This class will be used as a login controller. There will be a 1:1 relation
  * between the amount of logged in users and the amount of controllers. Each
  * logincontroller will remember what user they logged in.
- * 
  */
-public class LoginController
+public class LoginController extends MasterController
 {
-	private UserManager um; // the usermanager for this controller.
-	// true if the user of this controller is logged in.
 	private boolean loggedIn = false;
-	private User user = null; // the user this controller has logged in.
+	private User user = null;
 
-	/**
-	 * Default constructor.
-	 * 
-	 * @param data
-	 *            The datapasser for this logincontroller
-	 * @throws IllegalArgumentException
-	 *             if (!isValidData(data))
-	 */
-	public LoginController(Hospital hospital) throws IllegalArgumentException {
-		if (!isValidData(hospital))
-			throw new IllegalArgumentException("Hospital is invalid!");
-		this.um = hospital.getUserManager();
-	}
-
-	/**
-	 * This method checks if data is a valid datapasser for the logincontroller.
-	 * 
-	 * @param hospital
-	 *            The hospital to check
-	 * @return False if hospital == null || hospital.getUserManager() == null
-	 */
-	private boolean isValidData(Hospital hospital) {
-		return !(hospital == null || hospital.getUserManager() == null);
+	public LoginController(Hospital hospital) throws InvalidHospitalException {
+		super(hospital);
 	}
 
 	/**
 	 * @return A collection of all users currently in the system.
 	 */
 	public Collection<UserIN> getAllUsers() {
+		UserManager um = hospital.getUserManager();
 		ArrayList<UserIN> users = new ArrayList<UserIN>();
 		for (User u : um.getAllUsers())
 			users.add(u);
@@ -56,10 +34,10 @@ public class LoginController
 	}
 
 	/**
-	 * This method will log the user of this logincontroller in.
+	 * This method will login the user of this logincontroller.
 	 * 
 	 * @throws IllegalArgumentException
-	 *             if the user == null
+	 *             if (!isValidUser((User) user))
 	 */
 	public void logIn(UserIN user) throws IllegalArgumentException {
 		if (!isValidUser((User) user))
@@ -74,7 +52,7 @@ public class LoginController
 	 * 
 	 * @param u
 	 *            The user.
-	 * @return True if u == null;
+	 * @return True if u != null;
 	 */
 	private boolean isValidUser(User u) {
 		return !(u == null);

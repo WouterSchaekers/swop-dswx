@@ -4,10 +4,10 @@ import system.Hospital;
 import exceptions.InvalidHospitalException;
 
 /**
- * 
+ * This controller is the parent controller of all controllers that require a
+ * Hospital to fetch data from.
  */
-//TODO: doc
-class MasterController
+public class MasterController
 {
 	protected Hospital hospital;
 
