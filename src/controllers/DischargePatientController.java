@@ -7,7 +7,6 @@ import users.User;
 import exceptions.DischargePatienException;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
-import exceptions.InvalidPatientFileException;
 import exceptions.InvalidPatientFileOpenController;
 
 public class DischargePatientController extends

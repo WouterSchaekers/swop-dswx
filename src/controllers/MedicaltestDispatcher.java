@@ -8,7 +8,14 @@ import scheduler.task.TaskManager;
 import scheduler.task.unscheduled.tests.UnscheduledMedicalTest;
 import users.UserManager;
 import warehouse.Warehouse;
-import exceptions.*;
+import exceptions.InvalidAmountException;
+import exceptions.InvalidDurationException;
+import exceptions.InvalidHospitalDateArgument;
+import exceptions.InvalidHospitalDateException;
+import exceptions.InvalidOccurencesException;
+import exceptions.InvalidResourceException;
+import exceptions.InvalidTimeSlotException;
+import exceptions.InvalidTreatmentException;
 
 public class MedicaltestDispatcher
 {

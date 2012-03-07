@@ -1,20 +1,19 @@
 package controllers;
 
 import static org.junit.Assert.assertTrue;
-import machine.MachineBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import patient.PatientFile;
-import exceptions.InvalidHospitalException;
-import exceptions.InvalidLocationException;
-import exceptions.InvalidLoginControllerException;
-import exceptions.InvalidNameException;
-import exceptions.InvalidSerialException;
 import system.Hospital;
 import users.Doctor;
 import users.HospitalAdmin;
 import users.Nurse;
 import users.User;
+import exceptions.InvalidHospitalException;
+import exceptions.InvalidLocationException;
+import exceptions.InvalidLoginControllerException;
+import exceptions.InvalidNameException;
+import exceptions.InvalidSerialException;
 
 public class _CheckinControllerTest
 {
