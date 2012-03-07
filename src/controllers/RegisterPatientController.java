@@ -6,9 +6,7 @@ import patient.PatientFile;
 import system.Hospital;
 import users.Nurse;
 import users.User;
-import controllers.interfaces.AppointmentIN;
 import controllers.interfaces.PatientFileIN;
-import controllers.interfaces.UserIN;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidNameException;
@@ -35,10 +33,13 @@ public class RegisterPatientController extends NeedsLoginController
 				.checkIn((PatientFile) patientFile);
 	}
 
+	//TODO: check
+	/**
 	public AppointmentIN CreateAppointment(UserIN user, Hospital hospital)
 			throws InvalidLoginControllerException {
 		return null;
 	}
+	**/
 
 	public void createNewPatient(Hospital hospital, String name)
 			throws InvalidNameException {
