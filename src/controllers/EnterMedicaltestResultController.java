@@ -19,7 +19,7 @@ public class EnterMedicaltestResultController extends NeedsLoginController
 		super(hospital, loginController);
 	}
 
-	public Collection<MedicalTest> getResultlessMedicalTests()
+	public Collection<MedicalTest> getAllMedicalTests()
 			throws InvalidLoginControllerException,
 			InvalidPatientFileOpenController {
 		return null;
