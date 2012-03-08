@@ -23,7 +23,7 @@ public class EnterTreatmentResultController extends NeedsLoginController
 		super(hospital, controller);
 	}
 
-	public Collection<Treatment> getResultlessTreatments() {
+	public Collection<Treatment> getAllTreatments() {
 		// TODO: implement
 		return null;
 	}
