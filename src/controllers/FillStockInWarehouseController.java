@@ -5,6 +5,7 @@ import system.Hospital;
 import users.User;
 import users.WarehouseAdmin;
 import warehouse.item.WarehouseItem;
+import warehouse.item.WarehouseItemType;
 import warehouse.stock.StockOrder;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
@@ -18,10 +19,9 @@ public class FillStockInWarehouseController extends NeedsLoginController
 		super(hospital, controller);
 	}
 
-	public String getItemTypes() {
+	public Collection<WarehouseItemType> getItemTypes() {
 		return null;
-		// TODO: String is heeeeeel slecht in dit geval, fix dat het beter is
-		// (factory?)
+		//TODO: fix
 	}
 
 	public Collection<WarehouseItem> getWarehouseItems() {
