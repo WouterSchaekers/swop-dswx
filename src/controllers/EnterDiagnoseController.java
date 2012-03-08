@@ -33,11 +33,12 @@ public class EnterDiagnoseController extends NeedsLoginAndPatientFileController
 		return d;
 	}
 
-	public void enterDiagnose(String diag) throws InvalidLoginControllerException,
+	public Diagnose enterDiagnose(String diag) throws InvalidLoginControllerException,
 			InvalidPatientFileOpenController, InvalidDiagnoseException,
 			InvalidDoctorException {
 		Diagnose d = new Diagnose((Doctor) loginController.getUser(), diag);
 		((PatientFile) pfoc.getPatientFile()).addDiagnosis(d);
+		return d;
 	}
 
 	@Override
