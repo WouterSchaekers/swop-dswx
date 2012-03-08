@@ -14,7 +14,7 @@ public class HospitalController
 	HospitalController(Hospital hospital)
 			throws InvalidHospitalException {
 		if (!isValidHospitalState(hospital)) {
-			throw new InvalidHospitalException("lskdjflke");
+			throw new InvalidHospitalException("Exception: invalid hospital!");
 		}
 		this.hospital = hospital;
 	}
