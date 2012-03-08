@@ -5,7 +5,7 @@ import users.User;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 
-public abstract class NeedsLoginController extends MasterController
+public abstract class NeedsLoginController extends HospitalController
 {
 
 	protected LoginController loginController;

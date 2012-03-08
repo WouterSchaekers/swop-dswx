@@ -13,7 +13,7 @@ import exceptions.InvalidHospitalException;
  * between the amount of logged in users and the amount of controllers. Each
  * logincontroller will remember what user they logged in.
  */
-public class LoginController extends MasterController
+public class LoginController extends HospitalController
 {
 	private boolean loggedIn = false;
 	private User user = null;
