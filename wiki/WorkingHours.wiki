@@ -12,6 +12,10 @@
 || 29/02/11: 17u00 -> 19u15 || 3 DSW || 2.25 || Refactoring the controllerlayer and continuance of the refactoring of the warehouse, discussing the updated domain model.|| ||
 || 01/03/11: 11u00 -> 13u00 || 3 DSW || 2 || Refactoring the warehouse, further updating of the controller layer|| ||
 || 06/03/11: 14u00 -> 18u30 || 3 DSW || 4.5 || Meeting with project advisor + working our way towards the deadline by implementing controller APIs.|| ||
+|| 07/03/11: 11u00 -> 12u30 || 2 DS || 1.5 || Studying the public API of the controllers and determining some smaller refactoring changes || ||
+|| 07/03/11: 13u00 -> 18u00 || 3 DSW || 5 || Updating the APIs of the controllers in the code. Making system sequence diagrams of some use cases. || ||
+|| 07/03/11: 21u00 -> 23u00 || 2 SW || 2 || Writing the report on refactoring changes. || ||
+|| 08/03/11: 12u00 -> 13u30 || 2 SW || 1.5 || Finishing up the current draft of the report on refactoring changes. || ||
 
 
 = Iteratie 2 =
