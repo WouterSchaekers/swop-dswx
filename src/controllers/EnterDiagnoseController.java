@@ -33,7 +33,7 @@ public class EnterDiagnoseController extends NeedsLoginAndPatientFileController
 		return d;
 	}
 
-	public Diagnose enterDiagnose(String diag) throws InvalidLoginControllerException,
+	public DiagnoseIN enterDiagnose(String diag) throws InvalidLoginControllerException,
 			InvalidPatientFileOpenController, InvalidDiagnoseException,
 			InvalidDoctorException {
 		Diagnose d = new Diagnose((Doctor) loginController.getUser(), diag);
