@@ -23,7 +23,7 @@ public class EnterDiagnoseController extends NeedsLoginAndPatientFileController
 		super(hospital, loginc, patientFileOpenController);
 	}
 
-	public DiagnoseIN enterDiagnose(String diag, DoctorIN choice)
+	public DiagnoseIN enterDiagnoseWithSecondOpinion(String diag, DoctorIN choice)
 			throws InvalidDoctorException, InvalidDiagnoseException {
 
 		Diagnose d = PatientFile.createDiagnoseSecondOp(diag,
