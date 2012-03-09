@@ -34,13 +34,9 @@ public class AddHospitalEquipmentController extends NeedsLoginController
 	/**
 	 * @return All the machines currently in the hospital.
 	 */
-	public Collection<MachineBuilder> getAllMachines() {
+	public Collection<MachineBuilder> getAllMachineBuilders() {
 		return hospital.getMachinePool().getAllBuilders();
 	}
-
-	// XXX: er is blijkbaar, indien men de opgave nauwkeurig bestudeerd, een
-	// merkbaar verschil tussen de location van een machine en zijn
-	// repectievelijke campus.
 
 	/**
 	 * Creates a new machine from the given machine builder and adds it to the

@@ -35,7 +35,6 @@ public class RegisterPatientController extends NeedsLoginController
 	public void registerNewPatient(Hospital hospital, String name)
 			throws InvalidNameException {
 		hospital.getPatientFileManager().registerPatient(name);
-		
 	}
 
 	@Override
