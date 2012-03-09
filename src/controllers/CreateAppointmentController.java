@@ -4,7 +4,6 @@ import java.util.Collection;
 import patient.Patient;
 import scheduler.HospitalDate;
 import scheduler2.AppointmentDescription;
-import system.Hospital;
 import users.Doctor;
 import users.Nurse;
 import users.User;

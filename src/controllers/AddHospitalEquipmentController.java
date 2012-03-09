@@ -2,7 +2,6 @@ package controllers;
 
 import java.util.Collection;
 import machine.MachineBuilder;
-import system.Hospital;
 import users.HospitalAdmin;
 import users.User;
 import exceptions.ControllerException;

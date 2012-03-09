@@ -1,7 +1,6 @@
 package controllers;
 
 import patient.PatientFile;
-import system.Hospital;
 import users.Nurse;
 import users.User;
 import exceptions.InvalidHospitalException;

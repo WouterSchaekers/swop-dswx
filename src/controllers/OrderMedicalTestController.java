@@ -5,6 +5,8 @@ import medicaltest.MedicalTest;
 import medicaltest.MedicalTestFactory;
 import medicaltest.MedicalTests;
 import patient.PatientFile;
+import scheduler.HospitalDate;
+import scheduler.task.scheduled.ScheduledTask;
 import scheduler.task.unscheduled.tests.UnscheduledMedicalTest;
 import users.Doctor;
 import users.User;
@@ -43,7 +45,7 @@ public class OrderMedicalTestController extends
 		return new MedicalTests().factories();
 	}
 	
-	public void addMedicaltest(MedicalTest medicalTest)
+	public HospitalDate addMedicaltest(MedicalTest medicalTest)
 			throws InvalidResourceException, InvalidDurationException,
 			InvalidOccurencesException, InvalidAmountException,
 			InvalidHospitalDateException, InvalidTimeSlotException,
@@ -54,7 +56,11 @@ public class OrderMedicalTestController extends
 				hospital.getSystemTime(), hospital.getMachinePool());
 		
 		((PatientFile) pfoc.getPatientFile()).addMedicalTest(medicalTest);
-		hospital.getTaskManager().addTask(t);
+		ScheduledTask temp = hospital.getTaskManager().addTask(t);
+		if(temp == null)
+			return null;
+		return temp.getStartDate();
+			
 	}
 
 	@Override

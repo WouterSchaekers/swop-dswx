@@ -1,7 +1,6 @@
 package controllers;
 
 import java.util.Collection;
-import system.Hospital;
 import users.User;
 import users.WarehouseAdmin;
 import warehouse.item.WarehouseItem;

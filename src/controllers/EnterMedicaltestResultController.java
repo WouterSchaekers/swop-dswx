@@ -3,7 +3,6 @@ package controllers;
 import java.util.Collection;
 import medicaltest.MedicalTest;
 import result.Result;
-import system.Hospital;
 import users.Nurse;
 import users.User;
 import exceptions.InvalidHospitalException;
