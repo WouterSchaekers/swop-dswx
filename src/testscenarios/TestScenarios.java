@@ -322,7 +322,8 @@ public class TestScenarios
 		System.out
 				.println(" Doctor Jonathan has requested to discharge patient Dieter Geboers.");
 		System.out.print("Discharging Dieter Geboers... ");
-		DischargePatientController dpc = new DischargePatientController(lc, cpfc);
+		DischargePatientController dpc = new DischargePatientController(lc,
+				cpfc);
 		dpc.dischargePatient();
 		System.out.println("Success!");
 		lc = null;
