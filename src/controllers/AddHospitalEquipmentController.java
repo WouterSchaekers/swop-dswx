@@ -30,7 +30,8 @@ public class AddHospitalEquipmentController extends NeedsLoginController
 	}
 
 	/**
-	 * @return All the machines currently in the hospital.
+	 * @return All the objects that can create a kind of machines 
+	 * 
 	 */
 	public Collection<MachineBuilder> getAllMachineBuilders() {
 		return hospital.getMachinePool().getAllBuilders();

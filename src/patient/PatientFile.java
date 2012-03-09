@@ -8,6 +8,7 @@ import observers.DiagnoseObserverTaskManager;
 import scheduler.HospitalDate;
 import scheduler.task.TaskManager;
 import users.Doctor;
+import users.User;
 import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.MedicalTestIN;
@@ -23,7 +24,7 @@ import exceptions.InvalidNameException;
  */
 public class PatientFile implements PatientFileIN
 {
-
+	//TODO Moete we hier
 	private String name = "";
 	/**
 	 * All the Diagnosis for this patient.
@@ -60,6 +61,7 @@ public class PatientFile implements PatientFileIN
 		if (!isValidDiagnose(d))
 			throw new InvalidDiagnoseException(
 					"The given Diagnose is not a valid!");
+	
 		this.diagnosis.add(d);
 	}
 
@@ -171,6 +173,7 @@ public class PatientFile implements PatientFileIN
 		return rv;
 	}
 
+
 	public static Diagnose createDiagnose(String diag, Doctor attending,
 			TaskManager taskmanager) throws InvalidDoctorException,
 			InvalidDiagnoseException {
@@ -200,5 +203,12 @@ public class PatientFile implements PatientFileIN
 	@Override
 	public Collection<MedicalTestIN> getallMedicalTests() {
 		return new ArrayList<MedicalTestIN>(medicaltests);
+	}
+
+	public void createDiagnose(Doctor user, String diag,TaskManager manager) throws InvalidDiagnoseException, InvalidDoctorException {
+		Diagnose diagnose = new Diagnose(user, diag);
+	//XXX:	diagnose.addObserver(manager);
+		addDiagnosis(diagnose);
+		
 	}
 }

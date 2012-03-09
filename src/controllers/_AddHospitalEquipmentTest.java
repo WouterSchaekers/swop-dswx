@@ -39,7 +39,7 @@ public class _AddHospitalEquipmentTest
 			InvalidHospitalException {
 		loginController.logIn(nurse);
 		addHospitalEquipmentController = new AddHospitalEquipmentController(
-				loginController, hospital);
+				loginController);
 	}
 
 	@Test(expected = InvalidLoginControllerException.class)
@@ -47,7 +47,7 @@ public class _AddHospitalEquipmentTest
 			InvalidHospitalException {
 		loginController.logIn(Doctor);
 		addHospitalEquipmentController = new AddHospitalEquipmentController(
-				loginController, hospital);
+				loginController);
 	}
 
 	@Test
@@ -55,7 +55,7 @@ public class _AddHospitalEquipmentTest
 			InvalidHospitalException {
 		loginController.logIn(hospitad);
 		addHospitalEquipmentController = new AddHospitalEquipmentController(
-				loginController, hospital);
+				loginController);
 		assertTrue(addHospitalEquipmentController
 				.isValidLoginController(loginController));
 	}
@@ -66,7 +66,7 @@ public class _AddHospitalEquipmentTest
 			InvalidHospitalException {
 		loginController.logIn(hospitad);
 		addHospitalEquipmentController = new AddHospitalEquipmentController(
-				loginController, hospital);
+				loginController);
 		MachineBuilder m = hospital.getMachinePool().getAllBuilders().iterator().next();
 		addHospitalEquipmentController.createMachine(m, 3, "jozef"
 				);

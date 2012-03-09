@@ -6,7 +6,8 @@ import java.util.Observable;
 import warehouse.item.WarehouseItem;
 import warehouse.item.WarehouseItemType;
 import exceptions.WarehouseOverCapacityException;
-
+//TODO: have something manage the time for this warehouse
+//TODO: Like remove expired items
 public class Warehouse extends Observable
 {
 	private Map<Class<? extends WarehouseItemType>, Integer> _maxMap;
@@ -21,7 +22,6 @@ public class Warehouse extends Observable
 		for (WarehouseItem i : _items) {
 			if (i.getType().equals(item)) {
 				item1 = i;
-
 			}
 		}
 		_items.remove(item1);

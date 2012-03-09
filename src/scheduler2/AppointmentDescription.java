@@ -12,6 +12,8 @@ public class AppointmentDescription extends TaskDescription
 	private Patient _patient;
 	
 	public AppointmentDescription(Doctor doctor, Patient patient) {
+		
+		//TODO: write isValid checks ?
 		_doc = doctor;
 		_patient = patient;
 	}
