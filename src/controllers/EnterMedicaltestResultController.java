@@ -1,8 +1,7 @@
 package controllers;
 
-import java.util.Collection;
+import java.util.LinkedList;
 import medicaltest.MedicalTest;
-import result.Result;
 import users.Nurse;
 import users.User;
 import exceptions.InvalidHospitalException;
@@ -17,14 +16,20 @@ public class EnterMedicaltestResultController extends NeedsLoginController
 		super(lc);
 	}
 
-	public Collection<MedicalTest> getAllMedicalTests()
+	public LinkedList<MedicalTest> getAllMedicalTests()
 			throws InvalidLoginControllerException,
 			InvalidPatientFileOpenController {
 		return null;
 		// TODO: fix
 	}
 
-	public void addResultTo(String report, MedicalTest medicalTest) {
+	/**
+	 * 
+	 * @param report
+	 * @param index
+	 * The index of the medical test of which you want to <...>
+	 */
+	public void addResultTo(String report, int index) {
 		// TODO: implement
 	}
 
