@@ -2,7 +2,6 @@ package controllers;
 
 import java.util.Collection;
 import result.Result;
-import system.Hospital;
 import treatment.Treatment;
 import users.Nurse;
 import users.User;
