@@ -1,23 +1,34 @@
 package testscenarios;
+import static org.junit.Assert.*;
 import java.util.Collection;
 import machine.MachineBuilder;
 import org.junit.Test;
-import scheduler2.AppointmentDescription;
+import scheduler.HospitalDate;
 import system.CampusPreference;
 import system.Hospital;
-import users.HospitalAdmin;
 import controllers.AddHospitalEquipmentController;
 import controllers.AddHospitalStaffController;
+import controllers.ConsultPatientFileController;
 import controllers.CreateAppointmentController;
 import controllers.LoginController;
 import controllers.RegisterPatientController;
-import exceptions.*;
+import controllers.interfaces.DoctorIN;
+import exceptions.InvalidHospitalException;
+import exceptions.InvalidLocationException;
+import exceptions.InvalidLoginControllerException;
+import exceptions.InvalidNameException;
+import exceptions.InvalidPatientFileOpenController;
+import exceptions.InvalidSerialException;
+import exceptions.InvalidTimeSlotException;
+import exceptions.UserAlreadyExistsException;
 
 
 public class TestScenarios
 {
 
 	/**
+	 * A basic scenario where only one of each exists.
+	 * 
 	 * Excuting:
 	 * - Initialise the hospital with empty constructor.
 	 * - Hospital admin logs in.
@@ -25,19 +36,22 @@ public class TestScenarios
 	 * - Hospital admin logs out
 	 * - Nurse Jenny logs in.
 	 * - Nurse Jenny registers a new patient: Dieter Geboers.
-	 * - ...
+	 * - Nurse Jenny asks the system for available doctors.
+	 * - Nurse Jenny tells the system that she wants to schedule an appointment for Dieter Geboers with doctor Jonathan
+	 * - Scenario ends here.
 	 * @throws InvalidPatientFileOpenController 
 	 */
 	@Test
 	public void scenario1() throws UserAlreadyExistsException, InvalidNameException, InvalidTimeSlotException, InvalidLoginControllerException, InvalidHospitalException, InvalidLocationException, InvalidSerialException, InvalidPatientFileOpenController {
+		fail("Controllerlayer not implemented fully yet (this is supposed to happen.");
 		System.out.print("Creating and intialising hospital... ");
 		Hospital h = new Hospital();
-		HospitalAdmin hadmin = h.getUserManager().createHospitalAdmin("admin");
 		System.out.println("Success!");
+		
 		// Creating the login controller for the hadmin
 		System.out.print("Logging in the hospital admin... ");
 		LoginController lc = new LoginController(h);
-		lc.logIn(hadmin);
+		lc.logIn(h.getHospitalAdmin());
 		System.out.println("Success!\n");
 		
 		// the hadmin add XRayScanner, nurse, doctor, 
@@ -74,22 +88,65 @@ public class TestScenarios
 		System.out.println("Dieter Geboers's patient file was created and added to the hospital's database successfully!");
 		
 		// schedule een appointment voor dieter met doctor jonathan
-		System.out.print("Creating appointment for Dieter Geboers with a doctor... ");
+		System.out.println("Creating appointment for Dieter Geboers with a doctor... ");
 		CreateAppointmentController cac = new CreateAppointmentController(h, lc);
 		// Nurse Jenny asks for a list of available doctors
-		System.out.print("Dear Jenny, the following doctors are available ");cac.getAllDoctors());
+		System.out.print("Dear Jenny, the following doctors are available in this hospital: ");
 		
-		AppointmentDescription ad = new AppointmentDescription(doctor, patient);
-		cac.scheduleNewAppointment(appDisc)
+		for(DoctorIN d : cac.getAllDoctors())
+			System.out.println(d.getName());
+		
+		System.out.println(" Nurse Jenny selected doctor Jonathan.");
+		System.out.print("Creating appointment for Dieter Geboers with doctor Jonathan... ");
+		
+		HospitalDate appDate = cac.scheduleNewAppointment("Jonathan", "Dieter Geboers");
+		System.out.println("Appointment has been created successfully at " + appDate);
+		System.out.println("\n\nThis Scenario has been completed.\n\n");
 	}
 	
 	/**
-	 * Excuting:
-	 * -  
+	 * This scenario is the sequel to scenario 1. 2 new nurses have been added.
+	 * There also are a blood analyser and an ultrasoundscanner available.
+	 * 
+	 * Doctor Jonathan has seen patient Dieter and has decided the best course
+	 * of action is to experiment on him with 3 medical tests to determine the
+	 * diagnose. 
+	 * 
+	 * Excuting: 
+	 * - Doctor Jonathan logs in.
+	 * - Doctor Jonathan opens the patient file of Dieter.
+	 * - Doctor Jonathan creates 
+	 * @throws InvalidPatientFileOpenController
 	 */
 	@Test
-	public void scenario2() throws UserAlreadyExistsException, InvalidNameException, InvalidTimeSlotException, InvalidLoginControllerException, InvalidHospitalException, InvalidLocationException, InvalidSerialException {
-
+	public void scenario2() throws UserAlreadyExistsException,
+			InvalidNameException, InvalidTimeSlotException,
+			InvalidLoginControllerException, InvalidHospitalException,
+			InvalidLocationException, InvalidSerialException,
+			InvalidPatientFileOpenController {
+		/** Setting up the system **/
+		Hospital h = new Hospital();
+		LoginController lc = new LoginController(h);
+		lc.logIn(h.getHospitalAdmin());
+		h.getUserManager().createAndAddNurse("Jenny");
+		h.getUserManager().createAndAddNurse("Joy");
+		h.getUserManager().createAndAddNurse("Jenna");
+		h.getUserManager().createAndAddDoctor("Jonathan");
+		h.getMachinePool().createBloodAnalyser(0, "cool");
+		h.getMachinePool().createUltraSoundScanner(1, "cool");
+		h.getMachinePool().createXrayScanner(2, "cool2");
+		h.getPatientFileManager().registerPatient("Dieter Geboers");
+		lc = new LoginController(h);
+		/** End setting up the system **/
+		
+		System.out.print("Logging in as doctor Jonathan.. ");
+		lc.logIn(lc.getSpecificDoctor("Jonathan"));
+		System.out.println("Success!");
+		
+		System.out.println("Doctor Jonathan has requested to open the patient file of Dieter Geboers.");
+		System.out.print("Opening patient file... ");
+		ConsultPatientFileController cpfc = new ConsultPatientFileController(h, lc);
+		cpfc.
 	}
 
 }

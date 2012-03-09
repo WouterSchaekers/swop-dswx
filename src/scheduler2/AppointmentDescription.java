@@ -3,7 +3,6 @@ package scheduler2;
 import java.util.ArrayList;
 import java.util.Collection;
 import patient.Patient;
-import scheduler.task.Schedulable;
 import users.Doctor;
 
 public class AppointmentDescription extends TaskDescription
@@ -11,7 +10,7 @@ public class AppointmentDescription extends TaskDescription
 
 	private Doctor _doc;
 	private Patient _patient;
-
+	
 	public AppointmentDescription(Doctor doctor, Patient patient) {
 		_doc = doctor;
 		_patient = patient;
@@ -19,9 +18,9 @@ public class AppointmentDescription extends TaskDescription
 
 	@Override
 	public Collection<Requirement> getAllRequireMents() {
-		ArrayList<Requirement> requireMents = new ArrayList<Requirement>();
-		requireMents.add(new SpecificResourceRequirement(_doc));
-		return requireMents;
+		ArrayList<Requirement> requirements = new ArrayList<Requirement>();
+		requirements.add(new SpecificResourceRequirement(_doc));
+		return requirements;
 	}
 
 	@Override

@@ -25,9 +25,10 @@ public class Hospital
 	private final TimeLord systemTime;
 	private final Campus campusA;
 	private final Campus campusB;
+	private final HospitalAdmin hospitalAdmin;
 
 	/**
-	 * Initializes an empty hospital.
+	 * Initializes an empty hospital with a hospital admin and 2 campusses.
 	 */
 	public Hospital() {
 		try {
@@ -40,7 +41,10 @@ public class Hospital
 			this.warehouse = new Warehouse();
 			this.campusA = new Campus();
 			this.campusB = new Campus();
+			this.hospitalAdmin = new HospitalAdmin("admin");
+			this.userManager.addUser(this.hospitalAdmin);
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			throw new Error();
 		}
 	}
@@ -63,6 +67,7 @@ public class Hospital
 	 *            The TaskManager for this hospital.
 	 * @param warehouse
 	 *            The Warehouse for this hospital.
+	 * @throws  
 	 */
 	public Hospital(TimeLord timeLord, UserManager userManager,
 			MachinePool machinePool, PatientFileManager patientFileManager,
@@ -77,6 +82,14 @@ public class Hospital
 		this.warehouse = warehouse;
 		this.campusA = new Campus();
 		this.campusB = new Campus();
+		try {
+			this.hospitalAdmin = new HospitalAdmin("admin");
+			this.userManager.addUser(this.hospitalAdmin);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			throw new Error();
+		}
+		
 	}
 
 	@Basic
@@ -122,5 +135,10 @@ public class Hospital
 	@Basic
 	public Campus getCampusB() {
 		return this.campusB;
+	}
+	
+	@Basic
+	public HospitalAdmin getHospitalAdmin() {
+		return this.hospitalAdmin;
 	}
 }

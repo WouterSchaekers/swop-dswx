@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.Collection;
 import patient.Patient;
+import scheduler.HospitalDate;
 import scheduler2.AppointmentDescription;
 import system.Hospital;
 import users.Doctor;
@@ -21,16 +22,28 @@ public class CreateAppointmentController extends NeedsLoginController
 		super(hospital, controller);
 	}
 
-	public void scheduleNewAppointment(DoctorIN d, String patientName) {
+	/**
+	 * @return
+	 * The date on which the appointment has been scheduled
+	 */
+	public HospitalDate scheduleNewAppointment(String doctorName, String patientName) {
 		// TODO: fix
-		AppointmentDescription ad = new AppointmentDescription((Doctor) d, p);
+		AppointmentDescription ad = new AppointmentDescription(
+				(Doctor) loginController.getSpecificDoctor(doctorName),
+				this.getPatient(patientName));
+		return null;
 	}
 
 	public Collection<DoctorIN> getAllDoctors() {
 		return null;
-		//TODO: fix
+		// TODO: fix
 	}
-	
+
+	private Patient getPatient(String name) {
+		return null;
+		// TODO: fix
+	}
+
 	@Override
 	boolean validUser(User u) {
 		return u instanceof Nurse;

@@ -21,11 +21,10 @@ public class ConsultPatientFileController extends NeedsLoginController
 	private DoctorIN doctor;
 	private PatientFile pf;
 
-	public ConsultPatientFileController(Hospital hospital,
-			LoginController loginController)
+	public ConsultPatientFileController(LoginController loginController)
 			throws InvalidHospitalException,
 			InvalidLoginControllerException {
-		super(hospital, loginController);
+		super(loginController.hospital, loginController);
 		this.hospital = hospital;
 		doctor = (DoctorIN) loginController.getUser();
 	}

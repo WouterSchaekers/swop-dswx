@@ -82,6 +82,13 @@ public class UserManager
 			t.add(u);
 		return UserFilter.SpecificNurseFilter(t, name);
 	}
+	
+	public DoctorIN getSpecificDoctor(String name) {
+		ArrayList<UserIN> t = new ArrayList<UserIN>();
+		for (User u : users)
+			t.add(u);
+		return UserFilter.SpecificDoctorFilter(t, name);
+	}
 
 	public WarehouseAdmin getWarehouseAdmin() {
 		WarehouseAdmin warehouseAdmin = null;
