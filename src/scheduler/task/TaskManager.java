@@ -88,12 +88,6 @@ public class TaskManager extends Observable
 	 * @param t
 	 *            The task to add.
 	 * @return returns null if t can't be scheduled at this time.
-	 * @throws InvalidTimeSlotException
-	 * @throws InvalidSchedulingRequestException
-	 * @throws InvalidDurationException
-	 * @throws QueueException
-	 * @throws InvalidHospitalDateArgument
-	 * @throws InvalidResourceException
 	 */
 	public ScheduledTask addTask(UnscheduledTask1 t)
 			throws InvalidTimeSlotException, InvalidResourceException,

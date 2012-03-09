@@ -5,8 +5,6 @@ import system.Hospital;
 import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
-import warehouse.StockOrder;
-import warehouse.StockProvider;
 import controllers.ListOrdersController;
 import exceptions.InvalidCategoryNameException;
 import exceptions.InvalidLoginControllerException;

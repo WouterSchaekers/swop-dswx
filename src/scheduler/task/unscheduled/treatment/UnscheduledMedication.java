@@ -1,7 +1,5 @@
 package scheduler.task.unscheduled.treatment;
 
-import help.Collections;
-import help.Filter;
 import java.util.LinkedList;
 import patient.Diagnose;
 import patient.PatientFile;
