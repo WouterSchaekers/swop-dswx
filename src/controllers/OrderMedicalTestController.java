@@ -6,10 +6,19 @@ import medicaltest.MedicalTestFactory;
 import medicaltest.MedicalTests;
 import patient.PatientFile;
 import scheduler.task.unscheduled.tests.UnscheduledMedicalTest;
-import system.Hospital;
 import users.Doctor;
 import users.User;
-import exceptions.*;
+import exceptions.InvalidAmountException;
+import exceptions.InvalidDurationException;
+import exceptions.InvalidHospitalDateArgument;
+import exceptions.InvalidHospitalDateException;
+import exceptions.InvalidHospitalException;
+import exceptions.InvalidLoginControllerException;
+import exceptions.InvalidOccurencesException;
+import exceptions.InvalidPatientFileException;
+import exceptions.InvalidPatientFileOpenController;
+import exceptions.InvalidResourceException;
+import exceptions.InvalidTimeSlotException;
 
 /**
  * This class can be used to create medical tests etc...
@@ -33,10 +42,7 @@ public class OrderMedicalTestController extends
 			InvalidPatientFileException, InvalidPatientFileOpenController {
 		return new MedicalTests().factories();
 	}
-
-	/**
-	 * Adds and schedules the given medical test.
-	 */
+	
 	public void addMedicaltest(MedicalTest medicalTest)
 			throws InvalidResourceException, InvalidDurationException,
 			InvalidOccurencesException, InvalidAmountException,
