@@ -1,6 +1,5 @@
 package controllers;
 
-import system.Hospital;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileOpenController;

@@ -1,6 +1,5 @@
 package controllers;
 
-import system.Hospital;
 import treatment.Treatment;
 import users.Doctor;
 import users.User;

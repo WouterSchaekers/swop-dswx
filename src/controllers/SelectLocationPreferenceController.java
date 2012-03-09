@@ -2,7 +2,6 @@ package controllers;
 
 import java.util.Collection;
 import system.CampusPreference;
-import system.Hospital;
 import users.Doctor;
 import users.User;
 import exceptions.InvalidHospitalException;

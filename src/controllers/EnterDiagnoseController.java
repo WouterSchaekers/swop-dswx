@@ -2,7 +2,6 @@ package controllers;
 
 import patient.Diagnose;
 import patient.PatientFile;
-import system.Hospital;
 import users.Doctor;
 import users.User;
 import controllers.interfaces.DiagnoseIN;
