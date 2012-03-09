@@ -104,5 +104,9 @@ public abstract class MedicalTest implements MedicalTestIN
 			return false;
 		return true;
 	}
+	
+	public boolean hasResult() {
+		return this.myResult != null;
+	}
 
 }
