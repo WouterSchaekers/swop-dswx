@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import patient.PatientFileManager;
 import scheduler.HospitalDate;
-import system.Campus;
-import system.Hospital;
 import warehouse.item.MealType;
 import warehouse.item.WarehouseItemType;
 import warehouse.orderstrat.OrderStrategy;

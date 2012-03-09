@@ -8,7 +8,6 @@ import observers.DiagnoseObserverTaskManager;
 import scheduler.HospitalDate;
 import scheduler.task.TaskManager;
 import users.Doctor;
-import users.User;
 import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.MedicalTestIN;

@@ -2,7 +2,6 @@ package warehouse;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import warehouse.item.MealType;

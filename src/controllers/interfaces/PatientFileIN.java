@@ -1,7 +1,6 @@
 package controllers.interfaces;
 
 import java.util.Collection;
-import users.User;
 
 public interface PatientFileIN
 {
