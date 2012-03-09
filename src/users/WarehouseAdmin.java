@@ -1,26 +1,12 @@
 package users;
 
-import java.util.Collection;
-import java.util.LinkedList;
-import patient.PatientFileManager;
-import scheduler.DummyDate;
-import scheduler.HospitalDate;
 import scheduler.TimeLord;
-import treatment.Medication;
 import warehouse.Warehouse;
-import warehouse.item.ActivatedCarbonType;
-import warehouse.item.Meal;
-import warehouse.item.MiscType;
-import warehouse.item.Plaster;
-import warehouse.item.SleepingTabletsType;
 import warehouse.item.WarehouseItemType;
 import warehouse.stock.StockOrder;
 import warehouse.stock.StockProvider;
 import controllers.interfaces.WarehouseAdminIN;
-import exceptions.InvalidAmountException;
 import exceptions.InvalidNameException;
-import exceptions.MealException;
-import exceptions.WarehouseException;
 import exceptions.WarehouseOverCapacityException;
 
 /**
@@ -70,11 +56,11 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN
 
 
 //TODO: fix this
-	private void advanceTime(HospitalDate newDate) throws MealException,
-			InvalidAmountException, WarehouseException {
-	//advance time
-	}
-	
+//	private void advanceTime(HospitalDate newDate) throws MealException,
+//			InvalidAmountException, WarehouseException {
+//	//advance time
+//	}
+//	
 
 
 

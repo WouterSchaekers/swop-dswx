@@ -2,8 +2,8 @@ package users;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import patient.PatientFileManager;
 import scheduler.HospitalDate;
+import scheduler.TimeLord;
 import scheduler.task.Schedulable;
 import warehouse.Warehouse;
 import warehouse.stock.StockProvider;
@@ -39,10 +39,9 @@ public class UserManager
 
 	public void createAndAddWarehouseAdmin(String string,
 			Warehouse warehouse, StockProvider stockProvider,
-			PatientFileManager patientFileManager)
+			TimeLord timelord)
 			throws UserAlreadyExistsException, InvalidNameException {
-		WarehouseAdmin newUser = new WarehouseAdmin(string, warehouse,
-				stockProvider, patientFileManager);
+		WarehouseAdmin newUser = new WarehouseAdmin(string, warehouse, stockProvider, timelord);
 		this.addUser(newUser);
 	}
 
