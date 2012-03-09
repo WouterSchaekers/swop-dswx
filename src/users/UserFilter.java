@@ -31,4 +31,10 @@ public class UserFilter
 		return null;
 	}
 
+	public static DoctorIN SpecificDoctorFilter(Collection<UserIN> users, String name) {
+		for (UserIN u : users)
+			if (u instanceof DoctorIN && u.getName().equals(name))
+				return (DoctorIN) u;
+		return null;
+	}
 }
