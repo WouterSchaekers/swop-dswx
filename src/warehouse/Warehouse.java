@@ -1,13 +1,11 @@
 package warehouse;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Observable;
-import scheduler.HospitalDate;
-import exceptions.WarehouseOverCapacityException;
 import warehouse.item.WarehouseItem;
 import warehouse.item.WarehouseItemType;
+import exceptions.WarehouseOverCapacityException;
 
 public class Warehouse extends Observable
 {
