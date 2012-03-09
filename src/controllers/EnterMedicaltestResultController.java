@@ -12,11 +12,10 @@ import exceptions.InvalidPatientFileOpenController;
 
 public class EnterMedicaltestResultController extends NeedsLoginController
 {
-	public EnterMedicaltestResultController(Hospital hospital,
-			LoginController loginController)
+	public EnterMedicaltestResultController(LoginController loginController)
 			throws InvalidLoginControllerException, InvalidHospitalException,
 			InvalidPatientFileOpenController {
-		super(hospital, loginController);
+		super(loginController);
 	}
 
 	public Collection<MedicalTest> getAllMedicalTests()

@@ -13,11 +13,10 @@ public class PrescribeTreatmentController extends
 		NeedsLoginAndPatientFileController
 {
 
-	public PrescribeTreatmentController(LoginController loginc,
-			Hospital hospital, ConsultPatientFileController pfoc)
+	public PrescribeTreatmentController(LoginController loginc, ConsultPatientFileController pfoc)
 			throws InvalidLoginControllerException, InvalidHospitalException,
 			InvalidPatientFileOpenController, InvalidPatientFileException {
-		super(hospital, loginc, pfoc);
+		super(loginc, pfoc);
 		if (pfoc.getPatientFile().isDischarged())
 			throw new InvalidPatientFileException(
 					"Invalid patient file given to create medical test from: patient is discharged");

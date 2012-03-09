@@ -10,10 +10,9 @@ import exceptions.InvalidLoginControllerException;
 
 public class SelectLocationPreferenceController extends NeedsLoginController
 {
-	public SelectLocationPreferenceController(Hospital hospital,
-			LoginController controller) throws InvalidLoginControllerException,
+	public SelectLocationPreferenceController(LoginController controller) throws InvalidLoginControllerException,
 			InvalidHospitalException {
-		super(hospital, controller);
+		super(controller);
 	}
 
 	public Collection<CampusPreference> getPossiblePreferences() {

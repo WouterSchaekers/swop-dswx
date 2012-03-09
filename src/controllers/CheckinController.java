@@ -24,10 +24,10 @@ public class CheckinController extends NeedsLoginController
 	 * @throws InvalidLoginControllerException
 	 * @throws InvalidHospitalException
 	 */
-	public CheckinController(LoginController lc, Hospital hospital)
+	public CheckinController(LoginController lc)
 			throws InvalidLoginControllerException,
 			InvalidHospitalException {
-		super(hospital, lc);
+		super(lc);
 	}
 
 	/**

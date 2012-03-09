@@ -39,7 +39,7 @@ public class _PatientFileOpenControllerTest
 		d = um.createAndAddDoctor("Jef");
 		u = d;
 		lc.logIn(u);
-		pfoc = new ConsultPatientFileController(data, lc);
+		pfoc = new ConsultPatientFileController(lc);
 	}
 
 	@Test(expected = InvalidLoginControllerException.class)

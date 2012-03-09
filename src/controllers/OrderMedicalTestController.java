@@ -19,10 +19,10 @@ public class OrderMedicalTestController extends
 {
 
 	public OrderMedicalTestController(LoginController lc,
-			ConsultPatientFileController cpf, Hospital hospital)
+			ConsultPatientFileController cpf)
 			throws InvalidLoginControllerException, InvalidHospitalException,
 			InvalidPatientFileOpenController, InvalidPatientFileException {
-		super(hospital, lc, cpf);
+		super(lc, cpf);
 		if (cpf.getPatientFile().isDischarged())
 			throw new InvalidPatientFileException(
 					"Invalid patient file given to create medical test from: patient is discharged");

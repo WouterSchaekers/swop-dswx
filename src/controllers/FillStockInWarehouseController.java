@@ -13,10 +13,9 @@ import exceptions.InvalidLoginControllerException;
 public class FillStockInWarehouseController extends NeedsLoginController
 {
 
-	public FillStockInWarehouseController(Hospital hospital,
-			LoginController controller) throws InvalidLoginControllerException,
+	public FillStockInWarehouseController(LoginController controller) throws InvalidLoginControllerException,
 			InvalidHospitalException {
-		super(hospital, controller);
+		super(controller);
 	}
 
 	public Collection<WarehouseItemType> getItemTypes() {

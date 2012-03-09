@@ -16,11 +16,10 @@ import exceptions.InvalidPatientFileOpenController;
 public class EnterTreatmentResultController extends NeedsLoginController
 {
 
-	public EnterTreatmentResultController(Hospital hospital,
-			LoginController controller, ConsultPatientFileController pfoc)
+	public EnterTreatmentResultController(LoginController controller, ConsultPatientFileController pfoc)
 			throws InvalidLoginControllerException, InvalidHospitalException,
 			InvalidPatientFileOpenController {
-		super(hospital, controller);
+		super(controller);
 	}
 
 	public Collection<Treatment> getAllTreatments() {
