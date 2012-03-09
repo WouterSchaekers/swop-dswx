@@ -5,6 +5,8 @@ import java.util.Collection;
 import system.Hospital;
 import users.User;
 import users.UserManager;
+import controllers.interfaces.DoctorIN;
+import controllers.interfaces.NurseIN;
 import controllers.interfaces.UserIN;
 import exceptions.InvalidHospitalException;
 
@@ -31,6 +33,14 @@ public class LoginController extends HospitalController
 		for (User u : um.getAllUsers())
 			users.add(u);
 		return users;
+	}
+	
+	public NurseIN getSpecificNurse(String name) {
+		return hospital.getUserManager().getSpecificNurse(name);
+	}
+	
+	public DoctorIN getSpecificDoctor(String name) {
+		return hospital.getUserManager().getSpecificDoctor(name);
 	}
 
 	/**
