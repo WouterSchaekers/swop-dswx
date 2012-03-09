@@ -21,7 +21,8 @@
 || 09/03/11: 00u00 -> 02u30 || 1 S || 2.5 || Finishing up the implementation of the basic testing scenario. || ||
 || 09/03/11: 10u00 -> 10u30 || 2 SW || 0.5 || Reviewing the basic testing scenario; initiating implementing more complex scenarios || ||
 || 09/03/11: 10u30 -> 12u30 || 3 DSW || 2.5 || More of the above... || ||
-|| 09/03/11: 13u00 -> || 3 DSW || || Making the last changes to both report and code before the deadline. || ||
+|| 09/03/11: 13u00 -> 16u00|| 3 DSW || 3 || Making the final changes to both report and code before the deadline. || ||
+|| 09/03/11: 16u00 -> 17u00|| 3 DSW || 1 || Finishing writing the report. || Dieter en Wouter wilden ontspannen. ||
 
 
 = Iteratie 2 =
