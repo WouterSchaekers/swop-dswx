@@ -2,11 +2,13 @@ package testscenarios;
 import java.util.Collection;
 import machine.MachineBuilder;
 import org.junit.Test;
+import scheduler2.AppointmentDescription;
 import system.CampusPreference;
 import system.Hospital;
 import users.HospitalAdmin;
 import controllers.AddHospitalEquipmentController;
 import controllers.AddHospitalStaffController;
+import controllers.CreateAppointmentController;
 import controllers.LoginController;
 import controllers.RegisterPatientController;
 import exceptions.*;
@@ -24,9 +26,10 @@ public class TestScenarios
 	 * - Nurse Jenny logs in.
 	 * - Nurse Jenny registers a new patient: Dieter Geboers.
 	 * - ...
+	 * @throws InvalidPatientFileOpenController 
 	 */
 	@Test
-	public void scenario1() throws UserAlreadyExistsException, InvalidNameException, InvalidTimeSlotException, InvalidLoginControllerException, InvalidHospitalException, InvalidLocationException, InvalidSerialException {
+	public void scenario1() throws UserAlreadyExistsException, InvalidNameException, InvalidTimeSlotException, InvalidLoginControllerException, InvalidHospitalException, InvalidLocationException, InvalidSerialException, InvalidPatientFileOpenController {
 		System.out.print("Creating and intialising hospital... ");
 		Hospital h = new Hospital();
 		HospitalAdmin hadmin = h.getUserManager().createHospitalAdmin("admin");
@@ -63,14 +66,21 @@ public class TestScenarios
 		System.out.print("Logging in Jenny... ");
 		//TODO: list scheduled tasks in which Jenny is involved in that still have to be executed by her.
 		lc = new LoginController(h);
-		lc.logIn(h.getUserManager().getSpecificNurse("Jenny"));
+		lc.logIn(lc.getSpecificNurse("Jenny"));
 		System.out.println("Succes!");
 		System.out.print("Registering new patient in the hospital... ");
 		RegisterPatientController rpc = new RegisterPatientController(lc, h);
 		rpc.registerNewPatient(h, "Dieter Geboers");
 		System.out.println("Dieter Geboers's patient file was created and added to the hospital's database successfully!");
-		// schedule een appointment voor dieter met doctor jonathan
 		
+		// schedule een appointment voor dieter met doctor jonathan
+		System.out.print("Creating appointment for Dieter Geboers with a doctor... ");
+		CreateAppointmentController cac = new CreateAppointmentController(h, lc);
+		// Nurse Jenny asks for a list of available doctors
+		System.out.print("Dear Jenny, the following doctors are available ");cac.getAllDoctors());
+		
+		AppointmentDescription ad = new AppointmentDescription(doctor, patient);
+		cac.scheduleNewAppointment(appDisc)
 	}
 	
 	/**
