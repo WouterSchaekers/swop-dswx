@@ -55,12 +55,12 @@ public class SchedulerTest
 			InvalidTimeLordException {
 		s = new Scheduler(new TimeLord());
 		m = new UserManager();
-		m.createDoctor("Jonathan");
-		m.createDoctor("Jeffrey");
-		m.createDoctor("Jack");
-		m.createDoctor("Jonas");
-		m.createNurse("Jenny");
-		m.createNurse("Jill");
+		m.createAndAddDoctor("Jonathan");
+		m.createAndAddDoctor("Jeffrey");
+		m.createAndAddDoctor("Jack");
+		m.createAndAddDoctor("Jonas");
+		m.createAndAddNurse("Jenny");
+		m.createAndAddNurse("Jill");
 
 		listOfDoctors = new LinkedList<Schedulable>(m.getAllDoctors());
 		listOfNurses = new LinkedList<Schedulable>(m.getAllNurses());

@@ -31,31 +31,31 @@ public class UserManager
 		return new ArrayList<User>(users);
 	}
 
-	public Nurse createNurse(String string) throws UserAlreadyExistsException,
+	public void createAndAddNurse(String string) throws UserAlreadyExistsException,
 			InvalidNameException {
 		Nurse newUser = new Nurse(string);
-		return newUser;
+		this.addUser(newUser);
 	}
 
-	public WarehouseAdmin createWarehouseAdmin(String string,
+	public void createAndAddWarehouseAdmin(String string,
 			Warehouse warehouse, StockProvider stockProvider,
 			PatientFileManager patientFileManager)
 			throws UserAlreadyExistsException, InvalidNameException {
 		WarehouseAdmin newUser = new WarehouseAdmin(string, warehouse,
 				stockProvider, patientFileManager);
-		return newUser;
+		this.addUser(newUser);
 	}
 
-	public HospitalAdmin createHospitalAdmin(String string)
+	public void createAndAddHospitalAdmin(String string)
 			throws UserAlreadyExistsException, InvalidNameException {
 		HospitalAdmin newUser = new HospitalAdmin(string);
-		return newUser;
+		this.addUser(newUser);
 	}
 
-	public Doctor createDoctor(String name) throws UserAlreadyExistsException,
+	public void createAndAddDoctor(String name) throws UserAlreadyExistsException,
 			InvalidNameException {
 		Doctor newUser = new Doctor(name);
-		return newUser;
+		this.addUser(newUser);
 	}
 
 	/**

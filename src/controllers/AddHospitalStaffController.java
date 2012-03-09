@@ -31,18 +31,18 @@ public class AddHospitalStaffController extends NeedsLoginController
 
 	public void addNurse(String name) throws UserAlreadyExistsException,
 			InvalidNameException {
-		this.addStaffMember(this.hospital.getUserManager().createNurse(name));
+		this.hospital.getUserManager().createAndAddNurse(name);
 	}
 
 	public void addDoctor(String name, CampusPreference pref)
 			throws UserAlreadyExistsException, InvalidNameException {
 		// TODO: fix pref
-		this.addStaffMember(this.hospital.getUserManager().createDoctor(name));
+		this.hospital.getUserManager().createAndAddDoctor(name);
 	}
 
 	public void addHospitalAdmin(String name)
 			throws UserAlreadyExistsException, InvalidNameException {
-		this.hospital.getUserManager().createHospitalAdmin(name);
+		this.hospital.getUserManager().createAndAddHospitalAdmin(name);
 	}
 
 	@Override
