@@ -16,10 +16,9 @@ import exceptions.InvalidPatientFileOpenController;
 public class CreateAppointmentController extends NeedsLoginController
 {
 
-	public CreateAppointmentController(Hospital hospital,
-			LoginController controller) throws InvalidLoginControllerException,
+	public CreateAppointmentController(LoginController controller) throws InvalidLoginControllerException,
 			InvalidHospitalException, InvalidPatientFileOpenController {
-		super(hospital, controller);
+		super(controller);
 	}
 
 	/**

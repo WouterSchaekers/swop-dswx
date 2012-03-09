@@ -16,11 +16,11 @@ import exceptions.InvalidPatientFileOpenController;
 public class EnterDiagnoseController extends NeedsLoginAndPatientFileController
 {
 
-	public EnterDiagnoseController(Hospital hospital, LoginController loginc,
+	public EnterDiagnoseController(LoginController loginc,
 			ConsultPatientFileController patientFileOpenController)
 			throws InvalidLoginControllerException, InvalidHospitalException,
 			InvalidPatientFileOpenController {
-		super(hospital, loginc, patientFileOpenController);
+		super(loginc, patientFileOpenController);
 	}
 
 	public DiagnoseIN enterDiagnoseWithSecondOpinion(String diag, DoctorIN choice)
