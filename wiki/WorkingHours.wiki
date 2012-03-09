@@ -14,8 +14,14 @@
 || 06/03/11: 14u00 -> 18u30 || 3 DSW || 4.5 || Meeting with project advisor + working our way towards the deadline by implementing controller APIs.|| ||
 || 07/03/11: 11u00 -> 12u30 || 2 DS || 1.5 || Studying the public API of the controllers and determining some smaller refactoring changes || ||
 || 07/03/11: 13u00 -> 18u00 || 3 DSW || 5 || Updating the APIs of the controllers in the code. Making system sequence diagrams of some use cases. || ||
-|| 07/03/11: 21u00 -> 23u00 || 2 SW || 2 || Writing the report on refactoring changes. || ||
+|| 07/03/11: 21u00 -> 23u00 || 2 SW || 2 || Writing the report on refactoring changes. || Dieter ging drugs kopen. ||
 || 08/03/11: 12u00 -> 13u30 || 2 SW || 1.5 || Finishing up the current draft of the report on refactoring changes. || ||
+|| 08/03/11: 15u45 -> 19u15 || 3 DSW || 3.5 || Discussing the dependencies created by our current design, making system sequence diagrams, implementing scenarios || Dieter moest weg van Shana en mocht niet meer terugkomen. ||
+|| 08/03/11: 21u00 -> 23u30 || 2 SW || 2.5 || Making large changes to the controllers; implementing a basic scenario. || ||
+|| 09/03/11: 00u00 -> 02u30 || 1 S || 2.5 || Finishing up the implementation of the basic testing scenario. || ||
+|| 09/03/11: 10u00 -> 10u30 || 2 SW || 0.5 || Reviewing the basic testing scenario; initiating implementing more complex scenarios || ||
+|| 09/03/11: 10u30 -> 12u30 || 3 DSW || 2.5 || More of the above... || ||
+|| 09/03/11: 13u00 -> || 3 DSW || || Making the last changes to both report and code before the deadline. || ||
 
 
 = Iteratie 2 =
