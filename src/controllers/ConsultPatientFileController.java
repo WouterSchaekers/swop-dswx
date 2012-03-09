@@ -24,8 +24,7 @@ public class ConsultPatientFileController extends NeedsLoginController
 	public ConsultPatientFileController(LoginController loginController)
 			throws InvalidHospitalException,
 			InvalidLoginControllerException {
-		super(loginController.hospital, loginController);
-		this.hospital = hospital;
+		super(loginController);
 		doctor = (DoctorIN) loginController.getUser();
 	}
 	
