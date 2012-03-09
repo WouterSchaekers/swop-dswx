@@ -1,0 +1,3 @@
+Wie loze dingen vindt bij het nalezen van de controllers e.d. mag die hier zetten zodat we ze later kunnen fixen:
+
+  * gogogo
