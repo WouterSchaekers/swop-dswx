@@ -50,7 +50,7 @@ public class UserManager
 		HospitalAdmin newUser = new HospitalAdmin(string);
 		this.addUser(newUser);
 	}
-
+    
 	public void createAndAddDoctor(String name) throws UserAlreadyExistsException,
 			InvalidNameException {
 		Doctor newUser = new Doctor(name);
