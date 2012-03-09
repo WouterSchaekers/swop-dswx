@@ -23,5 +23,12 @@ public class UserFilter
 				rv.add((NurseIN) u);
 		return rv;
 	}
+	
+	public static NurseIN SpecificNurseFilter(Collection<UserIN> users, String name) {
+		for (UserIN u : users)
+			if (u instanceof NurseIN && u.getName().equals(name))
+				return (NurseIN) u;
+		return null;
+	}
 
 }

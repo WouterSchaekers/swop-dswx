@@ -1,6 +1,7 @@
 package controllers;
 
 import java.util.Collection;
+import system.CampusPreference;
 import system.Hospital;
 import users.Doctor;
 import users.User;
@@ -15,7 +16,7 @@ public class SelectLocationPreferenceController extends NeedsLoginController
 		super(hospital, controller);
 	}
 
-	public Collection<abra__Preference11> getPossiblePreferences() {
+	public Collection<CampusPreference> getPossiblePreferences() {
 		// Jaaa het type is keislecht, maar dat boeit niet aangezien er alleen
 		// een plausibele API moet zijn.
 		//TODO: fix het type ^^

@@ -5,22 +5,18 @@ import java.util.Collection;
 import patient.PatientFileManager;
 import scheduler.HospitalDate;
 import scheduler.task.Schedulable;
-import warehouse.stock.StockProvider;
 import warehouse.Warehouse;
+import warehouse.stock.StockProvider;
 import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.DoctorIN;
 import controllers.interfaces.NurseIN;
 import controllers.interfaces.UserIN;
 import exceptions.InvalidNameException;
-import exceptions.InvalidTimeSlotException;
 import exceptions.UserAlreadyExistsException;
 
 public class UserManager
 {
-	/**
-	 * We use a Map so interaction with the user in usecases can go more
-	 * smoothly.
-	 */
+	
 	private Collection<User> users;
 
 	/**
@@ -35,21 +31,9 @@ public class UserManager
 		return new ArrayList<User>(users);
 	}
 
-	/**
-	 * This method will create a new Nurse and add it to this UserManager's
-	 * database.
-	 * 
-	 * @param string
-	 *            The name of the Nurse.
-	 * @return The created Nurse.
-	 * @throws UserAlreadyExistsException
-	 * @throws InvalidNameException
-	 * @throws InvalidTimeSlotException
-	 */
 	public Nurse createNurse(String string) throws UserAlreadyExistsException,
-			InvalidNameException, InvalidTimeSlotException {
+			InvalidNameException {
 		Nurse newUser = new Nurse(string);
-		addUser(newUser);
 		return newUser;
 	}
 
@@ -59,44 +43,18 @@ public class UserManager
 			throws UserAlreadyExistsException, InvalidNameException {
 		WarehouseAdmin newUser = new WarehouseAdmin(string, warehouse,
 				stockProvider, patientFileManager);
-		addUser(newUser);
 		return newUser;
 	}
 
-	/**
-	 * This method will create a new HospitalAdmin and add it to this
-	 * UserManager's database.
-	 * 
-	 * @param string
-	 *            The name of the Nurse.
-	 * @return The created Nurse.
-	 * @throws UserAlreadyExistsException
-	 * @throws InvalidNameException
-	 * @throws InvalidTimeSlotException
-	 */
 	public HospitalAdmin createHospitalAdmin(String string)
-			throws UserAlreadyExistsException, InvalidNameException,
-			InvalidTimeSlotException {
+			throws UserAlreadyExistsException, InvalidNameException {
 		HospitalAdmin newUser = new HospitalAdmin(string);
-		addUser(newUser);
 		return newUser;
 	}
 
-	/**
-	 * This method will create a new Doctor and add it to this UserManager's
-	 * database.
-	 * 
-	 * @param string
-	 *            The name of the Doctor.
-	 * @return The created Doctor.
-	 * @throws UserAlreadyExistsException
-	 * @throws InvalidNameException
-	 * @throws InvalidTimeSlotException
-	 */
 	public Doctor createDoctor(String name) throws UserAlreadyExistsException,
 			InvalidNameException {
 		Doctor newUser = new Doctor(name);
-		addUser(newUser);
 		return newUser;
 	}
 
@@ -117,6 +75,13 @@ public class UserManager
 			t.add(u);
 		return UserFilter.DoctorFilter(t);
 	}
+	
+	public NurseIN getSpecificNurse(String name) {
+		ArrayList<UserIN> t = new ArrayList<UserIN>();
+		for (User u : users)
+			t.add(u);
+		return UserFilter.SpecificNurseFilter(t, name);
+	}
 
 	public WarehouseAdmin getWarehouseAdmin() {
 		WarehouseAdmin warehouseAdmin = null;
@@ -132,7 +97,7 @@ public class UserManager
 	 * @param newUser
 	 * @throws UserAlreadyExistsException
 	 */
-	private void addUser(User newUser) throws UserAlreadyExistsException {
+	public void addUser(User newUser) throws UserAlreadyExistsException {
 		if (users.contains(newUser))
 			throw new UserAlreadyExistsException(newUser.name);
 		this.users.add(newUser);

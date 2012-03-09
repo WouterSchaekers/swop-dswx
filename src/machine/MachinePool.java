@@ -42,9 +42,9 @@ public class MachinePool
 	}
 
 	public Collection<MachineBuilder> getAllBuilders() {
-		return Arrays.asList(new BloodanalyserBuilder(this),
+		return Arrays.asList(new BloodAnalyserBuilder(this),
 				new UltraSoundScannerBuilder(this),
-				new XrayScannerBuilder(this));
+				new XRayScannerBuilder(this));
 	}
 
 	public void updateTimeTables(HospitalDate newDate) {
@@ -64,6 +64,12 @@ public class MachinePool
 		this.alreadyContains(serial);
 		return new UltraSoundScanner(serial, location);
 	}
+	
+	public BloodAnalyser createBloodAnalyser(int serial, String location)
+			throws InvalidSerialException, InvalidLocationException {
+		alreadyContains(serial);
+		return new BloodAnalyser(serial, location);
+	}
 
 	private void alreadyContains(int serial) throws InvalidSerialException {
 		for (Machine m : allMachines)
@@ -71,9 +77,5 @@ public class MachinePool
 				throw new InvalidSerialException();
 	}
 
-	public BloodAnalyser createBloodAnalyser(int serial, String location)
-			throws InvalidSerialException, InvalidLocationException {
-		alreadyContains(serial);
-		return new BloodAnalyser(serial, location);
-	}
+
 }

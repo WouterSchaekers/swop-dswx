@@ -5,7 +5,6 @@ import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
 import exceptions.InvalidLocationException;
-import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidSerialException;
 
 public class BuildMachine extends AddHospitalEquipmentSuperClass
@@ -35,17 +34,13 @@ public class BuildMachine extends AddHospitalEquipmentSuperClass
 		MachineBuilder b = chainData.getMachineBuilder();
 		{
 			try {
-				chainData.getController().createMachine(b, serial, location,
-						data.getLoginController());
+				chainData.getController().createMachine(b, serial, location);
 			} catch (InvalidLocationException e) {
-				System.out.println("Invalid location ");
+				System.out.println(e.getMessage());
 				return this;
 			} catch (InvalidSerialException e) {
-				System.out.println("Invalid serial ");
+				System.out.println(e.getMessage());
 				return this;
-			} catch (InvalidLoginControllerException e) {
-				System.out.println("Not allowed to do that sorry");
-				return new SelectUsecase(data);
 			}
 		}
 		System.out.println("Machine was sucesfully build and added to system");
