@@ -13,9 +13,9 @@ import exceptions.InvalidNameException;
 
 public class RegisterPatientController extends NeedsLoginController
 {
-	public RegisterPatientController(LoginController loginController) throws InvalidLoginControllerException,
+	public RegisterPatientController(LoginController lc) throws InvalidLoginControllerException,
 			InvalidHospitalException {
-		super(loginController);
+		super(lc);
 	}
 
 	public Collection<PatientFileIN> getAllPatients() {

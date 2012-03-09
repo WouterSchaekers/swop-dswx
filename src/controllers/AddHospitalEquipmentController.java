@@ -25,9 +25,9 @@ public class AddHospitalEquipmentController extends NeedsLoginController
 	 * @throws InvalidLoginControllerException
 	 * @throws InvalidHospitalException
 	 */
-	public AddHospitalEquipmentController(LoginController loginController) throws InvalidLoginControllerException,
+	public AddHospitalEquipmentController(LoginController lc) throws InvalidLoginControllerException,
 			InvalidHospitalException {
-		super(loginController);
+		super(lc);
 	}
 
 	/**

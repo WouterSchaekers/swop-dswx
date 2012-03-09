@@ -13,13 +13,13 @@ import exceptions.InvalidPatientFileOpenController;
 /**
  * Use this controller to enter the result of a treatment.
  */
-public class EnterTreatmentResultController extends NeedsLoginController
+public class EnterTreatmentResultController extends NeedsLoginAndPatientFileController
 {
 
-	public EnterTreatmentResultController(LoginController controller, ConsultPatientFileController pfoc)
+	public EnterTreatmentResultController(LoginController lc, ConsultPatientFileController pfoc)
 			throws InvalidLoginControllerException, InvalidHospitalException,
 			InvalidPatientFileOpenController {
-		super(controller);
+		super(lc, pfoc);
 	}
 
 	public Collection<Treatment> getAllTreatments() {

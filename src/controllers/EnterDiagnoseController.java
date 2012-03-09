@@ -16,18 +16,18 @@ import exceptions.InvalidPatientFileOpenController;
 public class EnterDiagnoseController extends NeedsLoginAndPatientFileController
 {
 
-	public EnterDiagnoseController(LoginController loginc,
+	public EnterDiagnoseController(LoginController lc,
 			ConsultPatientFileController patientFileOpenController)
 			throws InvalidLoginControllerException, InvalidHospitalException,
 			InvalidPatientFileOpenController {
-		super(loginc, patientFileOpenController);
+		super(lc, patientFileOpenController);
 	}
 
 	public DiagnoseIN enterDiagnoseWithSecondOpinion(String diag, DoctorIN choice)
 			throws InvalidDoctorException, InvalidDiagnoseException {
 
 		Diagnose d = PatientFile.createDiagnoseSecondOp(diag,
-				(Doctor) loginController.getUser(), (Doctor) choice,
+				(Doctor) lc.getUser(), (Doctor) choice,
 				hospital.getTaskManager());
 		((PatientFile) pfoc.getPatientFile()).addDiagnosis(d);
 		return d;
@@ -36,7 +36,7 @@ public class EnterDiagnoseController extends NeedsLoginAndPatientFileController
 	public DiagnoseIN enterDiagnose(String diag) throws InvalidLoginControllerException,
 			InvalidPatientFileOpenController, InvalidDiagnoseException,
 			InvalidDoctorException {
-		Diagnose d = new Diagnose((Doctor) loginController.getUser(), diag);
+		Diagnose d = new Diagnose((Doctor) lc.getUser(), diag);
 		((PatientFile) pfoc.getPatientFile()).addDiagnosis(d);
 		return d;
 	}
