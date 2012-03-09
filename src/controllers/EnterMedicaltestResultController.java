@@ -24,7 +24,7 @@ public class EnterMedicaltestResultController extends NeedsLoginController
 		// TODO: fix
 	}
 
-	public void addResultTo(Result r, MedicalTest medicalTest) {
+	public void addResultTo(String report, MedicalTest medicalTest) {
 		// TODO: implement
 	}
 

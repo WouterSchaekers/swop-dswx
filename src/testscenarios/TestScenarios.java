@@ -1,11 +1,14 @@
 package testscenarios;
 import static org.junit.Assert.fail;
 import java.util.Collection;
+import java.util.LinkedList;
 import machine.MachineBuilder;
 import medicaltest.BloodAnalysisFactory;
+import medicaltest.MedicalTest;
 import medicaltest.MedicalTestFactory;
 import medicaltest.XRayScanFactory;
 import org.junit.Test;
+import result.Result;
 import scheduler.HospitalDate;
 import system.CampusPreference;
 import system.Hospital;
@@ -14,6 +17,7 @@ import controllers.AddHospitalStaffController;
 import controllers.AdvanceTimeController;
 import controllers.ConsultPatientFileController;
 import controllers.CreateAppointmentController;
+import controllers.EnterMedicaltestResultController;
 import controllers.LoginController;
 import controllers.OrderMedicalTestController;
 import controllers.RegisterPatientController;
@@ -243,8 +247,24 @@ public class TestScenarios
 		System.out.println("Success!\n");
 		
 		System.out.println(" Nurse Jenna has requested a list of all unfinished medical tests.");
+		EnterMedicaltestResultController emrc = new EnterMedicaltestResultController(lc);
+		Collection<MedicalTest> mtests = emrc.getAllMedicalTests();
+		Collection<MedicalTest> unfinishedMtests = new LinkedList<MedicalTest>();
+		System.out.println("Dear nurse Jenna, the following medical tests are unfinished and require a result:");
+		for(MedicalTest mt : mtests)
+			if (!mt.hasResult()) {
+				System.out.println("* " + mt.toString());
+				unfinishedMtests.add(mt);
+			}
+		System.out.println(" Nurse Jenna has selected the blood analysis of Dieter Geboers.");
+		System.out.println(" Nurse Jenna has submitted the following details: ");
+		String report = "* amount of blood drawn: 0.5 litre\n" + "* red cell count: 9001"
+				+ "* white cell count: 1337"
+				+ "* platelet count: 1234567890";
+		System.out.println(report);
 		
-		
+		emrc.addResultTo("* red cell count: 9001"
+				+ "* white cell count: 1337"
+				+ "* platelet count: 1234567890", mqjfk);
 	}
-
 }
