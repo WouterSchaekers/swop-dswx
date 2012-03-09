@@ -10,9 +10,9 @@ import exceptions.InvalidLoginControllerException;
 public class AdvanceTimeController extends NeedsLoginController
 {
 
-	public AdvanceTimeController(LoginController loginController) throws InvalidLoginControllerException,
+	public AdvanceTimeController(LoginController lc) throws InvalidLoginControllerException,
 			InvalidHospitalException {
-		super(loginController);
+		super(lc);
 	}
 
 	/**

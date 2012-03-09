@@ -11,9 +11,9 @@ import exceptions.UserAlreadyExistsException;
 
 public class AddHospitalStaffController extends NeedsLoginController
 {
-	public AddHospitalStaffController(LoginController loginController) throws InvalidLoginControllerException,
+	public AddHospitalStaffController(LoginController lc) throws InvalidLoginControllerException,
 			InvalidHospitalException {
-		super(loginController);
+		super(lc);
 	}
 
 	/**

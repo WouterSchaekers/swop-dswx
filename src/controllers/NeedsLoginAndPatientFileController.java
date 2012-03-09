@@ -24,10 +24,10 @@ public abstract class NeedsLoginAndPatientFileController extends
 	 * @throws InvalidHospitalException
 	 * @throws InvalidPatientFileOpenController
 	 */
-	public NeedsLoginAndPatientFileController(LoginController controller, ConsultPatientFileController pfoc)
+	public NeedsLoginAndPatientFileController(LoginController lc, ConsultPatientFileController pfoc)
 			throws InvalidLoginControllerException,
 			InvalidHospitalException, InvalidPatientFileOpenController {
-		super(controller);
+		super(lc);
 		if (!isValidPatientFileOpenController(pfoc)) {
 			throw new InvalidPatientFileOpenController("");
 		}

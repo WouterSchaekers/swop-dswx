@@ -16,9 +16,9 @@ import exceptions.InvalidPatientFileOpenController;
 public class ApproveDiagnoseController extends NeedsLoginAndPatientFileController
 {
 
-	public ApproveDiagnoseController(LoginController loginc, ConsultPatientFileController cpfc) throws InvalidLoginControllerException,
+	public ApproveDiagnoseController(LoginController lc, ConsultPatientFileController cpfc) throws InvalidLoginControllerException,
 			InvalidHospitalException, InvalidPatientFileOpenController {
-		super(loginc, cpfc);
+		super(lc, cpfc);
 	}
 
 	public Collection<PatientFileIN> getAllPatienFiles() {

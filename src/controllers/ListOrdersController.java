@@ -13,9 +13,9 @@ import exceptions.InvalidLoginControllerException;
 public class ListOrdersController extends NeedsLoginController
 {
 
-	public ListOrdersController(LoginController loginController) throws InvalidLoginControllerException,
+	public ListOrdersController(LoginController lc) throws InvalidLoginControllerException,
 			InvalidHospitalException {
-		super(loginController);
+		super(lc);
 	}
 
 	public String getCategories() {

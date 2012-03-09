@@ -16,9 +16,9 @@ import exceptions.InvalidPatientFileOpenController;
 public class CreateAppointmentController extends NeedsLoginController
 {
 
-	public CreateAppointmentController(LoginController controller) throws InvalidLoginControllerException,
+	public CreateAppointmentController(LoginController lc) throws InvalidLoginControllerException,
 			InvalidHospitalException, InvalidPatientFileOpenController {
-		super(controller);
+		super(lc);
 	}
 
 	/**
@@ -28,7 +28,7 @@ public class CreateAppointmentController extends NeedsLoginController
 	public HospitalDate scheduleNewAppointment(String doctorName, String patientName) {
 		// TODO: fix
 		AppointmentDescription ad = new AppointmentDescription(
-				(Doctor) loginController.getSpecificDoctor(doctorName),
+				(Doctor) lc.getSpecificDoctor(doctorName),
 				this.getPatient(patientName));
 		return null;
 	}

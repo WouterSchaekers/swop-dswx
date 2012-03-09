@@ -14,10 +14,10 @@ public class DischargePatientController extends
 		NeedsLoginAndPatientFileController
 {
 
-	public DischargePatientController(LoginController loginController, ConsultPatientFileController cpfc)
+	public DischargePatientController(LoginController lc, ConsultPatientFileController cpfc)
 			throws InvalidLoginControllerException, InvalidHospitalException,
 			InvalidPatientFileOpenController, InvalidPatientFileException {
-		super(loginController, cpfc);
+		super(lc, cpfc);
 		if (cpfc.getPatientFile().isDischarged())
 			throw new InvalidPatientFileException(
 					"Trying to discharge an invalid patientfile!");
