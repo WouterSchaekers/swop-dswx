@@ -31,7 +31,7 @@ public class StockManager implements Observer
 	private Collection<OrderStrategy> defaultOrderStrategies() {
 		ArrayList<OrderStrategy> strat = new ArrayList<OrderStrategy>();
 		strat.add(new PatientMealStrategy(new MealType()));
-		return null;
+		return strat;
 	}
 
 	@Override
