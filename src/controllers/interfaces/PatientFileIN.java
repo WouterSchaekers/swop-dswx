@@ -1,6 +1,7 @@
 package controllers.interfaces;
 
 import java.util.Collection;
+import users.User;
 
 public interface PatientFileIN
 {
@@ -14,5 +15,7 @@ public interface PatientFileIN
 	public Collection<TreatmentIN> getAllTreatments();
 
 	public Collection<MedicalTestIN> getallMedicalTests();
+
+	
 
 }

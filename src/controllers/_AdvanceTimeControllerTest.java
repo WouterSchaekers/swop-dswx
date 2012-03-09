@@ -37,7 +37,7 @@ public class _AdvanceTimeControllerTest
 			InvalidHospitalException {
 		loginController.logIn(nurse);
 		addHospitalEquipmentController = new AddHospitalEquipmentController(
-				loginController, hospital);
+				loginController);
 	}
 
 	@Test(expected = InvalidLoginControllerException.class)
@@ -45,7 +45,7 @@ public class _AdvanceTimeControllerTest
 			InvalidHospitalException {
 		loginController.logIn(Doctor);
 		addHospitalEquipmentController = new AddHospitalEquipmentController(
-				loginController, hospital);
+				loginController);
 	}
 
 	@Test
@@ -53,7 +53,7 @@ public class _AdvanceTimeControllerTest
 			InvalidHospitalException {
 		loginController.logIn(hospitad);
 		addHospitalEquipmentController = new AddHospitalEquipmentController(
-				loginController, hospital);
+				loginController);
 		assertTrue(addHospitalEquipmentController
 				.isValidLoginController(loginController));
 	}

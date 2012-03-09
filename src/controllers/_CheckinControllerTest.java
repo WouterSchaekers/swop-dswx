@@ -38,7 +38,7 @@ public class _CheckinControllerTest
 			InvalidHospitalException {
 		loginController.logIn(doctor);
 		checkinController = new CheckinController(
-				loginController, hospital);
+				loginController);
 	}
 	
 	@Test(expected = InvalidLoginControllerException.class)
@@ -46,7 +46,7 @@ public class _CheckinControllerTest
 			InvalidHospitalException {
 		loginController.logIn(hospitad);
 		checkinController = new CheckinController(
-				loginController, hospital);
+				loginController);
 	}
 	
 	@Test
@@ -54,7 +54,7 @@ public class _CheckinControllerTest
 			InvalidHospitalException {
 		loginController.logIn(nurse);
 		checkinController = new CheckinController(
-				loginController, hospital);
+				loginController);
 	}
 	
 	@Test
@@ -62,7 +62,7 @@ public class _CheckinControllerTest
 			InvalidLocationException, InvalidSerialException,
 			InvalidHospitalException, InvalidNameException {
 		loginController.logIn(nurse);
-		checkinController = new CheckinController(loginController, hospital);
+		checkinController = new CheckinController(loginController);
 		checkinController.signUpNewPatient("Thibault");
 		assertTrue(hospital.getPatientFileManager().amountOfActivePatients() == 1);
 		PatientFile thibault = hospital.getPatientFileManager().getPatientFileFrom("Thibault");
