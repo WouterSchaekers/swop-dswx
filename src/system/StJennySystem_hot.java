@@ -29,7 +29,7 @@ public class StJennySystem_hot
 			InvalidHospitalDateException {
 		this.state = new Hospital();
 		try {
-			state.getUserManager().createHospitalAdmin("Wouter");
+			state.getUserManager().createAndAddHospitalAdmin("Wouter");
 			if (extendd)
 				extraInfo();
 		} catch (UserAlreadyExistsException e) {
@@ -48,9 +48,9 @@ public class StJennySystem_hot
 	private void extraInfo() throws UserAlreadyExistsException,
 			InvalidNameException, InvalidTimeSlotException,
 			InvalidSerialException, InvalidLocationException {
-		state.getUserManager().createNurse("jenny");
-		state.getUserManager().createDoctor("stef");
-		state.getUserManager().createDoctor("abra");
+		state.getUserManager().createAndAddNurse("jenny");
+		state.getUserManager().createAndAddDoctor("stef");
+		state.getUserManager().createAndAddDoctor("abra");
 		state.getMachinePool()
 				.addMachine(
 						state.getMachinePool().createUltraSoundScanner(234,

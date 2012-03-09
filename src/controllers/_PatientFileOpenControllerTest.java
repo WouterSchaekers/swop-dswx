@@ -36,7 +36,7 @@ public class _PatientFileOpenControllerTest
 			throws UserAlreadyExistsException, InvalidNameException,
 			InvalidTimeSlotException, InvalidLoginControllerException, InvalidHospitalException {
 		lc = new LoginController(data);
-		d = um.createDoctor("Jef");
+		d = um.createAndAddDoctor("Jef");
 		u = d;
 		lc.logIn(u);
 		pfoc = new ConsultPatientFileController(data, lc);
@@ -54,7 +54,7 @@ public class _PatientFileOpenControllerTest
 			throws UserAlreadyExistsException, InvalidNameException,
 			InvalidTimeSlotException, InvalidLoginControllerException, InvalidHospitalException {
 		lc = new LoginController(data);
-		n = um.createNurse("Sandrien");
+		n = um.createAndAddNurse("Sandrien");
 		u = n;
 		pfoc = new ConsultPatientFileController(data, lc);
 	}
@@ -64,7 +64,7 @@ public class _PatientFileOpenControllerTest
 			throws UserAlreadyExistsException, InvalidNameException,
 			InvalidTimeSlotException, InvalidLoginControllerException, InvalidHospitalException {
 		lc = new LoginController(data);
-		d = um.createDoctor("Jef");
+		d = um.createAndAddDoctor("Jef");
 		u = d;
 		lc.logIn(u);
 		pfoc = new ConsultPatientFileController(data, lc);
@@ -76,7 +76,7 @@ public class _PatientFileOpenControllerTest
 			throws UserAlreadyExistsException, InvalidNameException,
 			InvalidTimeSlotException, InvalidLoginControllerException, InvalidHospitalException {
 		lc = new LoginController(data);
-		n = um.createNurse("Margo");
+		n = um.createAndAddNurse("Margo");
 		u = n;
 		lc.logIn(u);
 		pfoc = new ConsultPatientFileController(data, lc);
