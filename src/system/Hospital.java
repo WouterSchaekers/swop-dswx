@@ -1,6 +1,6 @@
 package system;
 
-import machine.MachinePool;
+import java.util.LinkedList;
 import patient.PatientFileManager;
 import scheduler.Scheduler;
 import scheduler.TimeLord;
@@ -16,33 +16,29 @@ import be.kuleuven.cs.som.annotate.Basic;
  */
 public class Hospital
 {
-	private final UserManager userManager;
-	private final MachinePool machinePool;
-	private final PatientFileManager patientFileManager;
-	private final TaskManager taskManager;
-	private final Scheduler scheduler;
-	private final Warehouse warehouse;
-	private final TimeLord systemTime;
-	private final Campus campusA;
-	private final Campus campusB;
-	private final HospitalAdmin hospitalAdmin;
+	private final UserManager _usm;
+	private final PatientFileManager _pfm;
+	private final TaskManager _tm;
+	private final Scheduler _sdl;
+	private final Warehouse _wh;
+	private final TimeLord _st;
+	private LinkedList<Campus> _cp;
+	private final HospitalAdmin _hta;
 
 	/**
 	 * Initializes an empty hospital with a hospital admin and 2 campusses.
 	 */
 	public Hospital() {
 		try {
-			this.systemTime = new TimeLord();
-			this.userManager = new UserManager();
-			this.machinePool = new MachinePool();
-			this.patientFileManager = new PatientFileManager();
-			this.scheduler = new Scheduler(this.systemTime);
-			this.taskManager = new TaskManager(this.scheduler);
-			this.warehouse = new Warehouse();
-			this.campusA = new Campus();
-			this.campusB = new Campus();
-			this.hospitalAdmin = new HospitalAdmin("admin");
-			this.userManager.addUser(this.hospitalAdmin);
+			this._st = new TimeLord();
+			this._usm = new UserManager();
+			this._pfm = new PatientFileManager();
+			this._sdl = new Scheduler(this._st);
+			this._tm = new TaskManager(this._sdl);
+			this._wh = new Warehouse();
+			this._cp = new LinkedList<Campus>();
+			this._hta = new HospitalAdmin("admin");
+			this._usm.addUser(this._hta);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			throw new Error();
@@ -69,22 +65,19 @@ public class Hospital
 	 *            The Warehouse for this hospital.
 	 * @throws  
 	 */
-	public Hospital(TimeLord timeLord, UserManager userManager,
-			MachinePool machinePool, PatientFileManager patientFileManager,
+	public Hospital(TimeLord timeLord, UserManager userManager, PatientFileManager patientFileManager,
 			Scheduler scheduler, TaskManager taskManager, Warehouse warehouse,
 			HospitalAdmin hospitalAdmin) {
-		this.systemTime = timeLord;
-		this.userManager = userManager;
-		this.machinePool = machinePool;
-		this.patientFileManager = patientFileManager;
-		this.scheduler = scheduler;
-		this.taskManager = taskManager;
-		this.warehouse = warehouse;
-		this.campusA = new Campus();
-		this.campusB = new Campus();
+		this._st = timeLord;
+		this._usm = userManager;
+		this._pfm = patientFileManager;
+		this._sdl = scheduler;
+		this._tm = taskManager;
+		this._wh = warehouse;
+		this._cp = new LinkedList<Campus>();
 		try {
-			this.hospitalAdmin = new HospitalAdmin("admin");
-			this.userManager.addUser(this.hospitalAdmin);
+			this._hta = new HospitalAdmin("admin");
+			this._usm.addUser(this._hta);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			throw new Error();
@@ -94,51 +87,40 @@ public class Hospital
 
 	@Basic
 	public TimeLord getSystemTime() {
-		return systemTime;
+		return _st;
 	}
 
 	@Basic
 	public UserManager getUserManager() {
-		return userManager;
-	}
-
-	@Basic
-	public MachinePool getMachinePool() {
-		return machinePool;
+		return _usm;
 	}
 
 	@Basic
 	public PatientFileManager getPatientFileManager() {
-		return patientFileManager;
+		return _pfm;
 	}
 
 	@Basic
 	public TaskManager getTaskManager() {
-		return taskManager;
+		return _tm;
 	}
 
 	@Basic
 	public Scheduler getScheduler() {
-		return scheduler;
+		return _sdl;
 	}
 
 	@Basic
 	public Warehouse getWarehouse() {
-		return warehouse;
+		return _wh;
 	}
 	
-	@Basic
-	public Campus getCampusA() {
-		return this.campusA;
-	}
-	
-	@Basic
-	public Campus getCampusB() {
-		return this.campusB;
+	public Campus getCampus(int i){
+		return _cp.get(i);
 	}
 	
 	@Basic
 	public HospitalAdmin getHospitalAdmin() {
-		return this.hospitalAdmin;
+		return this._hta;
 	}
 }
