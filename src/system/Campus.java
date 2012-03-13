@@ -6,9 +6,9 @@ import warehouse.Warehouse;
 
 public class Campus
 {
-	UserManager _usm = new UserManager();
-	MachinePool _mp = new MachinePool();
-	Warehouse _wh = new Warehouse();
+	private UserManager _usm = new UserManager();
+	private MachinePool _mp = new MachinePool();
+	private Warehouse _wh = new Warehouse(); 
 	
 	public UserManager getUserManager(){
 		return _usm;
