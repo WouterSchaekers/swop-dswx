@@ -26,7 +26,7 @@ public class TimeLord extends Observable
 	}
 
 	public HospitalDate getSystemTime() {
-		return systemTime;
+		return systemTime.clone();
 	}
 	//XXX: hier waren wwe mee bezig
 	private void addOneMinute()

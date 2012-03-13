@@ -1,8 +1,12 @@
 package warehouse;
 
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Observable;
+import scheduler.HospitalDate;
+import scheduler.TimeLord;
+import system.Campus;
 import warehouse.item.WarehouseItem;
 import warehouse.item.WarehouseItemType;
 import exceptions.WarehouseOverCapacityException;
@@ -11,11 +15,13 @@ import exceptions.WarehouseOverCapacityException;
 public class Warehouse extends Observable
 {
 	private Map<Class<? extends WarehouseItemType>, Integer> _maxMap;
-	private Collection<WarehouseItem> _items;
+	private LinkedList<WarehouseItem> _items;
+	private Campus _cp;
 
-	public Warehouse() {
-
+	public Warehouse(Campus campus) {
+		this._cp = campus;
 	}
+	
 	public WarehouseItem take(WarehouseItemType item) 
 	{
 		WarehouseItem item1 = null;
@@ -70,5 +76,13 @@ public class Warehouse extends Observable
 
 	public boolean has(WarehouseItemType type, int amount) {
 		return getCurrentCount(type) >= amount;
+	}
+	
+	public Campus getCampus(){
+		return this._cp;
+	}
+	
+	public HospitalDate getSystemTime(){
+		return this._cp.getSystemTime();
 	}
 }

@@ -15,9 +15,7 @@ import exceptions.WarehouseOverCapacityException;
  */
 public class WarehouseAdmin extends User implements WarehouseAdminIN
 {
-	private Warehouse warehouse;
-	private StockProvider stockProvider;
-	private TimeLord	_timeKeeper;
+	private Warehouse _wh;
 
 	/**
 	 * Default constructor. Will appoint this admin his warehouse.
@@ -29,29 +27,28 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN
 	 *            the amount of active patients in its hospital.
 	 * @throws InvalidNameException
 	 */
-	public WarehouseAdmin(String name, Warehouse warehouse,
-			StockProvider stockProvider,TimeLord timelord)
+	public WarehouseAdmin(String name, Warehouse warehouse)
 			throws InvalidNameException {
 		super(name);
-		this.warehouse = warehouse;
-		this.stockProvider = stockProvider;
-		this._timeKeeper =timelord;
-		
-		
-		
+		this._wh = warehouse;
 	}
-
-	public StockProvider getStockProvider() {
-		return this.stockProvider;
+	
+	public WarehouseAdmin(String name) throws InvalidNameException{
+		super(name);
 	}
-	public void addItem(WarehouseItemType type) throws WarehouseOverCapacityException
+	
+	public void addItem(WarehouseItemType type) throws WarehouseOverCapacityException, NullPointerException
 	{
-		warehouse.add(type.create(_timeKeeper.getSystemTime()));
+		if(_wh == null){
+			throw new NullPointerException("The warehouse has not been initialized yet.");
+		}
+		_wh.add(type.create(_wh.getSystemTime()));
 	}
+	
 	public void addOrder(WarehouseItemType type,int count)
 	{
 		for(int i = 0;i<count;i++)
-			stockProvider.add(new StockOrder<WarehouseItemType>(warehouse, type, _timeKeeper.getSystemTime()));
+			stockProvider.add(new StockOrder<WarehouseItemType>(_wh, type, _timeKeeper.getSystemTime()));
 	}
 
 
