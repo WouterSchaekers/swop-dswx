@@ -2,10 +2,12 @@ package system;
 
 import java.util.LinkedList;
 import patient.PatientFileManager;
+import scheduler.HospitalDate;
 import scheduler.Scheduler;
 import scheduler.TimeLord;
 import scheduler.task.TaskManager;
 import users.HospitalAdmin;
+import users.HospitalUserManager;
 import users.UserManager;
 import warehouse.Warehouse;
 import be.kuleuven.cs.som.annotate.Basic;
@@ -16,14 +18,12 @@ import be.kuleuven.cs.som.annotate.Basic;
  */
 public class Hospital
 {
-	private final UserManager _usm;
-	private final PatientFileManager _pfm;
-	private final TaskManager _tm;
-	private final Scheduler _sdl;
-	private final Warehouse _wh;
-	private final TimeLord _st;
+	private HospitalUserManager _husm;
+	private PatientFileManager _pfm;
+	private TaskManager _tm;
+	private TimeLord _st;
+	private Scheduler _sdl;
 	private LinkedList<Campus> _cp;
-	private final HospitalAdmin _hta;
 
 	/**
 	 * Initializes an empty hospital with a hospital admin and 2 campusses.
@@ -31,14 +31,11 @@ public class Hospital
 	public Hospital() {
 		try {
 			this._st = new TimeLord();
-			this._usm = new UserManager();
+			this._husm = new HospitalUserManager();
 			this._pfm = new PatientFileManager();
 			this._sdl = new Scheduler(this._st);
 			this._tm = new TaskManager(this._sdl);
-			this._wh = new Warehouse();
 			this._cp = new LinkedList<Campus>();
-			this._hta = new HospitalAdmin("admin");
-			this._usm.addUser(this._hta);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			throw new Error();
@@ -65,34 +62,25 @@ public class Hospital
 	 *            The Warehouse for this hospital.
 	 * @throws  
 	 */
-	public Hospital(TimeLord timeLord, UserManager userManager, PatientFileManager patientFileManager,
-			Scheduler scheduler, TaskManager taskManager, Warehouse warehouse,
+	public Hospital(TimeLord timeLord, HospitalUserManager hospitalUserManager, PatientFileManager patientFileManager,
+			Scheduler scheduler, TaskManager taskManager,
 			HospitalAdmin hospitalAdmin) {
 		this._st = timeLord;
-		this._usm = userManager;
+		this._husm = hospitalUserManager;
 		this._pfm = patientFileManager;
 		this._sdl = scheduler;
 		this._tm = taskManager;
-		this._wh = warehouse;
 		this._cp = new LinkedList<Campus>();
-		try {
-			this._hta = new HospitalAdmin("admin");
-			this._usm.addUser(this._hta);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			throw new Error();
-		}
-		
 	}
 
 	@Basic
-	public TimeLord getSystemTime() {
-		return _st;
+	public HospitalDate getSystemTime() {
+		return _st.getSystemTime();
 	}
 
 	@Basic
-	public UserManager getUserManager() {
-		return _usm;
+	public HospitalUserManager getUserManager() {
+		return _husm;
 	}
 
 	@Basic
@@ -109,18 +97,13 @@ public class Hospital
 	public Scheduler getScheduler() {
 		return _sdl;
 	}
-
-	@Basic
-	public Warehouse getWarehouse() {
-		return _wh;
-	}
 	
-	public Campus getCampus(int i){
-		return _cp.get(i);
-	}
-	
-	@Basic
-	public HospitalAdmin getHospitalAdmin() {
-		return this._hta;
+	public Campus getCampus(String name){
+		for(Campus campus : _cp){
+			if(campus.getCampusName().equals(name)){
+				return campus;
+			}
+		}
+		throw new IllegalArgumentException("Campus does not exists");
 	}
 }

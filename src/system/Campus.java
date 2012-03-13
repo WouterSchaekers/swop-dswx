@@ -1,30 +1,37 @@
 package system;
 
 import machine.MachinePool;
-import users.UserManager;
+import scheduler.HospitalDate;
+import users.CampusUserManager;
 import warehouse.Warehouse;
 
 public class Campus
 {
-	private UserManager _usm = new UserManager();
+	private String _cpn;
+	private CampusUserManager _cusm = new CampusUserManager();
 	private MachinePool _mp = new MachinePool();
-	private Warehouse _wh = new Warehouse(); 
-	Hospital _h = new Hospital();
+	private Warehouse _wh = new Warehouse(this);
+	private Hospital _hpt;
 	
-	public UserManager getUserManager(){
-		return _usm;
+	public Campus(String campusName, Hospital hospital){
+		this._cpn = campusName;
+		this._hpt = hospital;
 	}
 	
-	public void setUserManager(UserManager userManager){
-		this._usm = userManager;
+	public CampusUserManager getUserManager(){
+		return _cusm;
+	}
+	
+	public void setUserManager(CampusUserManager campusUserManager){
+		this._cusm = campusUserManager;
 	}
 	
 	public Hospital getHospital(){
-		return this._h;
+		return this._hpt;
 	}
 	
 	public void setHospital(Hospital hospital){
-		this._h = hospital;
+		this._hpt = hospital;
 	}
 	
 	public Warehouse getWarehouse(){
@@ -41,5 +48,13 @@ public class Campus
 	
 	public void setMachinePool(MachinePool machinePool){
 		this._mp = machinePool;
+	}
+	
+	public HospitalDate getSystemTime(){
+		return this._hpt.getSystemTime();
+	}
+	
+	public String getCampusName(){
+		return this._cpn;
 	}
 }
