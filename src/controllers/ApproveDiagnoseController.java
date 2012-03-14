@@ -12,9 +12,20 @@ import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileOpenController;
 
+/**
+ * Use this controller to approve the diagnose of a patient.
+ */
 public class ApproveDiagnoseController extends NeedsLoginAndPatientFileController
 {
 
+	/**
+	 * 
+	 * @param lc
+	 * @param cpfc
+	 * @throws InvalidLoginControllerException
+	 * @throws InvalidHospitalException
+	 * @throws InvalidPatientFileOpenController
+	 */
 	public ApproveDiagnoseController(LoginController lc, ConsultPatientFileController cpfc) throws InvalidLoginControllerException,
 			InvalidHospitalException, InvalidPatientFileOpenController {
 		super(lc, cpfc);
