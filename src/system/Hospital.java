@@ -7,18 +7,16 @@ import scheduler.Scheduler;
 import scheduler.TimeLord;
 import scheduler.task.TaskManager;
 import users.HospitalAdmin;
-import users.HospitalUserManager;
 import users.UserManager;
-import warehouse.Warehouse;
 import be.kuleuven.cs.som.annotate.Basic;
 
 /**
  * This class represents a hospital. It can be used to pass a bunch of data to
  * the controllers in a fashionable way.
  */
-public class Hospital
+public class Hospital implements Whereabouts
 {
-	private HospitalUserManager _husm;
+	private UserManager _usm;
 	private PatientFileManager _pfm;
 	private TaskManager _tm;
 	private TimeLord _st;
@@ -31,7 +29,7 @@ public class Hospital
 	public Hospital() {
 		try {
 			this._st = new TimeLord();
-			this._husm = new HospitalUserManager();
+			this._usm = new UserManager();
 			this._pfm = new PatientFileManager();
 			this._sdl = new Scheduler(this._st);
 			this._tm = new TaskManager(this._sdl);
@@ -62,11 +60,11 @@ public class Hospital
 	 *            The Warehouse for this hospital.
 	 * @throws  
 	 */
-	public Hospital(TimeLord timeLord, HospitalUserManager hospitalUserManager, PatientFileManager patientFileManager,
+	public Hospital(TimeLord timeLord, UserManager userManager, PatientFileManager patientFileManager,
 			Scheduler scheduler, TaskManager taskManager,
 			HospitalAdmin hospitalAdmin) {
 		this._st = timeLord;
-		this._husm = hospitalUserManager;
+		this._usm = userManager;
 		this._pfm = patientFileManager;
 		this._sdl = scheduler;
 		this._tm = taskManager;
@@ -79,8 +77,8 @@ public class Hospital
 	}
 
 	@Basic
-	public HospitalUserManager getUserManager() {
-		return _husm;
+	public UserManager getUserManager() {
+		return _usm;
 	}
 
 	@Basic

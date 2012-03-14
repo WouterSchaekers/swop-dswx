@@ -2,13 +2,11 @@ package system;
 
 import machine.MachinePool;
 import scheduler.HospitalDate;
-import users.CampusUserManager;
 import warehouse.Warehouse;
 
-public class Campus
+public class Campus implements Whereabouts
 {
 	private String _cpn;
-	private CampusUserManager _cusm = new CampusUserManager();
 	private MachinePool _mp = new MachinePool();
 	private Warehouse _wh = new Warehouse(this);
 	private Hospital _hpt;
@@ -16,14 +14,6 @@ public class Campus
 	public Campus(String campusName, Hospital hospital){
 		this._cpn = campusName;
 		this._hpt = hospital;
-	}
-	
-	public CampusUserManager getUserManager(){
-		return _cusm;
-	}
-	
-	public void setUserManager(CampusUserManager campusUserManager){
-		this._cusm = campusUserManager;
 	}
 	
 	public Hospital getHospital(){

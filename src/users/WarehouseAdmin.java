@@ -1,6 +1,5 @@
 package users;
 
-import scheduler.TimeLord;
 import warehouse.Warehouse;
 import warehouse.item.WarehouseItemType;
 import warehouse.stock.StockOrder;
@@ -16,6 +15,7 @@ import exceptions.WarehouseOverCapacityException;
 public class WarehouseAdmin extends User implements WarehouseAdminIN
 {
 	private Warehouse _wh;
+	private StockProvider _spv;
 
 	/**
 	 * Default constructor. Will appoint this admin his warehouse.
@@ -27,10 +27,11 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN
 	 *            the amount of active patients in its hospital.
 	 * @throws InvalidNameException
 	 */
-	public WarehouseAdmin(String name, Warehouse warehouse)
+	public WarehouseAdmin(String name, Warehouse warehouse, StockProvider stockProvider)
 			throws InvalidNameException {
 		super(name);
 		this._wh = warehouse;
+		this._spv = stockProvider;
 	}
 	
 	public WarehouseAdmin(String name) throws InvalidNameException{
@@ -48,7 +49,7 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN
 	public void addOrder(WarehouseItemType type,int count)
 	{
 		for(int i = 0;i<count;i++)
-			stockProvider.add(new StockOrder<WarehouseItemType>(_wh, type, _timeKeeper.getSystemTime()));
+			_spv.add(new StockOrder<WarehouseItemType>(_wh, type, _wh.getSystemTime()));
 	}
 
 
@@ -58,5 +59,4 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN
 //	//advance time
 //	}
 //	
-
 }

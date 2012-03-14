@@ -17,9 +17,11 @@ public class AppointmentDescription extends TaskDescription
 		_doc = doctor;
 		_patient = patient;
 	}
+	
+	
 
 	@Override
-	public Collection<Requirement> getAllRequireMents() {
+	public Collection<Requirement> getAllRequirements() {
 		ArrayList<Requirement> requirements = new ArrayList<Requirement>();
 		requirements.add(new SpecificResourceRequirement(_doc));
 		return requirements;

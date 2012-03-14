@@ -6,7 +6,7 @@ public abstract class MedicalTestDescription extends TaskDescription
 {
 
 	@Override
-	public Collection<Requirement> getAllRequireMents() {
+	public Collection<Requirement> getAllRequirements() {
 		// TODO Auto-generated method stub
 		return null;
 	}

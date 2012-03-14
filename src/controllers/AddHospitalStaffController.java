@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.Collection;
 import system.CampusPreference;
 import users.HospitalAdmin;
 import users.User;
@@ -14,7 +15,28 @@ public class AddHospitalStaffController extends NeedsLoginController
 			InvalidHospitalException {
 		super(lc);
 	}
+	public static class Abra<T>{
+		private T val;
 
+		public Abra(T t)
+		{
+			this.val = t;
+		}
+		public int getKey()
+		{
+			return campus;
+			
+		}
+		 T get()
+		{
+			return val;
+		}
+	}
+	public Collection<Abra<UserType>> getTypes()
+	{
+		return null;
+		
+	}
 	/**
 	 * This method allows you to add a user you created with the factories to be
 	 * added to the system.
