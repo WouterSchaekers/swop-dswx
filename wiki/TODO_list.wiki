@@ -22,9 +22,9 @@ zie de feedbacksessie van iteratie 2.
 
 = Wie is er momenteel waaraan bezig? =
 <p>
-Dieter: wina bar<p>
+Dieter: wina bar, chillen, tot leuke <p>
 Stefaan: compile errors fixen<p>
-Wouter: Descriptions, UnscheduledTasks, Requirements<p>
+Wouter: Descriptions, UnscheduledTasks, Requirements, Scheduler refactoren<p>
 
 = Things that have been crossed off = 
   * Treatment Factories gemaakt en getest
