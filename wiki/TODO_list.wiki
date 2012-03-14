@@ -1,23 +1,30 @@
-= TODOs left over from iteration 2 =
-  * Treatment factory (optional)
-  * Documentatie schrijven (optional)
-  * Meer code coverage (Junit!)
-  * ScheduledTasks !!!!!!!!!!!!!!!!
-  * factories maken voor Medication & Machine.
-
 = TODOs starting iteration 3
 == FeedbackSession TODOs ==
 zie de feedbacksessie van iteratie 2.
 == TODOs ==
-  * documentatie
+  * *Design review:* use case van advanceTime() moet nog eens nauwkeurig bestudeerd worden.
+  * *Implementatie:* Stockmanager/warehouse/warehouseadmin
+  * *Implementatie:* Treatment factories
+  * *Implementatie:* Controllers houden IDs bij van de objecten die ze aan de buitenwereld terug geven om zo inconsistenties in het systeem te vermijden.
+  * *Visual Paradigm:* SSDs van alle use cases
+    * 
+    * 
+  * *Implementatie:* Scheduler (! added complexity van preference en meerdere campi!)
+  * *Implementatie:* Requirements en Descriptions
+  * *Implementatie:* Test scenario's
+  * *Implementatie:* use cases
+  * *Implementatie:* Result
+  * *Check:* de observer van Diagnose en TaskManager
+  * *Documentatie*
     * Schedulable doc: updateTimeTable dient voor advance time, niet om een Schedulable een nieuwe time table toe te wijzen of iets dergelijks..
     * create dummy date in Nurse
     * ...
+
 = Wie is er momenteel waaraan bezig? =
 <p>
-Dieter: domain model<p>
-Stefaan: UML<p>
-Wouter: test scenarios<p>
+Dieter: wina bar<p>
+Stefaan: compile errors fixen<p>
+Wouter: Descriptions, UnscheduledTasks, Requirements<p>
 
 = Things that have been crossed off = 
   * Treatment Factories gemaakt en getest
