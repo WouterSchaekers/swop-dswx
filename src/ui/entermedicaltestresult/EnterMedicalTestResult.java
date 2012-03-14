@@ -4,9 +4,6 @@ import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
 import controllers.EnterMedicaltestResultController;
-import exceptions.InvalidHospitalException;
-import exceptions.InvalidLoginControllerException;
-import exceptions.InvalidPatientFileOpenController;
 
 public class EnterMedicalTestResult extends EnterMedicalTestResultSuperClass
 {
@@ -18,23 +15,17 @@ public class EnterMedicalTestResult extends EnterMedicalTestResultSuperClass
 	@Override
 	public Usecase Execute() {
 		// create controller
-		EnterMedicaltestResultController enterMedTestContr = null;
 		try {
+			EnterMedicaltestResultController enterMedTestContr = null;
 			enterMedTestContr = new EnterMedicaltestResultController(
-					data.getDataPasser(), data.getLoginController(),
-					data.getPatientFileOpenController());
-		} catch (InvalidLoginControllerException e) {
-			System.out.println("not allowed to do this ");
+					data.getLoginController());
+
+			chaindata.setMedtestcontroller(enterMedTestContr);
+			return new ShowUnfinishedMedicalTests(data, chaindata);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			return new SelectUsecase(data);
-		} catch (InvalidHospitalException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidPatientFileOpenController e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		chaindata.setMedtestcontroller(enterMedTestContr);
-		return new ShowUnfinishedMedicalTests(data, chaindata);
 	}
 
 }

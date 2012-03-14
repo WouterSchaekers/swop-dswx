@@ -4,7 +4,7 @@ import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidReportException;
 
 /**
- * This class represents the result of a medical testo r a treatment.
+ * This class represents the result of a medical test or a treatment.
  */
 public class Result
 {
@@ -34,12 +34,5 @@ public class Result
 	 */
 	protected boolean canHaveAsDetail(String s) {
 		return s != null && !s.equals("");
-	}
-
-	/**
-	 * @return True if s is a valid amount for this Result.
-	 */
-	protected boolean canhaveAsAmount(int a) {
-		return a >= 0;
 	}
 }

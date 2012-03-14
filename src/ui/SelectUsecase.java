@@ -15,7 +15,7 @@ import ui.approvediagnosis.ApproveDiagnosis;
 import ui.closepatientfile.ClosePatientFile;
 import ui.consultpatientfile.ConsultPatientFile;
 import ui.dischargepatient.DischargePatient;
-import ui.enterdiagnosis.EnderDiagnosis;
+import ui.enterdiagnosis.EnterDiagnose;
 import ui.entermedicaltestresult.EnterMedicalTestResult;
 import ui.login.IsAllowedToLogin;
 import ui.logout.LogOut;
@@ -84,8 +84,7 @@ public class SelectUsecase extends Usecase
 
 			@Override
 			public Usecase create(UserinterfaceData data) throws Exception {
-				new RegisterPatientController(data.getLoginController(),
-						data.getDataPasser());
+				new RegisterPatientController(data.getLoginController());
 				return new RegisterPatient(data);
 			}
 		}), orderMedicalTest("order medical test", new Creator()
@@ -94,8 +93,7 @@ public class SelectUsecase extends Usecase
 			@Override
 			public Usecase create(UserinterfaceData data) throws Exception {
 				new OrderMedicalTestController(data.getLoginController(),
-						data.getPatientFileOpenController(),
-						data.getDataPasser());
+						data.getPatientFileOpenController());
 				return new OrderMedicalTest(data);
 			}
 		}), addHospitalEquipment("add hospital equipment", new Creator()
@@ -103,8 +101,7 @@ public class SelectUsecase extends Usecase
 
 			@Override
 			public Usecase create(UserinterfaceData data) throws Exception {
-				new AddHospitalEquipmentController(data.getLoginController(),
-						data.getDataPasser());
+				new AddHospitalEquipmentController(data.getLoginController());
 				return new AddHopsitalEquipment(data);
 			}
 		}), addhospitalstaff("add hospital staff", new Creator()
@@ -112,8 +109,7 @@ public class SelectUsecase extends Usecase
 
 			@Override
 			public Usecase create(UserinterfaceData data) throws Exception {
-				new AddHospitalStaffController(data.getLoginController(),
-						data.getDataPasser());
+				new AddHospitalStaffController(data.getLoginController());
 				return new CreateUser(data);
 			}
 		}), advanceTime("advance time", new Creator()
@@ -130,17 +126,15 @@ public class SelectUsecase extends Usecase
 
 			@Override
 			public Usecase create(UserinterfaceData data) throws Exception {
-				new EnterDiagnoseController(null, data.getLoginController(),
-						data.getPatientFileOpenController());
-				return new EnderDiagnosis(data);
+				new EnterDiagnoseController(null, data.getPatientFileOpenController());
+				return new EnterDiagnose(data);
 			}
 		}), approveDiagnose("approve diagnose", new Creator()
 		{
 
 			@Override
 			public Usecase create(UserinterfaceData data) throws Exception {
-				new ApproveDiagnoseController(data.getDataPasser(),
-						data.getLoginController());
+				new ApproveDiagnoseController(data.getLoginController(), data.getPatientFileOpenController());
 				return new ApproveDiagnosis(data);
 			}
 		}), consultpatientfile("consult patient file", new Creator()
@@ -150,8 +144,7 @@ public class SelectUsecase extends Usecase
 			public Usecase create(UserinterfaceData data) throws Exception {
 				if (data.getPatientFileOpenController() != null)
 					throw new Exception();
-				new ConsultPatientFileController(data.getDataPasser(),
-						data.getLoginController());
+				new ConsultPatientFileController(data.getLoginController());
 
 				return new ConsultPatientFile(data);
 			}
@@ -202,8 +195,7 @@ public class SelectUsecase extends Usecase
 
 			@Override
 			public Usecase create(UserinterfaceData data) throws Exception {
-				new FillStockInWarehouseController(data.getDataPasser(),
-						data.getLoginController());
+				new FillStockInWarehouseController(data.getLoginController());
 				return null;
 			}
 		}), prescribeTreatment("Prescribe treatment", new Creator()

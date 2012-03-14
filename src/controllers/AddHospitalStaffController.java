@@ -1,8 +1,9 @@
 package controllers;
 
-import java.util.Collection;
-import system.CampusPreference;
+import system.Whereabouts;
+import users.Doctor;
 import users.HospitalAdmin;
+import users.Nurse;
 import users.User;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
@@ -15,54 +16,19 @@ public class AddHospitalStaffController extends NeedsLoginController
 			InvalidHospitalException {
 		super(lc);
 	}
-	public static class Abra<T>{
-		private T val;
 
-		public Abra(T t)
-		{
-			this.val = t;
-		}
-		public int getKey()
-		{
-			return campus;
-			
-		}
-		 T get()
-		{
-			return val;
-		}
-	}
-	public Collection<Abra<UserType>> getTypes()
-	{
-		return null;
-		
-	}
-	/**
-	 * This method allows you to add a user you created with the factories to be
-	 * added to the system.
-	 * 
-	 * @param u
-	 *            The user to add to the system
-	 * @throws UserAlreadyExistsException
-	 */
-	private void addStaffMember(User u) throws UserAlreadyExistsException {
-		hospital.getUserManager().addUser(u);
-	}
-
-	public void addNurse(String name) throws UserAlreadyExistsException,
+	public void addNurse(String name, String location) throws UserAlreadyExistsException,
 			InvalidNameException {
-		this.hospital.getUserManager().createAndAddNurse(name);
+		Nurse n = new Nurse(name);
+		Whereabouts w = this.hospital.getCampus(location);
+		this.hospital.getUserManager().addUser(n, w);
 	}
 
-	public void addDoctor(String name, CampusPreference pref)
+	public void addDoctor(String name, String location)
 			throws UserAlreadyExistsException, InvalidNameException {
-		// TODO: fix pref
-		this.hospital.getUserManager().createAndAddDoctor(name);
-	}
-
-	public void addHospitalAdmin(String name)
-			throws UserAlreadyExistsException, InvalidNameException {
-		this.hospital.getUserManager().createAndAddHospitalAdmin(name);
+		Doctor d = new Doctor(name);
+		Whereabouts w = this.hospital.getCampus(location);
+		this.hospital.getUserManager().addUser(d, w);
 	}
 
 	@Override
@@ -70,4 +36,27 @@ public class AddHospitalStaffController extends NeedsLoginController
 		return u instanceof HospitalAdmin;
 	}
 
+	//TODO: use
+//	public class Abra<T>{
+//	private T val;
+//
+//	public Abra(T t)
+//	{
+//		this.val = t;
+//	}
+//	public int getKey()
+//	{
+//		return campus;
+//		
+//	}
+//	 T get()
+//	{
+//		return val;
+//	}
+//}
+//public Collection<Abra<UserType>> getTypes()
+//{
+//	return null;
+//	
+//}
 }

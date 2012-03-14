@@ -15,7 +15,6 @@ import exceptions.InvalidResourceException;
 
 public class UnscheduledMedication extends UnscheduledTreatment
 {
-	private Warehouse warehouse;
 
 	/**
 	 * @param p

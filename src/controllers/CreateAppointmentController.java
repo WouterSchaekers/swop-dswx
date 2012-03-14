@@ -26,7 +26,7 @@ public class CreateAppointmentController extends NeedsLoginController
 	 */
 	public HospitalDate scheduleNewAppointment(String doctorName, String patientName) {
 		// TODO: fix
-		AppointmentDescription ad = new AppointmentDescription(
+		new AppointmentDescription(
 				(Doctor) lc.getSpecificDoctor(doctorName),
 				this.getPatient(patientName));
 		return null;

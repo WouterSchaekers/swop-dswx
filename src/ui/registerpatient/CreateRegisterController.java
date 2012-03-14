@@ -5,10 +5,6 @@ import ui.Usecase;
 import ui.UserinterfaceData;
 import controllers.RegisterPatientController;
 
-/**
- * This class
- * 
- */
 public class CreateRegisterController extends Usecase
 {
 
@@ -20,16 +16,13 @@ public class CreateRegisterController extends Usecase
 	public Usecase Execute() {
 		RegisterPatientController reg;
 		try {
-			reg = new RegisterPatientController(data.getLoginController(),
-					data.getDataPasser());
-		} catch (IllegalArgumentException illegal) {
-			System.out.println(illegal.getMessage());
-			return new SelectUsecase(data);
+			reg = new RegisterPatientController(data.getLoginController());
+
+			return new DisplayAllPatients(data, reg);
 		} catch (Exception e) {
-			System.out.println("Illegal argument");
+			System.out.println(e.getMessage());
 			return new SelectUsecase(data);
 		}
-		return new DisplayAllPatients(data, reg);
 	}
 
 }
