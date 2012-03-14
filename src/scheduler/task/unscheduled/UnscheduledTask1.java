@@ -5,7 +5,7 @@ import patient.PatientFile;
 import scheduler.HospitalDate;
 import scheduler.task.Schedulable;
 import scheduler.task.Task;
-import scheduler.task.scheduled.ScheduledTask;
+import scheduler2.ScheduledTask;
 import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
