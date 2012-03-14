@@ -54,13 +54,13 @@ public class StartTimePoint extends TimePoint
 
 	@Override
 	public String toString() {
-		return "Start: " + this.getDate();
+		return "Start: " + this.getHospitalDate();
 	}
 
 	@Override
 	public boolean equals(Object o) {
 		if (!(o instanceof StartTimePoint))
 			return false;
-		return this.getDate().equals(((StartTimePoint) o).getDate());
+		return this.getHospitalDate().equals(((StartTimePoint) o).getHospitalDate());
 	}
 }

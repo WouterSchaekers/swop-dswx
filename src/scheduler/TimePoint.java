@@ -79,11 +79,11 @@ public abstract class TimePoint implements Comparable<TimePoint>
 	 *            The TimePoint on which this TimePoint is to be based on.
 	 */
 	protected TimePoint(TimePoint t) {
-		this(t.getDate());
+		this(t.getHospitalDate());
 	}
 
 	@Basic
-	public HospitalDate getDate() {
+	public HospitalDate getHospitalDate() {
 		return this.hospitalDate;
 	}
 

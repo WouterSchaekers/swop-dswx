@@ -2,6 +2,7 @@ package users;
 
 import scheduler.HospitalDate;
 import scheduler.TimeSlot;
+import system.Whereabouts;
 import controllers.interfaces.NurseIN;
 import exceptions.InvalidHospitalDateArgument;
 import exceptions.InvalidNameException;
@@ -28,8 +29,8 @@ public class Nurse extends SchedulableUser implements NurseIN
 	 * @throws InvalidNameException
 	 * @throws InvalidTimeSlotException
 	 */
-	public Nurse(String name) throws InvalidNameException {
-		super(name);
+	public Nurse(String name, Whereabouts preference) throws InvalidNameException {
+		super(name, preference);
 	}
 
 	/**
@@ -43,7 +44,7 @@ public class Nurse extends SchedulableUser implements NurseIN
 	public boolean canBeScheduledOn(HospitalDate startDate,
 			HospitalDate stopDate) throws InvalidSchedulingRequestException,
 			InvalidTimeSlotException {
-		return this.timeTable.hasFreeSlotAt(startDate, stopDate);
+		return this._timeTable.hasFreeSlotAt(startDate, stopDate);
 	}
 
 	@Override
@@ -89,5 +90,10 @@ public class Nurse extends SchedulableUser implements NurseIN
 			throws InvalidHospitalDateArgument {
 		return new HospitalDate(1, 1, 1, hospitalDate.getHour(),
 				hospitalDate.getMinute(), hospitalDate.getSecond());
+	}
+
+	@Override
+	public Whereabouts getLocationAt(HospitalDate hospitalDate) {
+		return this._preference;
 	}
 }

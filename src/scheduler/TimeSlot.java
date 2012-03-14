@@ -8,8 +8,8 @@ import be.kuleuven.cs.som.annotate.Basic;
  */
 public class TimeSlot
 {
-	private StartTimePoint startTimePoint;
-	private StopTimePoint stopTimePoint;
+	private StartTimePoint _startTimePoint;
+	private StopTimePoint _stopTimePoint;
 
 	/**
 	 * Default Constructor. Will initialise both time points.
@@ -20,48 +20,54 @@ public class TimeSlot
 	 * 
 	 */
 	public TimeSlot(TimePoint t1, TimePoint t2) {
-		if (t1.isEnd())
-			throw new IllegalArgumentException("Invalid TimePoint 1!");
-		if (t2.isStart())
-			throw new IllegalArgumentException("Invalid TimePoint 2!");
-		if (t1.compareTo(t2) >= 0)
-			throw new IllegalArgumentException(
-					"Invalid TimePoints! start >= stop!");
-		this.startTimePoint = new StartTimePoint(t1.getDate());
-		this.stopTimePoint = new StopTimePoint(t2.getDate());
+		if(!isValid(t1, t2)){
+			throw new IllegalArgumentException("Invalid TimeSlot.");
+		}
+		this._startTimePoint = new StartTimePoint(t1.getHospitalDate());
+		this._stopTimePoint = new StopTimePoint(t2.getHospitalDate());
 	}
 
 	@Basic
 	public StartTimePoint getStartPoint() {
-		return startTimePoint;
+		return _startTimePoint;
 	}
 
 	@Basic
 	public void setStartPoint(TimePoint t1) {
-		this.startTimePoint = new StartTimePoint(t1.getDate());
+		this._startTimePoint = new StartTimePoint(t1.getHospitalDate());
 	}
 
 	@Basic
 	public StopTimePoint getStopPoint() {
-		return stopTimePoint;
+		return _stopTimePoint;
 	}
 
 	@Basic
 	public void setStopPoint(TimePoint t2) {
-		this.stopTimePoint = new StopTimePoint(t2.getDate());
+		this._stopTimePoint = new StopTimePoint(t2.getHospitalDate());
 	}
 
 	@Override
 	public String toString() {
-		return "[ " + startTimePoint.toString() + ","
-				+ stopTimePoint.toString() + " ]";
+		return "[ " + _startTimePoint.toString() + ","
+				+ _stopTimePoint.toString() + " ]";
 	}
 
 	/**
 	 * @return The length of the timespan that this timeslot covers.
 	 */
 	public long getLength() {
-		return this.getStopPoint().getTime() - this.getStartPoint().getTime();
+		return this._stopTimePoint.getTime() - this._startTimePoint.getTime();
+	}
+	
+	public boolean contains(HospitalDate hospitalDate){
+		if(this._startTimePoint.getHospitalDate().after(hospitalDate)){
+			return false;
+		}
+		if(hospitalDate.after(this._startTimePoint.getHospitalDate())){
+			return false;
+		}
+		return true;
 	}
 
 	/**
@@ -73,17 +79,15 @@ public class TimeSlot
 	 * @return true if the given timeslot overlaps this timeslot
 	 */
 	public boolean overlaps(TimeSlot timeslot) {
-		TimePoint tt1 = this.getStartPoint();
-		TimePoint tt2 = this.getStopPoint();
 		TimePoint t1 = timeslot.getStartPoint();
 		TimePoint t2 = timeslot.getStopPoint();
-		return t1.isBetweenExcluding(tt1, tt2)
-				|| t2.isBetweenExcluding(tt1, tt2) || t1.equals(tt1)
-				|| t2.equals(tt2);
+		return t1.isBetweenExcluding(this._startTimePoint, this._stopTimePoint)
+				|| t2.isBetweenExcluding(this._startTimePoint, this._stopTimePoint) || t1.equals(this._startTimePoint)
+				|| t2.equals(this._stopTimePoint);
 	}
 
 	public boolean isToBack(HospitalDate hospitalDate) {
-		return this.stopTimePoint.getTime() == hospitalDate.getTimeSinceStart();
+		return this._stopTimePoint.getTime() == hospitalDate.getTimeSinceStart();
 	}
 
 	/**
@@ -93,13 +97,12 @@ public class TimeSlot
 	 *            The timeslot that has to be checked for consistency
 	 * @return true is the given timeslot is valid
 	 */
-	public static boolean isValidTimeSlot(TimeSlot timeSlot) {
-		if (timeSlot.getStartPoint().isEnd())
+	private boolean isValid(TimePoint startTimePoint, TimePoint stopTimePoint) {
+		if (startTimePoint.isEnd())
 			return false;
-		if (timeSlot.getStopPoint().isStart())
+		if (stopTimePoint.isStart())
 			return false;
-		if (timeSlot.getStartPoint().getTime() > timeSlot.getStopPoint()
-				.getTime())
+		if (startTimePoint.getTime() >= stopTimePoint.getTime())
 			return false;
 		return true;
 	}
@@ -113,7 +116,7 @@ public class TimeSlot
 		if (!(o instanceof TimeSlot))
 			return false;
 		TimeSlot that = (TimeSlot) o;
-		return this.startTimePoint.equals(that.startTimePoint)
-				&& this.stopTimePoint.equals(that.stopTimePoint);
+		return this._startTimePoint.equals(that._startTimePoint)
+				&& this._stopTimePoint.equals(that._stopTimePoint);
 	}
 }

@@ -166,8 +166,8 @@ public class Scheduler
 		TimeSlot bestTimeSlot = chosenSchedulable.getTimeTable()
 				.getFirstFreeSlotBetween(startDate, stopDate, duration);
 
-		HospitalDate newStartDate = bestTimeSlot.getStartPoint().getDate();
-		HospitalDate newStopDate = bestTimeSlot.getStopPoint().getDate();
+		HospitalDate newStartDate = bestTimeSlot.getStartPoint().getHospitalDate();
+		HospitalDate newStopDate = bestTimeSlot.getStopPoint().getHospitalDate();
 		LinkedList<Schedulable> newUsedSchedulables = Scheduler
 				.copyList(usedSchedulables);
 		newUsedSchedulables.add(chosenSchedulable);
@@ -187,9 +187,9 @@ public class Scheduler
 			}
 		} else {
 			TimePoint startOfTimeSlot = new StartTimePoint(bestTimeSlot
-					.getStartPoint().getDate());
+					.getStartPoint().getHospitalDate());
 			TimePoint endOfTimeSlot = new StopTimePoint(startOfTimeSlot
-					.getDate().getTimeSinceStart() + duration);
+					.getHospitalDate().getTimeSinceStart() + duration);
 			TimeSlot timeSlotToReturn = new TimeSlot(startOfTimeSlot,
 					endOfTimeSlot);
 			return new ScheduledTask(patient, newUsedSchedulables,
@@ -252,7 +252,7 @@ public class Scheduler
 					TimeSlot curSlot = curSchedList.get(i)
 							.getFirstFreeSlotBetween(startDate, stopDate,
 									duration);
-					HospitalDate curDate = curSlot.getStartPoint().getDate();
+					HospitalDate curDate = curSlot.getStartPoint().getHospitalDate();
 					if (bestOption == -1
 							|| (curDate.before(bestDate) || (curDate
 									.equals(bestDate) && curSlot.getLength() > bestSlot

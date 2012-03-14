@@ -2,21 +2,22 @@ package scheduler2;
 
 import java.util.Collection;
 import scheduler.HospitalDate;
+import scheduler.TimeSlot;
 import scheduler.task.Schedulable;
+import system.Whereabouts;
 
 public class ScheduledTask extends Task
 {
 	Collection<Schedulable> _resources;
-	HospitalDate _startDate;
-	HospitalDate _endDate;
+	TimeSlot _timeSlot;
+	private Whereabouts _location;
 
 	ScheduledTask(TaskDescription description,
-			Collection<Schedulable> resources, HospitalDate startDate,
-			HospitalDate endDate) {
+			Collection<Schedulable> resources, TimeSlot timeSlot, Whereabouts location) {
 		super(description);
 		this._resources = resources;
-		this._startDate = startDate;
-		this._endDate = endDate;
+		this._timeSlot = timeSlot;
+		this._location = location;
 	}
 
 	public Collection<Schedulable> getUsedResources() {
@@ -24,10 +25,18 @@ public class ScheduledTask extends Task
 	}
 
 	public HospitalDate getStartDate() {
-		return this._startDate;
+		return this._timeSlot.getStartPoint().getHospitalDate();
 	}
 
-	public HospitalDate getEndDate() {
-		return this._endDate;
+	public HospitalDate getStopDate() {
+		return this._timeSlot.getStopPoint().getHospitalDate();
+	}
+	
+	public Whereabouts getLocation(){
+		return this._location;
+	}
+	
+	public TimeSlot getTimeSlot(){
+		return this._timeSlot;
 	}
 }

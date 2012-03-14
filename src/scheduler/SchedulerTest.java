@@ -146,7 +146,7 @@ public class SchedulerTest
 			makeBusyAt(s, 0, 5000);
 		}
 		assertFalse(s.schedule(unsched1).getTimeSlot().getStartPoint()
-				.getDate().equals(new HospitalDate()));
+				.getHospitalDate().equals(new HospitalDate()));
 	}
 
 	@Test
@@ -175,7 +175,7 @@ public class SchedulerTest
 			makeBusyAt(s, 0, 5000);
 		}
 		assertFalse(s.schedule(unsched2).getTimeSlot().getStartPoint()
-				.getDate().equals(new HospitalDate()));
+				.getHospitalDate().equals(new HospitalDate()));
 	}
 
 	@Test(expected = InvalidSchedulingRequestException.class)
@@ -200,7 +200,7 @@ public class SchedulerTest
 		for (Schedulable s : listOfDoctors)
 			makeBusyAt(s, 0, 2300);
 		assertFalse(s.schedule(unsched4).getTimeSlot().getStartPoint()
-				.getDate().equals(new HospitalDate()));
+				.getHospitalDate().equals(new HospitalDate()));
 	}
 
 	@Test
