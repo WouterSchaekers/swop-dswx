@@ -1,4 +1,7 @@
 = TODOs starting iteration 3 =
+  * Mailtje naar de dude sturen voor een afspraak de week voor de deadline en een doodle maken
+  * extended deadline aanvragen
+  * ...
 == FeedbackSession TODOs ==
 zie de feedbacksessie van iteratie 2.
 == TODOs ==
@@ -7,14 +10,29 @@ zie de feedbacksessie van iteratie 2.
   * *Implementatie:* Treatment factories
   * *Implementatie:* Controllers houden IDs bij van de objecten die ze aan de buitenwereld terug geven om zo inconsistenties in het systeem te vermijden.
   * *Visual Paradigm:* SSDs van alle use cases
-    * 
-    * 
+    * Login
+    * Logout
+    * Register patient
+    * Order medical test
+    * Add hospital staff
+    * Add hospital equipment
+    * Prescribe treatment
+    * Enter Diagnose
+    * Approve Diagnose
+    * Discharge patient
+    * Enter medical test result
+    * Enter medical treatment result
+    * Fill stock in warehouse
+    * Select location preference
+    * Advance time
+    * List orders
   * *Implementatie:* Scheduler (! added complexity van preference en meerdere campi!)
   * *Implementatie:* Requirements en Descriptions
   * *Implementatie:* Test scenario's
   * *Implementatie:* use cases
   * *Implementatie:* Result
   * *Check:* de observer van Diagnose en TaskManager
+  * 
   * *Documentatie*
     * Schedulable doc: updateTimeTable dient voor advance time, niet om een Schedulable een nieuwe time table toe te wijzen of iets dergelijks..
     * create dummy date in Nurse
@@ -22,9 +40,9 @@ zie de feedbacksessie van iteratie 2.
 
 = Wie is er momenteel waaraan bezig? =
 <p>
-Dieter: wina bar, chillen, tot leuke <p>
+Dieter: wina bar<p>
 Stefaan: compile errors fixen<p>
-Wouter: Descriptions, UnscheduledTasks, Requirements, Scheduler refactoren<p>
+Wouter: Descriptions, UnscheduledTasks, Requirements<p>
 
 = Things that have been crossed off = 
   * Treatment Factories gemaakt en getest
@@ -53,6 +71,3 @@ Wouter: Descriptions, UnscheduledTasks, Requirements, Scheduler refactoren<p>
   * Bij unscheduled classes zorgen dat die requirements lazy gemaakt worden, (dit door de voorstelling van onze requirements :) )
   * Observers
   * Bidirectionele binding tussen TaskManager en Schedulable
-
-= Eigen bevindingen =
-  * Authentication in de controllers.
