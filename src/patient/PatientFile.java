@@ -23,7 +23,7 @@ import exceptions.InvalidNameException;
  */
 public class PatientFile implements PatientFileIN
 {
-	//TODO Moete we hier
+
 	private String name = "";
 	/**
 	 * All the Diagnosis for this patient.
@@ -34,7 +34,7 @@ public class PatientFile implements PatientFileIN
 	private Collection<MedicalTest> medicaltests = new ArrayList<MedicalTest>();
 
 	/**
-	 * Default Constructor.
+	 * Default Constructor. Creates empty patient file with a name.
 	 * 
 	 * @param patientname
 	 *            The name of the patient to whom this patient file belongs to.
@@ -60,12 +60,12 @@ public class PatientFile implements PatientFileIN
 		if (!isValidDiagnose(d))
 			throw new InvalidDiagnoseException(
 					"The given Diagnose is not a valid!");
-	
+
 		this.diagnosis.add(d);
 	}
 
 	/**
-	 * This function checks in an already registered patient in the hospital.
+	 * Checks this patient in in the hospital.
 	 */
 	public void checkIn() {
 		this.discharged = false;
@@ -82,6 +82,9 @@ public class PatientFile implements PatientFileIN
 		this.discharged = true;
 	}
 
+	/**
+	 * @return True if this patient is ready to be discharged.
+	 */
 	private boolean canBeDischarged() {
 		for (Diagnose d : diagnosis) {
 			if (d.isMarkedForSecOp())
@@ -137,6 +140,10 @@ public class PatientFile implements PatientFileIN
 		return amount;
 	}
 
+	/**
+	 * @return
+	 * The first date this patientfile has a 
+	 */
 	public HospitalDate getFirstNewXRaySchedDate(HospitalDate hospitalDate) {
 		if (this.amountOfXraysThisYear(hospitalDate) >= 9) {
 			return new HospitalDate(this.xrays.get(xrays.size() - 10)
@@ -172,7 +179,6 @@ public class PatientFile implements PatientFileIN
 		return rv;
 	}
 
-
 	public static Diagnose createDiagnose(String diag, Doctor attending,
 			TaskManager taskmanager) throws InvalidDoctorException,
 			InvalidDiagnoseException {
@@ -204,10 +210,11 @@ public class PatientFile implements PatientFileIN
 		return new ArrayList<MedicalTestIN>(medicaltests);
 	}
 
-	public void createDiagnose(Doctor user, String diag,TaskManager manager) throws InvalidDiagnoseException, InvalidDoctorException {
+	public void createDiagnose(Doctor user, String diag, TaskManager manager)
+			throws InvalidDiagnoseException, InvalidDoctorException {
 		Diagnose diagnose = new Diagnose(user, diag);
-	//XXX:	diagnose.addObserver(manager);
+		// XXX: diagnose.addObserver(manager);
 		addDiagnosis(diagnose);
-		
+
 	}
 }
