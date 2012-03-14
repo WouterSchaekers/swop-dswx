@@ -23,6 +23,9 @@
 || 09/03/11: 10u30 -> 12u30 || 3 DSW || 2.5 || More of the above... || ||
 || 09/03/11: 13u00 -> 16u00|| 3 DSW || 3 || Making the final changes to both report and code before the deadline. || ||
 || 09/03/11: 16u00 -> 17u00|| 1 S || 1 || Finishing writing the report. || Dieter en Wouter wilden ontspannen. ||
+|| 13/03/11: 15u00 -> 17u00 || 3 DSW || 2 || Discussing whether or not to use multiple user managers; the responsibilities of Campus, Hospital,... || ||
+|| 14/03/11: 16u00 -> 18u00 || 3 DSW || 2 || Creating a high level list of TODOs and immediately crossing off 4 design decisions. || ||
+|| 14/03/11: 22u00 -> 24u00 || 2 SW || 2 || Starting the TODO list of implementations; fixing some random compile erros. || Dieter winabar. ||
 
 
 = Iteratie 2 =
