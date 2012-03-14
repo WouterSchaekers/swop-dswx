@@ -18,8 +18,7 @@ public class selectUserType extends Usecase
 	public Usecase Execute() {
 		AddHospitalStaffController c = null;
 		try {
-			c = new AddHospitalStaffController(data.getLoginController(),
-					data.getDataPasser());
+			c = new AddHospitalStaffController(data.getLoginController());
 		} catch (InvalidLoginControllerException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

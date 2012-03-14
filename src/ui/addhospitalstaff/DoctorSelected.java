@@ -4,9 +4,6 @@ import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
 import controllers.AddHospitalStaffController;
-import exceptions.InvalidNameException;
-import exceptions.InvalidTimeSlotException;
-import exceptions.UserAlreadyExistsException;
 
 public class DoctorSelected extends Usecase
 {
@@ -20,20 +17,19 @@ public class DoctorSelected extends Usecase
 
 	@Override
 	public Usecase Execute() {
+		try {
 		System.out.println("Enter the doctors name:");
 		String arg = input.nextLine();
-		try {
-			c.createDoctor(arg, data.getLoginController());
-		} catch (UserAlreadyExistsException e) {
-			System.out.println("User already exists : error");
-			return new SelectUsecase(data);
-		} catch (InvalidNameException e) {
-			System.out.println("name provided was invalid" + e);
-		} catch (InvalidTimeSlotException e) {
-
-		}
+		System.out.println("Enter doctor's whereabouts: ");
+		String arg2 = input.nextLine();
+			c.addDoctor(arg, arg2);
+		
 		System.out.println("Doctor " + arg + " was succesfully created");
 		return new SelectUsecase(data);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return new SelectUsecase(data);
+		}
 	}
 
 }

@@ -3,7 +3,6 @@ package controllers;
 import java.util.ArrayList;
 import java.util.Collection;
 import patient.PatientFile;
-import system.Hospital;
 import users.Nurse;
 import users.User;
 import controllers.interfaces.PatientFileIN;

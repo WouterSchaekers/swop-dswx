@@ -25,7 +25,7 @@ public abstract class NeedsLoginController extends HospitalController
 	 * @param loginController
 	 * @return
 	 */
-	protected boolean isValidLoginController(LoginController loginController) {
+	public boolean isValidLoginController(LoginController loginController) {
 		User i = loginController.getUser();
 		if (i == null)
 			return false;

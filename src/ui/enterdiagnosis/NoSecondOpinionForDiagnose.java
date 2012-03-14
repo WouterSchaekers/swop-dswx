@@ -3,10 +3,6 @@ package ui.enterdiagnosis;
 import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
-import exceptions.InvalidDiagnoseException;
-import exceptions.InvalidDoctorException;
-import exceptions.InvalidLoginControllerException;
-import exceptions.InvalidPatientFileOpenController;
 
 public class NoSecondOpinionForDiagnose extends EnterDiagnoseSuperClass
 {
@@ -19,26 +15,13 @@ public class NoSecondOpinionForDiagnose extends EnterDiagnoseSuperClass
 	@Override
 	public Usecase Execute() {
 		try {
-			chaindata.getController().enterDiagnose(data.getLoginController(),
-					data.getPatientFileOpenController(), chaindata.getDiag());
-		} catch (InvalidLoginControllerException e) {
-			System.out.println("Priviliged action please log in again");
+			chaindata.getController().enterDiagnose(chaindata.getDiag());
+			System.out.println("Diagnose was succesfully entered");
 			return new SelectUsecase(data);
-
-		} catch (InvalidPatientFileOpenController e) {
-			System.out.println("No patienf file was opened");
-			return new SelectUsecase(data);
-
-		} catch (InvalidDiagnoseException e) {
-			System.out
-					.println("Somethign went wrong with creating the diagnose please try again");
-			return new SelectUsecase(data);
-		} catch (InvalidDoctorException e) {
-			System.out.println("Wrong doctor ");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			return new SelectUsecase(data);
 		}
-		System.out.println("Diagnose was succesfully entered");
-		return new SelectUsecase(data);
 	}
 
 }

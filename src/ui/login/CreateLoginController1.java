@@ -1,5 +1,6 @@
 package ui.login;
 
+import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
 import controllers.LoginController;
@@ -21,8 +22,13 @@ public class CreateLoginController1 extends LoginCommand
 	 */
 	@Override
 	public Usecase Execute() {
-		data.setLoginc(new LoginController(data.getDataPasser()));
-		return new DisplayAllNames(data, loginData);
+		try {
+			data.setLoginc(new LoginController(data.getDataPasser()));
+			return new DisplayAllNames(data, loginData);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return new SelectUsecase(data);
+		}
 	}
 
 }
