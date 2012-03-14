@@ -4,7 +4,7 @@ import java.util.Collection;
 import scheduler.HospitalDate;
 import scheduler.TimeSlot;
 import scheduler.TimeTable;
-import scheduler.task.scheduled.ScheduledTask;
+import scheduler2.ScheduledTask;
 import exceptions.InvalidHospitalDateArgument;
 import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidTimeSlotException;

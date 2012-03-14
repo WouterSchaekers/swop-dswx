@@ -126,17 +126,17 @@ public class TimeTable
 				.getTimeSinceStart()) {
 			returnValue.addTimeSlot(new TimeSlot(new StartTimePoint(d1),
 					new StopTimePoint(timeSlots.get(0).getStartPoint()
-							.getDate())));
+							.getHospitalDate())));
 		}
 		for (int i = 0; i < timeSlots.size() - 1; i++) {
 			returnValue.addTimeSlot(new TimeSlot(new StartTimePoint(timeSlots
-					.get(i).getStopPoint().getDate()), new StopTimePoint(
-					timeSlots.get(i + 1).getStartPoint().getDate())));
+					.get(i).getStopPoint().getHospitalDate()), new StopTimePoint(
+					timeSlots.get(i + 1).getStartPoint().getHospitalDate())));
 		}
-		if (timeSlots.get(this.timeSlots.size() - 1).getStopPoint().getDate()
+		if (timeSlots.get(this.timeSlots.size() - 1).getStopPoint().getHospitalDate()
 				.getTimeSinceStart() != d2.getTimeSinceStart()) {
 			returnValue.addTimeSlot(new TimeSlot(new StartTimePoint(timeSlots
-					.get(this.timeSlots.size() - 1).getStopPoint().getDate()),
+					.get(this.timeSlots.size() - 1).getStopPoint().getHospitalDate()),
 					new StopTimePoint(d2)));
 		}
 		return returnValue;
@@ -171,12 +171,12 @@ public class TimeTable
 		TimeTable x = this.invert();
 		LinkedList<TimeSlot> allTimeSlots = x.timeSlots;
 		for (TimeSlot t : allTimeSlots) {
-			if (!t.getStartPoint().getDate().before(hospitalDate)) {
+			if (!t.getStartPoint().getHospitalDate().before(hospitalDate)) {
 				return t;
 			}
 		}
 		StopTimePoint newStopPoint = new StopTimePoint(allTimeSlots
-				.get(allTimeSlots.size() - 1).getStopPoint().getDate());
+				.get(allTimeSlots.size() - 1).getStopPoint().getHospitalDate());
 		return new TimeSlot(new StartTimePoint(hospitalDate), newStopPoint);
 	}
 
@@ -185,8 +185,8 @@ public class TimeTable
 			throws InvalidSchedulingRequestException, InvalidTimeSlotException {
 		TimeTable x = this.invert();
 		for (TimeSlot t : x.timeSlots) {
-			HospitalDate startDateOfTimeSlot = t.getStartPoint().getDate();
-			HospitalDate stopDateOfTimeSlot = t.getStopPoint().getDate();
+			HospitalDate startDateOfTimeSlot = t.getStartPoint().getHospitalDate();
+			HospitalDate stopDateOfTimeSlot = t.getStopPoint().getHospitalDate();
 			if (!startDateOfTimeSlot.before(startDate)) {
 				if (stopDateOfTimeSlot.before(stopDate)
 						&& stopDateOfTimeSlot.getTimeSinceStart()
@@ -228,7 +228,7 @@ public class TimeTable
 			throws InvalidHospitalDateException {
 		HospitalDate firstDate = null;
 		for (TimeSlot t : timeSlots) {
-			HospitalDate curDate = t.getStartPoint().getDate();
+			HospitalDate curDate = t.getStartPoint().getHospitalDate();
 			if (hospitalDate.before(curDate)) {
 				if (firstDate == null || firstDate.before(curDate)) {
 					firstDate = curDate;
@@ -424,7 +424,7 @@ public class TimeTable
 	public void updateTimeTable(HospitalDate newDate) {
 		LinkedList<TimeSlot> newTimeSlots = new LinkedList<TimeSlot>();
 		for (TimeSlot timeSlot : timeSlots) {
-			if (timeSlot.getStopPoint().getDate().before(newDate)) {
+			if (timeSlot.getStopPoint().getHospitalDate().before(newDate)) {
 				newTimeSlots.add(timeSlot);
 			}
 		}
@@ -455,9 +455,6 @@ public class TimeTable
 	public static boolean isValidTimeSlots(LinkedList<TimeSlot> timeSlots) {
 		if (timeSlots == null)
 			return false;
-		for (TimeSlot timeSlot : timeSlots)
-			if (!TimeSlot.isValidTimeSlot(timeSlot))
-				return false;
 		return true;
 	}
 

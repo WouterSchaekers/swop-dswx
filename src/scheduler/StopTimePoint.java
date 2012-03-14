@@ -47,13 +47,13 @@ public class StopTimePoint extends TimePoint
 
 	@Override
 	public String toString() {
-		return "End: " + this.getDate();
+		return "End: " + this.getHospitalDate();
 	}
 
 	@Override
 	public boolean equals(Object o) {
 		if (!(o instanceof StopTimePoint))
 			return false;
-		return this.getDate().equals(((StopTimePoint) o).getDate());
+		return this.getHospitalDate().equals(((StopTimePoint) o).getHospitalDate());
 	}
 }

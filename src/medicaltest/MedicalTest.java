@@ -72,8 +72,8 @@ public abstract class MedicalTest implements MedicalTestIN
 	private boolean isValidTimeSlot(TimeSlot t)
 			throws InvalidSchedulingRequestException {
 		return t != null
-				&& this.canBeScheduledOn(t.getStartPoint().getDate(), t
-						.getStopPoint().getDate());
+				&& this.canBeScheduledOn(t.getStartPoint().getHospitalDate(), t
+						.getStopPoint().getHospitalDate());
 	}
 
 	public void updateTimeTable(HospitalDate newDate) {
