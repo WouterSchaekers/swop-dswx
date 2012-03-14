@@ -31,7 +31,7 @@ public class RegisterPatientController extends NeedsLoginController
 				.checkIn((PatientFile) patientFile);
 	}
 	
-	public void registerNewPatient(Hospital hospital, String name)
+	public void registerNewPatient(String name)
 			throws InvalidNameException {
 		hospital.getPatientFileManager().registerPatient(name);
 	}
