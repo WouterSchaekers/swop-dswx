@@ -36,6 +36,4 @@ public class UserManager
 			throw new UserAlreadyExistsException(user.name);
 		_users.put(user, whereabouts);
 	}
-
-}
 }

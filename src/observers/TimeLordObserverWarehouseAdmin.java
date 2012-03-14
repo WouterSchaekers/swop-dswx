@@ -34,5 +34,4 @@ public class TimeLordObserverWarehouseAdmin implements Observer
 			e.printStackTrace();
 		}
 	}
-
 }
