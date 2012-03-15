@@ -37,6 +37,7 @@ zie de feedbacksessie van iteratie 2.
     * Schedulable doc: updateTimeTable dient voor advance time, niet om een Schedulable een nieuwe time table toe te wijzen of iets dergelijks..
     * create dummy date in Nurse
     * ...
+  * *Verslag:* Schrijf waarom we getClass() gebruiken in warehouse
 
 = Wie is er momenteel waaraan bezig? =
 <p>
