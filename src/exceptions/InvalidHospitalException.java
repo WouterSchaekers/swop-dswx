@@ -4,7 +4,6 @@ public class InvalidHospitalException extends Exception
 {
 
 	public InvalidHospitalException(String string) {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

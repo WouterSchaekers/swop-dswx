@@ -21,11 +21,11 @@ public class SelectLocationPreferenceController extends NeedsLoginController
 	
 	public String getCurrentPreference() {
 		return null;
-		//TODO: zie methode hierboven :D
+		//TODO: implement
 	}
 	
 	public void setNewPreference(String pref) {
-		//TODO: zie de methode hierboven! :D
+		//TODO: implement
 	}
 
 	@Override

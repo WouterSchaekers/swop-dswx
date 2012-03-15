@@ -11,7 +11,7 @@ import exceptions.InvalidTimeSlotException;
 /**
  * Use Filter from the collections package instead
  */
-public class FactoryTestsMedicalTests
+public class _FactoryTestsMedicalTests
 {
 
 	public static final UltraSoundScanFactory filterUltraSoundFactory(

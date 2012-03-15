@@ -44,11 +44,6 @@ public class BloodAnalysis extends MedicalTest
 		return this.focus;
 	}
 
-	@Override
-	public void setResult(Result r) {
-
-	}
-
 	/**
 	 * Method to see the schedule state of this object
 	 */

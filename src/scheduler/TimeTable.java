@@ -42,8 +42,6 @@ public class TimeTable
 		this(new LinkedList<TimeSlot>(Arrays.asList(slots)));
 	}
 
-	// TODO: consider replacing these with methods since you cant catch these
-	// exceptions =/
 	public TimeTable() {
 		this.timeSlots = new LinkedList<TimeSlot>();
 	}

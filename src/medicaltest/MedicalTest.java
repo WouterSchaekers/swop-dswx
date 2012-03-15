@@ -1,5 +1,8 @@
 package medicaltest;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import be.kuleuven.cs.som.annotate.Basic;
 import machine.MachinePool;
 import patient.PatientFile;
 import result.Result;
@@ -21,7 +24,7 @@ public abstract class MedicalTest implements MedicalTestIN
 {
 	public final long DURATION;
 	private TimeTable timeTable;
-	private Result myResult;
+	private Result result;
 	private ScheduledTask ScheduledTask;
 
 	/**
@@ -80,7 +83,16 @@ public abstract class MedicalTest implements MedicalTestIN
 		this.timeTable.updateTimeTable(newDate);
 	}
 
-	public abstract void setResult(Result r);
+	/**
+	 * @return True if r is a valid Result.
+	 */
+	private boolean isValidResult(Result r) {
+		return r != null;
+	}
+
+	public void setResult(Result r) {
+		this.result = r;
+	}
 
 	public void setScheduledTask(ScheduledTask task) {
 		this.ScheduledTask = task;
@@ -100,13 +112,7 @@ public abstract class MedicalTest implements MedicalTestIN
 	public abstract String appointmentInfo();
 
 	public boolean hasFinished() {
-		if (this.myResult == null)
-			return false;
-		return true;
-	}
-	
-	public boolean hasResult() {
-		return this.myResult != null;
+		return this.result != null;
 	}
 
 }

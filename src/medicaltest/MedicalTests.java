@@ -3,6 +3,9 @@ package medicaltest;
 import java.util.ArrayList;
 import java.util.Collection;
 
+/**
+ * Holds on to all the medicaltest factories.
+ */
 public class MedicalTests
 {
 
