@@ -3,7 +3,7 @@ package scheduler.task.unscheduled.treatment;
 import java.util.LinkedList;
 import patient.Diagnose;
 import patient.PatientFile;
-import scheduler.HospitalDate;
+import scheduler2.HospitalDate;
 import treatment.Treatment;
 import users.UserManager;
 import warehouse.Warehouse;

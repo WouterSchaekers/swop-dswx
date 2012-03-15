@@ -3,7 +3,7 @@ package machine;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import scheduler.HospitalDate;
+import scheduler2.HospitalDate;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidSerialException;
 

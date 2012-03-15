@@ -2,9 +2,9 @@ package scheduler.task.unscheduled;
 
 import java.util.LinkedList;
 import patient.PatientFile;
-import scheduler.HospitalDate;
 import scheduler.task.Schedulable;
 import scheduler.task.scheduled.ScheduledTask;
+import scheduler2.HospitalDate;
 import users.Doctor;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;

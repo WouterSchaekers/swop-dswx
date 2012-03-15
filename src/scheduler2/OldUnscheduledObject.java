@@ -7,7 +7,6 @@ import exceptions.InvalidDurationException;
 import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidOccurencesException;
 import exceptions.InvalidResourceException;
-import scheduler.HospitalDate;
 import scheduler.task.Schedulable;
 import scheduler.task.unscheduled.UnscheduledTask1;
 import system.Hospital;

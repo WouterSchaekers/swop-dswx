@@ -1,6 +1,6 @@
 package controllers;
 
-import scheduler.HospitalDate;
+import scheduler2.HospitalDate;
 import users.HospitalAdmin;
 import users.User;
 import exceptions.InvalidHospitalException;

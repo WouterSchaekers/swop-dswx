@@ -1,10 +1,11 @@
-package scheduler;
+package scheduler2;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import java.util.LinkedList;
 import org.junit.Before;
 import org.junit.Test;
+import scheduler.UnscheduledTaskTestClass;
 import scheduler.task.Schedulable;
 import scheduler.task.scheduled.ScheduledTask;
 import scheduler.task.unscheduled.UnscheduledTask1;

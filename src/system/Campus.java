@@ -1,7 +1,7 @@
 package system;
 
 import machine.MachinePool;
-import scheduler.HospitalDate;
+import scheduler2.HospitalDate;
 import warehouse.Warehouse;
 
 public class Campus implements Whereabouts
