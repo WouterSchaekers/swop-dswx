@@ -7,7 +7,7 @@ import machine.MachinePool;
 import machine.SurgicalEquipment;
 import patient.Diagnose;
 import patient.PatientFile;
-import scheduler2.HospitalDate;
+import scheduler.HospitalDate;
 import schedulerold.task.Schedulable;
 import treatment.Surgery;
 import users.UserManager;

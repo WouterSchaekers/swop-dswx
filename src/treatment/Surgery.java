@@ -1,7 +1,7 @@
 package treatment;
 
 import result.Result;
-import scheduler2.HospitalDate;
+import scheduler.HospitalDate;
 import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.SurgeryIN;
 import exceptions.InvalidDescriptionException;

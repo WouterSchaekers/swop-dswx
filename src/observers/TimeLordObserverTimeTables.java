@@ -3,7 +3,7 @@ package observers;
 import java.util.Observable;
 import java.util.Observer;
 import machine.MachinePool;
-import scheduler2.HospitalDate;
+import scheduler.HospitalDate;
 import users.UserManager;
 
 public class TimeLordObserverTimeTables implements Observer

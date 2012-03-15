@@ -1,6 +1,6 @@
 package ui.advancetime;
 
-import scheduler2.HospitalDate;
+import scheduler.HospitalDate;
 import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;

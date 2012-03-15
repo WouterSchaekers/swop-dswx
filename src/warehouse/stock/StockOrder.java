@@ -1,6 +1,6 @@
 package warehouse.stock;
 
-import scheduler2.HospitalDate;
+import scheduler.HospitalDate;
 import exceptions.WarehouseOverCapacityException;
 import warehouse.Warehouse;
 import warehouse.item.WarehouseItemType;

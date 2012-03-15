@@ -1,6 +1,6 @@
 package schedulerold;
 
-import scheduler2.HospitalDate;
+import scheduler.HospitalDate;
 
 public class DummyDate
 {

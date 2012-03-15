@@ -1,4 +1,4 @@
-package scheduler2;
+package scheduler;
 
 import java.util.Arrays;
 import java.util.Collection;

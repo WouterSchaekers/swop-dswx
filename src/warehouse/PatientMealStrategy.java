@@ -3,7 +3,7 @@ package warehouse;
 import java.util.ArrayList;
 import java.util.Collection;
 import patient.PatientFileManager;
-import scheduler2.HospitalDate;
+import scheduler.HospitalDate;
 import warehouse.item.MealType;
 import warehouse.item.WarehouseItemType;
 import warehouse.orderstrat.OrderStrategy;

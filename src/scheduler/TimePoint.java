@@ -1,4 +1,4 @@
-package scheduler2;
+package scheduler;
 
 import java.util.Comparator;
 import be.kuleuven.cs.som.annotate.Basic;

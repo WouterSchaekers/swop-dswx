@@ -1,4 +1,4 @@
-package scheduler2;
+package scheduler;
 
 import java.util.Collection;
 import schedulerold.task.Schedulable;

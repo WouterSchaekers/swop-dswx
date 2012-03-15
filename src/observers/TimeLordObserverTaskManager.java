@@ -2,7 +2,7 @@ package observers;
 
 import java.util.Observable;
 import java.util.Observer;
-import scheduler2.HospitalDate;
+import scheduler.HospitalDate;
 import schedulerold.task.TaskManager;
 
 /**

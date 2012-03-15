@@ -5,7 +5,7 @@ import java.util.Collection;
 import medicaltest.MedicalTest;
 import medicaltest.XRayScan;
 import observers.DiagnoseObserverTaskManager;
-import scheduler2.HospitalDate;
+import scheduler.HospitalDate;
 import schedulerold.task.TaskManager;
 import users.Doctor;
 import be.kuleuven.cs.som.annotate.Basic;
