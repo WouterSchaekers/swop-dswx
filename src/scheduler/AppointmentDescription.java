@@ -1,40 +1,34 @@
 package scheduler;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import patient.Patient;
+import java.util.LinkedList;
+import exceptions.InvalidAmountException;
+import exceptions.InvalidHospitalDateException;
+import patient.PatientFile;
 import users.Doctor;
 
 public class AppointmentDescription extends TaskDescription
 {
-
-	private Doctor _doc;
-	private Patient _patient;
+	private Doctor doctor;
 	
-	public AppointmentDescription(Doctor doctor, Patient patient) {
-		//TODO: write isValid checks ?
-		_doc = doctor;
-		_patient = patient;
+	public AppointmentDescription(Doctor _doctor, PatientFile _patientFile, long _duration, HospitalDate _creationTime) throws InvalidAmountException, InvalidHospitalDateException {
+		super(_patientFile, _duration, 0, true, _creationTime);
+		this.doctor = _doctor;
 	}
 	
 	@Override
 	public Collection<Requirement> getAllRequirements() {
-		ArrayList<Requirement> requirements = new ArrayList<Requirement>();
-		requirements.add(new SpecificResourceRequirement(_doc));
+		Collection<Requirement> requirements = new LinkedList<Requirement>();
+		requirements.add(new SpecificResourceRequirement(doctor));
 		return requirements;
 	}
 
+	public Doctor getDocor() {
+		return doctor;
+	}
+
 	@Override
-	public boolean isReady() {
+	public boolean canBeScheduled() {
 		return true;
 	}
-
-	public Doctor getDocor() {
-		return _doc;
-	}
-
-	public Patient getPatient() {
-		return _patient;
-	}
-
 }
