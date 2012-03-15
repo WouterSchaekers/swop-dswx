@@ -9,7 +9,7 @@ import medicaltest.BloodAnalysis;
 import medicaltest.XRayScan;
 import patient.PatientFile;
 import scheduler.HospitalDate;
-import schedulerold.task.Schedulable;
+import scheduler.Schedulable;
 import schedulerold.task.scheduled.ScheduledTask;
 import users.UserManager;
 import exceptions.InvalidAmountException;

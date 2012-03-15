@@ -1,7 +1,6 @@
 package scheduler;
 
 import java.util.Collection;
-import schedulerold.task.Schedulable;
 import system.Whereabouts;
 
 public class ScheduledTask extends Task

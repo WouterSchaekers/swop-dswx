@@ -1,6 +1,5 @@
 package scheduler;
 
-import schedulerold.task.Schedulable;
 
 public interface Requirement
 {

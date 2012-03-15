@@ -8,7 +8,7 @@ import machine.SurgicalEquipment;
 import patient.Diagnose;
 import patient.PatientFile;
 import scheduler.HospitalDate;
-import schedulerold.task.Schedulable;
+import scheduler.Schedulable;
 import treatment.Surgery;
 import users.UserManager;
 import exceptions.InvalidAmountException;

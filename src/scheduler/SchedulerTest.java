@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import org.junit.Before;
 import org.junit.Test;
 import schedulerold.UnscheduledTaskTestClass;
-import schedulerold.task.Schedulable;
 import schedulerold.task.scheduled.ScheduledTask;
 import schedulerold.task.unscheduled.UnscheduledTask1;
 import system.Whereabouts;
