@@ -26,6 +26,7 @@
 || 13/03/11: 15u00 -> 17u00 || 3 DSW || 2 || Discussing whether or not to use multiple user managers; the responsibilities of Campus, Hospital,... || ||
 || 14/03/11: 16u00 -> 18u00 || 3 DSW || 2 || Creating a high level list of TODOs and immediately crossing off 4 design decisions. || ||
 || 14/03/11: 22u00 -> 24u00 || 2 SW || 2 || Starting the TODO list of implementations; fixing some random compile erros. || Dieter winabar. ||
+|| 15/03/11: 21u30 -> 23u50 || 2 SW || 2 || Description, unscheduledTask, warehouse-admin-manager-stock (impl) || ||
 
 
 = Iteratie 2 =
