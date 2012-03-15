@@ -3,7 +3,7 @@ package schedulerold.task.unscheduled;
 import java.util.LinkedList;
 import patient.PatientFile;
 import scheduler.HospitalDate;
-import schedulerold.task.Schedulable;
+import scheduler.Schedulable;
 import schedulerold.task.scheduled.ScheduledTask;
 import users.Doctor;
 import exceptions.InvalidAmountException;

@@ -5,7 +5,7 @@ import machine.MachinePool;
 import medicaltest.MedicalTest;
 import patient.PatientFile;
 import scheduler.HospitalDate;
-import schedulerold.task.Schedulable;
+import scheduler.Schedulable;
 import schedulerold.task.scheduled.ScheduledTask;
 import schedulerold.task.unscheduled.UnscheduledTask1;
 import users.UserManager;

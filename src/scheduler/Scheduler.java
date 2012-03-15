@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
 import patient.PatientFile;
-import schedulerold.task.Schedulable;
 import schedulerold.task.unscheduled.UnscheduledTask1;
 import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidHospitalDateArgument;
