@@ -2,7 +2,7 @@ package observers;
 
 import java.util.Observable;
 import java.util.Observer;
-import scheduler.task.TaskManager;
+import schedulerold.task.TaskManager;
 
 public class DiagnoseObserverTaskManager implements Observer
 {

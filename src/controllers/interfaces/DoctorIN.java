@@ -1,6 +1,6 @@
 package controllers.interfaces;
 
-import scheduler.task.Schedulable;
+import schedulerold.task.Schedulable;
 
 public interface DoctorIN extends UserIN, Schedulable
 {

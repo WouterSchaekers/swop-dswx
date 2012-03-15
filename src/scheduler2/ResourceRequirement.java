@@ -1,6 +1,6 @@
 package scheduler2;
 
-import scheduler.task.Schedulable;
+import schedulerold.task.Schedulable;
 
 public class ResourceRequirement<T extends Schedulable> implements Requirement
 {
