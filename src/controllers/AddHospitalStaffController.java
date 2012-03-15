@@ -19,15 +19,15 @@ public class AddHospitalStaffController extends NeedsLoginController
 
 	public void addNurse(String name, String location) throws UserAlreadyExistsException,
 			InvalidNameException {
-		Nurse n = new Nurse(name);
 		Whereabouts w = this.hospital.getCampus(location);
+		Nurse n = new Nurse(name,w);
 		this.hospital.getUserManager().addUser(n, w);
 	}
 
 	public void addDoctor(String name, String location)
 			throws UserAlreadyExistsException, InvalidNameException {
-		Doctor d = new Doctor(name);
 		Whereabouts w = this.hospital.getCampus(location);
+		Doctor d = new Doctor(name, w);
 		this.hospital.getUserManager().addUser(d, w);
 	}
 
@@ -35,28 +35,4 @@ public class AddHospitalStaffController extends NeedsLoginController
 	boolean validUser(User u) {
 		return u instanceof HospitalAdmin;
 	}
-
-	//TODO: use
-//	public class Abra<T>{
-//	private T val;
-//
-//	public Abra(T t)
-//	{
-//		this.val = t;
-//	}
-//	public int getKey()
-//	{
-//		return campus;
-//		
-//	}
-//	 T get()
-//	{
-//		return val;
-//	}
-//}
-//public Collection<Abra<UserType>> getTypes()
-//{
-//	return null;
-//	
-//}
 }
