@@ -37,17 +37,10 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN
 	}
 
 	/**
-	 * 
-	 * @param type
-	 * @throws WarehouseOverCapacityException
-	 * @throws NullPointerException
+	 * Adds an item of the specified type to the warehouse associated with this warehouse admin.
 	 */
 	public void addItem(WarehouseItemType type)
-			throws WarehouseOverCapacityException, NullPointerException {
-		if (_wh == null) {
-			throw new NullPointerException(
-					"The warehouse has not been initialized yet.");
-		}
+			throws WarehouseOverCapacityException{
 		_wh.add(type.create(_wh.getCampus().getSystemTime()));
 	}
 
@@ -56,11 +49,5 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN
 			_spv.add(new StockOrder<WarehouseItemType>(_wh, type, _wh
 					.getCampus().getSystemTime()));
 	}
-
-	// TODO: fix this
-	// private void advanceTime(HospitalDate newDate) throws MealException,
-	// InvalidAmountException, WarehouseException {
-	// //advance time
-	// }
-	//
+	//TODO: wat gebeurt er bij advance time()?
 }
