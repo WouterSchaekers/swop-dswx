@@ -5,6 +5,7 @@ import patient.PatientFile;
 import scheduler.task.Schedulable;
 import scheduler.task.scheduled.ScheduledTask;
 import scheduler.task.unscheduled.UnscheduledTask1;
+import scheduler2.HospitalDate;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidHospitalDateException;

@@ -1,5 +1,7 @@
 package scheduler;
 
+import scheduler2.HospitalDate;
+
 public class DummyDate
 {
 	HospitalDate dummyDate;

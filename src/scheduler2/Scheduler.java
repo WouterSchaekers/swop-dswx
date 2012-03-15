@@ -1,4 +1,4 @@
-package scheduler;
+package scheduler2;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import patient.PatientFile;
 import scheduler.task.Schedulable;
 import scheduler.task.unscheduled.UnscheduledTask1;
-import scheduler2.ScheduledTask;
 import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidHospitalDateArgument;
 import exceptions.InvalidHospitalDateException;

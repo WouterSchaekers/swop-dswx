@@ -1,8 +1,6 @@
 package scheduler2;
 
 import java.util.Collection;
-import scheduler.HospitalDate;
-import scheduler.TimeSlot;
 import scheduler.task.Schedulable;
 import system.Whereabouts;
 

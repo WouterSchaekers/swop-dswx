@@ -1,6 +1,6 @@
 package warehouse.item;
 
-import scheduler.HospitalDate;
+import scheduler2.HospitalDate;
 
 public class Meal extends WarehouseItem
 {

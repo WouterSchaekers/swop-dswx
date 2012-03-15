@@ -2,8 +2,8 @@ package controllers;
 
 import java.util.Collection;
 import patient.Patient;
-import scheduler.HospitalDate;
 import scheduler2.AppointmentDescription;
+import scheduler2.HospitalDate;
 import users.Doctor;
 import users.Nurse;
 import users.User;

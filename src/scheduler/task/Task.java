@@ -3,7 +3,7 @@ package scheduler.task;
 import java.util.Collection;
 import java.util.LinkedList;
 import patient.PatientFile;
-import scheduler.HospitalDate;
+import scheduler2.HospitalDate;
 import be.kuleuven.cs.som.annotate.Basic;
 
 /**

@@ -3,7 +3,7 @@ package warehouse;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Observable;
-import scheduler.HospitalDate;
+import scheduler2.HospitalDate;
 import system.Campus;
 import warehouse.item.WarehouseItem;
 import warehouse.item.WarehouseItemType;

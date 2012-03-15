@@ -1,10 +1,10 @@
 package scheduler.task;
 
 import java.util.Collection;
-import scheduler.HospitalDate;
-import scheduler.TimeSlot;
-import scheduler.TimeTable;
+import scheduler2.HospitalDate;
 import scheduler2.ScheduledTask;
+import scheduler2.TimeSlot;
+import scheduler2.TimeTable;
 import exceptions.InvalidHospitalDateArgument;
 import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidTimeSlotException;

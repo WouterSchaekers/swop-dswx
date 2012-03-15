@@ -1,7 +1,7 @@
 package treatment;
 
 import result.Result;
-import scheduler.HospitalDate;
+import scheduler2.HospitalDate;
 import controllers.interfaces.MedicationIN;
 
 /**

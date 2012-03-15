@@ -1,4 +1,4 @@
-package scheduler;
+package scheduler2;
 
 /**
  * This class represents a point in time that, specifically, is the end of a

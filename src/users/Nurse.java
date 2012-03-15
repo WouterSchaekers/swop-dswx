@@ -1,7 +1,7 @@
 package users;
 
-import scheduler.HospitalDate;
-import scheduler.TimeSlot;
+import scheduler2.HospitalDate;
+import scheduler2.TimeSlot;
 import system.Whereabouts;
 import controllers.interfaces.NurseIN;
 import exceptions.InvalidHospitalDateArgument;

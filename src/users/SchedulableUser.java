@@ -2,11 +2,11 @@ package users;
 
 import java.util.Collection;
 import java.util.LinkedList;
-import scheduler.HospitalDate;
-import scheduler.TimeSlot;
-import scheduler.TimeTable;
 import scheduler.task.Schedulable;
+import scheduler2.HospitalDate;
 import scheduler2.ScheduledTask;
+import scheduler2.TimeSlot;
+import scheduler2.TimeTable;
 import system.Whereabouts;
 import exceptions.InvalidNameException;
 import exceptions.InvalidSchedulingRequestException;
