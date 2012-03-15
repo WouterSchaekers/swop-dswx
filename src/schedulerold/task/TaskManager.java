@@ -7,7 +7,7 @@ import java.util.Observable;
 import java.util.Queue;
 import scheduler.ScheduledTask;
 import scheduler.Scheduler;
-import schedulerold.task.unscheduled.UnscheduledTask1;
+import schedulerold.task.unscheduled.UnscheduledTask;
 import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidHospitalDateArgument;
@@ -28,7 +28,7 @@ import exceptions.QueueException;
  */
 public class TaskManager extends Observable
 {
-	private Collection<UnscheduledTask1> taskQueue = new LinkedList<UnscheduledTask1>();
+	private Collection<UnscheduledTask> taskQueue = new LinkedList<UnscheduledTask>();
 	private Scheduler myScheduler;
 
 	/**
@@ -63,9 +63,9 @@ public class TaskManager extends Observable
 			InvalidSchedulingRequestException,
 			InvalidSchedulingRequestException, InvalidTimeSlotException,
 			InvalidResourceException, InvalidHospitalDateArgument {
-		Queue<UnscheduledTask1> newQueue = new LinkedList<UnscheduledTask1>(
+		Queue<UnscheduledTask> newQueue = new LinkedList<UnscheduledTask>(
 				this.taskQueue);
-		for (UnscheduledTask1 curTask : this.taskQueue) {
+		for (UnscheduledTask curTask : this.taskQueue) {
 			if (curTask.canBeScheduled()) {
 				this.myScheduler().schedule(curTask);
 
@@ -89,7 +89,7 @@ public class TaskManager extends Observable
 	 *            The task to add.
 	 * @return returns null if t can't be scheduled at this time.
 	 */
-	public ScheduledTask addTask(UnscheduledTask1 t)
+	public ScheduledTask addTask(UnscheduledTask t)
 			throws InvalidTimeSlotException, InvalidResourceException,
 			InvalidHospitalDateArgument {
 		if (!isValidTask(t))
@@ -103,7 +103,7 @@ public class TaskManager extends Observable
 		}
 	}
 
-	private ScheduledTask schedule(UnscheduledTask1 t)
+	private ScheduledTask schedule(UnscheduledTask t)
 			throws InvalidTimeSlotException, InvalidSchedulingRequestException,
 			InvalidResourceException, InvalidHospitalDateArgument {
 		ScheduledTask task = this.myScheduler.schedule(t);
@@ -115,7 +115,7 @@ public class TaskManager extends Observable
 	/**
 	 * @return True if t is a valid Task that can be queued in this TM.
 	 */
-	private boolean isValidTask(UnscheduledTask1 t) {
+	private boolean isValidTask(UnscheduledTask t) {
 		return t != null;
 	}
 
