@@ -1,16 +1,15 @@
-package scheduler.task.unscheduled.tests;
+package schedulerold.task.unscheduled.tests;
 
 import help.Collections;
 import help.Filter;
 import java.util.LinkedList;
 import machine.MachinePool;
-import machine.XRayScanner;
+import machine.UltraSoundScanner;
 import medicaltest.BloodAnalysis;
-import medicaltest.XRayScan;
+import medicaltest.UltraSoundScan;
 import patient.PatientFile;
 import scheduler2.HospitalDate;
 import schedulerold.task.Schedulable;
-import schedulerold.task.scheduled.ScheduledTask;
 import users.UserManager;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
@@ -18,20 +17,15 @@ import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidOccurencesException;
 import exceptions.InvalidResourceException;
 
-public class UnscheduledXRayScan extends UnscheduledMedicalTest
+public class UnscheduledUltraSound extends UnscheduledMedicalTest
 {
-	public UnscheduledXRayScan(PatientFile p, HospitalDate currentSystemTime,
-			UserManager userManager, MachinePool machinePool, XRayScan analysis)
-			throws InvalidResourceException, InvalidDurationException,
-			InvalidOccurencesException, InvalidAmountException,
-			InvalidHospitalDateException {
+	public UnscheduledUltraSound(PatientFile p, HospitalDate currentSystemTime,
+			UserManager userManager, MachinePool machinePool,
+			UltraSoundScan ultraSoundScan) throws InvalidResourceException,
+			InvalidDurationException, InvalidOccurencesException,
+			InvalidAmountException, InvalidHospitalDateException {
 		super(p, BloodAnalysis.DURATION, currentSystemTime, userManager,
-				machinePool, analysis);
-	}
-
-	@Override
-	public HospitalDate getFirstSchedulingDateSince(HospitalDate hospitalDate) {
-		return this.patient.getFirstNewXRaySchedDate(hospitalDate);
+				machinePool, ultraSoundScan);
 	}
 
 	@Override
@@ -48,14 +42,10 @@ public class UnscheduledXRayScan extends UnscheduledMedicalTest
 				{
 					@Override
 					public <T> boolean allows(T arg) {
-						return arg instanceof XRayScanner;
+						return arg instanceof UltraSoundScanner;
 					}
 				}));
 		return curMachinePool;
 	}
 
-	@Override
-	public void setScheduled(ScheduledTask task) {
-
-	}
 }
