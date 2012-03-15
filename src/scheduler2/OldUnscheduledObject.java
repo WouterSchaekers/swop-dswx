@@ -7,8 +7,8 @@ import exceptions.InvalidDurationException;
 import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidOccurencesException;
 import exceptions.InvalidResourceException;
-import scheduler.task.Schedulable;
 import scheduler.task.unscheduled.UnscheduledTask1;
+import schedulerold.task.Schedulable;
 import system.Hospital;
 
 //TODO: is dit de moeite ffs 
