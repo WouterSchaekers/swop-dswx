@@ -5,16 +5,18 @@ import scheduler.HospitalDate;
 public class Vitamin extends WarehouseItem
 {
 
+	Vitamin(HospitalDate expiryDate) {
+		super(expiryDate);
+	}
+	
 	@Override
 	public boolean isExpired(HospitalDate date) {
-		// TODO Auto-generated method stub
-		return false;
+		return date.after(this.expiryDate);
 	}
 
 	@Override
 	public WarehouseItemType getType() {
-		// TODO Auto-generated method stub
-		return null;
+		return new VitaminType();
 	}
 
 }

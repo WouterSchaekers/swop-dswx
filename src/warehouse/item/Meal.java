@@ -4,11 +4,10 @@ import scheduler.HospitalDate;
 
 public class Meal extends WarehouseItem
 {
-	
-	Meal(HospitalDate date)
-	{
-		
+	Meal(HospitalDate date) {
+		super(date);
 	}
+
 	@Override
 	public WarehouseItemType getType() {
 		return new MealType();
@@ -16,8 +15,7 @@ public class Meal extends WarehouseItem
 
 	@Override
 	public boolean isExpired(HospitalDate date) {
-		// TODO Auto-generated method stub
-		return false;
+		return date.after(this.expiryDate);
 	}
 
 }

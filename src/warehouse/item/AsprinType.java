@@ -6,9 +6,8 @@ public class AsprinType extends WarehouseItemType
 {
 
 	@Override
-	public WarehouseItem create(HospitalDate expirydate) {
-		// TODO Auto-generated method stub
-		return null;
+	public WarehouseItem create(HospitalDate expiryDate) {
+		return new Asprin(expiryDate);
 	}
 
 }
