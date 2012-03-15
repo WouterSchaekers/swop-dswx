@@ -15,9 +15,7 @@ public class SelectLocationPreferenceController extends NeedsLoginController
 	}
 
 	public Collection<CampusPreference> getPossiblePreferences() {
-		// Jaaa het type is keislecht, maar dat boeit niet aangezien er alleen
-		// een plausibele API moet zijn.
-		//TODO: fix het type ^^
+		//TODO: fix
 		return null;
 	}
 	

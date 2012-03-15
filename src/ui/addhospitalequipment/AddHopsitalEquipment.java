@@ -4,8 +4,6 @@ import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
 import controllers.AddHospitalEquipmentController;
-import exceptions.InvalidHospitalException;
-import exceptions.InvalidLoginControllerException;
 
 public class AddHopsitalEquipment extends AddHospitalEquipmentSuperClass
 {
@@ -21,20 +19,18 @@ public class AddHopsitalEquipment extends AddHospitalEquipmentSuperClass
 
 	@Override
 	public Usecase Execute() {
-		// Step one create the controller that is to be used
-		AddHospitalEquipmentController c = null;
 		try {
+			// Step one create the controller that is to be used
+			AddHospitalEquipmentController c = null;
 			c = new AddHospitalEquipmentController(data.getLoginController());
-		} catch (InvalidLoginControllerException e) {
-			System.out.println("invalid login controller, user not logged in");
+
+			chainData.add(c);
+			// Controller is created now yeya !
+			return new ShowMachineTypes(data, chainData);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			return new SelectUsecase(data);
-		} catch (InvalidHospitalException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		chainData.add(c);
-		// Controller is created now yeya !
-		return new ShowMachineTypes(data, chainData);
 	}
 
 }
