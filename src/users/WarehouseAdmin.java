@@ -18,45 +18,49 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN
 	private StockProvider _spv;
 
 	/**
-	 * Default constructor. Will appoint this admin his warehouse.
+	 * Initialises this warehouse admin and appoints him to a warehouse. Also
+	 * provides him with a stockprovider.
 	 * 
-	 * @param depot
-	 *            The warehouse of this warehouse admin.
-	 * @param patientFileManager
-	 *            The patientfile manager where this warehouse admin should get
-	 *            the amount of active patients in its hospital.
+	 * @param name
+	 *            The desired name for this warehouse admin.
+	 * @param warehouse
+	 *            The warehouse this admin manages.
+	 * @param stockProvider
+	 *            The stock provider this admin can place stock orers with.
 	 * @throws InvalidNameException
 	 */
-	public WarehouseAdmin(String name, Warehouse warehouse, StockProvider stockProvider)
-			throws InvalidNameException {
+	public WarehouseAdmin(String name, Warehouse warehouse,
+			StockProvider stockProvider) throws InvalidNameException {
 		super(name);
 		this._wh = warehouse;
 		this._spv = stockProvider;
 	}
-	
-	public WarehouseAdmin(String name) throws InvalidNameException{
-		super(name);
-	}
-	
-	public void addItem(WarehouseItemType type) throws WarehouseOverCapacityException, NullPointerException
-	{
-		if(_wh == null){
-			throw new NullPointerException("The warehouse has not been initialized yet.");
+
+	/**
+	 * 
+	 * @param type
+	 * @throws WarehouseOverCapacityException
+	 * @throws NullPointerException
+	 */
+	public void addItem(WarehouseItemType type)
+			throws WarehouseOverCapacityException, NullPointerException {
+		if (_wh == null) {
+			throw new NullPointerException(
+					"The warehouse has not been initialized yet.");
 		}
-		_wh.add(type.create(_wh.getSystemTime()));
-	}
-	
-	public void addOrder(WarehouseItemType type,int count)
-	{
-		for(int i = 0;i<count;i++)
-			_spv.add(new StockOrder<WarehouseItemType>(_wh, type, _wh.getSystemTime()));
+		_wh.add(type.create(_wh.getCampus().getSystemTime()));
 	}
 
+	public void addOrder(WarehouseItemType type, int count) {
+		for (int i = 0; i < count; i++)
+			_spv.add(new StockOrder<WarehouseItemType>(_wh, type, _wh
+					.getCampus().getSystemTime()));
+	}
 
-//TODO: fix this
-//	private void advanceTime(HospitalDate newDate) throws MealException,
-//			InvalidAmountException, WarehouseException {
-//	//advance time
-//	}
-//	
+	// TODO: fix this
+	// private void advanceTime(HospitalDate newDate) throws MealException,
+	// InvalidAmountException, WarehouseException {
+	// //advance time
+	// }
+	//
 }

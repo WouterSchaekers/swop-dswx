@@ -4,8 +4,6 @@ import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
 import controllers.AddHospitalStaffController;
-import exceptions.InvalidHospitalException;
-import exceptions.InvalidLoginControllerException;
 
 public class selectUserType extends Usecase
 {
@@ -16,35 +14,33 @@ public class selectUserType extends Usecase
 
 	@Override
 	public Usecase Execute() {
-		AddHospitalStaffController c = null;
 		try {
+			AddHospitalStaffController c = null;
 			c = new AddHospitalStaffController(data.getLoginController());
-		} catch (InvalidLoginControllerException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (InvalidHospitalException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		for (usertype u : usertype.values())
-			System.out.println(u.ordinal() + ": " + u.toString());
-		System.out.println("q to quit");
-		String in = input.nextLine();
-		if (in.equalsIgnoreCase("q"))
-			return new SelectUsecase(data);
-		Integer i;
-		try {
-			i = new Integer(in);
-		} catch (Exception e) {
+
+			for (usertype u : usertype.values())
+				System.out.println(u.ordinal() + ": " + u.toString());
+			System.out.println("q to quit");
+			String in = input.nextLine();
+			if (in.equalsIgnoreCase("q"))
+				return new SelectUsecase(data);
+			Integer i;
+			try {
+				i = new Integer(in);
+			} catch (Exception e) {
+				System.out.println("Invalid option try again");
+				return new selectUserType(data);
+			}
+			if (i == usertype.nurse.ordinal())
+				return new NurseSelected(data, c);
+			if (i == usertype.doctor.ordinal())
+				return new DoctorSelected(data, c);
 			System.out.println("Invalid option try again");
 			return new selectUserType(data);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return new SelectUsecase(data);
 		}
-		if (i == usertype.nurse.ordinal())
-			return new NurseSelected(data, c);
-		if (i == usertype.doctor.ordinal())
-			return new DoctorSelected(data, c);
-		System.out.println("Invalid option try again");
-		return new selectUserType(data);
 	}
 
 }

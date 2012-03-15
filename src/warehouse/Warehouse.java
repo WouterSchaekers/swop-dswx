@@ -3,36 +3,54 @@ package warehouse;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Observable;
-import scheduler.HospitalDate;
 import system.Campus;
 import warehouse.item.WarehouseItem;
 import warehouse.item.WarehouseItemType;
+import be.kuleuven.cs.som.annotate.Basic;
+import exceptions.InvalidWarehouseItemException;
 import exceptions.WarehouseOverCapacityException;
-//TODO: have something manage the time for this warehouse
-//TODO: Like remove expired items
+
+/**
+ * This class represents a warehouse on the campus of a hospital.
+ */
 public class Warehouse extends Observable
 {
 	private Map<Class<? extends WarehouseItemType>, Integer> _maxMap;
 	private LinkedList<WarehouseItem> _items;
 	private Campus _cp;
 
+	/**
+	 * Initialises this warehouse.
+	 * 
+	 * @param campus
+	 *            The campus this warehouse is for.
+	 */
 	public Warehouse(Campus campus) {
 		this._cp = campus;
 	}
-	
-	public WarehouseItem take(WarehouseItemType item) 
-	{
+
+	/**
+	 * @return An item of the specified type that should be removed.
+	 */
+	public WarehouseItem take(WarehouseItemType item) throws InvalidWarehouseItemException {
 		WarehouseItem item1 = null;
 		for (WarehouseItem i : _items) {
 			if (i.getType().equals(item)) {
 				item1 = i;
 			}
 		}
+		
+		if(item1 == null) 
+			throw new InvalidWarehouseItemException("the specified item type was not found in this warehouse");
+		
 		_items.remove(item1);
 		this.notifyObservers();
 		return item1;
 	}
 
+	/**
+	 * Adds an item to this warehouse.
+	 */
 	public void add(WarehouseItem item) throws WarehouseOverCapacityException {
 		if (!canBeAdded(item))
 			throw new WarehouseOverCapacityException("hot");
@@ -40,10 +58,16 @@ public class Warehouse extends Observable
 		this.notifyObservers();
 	}
 
+	/**
+	 * @return True if item can be added to this warehouse.
+	 */
 	private boolean canBeAdded(WarehouseItem item) {
 		return getMaxCount(item.getType()) >= getCurrentCount(item.getType()) + 1;
 	}
 
+	/**
+	 * @return The maximum amount of units this warehouse can hold of the specified type.
+	 */
 	public int getMaxCount(WarehouseItemType type) {
 		if (_maxMap.containsKey(type))
 			return _maxMap.get(type);
@@ -51,19 +75,24 @@ public class Warehouse extends Observable
 			return 0;
 	}
 
-	// TODO: schrijf in verslag waarom getclas()
-	public void setMaxCount(WarehouseItemType type, int count) {
+	/**
+	 * Sets the maximum amount of units this warehouse can hold of a specific
+	 * item type.
+	 */
+	public void setMaxCount(WarehouseItemType type, int count)
+			throws InvalidWarehouseItemException {
 		if (!_maxMap.containsKey(type))
 			_maxMap.put(type.getClass(), count);
 		else
-			return;
-
+			throw new InvalidWarehouseItemException(
+					"Trying to set the max count of an invalid item type!");
 	}
+
 	/**
-	 * Package only want stockmanager moet daaraan kunnen.
-	 * @param type
-	 * @return
+	 * @return The current amount of units of the given item type.
 	 */
+	// This function is package visible because stock manager needs to access
+	// it.
 	int getCurrentCount(WarehouseItemType type) {
 		int rv = 0;
 		for (WarehouseItem item : _items)
@@ -72,15 +101,16 @@ public class Warehouse extends Observable
 		return rv;
 	}
 
+	/**
+	 * @return True if this warehouse has the requested amount of units of the
+	 *         given type.
+	 */
 	public boolean has(WarehouseItemType type, int amount) {
 		return getCurrentCount(type) >= amount;
 	}
-	
-	public Campus getCampus(){
+
+	@Basic
+	public Campus getCampus() {
 		return this._cp;
-	}
-	
-	public HospitalDate getSystemTime(){
-		return this._cp.getSystemTime();
 	}
 }
