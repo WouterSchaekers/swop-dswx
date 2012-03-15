@@ -5,10 +5,12 @@ import machine.MachineBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import system.Hospital;
+import system.Whereabouts;
 import users.Doctor;
 import users.HospitalAdmin;
 import users.Nurse;
 import users.User;
+import exceptions.InvalidCampusException;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidLoginControllerException;
@@ -22,15 +24,17 @@ public class _AddHospitalEquipmentTest
 	LoginController loginController;
 	AddHospitalEquipmentController addHospitalEquipmentController;
 	User nurse;
-	User Doctor;
+	User doctor;
 	User hospitad;
 
 	@Before
-	public void setup() throws InvalidNameException, InvalidHospitalException {
+	public void setup() throws InvalidNameException, InvalidHospitalException, InvalidCampusException {
 		hospital = new Hospital();
 		loginController = new LoginController(hospital);
-		nurse = new Nurse("jenny");
-		Doctor = new Doctor("jonathan");
+		hospital.addCampus("Campus 1");
+		Whereabouts w = hospital.getCampus("Campus 1");
+		nurse = new Nurse("jenny",w);
+		doctor = new Doctor("jonathan",w);
 		hospitad = new HospitalAdmin("asdfd");
 	}
 
@@ -45,7 +49,7 @@ public class _AddHospitalEquipmentTest
 	@Test(expected = InvalidLoginControllerException.class)
 	public void authenticationTest2() throws InvalidLoginControllerException,
 			InvalidHospitalException {
-		loginController.logIn(Doctor);
+		loginController.logIn(doctor);
 		addHospitalEquipmentController = new AddHospitalEquipmentController(
 				loginController);
 	}
@@ -67,10 +71,10 @@ public class _AddHospitalEquipmentTest
 		loginController.logIn(hospitad);
 		addHospitalEquipmentController = new AddHospitalEquipmentController(
 				loginController);
-		MachineBuilder m = hospital.getMachinePool().getAllBuilders().iterator().next();
+		MachineBuilder m = hospital.getCampus("Campus 1").getMachinePool().getAllBuilders().iterator().next();
 		addHospitalEquipmentController.createMachine(m, 3, "jozef"
 				);
-		assertTrue(hospital.getMachinePool().getAllMachines().size() == 1);
+		assertTrue(hospital.getCampus("Campus 1").getMachinePool().getAllMachines().size() == 1);
 	}
 
 }

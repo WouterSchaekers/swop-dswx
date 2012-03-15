@@ -30,11 +30,23 @@ public class UserManager
 		return new LinkedList<UserIN>(this._users.keySet());
 	}
 
-	public void addUser(User user, Whereabouts whereabouts)
+	/**
+	 * Use to add schedulable users only!*
+	 */
+	public void addUser(SchedulableUser user)
 			throws UserAlreadyExistsException {
 		if (_users.keySet().contains(user))
 			throw new UserAlreadyExistsException(user.name);
-		_users.put(user, whereabouts);
+		_users.put(user, ((SchedulableUser) user).getLocation());	
+	}
+	
+	/**
+	 * Use to add unschedulable users only!
+	 */
+	public void addUser(User user, Whereabouts location) throws UserAlreadyExistsException {
+		if(_users.containsKey(user))
+			throw new UserAlreadyExistsException(user.name);
+		_users.put(user, location);
 	}
 
 }

@@ -4,10 +4,12 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import system.Hospital;
+import system.Whereabouts;
 import users.Doctor;
 import users.HospitalAdmin;
 import users.Nurse;
 import users.User;
+import exceptions.InvalidCampusException;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidLoginControllerException;
@@ -24,11 +26,13 @@ public class _AdvanceTimeControllerTest
 	User hospitad;
 
 	@Before
-	public void setup() throws InvalidNameException, InvalidHospitalException {
+	public void setup() throws InvalidNameException, InvalidHospitalException, InvalidCampusException {
 		hospital = new Hospital();
 		loginController = new LoginController(hospital);
-		nurse = new Nurse("jenny");
-		Doctor = new Doctor("jonathan");
+		hospital.addCampus("Campus 1");
+		Whereabouts w = hospital.getCampus("Campus 1");
+		nurse = new Nurse("jenny",w);
+		Doctor = new Doctor("jonathan",w);
 		hospitad = new HospitalAdmin("asdfd");
 	}
 

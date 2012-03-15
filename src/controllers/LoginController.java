@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import system.Hospital;
 import users.User;
+import users.UserFilter;
 import users.UserManager;
 import controllers.interfaces.DoctorIN;
 import controllers.interfaces.NurseIN;
@@ -30,17 +31,17 @@ public class LoginController extends HospitalController
 	public Collection<UserIN> getAllUsers() {
 		UserManager um = hospital.getUserManager();
 		ArrayList<UserIN> users = new ArrayList<UserIN>();
-		for (User u : um.getAllUsers())
+		for (UserIN u : um.getAllUserINs())
 			users.add(u);
 		return users;
 	}
 	
 	public NurseIN getSpecificNurse(String name) {
-		return hospital.getUserManager().getSpecificNurse(name);
+		return UserFilter.SpecificNurseFilter(hospital.getUserManager().getAllUserINs(), name);
 	}
 	
 	public DoctorIN getSpecificDoctor(String name) {
-		return hospital.getUserManager().getSpecificDoctor(name);
+		return UserFilter.SpecificDoctorFilter(hospital.getUserManager().getAllUserINs(), name);
 	}
 
 	/**
@@ -83,8 +84,7 @@ public class LoginController extends HospitalController
 	}
 
 	/**
-	 * 
-	 * @return
+	 * @return The user whom has been granted log on access.
 	 */
 	public UserIN getUserIN() {
 		return user;

@@ -22,7 +22,7 @@ public class AdvanceTimeController extends NeedsLoginController
 	 */
 	public void setNewSystemTime(HospitalDate hospitalDate)
 			throws InvalidLoginControllerException {
-		this.hospital.getSystemTime().setSystemTime(hospitalDate);
+		this.hospital.getSystemTime().setTime(hospitalDate.getTimeSinceStart());
 	}
 
 	@Override

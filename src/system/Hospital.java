@@ -9,6 +9,7 @@ import scheduler.task.TaskManager;
 import users.HospitalAdmin;
 import users.UserManager;
 import be.kuleuven.cs.som.annotate.Basic;
+import exceptions.InvalidCampusException;
 
 /**
  * This class represents a hospital. It can be used to pass a bunch of data to
@@ -96,6 +97,7 @@ public class Hospital implements Whereabouts
 		return _sdl;
 	}
 	
+	@Basic
 	public Campus getCampus(String name){
 		for(Campus campus : _cp){
 			if(campus.getCampusName().equals(name)){
@@ -103,5 +105,29 @@ public class Hospital implements Whereabouts
 			}
 		}
 		throw new IllegalArgumentException("Campus does not exists");
+	}
+	
+	public LinkedList<Campus> getAllCampusses() {
+		return new LinkedList<Campus>(this._cp);
+	}
+	
+	/**
+	 * Adds a campus to this hospital.
+	 */
+	@Basic
+	public void addCampus(String name) throws InvalidCampusException {
+		if(name.equals(""))
+			throw new InvalidCampusException("Invalid new campus name was given!");
+		this._cp.add(new Campus("name", this));
+	}
+	
+	/**
+	 * Removes a campus from this hospital.
+	 */
+	public void removeCampus(String name) {
+		LinkedList<Campus> newCP = new LinkedList<Campus>();
+		for(Campus c : this._cp)
+			if((c.getCampusName().equals(name)))
+					newCP.add(c);
 	}
 }
