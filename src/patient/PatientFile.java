@@ -2,6 +2,7 @@ package patient;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 import medicaltest.MedicalTest;
 import medicaltest.XRayScan;
 import observers.DiagnoseObserverTaskManager;
@@ -202,7 +203,10 @@ public class PatientFile implements PatientFileIN
 
 	@Override
 	public Collection<TreatmentIN> getAllTreatments() {
-		return null;// not yet implemented
+		LinkedList<TreatmentIN> rv = new LinkedList<TreatmentIN>();
+		for(Diagnose d : this.diagnosis)
+			rv.addAll(d.getTreatments());
+		return rv;
 	}
 
 	@Override

@@ -18,7 +18,6 @@ public class UltraSoundScan extends MedicalTest
 	private final String scaninfo;
 	private final boolean recordVid;
 	private final boolean recordImages;
-	private Result result;
 
 	UltraSoundScan(String scaninfo, boolean recordVid, boolean recordImages)
 			throws InvalidDurationException {
@@ -41,12 +40,6 @@ public class UltraSoundScan extends MedicalTest
 	}
 	
 	@Override
-	public void setResult(Result r) {
-		this.result = r;
-
-	}
-	
-	@Override
 	public String appointmentInfo() {
 		String rv = "";
 		rv += "Ultra Sound Scan \n";
@@ -62,10 +55,6 @@ public class UltraSoundScan extends MedicalTest
 		return rv;
 	}
 
-	public Result getResult() {
-		return result;
-	}
-
 	@Override
 	public UnscheduledMedicalTest getUnscheduled(UserManager userm,
 			Warehouse warehouse, PatientFile file, TimeLord systemTime,
@@ -74,5 +63,4 @@ public class UltraSoundScan extends MedicalTest
 			InvalidAmountException, InvalidHospitalDateException {
 		return new UnscheduledUltraSound(file, systemTime.getSystemTime(), userm, pool, this);
 	}
-
 }

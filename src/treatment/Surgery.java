@@ -1,6 +1,5 @@
 package treatment;
 
-import result.Result;
 import scheduler.HospitalDate;
 import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.SurgeryIN;
@@ -44,11 +43,6 @@ public class Surgery extends Treatment implements SurgeryIN
 	 */
 	private boolean isValidDescription(String d) {
 		return !d.equals("");
-	}
-
-	@Override
-	public void setResult(Result r) {
-
 	}
 
 	@Override

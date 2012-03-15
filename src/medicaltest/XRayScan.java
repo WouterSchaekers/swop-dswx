@@ -46,12 +46,7 @@ public class XRayScan extends MedicalTest
 	public String getBodypart() {
 		return bodypart;
 	}
-
-	@Override
-	public void setResult(Result r) {
-
-	}
-
+	
 	@Override
 	public String appointmentInfo() {
 		String rv = "";

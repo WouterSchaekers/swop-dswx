@@ -4,11 +4,9 @@ import java.util.Scanner;
 import exceptions.InvalidHospitalDateArgument;
 
 /**
- * An abstract class that represends a usecase command. r
+ * An abstract class that represends a usecase command.
  * 
  */
-// TODO: change the name of this class because it represents a command and not a
-// usecase.
 public abstract class Usecase
 {
 	protected static Scanner input;

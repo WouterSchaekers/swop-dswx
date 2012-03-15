@@ -1,25 +1,15 @@
 package treatment;
 
-import result.Result;
 import scheduler.HospitalDate;
 import controllers.interfaces.MedicationIN;
 
 /**
  * This class represent treatment by medication.
  */
-//XXX: this class represents 2 abstract ideas,this should be fixed
-public abstract class Medication extends Treatment implements 
-		MedicationIN
-
+public abstract class Medication extends Treatment implements MedicationIN
 {
-	// the name of each treatment will be final and will be used later on to
-	// determine which treatment a Treatment is.
-	private String description = ""; // the description of the meds
-	private boolean sensitive = false; // whether or not if the medication is
-										// sensitive
-	public final HospitalDate expiryDate;
-//	public final MedicationType medicationType;
-	private Result r;
+	private String description = "";
+	private boolean sensitive = false;
 
 	/**
 	 * Default constructor.
@@ -29,11 +19,8 @@ public abstract class Medication extends Treatment implements
 	 * @param sensitive
 	 *            Whether or not the meds are sensitive.
 	 */
-	public Medication(String description, boolean sensitive,
-			HospitalDate expiryDate) {
+	public Medication(String description, boolean sensitive) {
 		super(HospitalDate.ONE_MINUTE * 20);
-		this.expiryDate = expiryDate;
-		//this.medicationType = medicationType;
 		setDescription(description);
 		setSensitive(sensitive);
 	}
@@ -88,26 +75,8 @@ public abstract class Medication extends Treatment implements
 		this.sensitive = sensitive;
 	}
 
-	public HospitalDate getExpiryDate() {
-		return this.expiryDate;
-	}
-
-	public boolean hasPassedDate(HospitalDate date) {
-		if (this.expiryDate.before(date)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public void setResult(Result r) {
-
-		this.r = r;
-		throw new UnsupportedOperationException();
-	}
-
 	@Override
 	public boolean hasFinished() {
-		return r != null;
+		return this.result != null;
 	}
 }

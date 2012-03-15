@@ -1,6 +1,5 @@
 package treatment;
 
-import result.Result;
 import scheduler.HospitalDate;
 import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.CastIN;
@@ -65,11 +64,6 @@ public class Cast extends Treatment implements CastIN
 			throw new InvalidLengthException(
 					"Invalid length assigned to setLength() in Cast!");
 		this.length = length;
-	}
-
-	@Override
-	public void setResult(Result r) {
-
 	}
 
 	@Override
