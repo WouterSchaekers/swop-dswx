@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import schedulerold.UnscheduledTaskTestClass;
 import schedulerold.task.scheduled.ScheduledTask;
-import schedulerold.task.unscheduled.UnscheduledTask1;
+import schedulerold.task.unscheduled.UnscheduledTask;
 import system.Whereabouts;
 import users.Doctor;
 import users.HospitalAdmin;
@@ -41,13 +41,13 @@ public class SchedulerTest
 	LinkedList<Integer> occurences6;
 	LinkedList<Integer> occurences7;
 	LinkedList<Integer> fullOccurences;
-	UnscheduledTask1 unsched1;
-	UnscheduledTask1 unsched2;
-	UnscheduledTask1 unsched3;
-	UnscheduledTask1 unsched4;
-	UnscheduledTask1 unsched5;
-	UnscheduledTask1 unsched6;
-	UnscheduledTask1 unsched7;
+	UnscheduledTask unsched1;
+	UnscheduledTask unsched2;
+	UnscheduledTask unsched3;
+	UnscheduledTask unsched4;
+	UnscheduledTask unsched5;
+	UnscheduledTask unsched6;
+	UnscheduledTask unsched7;
 	Scheduler s;
 
 	@Before

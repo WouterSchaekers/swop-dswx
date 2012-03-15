@@ -17,7 +17,7 @@ import exceptions.InvalidResourceException;
  * This class represents a Task that can't immediately be scheduled at system
  * runtime.
  */
-public abstract class UnscheduledTask1 extends Task
+public abstract class UnscheduledTask extends Task
 {
 	private long duration;
 	private long extraTime;
@@ -45,7 +45,7 @@ public abstract class UnscheduledTask1 extends Task
 	 * @throws InvalidAmountException
 	 * @throws InvalidHospitalDateException
 	 */
-	public UnscheduledTask1(PatientFile p, long duration,
+	public UnscheduledTask(PatientFile p, long duration,
 			HospitalDate systemTime, long extraTime, boolean backToBack)
 			throws InvalidResourceException, InvalidDurationException,
 			InvalidOccurencesException, InvalidAmountException,

@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
 import patient.PatientFile;
-import schedulerold.task.unscheduled.UnscheduledTask1;
+import schedulerold.task.unscheduled.UnscheduledTask;
 import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidHospitalDateArgument;
 import exceptions.InvalidHospitalDateException;
@@ -47,7 +47,7 @@ public class Scheduler
 	 * @throws InvalidTimeSlotException
 	 * @throws InvalidHospitalDateArgument
 	 */
-	public ScheduledTask schedule(UnscheduledTask1 unscheduledTask)
+	public ScheduledTask schedule(UnscheduledTask unscheduledTask)
 			throws InvalidTimeSlotException, InvalidSchedulingRequestException,
 			InvalidResourceException, InvalidHospitalDateArgument {
 		long duration = unscheduledTask.getDuration();

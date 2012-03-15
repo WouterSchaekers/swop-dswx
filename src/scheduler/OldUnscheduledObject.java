@@ -7,35 +7,35 @@ import exceptions.InvalidDurationException;
 import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidOccurencesException;
 import exceptions.InvalidResourceException;
-import schedulerold.task.unscheduled.UnscheduledTask1;
+import schedulerold.task.unscheduled.UnscheduledTask;
 import system.Hospital;
 
 //TODO: is dit de moeite ffs 
-public class OldUnscheduledObject extends UnscheduledTask1
+public class OldUnscheduledObject extends UnscheduledTask
 {
-	public OldUnscheduledObject(UnscheduledTask1 task,Hospital state) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException
+	public OldUnscheduledObject(UnscheduledTask task,Hospital state) throws InvalidResourceException, InvalidDurationException, InvalidOccurencesException, InvalidAmountException, InvalidHospitalDateException
 	{
 		super(getpf(task,state),duration(task,state),getSysTime(task,state),getExtraTime(task,state),getBackToBackness(task,state));
 	}
-	private static boolean getBackToBackness(UnscheduledTask1 task,
+	private static boolean getBackToBackness(UnscheduledTask task,
 			Hospital state) {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	private static long getExtraTime(UnscheduledTask1 task, Hospital state) {
+	private static long getExtraTime(UnscheduledTask task, Hospital state) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	private static HospitalDate getSysTime(UnscheduledTask1 task,
+	private static HospitalDate getSysTime(UnscheduledTask task,
 			Hospital state) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	private static long duration(UnscheduledTask1 task, Hospital state) {
+	private static long duration(UnscheduledTask task, Hospital state) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	private static PatientFile getpf(UnscheduledTask1 task, Hospital state) {
+	private static PatientFile getpf(UnscheduledTask task, Hospital state) {
 		// TODO Auto-generated method stub
 		return null;
 	}

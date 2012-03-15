@@ -7,7 +7,7 @@ import patient.PatientFile;
 import scheduler.HospitalDate;
 import scheduler.Schedulable;
 import schedulerold.task.scheduled.ScheduledTask;
-import schedulerold.task.unscheduled.UnscheduledTask1;
+import schedulerold.task.unscheduled.UnscheduledTask;
 import users.UserManager;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
@@ -15,7 +15,7 @@ import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidOccurencesException;
 import exceptions.InvalidResourceException;
 
-public abstract class UnscheduledMedicalTest extends UnscheduledTask1
+public abstract class UnscheduledMedicalTest extends UnscheduledTask
 {
 	private UserManager userManager;
 	protected MachinePool machinePool;

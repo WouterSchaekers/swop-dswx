@@ -5,7 +5,7 @@ import patient.PatientFile;
 import scheduler.HospitalDate;
 import scheduler.Schedulable;
 import schedulerold.task.scheduled.ScheduledTask;
-import schedulerold.task.unscheduled.UnscheduledTask1;
+import schedulerold.task.unscheduled.UnscheduledTask;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidHospitalDateException;
@@ -16,7 +16,7 @@ import exceptions.InvalidResourceException;
 /**
  * Class created for testing purposes only! DO NOT USE THIS!
  */
-public class UnscheduledTaskTestClass extends UnscheduledTask1
+public class UnscheduledTaskTestClass extends UnscheduledTask
 {
 	private LinkedList<Schedulable> requirements;
 	private LinkedList<LinkedList<Schedulable>> schedulables;
