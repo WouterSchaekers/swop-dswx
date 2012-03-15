@@ -8,7 +8,7 @@ import machine.XRayScanner;
 import medicaltest.BloodAnalysis;
 import medicaltest.XRayScan;
 import patient.PatientFile;
-import scheduler2.HospitalDate;
+import scheduler.HospitalDate;
 import schedulerold.task.Schedulable;
 import schedulerold.task.scheduled.ScheduledTask;
 import users.UserManager;

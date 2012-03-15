@@ -7,7 +7,7 @@ import machine.BloodAnalyser;
 import machine.MachinePool;
 import medicaltest.BloodAnalysis;
 import patient.PatientFile;
-import scheduler2.HospitalDate;
+import scheduler.HospitalDate;
 import schedulerold.task.Schedulable;
 import users.UserManager;
 import exceptions.InvalidAmountException;

@@ -8,7 +8,7 @@ import machine.UltraSoundScanner;
 import medicaltest.BloodAnalysis;
 import medicaltest.UltraSoundScan;
 import patient.PatientFile;
-import scheduler2.HospitalDate;
+import scheduler.HospitalDate;
 import schedulerold.task.Schedulable;
 import users.UserManager;
 import exceptions.InvalidAmountException;

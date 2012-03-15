@@ -1,4 +1,4 @@
-package scheduler2;
+package scheduler;
 
 import be.kuleuven.cs.som.annotate.Basic;
 

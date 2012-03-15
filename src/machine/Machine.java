@@ -2,9 +2,9 @@ package machine;
 
 import java.util.Collection;
 import java.util.LinkedList;
-import scheduler2.HospitalDate;
-import scheduler2.TimeSlot;
-import scheduler2.TimeTable;
+import scheduler.HospitalDate;
+import scheduler.TimeSlot;
+import scheduler.TimeTable;
 import schedulerold.task.Schedulable;
 import schedulerold.task.scheduled.ScheduledTask;
 import exceptions.InvalidLocationException;

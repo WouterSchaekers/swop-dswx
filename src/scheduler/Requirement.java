@@ -1,4 +1,4 @@
-package scheduler2;
+package scheduler;
 
 import schedulerold.task.Schedulable;
 

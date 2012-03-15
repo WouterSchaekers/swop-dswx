@@ -1,6 +1,6 @@
 package schedulerold.task.scheduled;
 
-import scheduler2.ScheduledTask;
+import scheduler.ScheduledTask;
 import controllers.interfaces.AppointmentIN;
 
 public class Appointment implements AppointmentIN

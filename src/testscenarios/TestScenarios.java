@@ -4,7 +4,7 @@ import static org.junit.Assert.fail;
 import java.util.Collection;
 import machine.MachineBuilder;
 import org.junit.Test;
-import scheduler2.HospitalDate;
+import scheduler.HospitalDate;
 import system.Hospital;
 import users.HospitalAdmin;
 import controllers.AddHospitalEquipmentController;

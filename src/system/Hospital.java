@@ -2,9 +2,9 @@ package system;
 
 import java.util.LinkedList;
 import patient.PatientFileManager;
-import scheduler2.HospitalDate;
-import scheduler2.Scheduler;
-import scheduler2.TimeLord;
+import scheduler.HospitalDate;
+import scheduler.Scheduler;
+import scheduler.TimeLord;
 import schedulerold.task.TaskManager;
 import users.HospitalAdmin;
 import users.UserManager;

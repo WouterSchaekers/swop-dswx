@@ -3,7 +3,7 @@ package treatment;
 import java.util.ArrayList;
 import java.util.Collection;
 import result.Result;
-import scheduler2.ScheduledTask;
+import scheduler.ScheduledTask;
 import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.TreatmentIN;
 import exceptions.InvalidResultException;

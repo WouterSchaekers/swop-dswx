@@ -1,4 +1,4 @@
-package scheduler2;
+package scheduler;
 
 public class TreatmentDescription extends MedicationDescription
 {

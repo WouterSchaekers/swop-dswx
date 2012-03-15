@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import machine.MachinePool;
 import medicaltest.MedicalTest;
 import patient.PatientFile;
-import scheduler2.HospitalDate;
+import scheduler.HospitalDate;
 import schedulerold.task.Schedulable;
 import schedulerold.task.scheduled.ScheduledTask;
 import schedulerold.task.unscheduled.UnscheduledTask1;

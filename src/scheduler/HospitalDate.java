@@ -1,4 +1,4 @@
-package scheduler2;
+package scheduler;
 
 import java.util.GregorianCalendar;
 import exceptions.InvalidHospitalDateArgument;

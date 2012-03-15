@@ -1,4 +1,4 @@
-package scheduler2;
+package scheduler;
 
 public class BloodTestDescription extends MedicalTestDescription
 {
