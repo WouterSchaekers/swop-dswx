@@ -1,4 +1,4 @@
-package scheduler.task.scheduled;
+package schedulerold.task.scheduled;
 
 import scheduler2.ScheduledTask;
 import controllers.interfaces.AppointmentIN;
