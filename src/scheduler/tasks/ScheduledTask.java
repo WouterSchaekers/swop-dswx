@@ -1,6 +1,9 @@
-package scheduler;
+package scheduler.tasks;
 
 import java.util.Collection;
+import scheduler.HospitalDate;
+import scheduler.Schedulable;
+import scheduler.TimeSlot;
 import system.Whereabouts;
 
 public class ScheduledTask extends Task

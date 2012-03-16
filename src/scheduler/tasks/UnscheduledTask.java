@@ -1,4 +1,4 @@
-package scheduler;
+package scheduler.tasks;
 
 public abstract class UnscheduledTask extends Task
 {

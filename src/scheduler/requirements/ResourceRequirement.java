@@ -1,4 +1,6 @@
-package scheduler;
+package scheduler.requirements;
+
+import scheduler.Schedulable;
 
 public class ResourceRequirement<T extends Schedulable> implements Requirement
 {

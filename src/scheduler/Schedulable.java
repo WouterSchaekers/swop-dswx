@@ -1,6 +1,7 @@
 package scheduler;
 
 import java.util.Collection;
+import scheduler.tasks.ScheduledTask;
 import exceptions.InvalidHospitalDateArgument;
 import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidTimeSlotException;

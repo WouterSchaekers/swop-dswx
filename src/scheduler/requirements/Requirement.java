@@ -1,4 +1,6 @@
-package scheduler;
+package scheduler.requirements;
+
+import scheduler.Schedulable;
 
 public interface Requirement
 {

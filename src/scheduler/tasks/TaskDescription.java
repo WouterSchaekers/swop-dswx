@@ -1,7 +1,9 @@
-package scheduler;
+package scheduler.tasks;
 
 import java.util.Collection;
 import patient.PatientFile;
+import scheduler.HospitalDate;
+import scheduler.requirements.Requirement;
 import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidHospitalDateException;
