@@ -26,7 +26,7 @@
 || 13/03/11: 15u00 -> 17u00 || 3 DSW || 2 || Discussing whether or not to use multiple user managers; the responsibilities of Campus, Hospital,... || ||
 || 14/03/11: 16u00 -> 18u00 || 3 DSW || 2 || Creating a high level list of TODOs and immediately crossing off 4 design decisions. || ||
 || 14/03/11: 22u00 -> 24u00 || 2 SW || 2 || Starting the TODO list of implementations; fixing some random compile erros. || Dieter winabar. ||
-|| 15/03/11: 21u30 -> 23u50 || 2 SW || 2 || Description, unscheduledTask, warehouse-admin-manager-stock (impl) || ||
+|| 15/03/11: 21u30 -> 23u50 || 2 SW || 2.5 || Description, unscheduledTask, warehouse-admin-manager-stock (impl) || ||
 || 16/03/11: 11u00 -> 12u30 || 2 SW || 1.5 || More of the above || Dieter oefenzitting ||
 || 16/03/11: 13u30 ->  || || || More of the above || Dieter kon omwille van redenen van zijn persoonlijk leven met shana niet aanwezig zijn. We stuurden hem wel een e-mail met updates van de situatie en een TODO lijstje. ||
 
