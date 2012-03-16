@@ -1,17 +1,8 @@
 package medicaltest;
 
-import machine.MachinePool;
-import patient.PatientFile;
 import scheduler.HospitalDate;
-import scheduler.TimeLord;
-import users.UserManager;
-import warehouse.Warehouse;
 import be.kuleuven.cs.som.annotate.Basic;
-import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
-import exceptions.InvalidHospitalDateException;
-import exceptions.InvalidOccurencesException;
-import exceptions.InvalidResourceException;
 
 /**
  * This class represents a bloodanalysis test.
@@ -62,16 +53,6 @@ public class BloodAnalysis extends MedicalTest
 			rv += "Scan is not yet Scheduled";
 		}
 		return rv;
-	}
-
-	@Override
-	public UnscheduledMedicalTest getUnscheduled(UserManager userm,
-			Warehouse warehouse, PatientFile file, TimeLord systemTime,
-			MachinePool pool) throws InvalidResourceException,
-			InvalidDurationException, InvalidOccurencesException,
-			InvalidAmountException, InvalidHospitalDateException {
-		return new UnscheduledBloodTest(file, systemTime.getSystemTime(),
-				userm, pool, this);
 	}
 
 }

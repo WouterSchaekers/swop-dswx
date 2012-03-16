@@ -1,21 +1,13 @@
 package medicaltest;
 
-import machine.MachinePool;
-import patient.PatientFile;
 import result.Result;
 import scheduler.HospitalDate;
 import scheduler.ScheduledTask;
-import scheduler.TimeLord;
 import scheduler.TimeSlot;
 import scheduler.TimeTable;
-import users.UserManager;
-import warehouse.Warehouse;
 import controllers.interfaces.MedicalTestIN;
-import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
-import exceptions.InvalidHospitalDateException;
-import exceptions.InvalidOccurencesException;
-import exceptions.InvalidResourceException;
+import exceptions.InvalidResultException;
 import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidTimeSlotException;
 
@@ -92,7 +84,9 @@ public abstract class MedicalTest implements MedicalTestIN
 		return r != null;
 	}
 
-	public void setResult(Result r) {
+	public void setResult(Result r) throws InvalidResultException {
+		if(! this.isValidResult(r))
+			throw new InvalidResultException("Invalid result for medical test!");
 		this.result = r;
 	}
 
@@ -100,13 +94,7 @@ public abstract class MedicalTest implements MedicalTestIN
 		this.ScheduledTask = task;
 
 	}
-
-	public abstract UnscheduledMedicalTest getUnscheduled(UserManager userm,
-			Warehouse warehouse, PatientFile file, TimeLord systemTime, MachinePool pool)
-			throws InvalidResourceException, InvalidDurationException,
-			InvalidOccurencesException, InvalidAmountException,
-			InvalidHospitalDateException;
-
+	
 	protected ScheduledTask getScheduledTask() {
 		return ScheduledTask;
 	}
