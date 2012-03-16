@@ -1,4 +1,4 @@
-package schedulerold.task.scheduled;
+package thrashcan.schedulerold.task.scheduled;
 
 import scheduler.ScheduledTask;
 import controllers.interfaces.AppointmentIN;

@@ -1,4 +1,4 @@
-package schedulerold;
+package thrashcan.schedulerold;
 
 import java.util.LinkedList;
 import patient.PatientFile;

@@ -1,4 +1,4 @@
-package schedulerold.task.unscheduled.treatment;
+package thrashcan.schedulerold.task.unscheduled.treatment;
 
 import java.util.LinkedList;
 import patient.Diagnose;

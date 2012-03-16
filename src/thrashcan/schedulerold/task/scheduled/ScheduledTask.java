@@ -1,4 +1,4 @@
-package schedulerold.task.scheduled;
+package thrashcan.schedulerold.task.scheduled;
 //package scheduler.task.scheduled;
 //
 //import java.util.Collection;

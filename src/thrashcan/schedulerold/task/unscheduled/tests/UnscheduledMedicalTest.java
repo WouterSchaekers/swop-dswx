@@ -1,4 +1,4 @@
-package schedulerold.task.unscheduled.tests;
+package thrashcan.schedulerold.task.unscheduled.tests;
 
 import java.util.LinkedList;
 import machine.MachinePool;
