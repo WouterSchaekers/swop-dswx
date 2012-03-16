@@ -1,20 +1,13 @@
 package scheduler;
 
-import java.util.Collection;
+import patient.PatientFile;
+import exceptions.InvalidAmountException;
+import exceptions.InvalidHospitalDateException;
 
 public abstract class MedicalTestDescription extends TaskDescription
 {
-
-	@Override
-	public Collection<Requirement> getAllRequirements() {
-		// TODO Auto-generated method stub
-		return null;
+	public MedicalTestDescription(PatientFile patientFile, long duration, HospitalDate creationTime)
+			throws InvalidAmountException, InvalidHospitalDateException {
+		super(patientFile, duration, 0, creationTime);
 	}
-
-	@Override
-	public boolean isReady() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 }
