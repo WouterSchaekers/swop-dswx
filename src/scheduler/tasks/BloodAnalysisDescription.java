@@ -1,10 +1,13 @@
-package scheduler;
+package scheduler.tasks;
 
 import java.util.Collection;
 import java.util.LinkedList;
 import machine.BloodAnalyser;
 import medicaltest.BloodAnalysis;
 import patient.PatientFile;
+import scheduler.HospitalDate;
+import scheduler.requirements.Requirement;
+import scheduler.requirements.ResourceRequirement;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidHospitalDateException;
 

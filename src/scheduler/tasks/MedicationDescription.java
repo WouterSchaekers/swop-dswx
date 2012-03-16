@@ -1,6 +1,7 @@
-package scheduler;
+package scheduler.tasks;
 
 import patient.PatientFile;
+import scheduler.HospitalDate;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidHospitalDateException;
 

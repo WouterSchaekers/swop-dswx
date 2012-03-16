@@ -1,7 +1,7 @@
 package treatment;
 
 import result.Result;
-import scheduler.ScheduledTask;
+import scheduler.tasks.ScheduledTask;
 import controllers.interfaces.TreatmentIN;
 import exceptions.InvalidResultException;
 

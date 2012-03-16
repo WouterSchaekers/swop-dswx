@@ -1,8 +1,11 @@
-package scheduler;
+package scheduler.tasks;
 
 import java.util.Collection;
 import java.util.LinkedList;
 import patient.PatientFile;
+import scheduler.HospitalDate;
+import scheduler.requirements.Requirement;
+import scheduler.requirements.ResourceRequirement;
 import treatment.Cast;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidHospitalDateException;

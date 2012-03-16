@@ -2,9 +2,9 @@ package medicaltest;
 
 import result.Result;
 import scheduler.HospitalDate;
-import scheduler.ScheduledTask;
 import scheduler.TimeSlot;
 import scheduler.TimeTable;
+import scheduler.tasks.ScheduledTask;
 import controllers.interfaces.MedicalTestIN;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidResultException;
