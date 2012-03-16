@@ -16,7 +16,7 @@
 || 07/03/11: 13u00 -> 18u00 || 3 DSW || 5 || Updating the APIs of the controllers in the code. Making system sequence diagrams of some use cases. || ||
 || 07/03/11: 21u00 -> 23u00 || 2 SW || 2 || Writing the report on refactoring changes. || dieter winabar. ||
 || 08/03/11: 12u00 -> 13u30 || 2 SW || 1.5 || Finishing up the current draft of the report on refactoring changes. || ||
-|| 08/03/11: 15u45 -> 19u15 || 3 DSW || 3.5 || Discussing the dependencies created by our current design, making system sequence diagrams, implementing scenarios || dieter moest weg van Shana en mocht niet meer terugkomen. ||
+|| 08/03/11: 15u45 -> 19u15 || 3 DSW || 3.5 || Discussing the dependencies created by our current design, making system sequence diagrams, implementing scenarios || dieter moest weg van shana en mocht niet meer terugkomen. ||
 || 08/03/11: 21u00 -> 23u30 || 2 SW || 2.5 || Making large changes to the controllers; implementing a basic scenario. || ||
 || 09/03/11: 00u00 -> 02u30 || 1 S || 2.5 || Finishing up the implementation of the basic testing scenario. || ||
 || 09/03/11: 10u00 -> 10u30 || 2 SW || 0.5 || Reviewing the basic testing scenario; initiating implementing more complex scenarios || ||
@@ -44,7 +44,7 @@
 ||04/12/11: 15u00 -> 18u30||3 DSW||3.5||Continuance of discussion concerning the new Scheduler model and implementing the design figured out above|| ||
 ||04/12/11: 19u20 -> 22u00||3 DSW||2.7||Further implementing of Scheduler-design|| ||
 ||04/12/11: 22u00 -> 22u30||2 SW||0.5||Further implementing of Scheduler||dieter wilde LoL spelen en stopte dus wat vroeger.||
-||07/12/11: 14u30 -> 18u30 ||2 SW|| 4 ||Testing the TimeTable class and further implementing of the Scheduler||dieter wilde P&O doen en kon op 6/12 niet omdat hij een prior commitment had om "LoL te spelen" dat hij daarna afzegde om "toffe dingen doen met Shana voor haar verjaardag".||
+||07/12/11: 14u30 -> 18u30 ||2 SW|| 4 ||Testing the TimeTable class and further implementing of the Scheduler||dieter wilde P&O doen en kon op 6/12 niet omdat hij een prior commitment had om "LoL te spelen" dat hij daarna afzegde om "toffe dingen doen met shana voor haar verjaardag".||
 ||07/12/11: 20u30 -> 00u30 ||1 S|| 4 ||Further implementing the Scheduler and the TimeTable ||dieter had geen zin meer omdat hij net een zware P&O dag had en Wouter moest nog P&O doen. Stefaan deed dus alleen nog wat verder.||
 || 08/12/11: 20u00 -> 23u00 || 2 SW || 3 || Finishing up the implementation of Scheduler; start of debugging TimeTable || dieter had niet tijdig zijn SMS gelezen. ||
 || 09/12/11: 09u30 -> 10u00 || 1 S || 0.5 || Setting up a TODO-list; some minor code changes to the scheduler. || ||
