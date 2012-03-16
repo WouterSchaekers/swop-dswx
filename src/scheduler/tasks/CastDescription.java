@@ -6,7 +6,7 @@ import patient.PatientFile;
 import scheduler.HospitalDate;
 import scheduler.requirements.Requirement;
 import scheduler.requirements.ResourceRequirement;
-import treatment.Cast;
+import warehouse.item.PlasterType;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidHospitalDateException;
 
@@ -22,7 +22,7 @@ public class CastDescription extends MedicationDescription
 	@Override
 	public Collection<Requirement> getAllRequirements() {
 		Collection<Requirement> requirements = new LinkedList<Requirement>();
-		requirements.add(new ResourceRequirement<Cast>(Cast.class));
+		requirements.add(new ResourceRequirement<PlasterType>(PlasterType.class));
 		return requirements;
 	}
 }
