@@ -10,7 +10,7 @@ import exceptions.InvalidHospitalDateException;
 
 public abstract class TaskDescription
 {
-	private PatientFile patientFile_;
+	protected PatientFile patientFile_;
 	private long duration_;
 	private long extraTime_;
 	private HospitalDate creationTime_;

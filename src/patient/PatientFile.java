@@ -25,7 +25,7 @@ import exceptions.InvalidNameException;
 public class PatientFile implements PatientFileIN
 {
 
-	private String name = "";
+	private Patient patient_;
 	/**
 	 * All the Diagnosis for this patient.
 	 */
@@ -46,7 +46,7 @@ public class PatientFile implements PatientFileIN
 		if (!isValidName(patientname))
 			throw new InvalidNameException(
 					"The given patientname is not valid!");
-		this.name = patientname;
+		this.patient_ = new Patient(patientname);
 	}
 
 	/**
@@ -160,7 +160,12 @@ public class PatientFile implements PatientFileIN
 
 	@Basic
 	public String getName() {
-		return this.name;
+		return this.patient_.getName();
+	}
+	
+	@Basic
+	public Patient getPatient(){
+		return this.patient_;
 	}
 
 	@Basic
@@ -170,7 +175,7 @@ public class PatientFile implements PatientFileIN
 
 	@Override
 	public String toString() {
-		return name;
+		return this.getName();
 	}
 
 	@Override

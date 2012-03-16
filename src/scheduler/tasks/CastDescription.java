@@ -6,22 +6,26 @@ import patient.PatientFile;
 import scheduler.HospitalDate;
 import scheduler.requirements.Requirement;
 import scheduler.requirements.ResourceRequirement;
+import scheduler.requirements.SpecificResourceRequirement;
+import users.Nurse;
 import warehouse.item.PlasterType;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidHospitalDateException;
 
-public class CastDescription extends MedicationDescription
+public class CastDescription extends TreatmentDescription
 {
 
 	public CastDescription(PatientFile patientFile, long duration,
 			long extraTime, HospitalDate creationTime)
 			throws InvalidAmountException, InvalidHospitalDateException {
-		super(patientFile, duration, extraTime, creationTime);
+		super(patientFile, duration, creationTime);
 	}
 
 	@Override
 	public Collection<Requirement> getAllRequirements() {
 		Collection<Requirement> requirements = new LinkedList<Requirement>();
+		requirements.add(new SpecificResourceRequirement(this.patientFile_.getPatient()));
+		requirements.add(new ResourceRequirement<Nurse>(Nurse.class));
 		requirements.add(new ResourceRequirement<PlasterType>(PlasterType.class));
 		return requirements;
 	}
