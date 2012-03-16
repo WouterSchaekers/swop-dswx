@@ -1,4 +1,4 @@
-package thrashcan.schedulerold.task;
+package scheduler;
 
 import java.util.ArrayList;
 import java.util.Collection;
