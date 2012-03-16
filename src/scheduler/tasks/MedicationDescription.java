@@ -2,15 +2,21 @@ package scheduler.tasks;
 
 import patient.PatientFile;
 import scheduler.HospitalDate;
+import treatment.Medication;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidHospitalDateException;
 
-public abstract class MedicationDescription extends TaskDescription
+public abstract class MedicationDescription extends TreatmentDescription
 {
-
-	public MedicationDescription(PatientFile patientFile, long duration,
-			long extraTime, HospitalDate creationTime)
+	private Medication medication_;
+	
+	public Medication getMedication(){
+		return this.medication_;
+	}
+	
+	public MedicationDescription(PatientFile patientFile, long duration, Medication medication, HospitalDate creationTime)
 			throws InvalidAmountException, InvalidHospitalDateException {
-		super(patientFile, duration, extraTime, creationTime);
+		super(patientFile, duration, creationTime);
+		this.medication_ = medication;
 	}
 }
