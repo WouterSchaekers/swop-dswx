@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import patient.PatientFile;
 import scheduler.HospitalDate;
 import scheduler.requirements.Requirement;
-import scheduler.requirements.SpecificSchedulableResourceRequirement;
+import scheduler.requirements.SpecificResourceRequirement;
 import users.Doctor;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidHospitalDateException;
@@ -22,7 +22,7 @@ public class AppointmentDescription extends TaskDescription
 	@Override
 	public Collection<Requirement> getAllRequirements() {
 		Collection<Requirement> requirements = new LinkedList<Requirement>();
-		requirements.add(new SpecificSchedulableResourceRequirement(doctor));
+		requirements.add(new SpecificResourceRequirement(doctor));
 		return requirements;
 	}
 
