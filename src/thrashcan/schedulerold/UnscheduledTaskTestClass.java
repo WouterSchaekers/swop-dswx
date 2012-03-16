@@ -4,8 +4,6 @@ import java.util.LinkedList;
 import patient.PatientFile;
 import scheduler.HospitalDate;
 import scheduler.Schedulable;
-import schedulerold.task.scheduled.ScheduledTask;
-import schedulerold.task.unscheduled.UnscheduledTask;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidHospitalDateException;

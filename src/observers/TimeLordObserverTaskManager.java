@@ -3,7 +3,6 @@ package observers;
 import java.util.Observable;
 import java.util.Observer;
 import scheduler.HospitalDate;
-import schedulerold.task.TaskManager;
 
 /**
  * Use this observer to notify a TaskManager to update its queue.

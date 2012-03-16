@@ -5,8 +5,6 @@ import patient.Diagnose;
 import patient.PatientFile;
 import scheduler.HospitalDate;
 import scheduler.Schedulable;
-import schedulerold.task.scheduled.ScheduledTask;
-import schedulerold.task.unscheduled.UnscheduledTask;
 import treatment.Treatment;
 import users.UserManager;
 import exceptions.InvalidAmountException;
