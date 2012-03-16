@@ -71,11 +71,20 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN, Observer
 		//TODO: add more strategies?
 		return strat;
 	}
-
+	
+	public void updateTime() {
+		warehouse_.removeExpiredItems();
+		this.placeOrders();
+	}
+	
 	/**
-	 * Removes the expired items from his warehouse.
+	 * Places stock orders for the depleting supplies of the warehouse.
 	 */
-	private void removeExpiredItems() {
+	private void placeOrders() {
+		Collection<WarehouseItemType> lowItems = this.warehouse_.getLowStockItemTypes();
+		
+		for(WarehouseItemType t : lowItems)
+			this.provider_.add(new StockOrder<WarehouseItemType>(warehouse_, t));
 		
 	}
 
