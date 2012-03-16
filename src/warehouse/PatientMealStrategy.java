@@ -15,7 +15,6 @@ public class PatientMealStrategy extends OrderStrategy
 
 	public PatientMealStrategy(MealType type) {
 		super(type);
-
 	}
 
 	@Override

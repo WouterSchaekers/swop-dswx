@@ -1,9 +1,11 @@
 package warehouse;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Observable;
 import system.Campus;
+import warehouse.item.PlasterType;
 import warehouse.item.WarehouseItem;
 import warehouse.item.WarehouseItemType;
 import be.kuleuven.cs.som.annotate.Basic;
@@ -93,6 +95,15 @@ public class Warehouse extends Observable
 	}
 
 	/**
+	 * @return True if this warehouse is low on items of the specified type.
+	 */
+	private boolean isLowOn(WarehouseItemType type) {
+		if(type instanceof PlasterType)
+			return this.getMaxCount(type) < maxItemsMap_.get(type);
+		return this.getCurrentCount(type) < (maxItemsMap_.get(type))/2;
+	}
+	
+	/**
 	 * This function is package visible because stock manager needs to access
 	 * it.
 	 * 
@@ -119,6 +130,19 @@ public class Warehouse extends Observable
 	 */
 	public void removeExpiredItems() {
 		
+	}
+	
+	/**
+	 * @return The item types that this warehouse is low on.
+	 */
+	public Collection<WarehouseItemType> getLowStockItemTypes() {
+		Collection<WarehouseItemType> rv = new LinkedList<WarehouseItemType>();
+		
+		for(WarehouseItem item : this.items_) {
+			if(this.isLowOn(item.getType()))
+				rv.add(item.getType());
+		}
+		return rv;
 	}
 
 	@Basic
