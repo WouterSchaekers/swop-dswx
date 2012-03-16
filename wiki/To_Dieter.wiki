@@ -54,4 +54,4 @@ public Collection<Abra<UserType>> getTypes()
 
 <g:plusone size="medium"></g:plusone>
 
-<iframe src=”http://www.facebook.com/plugins/like.php?href=<?php the_permalink() ?>&layout=button_count&show_faces=false&width=80&action=like&font=lucida+grande&colorscheme=light” allowtransparency=”true” style=”border: medium none; overflow: hidden; width: 80px; height: 21px;” frameborder=”0″ scrolling=”no”></iframe>
+`Like button in the making`
