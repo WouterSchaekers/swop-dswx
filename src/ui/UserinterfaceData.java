@@ -1,8 +1,8 @@
 package ui;
 
 import system.Hospital;
-import controllers.LoginController;
 import controllers.ConsultPatientFileController;
+import controllers.LoginController;
 
 /**
  * This class keeps the information that the user interface needs.

@@ -5,8 +5,6 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Queue;
-import scheduler.ScheduledTask;
-import scheduler.Scheduler;
 import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidHospitalDateArgument;

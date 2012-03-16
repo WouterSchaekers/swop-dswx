@@ -24,13 +24,13 @@ import ui.prescribetreatment.PrescribeTreatment;
 import ui.registerpatient.RegisterPatient;
 import ui.reviewpatient.ReviewPatient;
 import controllers.AddHospitalEquipmentController;
-import controllers.ApproveDiagnoseController;
 import controllers.AddHospitalStaffController;
+import controllers.ApproveDiagnoseController;
+import controllers.ConsultPatientFileController;
 import controllers.EnterDiagnoseController;
 import controllers.FillStockInWarehouseController;
 import controllers.LoginController;
 import controllers.OrderMedicalTestController;
-import controllers.ConsultPatientFileController;
 import controllers.PrescribeTreatmentController;
 import controllers.RegisterPatientController;
 

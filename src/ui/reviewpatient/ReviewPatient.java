@@ -3,8 +3,8 @@ package ui.reviewpatient;
 import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
-import controllers.LoginController;
 import controllers.ConsultPatientFileController;
+import controllers.LoginController;
 
 public class ReviewPatient extends Usecase
 {

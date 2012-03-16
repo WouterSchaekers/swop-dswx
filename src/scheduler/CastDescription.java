@@ -2,7 +2,6 @@ package scheduler;
 
 import java.util.Collection;
 import java.util.LinkedList;
-import machine.BloodAnalyser;
 import patient.PatientFile;
 import treatment.Cast;
 import exceptions.InvalidAmountException;
