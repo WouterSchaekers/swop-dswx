@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Queue;
+import scheduler.tasks.ScheduledTask;
 import scheduler.tasks.Task;
 import scheduler.tasks.UnscheduledTask;
 import be.kuleuven.cs.som.annotate.Basic;
