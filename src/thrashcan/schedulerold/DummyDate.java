@@ -1,4 +1,4 @@
-package schedulerold;
+package thrashcan.schedulerold;
 
 import scheduler.HospitalDate;
 

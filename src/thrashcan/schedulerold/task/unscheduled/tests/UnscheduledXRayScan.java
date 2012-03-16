@@ -1,14 +1,16 @@
-package schedulerold.task.unscheduled.tests;
+package thrashcan.schedulerold.task.unscheduled.tests;
 
 import help.Collections;
 import help.Filter;
 import java.util.LinkedList;
-import machine.BloodAnalyser;
 import machine.MachinePool;
+import machine.XRayScanner;
 import medicaltest.BloodAnalysis;
+import medicaltest.XRayScan;
 import patient.PatientFile;
 import scheduler.HospitalDate;
 import scheduler.Schedulable;
+import schedulerold.task.scheduled.ScheduledTask;
 import users.UserManager;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
@@ -16,16 +18,20 @@ import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidOccurencesException;
 import exceptions.InvalidResourceException;
 
-public class UnscheduledBloodTest extends UnscheduledMedicalTest
+public class UnscheduledXRayScan extends UnscheduledMedicalTest
 {
-	public UnscheduledBloodTest(PatientFile p, HospitalDate currentSystemTime,
-			UserManager userManager, MachinePool machinePool,
-			BloodAnalysis analysis) throws InvalidResourceException,
-			InvalidDurationException, InvalidOccurencesException,
-			InvalidAmountException, InvalidHospitalDateException {
+	public UnscheduledXRayScan(PatientFile p, HospitalDate currentSystemTime,
+			UserManager userManager, MachinePool machinePool, XRayScan analysis)
+			throws InvalidResourceException, InvalidDurationException,
+			InvalidOccurencesException, InvalidAmountException,
+			InvalidHospitalDateException {
 		super(p, BloodAnalysis.DURATION, currentSystemTime, userManager,
 				machinePool, analysis);
+	}
 
+	@Override
+	public HospitalDate getFirstSchedulingDateSince(HospitalDate hospitalDate) {
+		return this.patient.getFirstNewXRaySchedDate(hospitalDate);
 	}
 
 	@Override
@@ -35,7 +41,6 @@ public class UnscheduledBloodTest extends UnscheduledMedicalTest
 		return rv;
 	}
 
-	@Override
 	protected LinkedList<Schedulable> getMachinePool() {
 		LinkedList<Schedulable> curMachinePool = new LinkedList<Schedulable>();
 		curMachinePool.addAll(Collections.filter(
@@ -43,10 +48,14 @@ public class UnscheduledBloodTest extends UnscheduledMedicalTest
 				{
 					@Override
 					public <T> boolean allows(T arg) {
-						return arg instanceof BloodAnalyser;
+						return arg instanceof XRayScanner;
 					}
 				}));
 		return curMachinePool;
+	}
+
+	@Override
+	public void setScheduled(ScheduledTask task) {
 
 	}
 }
