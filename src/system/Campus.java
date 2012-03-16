@@ -4,47 +4,51 @@ import machine.MachinePool;
 import scheduler.HospitalDate;
 import warehouse.Warehouse;
 
+/**
+ * This class represents a campus that's part of a hospital. Campusses have
+ * their own MachinePool, Warehouse and name. Use this name to identify them.
+ */
 public class Campus implements Whereabouts
 {
-	private String _cpn;
-	private MachinePool _mp = new MachinePool();
-	private Warehouse _wh = new Warehouse(this);
-	private Hospital _hpt;
+	private String campusName_;
+	private MachinePool machinePool_ = new MachinePool();
+	private Warehouse warehouse_ = new Warehouse(this);
+	private Hospital hospital_;
 	
 	public Campus(String campusName, Hospital hospital){
-		this._cpn = campusName;
-		this._hpt = hospital;
+		this.campusName_ = campusName;
+		this.hospital_ = hospital;
 	}
 	
 	public Hospital getHospital(){
-		return this._hpt;
+		return this.hospital_;
 	}
 	
 	public void setHospital(Hospital hospital){
-		this._hpt = hospital;
+		this.hospital_ = hospital;
 	}
 	
 	public Warehouse getWarehouse(){
-		return this._wh;
+		return this.warehouse_;
 	}
 	
 	public void setWarehouse(Warehouse warehouse){
-		this._wh = warehouse;
+		this.warehouse_ = warehouse;
 	}
 	
 	public MachinePool getMachinePool(){
-		return this._mp;
+		return this.machinePool_;
 	}
 	
 	public void setMachinePool(MachinePool machinePool){
-		this._mp = machinePool;
+		this.machinePool_ = machinePool;
 	}
 	
 	public HospitalDate getSystemTime(){
-		return this._hpt.getSystemTime();
+		return this.hospital_.getSystemTime();
 	}
 	
 	public String getCampusName(){
-		return this._cpn;
+		return this.campusName_;
 	}
 }
