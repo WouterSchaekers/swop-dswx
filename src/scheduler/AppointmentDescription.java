@@ -11,24 +11,19 @@ public class AppointmentDescription extends TaskDescription
 {
 	private Doctor doctor;
 	
-	public AppointmentDescription(Doctor _doctor, PatientFile _patientFile, long _duration, HospitalDate _creationTime) throws InvalidAmountException, InvalidHospitalDateException {
-		super(_patientFile, _duration, 0, true, _creationTime);
-		this.doctor = _doctor;
+	public AppointmentDescription(Doctor doctor, PatientFile patientFile, HospitalDate creationTime) throws InvalidAmountException, InvalidHospitalDateException {
+		super(patientFile, 30*HospitalDate.ONE_MINUTE, HospitalDate.ONE_HOUR, creationTime);
+		this.doctor = doctor;
 	}
 	
 	@Override
 	public Collection<Requirement> getAllRequirements() {
 		Collection<Requirement> requirements = new LinkedList<Requirement>();
-		requirements.add(new SpecificResourceRequirement(doctor));
+		requirements.add(new SpecificSchedulableResourceRequirement(doctor));
 		return requirements;
 	}
 
 	public Doctor getDocor() {
 		return doctor;
-	}
-
-	@Override
-	public boolean canBeScheduled() {
-		return true;
 	}
 }

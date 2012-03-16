@@ -1,6 +1,6 @@
 package scheduler;
 
-public class UnscheduledTask extends Task
+public abstract class UnscheduledTask extends Task
 {
 	public UnscheduledTask(TaskDescription description) 
 	{
