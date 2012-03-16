@@ -1,0 +1,47 @@
+We hebben een niveau extra op de hierarchie van schedulables: requirable. Zo kunnen warehouse items ook in requirements gestoken worden (prentje volgt).
+
+Stefaan is Warehouse en stock ding aant fixe. StockManager was een duplicaat van de helft van de verantwoordelijke heden van WarehouseAdmin en Warehouse. Stefaan zou Dieter ten zeerste willen aanraden om de opgave rond stock management nogmaals heel goed door te nemen.
+Stefaan zou dieter ook willen aanzetten tot documentatie schrijven voor klasses die niet op het eerste zicht duidelijk zijn... (strategy dingen?)
+
+Er is een trashcan folder aangemaakt waarin we alles gooien dat we momenteel niet meer nodig hebben en ook uit het buildpath halen.
+
+We hebben de naming convention van fields nog eens opgezocht nadat Vinnie de Valse Vinnie (aka "Donnie") ons zei dat de naming convention juist compleet tegenovergesteld was aan degene die Dieter voorstelde. We vonden dat de underscore voor een field beter een suffix is dan een prefix. I.e.: `_cpn` is nu `campusName_`. Dit verhoogt de leesbaarheid van de code aanzienlijk.
+
+--------------------------
+
+Stefaan en Wouter zouden graag hebben dat Dieter factories maakt voor Treatment. Wouter wilt dat Dieter zijn P&O volledig af is asap zodat we volgende week kunnen no-lifen op SWOP:  "Zeg da hij P&O moet kapot maken zodat Ann de burgie en Tibo kunnen klagen."
+Stefaan en Wouter adviseren Dieter om nog eens grondig het verschil tussen builders, factories en abstract factories na te gaan. Zij hebben immers in het verleden tegenstrijdige informatie gevonden met het gebruik en de implementatie van onze "factories" en "builders".
+
+Als Dieter tijd en zin zou hebben, zouden Wouter en Stefaan het niet erg vinden dat Dieter Solid State Drives maakt voor de use cases die staan in de TODO lijst op deze wiki.
+
+Verder is er een sandbox package aangemaakt waarin Dieter zijn "troll-idee" van keys en IDs voor objecten die aan de buitenwereld worden gegeven en daarna terug binnengebracht, mag uitwerken. We willen Dieter waarschuwen voor auto-complete aangezien de klasses in de sandbox gelijkaardige namen hebben aan die van de echte packages. Imports kunnen dus alles stuk maken. In de Sandbox mag dieter alles doen wat hij wilt, including but not limited to abra extends cadabra, _1 _abra_.
+
+PS: Zie artikel 1 van de bro code.
+PPS: Hier is DietersAbra interne static class
+<code>
+public static class Abra<T>{
+private T val;
+
+public Abra(T t)
+{
+     this.val = t;
+}
+public int getKey()
+{
+     return campus;
+}
+
+T get()
+{
+     return val;
+}
+
+}
+
+public Collection<Abra<UserType>> getTypes()
+{
+	return null;
+	
+}
+
+</code>
