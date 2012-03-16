@@ -11,25 +11,26 @@ import warehouse.stock.StockOrder;
 
 public class PatientMealStrategy extends OrderStrategy
 {
-	private PatientFileManager _man;
+	private PatientFileManager man_;
+
 	public PatientMealStrategy(MealType type) {
 		super(type);
-		
+
 	}
 
 	@Override
 	public Collection<StockOrder<? extends WarehouseItemType>> getOrders(
-			Warehouse _warehouse) {
-		int orderCount=		_warehouse.getCurrentCount(this._type) - countNeeded();
-		Collection<StockOrder<?extends WarehouseItemType>> orders = new ArrayList<StockOrder<? extends WarehouseItemType>>();
-		for(int i = 0 ; i < orderCount;i++)
-			orders.add(new StockOrder<WarehouseItemType>(_warehouse, _type, new HospitalDate()));
+			Warehouse warehouse) {
+		int orderCount = warehouse.getCurrentCount(this._type) - countNeeded();
+		Collection<StockOrder<? extends WarehouseItemType>> orders = new ArrayList<StockOrder<? extends WarehouseItemType>>();
+		for (int i = 0; i < orderCount; i++)
+			orders.add(new StockOrder<WarehouseItemType>(warehouse, _type, new HospitalDate()));
 		return orders;
 	}
 
 	private int countNeeded() {
-		int patients = _man.amountOfActivePatients();
-		return patients*4;//ofzo
+		int patients = man_.amountOfActivePatients();
+		return patients * 4;// ofzo
 	}
 
 }

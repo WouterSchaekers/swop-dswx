@@ -5,6 +5,9 @@ import warehouse.Warehouse;
 import warehouse.item.WarehouseItemType;
 import warehouse.stock.StockOrder;
 
+/**
+ * 
+ */
 public abstract class OrderStrategy
 {
 	protected WarehouseItemType _type;
