@@ -1,11 +1,12 @@
 package warehouse.item;
 
 import scheduler.HospitalDate;
+import scheduler.requirements.Requirable;
 
 /**
  * Represents an item that can be stored in a warehouse.
  */
-public abstract class WarehouseItem
+public abstract class WarehouseItem implements Requirable
 {
 	protected HospitalDate expiryDate;
 

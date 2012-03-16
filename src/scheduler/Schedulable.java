@@ -1,6 +1,7 @@
 package scheduler;
 
 import java.util.Collection;
+import scheduler.requirements.Requirable;
 import scheduler.tasks.ScheduledTask;
 import exceptions.InvalidHospitalDateArgument;
 import exceptions.InvalidSchedulingRequestException;
@@ -9,7 +10,7 @@ import exceptions.InvalidTimeSlotException;
 /**
  * This interface is implemented by all things that can be scheduled.
  */
-public interface Schedulable
+public interface Schedulable extends Requirable
 {
 
 	public boolean canBeScheduledOn(HospitalDate startDate,

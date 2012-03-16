@@ -1,8 +1,6 @@
 package scheduler.requirements;
 
-import scheduler.Schedulable;
-
-public class ResourceRequirement<T extends Schedulable> implements Requirement
+public class ResourceRequirement<T extends Requirable> implements Requirement
 {
 	private Class<T> type_;
 
@@ -11,7 +9,7 @@ public class ResourceRequirement<T extends Schedulable> implements Requirement
 	}
 
 	@Override
-	public boolean isMetBy(Schedulable schedulable) {
-		return schedulable.getClass().equals(type_);
+	public boolean isMetBy(Requirable requirable) {
+		return requirable.getClass().equals(type_);
 	}
 }
