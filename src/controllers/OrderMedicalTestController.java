@@ -7,6 +7,7 @@ import medicaltest.MedicalTests;
 import patient.PatientFile;
 import scheduler.HospitalDate;
 import scheduler.ScheduledTask;
+import scheduler.UnscheduledTask;
 import users.Doctor;
 import users.User;
 import exceptions.InvalidAmountException;
@@ -50,7 +51,7 @@ public class OrderMedicalTestController extends
 			InvalidHospitalDateException, InvalidTimeSlotException,
 			InvalidHospitalDateArgument {
 
-		UnscheduledMedicalTest t = medicalTest.getUnscheduled(hospital.getUserManager(),
+		UnscheduledTask t = medicalTest.getUnscheduled(hospital.getUserManager(),
 				hospital.getWarehouse(), (PatientFile) pfoc.getPatientFile(),
 				hospital.getSystemTime(), hospital.getMachinePool());
 		

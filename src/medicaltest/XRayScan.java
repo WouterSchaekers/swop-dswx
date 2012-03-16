@@ -1,17 +1,8 @@
 package medicaltest;
 
-import machine.MachinePool;
-import patient.PatientFile;
 import scheduler.HospitalDate;
-import scheduler.TimeLord;
-import users.UserManager;
-import warehouse.Warehouse;
-import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
-import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidNameException;
-import exceptions.InvalidOccurencesException;
-import exceptions.InvalidResourceException;
 import exceptions.InvalidTimeSlotException;
 
 public class XRayScan extends MedicalTest
@@ -64,16 +55,6 @@ public class XRayScan extends MedicalTest
 			rv += "Scan is not yet Scheduled";
 		}
 		return rv;
-	}
-
-	@Override
-	public UnscheduledMedicalTest getUnscheduled(UserManager userm,
-			Warehouse warehouse, PatientFile file, TimeLord systemTime,
-			MachinePool pool) throws InvalidResourceException,
-			InvalidDurationException, InvalidOccurencesException,
-			InvalidAmountException, InvalidHospitalDateException {
-		return new UnscheduledXRayScan(file, systemTime.getSystemTime(), userm,
-				pool, this);
 	}
 
 }

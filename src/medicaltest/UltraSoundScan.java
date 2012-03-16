@@ -1,16 +1,7 @@
 package medicaltest;
 
-import machine.MachinePool;
-import patient.PatientFile;
 import scheduler.HospitalDate;
-import scheduler.TimeLord;
-import users.UserManager;
-import warehouse.Warehouse;
-import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
-import exceptions.InvalidHospitalDateException;
-import exceptions.InvalidOccurencesException;
-import exceptions.InvalidResourceException;
 
 public class UltraSoundScan extends MedicalTest
 {
@@ -56,12 +47,4 @@ public class UltraSoundScan extends MedicalTest
 		return rv;
 	}
 
-	@Override
-	public UnscheduledMedicalTest getUnscheduled(UserManager userm,
-			Warehouse warehouse, PatientFile file, TimeLord systemTime,
-			MachinePool pool) throws InvalidResourceException,
-			InvalidDurationException, InvalidOccurencesException,
-			InvalidAmountException, InvalidHospitalDateException {
-		return new UnscheduledUltraSound(file, systemTime.getSystemTime(), userm, pool, this);
-	}
 }
