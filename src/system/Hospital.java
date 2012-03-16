@@ -5,7 +5,6 @@ import patient.PatientFileManager;
 import scheduler.HospitalDate;
 import scheduler.Scheduler;
 import scheduler.TimeLord;
-import schedulerold.task.TaskManager;
 import users.HospitalAdmin;
 import users.UserManager;
 import be.kuleuven.cs.som.annotate.Basic;

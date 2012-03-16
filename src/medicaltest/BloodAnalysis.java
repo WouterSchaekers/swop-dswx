@@ -5,8 +5,6 @@ import patient.PatientFile;
 import result.Result;
 import scheduler.HospitalDate;
 import scheduler.TimeLord;
-import schedulerold.task.unscheduled.tests.UnscheduledBloodTest;
-import schedulerold.task.unscheduled.tests.UnscheduledMedicalTest;
 import users.UserManager;
 import warehouse.Warehouse;
 import be.kuleuven.cs.som.annotate.Basic;

@@ -10,8 +10,6 @@ import scheduler.HospitalDate;
 import scheduler.TimeLord;
 import scheduler.TimeSlot;
 import scheduler.TimeTable;
-import schedulerold.task.scheduled.ScheduledTask;
-import schedulerold.task.unscheduled.tests.UnscheduledMedicalTest;
 import users.UserManager;
 import warehouse.Warehouse;
 import controllers.interfaces.MedicalTestIN;

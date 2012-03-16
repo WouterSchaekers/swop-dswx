@@ -6,8 +6,6 @@ import medicaltest.MedicalTest;
 import patient.PatientFile;
 import scheduler.HospitalDate;
 import scheduler.Schedulable;
-import schedulerold.task.scheduled.ScheduledTask;
-import schedulerold.task.unscheduled.UnscheduledTask;
 import users.UserManager;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;

@@ -2,7 +2,6 @@ package observers;
 
 import java.util.Observable;
 import java.util.Observer;
-import schedulerold.task.TaskManager;
 
 public class WarehouseObserverTaskManager implements Observer
 {

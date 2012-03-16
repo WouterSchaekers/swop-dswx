@@ -5,8 +5,6 @@ import patient.PatientFile;
 import result.Result;
 import scheduler.HospitalDate;
 import scheduler.TimeLord;
-import schedulerold.task.unscheduled.tests.UnscheduledMedicalTest;
-import schedulerold.task.unscheduled.tests.UnscheduledXRayScan;
 import users.UserManager;
 import warehouse.Warehouse;
 import exceptions.*;

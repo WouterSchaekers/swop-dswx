@@ -1,8 +1,6 @@
 package treatment;
 
 import scheduler.HospitalDate;
-import scheduler.Requirement;
-import scheduler.Schedulable;
 import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.CastIN;
 import exceptions.InvalidBodyPartException;

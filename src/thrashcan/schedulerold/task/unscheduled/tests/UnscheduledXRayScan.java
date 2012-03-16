@@ -10,7 +10,6 @@ import medicaltest.XRayScan;
 import patient.PatientFile;
 import scheduler.HospitalDate;
 import scheduler.Schedulable;
-import schedulerold.task.scheduled.ScheduledTask;
 import users.UserManager;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
