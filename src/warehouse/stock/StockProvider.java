@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Observable;
 import java.util.Observer;
+import warehouse.item.WarehouseItemType;
 import exceptions.InvalidOrderStateException;
 import exceptions.WarehouseOverCapacityException;
-import warehouse.item.WarehouseItemType;
 
 /**
  * This class represents a person that manages a stock order pool.

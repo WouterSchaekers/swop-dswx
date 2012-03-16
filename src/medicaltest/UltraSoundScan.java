@@ -2,12 +2,15 @@ package medicaltest;
 
 import machine.MachinePool;
 import patient.PatientFile;
-import result.Result;
 import scheduler.HospitalDate;
 import scheduler.TimeLord;
 import users.UserManager;
 import warehouse.Warehouse;
-import exceptions.*;
+import exceptions.InvalidAmountException;
+import exceptions.InvalidDurationException;
+import exceptions.InvalidHospitalDateException;
+import exceptions.InvalidOccurencesException;
+import exceptions.InvalidResourceException;
 
 public class UltraSoundScan extends MedicalTest
 {

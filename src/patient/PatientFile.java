@@ -7,6 +7,7 @@ import medicaltest.MedicalTest;
 import medicaltest.XRayScan;
 import observers.DiagnoseObserverTaskManager;
 import scheduler.HospitalDate;
+import scheduler.TaskManager;
 import users.Doctor;
 import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.DiagnoseIN;

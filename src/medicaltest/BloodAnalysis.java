@@ -2,13 +2,16 @@ package medicaltest;
 
 import machine.MachinePool;
 import patient.PatientFile;
-import result.Result;
 import scheduler.HospitalDate;
 import scheduler.TimeLord;
 import users.UserManager;
 import warehouse.Warehouse;
 import be.kuleuven.cs.som.annotate.Basic;
-import exceptions.*;
+import exceptions.InvalidAmountException;
+import exceptions.InvalidDurationException;
+import exceptions.InvalidHospitalDateException;
+import exceptions.InvalidOccurencesException;
+import exceptions.InvalidResourceException;
 
 /**
  * This class represents a bloodanalysis test.

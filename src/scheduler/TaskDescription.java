@@ -1,10 +1,10 @@
 package scheduler;
 
 import java.util.Collection;
+import patient.PatientFile;
 import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidHospitalDateException;
-import patient.PatientFile;
 
 public abstract class TaskDescription
 {

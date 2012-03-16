@@ -1,19 +1,23 @@
 package medicaltest;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import be.kuleuven.cs.som.annotate.Basic;
 import machine.MachinePool;
 import patient.PatientFile;
 import result.Result;
 import scheduler.HospitalDate;
+import scheduler.ScheduledTask;
 import scheduler.TimeLord;
 import scheduler.TimeSlot;
 import scheduler.TimeTable;
 import users.UserManager;
 import warehouse.Warehouse;
 import controllers.interfaces.MedicalTestIN;
-import exceptions.*;
+import exceptions.InvalidAmountException;
+import exceptions.InvalidDurationException;
+import exceptions.InvalidHospitalDateException;
+import exceptions.InvalidOccurencesException;
+import exceptions.InvalidResourceException;
+import exceptions.InvalidSchedulingRequestException;
+import exceptions.InvalidTimeSlotException;
 
 /**
  * This class represents a medical test.

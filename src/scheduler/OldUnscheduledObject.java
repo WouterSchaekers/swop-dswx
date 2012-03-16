@@ -2,12 +2,12 @@ package scheduler;
 
 import java.util.LinkedList;
 import patient.PatientFile;
+import system.Hospital;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidOccurencesException;
 import exceptions.InvalidResourceException;
-import system.Hospital;
 
 //TODO: is dit de moeite ffs 
 public class OldUnscheduledObject extends UnscheduledTask

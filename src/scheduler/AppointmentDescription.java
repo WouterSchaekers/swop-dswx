@@ -2,10 +2,10 @@ package scheduler;
 
 import java.util.Collection;
 import java.util.LinkedList;
-import exceptions.InvalidAmountException;
-import exceptions.InvalidHospitalDateException;
 import patient.PatientFile;
 import users.Doctor;
+import exceptions.InvalidAmountException;
+import exceptions.InvalidHospitalDateException;
 
 public class AppointmentDescription extends TaskDescription
 {
