@@ -1,3 +1,5 @@
+Beste Dieter
+
 We hebben een niveau extra op de hierarchie van schedulables: requirable. Zo kunnen warehouse items ook in requirements gestoken worden (prentje volgt).
 
 Stefaan is Warehouse en stock ding aant fixe. StockManager was een duplicaat van de helft van de verantwoordelijke heden van WarehouseAdmin en Warehouse. Stefaan zou Dieter ten zeerste willen aanraden om de opgave rond stock management nogmaals heel goed door te nemen.
@@ -15,6 +17,9 @@ Stefaan en Wouter adviseren Dieter om nog eens grondig het verschil tussen build
 Als Dieter tijd en zin zou hebben, zouden Wouter en Stefaan het niet erg vinden dat Dieter Solid State Drives maakt voor de use cases die staan in de TODO lijst op deze wiki.
 
 Verder is er een sandbox package aangemaakt waarin Dieter zijn "troll-idee" van keys en IDs voor objecten die aan de buitenwereld worden gegeven en daarna terug binnengebracht, mag uitwerken. We willen Dieter waarschuwen voor auto-complete aangezien de klasses in de sandbox gelijkaardige namen hebben aan die van de echte packages. Imports kunnen dus alles stuk maken. In de Sandbox mag dieter alles doen wat hij wilt, including but not limited to abra extends cadabra, _1 _abra_.
+
+Met vriendelijke groet
+Stefaan en Wouter
 
 PS: Zie artikel 1 van de bro code.
 PPS: Hier is DietersAbra interne static class
@@ -45,3 +50,4 @@ public Collection<Abra<UserType>> getTypes()
 }
 
 </code>
+<sub>PPPS: kusjes aan shana</sub>
