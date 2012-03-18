@@ -1,6 +1,12 @@
-Beste <dude>,
+Beste `<dude>`,
 
 We zijn al vaak op een specifiek probleem gestuit. Het krijgen van domain-objects uit de UI lijkt ons erg slecht. Voorbeelden hiervan zijn oa. te vinden in de signature van scheduleNewAppointment in CreateAppointmentController. De methode scheduleNewAppointment(DoctorIN doctor, PatientIN patient) verwacht dat de patient en de doctor die megegeven zijn in het domain zitten. Waar is er een goede plaats om te checken of deze ook echt in het domain voorkomen? Een mogelijke oplossing is de signature veranderen naar scheduleNewAppointment(String docorName, String patientName) en dan uit de respectievellijke managers het bijhorende object te zoeken (en als dit niet bestond een exception te throwen). 
 
 Vriendelijke groeten
 Het awesome SWOPteam
+
+
+
+- order strategy / observer
+- objecten met keys doorgeven enzo?
+- campus en hospital variabelen bijhouden zoals wij het doen?
