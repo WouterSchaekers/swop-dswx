@@ -8,28 +8,28 @@ import system.Whereabouts;
 
 public class ScheduledTask extends Task
 {
-	Collection<Schedulable> _resources;
-	TimeSlot _timeSlot;
+	Collection<Schedulable> resources_;
+	TimeSlot timeSlot_;
 	private Whereabouts _location;
 
 	ScheduledTask(TaskDescription description,
 			Collection<Schedulable> resources, TimeSlot timeSlot, Whereabouts location) {
 		super(description);
-		this._resources = resources;
-		this._timeSlot = timeSlot;
+		this.resources_ = resources;
+		this.timeSlot_ = timeSlot;
 		this._location = location;
 	}
 
 	public Collection<Schedulable> getUsedResources() {
-		return this._resources;
+		return this.resources_;
 	}
 
 	public HospitalDate getStartDate() {
-		return this._timeSlot.getStartPoint().getHospitalDate();
+		return this.timeSlot_.getStartPoint().getHospitalDate();
 	}
 
 	public HospitalDate getStopDate() {
-		return this._timeSlot.getStopPoint().getHospitalDate();
+		return this.timeSlot_.getStopPoint().getHospitalDate();
 	}
 	
 	public Whereabouts getLocation(){
@@ -37,6 +37,6 @@ public class ScheduledTask extends Task
 	}
 	
 	public TimeSlot getTimeSlot(){
-		return this._timeSlot;
+		return this.timeSlot_;
 	}
 }

@@ -21,17 +21,12 @@ public class UserManager
 	}
 
 	@Basic
-	protected LinkedList<User> getAllUsers() {
-		return new LinkedList<User>(this._users.keySet());
-	}
-
-	@Basic
-	public LinkedList<UserIN> getAllUserINs() {
+	public LinkedList<UserIN> getAllUsers() {
 		return new LinkedList<UserIN>(this._users.keySet());
 	}
 
 	/**
-	 * Use to add schedulable users only!*
+	 * Use to add schedulable users only!
 	 */
 	public void addUser(SchedulableUser user)
 			throws UserAlreadyExistsException {
