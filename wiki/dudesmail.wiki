@@ -7,6 +7,6 @@ Het awesome SWOPteam
 
 
 
-- order strategy / observer
-- objecten met keys doorgeven enzo?
-- campus en hospital variabelen bijhouden zoals wij het doen?
+  * order strategy / observer
+  * objecten met keys doorgeven enzo?
+  * campus en hospital variabelen bijhouden zoals wij het doen?
