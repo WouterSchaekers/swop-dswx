@@ -1,7 +1,11 @@
 package DietersSandbox;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
+import DietersSandbox.domainman.DomainObject;
+import DietersSandbox.domainman.DomainObjectManager;
 import machine.MachineBuilder;
 import system.Campus;
 import system.Whereabouts;
@@ -18,7 +22,7 @@ import exceptions.InvalidSerialException;
  */
 public class AddHospitalEquipmentController extends NeedsLoginController
 {
-
+	private DomainObjectManager<MachineBuilder> dom= new DomainObjectManager<MachineBuilder>();
 	/**
 	 * Default constructor to add hospital equipment to the hospital.
 	 * 
@@ -42,6 +46,13 @@ public class AddHospitalEquipmentController extends NeedsLoginController
 			return(campIterator.next().getMachinePool().getAllBuilders());
 		return null;
 	}
+	public Collection<DomainObject<MachineBuilder>> getAllMachineBuilder()
+	{
+		Iterator<Campus> campIterator = hospital.getAllCampusses().iterator();
+		if(campIterator.hasNext())
+			return dom.transform(campIterator.next().getMachinePool().getAllBuilders());
+		return null;
+	}
 
 	/**
 	 * Creates a new machine from the given machine builder and adds it to the
@@ -50,6 +61,10 @@ public class AddHospitalEquipmentController extends NeedsLoginController
 	public void createMachine(MachineBuilder b, int serial, String location, Whereabouts whereabouts)
 			throws InvalidLocationException, InvalidSerialException {
 		((Campus)(whereabouts)).getMachinePool().addMachine(b.build(serial, location));
+	}
+	public void createMachine(DomainObject<MachineBuilder> builder, int serial, String location, Whereabouts whereabouts) throws InvalidLocationException, InvalidSerialException, Exception
+	{
+		createMachine(dom.get(builder), serial, location, whereabouts);
 	}
 
 	@Override
