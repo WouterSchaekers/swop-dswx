@@ -2,4 +2,4 @@ We hebben de (lege) interface 'Requirable' aangemaakt, omdat Schedulables niet a
 
 Voor de canBeScheduled methode moet er waarschijnlijk een Hospital aan meegegeven worden, omdat deze alle pools en warehouses bevat. Dit is noodzakelijk om bijvoorbeeld meals te kunnen schedulen (het kan zijn dat de meals vervallen terwijl de Task wordt uitgevoerd, dit probleem wordt dus op deze manier opgelost).
 
-Nog een practisch probleem: Hoe kunnen we best de Requirables bijhouden eens de taak gescheduled is? Op dit moment wordt dit gewoon geregeld via een algemene collection. Indien we specifieke zaken nodig hebben, zullen we dus met instanceof moeten werken. Zijn er ideeën om dit op een elegante manier op te lossen?
+Nog een praktisch probleem: Hoe kunnen we best de Requirables bijhouden eens de taak gescheduled is? Op dit moment wordt dit gewoon geregeld via een algemene collection. Indien we specifieke zaken nodig hebben, zullen we dus met instanceof moeten werken. Zijn er ideeën om dit op een elegante manier op te lossen?
