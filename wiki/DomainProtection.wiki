@@ -2,6 +2,9 @@
 == Probleemstelling ==
 Hoe kunnen we een consistent domain behouden als er interactie gebeurt tuseen de user en objecten?
 
+== DomainObject class ==
+A [DomainObject] object is a holder for any object in the domain, it is passed out through the [Controller]s and is managed by the [DomainObjectManager]. The objects passed out by the controller are unique for each controller. This would mean that a [DomainObject] passed out by a [Controller] can only be given back to that controller.
+
 == Class Interfaces ==
 We want to avoid that objects returned from the controllers have setters so our solution is to write interfaces for all objects that are returned from our domain. 
 
