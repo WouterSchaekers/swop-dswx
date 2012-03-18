@@ -2,7 +2,6 @@ package scheduler.tasks;
 
 import java.util.Collection;
 import java.util.LinkedList;
-import machine.BloodAnalyser;
 import machine.UltraSoundScanner;
 import patient.PatientFile;
 import scheduler.HospitalDate;

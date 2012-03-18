@@ -1,10 +1,8 @@
 package warehouse.orderstrat;
 
 import java.util.Observable;
-import java.util.Observer;
 import warehouse.Warehouse;
 import warehouse.item.PlasterType;
-import warehouse.item.WarehouseItemType;
 import warehouse.stock.StockProvider;
 
 public class PlasterOrderStrategy extends OrderStrategy 
