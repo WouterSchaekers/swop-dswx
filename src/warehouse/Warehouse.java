@@ -109,7 +109,7 @@ public class Warehouse extends Observable
 	 * 
 	 * @return The current amount of units of the given item type.
 	 */
-	int getCurrentCount(WarehouseItemType type) {
+	public int getCurrentCount(WarehouseItemType type) {
 		int rv = 0;
 		for (WarehouseItem item : items_)
 			if (item.getType().equals(type))
@@ -135,6 +135,9 @@ public class Warehouse extends Observable
 	/**
 	 * @return The item types that this warehouse is low on.
 	 */
+	//XXX:guys this is bad mowkay, er zou 1 objectje per type moeten zijn om de stock te managen
+	// het 'low' wijn van iets is niet een eigenschap van het warehouse, maar van het aantal items
+	// in het warehouse & het aantal items in de stockprovider =/
 	public Collection<WarehouseItemType> getLowStockItemTypes() {
 		Collection<WarehouseItemType> rv = new LinkedList<WarehouseItemType>();
 		
