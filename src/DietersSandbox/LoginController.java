@@ -2,6 +2,8 @@ package DietersSandbox;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import DietersSandbox.domainman.DomainObject;
+import DietersSandbox.domainman.DomainObjectManager;
 import system.Hospital;
 import users.User;
 import users.UserFilter;
@@ -20,7 +22,7 @@ public class LoginController extends HospitalController
 {
 	private boolean loggedIn = false;
 	private User user = null;
-
+	private DomainObjectManager<UserIN> dom = new DomainObjectManager<UserIN>();
 	public LoginController(Hospital hospital) throws InvalidHospitalException {
 		super(hospital);
 	}
@@ -28,21 +30,18 @@ public class LoginController extends HospitalController
 	/**
 	 * @return A collection of all users currently in the system.
 	 */
-	public Collection<UserIN> getAllUsers() {
+	private Collection<UserIN> getAllUsers() {
 		UserManager um = hospital.getUserManager();
 		ArrayList<UserIN> users = new ArrayList<UserIN>();
 		for (UserIN u : um.getAllUserINs())
 			users.add(u);
 		return users;
 	}
-	
-	public NurseIN getSpecificNurse(String name) {
-		return UserFilter.SpecificNurseFilter(hospital.getUserManager().getAllUserINs(), name);
+	public Collection<DomainObject<UserIN>> getAllUsers2()
+	{
+		return dom.transform(getAllUsers());
 	}
 	
-	public DoctorIN getSpecificDoctor(String name) {
-		return UserFilter.SpecificDoctorFilter(hospital.getUserManager().getAllUserINs(), name);
-	}
 
 	/**
 	 * This method will login the user of this logincontroller.
@@ -50,11 +49,15 @@ public class LoginController extends HospitalController
 	 * @throws IllegalArgumentException
 	 *             if (!isValidUser((User) user))
 	 */
-	public void logIn(UserIN user) throws IllegalArgumentException {
+	private void logIn(UserIN user) throws IllegalArgumentException {
 		if (!isValidUser((User) user))
 			throw new IllegalArgumentException("The given user is null!");
 		this.user = (User) user;
 		loggedIn = true;
+	}
+	public void logIn(DomainObject<UserIN> user) throws IllegalArgumentException, Exception
+	{
+		logIn(dom.get(user));
 	}
 
 	/**
