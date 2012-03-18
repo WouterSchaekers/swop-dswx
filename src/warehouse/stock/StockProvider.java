@@ -22,7 +22,10 @@ public class StockProvider implements Observer
 	public StockProvider() {
 		orders_ = new ArrayList<StockOrder<? extends WarehouseItemType>>();
 	}
-
+	public Collection<StockOrder<? extends WarehouseItemType>> getOrders()
+	{
+		return new ArrayList<StockOrder<? extends WarehouseItemType>>(orders_);
+	}
 	/**
 	 * Adds new stock orders to the stock order pool of this stock provider.
 	 */

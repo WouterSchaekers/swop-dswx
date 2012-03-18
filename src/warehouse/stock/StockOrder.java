@@ -41,4 +41,9 @@ public class StockOrder<T extends WarehouseItemType>
 		warehouse_.add(type_.create(type_.getExpirationDate(creationDate_)));
 		delivered_ = true;
 	}
+
+	public T getType() {
+		return type_;
+		
+	}
 }
