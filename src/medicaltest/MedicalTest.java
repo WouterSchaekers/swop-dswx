@@ -14,6 +14,7 @@ import exceptions.InvalidTimeSlotException;
 /**
  * This class represents a medical test.
  */
+//TODO:Fix this to be an instance of taskdescription
 public abstract class MedicalTest implements MedicalTestIN
 {
 	public final long DURATION;
@@ -98,7 +99,7 @@ public abstract class MedicalTest implements MedicalTestIN
 	protected ScheduledTask getScheduledTask() {
 		return ScheduledTask;
 	}
-
+	//TODO: remove this methjod
 	public abstract String appointmentInfo();
 
 	public boolean hasFinished() {
