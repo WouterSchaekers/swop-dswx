@@ -5,6 +5,8 @@ Zorgen dat alle [WareHouseItem]s op 1 plaats kunnen bijgehouden worden, per ware
 <br>
 Nodig:<br>
 
+''Stockmanagement''
+Voor stock management zie de respectievelijke paginas per [WarehouseItemType], en zie de paginas [StockProvider] en [OrderStrategy].
 
 1: WAREHOUSEITEMTYPE is dit een methode van warehouseitem?</br>
 {{{
