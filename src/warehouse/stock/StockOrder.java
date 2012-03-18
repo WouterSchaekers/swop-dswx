@@ -29,6 +29,14 @@ public class StockOrder<T extends WarehouseItemType>
 		delivered_ = false;
 		creationDate_ = warehouse.getCampus().getSystemTime();
 	}
+	
+	public boolean hasBeenDelivered() {
+		return this.delivered_;
+	}
+	
+	public boolean isReadyForDelivery() {
+		return warehouse_.getCampus().getSystemTime().after(new HospitalDate(creationDate_.getTimeSinceStart() + HospitalDate.ONE_DAY));
+	}
 
 	/**
 	 * Delivers this stock order to the warehouse.

@@ -31,17 +31,17 @@ public class LoginController extends HospitalController
 	public Collection<UserIN> getAllUsers() {
 		UserManager um = hospital.getUserManager();
 		ArrayList<UserIN> users = new ArrayList<UserIN>();
-		for (UserIN u : um.getAllUserINs())
+		for (UserIN u : um.getAllUsers())
 			users.add(u);
 		return users;
 	}
 	
 	public NurseIN getSpecificNurse(String name) {
-		return UserFilter.SpecificNurseFilter(hospital.getUserManager().getAllUserINs(), name);
+		return UserFilter.SpecificNurseFilter(hospital.getUserManager().getAllUsers(), name);
 	}
 	
 	public DoctorIN getSpecificDoctor(String name) {
-		return UserFilter.SpecificDoctorFilter(hospital.getUserManager().getAllUserINs(), name);
+		return UserFilter.SpecificDoctorFilter(hospital.getUserManager().getAllUsers(), name);
 	}
 
 	/**

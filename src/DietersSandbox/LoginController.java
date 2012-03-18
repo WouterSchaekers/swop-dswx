@@ -33,7 +33,7 @@ public class LoginController extends HospitalController
 	private Collection<UserIN> getAllUsers() {
 		UserManager um = hospital.getUserManager();
 		ArrayList<UserIN> users = new ArrayList<UserIN>();
-		for (UserIN u : um.getAllUserINs())
+		for (UserIN u : um.getAllUsers())
 			users.add(u);
 		return users;
 	}

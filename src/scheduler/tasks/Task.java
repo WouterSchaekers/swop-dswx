@@ -2,14 +2,14 @@ package scheduler.tasks;
 
 public class Task
 {
-	protected final TaskDescription _description;
+	protected final TaskDescription description_;
 	public Task(TaskDescription description)
 	{
-		_description = description;
+		description_ = description;
 	}
 	
 	public TaskDescription getDescription()
 	{
-		return _description;
+		return description_;
 	}
 }

@@ -15,26 +15,6 @@ public abstract class TaskDescription
 	private long extraTime_;
 	private HospitalDate creationTime_;
 	
-	@Basic
-	public PatientFile getPatientFile(){
-		return this.patientFile_;
-	}
-	
-	@Basic
-	public long getExtraTime() {
-		return this.extraTime_;
-	}
-
-	@Basic
-	public long getDuration() {
-		return this.duration_;
-	}
-
-	@Basic
-	public HospitalDate getCreationTime() {
-		return new HospitalDate(this.creationTime_);
-	}
-	
 	public TaskDescription(PatientFile _patientFile, long _duration, long _extraTime, HospitalDate _creationTime) throws InvalidAmountException, InvalidHospitalDateException{
 		if (!isValidAmountOfExtraTime(_extraTime))
 			throw new InvalidAmountException(
@@ -57,4 +37,25 @@ public abstract class TaskDescription
 	}
 	
 	public abstract Collection<Requirement> getAllRequirements();
+	
+	@Basic
+	public PatientFile getPatientFile(){
+		return this.patientFile_;
+	}
+	
+	@Basic
+	public long getExtraTime() {
+		return this.extraTime_;
+	}
+
+	@Basic
+	public long getDuration() {
+		return this.duration_;
+	}
+
+	@Basic
+	public HospitalDate getCreationTime() {
+		return new HospitalDate(this.creationTime_);
+	}
+	
 }
