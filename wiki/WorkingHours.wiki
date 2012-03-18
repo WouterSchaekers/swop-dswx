@@ -1,34 +1,35 @@
 = Iteratie 3 =
 || *Timepoint* || *Members* || *Workload* || *Purpose* || *Comments* ||
-|| 21/02/11: 15u00 -> 16u30 || 2 SW || 1.5 || Create todo list && prioritise || ||
-|| 23/02/11: 14u30 -> 15u30 || 1 D || 1 || WareHouse een beetje gefixt|| ||
-|| 24/02/11; 10u30 -> 12u30 || 3 DSW || 2 || Completing the todo list; creating testing scenarios, creating the new domain model, completing the missing elements in the UML of the domain layer || ||
-|| 24/02/11: 13u00 -> 16u00 || 3 DSW || 3 || More of the above... || <lunch> ||
-|| 24/02/11: 17u10 -> 18u15 || 1 S || 1 || completing the UML further || ||
-|| 25/02/11: 17u00 -> 18u00 || 1 D || 1 || Making domain model + browsing code looking for possible refactorings. || ||
-|| 26/02/11: 15u45 -> 18u00 || 3 DSW ||2.25 || Browsing code for more refactorings; completing the UML || ||
-|| 26/02/11: 19u00 -> 20u00 || 3 DSW || 1 || More of the above... || ||
-|| 29/02/11: 11u00 -> 13u00 || 3 DSW || 2 || Refactoring the warehouse and some of the controllers.|| ||
-|| 29/02/11: 17u00 -> 19u15 || 3 DSW || 2.25 || Refactoring the controllerlayer and continuance of the refactoring of the warehouse, discussing the updated domain model.|| ||
-|| 01/03/11: 11u00 -> 13u00 || 3 DSW || 2 || Refactoring the warehouse, further updating of the controller layer|| ||
-|| 06/03/11: 14u00 -> 18u30 || 3 DSW || 4.5 || Meeting with project advisor + working our way towards the deadline by implementing controller APIs.|| ||
-|| 07/03/11: 11u00 -> 12u30 || 2 DS || 1.5 || Studying the public API of the controllers and determining some smaller refactoring changes || ||
-|| 07/03/11: 13u00 -> 18u00 || 3 DSW || 5 || Updating the APIs of the controllers in the code. Making system sequence diagrams of some use cases. || ||
-|| 07/03/11: 21u00 -> 23u00 || 2 SW || 2 || Writing the report on refactoring changes. || dieter winabar. ||
-|| 08/03/11: 12u00 -> 13u30 || 2 SW || 1.5 || Finishing up the current draft of the report on refactoring changes. || ||
-|| 08/03/11: 15u45 -> 19u15 || 3 DSW || 3.5 || Discussing the dependencies created by our current design, making system sequence diagrams, implementing scenarios || dieter moest weg van shana en mocht niet meer terugkomen. ||
-|| 08/03/11: 21u00 -> 23u30 || 2 SW || 2.5 || Making large changes to the controllers; implementing a basic scenario. || ||
-|| 09/03/11: 00u00 -> 02u30 || 1 S || 2.5 || Finishing up the implementation of the basic testing scenario. || ||
-|| 09/03/11: 10u00 -> 10u30 || 2 SW || 0.5 || Reviewing the basic testing scenario; initiating implementing more complex scenarios || ||
-|| 09/03/11: 10u30 -> 12u30 || 3 DSW || 2.5 || More of the above... || ||
-|| 09/03/11: 13u00 -> 16u00|| 3 DSW || 3 || Making the final changes to both report and code before the deadline. || ||
-|| 09/03/11: 16u00 -> 17u00|| 1 S || 1 || Finishing writing the report. || dieter en Wouter wilden ontspannen. ||
-|| 13/03/11: 15u00 -> 17u00 || 3 DSW || 2 || Discussing whether or not to use multiple user managers; the responsibilities of Campus, Hospital,... || ||
-|| 14/03/11: 16u00 -> 18u00 || 3 DSW || 2 || Creating a high level list of TODOs and immediately crossing off 4 design decisions. || ||
-|| 14/03/11: 22u00 -> 24u00 || 2 SW || 2 || Starting the TODO list of implementations; fixing some random compile erros. || dieter winabar. ||
-|| 15/03/11: 21u30 -> 23u50 || 2 SW || 2.5 || Description, unscheduledTask, warehouse-admin-manager-stock (impl) || ||
-|| 16/03/11: 11u00 -> 12u30 || 2 SW || 1.5 || More of the above || dieter oefenzitting ||
-|| 16/03/11: 13u30 -> 17u00 || 2 SW || 3.5 || More of the above || dieter kon omwille van redenen van zijn persoonlijk leven met shana niet aanwezig zijn. We stuurden hem wel een e-mail met updates van de situatie en een TODO lijstje. ||
+|| 21/02/12: 15u00 -> 16u30 || 2 SW || 1.5 || Create todo list && prioritise || ||
+|| 23/02/12: 14u30 -> 15u30 || 1 D || 1 || WareHouse een beetje gefixt|| ||
+|| 24/02/12; 10u30 -> 12u30 || 3 DSW || 2 || Completing the todo list; creating testing scenarios, creating the new domain model, completing the missing elements in the UML of the domain layer || ||
+|| 24/02/12: 13u00 -> 16u00 || 3 DSW || 3 || More of the above... || <lunch> ||
+|| 24/02/12: 17u10 -> 18u15 || 1 S || 1 || completing the UML further || ||
+|| 25/02/12: 17u00 -> 18u00 || 1 D || 1 || Making domain model + browsing code looking for possible refactorings. || ||
+|| 26/02/12: 15u45 -> 18u00 || 3 DSW ||2.25 || Browsing code for more refactorings; completing the UML || ||
+|| 26/02/12: 19u00 -> 20u00 || 3 DSW || 1 || More of the above... || ||
+|| 29/02/12: 11u00 -> 13u00 || 3 DSW || 2 || Refactoring the warehouse and some of the controllers.|| ||
+|| 29/02/12: 17u00 -> 19u15 || 3 DSW || 2.25 || Refactoring the controllerlayer and continuance of the refactoring of the warehouse, discussing the updated domain model.|| ||
+|| 01/03/12: 11u00 -> 13u00 || 3 DSW || 2 || Refactoring the warehouse, further updating of the controller layer|| ||
+|| 06/03/12: 14u00 -> 18u30 || 3 DSW || 4.5 || Meeting with project advisor + working our way towards the deadline by implementing controller APIs.|| ||
+|| 07/03/12: 11u00 -> 12u30 || 2 DS || 1.5 || Studying the public API of the controllers and determining some smaller refactoring changes || ||
+|| 07/03/12: 13u00 -> 18u00 || 3 DSW || 5 || Updating the APIs of the controllers in the code. Making system sequence diagrams of some use cases. || ||
+|| 07/03/12: 21u00 -> 23u00 || 2 SW || 2 || Writing the report on refactoring changes. || dieter winabar. ||
+|| 08/03/12: 12u00 -> 13u30 || 2 SW || 1.5 || Finishing up the current draft of the report on refactoring changes. || ||
+|| 08/03/12: 15u45 -> 19u15 || 3 DSW || 3.5 || Discussing the dependencies created by our current design, making system sequence diagrams, implementing scenarios || dieter moest weg van shana en mocht niet meer terugkomen. ||
+|| 08/03/12: 21u00 -> 23u30 || 2 SW || 2.5 || Making large changes to the controllers; implementing a basic scenario. || ||
+|| 09/03/12: 00u00 -> 02u30 || 1 S || 2.5 || Finishing up the implementation of the basic testing scenario. || ||
+|| 09/03/12: 10u00 -> 10u30 || 2 SW || 0.5 || Reviewing the basic testing scenario; initiating implementing more complex scenarios || ||
+|| 09/03/12: 10u30 -> 12u30 || 3 DSW || 2.5 || More of the above... || ||
+|| 09/03/12: 13u00 -> 16u00|| 3 DSW || 3 || Making the final changes to both report and code before the deadline. || ||
+|| 09/03/12: 16u00 -> 17u00|| 1 S || 1 || Finishing writing the report. || dieter en Wouter wilden ontspannen. ||
+|| 13/03/12: 15u00 -> 17u00 || 3 DSW || 2 || Discussing whether or not to use multiple user managers; the responsibilities of Campus, Hospital,... || ||
+|| 14/03/12: 16u00 -> 18u00 || 3 DSW || 2 || Creating a high level list of TODOs and immediately crossing off 4 design decisions. || ||
+|| 14/03/12: 22u00 -> 24u00 || 2 SW || 2 || Starting the TODO list of implementations; fixing some random compile erros. || dieter winabar. ||
+|| 15/03/12: 21u30 -> 23u50 || 2 SW || 2.5 || Description, unscheduledTask, warehouse-admin-manager-stock (impl) || ||
+|| 16/03/12: 11u00 -> 12u30 || 2 SW || 1.5 || More of the above || dieter oefenzitting ||
+|| 16/03/12: 13u30 -> 17u00 || 2 SW || 3.5 || More of the above || dieter kon omwille van redenen van zijn persoonlijk leven met shana niet aanwezig zijn. We stuurden hem wel een e-mail met updates van de situatie en een TODO lijstje. ||
+|| 18/03/12: 18u00 -> 19u30 || 1 S|| 1.5 || Warehouse/StockOrder/... beetje fixen; Visual Paradigm: 4 nieuwe prentjes staan nu op de communication pagina. || ||
 
 
 = Iteratie 2 =
