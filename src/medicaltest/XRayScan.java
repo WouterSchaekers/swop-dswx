@@ -1,7 +1,17 @@
 package medicaltest;
 
+import java.util.Collection;
+import java.util.LinkedList;
+import patient.PatientFile;
+import machine.XRayScanner;
 import scheduler.HospitalDate;
+import scheduler.requirements.Requirement;
+import scheduler.requirements.RequirementType;
+import scheduler.requirements.SpecificRequirement;
+import users.Nurse;
+import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
+import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidTimeSlotException;
 
@@ -12,10 +22,10 @@ public class XRayScan extends MedicalTest
 	private int num;
 	private float zoomlevel;
 
-	XRayScan(String bodypart, int num, float zoomlevel)
+	XRayScan(PatientFile patientFile, HospitalDate creationTime, String bodypart, int num, float zoomlevel)
 			throws InvalidNameException, InvalidDurationException,
-			InvalidTimeSlotException {
-		super(XRayScan.DURATION);
+			InvalidTimeSlotException, InvalidAmountException, InvalidHospitalDateException {
+		super(patientFile, DURATION, creationTime);
 		this.bodypart = bodypart;
 		this.num = num;
 		this.zoomlevel = zoomlevel;
@@ -40,21 +50,19 @@ public class XRayScan extends MedicalTest
 	public String getBodypart() {
 		return bodypart;
 	}
-	
+
 	@Override
-	public String appointmentInfo() {
-		String rv = "";
-		rv += "Xray Scan\n";
-		if (getScheduledTask() != null) {
-			rv += "for \t:\t" + getScheduledTask().getPatient().getName()
-					+ "\n";
-			rv += "at \t:\t" + getScheduledTask().getTimeSlot().getStartPoint()
-					+ "\ttill\t"
-					+ getScheduledTask().getTimeSlot().getStopPoint();
-		} else {
-			rv += "Scan is not yet Scheduled";
-		}
-		return rv;
+	public Collection<Requirement> getAllRequirements() {
+		Collection<Requirement> requirements = new LinkedList<Requirement>();
+		requirements.add(new SpecificRequirement(this.patientFile_.getPatient()));
+		requirements.add(new RequirementType<XRayScanner>(XRayScanner.class));
+		return requirements;
 	}
 
+	@Override
+	public Collection<Requirement> getExecutors() {
+		Collection<Requirement> executors = new LinkedList<Requirement>();
+		executors.add(new RequirementType<Nurse>(Nurse.class));
+		return executors;
+	}
 }

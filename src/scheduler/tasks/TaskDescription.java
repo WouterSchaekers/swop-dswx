@@ -15,30 +15,30 @@ public abstract class TaskDescription
 	private long extraTime_;
 	private HospitalDate creationTime_;
 	
-	public TaskDescription(PatientFile _patientFile, long _duration, long _extraTime, HospitalDate _creationTime) throws InvalidAmountException, InvalidHospitalDateException{
-		if (!isValidAmountOfExtraTime(_extraTime))
+	public TaskDescription(PatientFile patientFile, long duration, long extraTime, HospitalDate creationTime) throws InvalidAmountException, InvalidHospitalDateException{
+		if (!isValidAmountOfExtraTime(extraTime))
 			throw new InvalidAmountException(
 					"Invalid amount of extra time since system start given to Unscheduled Task");
-		if (!isValidSystemTime(_creationTime))
+		if (!isValidSystemTime(creationTime))
 			throw new InvalidHospitalDateException(
 					"Invalid systemtime given to Unscheduled Task");
-		this.patientFile_ = _patientFile;
-		this.duration_ = _duration;
-		this.extraTime_ = _extraTime;
-		this.creationTime_ = _creationTime;
+		this.patientFile_ = patientFile;
+		this.duration_ = duration;
+		this.extraTime_ = extraTime;
+		this.creationTime_ = creationTime;
 	}
 	
-	private boolean isValidSystemTime(HospitalDate _currentSystemTime) {
-		return _currentSystemTime != null;
+	private boolean isValidSystemTime(HospitalDate currentSystemTime) {
+		return currentSystemTime != null;
 	}
 	
-	private boolean isValidAmountOfExtraTime(long _extraTime) {
-		return _extraTime >= 0;
+	private boolean isValidAmountOfExtraTime(long extraTime) {
+		return extraTime >= 0;
 	}
 	
-	public abstract Collection<Requirement> getAllOtherRequirements();
+	public abstract Collection<Requirement> getAllRequirements();
 	
-	public abstract Requirement getExecutor();
+	public abstract Collection<Requirement> getExecutors();
 	
 	@Basic
 	public PatientFile getPatientFile(){

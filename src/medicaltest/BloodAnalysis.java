@@ -1,8 +1,18 @@
 package medicaltest;
 
+import java.util.Collection;
+import java.util.LinkedList;
+import machine.BloodAnalyser;
+import patient.PatientFile;
 import scheduler.HospitalDate;
+import scheduler.requirements.Requirement;
+import scheduler.requirements.RequirementType;
+import scheduler.requirements.SpecificRequirement;
+import users.Nurse;
 import be.kuleuven.cs.som.annotate.Basic;
+import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
+import exceptions.InvalidHospitalDateException;
 
 /**
  * This class represents a bloodanalysis test.
@@ -12,47 +22,42 @@ public class BloodAnalysis extends MedicalTest
 	/**
 	 * amount of times an analysis has to be run
 	 */
-	private final int amount;
+	private final int amount_;
 	/**
 	 * The focus of this bloodanalysis
 	 */
-	private final String focus;
-	public final static long DURATION = 45 * HospitalDate.ONE_MINUTE;
+	private final String focus_;
+	public final static long DURATION_ = 45 * HospitalDate.ONE_MINUTE;
 	
-	BloodAnalysis(int amount, String focus) throws InvalidDurationException {
-		super(BloodAnalysis.DURATION);
-		this.amount = amount;
-		this.focus = focus;
+	BloodAnalysis(PatientFile patientFile, HospitalDate creationTime, int amount, String focus) throws InvalidAmountException, InvalidHospitalDateException {
+		super(patientFile, DURATION_, creationTime);
+		this.amount_ = amount;
+		this.focus_ = focus;
 	}
 
 
 	@Basic
 	public int getAmount() {
-		return amount;
+		return amount_;
 	}
 
 	@Basic
 	public String getFocus() {
-		return this.focus;
+		return this.focus_;
 	}
 
-	/**
-	 * Method to see the schedule state of this object
-	 */
 	@Override
-	public String appointmentInfo() {
-		String rv = "";
-		rv += "Blood analysis \n";
-		if (getScheduledTask() != null) {
-			rv += "for \t:\t" + getScheduledTask().getPatient().getName()
-					+ "\n";
-			rv += "at \t:\t" + getScheduledTask().getTimeSlot().getStartPoint()
-					+ "\ttill\t"
-					+ getScheduledTask().getTimeSlot().getStopPoint();
-		} else {
-			rv += "Scan is not yet Scheduled";
-		}
-		return rv;
+	public Collection<Requirement> getAllRequirements() {
+		Collection<Requirement> requirements = new LinkedList<Requirement>();
+		requirements.add(new SpecificRequirement(this.patientFile_.getPatient()));
+		requirements.add(new RequirementType<BloodAnalyser>(BloodAnalyser.class));
+		return requirements;
 	}
 
+	@Override
+	public Collection<Requirement> getExecutors() {
+		Collection<Requirement> executors = new LinkedList<Requirement>();
+		executors.add(new RequirementType<Nurse>(Nurse.class));
+		return executors;
+	}
 }

@@ -21,7 +21,7 @@ public class CastDescription extends TreatmentDescription
 	}
 
 	@Override
-	public Collection<Requirement> getAllOtherRequirements() {
+	public Collection<Requirement> getAllRequirements() {
 		Collection<Requirement> requirements = new LinkedList<Requirement>();
 		requirements.add(new SpecificRequirement(this.patientFile_.getPatient()));
 		requirements.add(new RequirementType<PlasterType>(PlasterType.class));
