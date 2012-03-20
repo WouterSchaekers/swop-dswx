@@ -43,7 +43,7 @@ zie de feedbacksessie van iteratie 2.
 <p>
 Dieter: wina bar, tot vreemde concepten komen<p>
 Stefaan: warehouseadmin/manager/stock dingen<p>
-Wouter: Descriptions, UnscheduledTasks, Requirements, scheduler<p>
+Wouter: UnscheduledTasks<p>
 
 = Things that have been crossed off = 
   * Treatment Factories gemaakt en getest
