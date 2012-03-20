@@ -8,6 +8,7 @@ import scheduler.TimeLord;
 import scheduler.tasks.TaskManager;
 import users.HospitalAdmin;
 import users.UserManager;
+import warehouse.stock.StockProvider;
 import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidCampusException;
 
@@ -17,24 +18,27 @@ import exceptions.InvalidCampusException;
  */
 public class Hospital implements Whereabouts
 {
-	private UserManager _usm;
-	private PatientFileManager _pfm;
-	private TaskManager _tm;
-	private TimeLord _st;
-	private Scheduler _sdl;
-	private LinkedList<Campus> _cp;
+	private UserManager userManager_;
+	private PatientFileManager patientFileManager_;
+	private TaskManager taskManager_;
+	private TimeLord systemTime_;
+	private Scheduler scheduler_;
+	private LinkedList<Campus> campusses_;
+	private StockProvider stockProvider_;
 
 	/**
 	 * Initializes an empty hospital with a hospital admin and 2 campusses.
 	 */
 	public Hospital() {
 		try {
-			this._st = new TimeLord();
-			this._usm = new UserManager();
-			this._pfm = new PatientFileManager();
-			this._sdl = new Scheduler(this._st);
-			this._tm = new TaskManager(this._sdl);
-			this._cp = new LinkedList<Campus>();
+			this.systemTime_ = new TimeLord();
+			this.userManager_ = new UserManager();
+			this.patientFileManager_ = new PatientFileManager();
+			this.scheduler_ = new Scheduler(this.systemTime_);
+			this.taskManager_ = new TaskManager(this.scheduler_);
+			this.campusses_ = new LinkedList<Campus>();
+			//TODO: initilise campusses and give them warehouses.
+			this.stockProvider_ = new StockProvider();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			throw new Error();
@@ -64,42 +68,42 @@ public class Hospital implements Whereabouts
 	public Hospital(TimeLord timeLord, UserManager userManager, PatientFileManager patientFileManager,
 			Scheduler scheduler, TaskManager taskManager,
 			HospitalAdmin hospitalAdmin) {
-		this._st = timeLord;
-		this._usm = userManager;
-		this._pfm = patientFileManager;
-		this._sdl = scheduler;
-		this._tm = taskManager;
-		this._cp = new LinkedList<Campus>();
+		this.systemTime_ = timeLord;
+		this.userManager_ = userManager;
+		this.patientFileManager_ = patientFileManager;
+		this.scheduler_ = scheduler;
+		this.taskManager_ = taskManager;
+		this.campusses_ = new LinkedList<Campus>();
 	}
 
 	@Basic
 	public HospitalDate getSystemTime() {
-		return _st.getSystemTime();
+		return systemTime_.getSystemTime();
 	}
 
 	@Basic
 	public UserManager getUserManager() {
-		return _usm;
+		return userManager_;
 	}
 
 	@Basic
 	public PatientFileManager getPatientFileManager() {
-		return _pfm;
+		return patientFileManager_;
 	}
 
 	@Basic
 	public TaskManager getTaskManager() {
-		return _tm;
+		return taskManager_;
 	}
 
 	@Basic
 	public Scheduler getScheduler() {
-		return _sdl;
+		return scheduler_;
 	}
 	
 	@Basic
 	public Campus getCampus(String name){
-		for(Campus campus : _cp){
+		for(Campus campus : campusses_){
 			if(campus.getCampusName().equals(name)){
 				return campus;
 			}
@@ -108,7 +112,7 @@ public class Hospital implements Whereabouts
 	}
 	
 	public LinkedList<Campus> getAllCampusses() {
-		return new LinkedList<Campus>(this._cp);
+		return new LinkedList<Campus>(this.campusses_);
 	}
 	
 	/**
@@ -118,7 +122,7 @@ public class Hospital implements Whereabouts
 	public void addCampus(String name) throws InvalidCampusException {
 		if(name.equals(""))
 			throw new InvalidCampusException("Invalid new campus name was given!");
-		this._cp.add(new Campus("name", this));
+		this.campusses_.add(new Campus("name", this));
 	}
 	
 	/**
@@ -126,7 +130,7 @@ public class Hospital implements Whereabouts
 	 */
 	public void removeCampus(String name) {
 		LinkedList<Campus> newCP = new LinkedList<Campus>();
-		for(Campus c : this._cp)
+		for(Campus c : this.campusses_)
 			if((c.getCampusName().equals(name)))
 					newCP.add(c);
 	}
