@@ -1,10 +1,10 @@
 package scheduler.requirements;
 
-public class ResourceRequirement<T extends Requirable> implements Requirement
+public class RequirementType<T extends Requirable> implements Requirement
 {
 	private Class<T> type_;
 
-	public ResourceRequirement(Class<T> type) {
+	public RequirementType(Class<T> type) {
 		type_ = type;
 	}
 

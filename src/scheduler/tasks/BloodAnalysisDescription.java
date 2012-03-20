@@ -7,8 +7,8 @@ import medicaltest.BloodAnalysis;
 import patient.PatientFile;
 import scheduler.HospitalDate;
 import scheduler.requirements.Requirement;
-import scheduler.requirements.ResourceRequirement;
-import scheduler.requirements.SpecificResourceRequirement;
+import scheduler.requirements.RequirementType;
+import scheduler.requirements.SpecificRequirement;
 import users.Nurse;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidHospitalDateException;
@@ -22,11 +22,11 @@ public class BloodAnalysisDescription extends MedicalTestDescription
 	}
 
 	@Override
-	public Collection<Requirement> getAllRequirements() {
+	public Collection<Requirement> getAllOtherRequirements() {
 		Collection<Requirement> requirements = new LinkedList<Requirement>();
-		requirements.add(new SpecificResourceRequirement(this.patientFile_.getPatient()));
-		requirements.add(new ResourceRequirement<Nurse>(Nurse.class));
-		requirements.add(new ResourceRequirement<BloodAnalyser>(BloodAnalyser.class));
+		requirements.add(new SpecificRequirement(this.patientFile_.getPatient()));
+		requirements.add(new RequirementType<Nurse>(Nurse.class));
+		requirements.add(new RequirementType<BloodAnalyser>(BloodAnalyser.class));
 		return requirements;
 	}
 }

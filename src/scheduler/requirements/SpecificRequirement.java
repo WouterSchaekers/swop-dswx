@@ -1,9 +1,9 @@
 package scheduler.requirements;
 
-public class SpecificResourceRequirement implements Requirement
+public class SpecificRequirement implements Requirement
 {
 	private Requirable requirable_;
-	public SpecificResourceRequirement(Requirable requirable)
+	public SpecificRequirement(Requirable requirable)
 	{
 		requirable_ = requirable;
 	}
