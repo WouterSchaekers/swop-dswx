@@ -1,9 +1,18 @@
 package treatment;
 
+import java.util.Collection;
+import java.util.LinkedList;
+import patient.PatientFile;
 import scheduler.HospitalDate;
+import scheduler.requirements.Requirement;
+import scheduler.requirements.RequirementType;
+import scheduler.requirements.SpecificRequirement;
+import warehouse.item.MiscType;
 import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.SurgeryIN;
+import exceptions.InvalidAmountException;
 import exceptions.InvalidDescriptionException;
+import exceptions.InvalidHospitalDateException;
 
 /**
  * This class represents a surgical treatment.
@@ -18,9 +27,11 @@ public class Surgery extends Treatment implements SurgeryIN
 	 * @param description
 	 *            The description of this surgery.
 	 * @throws InvalidDescriptionException
+	 * @throws InvalidHospitalDateException 
+	 * @throws InvalidAmountException 
 	 */
-	public Surgery(String description) throws InvalidDescriptionException {
-		super(HospitalDate.ONE_MINUTE * 180);
+	public Surgery(PatientFile patientFile, HospitalDate creationTime, String description) throws InvalidDescriptionException, InvalidAmountException, InvalidHospitalDateException {
+		super(patientFile, HospitalDate.ONE_MINUTE * 180, creationTime);
 		setDescription(description);
 	}
 
@@ -50,4 +61,11 @@ public class Surgery extends Treatment implements SurgeryIN
 		return false;
 	}
 
+	@Override
+	public Collection<Requirement> getAllRequirements() {
+		Collection<Requirement> requirements = new LinkedList<Requirement>();
+		requirements.add(new SpecificRequirement(this.patientFile_.getPatient()));
+		requirements.add(new RequirementType<MiscType>(MiscType.class));
+		return requirements;
+	}
 }

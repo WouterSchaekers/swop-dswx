@@ -148,7 +148,7 @@ public class PatientFile implements PatientFileIN
 	public HospitalDate getFirstNewXRaySchedDate(HospitalDate hospitalDate) {
 		if (this.amountOfXraysThisYear(hospitalDate) >= 9) {
 			return new HospitalDate(this.xrays.get(xrays.size() - 10)
-					.getTimeSinceStart() + XRayScan.DURATION);
+					.getTimeSinceStart() + XRayScan.DURATION_);
 		}
 		return hospitalDate;
 	}

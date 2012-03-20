@@ -1,15 +1,18 @@
 package treatment;
 
+import patient.PatientFile;
 import scheduler.HospitalDate;
 import controllers.interfaces.MedicationIN;
+import exceptions.InvalidAmountException;
+import exceptions.InvalidHospitalDateException;
 
 /**
  * This class represent treatment by medication.
  */
 public abstract class Medication extends Treatment implements MedicationIN
 {
-	private String description = "";
-	private boolean sensitive = false;
+	private String description_ = "";
+	private boolean sensitive_ = false;
 
 	/**
 	 * Default constructor.
@@ -18,9 +21,11 @@ public abstract class Medication extends Treatment implements MedicationIN
 	 *            The description of the meds.
 	 * @param sensitive
 	 *            Whether or not the meds are sensitive.
+	 * @throws InvalidHospitalDateException 
+	 * @throws InvalidAmountException 
 	 */
-	public Medication(String description, boolean sensitive) {
-		super(HospitalDate.ONE_MINUTE * 20);
+	public Medication(PatientFile patientFile, HospitalDate creationTime, String description, boolean sensitive) throws InvalidAmountException, InvalidHospitalDateException {
+		super(patientFile, HospitalDate.ONE_MINUTE * 20, creationTime);
 		setDescription(description);
 		setSensitive(sensitive);
 	}
@@ -37,7 +42,7 @@ public abstract class Medication extends Treatment implements MedicationIN
 	 * @return The description of this medicinal treatment.
 	 */
 	public String getDescription() {
-		return description;
+		return description_;
 	}
 
 	/**
@@ -47,14 +52,14 @@ public abstract class Medication extends Treatment implements MedicationIN
 	 *            The new description for this medicinal treatment.
 	 */
 	public void setDescription(String description) {
-		this.description = description;
+		this.description_ = description;
 	}
 
 	/**
 	 * @return True if this is a sensitive medication.
 	 */
 	public boolean isSensitive() {
-		return sensitive;
+		return sensitive_;
 	}
 
 	/**
@@ -72,11 +77,6 @@ public abstract class Medication extends Treatment implements MedicationIN
 	 *            The new state of sensitivity.
 	 */
 	public void setSensitive(boolean sensitive) {
-		this.sensitive = sensitive;
-	}
-
-	@Override
-	public boolean hasFinished() {
-		return this.result != null;
+		this.sensitive_ = sensitive;
 	}
 }

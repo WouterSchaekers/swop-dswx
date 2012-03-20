@@ -1,38 +1,43 @@
 package treatment;
 
+import java.util.Collection;
+import java.util.LinkedList;
+import patient.PatientFile;
 import result.Result;
+import scheduler.HospitalDate;
+import scheduler.requirements.Requirement;
+import scheduler.requirements.RequirementType;
 import scheduler.tasks.ScheduledTask;
+import scheduler.tasks.TaskDescription;
+import users.Nurse;
 import controllers.interfaces.TreatmentIN;
+import exceptions.InvalidAmountException;
+import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidResultException;
 
 /**
  * This class is the superclass of all treatments.
  */
-public abstract class Treatment implements TreatmentIN
+public abstract class Treatment extends TaskDescription implements TreatmentIN
 {
-
-	ScheduledTask scheduledTask;
-	private long duration;
-	protected Result result;
+	protected Result result_;
 
 	/**
 	 * Default constructor.
 	 * 
 	 * @param treatmentName
 	 *            The name of this treatment.
+	 * @throws InvalidHospitalDateException
+	 * @throws InvalidAmountException
 	 */
-	public Treatment(long duration) {
-		this.duration = duration;
-	}
-
-	public long getDuration() {
-		return duration;
+	public Treatment(PatientFile patientFile_, long duration_, HospitalDate creationTime_) throws InvalidAmountException, InvalidHospitalDateException {
+		super(patientFile_, duration_, 0, creationTime_);
 	}
 
 	public void setResult(Result r) throws InvalidResultException {
-		if(! this.isValidResult(result))
+		if(! this.isValidResult(result_))
 			throw new InvalidResultException("Invalid result given to Treatment");
-		this.result = r;
+		this.result_ = r;
 	}
 	
 	/**
@@ -41,9 +46,11 @@ public abstract class Treatment implements TreatmentIN
 	private boolean isValidResult(Result r) {
 		return r != null;
 	}
-
-	public void setScheduled(ScheduledTask task) {
-		this.scheduledTask = task;
+	
+	@Override
+	public Collection<Requirement> getExecutors() {
+		Collection<Requirement> executors = new LinkedList<Requirement>();
+		executors.add(new RequirementType<Nurse>(Nurse.class));
+		return executors;
 	}
-
 }

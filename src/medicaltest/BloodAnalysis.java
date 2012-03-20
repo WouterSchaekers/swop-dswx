@@ -53,11 +53,4 @@ public class BloodAnalysis extends MedicalTest
 		requirements.add(new RequirementType<BloodAnalyser>(BloodAnalyser.class));
 		return requirements;
 	}
-
-	@Override
-	public Collection<Requirement> getExecutors() {
-		Collection<Requirement> executors = new LinkedList<Requirement>();
-		executors.add(new RequirementType<Nurse>(Nurse.class));
-		return executors;
-	}
 }
