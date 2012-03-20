@@ -5,8 +5,8 @@ import java.util.LinkedList;
 import patient.PatientFile;
 import scheduler.HospitalDate;
 import scheduler.requirements.Requirement;
-import scheduler.requirements.ResourceRequirement;
-import scheduler.requirements.SpecificResourceRequirement;
+import scheduler.requirements.RequirementType;
+import scheduler.requirements.SpecificRequirement;
 import users.Nurse;
 import warehouse.item.PlasterType;
 import exceptions.InvalidAmountException;
@@ -14,7 +14,6 @@ import exceptions.InvalidHospitalDateException;
 
 public class CastDescription extends TreatmentDescription
 {
-
 	public CastDescription(PatientFile patientFile, long duration,
 			long extraTime, HospitalDate creationTime)
 			throws InvalidAmountException, InvalidHospitalDateException {
@@ -22,11 +21,11 @@ public class CastDescription extends TreatmentDescription
 	}
 
 	@Override
-	public Collection<Requirement> getAllRequirements() {
+	public Collection<Requirement> getAllOtherRequirements() {
 		Collection<Requirement> requirements = new LinkedList<Requirement>();
-		requirements.add(new SpecificResourceRequirement(this.patientFile_.getPatient()));
-		requirements.add(new ResourceRequirement<Nurse>(Nurse.class));
-		requirements.add(new ResourceRequirement<PlasterType>(PlasterType.class));
+		requirements.add(new SpecificRequirement(this.patientFile_.getPatient()));
+		requirements.add(new RequirementType<Nurse>(Nurse.class));
+		requirements.add(new RequirementType<PlasterType>(PlasterType.class));
 		return requirements;
 	}
 }

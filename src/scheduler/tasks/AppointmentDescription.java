@@ -5,8 +5,9 @@ import java.util.LinkedList;
 import patient.PatientFile;
 import scheduler.HospitalDate;
 import scheduler.requirements.Requirement;
-import scheduler.requirements.SpecificResourceRequirement;
+import scheduler.requirements.SpecificRequirement;
 import users.Doctor;
+import users.SchedulableUser;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidHospitalDateException;
 
@@ -20,14 +21,19 @@ public class AppointmentDescription extends TaskDescription
 	}
 	
 	@Override
-	public Collection<Requirement> getAllRequirements() {
+	public Collection<Requirement> getAllOtherRequirements() {
 		Collection<Requirement> requirements = new LinkedList<Requirement>();
-		requirements.add(new SpecificResourceRequirement(this.patientFile_.getPatient()));
-		requirements.add(new SpecificResourceRequirement(doctor));
+		requirements.add(new SpecificRequirement(this.patientFile_.getPatient()));
+		requirements.add(new SpecificRequirement(doctor));
 		return requirements;
 	}
 
 	public Doctor getDocor() {
 		return doctor;
+	}
+
+	@Override
+	public Requirement getExecutor() {
+		return new SpecificRequirement(doctor);
 	}
 }

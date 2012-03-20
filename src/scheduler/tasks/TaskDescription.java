@@ -4,6 +4,8 @@ import java.util.Collection;
 import patient.PatientFile;
 import scheduler.HospitalDate;
 import scheduler.requirements.Requirement;
+import users.SchedulableUser;
+import users.User;
 import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidHospitalDateException;
@@ -36,7 +38,9 @@ public abstract class TaskDescription
 		return _extraTime >= 0;
 	}
 	
-	public abstract Collection<Requirement> getAllRequirements();
+	public abstract Collection<Requirement> getAllOtherRequirements();
+	
+	public abstract Requirement getExecutor();
 	
 	@Basic
 	public PatientFile getPatientFile(){
@@ -57,5 +61,4 @@ public abstract class TaskDescription
 	public HospitalDate getCreationTime() {
 		return new HospitalDate(this.creationTime_);
 	}
-	
 }
