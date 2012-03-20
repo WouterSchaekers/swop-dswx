@@ -6,4 +6,6 @@ public abstract class UnscheduledTask extends Task
 	{
 		super(description);
 	}
+	
+	public boolean canBeScheduled(Hospital hospital, )
 }

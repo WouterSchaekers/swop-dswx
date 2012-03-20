@@ -74,7 +74,6 @@ public class TaskManager extends Observable
 			}
 		}
 		this.taskQueue = newQueue;
-
 	}
 
 	private Scheduler myScheduler() {

@@ -4,8 +4,6 @@ import java.util.Collection;
 import patient.PatientFile;
 import scheduler.HospitalDate;
 import scheduler.requirements.Requirement;
-import users.SchedulableUser;
-import users.User;
 import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidHospitalDateException;

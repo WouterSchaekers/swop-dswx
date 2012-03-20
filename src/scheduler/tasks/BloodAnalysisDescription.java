@@ -25,8 +25,12 @@ public class BloodAnalysisDescription extends MedicalTestDescription
 	public Collection<Requirement> getAllOtherRequirements() {
 		Collection<Requirement> requirements = new LinkedList<Requirement>();
 		requirements.add(new SpecificRequirement(this.patientFile_.getPatient()));
-		requirements.add(new RequirementType<Nurse>(Nurse.class));
 		requirements.add(new RequirementType<BloodAnalyser>(BloodAnalyser.class));
 		return requirements;
+	}
+
+	@Override
+	public Requirement getExecutor() {
+		return new RequirementType<Nurse>(Nurse.class);
 	}
 }
