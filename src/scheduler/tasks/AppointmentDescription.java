@@ -31,7 +31,9 @@ public class AppointmentDescription extends TaskDescription
 	}
 
 	@Override
-	public Requirement getExecutor() {
-		return new SpecificRequirement(doctor);
+	public Collection<Requirement> getExecutors() {
+		Collection<Requirement> executors = new LinkedList<Requirement>();
+		executors.add(new SpecificRequirement(doctor));
+		return executors;
 	}
 }

@@ -1,9 +1,18 @@
 package treatment;
 
+import java.util.Collection;
+import java.util.LinkedList;
+import patient.PatientFile;
 import scheduler.HospitalDate;
+import scheduler.requirements.Requirement;
+import scheduler.requirements.RequirementType;
+import scheduler.requirements.SpecificRequirement;
+import warehouse.item.PlasterType;
 import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.CastIN;
+import exceptions.InvalidAmountException;
 import exceptions.InvalidBodyPartException;
+import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidLengthException;
 
 /**
@@ -11,8 +20,9 @@ import exceptions.InvalidLengthException;
  */
 public class Cast extends Treatment implements CastIN
 {
-	private String bodyPart;
-	private int length;
+	private String bodyPart_;
+	private int length_;
+	public final static long DURATION_ = 2*HospitalDate.ONE_HOUR;
 
 	/**
 	 * Default constructor.
@@ -21,9 +31,13 @@ public class Cast extends Treatment implements CastIN
 	 *            The bodypart on which the cast needs to be cast onto.
 	 * @param length
 	 *            The lengths of the cast.
+	 * @throws InvalidHospitalDateException 
+	 * @throws InvalidAmountException 
 	 */
-	public Cast(String bodyPart, int length) {
-		super(2 * HospitalDate.ONE_HOUR);
+	public Cast(PatientFile patientFile, HospitalDate creationTime, String bodyPart, int length) throws InvalidAmountException, InvalidHospitalDateException {
+		super(patientFile, DURATION_, creationTime);
+		this.bodyPart_ = bodyPart;
+		this.length_ = length;
 	}
 
 	/**
@@ -42,7 +56,7 @@ public class Cast extends Treatment implements CastIN
 
 	@Basic
 	public String getBodyPart() {
-		return bodyPart;
+		return bodyPart_;
 	}
 
 	@Basic
@@ -50,12 +64,12 @@ public class Cast extends Treatment implements CastIN
 		if (!isValidBodyPart(bodyPart))
 			throw new InvalidBodyPartException(
 					"Invalid body part assigned to setBodyPart() in Cast!");
-		this.bodyPart = bodyPart;
+		this.bodyPart_ = bodyPart;
 	}
 
 	@Basic
 	public int getLength() {
-		return length;
+		return length_;
 	}
 
 	@Basic
@@ -63,11 +77,19 @@ public class Cast extends Treatment implements CastIN
 		if (!isValidLength(length))
 			throw new InvalidLengthException(
 					"Invalid length assigned to setLength() in Cast!");
-		this.length = length;
+		this.length_ = length;
 	}
 
 	@Override
 	public boolean hasFinished() {
 		return false;
+	}
+
+	@Override
+	public Collection<Requirement> getAllRequirements() {
+		Collection<Requirement> requirements = new LinkedList<Requirement>();
+		requirements.add(new SpecificRequirement(this.patientFile_.getPatient()));
+		requirements.add(new RequirementType<PlasterType>(PlasterType.class));
+		return requirements;
 	}
 }

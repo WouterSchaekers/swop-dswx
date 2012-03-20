@@ -17,38 +17,37 @@ import exceptions.InvalidTimeSlotException;
 
 public class XRayScan extends MedicalTest
 {
-	public final static long DURATION = 15 * HospitalDate.ONE_MINUTE;
-	private final String bodypart;
-	private int num;
-	private float zoomlevel;
+	private final String bodypart_;
+	private int num_;
+	private float zoomlevel_;
 
 	XRayScan(PatientFile patientFile, HospitalDate creationTime, String bodypart, int num, float zoomlevel)
 			throws InvalidNameException, InvalidDurationException,
 			InvalidTimeSlotException, InvalidAmountException, InvalidHospitalDateException {
-		super(patientFile, DURATION, creationTime);
-		this.bodypart = bodypart;
-		this.num = num;
-		this.zoomlevel = zoomlevel;
+		super(patientFile, 15 * HospitalDate.ONE_MINUTE, creationTime);
+		this.bodypart_ = bodypart;
+		this.num_ = num;
+		this.zoomlevel_ = zoomlevel;
 	}
 	
 	public int getNum() {
-		return num;
+		return num_;
 	}
 
 	public void setNum(int num) {
-		this.num = num;
+		this.num_ = num;
 	}
 
 	public float getZoomlevel() {
-		return zoomlevel;
+		return zoomlevel_;
 	}
 
 	public void setZoomlevel(float zoomlevel) {
-		this.zoomlevel = zoomlevel;
+		this.zoomlevel_ = zoomlevel;
 	}
 
 	public String getBodypart() {
-		return bodypart;
+		return bodypart_;
 	}
 
 	@Override
@@ -57,12 +56,5 @@ public class XRayScan extends MedicalTest
 		requirements.add(new SpecificRequirement(this.patientFile_.getPatient()));
 		requirements.add(new RequirementType<XRayScanner>(XRayScanner.class));
 		return requirements;
-	}
-
-	@Override
-	public Collection<Requirement> getExecutors() {
-		Collection<Requirement> executors = new LinkedList<Requirement>();
-		executors.add(new RequirementType<Nurse>(Nurse.class));
-		return executors;
 	}
 }

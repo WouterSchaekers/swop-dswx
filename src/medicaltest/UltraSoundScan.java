@@ -48,11 +48,4 @@ public class UltraSoundScan extends MedicalTest
 		requirements.add(new RequirementType<UltraSoundScanner>(UltraSoundScanner.class));
 		return requirements;
 	}
-
-	@Override
-	public Collection<Requirement> getExecutors() {
-		Collection<Requirement> executors = new LinkedList<Requirement>();
-		executors.add(new RequirementType<Nurse>(Nurse.class));
-		return executors;
-	}
 }
