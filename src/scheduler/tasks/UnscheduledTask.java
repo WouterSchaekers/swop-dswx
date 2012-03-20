@@ -1,5 +1,7 @@
 package scheduler.tasks;
 
+import system.Hospital;
+
 public abstract class UnscheduledTask extends Task
 {	
 	public UnscheduledTask(TaskDescription description) 
@@ -7,5 +9,5 @@ public abstract class UnscheduledTask extends Task
 		super(description);
 	}
 	
-	public boolean canBeScheduled(Hospital hospital, )
+	public boolean canBeScheduled(Hospital hospital){return false;}
 }

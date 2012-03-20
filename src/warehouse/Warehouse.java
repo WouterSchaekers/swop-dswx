@@ -1,11 +1,9 @@
 package warehouse;
 
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Observable;
 import system.Campus;
-import warehouse.item.PlasterType;
 import warehouse.item.WarehouseItem;
 import warehouse.item.WarehouseItemType;
 import be.kuleuven.cs.som.annotate.Basic;
@@ -20,7 +18,7 @@ public class Warehouse extends Observable
 	private Map<Class<? extends WarehouseItemType>, Integer> maxItemsMap_;
 	private LinkedList<WarehouseItem> items_;
 	private Campus campus_;
-	
+
 	/**
 	 * Initialises this warehouse.
 	 * 
@@ -37,17 +35,14 @@ public class Warehouse extends Observable
 	public WarehouseItem take(WarehouseItemType item)
 			throws InvalidWarehouseItemException {
 		WarehouseItem item1 = null;
-		
 		for (WarehouseItem i : items_) {
 			if (i.getType().equals(item)) {
 				item1 = i;
 			}
 		}
-
 		if (item1 == null)
 			throw new InvalidWarehouseItemException(
 					"the specified item type was not found in this warehouse");
-
 		items_.remove(item1);
 		this.notifyObservers();
 		return item1;
@@ -77,8 +72,7 @@ public class Warehouse extends Observable
 	public int getMaxCount(WarehouseItemType type) {
 		if (maxItemsMap_.containsKey(type))
 			return maxItemsMap_.get(type);
-		else
-			return -1;
+		return -1;
 	}
 
 	/**
@@ -94,15 +88,6 @@ public class Warehouse extends Observable
 					"Trying to set the max count of an invalid item type!");
 	}
 
-	/**
-	 * @return True if this warehouse is low on items of the specified type.
-	 */
-	private boolean isLowOn(WarehouseItemType type) {
-		if(type instanceof PlasterType)
-			return this.getMaxCount(type) < maxItemsMap_.get(type);
-		return this.getCurrentCount(type) < (maxItemsMap_.get(type))/2;
-	}
-	
 	/**
 	 * This function is package visible because stock manager needs to access
 	 * it.
@@ -124,28 +109,14 @@ public class Warehouse extends Observable
 	public boolean has(WarehouseItemType type, int amount) {
 		return getCurrentCount(type) >= amount;
 	}
-	
-	/**
-	 * Use this method only in warehouse admin.
-	 */
-	public void removeExpiredItems() {
-		
+
+	public void removeItem(WarehouseItem item) {
+		this.items_.remove(item);
 	}
-	
-	/**
-	 * @return The item types that this warehouse is low on.
-	 */
-	//XXX:guys this is bad mowkay, er zou 1 objectje per type moeten zijn om de stock te managen
-	// het 'low' wijn van iets is niet een eigenschap van het warehouse, maar van het aantal items
-	// in het warehouse & het aantal items in de stockprovider =/
-	public Collection<WarehouseItemType> getLowStockItemTypes() {
-		Collection<WarehouseItemType> rv = new LinkedList<WarehouseItemType>();
-		
-		for(WarehouseItem item : this.items_) {
-			if(this.isLowOn(item.getType()))
-				rv.add(item.getType());
-		}
-		return rv;
+
+	@Basic
+	public LinkedList<WarehouseItem> getAllItems() {
+		return new LinkedList<WarehouseItem>(this.items_);
 	}
 
 	@Basic

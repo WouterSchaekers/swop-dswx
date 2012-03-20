@@ -6,7 +6,7 @@ public class ActivatedCarbon extends WarehouseItem
 {
 
 	@Override
-	public boolean isExpired(HospitalDate date) {
+	public boolean isExpiredAt(HospitalDate date) {
 		return false;
 	}
 

@@ -10,7 +10,7 @@ public class Vitamin extends WarehouseItem
 	}
 	
 	@Override
-	public boolean isExpired(HospitalDate date) {
+	public boolean isExpiredAt(HospitalDate date) {
 		return date.after(this.expiryDate);
 	}
 
