@@ -2,7 +2,7 @@ package warehouse.item;
 
 import scheduler.HospitalDate;
 
-public class VitaminType extends WarehouseItemType
+public class VitaminType extends MedicationType
 {
 
 	@Override

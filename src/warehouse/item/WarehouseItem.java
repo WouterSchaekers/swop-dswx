@@ -26,7 +26,7 @@ public abstract class WarehouseItem
 	/**
 	 * @return True if the expiry date, given at creation time, is before date.
 	 */
-	public abstract boolean isExpired(HospitalDate date);
+	public abstract boolean isExpiredAt(HospitalDate date);
 
 	/**
 	 * @return The type of this warehouse item.

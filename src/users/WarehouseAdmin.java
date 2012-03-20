@@ -1,33 +1,21 @@
 package users;
 
-import java.util.Collection;
 import java.util.LinkedList;
-import java.util.Observable;
-import java.util.Observer;
+import scheduler.HospitalDate;
 import warehouse.Warehouse;
-import warehouse.item.MealType;
-import warehouse.item.WarehouseItemType;
-import warehouse.orderstrat.OrderStrategy;
-import warehouse.orderstrat.PatientMealStrategy;
-import warehouse.stock.StockOrder;
+import warehouse.item.WarehouseItem;
 import warehouse.stock.StockProvider;
 import controllers.interfaces.WarehouseAdminIN;
 import exceptions.InvalidNameException;
-import exceptions.WarehouseOverCapacityException;
 
 /**
  * This class represents the administrator of the warehouse that is associated
- * with a campus. It manages the orders that need to be made to keep the stock
- * of the warehouse at a maintainable level. It does this by observing its
- * warehouse and by making sure that, when the warehouse is running low on any
- * warehouse item, a stock provider is given a new stock order for that specific
- * item.
+ * with a campus.
  */
-public class WarehouseAdmin extends User implements WarehouseAdminIN, Observer
+public class WarehouseAdmin extends User implements WarehouseAdminIN
 {
 	private Warehouse warehouse_;
 	private StockProvider provider_;
-	private Collection<OrderStrategy> orderStrategies_;
 
 	/**
 	 * Initialises this warehouse admin and appoints him to a warehouse. Also
@@ -40,64 +28,61 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN, Observer
 	 * @param stockProvider
 	 *            The stock provider this admin can place stock orers with.
 	 */
-	public WarehouseAdmin(String name, Warehouse warehouse,
-			StockProvider stockProvider) throws InvalidNameException {
+	public WarehouseAdmin(String name, Warehouse warehouse,	StockProvider stockProvider) throws InvalidNameException {
 		super(name);
 		this.warehouse_ = warehouse;
 		this.provider_ = stockProvider;
-		warehouse_.addObserver(this);
-		orderStrategies_ = defaultOrderStrategies();
-	}
-
-	/**
-	 * Adds an item of the specified type to the warehouse associated with this warehouse admin.
-	 */
-	public void addItem(WarehouseItemType type)
-			throws WarehouseOverCapacityException{
-		warehouse_.add(type.create(warehouse_.getCampus().getSystemTime()));
-	}
-
-	public void addOrder(WarehouseItemType type, int count) {
-		for (int i = 0; i < count; i++)
-			provider_.add(new StockOrder<WarehouseItemType>(warehouse_, type));
 	}
 	
 	/**
-	 * Initialises a collection of default ordering strategies.
+	 * Updates the warehouse the way it has to after the time has changed.
 	 */
-	private Collection<OrderStrategy> defaultOrderStrategies() {
-		Collection<OrderStrategy> strat = new LinkedList<OrderStrategy>();
-		strat.add(new PatientMealStrategy(new MealType()));
-		//TODO: add more strategies?
-		return strat;
-	}
-	
 	public void updateTime() {
-		warehouse_.removeExpiredItems();
-		this.placeOrders();
+		this.removeExpiredItems();
+		
 	}
 	
-	/**
-	 * Places stock orders for the depleting supplies of the warehouse.
-	 */
-	private void placeOrders() {
-		Collection<WarehouseItemType> lowItems = this.warehouse_.getLowStockItemTypes();
-		
-		for(WarehouseItemType t : lowItems)
-			this.provider_.add(new StockOrder<WarehouseItemType>(warehouse_, t));
-		
+	private void removeExpiredItems() {
+		LinkedList<WarehouseItem> items = warehouse_.getAllItems();
+		HospitalDate date = warehouse_.getCampus().getSystemTime();
+		for(WarehouseItem i : items)
+			if(i.isExpiredAt(date))
+				warehouse_.removeItem(i);
 	}
+	
+//	/**
+//	 * Places stock orders for the depleting supplies of the warehouse.
+//	 */
+//	private void placeOrders() {
+//		Collection<WarehouseItemType> lowItems = this.warehouse_.getLowItemTypes();
+//		
+//		for(WarehouseItemType t : lowItems)
+//			this.provider_.add(new StockOrder<WarehouseItemType>(this, t));
+//		
+//	}
 
-	//TODO: wat gebeurt er bij advance time()?
-	@Override
-	public void update(Observable o, Object arg) {
-		if (!(o instanceof Warehouse))
-			throw new RuntimeException("Unlikely exception when notifying observers of warehouse: ! o instanceof Warehouse");
+//	/**
+//	 * Initialises a collection of default ordering strategies.
+//	 */
+//	private Collection<OrderStrategy> defaultOrderStrategies() {
+//		Collection<OrderStrategy> strat = new LinkedList<OrderStrategy>();
+//		strat.add(new PatientMealStrategy(new MealType(), warehouse_, provider_));
+//		//TODO: add more strategies?
+//		return strat;
+//	}
+//	/**
+//	 * Manually adds a stockorder to a stock provider so that new items can be delivered.
+//	 */
+//	public void addOrder(WarehouseItemType type, int count) {
+//		for (int i = 0; i < count; i++)
+//			provider_.add(new StockOrder<WarehouseItemType>(this, type));
+//	}
+//	/**
+//	 * Adds an item of the specified type to the warehouse associated with this warehouse admin.
+//	 */
+//	public void addItem(WarehouseItemType type)
+//			throws WarehouseOverCapacityException{
+//		warehouse_.add(type.create(warehouse_.getCampus().getSystemTime()));
+//	}
 
-		for (OrderStrategy strategy : orderStrategies_) {
-			for (StockOrder<? extends WarehouseItemType> order : strategy.getOrders(warehouse_)) {
-				provider_.add(order);
-			}
-		}
-	}
 }

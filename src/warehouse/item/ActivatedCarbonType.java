@@ -2,7 +2,7 @@ package warehouse.item;
 
 import scheduler.HospitalDate;
 
-public class ActivatedCarbonType extends WarehouseItemType
+public class ActivatedCarbonType extends MedicationType
 {
 
 	@Override

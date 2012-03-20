@@ -9,10 +9,10 @@ import warehouse.stock.StockProvider;
 /**
  * Class representing the generic order strategy for most warehouseitems.
  */
-public class GenericOrderStrategy extends OrderStrategy
+public class MedicationOrderStrategy extends OrderStrategy
 {
 	
-	public GenericOrderStrategy(WarehouseItemType type, Warehouse warehouse,
+	public MedicationOrderStrategy(WarehouseItemType type, Warehouse warehouse,
 			StockProvider provider) {
 		super(type, warehouse, provider);
 	}

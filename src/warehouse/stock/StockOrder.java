@@ -9,48 +9,42 @@ import exceptions.WarehouseOverCapacityException;
 public class StockOrder<T extends WarehouseItemType>
 {
 	private boolean delivered_;
-	private Warehouse warehouse_;
 	private T type_;
 	private HospitalDate creationDate_;
+	private Warehouse warehouse_;
 
-	/**
-	 * Initialises this stock order.
-	 * 
-	 * @param warehouse
-	 * @param type
-	 *            The warehouse item type that can be ordered with this stock
-	 *            order.
-	 * @param creationDate
-	 *            The date this order was created
-	 */
-	public StockOrder(Warehouse warehouse, T type) {
-		warehouse_ = warehouse;
+	StockOrder(Warehouse warehouse, T type, HospitalDate creationDate) {
 		type_ = type;
 		delivered_ = false;
-		creationDate_ = warehouse.getCampus().getSystemTime();
+		warehouse_ = warehouse;
+		creationDate_ = creationDate;
+		creationDate_.setHour(6);
+		creationDate_.setMinute(0);
+		creationDate_.setSecond(0);
+		
 	}
 	
-	public boolean hasBeenDelivered() {
+	boolean hasBeenDelivered() {
 		return this.delivered_;
 	}
 	
-	public boolean isReadyForDelivery() {
-		return warehouse_.getCampus().getSystemTime().after(new HospitalDate(creationDate_.getTimeSinceStart() + HospitalDate.ONE_DAY));
+	boolean isReadyForDeliveryAt(HospitalDate time) {
+		return time.after(new HospitalDate(creationDate_.getTimeSinceStart() + HospitalDate.ONE_DAY * 2));
 	}
 
 	/**
 	 * Delivers this stock order to the warehouse.
 	 */
-	public void deliver() throws WarehouseOverCapacityException,
+	void deliver(HospitalDate expiryDate) throws WarehouseOverCapacityException,
 			InvalidOrderStateException {
-		if (delivered_)
+		if (this.hasBeenDelivered())
 			throw new InvalidOrderStateException(
 					"This order was already delivered!");
-		warehouse_.add(type_.create(type_.getExpirationDate(creationDate_)));
+		warehouse_.add(type_.create(expiryDate));
 		delivered_ = true;
 	}
 
-	public T getType() {
+	T getType() {
 		return type_;
 		
 	}

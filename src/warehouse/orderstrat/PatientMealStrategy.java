@@ -1,4 +1,3 @@
-
 package warehouse.orderstrat;
 
 import help.Filter;
@@ -12,13 +11,13 @@ import warehouse.stock.StockProvider;
 
 public class PatientMealStrategy extends OrderStrategy
 {
+	private PatientFileManager man_;
+
 	public PatientMealStrategy(MealType type, Warehouse warehouse,
 			StockProvider provider) {
 		super(type, warehouse, provider);
-		
-	}
 
-	private PatientFileManager man_;
+	}
 
 	private int countNeeded() {
 		int patients = man_.amountOfActivePatients();
@@ -27,11 +26,10 @@ public class PatientMealStrategy extends OrderStrategy
 
 	@Override
 	public void update(Observable o, Object arg) {
-		int needed =Math.min(countNeeded(),warehouse_.getMaxCount(_type));
+		int needed = Math.min(countNeeded(), warehouse_.getMaxCount(_type));
 		int current = calculateCurrent();
-		int needy = needed-current;
-		while(needy>0)
-		{
+		int needy = needed - current;
+		while (needy > 0) {
 			provider_.add(new StockOrder<WarehouseItemType>(warehouse_, _type));
 			needy--;
 		}
@@ -39,18 +37,19 @@ public class PatientMealStrategy extends OrderStrategy
 
 	private int calculateCurrent() {
 		int futureCount = warehouse_.getCurrentCount(_type);
-		futureCount+=help.Collections.filter(provider_.getOrders(), new Filter()
-		{
-			
-			@Override
-			public <T> boolean allows(T arg) {
-				if(arg instanceof StockOrder)
-					return ((StockOrder<?>)arg).getType().equals(_type);
-				return false;
-			}
-		}).size();
+		futureCount += help.Collections.filter(provider_.getOrders(),
+				new Filter()
+				{
+
+					@Override
+					public <T> boolean allows(T arg) {
+						if (arg instanceof StockOrder)
+							return ((StockOrder<?>) arg).getType()
+									.equals(_type);
+						return false;
+					}
+				}).size();
 		return futureCount;
 	}
-	
 
 }
