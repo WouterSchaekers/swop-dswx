@@ -24,7 +24,11 @@ public class SurgeryDescription extends TreatmentDescription
 		Collection<Requirement> requirements = new LinkedList<Requirement>();
 		requirements.add(new SpecificRequirement(this.patientFile_.getPatient()));
 		requirements.add(new RequirementType<MiscType>(MiscType.class));
-		requirements.add(new RequirementType<Nurse>(Nurse.class));
 		return requirements;
+	}
+	
+	@Override
+	public Requirement getExecutor() {
+		return new RequirementType<Nurse>(Nurse.class);
 	}
 }
