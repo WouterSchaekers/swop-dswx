@@ -33,7 +33,6 @@ public class BloodAnalysis extends MedicalTest
 		this.focus_ = focus;
 	}
 
-
 	@Basic
 	public int getAmount() {
 		return amount_;

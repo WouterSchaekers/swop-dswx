@@ -12,4 +12,13 @@ public class SpecificRequirement implements Requirement
 	public boolean isMetBy(Requirable requirable) {
 		return requirable_.equals(requirable);
 	}
+
+	@Override
+	public boolean isMet() {
+		return false;
+	}
+
+	@Override
+	public void collect() {
+	}
 }

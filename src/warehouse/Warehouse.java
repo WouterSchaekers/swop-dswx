@@ -109,9 +109,16 @@ public class Warehouse extends Observable
 	public boolean has(WarehouseItemType type, int amount) {
 		return getCurrentCount(type) >= amount;
 	}
-
-	public void removeItem(WarehouseItem item) {
-		this.items_.remove(item);
+	
+	public void removeItemType(WarehouseItemType warehouseItemType){
+		for(int i = 0; i < this.items_.size(); i++){
+			WarehouseItem warehouseItem = this.items_.get(i);
+			if(warehouseItem.getType().equals(warehouseItemType)){
+				this.items_.remove(i);
+				break;
+			}
+		}
+		//TODO: throw exception
 	}
 
 	@Basic
