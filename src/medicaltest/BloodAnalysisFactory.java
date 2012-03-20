@@ -6,8 +6,8 @@ import exceptions.InvalidTimeSlotException;
 
 public class BloodAnalysisFactory extends MedicalTestFactory
 {
-	private String focus;
-	private int numberOfAnalysis;
+	private String focus_;
+	private int numberOfAnalysis_;
 
 	/**
 	 * Default constructor, only visible in the package since you have to create
@@ -26,7 +26,7 @@ public class BloodAnalysisFactory extends MedicalTestFactory
 	public void setFocus(String focus) {
 		if (!isValidFocus(focus))
 			throw new IllegalArgumentException("invalid focus value");
-		this.focus = focus;
+		this.focus_ = focus;
 	}
 
 	/**
@@ -39,7 +39,7 @@ public class BloodAnalysisFactory extends MedicalTestFactory
 	public void setNumberOfAnalysis(int numberOfAnalysis) {
 		if (!isValidNumberOfAnalysis(numberOfAnalysis))
 			throw new IllegalArgumentException("Illegal amount of analysis");
-		this.numberOfAnalysis = numberOfAnalysis;
+		this.numberOfAnalysis_ = numberOfAnalysis;
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class BloodAnalysisFactory extends MedicalTestFactory
 		if (!ready())
 			throw new IllegalArgumentException();
 
-		return new BloodAnalysis(numberOfAnalysis, focus);
+		return new BloodAnalysis(numberOfAnalysis_, focus_);
 	}
 
 	/**
@@ -59,8 +59,8 @@ public class BloodAnalysisFactory extends MedicalTestFactory
 	 */
 	private boolean ready() {
 		boolean rv = true;
-		rv &= isValidFocus(focus);
-		rv &= isValidNumberOfAnalysis(numberOfAnalysis);
+		rv &= isValidFocus(focus_);
+		rv &= isValidNumberOfAnalysis(numberOfAnalysis_);
 		return rv;
 	}
 
