@@ -1,9 +1,7 @@
 package DietersSandbox;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 import DietersSandbox.domainman.DomainObject;
 import DietersSandbox.domainman.DomainObjectManager;
 import machine.MachineBuilder;

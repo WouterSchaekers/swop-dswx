@@ -2,7 +2,6 @@ package DietersSandbox;
 
 import java.util.Collection;
 import patient.Patient;
-import scheduler.AppointmentDescription;
 import scheduler.HospitalDate;
 import users.Doctor;
 import users.Nurse;

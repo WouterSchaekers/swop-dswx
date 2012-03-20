@@ -8,7 +8,6 @@ import scheduler.HospitalDate;
 import scheduler.requirements.Requirement;
 import scheduler.requirements.RequirementType;
 import scheduler.requirements.SpecificRequirement;
-import users.Nurse;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidHospitalDateException;
