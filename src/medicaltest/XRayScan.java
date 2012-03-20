@@ -2,8 +2,8 @@ package medicaltest;
 
 import java.util.Collection;
 import java.util.LinkedList;
-import patient.PatientFile;
 import machine.XRayScanner;
+import patient.PatientFile;
 import scheduler.HospitalDate;
 import scheduler.requirements.Requirement;
 import scheduler.requirements.RequirementType;

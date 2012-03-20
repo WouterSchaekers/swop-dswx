@@ -12,4 +12,13 @@ public class RequirementType<T extends Requirable> implements Requirement
 	public boolean isMetBy(Requirable requirable) {
 		return requirable.getClass().equals(type_);
 	}
+
+	@Override
+	public boolean isMet() {
+		return false;
+	}
+
+	@Override
+	public void collect() {
+	}
 }
