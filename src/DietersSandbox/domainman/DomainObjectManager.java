@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import machine.MachineBuilder;
 
 public class DomainObjectManager<T>
 {

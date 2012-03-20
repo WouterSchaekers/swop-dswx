@@ -7,7 +7,6 @@ import result.Result;
 import scheduler.HospitalDate;
 import scheduler.requirements.Requirement;
 import scheduler.requirements.RequirementType;
-import scheduler.tasks.ScheduledTask;
 import scheduler.tasks.TaskDescription;
 import users.Nurse;
 import controllers.interfaces.TreatmentIN;

@@ -6,10 +6,7 @@ import DietersSandbox.domainman.DomainObject;
 import DietersSandbox.domainman.DomainObjectManager;
 import system.Hospital;
 import users.User;
-import users.UserFilter;
 import users.UserManager;
-import controllers.interfaces.DoctorIN;
-import controllers.interfaces.NurseIN;
 import controllers.interfaces.UserIN;
 import exceptions.InvalidHospitalException;
 
