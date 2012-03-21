@@ -3,11 +3,13 @@ package scheduler.requirements;
 public class SpecificRequirement implements Requirement
 {
 	private Requirable requirable_;
-	public SpecificRequirement(Requirable requirable)
-	{
+	private boolean backToBack_;
+
+	public SpecificRequirement(Requirable requirable, boolean backToBack) {
 		requirable_ = requirable;
+		backToBack_ = backToBack;
 	}
-	
+
 	@Override
 	public boolean isMetBy(Requirable requirable) {
 		return requirable_.equals(requirable);
@@ -20,5 +22,10 @@ public class SpecificRequirement implements Requirement
 
 	@Override
 	public void collect() {
+	}
+
+	@Override
+	public boolean backToBack() {
+		return backToBack_;
 	}
 }

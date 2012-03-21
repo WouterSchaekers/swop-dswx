@@ -27,4 +27,9 @@ public class WarehouseItemCondition implements Requirement
 	public void collect() {
 		this.warehouse_.removeItemType(this.warehouseItemType_);
 	}
+
+	@Override
+	public boolean backToBack() {
+		return false;
+	}
 }

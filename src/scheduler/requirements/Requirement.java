@@ -7,4 +7,6 @@ public interface Requirement
 	public boolean isMet();
 	
 	public void collect();
+	
+	public boolean backToBack();
 }

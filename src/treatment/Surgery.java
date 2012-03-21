@@ -7,6 +7,7 @@ import scheduler.HospitalDate;
 import scheduler.requirements.Requirement;
 import scheduler.requirements.RequirementType;
 import scheduler.requirements.SpecificRequirement;
+import users.Nurse;
 import warehouse.item.MiscType;
 import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.SurgeryIN;
@@ -65,7 +66,8 @@ public class Surgery extends Treatment implements SurgeryIN
 	public Collection<Requirement> getAllRequirements() {
 		Collection<Requirement> requirements = new LinkedList<Requirement>();
 		requirements.add(new SpecificRequirement(this.patientFile_.getPatient()));
-		requirements.add(new RequirementType<MiscType>(MiscType.class));
+		requirements.add(new RequirementType<MiscType>(MiscType.class, false));
+		requirements.add(new RequirementType<Nurse>(Nurse.class,true));
 		return requirements;
 	}
 }
