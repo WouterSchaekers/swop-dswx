@@ -8,7 +8,6 @@ import scheduler.TimeLord;
 import scheduler.tasks.TaskManager;
 import users.HospitalAdmin;
 import users.UserManager;
-import warehouse.stock.StockProvider;
 import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidCampusException;
 
@@ -24,7 +23,6 @@ public class Hospital implements Whereabouts
 	private TimeLord systemTime_;
 	private Scheduler scheduler_;
 	private LinkedList<Campus> campusses_;
-	private StockProvider stockProvider_;
 
 	/**
 	 * Initializes an empty hospital with a hospital admin and 2 campusses.
@@ -38,7 +36,6 @@ public class Hospital implements Whereabouts
 			this.taskManager_ = new TaskManager(this.scheduler_);
 			this.campusses_ = new LinkedList<Campus>();
 			//TODO: initilise campusses and give them warehouses.
-			this.stockProvider_ = new StockProvider();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			throw new Error();
