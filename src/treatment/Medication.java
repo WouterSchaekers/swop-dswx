@@ -1,7 +1,14 @@
 package treatment;
 
+import java.util.Collection;
+import java.util.LinkedList;
 import patient.PatientFile;
 import scheduler.HospitalDate;
+import scheduler.requirements.Requirement;
+import scheduler.requirements.RequirementType;
+import scheduler.requirements.SpecificRequirement;
+import users.Nurse;
+import warehouse.item.MedicationType;
 import controllers.interfaces.MedicationIN;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidHospitalDateException;
@@ -9,7 +16,7 @@ import exceptions.InvalidHospitalDateException;
 /**
  * This class represent treatment by medication.
  */
-public abstract class Medication extends Treatment implements MedicationIN
+public class Medication extends Treatment implements MedicationIN
 {
 	private String description_ = "";
 	private boolean sensitive_ = false;
@@ -78,5 +85,19 @@ public abstract class Medication extends Treatment implements MedicationIN
 	 */
 	public void setSensitive(boolean sensitive) {
 		this.sensitive_ = sensitive;
+	}
+
+	@Override
+	public boolean hasFinished() {
+		return false;
+	}
+
+	@Override
+	public Collection<Requirement> getAllRequirements() {
+		Collection<Requirement> requirements = new LinkedList<Requirement>();
+		requirements.add(new SpecificRequirement(this.patientFile_.getPatient()));
+		requirements.add(new RequirementType<MedicationType>(MedicationType.class,false));
+		requirements.add(new RequirementType<Nurse>(Nurse.class,true));
+		return requirements;
 	}
 }

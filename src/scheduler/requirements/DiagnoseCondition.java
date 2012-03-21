@@ -21,4 +21,9 @@ public class DiagnoseCondition implements Requirement
 	@Override
 	public void collect() {
 	}
+	
+	@Override
+	public boolean backToBack() {
+		return false;
+	}
 }

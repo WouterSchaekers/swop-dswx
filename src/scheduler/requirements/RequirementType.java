@@ -3,9 +3,11 @@ package scheduler.requirements;
 public class RequirementType<T extends Requirable> implements Requirement
 {
 	private Class<T> type_;
-
-	public RequirementType(Class<T> type) {
+	private boolean backToBack_;
+	
+	public RequirementType(Class<T> type, boolean backToBack) {
 		type_ = type;
+		backToBack_ = backToBack;
 	}
 
 	@Override
@@ -20,5 +22,10 @@ public class RequirementType<T extends Requirable> implements Requirement
 
 	@Override
 	public void collect() {
+	}
+
+	@Override
+	public boolean backToBack() {
+		return backToBack_;
 	}
 }

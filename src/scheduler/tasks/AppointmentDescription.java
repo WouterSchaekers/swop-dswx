@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import patient.PatientFile;
 import scheduler.HospitalDate;
 import scheduler.requirements.Requirement;
+import scheduler.requirements.RequirementType;
 import scheduler.requirements.SpecificRequirement;
 import users.Doctor;
 import exceptions.InvalidAmountException;
@@ -23,17 +24,11 @@ public class AppointmentDescription extends TaskDescription
 	public Collection<Requirement> getAllRequirements() {
 		Collection<Requirement> requirements = new LinkedList<Requirement>();
 		requirements.add(new SpecificRequirement(this.patientFile_.getPatient()));
+		requirements.add(new RequirementType<Doctor>(Doctor.class,true));
 		return requirements;
 	}
 
 	public Doctor getDocor() {
 		return doctor;
-	}
-
-	@Override
-	public Collection<Requirement> getExecutors() {
-		Collection<Requirement> executors = new LinkedList<Requirement>();
-		executors.add(new SpecificRequirement(doctor));
-		return executors;
 	}
 }

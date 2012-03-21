@@ -1,14 +1,11 @@
 package treatment;
 
 import java.util.Collection;
-import java.util.LinkedList;
 import patient.PatientFile;
 import result.Result;
 import scheduler.HospitalDate;
 import scheduler.requirements.Requirement;
-import scheduler.requirements.RequirementType;
 import scheduler.tasks.TaskDescription;
-import users.Nurse;
 import controllers.interfaces.TreatmentIN;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidHospitalDateException;
@@ -47,9 +44,5 @@ public abstract class Treatment extends TaskDescription implements TreatmentIN
 	}
 	
 	@Override
-	public Collection<Requirement> getExecutors() {
-		Collection<Requirement> executors = new LinkedList<Requirement>();
-		executors.add(new RequirementType<Nurse>(Nurse.class));
-		return executors;
-	}
+	public abstract Collection<Requirement> getAllRequirements();
 }

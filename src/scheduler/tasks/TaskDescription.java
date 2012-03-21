@@ -38,8 +38,6 @@ public abstract class TaskDescription
 	
 	public abstract Collection<Requirement> getAllRequirements();
 	
-	public abstract Collection<Requirement> getExecutors();
-	
 	@Basic
 	public PatientFile getPatientFile(){
 		return this.patientFile_;
