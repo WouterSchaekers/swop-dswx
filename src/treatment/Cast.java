@@ -89,7 +89,7 @@ public class Cast extends Treatment implements CastIN
 	@Override
 	public Collection<Requirement> getAllRequirements() {
 		Collection<Requirement> requirements = new LinkedList<Requirement>();
-		requirements.add(new SpecificRequirement(this.patientFile_.getPatient()));
+		requirements.add(new SpecificRequirement(this.patientFile_.getPatient(),false));
 		requirements.add(new RequirementType<PlasterType>(PlasterType.class,false));
 		requirements.add(new RequirementType<Nurse>(Nurse.class,true));
 		return requirements;

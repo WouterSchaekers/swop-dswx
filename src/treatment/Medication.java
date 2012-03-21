@@ -95,7 +95,7 @@ public class Medication extends Treatment implements MedicationIN
 	@Override
 	public Collection<Requirement> getAllRequirements() {
 		Collection<Requirement> requirements = new LinkedList<Requirement>();
-		requirements.add(new SpecificRequirement(this.patientFile_.getPatient()));
+		requirements.add(new SpecificRequirement(this.patientFile_.getPatient(),false));
 		requirements.add(new RequirementType<MedicationType>(MedicationType.class,false));
 		requirements.add(new RequirementType<Nurse>(Nurse.class,true));
 		return requirements;
