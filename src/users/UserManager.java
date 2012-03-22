@@ -28,18 +28,18 @@ public class UserManager
 	/**
 	 * Use to add schedulable users only!
 	 */
-	public void addUser(SchedulableUser user)
-			throws UserAlreadyExistsException {
+	public void addUser(SchedulableUser user) throws UserAlreadyExistsException {
 		if (_users.keySet().contains(user))
 			throw new UserAlreadyExistsException(user.name);
-		_users.put(user, ((SchedulableUser) user).getLocation());	
+		_users.put(user, ((SchedulableUser) user).getLocation());
 	}
-	
+
 	/**
 	 * Use to add unschedulable users only!
 	 */
-	public void addUser(User user, Whereabouts location) throws UserAlreadyExistsException {
-		if(_users.containsKey(user))
+	public void addUser(User user, Whereabouts location)
+			throws UserAlreadyExistsException {
+		if (_users.containsKey(user))
 			throw new UserAlreadyExistsException(user.name);
 		_users.put(user, location);
 	}
