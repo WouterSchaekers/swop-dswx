@@ -6,8 +6,14 @@ import java.util.LinkedList;
 import scheduler.HospitalDate;
 import scheduler.Schedulable;
 import scheduler.SchedulingData;
+import scheduler.StartTimePoint;
+import scheduler.StopTimePoint;
+import scheduler.TimeSlot;
 import scheduler.requirements.Requirement;
+import system.Campus;
+import exceptions.InvalidHospitalDateArgument;
 import exceptions.InvalidSchedulingRequestException;
+import exceptions.InvalidTimeSlotException;
 
 public class Scheduler
 {
@@ -23,22 +29,26 @@ public class Scheduler
 		HospitalDate startDate = HospitalDate.getMaximum(currentDate, minimumDate);
 		HospitalDate stopDate = new HospitalDate(HospitalDate.END_OF_TIME);
 		Collection<Requirement> metRequirements = getMetRequirements(resourcePool, requirements, startDate);
-		HashMap<LinkedList<Schedulable>, Integer> availableResources = this.getAvailableResources(resourcePool, requirements, metRequirements);
-		this.removeDoubleBookings(availableResources);
-		this.checkIfEnoughResources(availableResources);
-		return schedule(availableResources, produceUsedResourcesList(availableResources), startDate, stopDate, description.getDuration(), description);
+		HashMap<LinkedList<Schedulable>, Integer> availableResources = getAvailableResources(resourcePool, requirements, metRequirements);
+		removeDoubleBookings(availableResources);
+		checkIfEnoughResources(availableResources);
+		return schedule(availableResources, produceUsedResourcesList(availableResources), null, startDate, stopDate, description.getDuration(), description);
 	}
 	
-	private ScheduledTask schedule(HashMap<LinkedList<Schedulable>, Integer> availableResources, HashMap<LinkedList<Schedulable>, LinkedList<Integer>> chosenResources, HospitalDate startDate, HospitalDate stopDate, long duration, TaskDescription taskDescription) throws InvalidSchedulingRequestException{
+	@SuppressWarnings("unchecked")
+	private ScheduledTask schedule(HashMap<LinkedList<Schedulable>, Integer> availableResources, HashMap<LinkedList<Schedulable>, LinkedList<Integer>> chosenResources, Campus location, HospitalDate startDate, HospitalDate stopDate, long duration, TaskDescription taskDescription) throws InvalidSchedulingRequestException{
 		LinkedList<Schedulable> bestOptionToFind = null;
 		for(LinkedList<Schedulable> resourcePool : availableResources.keySet()){
 			if(availableResources.get(resourcePool) > chosenResources.get(resourcePool).size()){
-				bestOptionToFind = resourcePool;
+				bestOptionToFind = (LinkedList<Schedulable>) resourcePool.clone();
+				removeAlreadyUsedResources(bestOptionToFind, chosenResources.get(resourcePool));
+				break;
 			}
 		}
 		if(bestOptionToFind == null){
-			return produceScheduledTask(taskDescription, availableResources, chosenResources, startDate, stopDate);
+			return produceScheduledTask(taskDescription, availableResources, chosenResources, startDate, stopDate, null);
 		}
+		int bestOption = findBestOption(bestOptionToFind, location, startDate, stopDate, duration);
 		return null;
 	}
 	
@@ -110,11 +120,57 @@ public class Scheduler
 	}
 	
 	//Auxiliary methods for the scheduling algorithm.
-	private ScheduledTask produceScheduledTask(TaskDescription taskDescription, HashMap<LinkedList<Schedulable>, Integer> availableResources, HashMap<LinkedList<Schedulable>, LinkedList<Integer>> chosenResources, HospitalDate startDate, HospitalDate stopDate){
+	private ScheduledTask produceScheduledTask(TaskDescription taskDescription, HashMap<LinkedList<Schedulable>, Integer> availableResources, HashMap<LinkedList<Schedulable>, LinkedList<Integer>> chosenResources, HospitalDate startDate, HospitalDate stopDate, Campus location){
 		Collection<Schedulable> usedResources = new LinkedList<Schedulable>();
 		for(LinkedList<Schedulable> resourcePool : availableResources.keySet()){
-			
+			LinkedList<Integer> usedInThisPool = chosenResources.get(resourcePool);
+			for(int i : usedInThisPool){
+				usedResources.add(resourcePool.get(i));
+			}
 		}
-		return new ScheduledTask(taskDescription, null, null, null);
+		return new ScheduledTask(taskDescription, usedResources, new TimeSlot(new StartTimePoint(startDate), new StopTimePoint(stopDate)), location);
+	}
+	
+	private void removeAlreadyUsedResources(LinkedList<Schedulable> resources, LinkedList<Integer> toRemove){
+		LinkedList<Schedulable> removed = new LinkedList<Schedulable>();
+		for(int i = 0; i < resources.size(); i++){
+			if(!toRemove.contains(i)){
+				removed.add(resources.get(i));
+			}
+		}
+		resources = removed;
+	}
+	
+	private int findBestOption(LinkedList<Schedulable> bestOptionToFind, Campus location, HospitalDate startDate, HospitalDate stopDate, long duration) throws InvalidSchedulingRequestException{
+		int bestOption = -1;
+		TimeSlot bestSlot = null;
+		HospitalDate bestDate = null;
+		for (int i = 0; i < bestOptionToFind.size(); i++) {
+			TimeSlot curSlot;
+			try {
+				curSlot = bestOptionToFind.get(i)
+						.getFirstFreeSlotBetween(startDate, stopDate,
+								duration);
+				HospitalDate curStartDate = curSlot.getStartPoint().getHospitalDate();
+				if (bestOption == -1
+						|| (curStartDate.before(bestDate) || (curStartDate
+								.equals(bestDate) && curSlot.getLength() > bestSlot
+								.getLength()))) {
+					bestOption = i;
+					bestSlot = curSlot;
+					bestDate = curStartDate;
+				}
+			} catch (InvalidTimeSlotException e) {
+				System.out.println(e);
+			} catch (InvalidHospitalDateArgument e) {
+				System.out.println(e);
+			}
+			//TODO: fix deze vuile exceptions
+		}
+		if (bestOption == -1) {
+			throw new InvalidSchedulingRequestException(
+					"No Schedulable of this list can be schedulabled.");
+		}
+		return bestOption;
 	}
 }

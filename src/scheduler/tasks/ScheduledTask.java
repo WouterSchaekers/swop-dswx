@@ -4,16 +4,16 @@ import java.util.Collection;
 import scheduler.HospitalDate;
 import scheduler.Schedulable;
 import scheduler.TimeSlot;
-import system.Whereabouts;
+import system.Campus;
 
 public class ScheduledTask extends Task
 {
 	private Collection<Schedulable> resources_;
 	private TimeSlot timeSlot_;
-	private Whereabouts location_;
+	private Campus location_;
 
 	ScheduledTask(TaskDescription description,
-			Collection<Schedulable> resources, TimeSlot timeSlot, Whereabouts location) {
+			Collection<Schedulable> resources, TimeSlot timeSlot, Campus location) {
 		super(description);
 		this.resources_ = resources;
 		this.timeSlot_ = timeSlot;
@@ -32,7 +32,7 @@ public class ScheduledTask extends Task
 		return this.timeSlot_.getStopPoint().getHospitalDate();
 	}
 	
-	public Whereabouts getLocation(){
+	public Campus getLocation(){
 		return this.location_;
 	}
 	
