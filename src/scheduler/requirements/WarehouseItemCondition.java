@@ -1,5 +1,6 @@
 package scheduler.requirements;
 
+import exceptions.InvalidWarehouseItemException;
 import warehouse.Warehouse;
 import warehouse.item.WarehouseItemType;
 
@@ -25,7 +26,11 @@ public class WarehouseItemCondition implements Requirement
 
 	@Override
 	public void collect() {
-		this.warehouse_.removeItemType(this.warehouseItemType_);
+		try {
+			this.warehouse_.take(this.warehouseItemType_);
+		} catch (InvalidWarehouseItemException e) {
+			throw new Error(e.getMessage());
+		}
 	}
 
 	@Override
