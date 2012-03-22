@@ -19,7 +19,7 @@ public class ScheduleMedicalTest extends OrderMedicalTestSuperClass
 			t = chaindata.getFactory().create();
 			chaindata.getMedTestController().addMedicaltest(t);
 			System.out.println("Your medicaltest has now been scheduled !");
-			System.out.println(t.appointmentInfo());
+			//System.out.println(t.appointmentInfo());
 			return new SelectUsecase(data);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

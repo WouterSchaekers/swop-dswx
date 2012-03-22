@@ -2,7 +2,6 @@ package ui.reviewpatient;
 
 import ui.Usecase;
 import ui.UserinterfaceData;
-import controllers.interfaces.MedicalTestIN;
 import controllers.interfaces.PatientFileIN;
 
 public class ReviewMedicalTests extends Usecase
@@ -16,9 +15,11 @@ public class ReviewMedicalTests extends Usecase
 	public Usecase Execute() {
 		PatientFileIN pf = data.getPatientFileOpenController().getPatientFile();
 		System.out.println("Medical tests for:" + pf.getName());
-		for (MedicalTestIN test : pf.getallMedicalTests()) {
-			System.out.println(test.appointmentInfo());
-		}
+		// for (MedicalTestIN test : pf.getallMedicalTests()) {
+		System.out.println("Really cool appointment info!");
+		// TODO: fix
+		// System.out.println(test.appointmentInfo());
+		// }
 		System.out.println("In dept reviewing is not yet enabled.");
 		return new ReviewMore(data);
 	}
