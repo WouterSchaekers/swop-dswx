@@ -1,5 +1,7 @@
 package scheduler.requirements;
 
+import scheduler.HospitalDate;
+
 public class SpecificRequirement implements Requirement
 {
 	private Requirable requirable_;
@@ -16,7 +18,7 @@ public class SpecificRequirement implements Requirement
 	}
 
 	@Override
-	public boolean isMet() {
+	public boolean isMetOn(HospitalDate hospitalDate) {
 		return false;
 	}
 
@@ -27,5 +29,9 @@ public class SpecificRequirement implements Requirement
 	@Override
 	public boolean backToBack() {
 		return backToBack_;
+	}
+	
+	public int getAmount(){
+		return 1;
 	}
 }

@@ -3,6 +3,7 @@ package warehouse;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Observable;
+import scheduler.HospitalDate;
 import system.Campus;
 import warehouse.item.WarehouseItem;
 import warehouse.item.WarehouseItemType;
@@ -98,6 +99,14 @@ public class Warehouse extends Observable
 		int rv = 0;
 		for (WarehouseItem item : items_)
 			if (item.getType().equals(type))
+				rv++;
+		return rv;
+	}
+	
+	public int getCountAt(WarehouseItemType type, HospitalDate hospitalDate){
+		int rv = 0;
+		for (WarehouseItem item : items_)
+			if (!item.isExpiredAt(hospitalDate) && item.getType().equals(type))
 				rv++;
 		return rv;
 	}
