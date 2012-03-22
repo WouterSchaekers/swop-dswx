@@ -24,7 +24,7 @@ public class WarehouseItemCondition implements Requirement
 
 	@Override
 	public boolean isMetOn(HospitalDate hospitalDate) {
-		return this.warehouse_.has(this.warehouseItemType_, 1);
+		return this.warehouse_.hasAt(this.warehouseItemType_, 1, hospitalDate);
 	}
 
 	@Override
