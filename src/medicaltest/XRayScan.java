@@ -49,8 +49,8 @@ public class XRayScan extends MedicalTest
 	public Collection<Requirement> getAllRequirements() {
 		Collection<Requirement> requirements = new LinkedList<Requirement>();
 		requirements.add(new SpecificRequirement(this.patientFile_.getPatient(), false));
-		requirements.add(new RequirementType<XRayScanner>(XRayScanner.class, false));
-		requirements.add(new RequirementType<Nurse>(Nurse.class, true));
+		requirements.add(new RequirementType<XRayScanner>(XRayScanner.class, false, 1));
+		requirements.add(new RequirementType<Nurse>(Nurse.class, true, 1));
 		return requirements;
 	}
 }

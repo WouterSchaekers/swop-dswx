@@ -119,6 +119,10 @@ public class Warehouse extends Observable
 		return getCurrentCount(type) >= amount;
 	}
 	
+	public boolean hasAt(WarehouseItemType type, int amount, HospitalDate hospitalDate){
+		return getCountAt(type, hospitalDate) >= amount;
+	}
+	
 	/**
 	 * <B>THIS METHOD IS TO BE USED BY EXPIREDITEMREMOVER ONLY! DO NOT USE ANYWHERE ELSE <u><i>EVER!</i><u></B>
 	 */

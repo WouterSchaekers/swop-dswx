@@ -24,7 +24,7 @@ public class AppointmentDescription extends TaskDescription
 	public Collection<Requirement> getAllRequirements() {
 		Collection<Requirement> requirements = new LinkedList<Requirement>();
 		requirements.add(new SpecificRequirement(this.patientFile_.getPatient(), false));
-		requirements.add(new RequirementType<Doctor>(Doctor.class,true));
+		requirements.add(new RequirementType<Doctor>(Doctor.class, true, 1));
 		return requirements;
 	}
 
