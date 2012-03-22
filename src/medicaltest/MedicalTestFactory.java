@@ -24,8 +24,16 @@ public abstract class MedicalTestFactory
 		this.creationDate_ = creationDate;
 	}
 	
+	private boolean isValidPatientFile(PatientFile patientFile){
+		return patientFile != null;
+	}
+	
 	private boolean isValidSystemTime(HospitalDate currentSystemTime) {
 		return currentSystemTime != null;
+	}
+	
+	protected boolean isReady(){
+		return isValidSystemTime(this.creationDate_) && isValidPatientFile(this.patientFile_);
 	}
 	
 	public abstract MedicalTest create() throws FactoryInstantiationException;

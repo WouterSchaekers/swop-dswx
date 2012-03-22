@@ -75,7 +75,7 @@ public class UltraSoundScanFactory extends MedicalTestFactory
 	 * @return
 	 */
 	private boolean ready() {
-		boolean rv = true;
+		boolean rv = super.isReady();
 		rv &= recordImageSet;
 		rv &= recordVidSet;
 		rv &= isValidScanInfo(scaninfo);
