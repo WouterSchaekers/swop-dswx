@@ -34,7 +34,8 @@ public class BuildMachine extends AddHospitalEquipmentSuperClass
 		MachineBuilder b = chainData.getMachineBuilder();
 		{
 			try {
-				chainData.getController().createMachine(b, serial, location);
+				//TODO: fix de null
+				chainData.getController().createMachine(b, serial, location, null);
 			} catch (InvalidLocationException e) {
 				System.out.println(e.getMessage());
 				return this;
