@@ -388,6 +388,15 @@ public class HospitalDate
 	public boolean after(HospitalDate hospitalDate) {
 		return hospitalDate.before(this);
 	}
+	
+	public static HospitalDate getMaximum(HospitalDate hospitalDateOne, HospitalDate hospitalDateTwo){
+		if(hospitalDateOne.after(hospitalDateTwo)){
+			return hospitalDateTwo;
+		}
+		else{
+			return hospitalDateOne;
+		}
+	}
 
 	/**
 	 * @return The current date as a string.
