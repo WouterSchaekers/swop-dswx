@@ -23,7 +23,6 @@ public class DischargePatientController extends
 	}
 
 	public void dischargePatient() throws DischargePatientException {
-		// TODO: check if unfinished treatments/test/unapproved diag?
 		hospital.getPatientFileManager().checkOut(
 				(PatientFile) pfoc.getPatientFile());
 	}

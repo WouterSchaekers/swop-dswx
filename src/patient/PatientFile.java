@@ -3,6 +3,7 @@ package patient;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Observer;
 import medicaltest.MedicalTest;
 import observers.DiagnoseObserverTaskManager;
 import scheduler.HospitalDate;
@@ -221,7 +222,7 @@ public class PatientFile implements PatientFileIN
 	public void createDiagnose(Doctor user, String diag, TaskManager manager)
 			throws InvalidDiagnoseException, InvalidDoctorException {
 		Diagnose diagnose = new Diagnose(user, diag);
-		// XXX: diagnose.addObserver(manager);
+		diagnose.addObserver((Observer) manager);
 		addDiagnosis(diagnose);
 
 	}
