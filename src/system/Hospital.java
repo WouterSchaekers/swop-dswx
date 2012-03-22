@@ -3,7 +3,7 @@ package system;
 import java.util.LinkedList;
 import patient.PatientFileManager;
 import scheduler.HospitalDate;
-import scheduler.Scheduler;
+import scheduler.Scheduler2;
 import scheduler.TimeLord;
 import scheduler.tasks.TaskManager;
 import users.HospitalAdmin;
@@ -21,7 +21,7 @@ public class Hospital implements Whereabouts
 	private PatientFileManager patientFileManager_;
 	private TaskManager taskManager_;
 	private TimeLord systemTime_;
-	private Scheduler scheduler_;
+	private Scheduler2 scheduler_;
 	private LinkedList<Campus> campusses_;
 
 	/**
@@ -32,7 +32,7 @@ public class Hospital implements Whereabouts
 			this.systemTime_ = new TimeLord();
 			this.userManager_ = new UserManager();
 			this.patientFileManager_ = new PatientFileManager();
-			this.scheduler_ = new Scheduler(this.systemTime_);
+			this.scheduler_ = new Scheduler2(this.systemTime_);
 			this.taskManager_ = new TaskManager(this.scheduler_);
 			this.campusses_ = new LinkedList<Campus>();
 			//TODO: initilise campusses and give them warehouses.
@@ -63,7 +63,7 @@ public class Hospital implements Whereabouts
 	 * @throws  
 	 */
 	public Hospital(TimeLord timeLord, UserManager userManager, PatientFileManager patientFileManager,
-			Scheduler scheduler, TaskManager taskManager,
+			Scheduler2 scheduler, TaskManager taskManager,
 			HospitalAdmin hospitalAdmin) {
 		this.systemTime_ = timeLord;
 		this.userManager_ = userManager;
@@ -94,7 +94,7 @@ public class Hospital implements Whereabouts
 	}
 
 	@Basic
-	public Scheduler getScheduler() {
+	public Scheduler2 getScheduler() {
 		return scheduler_;
 	}
 	

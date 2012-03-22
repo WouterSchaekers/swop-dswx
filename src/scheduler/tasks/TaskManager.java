@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Queue;
-import scheduler.Scheduler;
+import scheduler.Scheduler2;
 import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidHospitalDateArgument;
@@ -27,7 +27,7 @@ import exceptions.QueueException;
 public class TaskManager extends Observable
 {
 	private Collection<UnscheduledTask> taskQueue = new LinkedList<UnscheduledTask>();
-	private Scheduler myScheduler;
+	private Scheduler2 myScheduler;
 
 	/**
 	 * Default constructor. Creates a new taskamanger and appoints it a
@@ -37,7 +37,7 @@ public class TaskManager extends Observable
 	 *            The scheduler to be stored in this TaskManager for current
 	 *            system time purposes.
 	 */
-	public TaskManager(Scheduler s) {
+	public TaskManager(Scheduler2 s) {
 		this.myScheduler = s;
 	}
 
@@ -74,7 +74,7 @@ public class TaskManager extends Observable
 		this.taskQueue = newQueue;
 	}
 
-	private Scheduler myScheduler() {
+	private Scheduler2 myScheduler() {
 		return this.myScheduler;
 	}
 
