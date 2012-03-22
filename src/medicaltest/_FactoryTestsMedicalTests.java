@@ -3,6 +3,7 @@ package medicaltest;
 import static org.junit.Assert.assertTrue;
 import java.util.Collection;
 import org.junit.Test;
+import exceptions.FactoryInstantiationException;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidTimeSlotException;
@@ -42,7 +43,7 @@ public class _FactoryTestsMedicalTests
 
 	@Test
 	public void createUltraSoundScan1() throws InvalidNameException,
-			InvalidDurationException, InvalidTimeSlotException {
+			InvalidDurationException, InvalidTimeSlotException, FactoryInstantiationException {
 		UltraSoundScanFactory fac = filterUltraSoundFactory(m.factories());
 		fac.setRecordImages(true);
 		fac.setRecordVid(true);
@@ -56,7 +57,7 @@ public class _FactoryTestsMedicalTests
 
 	@Test
 	public void createUltraSoundScan2() throws InvalidNameException,
-			InvalidDurationException, InvalidTimeSlotException {
+			InvalidDurationException, InvalidTimeSlotException, FactoryInstantiationException {
 		UltraSoundScanFactory fac = filterUltraSoundFactory(m.factories());
 		fac.setRecordImages(false);
 		fac.setRecordVid(true);
@@ -70,7 +71,7 @@ public class _FactoryTestsMedicalTests
 
 	@Test
 	public void createUltraSoundScan() throws InvalidNameException,
-			InvalidDurationException, InvalidTimeSlotException {
+			InvalidDurationException, InvalidTimeSlotException, FactoryInstantiationException {
 		UltraSoundScanFactory fac = filterUltraSoundFactory(m.factories());
 		fac.setRecordImages(true);
 		fac.setRecordVid(false);
@@ -84,7 +85,7 @@ public class _FactoryTestsMedicalTests
 
 	@Test
 	public void createUltraSoundScan3() throws InvalidNameException,
-			InvalidDurationException, InvalidTimeSlotException {
+			InvalidDurationException, InvalidTimeSlotException, FactoryInstantiationException {
 		UltraSoundScanFactory fac = filterUltraSoundFactory(m.factories());
 		fac.setRecordImages(false);
 		fac.setRecordVid(false);
@@ -98,7 +99,7 @@ public class _FactoryTestsMedicalTests
 
 	@Test(expected = IllegalArgumentException.class)
 	public void createUltraSoundScanError1() throws InvalidNameException,
-			InvalidDurationException, InvalidTimeSlotException {
+			InvalidDurationException, InvalidTimeSlotException, FactoryInstantiationException {
 		UltraSoundScanFactory fac = filterUltraSoundFactory(m.factories());
 		fac.create();
 
@@ -106,7 +107,7 @@ public class _FactoryTestsMedicalTests
 
 	@Test(expected = IllegalArgumentException.class)
 	public void createUltraSoundScanError2() throws InvalidNameException,
-			InvalidDurationException, InvalidTimeSlotException {
+			InvalidDurationException, InvalidTimeSlotException, FactoryInstantiationException {
 		UltraSoundScanFactory fac = filterUltraSoundFactory(m.factories());
 		fac.setRecordImages(true);
 		fac.create();
@@ -114,7 +115,7 @@ public class _FactoryTestsMedicalTests
 
 	@Test(expected = IllegalArgumentException.class)
 	public void createUltraSoundScanError3() throws InvalidNameException,
-			InvalidDurationException, InvalidTimeSlotException {
+			InvalidDurationException, InvalidTimeSlotException, FactoryInstantiationException {
 		UltraSoundScanFactory fac = filterUltraSoundFactory(m.factories());
 		fac.setRecordImages(true);
 		fac.setRecordVid(true);
@@ -123,7 +124,7 @@ public class _FactoryTestsMedicalTests
 
 	@Test(expected = IllegalArgumentException.class)
 	public void createUltraSoundScanError4() throws InvalidNameException,
-			InvalidDurationException, InvalidTimeSlotException {
+			InvalidDurationException, InvalidTimeSlotException, FactoryInstantiationException {
 		UltraSoundScanFactory fac = filterUltraSoundFactory(m.factories());
 		fac.setRecordImages(true);
 		fac.setRecordVid(true);
@@ -133,7 +134,7 @@ public class _FactoryTestsMedicalTests
 
 	@Test
 	public void createBloodAnalysisTest1() throws InvalidNameException,
-			InvalidDurationException, InvalidTimeSlotException {
+			InvalidDurationException, InvalidTimeSlotException, FactoryInstantiationException {
 		BloodAnalysisFactory fac = filterBloodAnalysis(m.factories());
 		fac.setFocus("focus");
 		fac.setNumberOfAnalysis(3);
@@ -145,7 +146,7 @@ public class _FactoryTestsMedicalTests
 
 	@Test
 	public void createBloodAnalysisTest2() throws InvalidNameException,
-			InvalidDurationException, InvalidTimeSlotException {
+			InvalidDurationException, InvalidTimeSlotException, FactoryInstantiationException {
 		BloodAnalysisFactory fac = filterBloodAnalysis(m.factories());
 		fac.setFocus("focus");
 		fac.setNumberOfAnalysis(4);
@@ -157,7 +158,7 @@ public class _FactoryTestsMedicalTests
 
 	@Test(expected = IllegalArgumentException.class)
 	public void createBloodAnalysisTesterror1() throws InvalidNameException,
-			InvalidDurationException, InvalidTimeSlotException {
+			InvalidDurationException, InvalidTimeSlotException, FactoryInstantiationException {
 		BloodAnalysisFactory fac = filterBloodAnalysis(m.factories());
 		fac.setFocus("focus");
 		fac.setNumberOfAnalysis(0);
@@ -166,14 +167,14 @@ public class _FactoryTestsMedicalTests
 
 	@Test(expected = IllegalArgumentException.class)
 	public void createBloodAnalysisTesterror2() throws InvalidNameException,
-			InvalidDurationException, InvalidTimeSlotException {
+			InvalidDurationException, InvalidTimeSlotException, FactoryInstantiationException {
 		BloodAnalysisFactory fac = filterBloodAnalysis(m.factories());
 		fac.create();
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void createBloodAnalysisTesterror3() throws InvalidNameException,
-			InvalidDurationException, InvalidTimeSlotException {
+			InvalidDurationException, InvalidTimeSlotException, FactoryInstantiationException {
 		BloodAnalysisFactory fac = filterBloodAnalysis(m.factories());
 		fac.setFocus("f");
 		fac.create();
@@ -181,7 +182,7 @@ public class _FactoryTestsMedicalTests
 
 	@Test(expected = IllegalArgumentException.class)
 	public void createBloodAnalysisTesterror4() throws InvalidNameException,
-			InvalidDurationException, InvalidTimeSlotException {
+			InvalidDurationException, InvalidTimeSlotException, FactoryInstantiationException {
 		BloodAnalysisFactory fac = filterBloodAnalysis(m.factories());
 		fac.setNumberOfAnalysis(4);
 		fac.create();
