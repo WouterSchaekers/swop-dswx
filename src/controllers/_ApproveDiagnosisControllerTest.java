@@ -4,7 +4,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import system.Hospital;
-import system.Whereabouts;
+import system.Location;
 import users.Doctor;
 import users.HospitalAdmin;
 import users.Nurse;
@@ -30,7 +30,7 @@ public class _ApproveDiagnosisControllerTest
 		hospital = new Hospital();
 		loginController = new LoginController(hospital);
 		hospital.addCampus("Campus 1");
-		Whereabouts w = hospital.getCampus("Campus 1");
+		Location w = hospital.getCampus("Campus 1");
 		nurse = new Nurse("jenny",w);
 		doctor = new Doctor("jonathan",w);
 		hospitad = new HospitalAdmin("asdfd");

@@ -1,5 +1,6 @@
 package machine;
 
+import system.Location;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidSerialException;
 
@@ -15,7 +16,7 @@ public class BloodAnalyserBuilder extends MachineBuilder
 
 	}
 
-	public Machine build(int serial, String location)
+	public Machine build(int serial, Location location)
 			throws InvalidLocationException, InvalidSerialException {
 		return pool.createBloodAnalyser(serial, location);
 	}

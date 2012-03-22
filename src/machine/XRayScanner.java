@@ -2,6 +2,8 @@ package machine;
 
 import scheduler.HospitalDate;
 import scheduler.TimeSlot;
+import system.Location;
+import exceptions.InvalidHospitalDateArgument;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidSerialException;
@@ -15,7 +17,7 @@ public class XRayScanner extends Machine
 	 * 
 	 * @throws InvalidTimeSlotException
 	 * */
-	XRayScanner(int serial, String location) throws InvalidLocationException,
+	XRayScanner(int serial, Location location) throws InvalidLocationException,
 			InvalidSerialException {
 		super(serial, location);
 	}

@@ -1,6 +1,6 @@
 package controllers;
 
-import system.Whereabouts;
+import system.Location;
 import users.Doctor;
 import users.HospitalAdmin;
 import users.Nurse;
@@ -19,14 +19,14 @@ public class AddHospitalStaffController extends NeedsLoginController
 
 	public void addNurse(String name, String location) throws UserAlreadyExistsException,
 			InvalidNameException {
-		Whereabouts w = this.hospital.getCampus(location);
+		Location w = this.hospital.getCampus(location);
 		Nurse n = new Nurse(name,w);
 		this.hospital.getUserManager().addUser(n, w);
 	}
 
 	public void addDoctor(String name, String location)
 			throws UserAlreadyExistsException, InvalidNameException {
-		Whereabouts w = this.hospital.getCampus(location);
+		Location w = this.hospital.getCampus(location);
 		Doctor d = new Doctor(name, w);
 		this.hospital.getUserManager().addUser(d, w);
 	}

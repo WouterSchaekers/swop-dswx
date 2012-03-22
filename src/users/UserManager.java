@@ -3,7 +3,7 @@ package users;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
-import system.Whereabouts;
+import system.Location;
 import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.UserIN;
 import exceptions.UserAlreadyExistsException;
@@ -11,13 +11,13 @@ import exceptions.UserAlreadyExistsException;
 public class UserManager
 {
 
-	private Map<User, Whereabouts> _users;
+	private Map<User, Location> _users;
 
 	/**
 	 * Default constructor.
 	 */
 	public UserManager() {
-		_users = new HashMap<User, Whereabouts>();
+		_users = new HashMap<User, Location>();
 	}
 
 	@Basic
@@ -37,7 +37,7 @@ public class UserManager
 	/**
 	 * Use to add unschedulable users only!
 	 */
-	public void addUser(User user, Whereabouts location)
+	public void addUser(User user, Location location)
 			throws UserAlreadyExistsException {
 		if (_users.containsKey(user))
 			throw new UserAlreadyExistsException(user.name);

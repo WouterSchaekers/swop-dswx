@@ -8,7 +8,7 @@ import warehouse.Warehouse;
  * This class represents a campus that's part of a hospital. Campusses have
  * their own MachinePool, Warehouse and name. Use this name to identify them.
  */
-public class Campus implements Whereabouts
+public class Campus implements Location
 {
 	private String campusName_;
 	private MachinePool machinePool_ = new MachinePool();

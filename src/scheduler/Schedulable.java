@@ -3,6 +3,8 @@ package scheduler;
 import java.util.Collection;
 import scheduler.requirements.Requirable;
 import scheduler.tasks.ScheduledTask;
+import system.Campus;
+import system.Location;
 import exceptions.InvalidHospitalDateArgument;
 import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidTimeSlotException;
@@ -22,7 +24,7 @@ public interface Schedulable extends Requirable
 	public void scheduleAt(TimeSlot timeSlot)
 			throws InvalidSchedulingRequestException;
 
-	public TimeSlot getFirstFreeSlotBetween(HospitalDate startDate,
+	public TimeSlot getFirstFreeSlotBetween(Location location, HospitalDate startDate,
 			HospitalDate stopDate, long duration)
 			throws InvalidSchedulingRequestException, InvalidTimeSlotException,
 			InvalidHospitalDateArgument;

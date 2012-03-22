@@ -120,46 +120,12 @@ public class HospitalDate
 	 *            The minute of the hour.
 	 * @param second
 	 *            The second of the minute.
-	 * @throws InvalidHospitalDateArgument
-	 *             if the arguments are non sensible
 	 */
 	public HospitalDate(int year, int month, int day, int hour, int minute,
 			int second) {
-		// if (!validArguments(year, month, day, hour, minute, second)){
-		// System.out.println(year + " " + month + " " + day + " " + hour + " "
-		// + minute + " " + second);
-		// throw new InvalidHospitalDateArgument();
-		// }
 		gregorianCalendar = new GregorianCalendar(year, month, day, hour,
 				minute, second);
 	}
-
-	/**
-	 * Returs false if the arguments provided are not sensible.
-	 * 
-	 * @param year
-	 * @param month
-	 * @param day
-	 * @param hour
-	 * @param minute
-	 * @param second
-	 * @return
-	 */
-	// private boolean validArguments(int year, int month, int day, int hour,
-	// int minute, int second) {
-	// boolean rv = true;
-	// rv &= month > 0;
-	// rv &= month < 13;
-	// rv &= day > 0;
-	// rv &= day < 32;
-	// rv &= hour >= 0;
-	// rv &= hour < 25;
-	// rv &= minute >= 0;
-	// rv &= minute < 60;
-	// rv &= second >= 0;
-	// rv &= second < 60;
-	// return rv;
-	// }
 
 	/**
 	 * @return The year.

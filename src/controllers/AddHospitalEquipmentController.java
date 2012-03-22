@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import machine.MachineBuilder;
 import system.Campus;
-import system.Whereabouts;
+import system.Location;
 import users.HospitalAdmin;
 import users.User;
 import exceptions.ControllerException;
@@ -47,7 +47,7 @@ public class AddHospitalEquipmentController extends NeedsLoginController
 	 * Creates a new machine from the given machine builder and adds it to the
 	 * hospital.
 	 */
-	public void createMachine(MachineBuilder b, int serial, String location, Whereabouts whereabouts)
+	public void createMachine(MachineBuilder b, int serial, String location, Location whereabouts)
 			throws InvalidLocationException, InvalidSerialException {
 		((Campus)(whereabouts)).getMachinePool().addMachine(b.build(serial, location));
 	}

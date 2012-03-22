@@ -2,7 +2,7 @@ package users;
 
 import scheduler.HospitalDate;
 import scheduler.TimeSlot;
-import system.Whereabouts;
+import system.Location;
 import controllers.interfaces.NurseIN;
 import exceptions.InvalidHospitalDateArgument;
 import exceptions.InvalidNameException;
@@ -26,7 +26,7 @@ public class Nurse extends SchedulableUser implements NurseIN
 	 * @throws InvalidNameException
 	 * @throws InvalidTimeSlotException
 	 */
-	public Nurse(String name, Whereabouts preference)
+	public Nurse(String name, Location preference)
 			throws InvalidNameException {
 		super(name, preference);
 	}
@@ -46,7 +46,7 @@ public class Nurse extends SchedulableUser implements NurseIN
 	}
 
 	@Override
-	public TimeSlot getFirstFreeSlotBetween(HospitalDate startDate,
+	public TimeSlot getFirstFreeSlotBetween(Location location, HospitalDate startDate,
 			HospitalDate stopDate, long duration)
 			throws InvalidSchedulingRequestException, InvalidTimeSlotException,
 			InvalidHospitalDateArgument {
@@ -91,7 +91,7 @@ public class Nurse extends SchedulableUser implements NurseIN
 	}
 
 	@Override
-	public Whereabouts getLocationAt(HospitalDate hospitalDate) {
+	public Location getLocationAt(HospitalDate hospitalDate) {
 		return this._preference;
 	}
 }
