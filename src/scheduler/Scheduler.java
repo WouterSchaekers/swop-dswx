@@ -1,6 +1,7 @@
 package scheduler;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
 import exceptions.ConditionNotMetException;
 import scheduler.requirements.Requirement;
@@ -21,22 +22,33 @@ public class Scheduler
 		HospitalDate minimumDate = new HospitalDate(description.getCreationTime().getTimeSinceStart() + description.getExtraTime());
 		HospitalDate startDate = HospitalDate.getMaximum(currentDate, minimumDate);
 		HospitalDate stopDate = new HospitalDate(HospitalDate.END_OF_TIME);
-		LinkedList<LinkedList<Schedulable>> availableSchedulables = this.getAvailableSchedulables(schedulablePool, requirements, startDate);
+		Collection<Requirement> metRequirements = getMetRequirements(schedulablePool, requirements, startDate);
+		HashMap<LinkedList<Schedulable>, Integer> availableSchedulables = this.getAvailableSchedulables(schedulablePool, requirements, metRequirements);
 		return schedule(availableSchedulables, 0, HospitalDate.getMaximum(currentDate, minimumDate), stopDate, description.getDuration());
 	}
 	
-	private ScheduledTask schedule(LinkedList<LinkedList<Schedulable>> availableSchedulables, int iteration, HospitalDate startDate, HospitalDate stopDate, long duration){
+	private ScheduledTask schedule(HashMap<LinkedList<Schedulable>, Integer> availableSchedulables, int iteration, HospitalDate startDate, HospitalDate stopDate, long duration){
 		return null;
 	}
 	
-	private LinkedList<LinkedList<Schedulable>> getAvailableSchedulables(Collection<Schedulable> schedulablePool, Collection<Requirement> requirements, HospitalDate startDate) throws ConditionNotMetException{
+	private Collection<Requirement> getMetRequirements(Collection<Schedulable> schedulablePool, Collection<Requirement> requirements, HospitalDate startDate){
+		Collection<Requirement> isAlreadyMet = new LinkedList<Requirement>();
+		for(Requirement requirement : requirements){
+			if(requirement.isMetOn(startDate)){
+				isAlreadyMet.add(requirement);
+			}
+		}
+		return isAlreadyMet;
+	}
+	
+	private HashMap<LinkedList<Schedulable>, Integer> getAvailableSchedulables(Collection<Schedulable> schedulablePool, Collection<Requirement> requirements, Collection<Requirement> metRequirements) throws ConditionNotMetException{
 		Collection<Requirement> notMetYet = new LinkedList<Requirement>();
 		for(Requirement requirement : requirements){
-			if(!requirement.isMetOn(startDate)){
+			if(!metRequirements.contains(requirement)){
 				notMetYet.add(requirement);
 			}
 		}
-		LinkedList<LinkedList<Schedulable>> availableSchedulables = new LinkedList<LinkedList<Schedulable>>();
+		HashMap<LinkedList<Schedulable>, Integer> availableSchedulables = new HashMap<LinkedList<Schedulable>, Integer>();
 		for(Requirement requirement : notMetYet){
 			LinkedList<Schedulable> isMetBy = new LinkedList<Schedulable>();
 			for(Schedulable schedulable : schedulablePool){
