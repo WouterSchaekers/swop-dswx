@@ -8,21 +8,19 @@ import scheduler.HospitalDate;
 import scheduler.requirements.Requirement;
 import scheduler.requirements.RequirementType;
 import scheduler.requirements.SpecificRequirement;
+import users.Nurse;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidHospitalDateException;
 
 public class UltraSoundScan extends MedicalTest
 {
-
-	public final static long DURATION_ = 30 * HospitalDate.ONE_MINUTE;
 	private final String scaninfo;
 	private final boolean recordVid;
 	private final boolean recordImages;
 
-	UltraSoundScan(PatientFile patientFile, HospitalDate creationTime, String scaninfo, boolean recordVid, boolean recordImages)
-			throws InvalidDurationException, InvalidAmountException, InvalidHospitalDateException {
-		super(patientFile, DURATION_, creationTime);
+	UltraSoundScan(PatientFile patientFile, HospitalDate creationTime, String scaninfo, boolean recordVid, boolean recordImages) throws InvalidAmountException, InvalidHospitalDateException {
+		super(patientFile, 30 * HospitalDate.ONE_MINUTE, creationTime);
 		this.scaninfo = scaninfo;
 		this.recordVid = recordVid;
 		this.recordImages = recordImages;
@@ -43,8 +41,9 @@ public class UltraSoundScan extends MedicalTest
 	@Override
 	public Collection<Requirement> getAllRequirements() {
 		Collection<Requirement> requirements = new LinkedList<Requirement>();
-		requirements.add(new SpecificRequirement(this.patientFile_.getPatient()));
-		requirements.add(new RequirementType<UltraSoundScanner>(UltraSoundScanner.class));
+		requirements.add(new SpecificRequirement(this.patientFile_.getPatient(), false));
+		requirements.add(new RequirementType<UltraSoundScanner>(UltraSoundScanner.class, false));
+		requirements.add(new RequirementType<Nurse>(Nurse.class, true));
 		return requirements;
 	}
 }
