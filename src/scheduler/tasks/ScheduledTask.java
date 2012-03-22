@@ -39,4 +39,8 @@ public class ScheduledTask extends Task
 	public TimeSlot getTimeSlot(){
 		return this.timeSlot_;
 	}
+	
+	public boolean before(ScheduledTask otherTask){
+		return this.timeSlot_.getStartPoint().getHospitalDate().before(otherTask.getTimeSlot().getStartPoint().getHospitalDate());
+	}
 }
