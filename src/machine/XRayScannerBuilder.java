@@ -1,5 +1,6 @@
 package machine;
 
+import system.Location;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidSerialException;
 
@@ -14,7 +15,7 @@ public class XRayScannerBuilder extends MachineBuilder
 		return "XrayScanner";
 	}
 
-	public XRayScanner build(int serial, String location)
+	public XRayScanner build(int serial, Location location)
 			throws InvalidLocationException, InvalidSerialException {
 		return pool.createXrayScanner(serial, location);
 

@@ -7,19 +7,19 @@ import scheduler.Schedulable;
 import scheduler.TimeSlot;
 import scheduler.TimeTable;
 import scheduler.tasks.ScheduledTask;
-import system.Whereabouts;
+import system.Location;
 import exceptions.InvalidNameException;
 import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidTimeSlotException;
 
 public abstract class SchedulableUser extends User implements Schedulable
 {
-	protected Whereabouts _preference;
-	protected Whereabouts _location;
+	protected Location _preference;
+	protected Location _location;
 	protected TimeTable _timeTable = new TimeTable();
 	protected Collection<ScheduledTask> _scheduledTasks;
 
-	protected SchedulableUser(String name, Whereabouts preference) throws InvalidNameException {
+	protected SchedulableUser(String name, Location preference) throws InvalidNameException {
 		super(name);
 		this._preference = preference;
 		this._timeTable = new TimeTable();
@@ -48,15 +48,15 @@ public abstract class SchedulableUser extends User implements Schedulable
 		this._timeTable.updateTimeTable(newDate);
 	}
 	
-	public void setLocation(Whereabouts location){
+	public void setLocation(Location location){
 		this._location = location;
 	}
 	
-	public Whereabouts getLocation(){
+	public Location getLocation(){
 		return this._location;
 	}
 	
-	public abstract Whereabouts getLocationAt(HospitalDate hospitalDate);
+	public abstract Location getLocationAt(HospitalDate hospitalDate);
 
 	public Collection<ScheduledTask> getScheduledTasks() {
 		return this._scheduledTasks;

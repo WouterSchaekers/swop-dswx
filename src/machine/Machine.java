@@ -7,6 +7,7 @@ import scheduler.Schedulable;
 import scheduler.TimeSlot;
 import scheduler.TimeTable;
 import scheduler.tasks.ScheduledTask;
+import system.Location;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidSerialException;
@@ -21,10 +22,10 @@ import exceptions.InvalidTimeSlotException;
 public abstract class Machine implements Schedulable
 {
 
-	private final int serial;
-	private String location = "";
-	private TimeTable timeTable;
-	protected Collection<ScheduledTask> scheduledTasks;
+	private final int serial_;
+	private Location location_;
+	private TimeTable timeTable_;
+	protected Collection<ScheduledTask> scheduledTasks_;
 
 	/**
 	 * Default constructor.
@@ -37,30 +38,29 @@ public abstract class Machine implements Schedulable
 	 *             If the location provided is null or an empty string.
 	 * @throws InvalidTimeSlotException
 	 */
-	Machine(int serial, String location)
+	Machine(int serial, Location location)
 			throws InvalidLocationException, InvalidSerialException {
-		if (location == null || location == "") {
+		if (location == null) {
 			throw new InvalidLocationException("Location is not set or empty.");
 		}
-
-		this.serial = serial;
-		this.location = location;
-		this.timeTable = new TimeTable();
-		this.scheduledTasks = new LinkedList<ScheduledTask>();
+		this.serial_ = serial;
+		this.location_ = location;
+		this.timeTable_ = new TimeTable();
+		this.scheduledTasks_ = new LinkedList<ScheduledTask>();
 	}
 
 	/**
 	 * @return The serial of this machine.
 	 */
 	public int getSerial() {
-		return this.serial;
+		return this.serial_;
 	}
 
 	/**
 	 * @return The location of this machine.
 	 */
-	public String getLocation() {
-		return this.location;
+	public Location getLocation() {
+		return this.location_;
 	}
 
 	/**
@@ -70,14 +70,14 @@ public abstract class Machine implements Schedulable
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof Machine)
-			return ((Machine) o).serial == this.serial;
+			return ((Machine) o).serial_ == this.serial_;
 		return false;
 
 	}
 
 	@Override
 	public TimeTable getTimeTable() {
-		return this.timeTable;
+		return this.timeTable_;
 	}
 
 	@Override
@@ -85,25 +85,28 @@ public abstract class Machine implements Schedulable
 			HospitalDate stopDate);
 
 	@Override
-	public TimeSlot getFirstFreeSlotBetween(HospitalDate startDate,
+	public TimeSlot getFirstFreeSlotBetween(Location location, HospitalDate startDate,
 			HospitalDate stopDate, long duration)
 			throws InvalidSchedulingRequestException, InvalidTimeSlotException {
+		if(location != this.location_){
+			throw new InvalidSchedulingRequestException("The machine is not available at this location");
+		}
 		return this.getTimeTable().getFirstFreeSlotBetween(startDate, stopDate,
 				duration);
 	}
 
 	@Override
 	public void updateTimeTable(HospitalDate newDate) {
-		this.timeTable.updateTimeTable(newDate);
+		this.timeTable_.updateTimeTable(newDate);
 	}
 
 	@Override
 	public Collection<ScheduledTask> getScheduledTasks() {
-		return this.scheduledTasks;
+		return this.scheduledTasks_;
 	}
 
 	@Override
 	public void addScheduledTask(ScheduledTask scheduledTask) {
-		this.scheduledTasks.add(scheduledTask);
+		this.scheduledTasks_.add(scheduledTask);
 	}
 }

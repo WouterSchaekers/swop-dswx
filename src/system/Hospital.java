@@ -15,7 +15,7 @@ import exceptions.InvalidCampusException;
  * This class represents a hospital. It can be used to pass a bunch of data to
  * the controllers in a fashionable way.
  */
-public class Hospital implements Whereabouts
+public class Hospital
 {
 	private UserManager userManager_;
 	private PatientFileManager patientFileManager_;

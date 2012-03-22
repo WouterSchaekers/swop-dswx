@@ -9,6 +9,7 @@ import scheduler.Schedulable;
 import scheduler.TimeSlot;
 import scheduler.TimeTable;
 import scheduler.tasks.ScheduledTask;
+import system.Location;
 
 /**
  * This class represents a patient.
@@ -47,7 +48,7 @@ public class Patient implements Schedulable
 	}
 
 	@Override
-	public TimeSlot getFirstFreeSlotBetween(HospitalDate startDate,
+	public TimeSlot getFirstFreeSlotBetween(Location location, HospitalDate startDate,
 			HospitalDate stopDate, long duration)
 			throws InvalidSchedulingRequestException, InvalidTimeSlotException,
 			InvalidHospitalDateArgument {
