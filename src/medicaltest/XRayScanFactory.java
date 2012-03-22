@@ -67,7 +67,7 @@ public class XRayScanFactory extends MedicalTestFactory
 	 * @return true if bodypart,num and zoomlevel are valid
 	 */
 	private boolean ready() {
-		boolean rv = true;
+		boolean rv = super.isReady();
 		rv &= isValidBodyPart(bodypart);
 		rv &= isValidZoomLevel(zoomlevel);
 		rv &= isValidNumberOfImages(num);

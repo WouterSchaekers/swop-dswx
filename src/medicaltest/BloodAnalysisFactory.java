@@ -68,7 +68,7 @@ public class BloodAnalysisFactory extends MedicalTestFactory
 	 *         wrongfully inialized.
 	 */
 	private boolean ready() {
-		boolean rv = true;
+		boolean rv = super.isReady();
 		rv &= isValidFocus(focus_);
 		rv &= isValidNumberOfAnalysis(numberOfAnalysis_);
 		return rv;
