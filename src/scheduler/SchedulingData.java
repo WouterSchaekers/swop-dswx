@@ -40,12 +40,4 @@ public class SchedulingData
 	public UnscheduledTask getTask() {
 		return task_;
 	}
-
-	/**
-	 * @param task_
-	 *            the task_ to set
-	 */
-	public void setTask_(UnscheduledTask task_) {
-		this.task_ = task_;
-	}
 }
