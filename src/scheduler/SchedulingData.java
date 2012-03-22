@@ -3,6 +3,10 @@ package scheduler;
 import java.util.Collection;
 import scheduler.tasks.UnscheduledTask;
 
+/**
+ * Use this object to transfer a bunch of data to the scheduler when you want to
+ * schedule something.
+ */
 public class SchedulingData
 {
 	private Collection<Schedulable> allSchedulables_;
