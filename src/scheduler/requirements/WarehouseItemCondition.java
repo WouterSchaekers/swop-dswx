@@ -1,17 +1,20 @@
 package scheduler.requirements;
 
-import exceptions.InvalidWarehouseItemException;
+import scheduler.HospitalDate;
 import warehouse.Warehouse;
 import warehouse.item.WarehouseItemType;
+import exceptions.InvalidWarehouseItemException;
 
 public class WarehouseItemCondition implements Requirement
 {
 	private WarehouseItemType warehouseItemType_;
 	private Warehouse warehouse_;
+	private int amount_;
 	
-	public WarehouseItemCondition(WarehouseItemType warehouseItemType, Warehouse warehouse){
+	public WarehouseItemCondition(WarehouseItemType warehouseItemType, Warehouse warehouse, int amount){
 		this.warehouseItemType_ = warehouseItemType;
 		this.warehouse_ = warehouse;
+		this.amount_ = amount;
 	}
 	
 	@Override
@@ -20,7 +23,7 @@ public class WarehouseItemCondition implements Requirement
 	}
 
 	@Override
-	public boolean isMet() {
+	public boolean isMetOn(HospitalDate hospitalDate) {
 		return this.warehouse_.has(this.warehouseItemType_, 1);
 	}
 
@@ -36,5 +39,9 @@ public class WarehouseItemCondition implements Requirement
 	@Override
 	public boolean backToBack() {
 		return false;
+	}
+	
+	public int getAmount(){
+		return this.amount_;
 	}
 }

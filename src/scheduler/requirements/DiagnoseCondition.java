@@ -1,6 +1,7 @@
 package scheduler.requirements;
 
 import patient.Diagnose;
+import scheduler.HospitalDate;
 
 public class DiagnoseCondition implements Requirement
 {
@@ -14,7 +15,7 @@ public class DiagnoseCondition implements Requirement
 	}
 
 	@Override
-	public boolean isMet() {
+	public boolean isMetOn(HospitalDate hospitalDate) {
 		return this.diagnose_.isApproved();
 	}
 
@@ -25,5 +26,9 @@ public class DiagnoseCondition implements Requirement
 	@Override
 	public boolean backToBack() {
 		return false;
+	}
+	
+	public int getAmount(){
+		return 1;
 	}
 }

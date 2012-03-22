@@ -1,13 +1,17 @@
 package scheduler.requirements;
 
+import scheduler.HospitalDate;
+
 public class RequirementType<T extends Requirable> implements Requirement
 {
 	private Class<T> type_;
 	private boolean backToBack_;
+	private int amount_;
 	
-	public RequirementType(Class<T> type, boolean backToBack) {
-		type_ = type;
-		backToBack_ = backToBack;
+	public RequirementType(Class<T> type, boolean backToBack, int amount) {
+		this.type_ = type;
+		this.backToBack_ = backToBack;
+		this.amount_ = amount;
 	}
 
 	@Override
@@ -16,7 +20,7 @@ public class RequirementType<T extends Requirable> implements Requirement
 	}
 
 	@Override
-	public boolean isMet() {
+	public boolean isMetOn(HospitalDate hospitalDate) {
 		return false;
 	}
 
@@ -27,5 +31,9 @@ public class RequirementType<T extends Requirable> implements Requirement
 	@Override
 	public boolean backToBack() {
 		return backToBack_;
+	}
+	
+	public int getAmount(){
+		return this.amount_;
 	}
 }
