@@ -1,6 +1,7 @@
 package warehouse.orderstrat;
 
 import patient.PatientFileManager;
+import scheduler.TimeLord;
 import warehouse.Warehouse;
 import warehouse.item.MealType;
 import warehouse.stock.StockProvider;
@@ -10,8 +11,8 @@ public class PatientMealStrategy extends OrderStrategy
 	private PatientFileManager man_;
 
 	public PatientMealStrategy(MealType type, Warehouse warehouse,
-			StockProvider provider) {
-		super(type, warehouse, provider);
+			StockProvider provider, TimeLord timeLord) {
+		super(type, warehouse, provider, timeLord);
 	}
 
 	/**

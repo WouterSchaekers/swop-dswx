@@ -4,7 +4,6 @@ import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileOpenController;
 
-//TODO: Stefaan maakt prentje en commentaar.
 /**
  * This class is the superclass of all controller that need both a logincontroller and a patientfilecontroller.
  */

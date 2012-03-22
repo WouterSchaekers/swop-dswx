@@ -1,5 +1,6 @@
 package warehouse.orderstrat;
 
+import scheduler.TimeLord;
 import warehouse.Warehouse;
 import warehouse.item.MedicationType;
 import warehouse.stock.StockProvider;
@@ -10,8 +11,8 @@ import warehouse.stock.StockProvider;
 public class MedicationOrderStrategy extends OrderStrategy
 {
 	public MedicationOrderStrategy(MedicationType type, Warehouse warehouse,
-			StockProvider provider) {
-		super(type, warehouse, provider);
+			StockProvider provider, TimeLord timeLord) {
+		super(type, warehouse, provider, timeLord);
 	}
 
 	protected int getNeeded() {

@@ -72,7 +72,7 @@ public class _AddHospitalEquipmentTest
 		addHospitalEquipmentController = new AddHospitalEquipmentController(
 				loginController);
 		MachineBuilder m = hospital.getCampus("Campus 1").getMachinePool().getAllBuilders().iterator().next();
-		addHospitalEquipmentController.createMachine(m, 3, "jozef"
+		addHospitalEquipmentController.createMachine(m, 3, "jozef", hospital
 				);
 		assertTrue(hospital.getCampus("Campus 1").getMachinePool().getAllMachines().size() == 1);
 	}
