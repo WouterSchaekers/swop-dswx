@@ -91,7 +91,7 @@ public class TestScenarios
 		Collection<MachineBuilder> mbs = ahec.getAllMachineBuilders();
 		for (MachineBuilder mb : mbs)
 			if (mb.toString().equals("XrayScanner")) {
-				ahec.createMachine(mb, 523, "Location X");
+				ahec.createMachine(mb, 523, "Location X", h);
 				break;
 			}
 		System.out.println(" X-ray scanner created successfully!");
