@@ -3,10 +3,7 @@ package medicaltest;
 import patient.PatientFile;
 import scheduler.HospitalDate;
 import exceptions.FactoryInstantiationException;
-import exceptions.InvalidDurationException;
 import exceptions.InvalidHospitalDateException;
-import exceptions.InvalidNameException;
-import exceptions.InvalidTimeSlotException;
 
 public abstract class MedicalTestFactory
 {

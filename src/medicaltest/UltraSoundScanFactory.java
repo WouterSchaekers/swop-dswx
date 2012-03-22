@@ -2,10 +2,7 @@ package medicaltest;
 
 import exceptions.FactoryInstantiationException;
 import exceptions.InvalidAmountException;
-import exceptions.InvalidDurationException;
 import exceptions.InvalidHospitalDateException;
-import exceptions.InvalidNameException;
-import exceptions.InvalidTimeSlotException;
 
 /**
  * This class represents something that can create UltraSoundScans.

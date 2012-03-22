@@ -10,7 +10,6 @@ import scheduler.requirements.RequirementType;
 import scheduler.requirements.SpecificRequirement;
 import users.Nurse;
 import exceptions.InvalidAmountException;
-import exceptions.InvalidDurationException;
 import exceptions.InvalidHospitalDateException;
 
 public class UltraSoundScan extends MedicalTest
