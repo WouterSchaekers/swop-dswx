@@ -11,33 +11,33 @@ public class SchedulingData
 {
 	private Collection<Schedulable> allSchedulables_;
 	private TimeLord timeLord_;
-	private UnscheduledTask task_;
+	private UnscheduledTask unscheduledTask_;
 
-	public SchedulingData(Collection<Schedulable> schedulables, TimeLord tl,
-			UnscheduledTask task) {
+	public SchedulingData(Collection<Schedulable> schedulables, TimeLord timeLord,
+			UnscheduledTask unscheduledTask) {
 		this.allSchedulables_ = schedulables;
-		this.timeLord_ = tl;
-		this.task_ = task;
+		this.timeLord_ = timeLord;
+		this.unscheduledTask_ = unscheduledTask;
 	}
 
 	/**
 	 * @return the allSchedulables_
 	 */
 	public Collection<Schedulable> getAllSchedulables() {
-		return allSchedulables_;
+		return this.allSchedulables_;
 	}
 
 	/**
 	 * @return the timeLord_
 	 */
 	public TimeLord getTimeLord() {
-		return timeLord_;
+		return this.timeLord_;
 	}
 
 	/**
 	 * @return the task_
 	 */
-	public UnscheduledTask getTask() {
-		return task_;
+	public UnscheduledTask getUnscheduledTask() {
+		return this.unscheduledTask_;
 	}
 }
