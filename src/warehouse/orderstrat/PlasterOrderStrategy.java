@@ -1,6 +1,5 @@
 package warehouse.orderstrat;
 
-import java.util.Observable;
 import warehouse.Warehouse;
 import warehouse.item.PlasterType;
 import warehouse.stock.StockProvider;
@@ -14,8 +13,8 @@ public class PlasterOrderStrategy extends OrderStrategy
 	}
 
 	@Override
-	public void update(Observable arg0, Object arg1) {
-		//TODO:make the orderstrategy
+	protected int getNeeded() {
+		return warehouse_.getMaxCount(type_) - warehouse_.getCurrentCount(type_);
 	}
 
 }

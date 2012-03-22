@@ -2,10 +2,12 @@ package warehouse.stock;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;
 import scheduler.HospitalDate;
 import warehouse.item.WarehouseItemType;
+import be.kuleuven.cs.som.annotate.Basic;
 
 /**
  * This class represents a person that manages a stock order pool.
@@ -21,6 +23,7 @@ public class StockProvider implements Observer
 		orders_ = new ArrayList<StockOrder<? extends WarehouseItemType>>();
 	}
 
+	@Basic
 	public Collection<StockOrder<? extends WarehouseItemType>> getOrders() {
 		return new ArrayList<StockOrder<? extends WarehouseItemType>>(orders_);
 	}
@@ -33,22 +36,36 @@ public class StockProvider implements Observer
 	}
 
 	/**
-	 * Delivers the pooled stock orders to the warehouse.
+	 * Delivers the pooled stock orders to the warehouse if they are ready for
+	 * delivery.
+	 * 
+	 * @param expiryDate
+	 *            The expiry date for the stock orders that will be delivered.
 	 */
 	public void deliverOrders(HospitalDate expiryDate) {
+		LinkedList<StockOrder<? extends WarehouseItemType>> updatedOrderlist = new LinkedList<StockOrder<? extends WarehouseItemType>>();
 		for (StockOrder<? extends WarehouseItemType> order : orders_) {
 			try {
-				order.deliver(expiryDate);
+				if (order.canBeDelivered()) 
+					order.deliver(expiryDate);
+				else 
+					updatedOrderlist.add(order);
 			} catch (Exception e) {
-				System.out.println(e.getMessage());
+
+				throw new Error(e.getMessage());
 			}
 		}
+	this.orders_ = updatedOrderlist;
 	}
 
+	/**
+	 * Delivers orders if needed when time is updated.
+	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		if(!(arg instanceof HospitalDate))
-			throw new IllegalArgumentException("No HospitalDate was given to the observer that notifies the stockprovider!");
-		deliverOrders((HospitalDate)(arg));
+		if (!(arg instanceof HospitalDate))
+			throw new IllegalArgumentException(
+					"No HospitalDate was given to the observer that notifies the stockprovider!");
+		deliverOrders((HospitalDate) (arg));
 	}
 }

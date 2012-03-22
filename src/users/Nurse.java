@@ -15,9 +15,6 @@ import exceptions.InvalidTimeSlotException;
 public class Nurse extends SchedulableUser implements NurseIN
 {
 
-	// private HospitalDate startsWorkAt = new HospitalDate(0, 0, 0, 8, 0, 0);
-	// private HospitalDate stopsWorkAt = new HospitalDate(0, 0, 0, 17, 0, 0);
-
 	private static final int STARTHOUR = 8;
 	private static final int STOPHOUR = 17;
 
@@ -29,7 +26,8 @@ public class Nurse extends SchedulableUser implements NurseIN
 	 * @throws InvalidNameException
 	 * @throws InvalidTimeSlotException
 	 */
-	public Nurse(String name, Whereabouts preference) throws InvalidNameException {
+	public Nurse(String name, Whereabouts preference)
+			throws InvalidNameException {
 		super(name, preference);
 	}
 

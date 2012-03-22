@@ -110,15 +110,11 @@ public class Warehouse extends Observable
 		return getCurrentCount(type) >= amount;
 	}
 	
-	public void removeItemType(WarehouseItemType warehouseItemType){
-		for(int i = 0; i < this.items_.size(); i++){
-			WarehouseItem warehouseItem = this.items_.get(i);
-			if(warehouseItem.getType().equals(warehouseItemType)){
-				this.items_.remove(i);
-				break;
-			}
-		}
-		//TODO: throw exception
+	/**
+	 * <B>THIS METHOD IS TO BE USED BY EXPIREDITEMREMOVER ONLY! DO NOT USE ANYWHERE ELSE <u>EVER!<u></B>
+	 */
+	public void removeItem(WarehouseItem warehouseItem){
+		this.items_.remove(warehouseItem);
 	}
 
 	@Basic

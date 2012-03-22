@@ -6,46 +6,84 @@ import warehouse.item.WarehouseItemType;
 import exceptions.InvalidOrderStateException;
 import exceptions.WarehouseOverCapacityException;
 
+/**
+ * This class represents a stock order that can be manually placed by a
+ * warehouse administrator or can be automatically created by the system when it
+ * notices the stock of the warehouse is running low.
+ * 
+ * @param <T>
+ *            The warehouse item type that this stock order is for.
+ */
 public class StockOrder<T extends WarehouseItemType>
 {
 	private boolean delivered_;
 	private T type_;
 	private HospitalDate creationDate_;
 	private Warehouse warehouse_;
+	private int amount_;
 
-	StockOrder(Warehouse warehouse, T type, HospitalDate creationDate) {
+	/**
+	 * Initialises a new stock order.
+	 * 
+	 * @param amount
+	 *            The amount of items needed of the type of this order.
+	 */
+	public StockOrder(Warehouse warehouse, T type, HospitalDate creationDate,
+			int amount) {
 		type_ = type;
 		delivered_ = false;
 		warehouse_ = warehouse;
 		creationDate_ = creationDate;
-		creationDate_.setHour(6);
-		creationDate_.setMinute(0);
-		creationDate_.setSecond(0);
-		
-	}
-	
-	boolean hasBeenDelivered() {
-		return this.delivered_;
-	}
-	
-	boolean isReadyForDeliveryAt(HospitalDate time) {
-		return time.after(new HospitalDate(creationDate_.getTimeSinceStart() + HospitalDate.ONE_DAY * 2));
+		this.amount_ = amount;
 	}
 
 	/**
-	 * Delivers this stock order to the warehouse.
+	 * @return True if this stockorder has been delivered.
 	 */
-	void deliver(HospitalDate expiryDate) throws WarehouseOverCapacityException,
-			InvalidOrderStateException {
+	public boolean hasBeenDelivered() {
+		return this.delivered_;
+	}
+
+	/**
+	 * Delivers this stock order to the warehouse associated with this
+	 * stockorder.
+	 * 
+	 * @param expiryDate
+	 *            The expiry date of the warehouse item to be delived by this
+	 *            stock order.
+	 */
+	public void deliver(HospitalDate expiryDate)
+			throws WarehouseOverCapacityException, InvalidOrderStateException {
 		if (this.hasBeenDelivered())
 			throw new InvalidOrderStateException(
 					"This order was already delivered!");
-		warehouse_.add(type_.create(expiryDate));
+		if (!this.canBeDelivered())
+			throw new InvalidOrderStateException(
+					"This order is not ready for delivery yet!");
+		for (int i = 0; i < this.amount_; i++)
+			warehouse_.add(type_.create(expiryDate));
 		delivered_ = true;
 	}
 
-	T getType() {
+	/**
+	 * @return True if this order can be delivered now.
+	 */
+	public boolean canBeDelivered() {
+		return warehouse_.getCampus().getSystemTime()
+				.after(this.earliestDeliveryTime())
+				&& !this.hasBeenDelivered();
+	}
+
+	/**
+	 * @return 6AM of the 2 days after this stock order was placed.
+	 */
+	private HospitalDate earliestDeliveryTime() {
+		return new HospitalDate(creationDate_.getYear(),
+				creationDate_.getMonth(), creationDate_.getDay() + 2, 6, 0, 0);
+	}
+
+	public T getType() {
 		return type_;
-		
+
 	}
 }
