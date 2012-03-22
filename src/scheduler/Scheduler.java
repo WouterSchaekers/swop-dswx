@@ -67,11 +67,18 @@ public class Scheduler
 		return availableSchedulables;
 	}
 	
-	private void removeDoubleBookings(HashMap<LinkedList<Schedulable>, Integer> availableSchedulables){
+	private void removeDoubleBookings(HashMap<LinkedList<Schedulable>, Integer> availableSchedulables) throws InvalidSchedulingRequestException{
 		for(LinkedList<Schedulable> schedulablePool : availableSchedulables.keySet()){
 			for(LinkedList<Schedulable> curSchedulablePool : availableSchedulables.keySet()){
-				if(curSchedulablePool.size() == 1){
-					schedulablePool.remove(curSchedulablePool.get(0));
+				for(Schedulable schedulable : curSchedulablePool){
+					if(schedulablePool.contains(schedulable)){
+						if(curSchedulablePool.size() == 1){
+							schedulablePool.remove(schedulable);
+						}
+						else{
+							throw new InvalidSchedulingRequestException("There is something wrong with the setup of your description. There are duplicate requirements.");
+						}
+					}
 				}
 			}
 		}
