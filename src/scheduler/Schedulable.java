@@ -34,4 +34,6 @@ public interface Schedulable extends Requirable
 	public Collection<ScheduledTask> getScheduledTasks();
 
 	public void addScheduledTask(ScheduledTask scheduledTask);
+	
+	public Location getLocation();
 }
