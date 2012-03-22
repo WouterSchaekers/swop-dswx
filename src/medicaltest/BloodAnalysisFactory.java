@@ -1,12 +1,8 @@
 package medicaltest;
 
-import scheduler.HospitalDate;
 import exceptions.FactoryInstantiationException;
 import exceptions.InvalidAmountException;
-import exceptions.InvalidDurationException;
 import exceptions.InvalidHospitalDateException;
-import exceptions.InvalidNameException;
-import exceptions.InvalidTimeSlotException;
 
 public class BloodAnalysisFactory extends MedicalTestFactory
 {

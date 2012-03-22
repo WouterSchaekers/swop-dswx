@@ -2,10 +2,7 @@ package medicaltest;
 
 import exceptions.FactoryInstantiationException;
 import exceptions.InvalidAmountException;
-import exceptions.InvalidDurationException;
 import exceptions.InvalidHospitalDateException;
-import exceptions.InvalidNameException;
-import exceptions.InvalidTimeSlotException;
 
 /**
  * The Factory that creates an XRayScan This factory requires : A bodypart, a

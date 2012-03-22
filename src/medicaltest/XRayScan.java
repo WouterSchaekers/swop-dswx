@@ -10,10 +10,7 @@ import scheduler.requirements.RequirementType;
 import scheduler.requirements.SpecificRequirement;
 import users.Nurse;
 import exceptions.InvalidAmountException;
-import exceptions.InvalidDurationException;
 import exceptions.InvalidHospitalDateException;
-import exceptions.InvalidNameException;
-import exceptions.InvalidTimeSlotException;
 
 public class XRayScan extends MedicalTest
 {

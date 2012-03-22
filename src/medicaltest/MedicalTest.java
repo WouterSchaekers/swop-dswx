@@ -1,14 +1,9 @@
 package medicaltest;
 
-import java.util.Collection;
-import java.util.LinkedList;
 import patient.PatientFile;
 import result.Result;
 import scheduler.HospitalDate;
-import scheduler.requirements.Requirement;
-import scheduler.requirements.RequirementType;
 import scheduler.tasks.TaskDescription;
-import users.Nurse;
 import controllers.interfaces.MedicalTestIN;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
