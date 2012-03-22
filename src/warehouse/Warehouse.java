@@ -53,7 +53,7 @@ public class Warehouse extends Observable
 	 */
 	public void add(WarehouseItem item) throws WarehouseOverCapacityException {
 		if (!canBeAdded(item))
-			throw new WarehouseOverCapacityException("hot");
+			throw new WarehouseOverCapacityException("Warehouse is over capacity!");
 		items_.add(item);
 		this.notifyObservers();
 	}
@@ -111,10 +111,11 @@ public class Warehouse extends Observable
 	}
 	
 	/**
-	 * <B>THIS METHOD IS TO BE USED BY EXPIREDITEMREMOVER ONLY! DO NOT USE ANYWHERE ELSE <u>EVER!<u></B>
+	 * <B>THIS METHOD IS TO BE USED BY EXPIREDITEMREMOVER ONLY! DO NOT USE ANYWHERE ELSE <u><i>EVER!</i><u></B>
 	 */
 	public void removeItem(WarehouseItem warehouseItem){
 		this.items_.remove(warehouseItem);
+		this.notifyObservers();
 	}
 
 	@Basic

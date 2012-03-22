@@ -3,6 +3,7 @@ package warehouse.orderstrat;
 import help.Filter;
 import java.util.Observable;
 import java.util.Observer;
+import scheduler.TimeLord;
 import warehouse.Warehouse;
 import warehouse.item.WarehouseItemType;
 import warehouse.stock.StockOrder;
@@ -17,12 +18,17 @@ public abstract class OrderStrategy implements Observer
 	protected final Warehouse warehouse_;
 	protected final StockProvider provider_;
 
+	/**
+	 * @param timeLord
+	 * To observe.
+	 */
 	public OrderStrategy(WarehouseItemType type, Warehouse warehouse,
-			StockProvider provider) {
+			StockProvider provider, TimeLord timeLord) {
 		type_ = type;
 		warehouse_ = warehouse;
 		provider_ = provider;
 		warehouse.addObserver(this);
+		timeLord.addObserver(this);
 	}
 
 	@Override

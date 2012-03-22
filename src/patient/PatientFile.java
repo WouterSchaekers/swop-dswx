@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import medicaltest.MedicalTest;
-import medicaltest.XRayScan;
 import observers.DiagnoseObserverTaskManager;
 import scheduler.HospitalDate;
 import scheduler.tasks.TaskManager;
@@ -148,7 +147,7 @@ public class PatientFile implements PatientFileIN
 	public HospitalDate getFirstNewXRaySchedDate(HospitalDate hospitalDate) {
 		if (this.amountOfXraysThisYear(hospitalDate) >= 9) {
 			return new HospitalDate(this.xrays.get(xrays.size() - 10)
-					.getTimeSinceStart() + XRayScan.DURATION_);
+					.getTimeSinceStart());
 		}
 		return hospitalDate;
 	}
