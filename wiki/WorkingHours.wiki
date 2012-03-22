@@ -31,6 +31,7 @@
 || 16/03/12: 13u30 -> 17u00 || 2 SW || 3.5 || More of the above || dieter kon omwille van redenen van zijn persoonlijk leven met shana niet aanwezig zijn. We stuurden hem wel een e-mail met updates van de situatie en een TODO lijstje. ||
 || 18/03/12: 18u00 -> 19u30 || 1 S|| 1.5 || Warehouse/StockOrder/... beetje fixen; Visual Paradigm: 4 nieuwe prentjes staan nu op de communication pagina. || ||
 || 20/03/12: 11u00 -> 19u00 || 3 DSW || 8 || Warehouse/StockOrder/ScheduledTask/Requirement/Condition/meeting with project advisor || ||
+|| 21/03/12: 21u00 -> 02u30 || 2 SW || 5.5 || Warehousepackage/schedulingpackage except for scheduler are done. Starting the implementation of scheduler. || ||
 
 
 = Iteratie 2 =
