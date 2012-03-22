@@ -23,7 +23,7 @@ public class SchedulingData
 	/**
 	 * @return the allSchedulables_
 	 */
-	public Collection<Schedulable> getAllSchedulables() {
+	public Collection<Schedulable> getAllResources() {
 		return this.allSchedulables_;
 	}
 
