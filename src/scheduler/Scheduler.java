@@ -13,23 +13,23 @@ public class Scheduler
 {
 	public Scheduler(){}
 	
-	public ScheduledTask schedule(SchedulingData schedulingDate) throws InvalidSchedulingRequestException{
-		Collection<Schedulable> schedulablePool = schedulingDate.getAllSchedulables();
-		HospitalDate currentDate = schedulingDate.getTimeLord().getSystemTime();
-		UnscheduledTask unscheduledTask = schedulingDate.getUnscheduledTask();
+	public ScheduledTask schedule(SchedulingData schedulingData) throws InvalidSchedulingRequestException{
+		Collection<Schedulable> resourcePool = schedulingData.getAllResources();
+		HospitalDate currentDate = schedulingData.getTimeLord().getSystemTime();
+		UnscheduledTask unscheduledTask = schedulingData.getUnscheduledTask();
 		TaskDescription description = unscheduledTask.getDescription();
 		Collection<Requirement> requirements = description.getAllRequirements();
 		HospitalDate minimumDate = new HospitalDate(description.getCreationTime().getTimeSinceStart() + description.getExtraTime());
 		HospitalDate startDate = HospitalDate.getMaximum(currentDate, minimumDate);
 		HospitalDate stopDate = new HospitalDate(HospitalDate.END_OF_TIME);
-		Collection<Requirement> metRequirements = getMetRequirements(schedulablePool, requirements, startDate);
-		HashMap<LinkedList<Schedulable>, Integer> availableSchedulables = this.getAvailableSchedulables(schedulablePool, requirements, metRequirements);
-		this.removeDoubleBookings(availableSchedulables);
-		this.checkIfEnoughResources(availableSchedulables);
-		return schedule(availableSchedulables, 0, startDate, stopDate, description.getDuration());
+		Collection<Requirement> metRequirements = getMetRequirements(resourcePool, requirements, startDate);
+		HashMap<LinkedList<Schedulable>, Integer> availableResources = this.getAvailableResources(resourcePool, requirements, metRequirements);
+		this.removeDoubleBookings(availableResources);
+		this.checkIfEnoughResources(availableResources);
+		return schedule(availableResources, produceUsedResourcesList(availableResources), startDate, stopDate, description.getDuration());
 	}
 	
-	private ScheduledTask schedule(HashMap<LinkedList<Schedulable>, Integer> availableSchedulables, int iteration, HospitalDate startDate, HospitalDate stopDate, long duration){
+	private ScheduledTask schedule(HashMap<LinkedList<Schedulable>, Integer> availableResources, LinkedList<LinkedList<Integer>> chosenResources, HospitalDate startDate, HospitalDate stopDate, long duration){
 		
 		return null;
 	}
@@ -44,7 +44,7 @@ public class Scheduler
 		return isAlreadyMet;
 	}
 	
-	private HashMap<LinkedList<Schedulable>, Integer> getAvailableSchedulables(Collection<Schedulable> schedulablePool, Collection<Requirement> requirements, Collection<Requirement> metRequirements) throws InvalidSchedulingRequestException{
+	private HashMap<LinkedList<Schedulable>, Integer> getAvailableResources(Collection<Schedulable> schedulablePool, Collection<Requirement> requirements, Collection<Requirement> metRequirements) throws InvalidSchedulingRequestException{
 		Collection<Requirement> notMetYet = new LinkedList<Requirement>();
 		for(Requirement requirement : requirements){
 			if(!metRequirements.contains(requirement)){
@@ -83,5 +83,13 @@ public class Scheduler
 				throw new InvalidSchedulingRequestException("There are not enough resources to schedule this task.");
 			}
 		}
+	}
+	
+	private LinkedList<LinkedList<Integer>> produceUsedResourcesList(HashMap<LinkedList<Schedulable>, Integer> availableSchedulables){
+		LinkedList<LinkedList<Integer>> usedResources = new LinkedList<LinkedList<Integer>>();
+		for(int i = 0; i < availableSchedulables.size(); i++){
+			usedResources.add(new LinkedList<Integer>());
+		}
+		return usedResources;
 	}
 }
