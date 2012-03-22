@@ -13,19 +13,19 @@ public abstract class TaskDescription
 	protected PatientFile patientFile_;
 	private long duration_;
 	private long extraTime_;
-	private HospitalDate creationTime_;
+	private HospitalDate creationDate_;
 	
-	public TaskDescription(PatientFile patientFile, long duration, long extraTime, HospitalDate creationTime) throws InvalidAmountException, InvalidHospitalDateException{
+	public TaskDescription(PatientFile patientFile, long duration, long extraTime, HospitalDate creationDate) throws InvalidAmountException, InvalidHospitalDateException{
 		if (!isValidAmountOfExtraTime(extraTime))
 			throw new InvalidAmountException(
 					"Invalid amount of extra time since system start given to Unscheduled Task");
-		if (!isValidSystemTime(creationTime))
+		if (!isValidSystemTime(creationDate))
 			throw new InvalidHospitalDateException(
-					"Invalid systemtime given to Unscheduled Task");
+					"Invalid creationTime given to Unscheduled Task");
 		this.patientFile_ = patientFile;
 		this.duration_ = duration;
 		this.extraTime_ = extraTime;
-		this.creationTime_ = creationTime;
+		this.creationDate_ = creationDate;
 	}
 	
 	private boolean isValidSystemTime(HospitalDate currentSystemTime) {
@@ -55,6 +55,6 @@ public abstract class TaskDescription
 
 	@Basic
 	public HospitalDate getCreationTime() {
-		return new HospitalDate(this.creationTime_);
+		return new HospitalDate(this.creationDate_);
 	}
 }

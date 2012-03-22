@@ -60,11 +60,4 @@ public abstract class MedicalTest extends TaskDescription implements MedicalTest
 	public boolean hasFinished() {
 		return this.result != null;
 	}
-	
-	@Override
-	public Collection<Requirement> getExecutors() {
-		Collection<Requirement> executors = new LinkedList<Requirement>();
-		executors.add(new RequirementType<Nurse>(Nurse.class));
-		return executors;
-	}
 }

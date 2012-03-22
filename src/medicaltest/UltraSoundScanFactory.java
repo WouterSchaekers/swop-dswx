@@ -1,6 +1,9 @@
 package medicaltest;
 
+import exceptions.FactoryInstantiationException;
+import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
+import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidTimeSlotException;
 
@@ -47,11 +50,18 @@ public class UltraSoundScanFactory extends MedicalTestFactory
 	}
 
 	@Override
-	public MedicalTest create() throws InvalidNameException,
-			InvalidDurationException, InvalidTimeSlotException {
+	public MedicalTest create() throws FactoryInstantiationException {
 		if (!ready())
-			throw new IllegalArgumentException();
-		return new UltraSoundScan(scaninfo, recordVid, recordImages);
+			throw new FactoryInstantiationException("UltraSoundScanFactory is not properly instantiated yet.");
+		UltraSoundScan ultraSoundScan = null;
+		try {
+			ultraSoundScan = new UltraSoundScan(patientFile_, creationDate_, scaninfo, recordVid, recordImages);
+		} catch (InvalidAmountException e) {
+			System.out.println(e);
+		} catch (InvalidHospitalDateException e) {
+			System.out.println(e);
+		}
+		return ultraSoundScan;
 	}
 
 	@Override

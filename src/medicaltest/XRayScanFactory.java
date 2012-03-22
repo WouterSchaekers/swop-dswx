@@ -1,7 +1,9 @@
 package medicaltest;
 
 import exceptions.FactoryInstantiationException;
+import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
+import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidTimeSlotException;
 
@@ -103,12 +105,18 @@ public class XRayScanFactory extends MedicalTestFactory
 	}
 
 	@Override
-	public MedicalTest create() throws InvalidNameException,
-			InvalidDurationException, InvalidTimeSlotException,
-			FactoryInstantiationException {
-		if (this.ready())
-			return new XRayScan(bodypart, num, zoomlevel);
-		throw new FactoryInstantiationException();
+	public MedicalTest create() throws FactoryInstantiationException{
+		if (!this.ready())
+			throw new FactoryInstantiationException("XRayScanFactory is not properly instantiated yet.");
+		XRayScan xRayScan = null;
+		try {
+			xRayScan = new XRayScan(this.patientFile_, this.creationDate_, bodypart, num, zoomlevel);
+		} catch (InvalidAmountException e) {
+			System.out.println(e);
+		} catch (InvalidHospitalDateException e) {
+			System.out.println(e);
+		}
+		return xRayScan;
 	}
 
 }

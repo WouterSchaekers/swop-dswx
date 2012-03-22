@@ -1,6 +1,10 @@
 package medicaltest;
 
+import scheduler.HospitalDate;
+import exceptions.FactoryInstantiationException;
+import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
+import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidTimeSlotException;
 
@@ -43,12 +47,18 @@ public class BloodAnalysisFactory extends MedicalTestFactory
 	}
 
 	@Override
-	public MedicalTest create() throws InvalidNameException,
-			InvalidDurationException, InvalidTimeSlotException {
+	public MedicalTest create() throws FactoryInstantiationException {
 		if (!ready())
-			throw new IllegalArgumentException();
-
-		return new BloodAnalysis(numberOfAnalysis_, focus_);
+			throw new FactoryInstantiationException("BloodAnalysisFactory is not properly instantiated yet.");
+		BloodAnalysis bloodAnalysis = null;
+		try {
+			bloodAnalysis = new BloodAnalysis(this.patientFile_, this.creationDate_, numberOfAnalysis_, focus_);
+		} catch (InvalidAmountException e) {
+			System.out.println(e);
+		} catch (InvalidHospitalDateException e) {
+			System.out.println(e);
+		}
+		return bloodAnalysis;
 	}
 
 	/**

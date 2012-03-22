@@ -8,6 +8,7 @@ import scheduler.HospitalDate;
 import scheduler.requirements.Requirement;
 import scheduler.requirements.RequirementType;
 import scheduler.requirements.SpecificRequirement;
+import users.Nurse;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidHospitalDateException;
@@ -20,9 +21,7 @@ public class XRayScan extends MedicalTest
 	private int num_;
 	private float zoomlevel_;
 
-	XRayScan(PatientFile patientFile, HospitalDate creationTime, String bodypart, int num, float zoomlevel)
-			throws InvalidNameException, InvalidDurationException,
-			InvalidTimeSlotException, InvalidAmountException, InvalidHospitalDateException {
+	XRayScan(PatientFile patientFile, HospitalDate creationTime, String bodypart, int num, float zoomlevel) throws InvalidAmountException, InvalidHospitalDateException {
 		super(patientFile, 15 * HospitalDate.ONE_MINUTE, creationTime);
 		this.bodypart_ = bodypart;
 		this.num_ = num;
@@ -52,8 +51,9 @@ public class XRayScan extends MedicalTest
 	@Override
 	public Collection<Requirement> getAllRequirements() {
 		Collection<Requirement> requirements = new LinkedList<Requirement>();
-		requirements.add(new SpecificRequirement(this.patientFile_.getPatient()));
-		requirements.add(new RequirementType<XRayScanner>(XRayScanner.class));
+		requirements.add(new SpecificRequirement(this.patientFile_.getPatient(), false));
+		requirements.add(new RequirementType<XRayScanner>(XRayScanner.class, false));
+		requirements.add(new RequirementType<Nurse>(Nurse.class, true));
 		return requirements;
 	}
 }
