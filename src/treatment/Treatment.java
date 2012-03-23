@@ -18,16 +18,8 @@ public abstract class Treatment extends TaskDescription implements TreatmentIN
 {
 	protected Result result_;
 
-	/**
-	 * Default constructor.
-	 * 
-	 * @param treatmentName
-	 *            The name of this treatment.
-	 * @throws InvalidHospitalDateException
-	 * @throws InvalidAmountException
-	 */
-	public Treatment(PatientFile patientFile_, long duration_, HospitalDate creationTime_) throws InvalidAmountException, InvalidHospitalDateException {
-		super(patientFile_, duration_, 0, creationTime_);
+	public Treatment(PatientFile patientFile, long duration, HospitalDate creationTime) throws InvalidAmountException, InvalidHospitalDateException {
+		super(patientFile, duration, 0, creationTime);
 	}
 
 	public void setResult(Result r) throws InvalidResultException {

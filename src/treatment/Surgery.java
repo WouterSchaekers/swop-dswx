@@ -31,7 +31,7 @@ public class Surgery extends Treatment implements SurgeryIN
 	 * @throws InvalidHospitalDateException 
 	 * @throws InvalidAmountException 
 	 */
-	public Surgery(PatientFile patientFile, HospitalDate creationTime, String description) throws InvalidDescriptionException, InvalidAmountException, InvalidHospitalDateException {
+	public Surgery(PatientFile patientFile, HospitalDate creationTime, String description) throws InvalidAmountException, InvalidHospitalDateException {
 		super(patientFile, HospitalDate.ONE_MINUTE * 180, creationTime);
 		setDescription(description);
 	}
@@ -42,10 +42,9 @@ public class Surgery extends Treatment implements SurgeryIN
 	}
 
 	@Basic
-	public void setDescription(String description)
-			throws InvalidDescriptionException {
+	public void setDescription(String description) {
 		if (!isValidDescription(description))
-			throw new InvalidDescriptionException(
+			throw new IllegalArgumentException(
 					"Invalid description given in setDescription() of Surgery!");
 		this.description = description;
 	}
