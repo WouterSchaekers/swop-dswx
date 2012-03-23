@@ -1,7 +1,6 @@
 package controllers;
 
 import static org.junit.Assert.assertTrue;
-import machine.MachineBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import system.Hospital;
@@ -12,10 +11,8 @@ import users.Nurse;
 import users.User;
 import exceptions.InvalidCampusException;
 import exceptions.InvalidHospitalException;
-import exceptions.InvalidLocationException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidNameException;
-import exceptions.InvalidSerialException;
 
 public class _AddHospitalEquipmentTest
 {
@@ -63,18 +60,4 @@ public class _AddHospitalEquipmentTest
 		assertTrue(addHospitalEquipmentController
 				.isValidLoginController(loginController));
 	}
-
-	@Test
-	public void test() throws InvalidLoginControllerException,
-			InvalidLocationException, InvalidSerialException,
-			InvalidHospitalException {
-		loginController.logIn(hospitad);
-		addHospitalEquipmentController = new AddHospitalEquipmentController(
-				loginController);
-		MachineBuilder m = hospital.getCampus("Campus 1").getMachinePool().getAllBuilders().iterator().next();
-		addHospitalEquipmentController.createMachine(m, 3, "jozef", hospital
-				);
-		assertTrue(hospital.getCampus("Campus 1").getMachinePool().getAllMachines().size() == 1);
-	}
-
 }

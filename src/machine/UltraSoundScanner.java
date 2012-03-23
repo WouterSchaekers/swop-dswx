@@ -31,4 +31,9 @@ public class UltraSoundScanner extends Machine
 			HospitalDate stopDate) {
 		return this.getTimeTable().hasFreeSlotAt(startDate, stopDate);
 	}
+
+	@Override
+	public boolean canTravel() {
+		return false;
+	}
 }

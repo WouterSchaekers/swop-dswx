@@ -49,7 +49,7 @@ public class AddHospitalEquipmentController extends NeedsLoginController
 	 */
 	public void createMachine(MachineBuilder b, int serial, String location, Location whereabouts)
 			throws InvalidLocationException, InvalidSerialException {
-		((Campus)(whereabouts)).getMachinePool().addMachine(b.build(serial, location));
+		((Campus)(whereabouts)).getMachinePool().addMachine(b.build(serial, whereabouts));
 	}
 
 	@Override

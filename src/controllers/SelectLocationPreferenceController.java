@@ -1,7 +1,5 @@
 package controllers;
 
-import java.util.Collection;
-import system.CampusPreference;
 import users.Doctor;
 import users.User;
 import exceptions.InvalidHospitalException;
@@ -14,9 +12,10 @@ public class SelectLocationPreferenceController extends NeedsLoginController
 		super(lc);
 	}
 
-	public Collection<CampusPreference> getPossiblePreferences() {
+	public void getPossiblePreferences() {
 		//TODO: fix
-		return null;
+		// De doctor kan zijn location time table partieel ingeven e.d..
+		return ;
 	}
 	
 	public String getCurrentPreference() {
