@@ -3,8 +3,8 @@ package system;
 import java.util.LinkedList;
 import patient.PatientFileManager;
 import scheduler.HospitalDate;
-import scheduler.Scheduler2;
 import scheduler.TimeLord;
+import scheduler.tasks.Scheduler;
 import scheduler.tasks.TaskManager;
 import users.HospitalAdmin;
 import users.UserManager;
@@ -21,7 +21,6 @@ public class Hospital
 	private PatientFileManager patientFileManager_;
 	private TaskManager taskManager_;
 	private TimeLord systemTime_;
-	private Scheduler2 scheduler_;
 	private LinkedList<Campus> campusses_;
 
 	/**
@@ -32,8 +31,7 @@ public class Hospital
 			this.systemTime_ = new TimeLord();
 			this.userManager_ = new UserManager();
 			this.patientFileManager_ = new PatientFileManager();
-			this.scheduler_ = new Scheduler2(this.systemTime_);
-			this.taskManager_ = new TaskManager(this.scheduler_);
+			this.taskManager_ = new TaskManager(new Scheduler());
 			this.campusses_ = new LinkedList<Campus>();
 			//TODO: initilise campusses and give them warehouses.
 		} catch (Exception e) {
@@ -63,12 +61,11 @@ public class Hospital
 	 * @throws  
 	 */
 	public Hospital(TimeLord timeLord, UserManager userManager, PatientFileManager patientFileManager,
-			Scheduler2 scheduler, TaskManager taskManager,
+			Scheduler scheduler, TaskManager taskManager,
 			HospitalAdmin hospitalAdmin) {
 		this.systemTime_ = timeLord;
 		this.userManager_ = userManager;
 		this.patientFileManager_ = patientFileManager;
-		this.scheduler_ = scheduler;
 		this.taskManager_ = taskManager;
 		this.campusses_ = new LinkedList<Campus>();
 	}
@@ -93,11 +90,6 @@ public class Hospital
 		return taskManager_;
 	}
 
-	@Basic
-	public Scheduler2 getScheduler() {
-		return scheduler_;
-	}
-	
 	@Basic
 	public Campus getCampus(String name){
 		for(Campus campus : campusses_){
