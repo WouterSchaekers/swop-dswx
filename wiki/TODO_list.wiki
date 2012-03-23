@@ -1,12 +1,6 @@
-= TODOs starting iteration 3 =
-  * Mailtje naar de dude sturen voor een afspraak de week voor de deadline en een doodle maken
-  * extended deadline aanvragen
-  * ...
-== FeedbackSession TODOs ==
-zie de feedbacksessie van iteratie 2.
-== TODOs ==
+= TODOs =
+  * zie de feedbacksessie van iteratie 2
   * *Design review:* use case van advanceTime() moet nog eens nauwkeurig bestudeerd worden.
-  * *Implementatie:* Stockmanager/warehouse/warehouseadmin
   * *Implementatie:* Treatment factories
   * *Implementatie:* Controllers houden IDs bij van de objecten die ze aan de buitenwereld terug geven om zo inconsistenties in het systeem te vermijden.
   * *Visual Paradigm:* SSDs van alle use cases
@@ -27,12 +21,9 @@ zie de feedbacksessie van iteratie 2.
     * Advance time
     * List orders
   * *Implementatie:* Scheduler (! added complexity van preference en meerdere campi!)
-  * *Implementatie:* Requirements en Descriptions
   * *Implementatie:* Test scenario's
   * *Implementatie:* use cases
-  * *Implementatie:* Result
   * *Check:* de observer van Diagnose en TaskManager
-  * 
   * *Documentatie*
     * Schedulable doc: updateTimeTable dient voor advance time, niet om een Schedulable een nieuwe time table toe te wijzen of iets dergelijks..
     * create dummy date in Nurse
@@ -41,9 +32,9 @@ zie de feedbacksessie van iteratie 2.
 
 = Wie is er momenteel waaraan bezig? =
 <p>
-Dieter: wina bar, tot vreemde concepten komen<p>
-Stefaan: warehouseadmin/manager/stock dingen<p>
-Wouter: UnscheduledTasks<p>
+Dieter: oefenzitting CN<p>
+Stefaan: Treatment Factories<p>
+Wouter: Scheduling algoritme<p>
 
 = Things that have been crossed off = 
   * Treatment Factories gemaakt en getest
@@ -72,3 +63,8 @@ Wouter: UnscheduledTasks<p>
   * Bij unscheduled classes zorgen dat die requirements lazy gemaakt worden, (dit door de voorstelling van onze requirements :) )
   * Observers
   * Bidirectionele binding tussen TaskManager en Schedulable
+  * Mailtje naar de dude sturen voor een afspraak de week voor de deadline en een doodle maken
+  * extended deadline aanvragen
+  *Implementatie:* Stockmanager/warehouse/warehouseadmin
+  * *Implementatie:* Requirements en Descriptions
+  * *Implementatie:* Result
