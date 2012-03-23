@@ -31,4 +31,10 @@ public class Doctor extends SchedulableUser implements DoctorIN
 		}
 		throw new NullPointerException("This person has no location at that moment.");
 	}
+
+	@Override
+	public boolean canTravel() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

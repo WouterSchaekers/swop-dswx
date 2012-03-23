@@ -91,4 +91,10 @@ public class Nurse extends SchedulableUser implements NurseIN
 	public Location getLocationAt(HospitalDate hospitalDate) {
 		return this._preference;
 	}
+
+	@Override
+	public boolean canTravel() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
