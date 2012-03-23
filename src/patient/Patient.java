@@ -79,4 +79,9 @@ public class Patient implements Schedulable
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public boolean canTravel() {
+		return true;
+	}
 }

@@ -237,7 +237,6 @@ public class Scheduler
 	}
 
 	// Auxiliary methods for the scheduling algorithm.
-	
 	private ScheduledTask produceScheduledTask(
 			TaskDescription taskDescription,
 			HashMap<LinkedList<Schedulable>, Integer> availableResources,

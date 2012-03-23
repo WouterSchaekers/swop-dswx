@@ -94,7 +94,6 @@ public class Nurse extends SchedulableUser implements NurseIN
 
 	@Override
 	public boolean canTravel() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 }
