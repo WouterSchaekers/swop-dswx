@@ -70,9 +70,11 @@ public class Scheduler
 			TaskDescription taskDescription)
 			throws InvalidSchedulingRequestException {
 		LinkedList<Schedulable> bestOptionToFind = null;
+		LinkedList<Schedulable> currentResourcePool = null;
 		for (LinkedList<Schedulable> resourcePool : availableResources.keySet()) {
 			if (availableResources.get(resourcePool) > chosenResources.get(
 					resourcePool).size()) {
+				currentResourcePool = resourcePool;
 				bestOptionToFind = (LinkedList<Schedulable>) resourcePool
 						.clone();
 				removeAlreadyUsedResources(bestOptionToFind,
@@ -82,17 +84,27 @@ public class Scheduler
 		}
 		if (bestOptionToFind == null) {
 			return produceScheduledTask(taskDescription, availableResources,
-					chosenResources, startDate, stopDate, null);
+					chosenResources, startDate, stopDate, location);
 		}
 		int bestOption = findBestOption(bestOptionToFind, location, startDate,
 				stopDate, taskDescription.getDuration());
+		TimeSlot bestSlot = null;
 		try {
-			bestOptionToFind.get(bestOption).getFirstFreeSlotBetween(location,
-					startDate, stopDate, taskDescription.getDuration());
+			bestSlot = bestOptionToFind.get(bestOption)
+					.getFirstFreeSlotBetween(location, startDate, stopDate,
+							taskDescription.getDuration());
 		} catch (Exception e) {
 			throw new Error(e.toString());
 		}
-		return null;
+		try {
+			return schedule(availableResources, cloneAndAddHashMapValues(chosenResources, currentResourcePool, bestOption), location,
+					bestSlot.getStartPoint().getHospitalDate(), bestSlot
+							.getStopPoint().getHospitalDate(), taskDescription);
+		} catch (InvalidSchedulingRequestException e) {
+			return schedule(availableResources, chosenResources, location,
+					bestSlot.getStartPoint().getHospitalDate(), bestSlot
+							.getStopPoint().getHospitalDate(), taskDescription);
+		}
 	}
 
 	// Auxiliary methods for the main scheduling method.
@@ -220,11 +232,12 @@ public class Scheduler
 	}
 
 	// Auxiliary methods for the scheduling algorithm.
+	
 	private ScheduledTask produceScheduledTask(
 			TaskDescription taskDescription,
 			HashMap<LinkedList<Schedulable>, Integer> availableResources,
 			HashMap<LinkedList<Schedulable>, LinkedList<Integer>> chosenResources,
-			HospitalDate startDate, HospitalDate stopDate, Campus location) {
+			HospitalDate startDate, HospitalDate stopDate, Location location) {
 		Collection<Schedulable> usedResources = new LinkedList<Schedulable>();
 		for (LinkedList<Schedulable> resourcePool : availableResources.keySet()) {
 			LinkedList<Integer> usedInThisPool = chosenResources
@@ -279,5 +292,21 @@ public class Scheduler
 					"No Schedulable of this list can be schedulabled.");
 		}
 		return bestOption;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private HashMap<LinkedList<Schedulable>, LinkedList<Integer>> cloneAndAddHashMapValues(HashMap<LinkedList<Schedulable>, LinkedList<Integer>> chosenResources, LinkedList<Schedulable> resourcePool, int bestOption){
+		HashMap<LinkedList<Schedulable>, LinkedList<Integer>> clonedHashMap = new HashMap<LinkedList<Schedulable>, LinkedList<Integer>>();
+		for(LinkedList<Schedulable> currentResourcePool : chosenResources.keySet()){
+			if(currentResourcePool != resourcePool){
+				clonedHashMap.put(currentResourcePool, (LinkedList<Integer>)chosenResources.get(currentResourcePool).clone());
+			}
+			else{
+				LinkedList<Integer> newLinkedList = (LinkedList<Integer>)chosenResources.get(currentResourcePool).clone();
+				newLinkedList.add(bestOption);
+				clonedHashMap.put(currentResourcePool, newLinkedList);
+			}
+		}
+		return clonedHashMap;
 	}
 }
