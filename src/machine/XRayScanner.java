@@ -3,7 +3,6 @@ package machine;
 import scheduler.HospitalDate;
 import scheduler.TimeSlot;
 import system.Location;
-import exceptions.InvalidHospitalDateArgument;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidSerialException;

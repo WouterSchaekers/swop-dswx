@@ -1,15 +1,15 @@
 package patient;
 
 import java.util.Collection;
-import exceptions.InvalidHospitalDateArgument;
-import exceptions.InvalidSchedulingRequestException;
-import exceptions.InvalidTimeSlotException;
 import scheduler.HospitalDate;
 import scheduler.Schedulable;
 import scheduler.TimeSlot;
 import scheduler.TimeTable;
 import scheduler.tasks.ScheduledTask;
 import system.Location;
+import exceptions.InvalidHospitalDateArgument;
+import exceptions.InvalidSchedulingRequestException;
+import exceptions.InvalidTimeSlotException;
 
 /**
  * This class represents a patient.

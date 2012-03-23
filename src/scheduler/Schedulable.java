@@ -3,7 +3,6 @@ package scheduler;
 import java.util.Collection;
 import scheduler.requirements.Requirable;
 import scheduler.tasks.ScheduledTask;
-import system.Campus;
 import system.Location;
 import exceptions.InvalidHospitalDateArgument;
 import exceptions.InvalidSchedulingRequestException;

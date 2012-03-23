@@ -4,7 +4,6 @@ import java.util.Collection;
 import scheduler.HospitalDate;
 import scheduler.Schedulable;
 import scheduler.TimeSlot;
-import system.Campus;
 import system.Location;
 
 public class ScheduledTask extends Task
