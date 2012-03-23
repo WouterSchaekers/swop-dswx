@@ -20,7 +20,6 @@
     * Select location preference
     * Advance time
     * List orders
-  * *Implementatie:* Scheduler (! added complexity van preference en meerdere campi!)
   * *Implementatie:* Test scenario's
   * *Implementatie:* use cases
   * *Check:* de observer van Diagnose en TaskManager
@@ -32,9 +31,9 @@
 
 = Wie is er momenteel waaraan bezig? =
 <p>
-Dieter: oefenzitting CN<p>
-Stefaan: Treatment Factories<p>
-Wouter: Scheduling algoritme<p>
+Dieter: P&O burgies afsnauwen<p>
+Stefaan: breaktime<p>
+Wouter: breaktimep>
 
 = Things that have been crossed off = 
   * Treatment Factories gemaakt en getest
@@ -68,3 +67,4 @@ Wouter: Scheduling algoritme<p>
   *Implementatie:* Stockmanager/warehouse/warehouseadmin
   * *Implementatie:* Requirements en Descriptions
   * *Implementatie:* Result
+  * *Implementatie:* Scheduler
