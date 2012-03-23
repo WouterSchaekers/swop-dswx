@@ -3,9 +3,8 @@ package users;
 import system.Location;
 import exceptions.InvalidNameException;
 /**
+ * Object that can create a Doctor object, also represents the type of the user
  * 
- * @author Dieter
- *
  */
 public class DocotorFactory extends UserFactory
 {

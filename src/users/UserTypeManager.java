@@ -3,7 +3,7 @@ package users;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class UserTypeManager
+class UserTypeManager
 {
 
 	private Collection<UserFactory> factories_=new ArrayList<UserFactory>();

@@ -1,7 +1,6 @@
 package users;
 
 import exceptions.InvalidNameException;
-import system.Location;
 /**
  * Class that represents a type of user in the system
  */

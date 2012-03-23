@@ -2,10 +2,7 @@ package users;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Map;
-import system.Location;
 import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.UserIN;
 import exceptions.InvalidNameException;
