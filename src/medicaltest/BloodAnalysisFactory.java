@@ -11,7 +11,7 @@ public class BloodAnalysisFactory extends MedicalTestFactory
 
 	/**
 	 * Default constructor, only visible in the package since you have to create
-	 * the factories in the MedicalTestsClass
+	 * the factories in the MedicalTestsClass.
 	 */
 	BloodAnalysisFactory() {
 	}
@@ -79,7 +79,7 @@ public class BloodAnalysisFactory extends MedicalTestFactory
 	 * @return true if the argumet is not null.
 	 */
 	private boolean isValidFocus(String focus) {
-		return !(focus == null);
+		return !(focus == null || focus.isEmpty());
 	}
 
 	/**

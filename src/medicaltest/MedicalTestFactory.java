@@ -11,6 +11,8 @@ public abstract class MedicalTestFactory
 	protected HospitalDate creationDate_;
 	
 	public void setPatientFile(PatientFile patientFile){
+		if(! isValidPatientFile(patientFile))
+			throw new IllegalArgumentException("Invalid patient file given to medical test factory!");
 		this.patientFile_ = patientFile;
 	}
 	
@@ -25,12 +27,12 @@ public abstract class MedicalTestFactory
 		return patientFile != null;
 	}
 	
-	private boolean isValidSystemTime(HospitalDate currentSystemTime) {
-		return currentSystemTime != null;
+	private boolean isValidSystemTime(HospitalDate time) {
+		return time != null;
 	}
 	
-	protected boolean isReady(){
-		return isValidSystemTime(this.creationDate_) && isValidPatientFile(this.patientFile_);
+	protected boolean isReady() {
+		return this.isValidPatientFile(patientFile_) && this.isValidSystemTime(creationDate_);
 	}
 	
 	public abstract MedicalTest create() throws FactoryInstantiationException;
