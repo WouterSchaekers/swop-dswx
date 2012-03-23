@@ -38,7 +38,7 @@ public class Scheduler
 		removeDoubleBookings(availableResources);
 		checkIfEnoughResources(availableResources);
 		HashMap<LinkedList<Schedulable>, LinkedList<Integer>> usedResourcesList = produceUsedResourcesList(availableResources);
-		LinkedList<Location> possibleLocations = getPossibleLocations(availableResources);
+		LinkedList<Location> possibleLocations = getPossibleLocations(availableResources, schedulingData.getLocations());
 		ScheduledTask bestScheduledTask = null;
 		for (Location possibleLocation : possibleLocations) {
 			ScheduledTask possibleScheduledTask;
@@ -60,8 +60,7 @@ public class Scheduler
 		}
 		return bestScheduledTask;
 	}
-
-	@SuppressWarnings("unchecked")
+	
 	private ScheduledTask schedule(
 			HashMap<LinkedList<Schedulable>, Integer> availableResources,
 			HashMap<LinkedList<Schedulable>, LinkedList<Integer>> chosenResources,
@@ -74,8 +73,7 @@ public class Scheduler
 			if (availableResources.get(resourcePool) > chosenResources.get(
 					resourcePool).size()) {
 				currentResourcePool = resourcePool;
-				bestOptionToFind = (LinkedList<Schedulable>) resourcePool
-						.clone();
+				bestOptionToFind = new LinkedList<Schedulable>(resourcePool);
 				removeAlreadyUsedResources(bestOptionToFind,
 						chosenResources.get(resourcePool));
 				break;
@@ -187,15 +185,19 @@ public class Scheduler
 		}
 		return usedResources;
 	}
-
+	
 	private LinkedList<Location> getPossibleLocations(
-			HashMap<LinkedList<Schedulable>, Integer> availableResources) {
-		LinkedList<Location> possibleLocations = new LinkedList<Location>();
+			HashMap<LinkedList<Schedulable>, Integer> availableResources, Collection<Location> locations) {
+		LinkedList<Location> possibleLocations = new LinkedList<Location>(locations);
 		boolean first = true;
 		for (LinkedList<Schedulable> resourcePool : availableResources.keySet()) {
+			boolean canTravel = false;
 			LinkedList<Location> curPossibleLocations = new LinkedList<Location>();
 			HashMap<Location, Integer> amountOfResources = new HashMap<Location, Integer>();
 			for (Schedulable schedulable : resourcePool) {
+				if(schedulable.canTravel()){
+					canTravel = true;
+				}
 				Location curLocation = schedulable.getLocation();
 				if (amountOfResources.containsKey(curLocation)) {
 					amountOfResources.put(curLocation, 1);
@@ -210,11 +212,14 @@ public class Scheduler
 					curPossibleLocations.add(location);
 				}
 			}
-			if (first) {
-				possibleLocations = curPossibleLocations;
-			} else {
-				possibleLocations = getIntersect(possibleLocations,
-						curPossibleLocations);
+			if(!canTravel){
+				if (first) {
+					first = false;
+					possibleLocations = curPossibleLocations;
+				} else {
+					possibleLocations = getIntersect(possibleLocations,
+							curPossibleLocations);
+				}
 			}
 		}
 		return possibleLocations;
@@ -294,15 +299,14 @@ public class Scheduler
 		return bestOption;
 	}
 	
-	@SuppressWarnings("unchecked")
 	private HashMap<LinkedList<Schedulable>, LinkedList<Integer>> cloneAndAddHashMapValues(HashMap<LinkedList<Schedulable>, LinkedList<Integer>> chosenResources, LinkedList<Schedulable> resourcePool, int bestOption){
 		HashMap<LinkedList<Schedulable>, LinkedList<Integer>> clonedHashMap = new HashMap<LinkedList<Schedulable>, LinkedList<Integer>>();
 		for(LinkedList<Schedulable> currentResourcePool : chosenResources.keySet()){
 			if(currentResourcePool != resourcePool){
-				clonedHashMap.put(currentResourcePool, (LinkedList<Integer>)chosenResources.get(currentResourcePool).clone());
+				clonedHashMap.put(currentResourcePool, new LinkedList<Integer>(chosenResources.get(currentResourcePool)));
 			}
 			else{
-				LinkedList<Integer> newLinkedList = (LinkedList<Integer>)chosenResources.get(currentResourcePool).clone();
+				LinkedList<Integer> newLinkedList = new LinkedList<Integer>(chosenResources.get(currentResourcePool));
 				newLinkedList.add(bestOption);
 				clonedHashMap.put(currentResourcePool, newLinkedList);
 			}
