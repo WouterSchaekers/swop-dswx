@@ -12,4 +12,10 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN
 	public WarehouseAdmin(String name) throws InvalidNameException {
 		super(name);
 	}
+
+	@Override
+	public UserFactory getType() {
+		return new WarehouseAdminFactory();
+	}
+	
 }

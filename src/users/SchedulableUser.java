@@ -19,7 +19,7 @@ public abstract class SchedulableUser extends User implements Schedulable
 	protected TimeTable _timeTable = new TimeTable();
 	protected Collection<ScheduledTask> _scheduledTasks;
 
-	protected SchedulableUser(String name, Location preference) throws InvalidNameException {
+	 SchedulableUser(String name, Location preference) throws InvalidNameException {
 		super(name);
 		this._preference = preference;
 		this._timeTable = new TimeTable();

@@ -11,7 +11,7 @@ import exceptions.InvalidTimeSlotException;
 
 public class Doctor extends SchedulableUser implements DoctorIN
 {
-	public Doctor(String name, Location preference) throws InvalidNameException {
+	Doctor(String name, Location preference) throws InvalidNameException {
 		super(name, preference);
 	}
 
@@ -35,5 +35,10 @@ public class Doctor extends SchedulableUser implements DoctorIN
 	@Override
 	public boolean canTravel() {
 		return true;
+	}
+
+	@Override
+	public UserFactory getType() {
+		return new DocotorFactory();
 	}
 }
