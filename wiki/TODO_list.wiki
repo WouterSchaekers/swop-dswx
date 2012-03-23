@@ -1,7 +1,6 @@
 = TODOs =
   * zie de feedbacksessie van iteratie 2
   * *Design review:* use case van advanceTime() moet nog eens nauwkeurig bestudeerd worden.
-  * *Implementatie:* Treatment factories
   * *Implementatie:* Controllers houden IDs bij van de objecten die ze aan de buitenwereld terug geven om zo inconsistenties in het systeem te vermijden.
   * *Visual Paradigm:* SSDs van alle use cases
     * Login
@@ -68,3 +67,4 @@ Wouter: breaktimep>
   * *Implementatie:* Requirements en Descriptions
   * *Implementatie:* Result
   * *Implementatie:* Scheduler
+  * *Implementatie:* Treatment factories
