@@ -2,6 +2,7 @@ package scheduler;
 
 import java.util.Collection;
 import scheduler.tasks.UnscheduledTask;
+import system.Location;
 
 /**
  * Use this object to transfer a bunch of data to the scheduler when you want to
@@ -10,12 +11,14 @@ import scheduler.tasks.UnscheduledTask;
 public class SchedulingData
 {
 	private Collection<Schedulable> allSchedulables_;
+	private Collection<Location> locations_;
 	private TimeLord timeLord_;
 	private UnscheduledTask unscheduledTask_;
 
-	public SchedulingData(Collection<Schedulable> schedulables, TimeLord timeLord,
+	public SchedulingData(Collection<Schedulable> schedulables, Collection<Location> locations, TimeLord timeLord,
 			UnscheduledTask unscheduledTask) {
 		this.allSchedulables_ = schedulables;
+		this.locations_ = locations;
 		this.timeLord_ = timeLord;
 		this.unscheduledTask_ = unscheduledTask;
 	}
@@ -25,6 +28,10 @@ public class SchedulingData
 	 */
 	public Collection<Schedulable> getAllResources() {
 		return this.allSchedulables_;
+	}
+	
+	public Collection<Location> getLocations(){
+		return this.locations_;
 	}
 
 	/**
