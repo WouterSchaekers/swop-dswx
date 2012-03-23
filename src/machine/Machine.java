@@ -62,6 +62,10 @@ public abstract class Machine implements Schedulable
 	public Location getLocation() {
 		return this.location_;
 	}
+	
+	public boolean canTravel(){
+		return false;
+	}
 
 	/**
 	 * There is only one machine object associated with a serial number, this is

@@ -34,7 +34,6 @@ public class Doctor extends SchedulableUser implements DoctorIN
 
 	@Override
 	public boolean canTravel() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 }
