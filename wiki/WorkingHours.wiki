@@ -32,6 +32,8 @@
 || 18/03/12: 18u00 -> 19u30 || 1 S|| 1.5 || Warehouse/StockOrder/... beetje fixen; Visual Paradigm: 4 nieuwe prentjes staan nu op de communication pagina. || ||
 || 20/03/12: 11u00 -> 19u00 || 3 DSW || 8 || Warehouse/StockOrder/ScheduledTask/Requirement/Condition/meeting with project advisor || ||
 || 21/03/12: 21u00 -> 02u30 || 2 SW || 5.5 || Warehousepackage/schedulingpackage except for scheduler are done. Starting the implementation of scheduler. || Dieter winabar ||
+|| 22/03/12: 15u00 -> 18u00 || 1 W || 3 || Scheduling algorithm || Stefaan had migraine en lag te QQ'en. Dieter moest met Shana leuke dingen doen. ||
+|| 23/03/12: 11u00 -> 14u00 || 2 SW || 3 || Scheduling algorithm, factory pattern for treatment. || ||
 
 
 = Iteratie 2 =
