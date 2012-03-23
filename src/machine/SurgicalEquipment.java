@@ -27,4 +27,9 @@ public class SurgicalEquipment extends Machine
 		return this.getTimeTable().hasFreeSlotAt(startDate, stopDate);
 	}
 
+	@Override
+	public boolean canTravel() {
+		return false;
+	}
+
 }

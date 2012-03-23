@@ -18,7 +18,7 @@ public class ListOrdersController extends NeedsLoginController
 	}
 
 	public String getCategories() {
-		// TODO: Gebruiken we hier een string?
+		// TODO: fix
 		return null;
 	}
 
