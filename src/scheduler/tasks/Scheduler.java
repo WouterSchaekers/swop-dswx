@@ -10,7 +10,6 @@ import scheduler.StartTimePoint;
 import scheduler.StopTimePoint;
 import scheduler.TimeSlot;
 import scheduler.requirements.Requirement;
-import system.Campus;
 import system.Location;
 import exceptions.InvalidSchedulingRequestException;
 
