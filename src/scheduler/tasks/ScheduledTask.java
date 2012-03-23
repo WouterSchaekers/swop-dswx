@@ -5,15 +5,16 @@ import scheduler.HospitalDate;
 import scheduler.Schedulable;
 import scheduler.TimeSlot;
 import system.Campus;
+import system.Location;
 
 public class ScheduledTask extends Task
 {
 	private Collection<Schedulable> resources_;
 	private TimeSlot timeSlot_;
-	private Campus location_;
+	private Location location_;
 
 	ScheduledTask(TaskDescription description,
-			Collection<Schedulable> resources, TimeSlot timeSlot, Campus location) {
+			Collection<Schedulable> resources, TimeSlot timeSlot, Location location) {
 		super(description);
 		this.resources_ = resources;
 		this.timeSlot_ = timeSlot;
@@ -32,7 +33,7 @@ public class ScheduledTask extends Task
 		return this.timeSlot_.getStopPoint().getHospitalDate();
 	}
 	
-	public Campus getLocation(){
+	public Location getLocation(){
 		return this.location_;
 	}
 	
