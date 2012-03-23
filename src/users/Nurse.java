@@ -15,16 +15,14 @@ import exceptions.InvalidTimeSlotException;
 public class Nurse extends SchedulableUser implements NurseIN
 {
 
-	private static final int STARTHOUR = 8;
+	private static final int STARTHOUR = 9;
 	private static final int STOPHOUR = 17;
 
 	/**
-	 * Default constructor. Will initialise all fields.
+	 * Default constructor. Will initialise fields.
 	 * 
 	 * @param name
 	 *            The name of this Nurse.
-	 * @throws InvalidNameException
-	 * @throws InvalidTimeSlotException
 	 */
 	public Nurse(String name, Location preference)
 			throws InvalidNameException {
@@ -36,7 +34,6 @@ public class Nurse extends SchedulableUser implements NurseIN
 	 * interval. It will also check the necessary constraints.
 	 * 
 	 * @return True if this Nurse can be scheduled in the given time interval.
-	 * @throws InvalidTimeSlotException
 	 */
 	@Override
 	public boolean canBeScheduledOn(HospitalDate startDate,
