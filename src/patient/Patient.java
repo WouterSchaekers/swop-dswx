@@ -73,4 +73,10 @@ public class Patient implements Schedulable
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public Location getLocation() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
