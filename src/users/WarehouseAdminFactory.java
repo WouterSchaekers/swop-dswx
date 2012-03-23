@@ -1,7 +1,6 @@
 package users;
 
 import exceptions.InvalidNameException;
-import system.Location;
 
 public class WarehouseAdminFactory extends UserFactory
 {
