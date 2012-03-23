@@ -5,7 +5,12 @@ import exceptions.InvalidNameException;
 
 public class HospitalAdmin extends User implements HospitalAdminIN
 {
-	public HospitalAdmin(String name) throws InvalidNameException {
+	 HospitalAdmin(String name) throws InvalidNameException {
 		super(name);
+	}
+
+	@Override
+	public UserFactory getType() {
+		return new HospitalAdminFactory();
 	}
 }

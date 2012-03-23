@@ -1,47 +1,54 @@
 package users;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import system.Location;
 import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.UserIN;
+import exceptions.InvalidNameException;
 import exceptions.UserAlreadyExistsException;
 
 public class UserManager
 {
 
-	private Map<User, Location> _users;
+	private Collection<User> users_;
+	private UserTypeManager userTypeManager = new UserTypeManager();
 
 	/**
 	 * Default constructor.
 	 */
 	public UserManager() {
-		_users = new HashMap<User, Location>();
+		users_ = new ArrayList<User>();
+	}
+
+	public void addType(UserFactory fact) {
+		userTypeManager.add(fact);
 	}
 
 	@Basic
 	public LinkedList<UserIN> getAllUsers() {
-		return new LinkedList<UserIN>(this._users.keySet());
+		return new LinkedList<UserIN>(this.users_);
 	}
 
-	/**
-	 * Use to add schedulable users only!
-	 */
-	public void addUser(SchedulableUser user) throws UserAlreadyExistsException {
-		if (_users.keySet().contains(user))
-			throw new UserAlreadyExistsException(user.name);
-		_users.put(user, ((SchedulableUser) user).getLocation());
+	public void createUser(UserFactory factory)
+			throws UserAlreadyExistsException, InvalidNameException {
+		addUser(factory.create());
+	}
+
+	public Collection<UserFactory> getUserFacotories() {
+		return userTypeManager.types();
 	}
 
 	/**
 	 * Use to add unschedulable users only!
 	 */
-	public void addUser(User user, Location location)
-			throws UserAlreadyExistsException {
-		if (_users.containsKey(user))
+	private void addUser(User user) throws UserAlreadyExistsException {
+		if (users_.contains(user))
 			throw new UserAlreadyExistsException(user.name);
-		_users.put(user, location);
+		users_.add(user);
 	}
 
 }

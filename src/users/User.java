@@ -7,7 +7,7 @@ public abstract class User implements UserIN
 {
 	protected String name;
 
-	protected User(String name) throws InvalidNameException {
+	User(String name) throws InvalidNameException {
 		if (!isValidName(name))
 			throw new InvalidNameException(
 					"Invalid name given in constructor of User!");
@@ -21,4 +21,5 @@ public abstract class User implements UserIN
 	private boolean isValidName(String n) {
 		return !n.equals("");
 	}
+	public abstract UserFactory getType();
 }

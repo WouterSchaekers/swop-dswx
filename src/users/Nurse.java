@@ -24,7 +24,7 @@ public class Nurse extends SchedulableUser implements NurseIN
 	 * @param name
 	 *            The name of this Nurse.
 	 */
-	public Nurse(String name, Location preference)
+	 Nurse(String name, Location preference)
 			throws InvalidNameException {
 		super(name, preference);
 	}
@@ -95,5 +95,10 @@ public class Nurse extends SchedulableUser implements NurseIN
 	@Override
 	public boolean canTravel() {
 		return false;
+	}
+
+	@Override
+	public UserFactory getType() {
+		return new NurseFactory();
 	}
 }
