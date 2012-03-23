@@ -96,14 +96,15 @@ public class Scheduler
 		} catch (Exception e) {
 			throw new Error(e.toString());
 		}
+		HospitalDate newStartDate = bestSlot.getStartPoint().getHospitalDate();
+		HospitalDate newStopDate = bestSlot.getStopPoint().getHospitalDate();
 		try {
 			return schedule(availableResources, cloneAndAddHashMapValues(chosenResources, currentResourcePool, bestOption), location,
-					bestSlot.getStartPoint().getHospitalDate(), bestSlot
-							.getStopPoint().getHospitalDate(), taskDescription);
+					newStartDate, newStopDate, taskDescription);
 		} catch (InvalidSchedulingRequestException e) {
+			newStartDate = new HospitalDate(newStartDate.getTimeSinceStart() + 1);
 			return schedule(availableResources, chosenResources, location,
-					bestSlot.getStartPoint().getHospitalDate(), bestSlot
-							.getStopPoint().getHospitalDate(), taskDescription);
+					newStartDate, newStopDate, taskDescription);
 		}
 	}
 
