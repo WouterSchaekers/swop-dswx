@@ -10,6 +10,7 @@ import scheduler.StopTimePoint;
 import scheduler.TimeSlot;
 import scheduler.requirements.Requirement;
 import system.Location;
+import exceptions.CanNeverBeScheduledException;
 import exceptions.InvalidSchedulingRequestException;
 
 public class Scheduler
@@ -18,7 +19,7 @@ public class Scheduler
 	}
 
 	public ScheduledTask schedule(SchedulingData schedulingData)
-			throws InvalidSchedulingRequestException {
+			throws InvalidSchedulingRequestException, CanNeverBeScheduledException {
 		Collection<Schedulable> resourcePool = schedulingData.getAllResources();
 		HospitalDate currentDate = schedulingData.getTimeLord().getSystemTime();
 		TaskDescription description = schedulingData.getDescription();
@@ -166,10 +167,10 @@ public class Scheduler
 
 	private void checkIfEnoughResources(
 			HashMap<LinkedList<Schedulable>, Integer> availableResources)
-			throws InvalidSchedulingRequestException {
+			throws CanNeverBeScheduledException {
 		for (LinkedList<Schedulable> resourcePool : availableResources.keySet()) {
 			if (resourcePool.size() < availableResources.get(resourcePool)) {
-				throw new InvalidSchedulingRequestException(
+				throw new CanNeverBeScheduledException(
 						"There are not enough resources to schedule this task.");
 			}
 		}
