@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Queue;
+import system.Hospital;
 import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidHospitalDateArgument;
@@ -25,114 +26,36 @@ import exceptions.QueueException;
  */
 public class TaskManager extends Observable
 {
-	private Collection<UnscheduledTask> taskQueue = new LinkedList<UnscheduledTask>();
-	private Scheduler myScheduler;
 
-	/**
-	 * Default constructor. Creates a new taskamanger and appoints it a
-	 * sheduler.
-	 * 
-	 * @param s
-	 *            The scheduler to be stored in this TaskManager for current
-	 *            system time purposes.
-	 */
-	public TaskManager(Scheduler s) {
-		this.myScheduler = s;
+	private Hospital hospital_;
+	private Collection<TaskDescription> unscheduledDescriptions_;
+
+	public TaskManager(Hospital hospital) {
+		hospital_ = hospital;
+		unscheduledDescriptions_ = new LinkedList<TaskDescription>();
 	}
 
 	/**
-	 * This method has to be called in order to update the Queue at the right
-	 * times in the flow of the program. It will check if any of the Tasks in
-	 * the Queue can be scheduled. If so, it will ask a Scheduler to schedule
-	 * them.
+	 * Returns a scheduled task if the given taskdescription can be scheduled.
 	 * 
-	 * @return A map from Task to Date where the Date is the Date the Task has
-	 *         been scheduled at.
-	 * @throws InvalidSchedulingRequestException
-	 * @throws InvalidDurationException
-	 * @throws QueueException
-	 * @throws InvalidSchedulingRequestException
-	 * @throws InvalidTimeSlotException
-	 * @throws InvalidResourceException
-	 * @throws InvalidHospitalDateArgument
+	 * @param description
+	 * @return
+	 * @throws InvalidSchedulingRequestException 
 	 */
-	private void updateQueue() throws QueueException, InvalidDurationException,
-			InvalidSchedulingRequestException,
-			InvalidSchedulingRequestException, InvalidTimeSlotException,
-			InvalidResourceException, InvalidHospitalDateArgument {
-		Queue<UnscheduledTask> newQueue = new LinkedList<UnscheduledTask>(
-				this.taskQueue);
-		for (UnscheduledTask curTask : this.taskQueue) {
-			if (curTask.canBeScheduled()) {
-				this.myScheduler().schedule(curTask);
+	public ScheduledTask add(TaskDescription description) throws InvalidSchedulingRequestException {
+		UnscheduledTask task = new UnscheduledTask(description);
 
-			} else {
-				newQueue.add(curTask);
-			}
-		}
-		this.taskQueue = newQueue;
-	}
-
-	private Scheduler myScheduler() {
-		return this.myScheduler;
-	}
-
-	/**
-	 * This method will add a Task to this TaskManager's queue. Note that you
-	 * should probably update the queue of this TaskManager after adding a Task.
-	 * 
-	 * @param t
-	 *            The task to add.
-	 * @return returns null if t can't be scheduled at this time.
-	 */
-	public ScheduledTask addTask(UnscheduledTask t)
-			throws InvalidTimeSlotException, InvalidResourceException,
-			InvalidHospitalDateArgument {
-		if (!isValidTask(t))
-			throw new IllegalArgumentException(
-					"Task t in addTask of the TaskManager is not a valid queueable Task!");
 		try {
-			return schedule(t);
+			return task.scheduleIn(hospital_);
 		} catch (InvalidSchedulingRequestException e) {
-			this.taskQueue.add(t);
-			return null;
+			addForLater(description);
+			throw e;
 		}
 	}
 
-	private ScheduledTask schedule(UnscheduledTask t)
-			throws InvalidTimeSlotException, InvalidSchedulingRequestException,
-			InvalidResourceException, InvalidHospitalDateArgument {
-		ScheduledTask task = this.myScheduler.schedule(t);
-		t.setScheduled(task);
+	private void addForLater(TaskDescription description) {
+		unscheduledDescriptions_.add(description);
 
-		return task;
 	}
 
-	/**
-	 * @return True if t is a valid Task that can be queued in this TM.
-	 */
-	private boolean isValidTask(UnscheduledTask t) {
-		return t != null;
-	}
-
-	@Basic
-	public Collection<Task> getTaskQueue() {
-		return new ArrayList<Task>(taskQueue);
-	}
-
-	/**
-	 * This method should be called when any observer notices anything relevant
-	 * to the TaskManager. The TaskManager will update its queue and schedule
-	 * the things it can in this new situation.
-	 * 
-	 * @pre before calling this method, we assume that the warehouse observer
-	 *      has already notified its warehouse about the changes. Otherwise a
-	 *      correct update of the queue will not be guarrenteed!
-	 */
-	public void update() {
-		try {
-			this.updateQueue();
-		} catch (Exception e) {
-		}
-	}
 }
