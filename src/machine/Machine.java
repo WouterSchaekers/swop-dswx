@@ -104,13 +104,5 @@ public abstract class Machine implements Schedulable
 		this.timeTable_.updateTimeTable(newDate);
 	}
 
-	@Override
-	public Collection<ScheduledTask> getScheduledTasks() {
-		return this.scheduledTasks_;
-	}
-
-	@Override
-	public void addScheduledTask(ScheduledTask scheduledTask) {
-		this.scheduledTasks_.add(scheduledTask);
-	}
+	
 }

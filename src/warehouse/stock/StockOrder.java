@@ -20,7 +20,6 @@ public class StockOrder<T extends WarehouseItemType>
 	private T type_;
 	private HospitalDate creationDate_;
 	private Warehouse warehouse_;
-	private int amount_;
 
 	/**
 	 * Initialises a new stock order.
@@ -28,13 +27,11 @@ public class StockOrder<T extends WarehouseItemType>
 	 * @param amount
 	 *            The amount of items needed of the type of this order.
 	 */
-	public StockOrder(Warehouse warehouse, T type, HospitalDate creationDate,
-			int amount) {
+	public StockOrder(Warehouse warehouse, T type, HospitalDate creationDate) {
 		type_ = type;
 		delivered_ = false;
 		warehouse_ = warehouse;
 		creationDate_ = creationDate;
-		this.amount_ = amount;
 	}
 
 	/**
@@ -60,8 +57,8 @@ public class StockOrder<T extends WarehouseItemType>
 		if (!this.canBeDelivered())
 			throw new InvalidOrderStateException(
 					"This order is not ready for delivery yet!");
-		for (int i = 0; i < this.amount_; i++)
-			warehouse_.add(type_.create(expiryDate));
+		
+		warehouse_.add(type_.create(expiryDate));
 		delivered_ = true;
 	}
 
@@ -69,7 +66,7 @@ public class StockOrder<T extends WarehouseItemType>
 	 * @return True if this order can be delivered now.
 	 */
 	public boolean canBeDelivered() {
-		return warehouse_.getCampus().getSystemTime()
+		return warehouse_.getCampus().getSystemTime().getSystemTime()
 				.after(this.earliestDeliveryTime())
 				&& !this.hasBeenDelivered();
 	}

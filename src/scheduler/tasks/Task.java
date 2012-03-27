@@ -1,6 +1,6 @@
 package scheduler.tasks;
 
-public class Task
+public abstract class Task
 {
 	protected final TaskDescription description_;
 
@@ -8,7 +8,7 @@ public class Task
 		description_ = description;
 	}
 
-	public TaskDescription getDescription() {
+	public final TaskDescription getDescription() {
 		return description_;
 	}
 }

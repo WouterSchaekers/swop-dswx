@@ -21,7 +21,7 @@ public class NurseSelected extends Usecase
 			String arg = input.nextLine();
 			System.out.println("Enter nurse location: ");
 			String arg2 = input.nextLine();
-			c.addNurse(arg, arg2);
+			//c.addNurse(arg, arg2);
 
 			System.out.println("Nurse " + arg + "succesfully created");
 			return new SelectUsecase(data);

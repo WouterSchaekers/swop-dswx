@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Observer;
 import medicaltest.MedicalTest;
-import observers.DiagnoseObserverTaskManager;
 import scheduler.HospitalDate;
 import scheduler.tasks.TaskManager;
 import users.Doctor;
@@ -184,26 +183,26 @@ public class PatientFile implements PatientFileIN
 		rv.addAll(diagnosis);
 		return rv;
 	}
-
+	//XXX: static shit is noooooit nodig!
 	public static Diagnose createDiagnose(String diag, Doctor attending,
 			TaskManager taskmanager) throws InvalidDoctorException,
 			InvalidDiagnoseException {
 		Diagnose d = new Diagnose(attending, diag);
-		d.addObserver(new DiagnoseObserverTaskManager(taskmanager));
+		//d.addObserver(new DiagnoseObserverTaskManager(taskmanager));
 		return d;
 	}
-
+	//XXX:fix fast!
 	public static Diagnose createDiagnoseSecondOp(String diag,
 			Doctor attending, Doctor secondop, TaskManager taskmanager)
 			throws InvalidDoctorException, InvalidDiagnoseException {
 		Diagnose d = new Diagnose(attending, diag);
-		d.addObserver(new DiagnoseObserverTaskManager(taskmanager));
+		//d.addObserver(new DiagnoseObserverTaskManager(taskmanager));
 		d.markForSecOp(secondop);
 		return d;
 	}
 
-	public void addMedicalTest(MedicalTest create) {
-		this.medicaltests.add(create);
+	public void addMedicalTest(MedicalTest test) {
+		this.medicaltests.add(test);
 	}
 
 	@Override

@@ -21,9 +21,9 @@ public class DoctorSelected extends Usecase
 		System.out.println("Enter the doctors name:");
 		String arg = input.nextLine();
 		System.out.println("Enter doctor's whereabouts: ");
-		String arg2 = input.nextLine();
-			c.addDoctor(arg, arg2);
-		
+//		String arg2 = input.nextLine();
+//			c.addDoctor(arg, arg2);
+//		
 		System.out.println("Doctor " + arg + " was succesfully created");
 		return new SelectUsecase(data);
 		} catch (Exception e) {

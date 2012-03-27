@@ -1,8 +1,14 @@
 package system;
 
+import help.Collections;
+import help.Filter;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
+import controllers.interfaces.UserIN;
 import patient.PatientFileManager;
 import scheduler.HospitalDate;
+import scheduler.Schedulable;
 import scheduler.TimeLord;
 import scheduler.tasks.Scheduler;
 import scheduler.tasks.TaskManager;
@@ -31,7 +37,7 @@ public class Hospital
 			this.systemTime_ = new TimeLord();
 			this.userManager_ = new UserManager();
 			this.patientFileManager_ = new PatientFileManager();
-			this.taskManager_ = new TaskManager(new Scheduler());
+			this.taskManager_ = new TaskManager(this);
 			this.campusses_ = new LinkedList<Campus>();
 			//TODO: initilise campusses and give them warehouses.
 		} catch (Exception e) {
@@ -71,8 +77,8 @@ public class Hospital
 	}
 
 	@Basic
-	public HospitalDate getSystemTime() {
-		return systemTime_.getSystemTime();
+	public TimeLord getTimeKeeper() {
+		return systemTime_;
 	}
 
 	@Basic
@@ -122,5 +128,36 @@ public class Hospital
 		for(Campus c : this.campusses_)
 			if((c.getCampusName().equals(name)))
 					newCP.add(c);
+	}
+	/**
+	 * Vieze methode bah
+	 * @return
+	 */
+	public Collection<Schedulable> getAllSchedulables()
+	{
+		ArrayList<Object> sched = new ArrayList<Object>();
+		for(Object o:userManager_.getAllUsers())
+			sched.add(o);
+		for(Object o:patientFileManager_.getAllPatientFiles())
+			sched.add(o);
+		for(Campus c:campusses_)
+			for(Schedulable s: c.getSchedulables())
+				sched.add(s);
+		Collection<?>  c  = Collections.filter(sched, schedulableFilter());
+		Collection<Schedulable> rv = new ArrayList<Schedulable>();
+		for(Object o:c)
+			rv.add((Schedulable)o);
+		return rv;
+	}
+	private static final Filter schedulableFilter()
+	{
+		return new Filter()
+		{
+			
+			@Override
+			public <T> boolean allows(T arg) {
+				return arg instanceof Schedulable;
+			}
+		};
 	}
 }

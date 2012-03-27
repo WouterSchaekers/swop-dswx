@@ -30,10 +30,10 @@ public class _ApproveDiagnosisControllerTest
 		hospital = new Hospital();
 		loginController = new LoginController(hospital);
 		hospital.addCampus("Campus 1");
-		Location w = hospital.getCampus("Campus 1");
-		nurse = new Nurse("jenny",w);
-		doctor = new Doctor("jonathan",w);
-		hospitad = new HospitalAdmin("asdfd");
+//		Location w = hospital.getCampus("Campus 1");
+//		nurse = new Nurse("jenny",w);
+//		doctor = new Doctor("jonathan",w);
+//		hospitad = new HospitalAdmin("asdfd");
 	}
 
 	@Test(expected = InvalidLoginControllerException.class)

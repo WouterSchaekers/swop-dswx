@@ -1,5 +1,6 @@
 package scheduler.tasks;
 
+import exceptions.CanNeverBeScheduledException;
 import exceptions.InvalidSchedulingRequestException;
 import system.Hospital;
 
@@ -12,17 +13,8 @@ import system.Hospital;
 	 UnscheduledTask(TaskDescription description) {
 		super(description);
 	}
-
-	
-	Scheduler getScheduler()
-	{
-		return new Scheduler();
-	}
-
-
-	public ScheduledTask scheduleIn(Hospital hospital) throws InvalidSchedulingRequestException {
-			return this.getScheduler().schedule(new SchedulingData(description_,hospital));
-		
-		
+	 
+	public ScheduledTask scheduleIn(Hospital hospital) throws InvalidSchedulingRequestException, CanNeverBeScheduledException {
+			return new Scheduler().schedule(new SchedulingData(description_,hospital));
 	}
 }

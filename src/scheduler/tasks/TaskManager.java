@@ -4,15 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Observable;
-import java.util.Queue;
 import system.Hospital;
-import be.kuleuven.cs.som.annotate.Basic;
-import exceptions.InvalidDurationException;
-import exceptions.InvalidHospitalDateArgument;
-import exceptions.InvalidResourceException;
+import exceptions.CanNeverBeScheduledException;
 import exceptions.InvalidSchedulingRequestException;
-import exceptions.InvalidTimeSlotException;
-import exceptions.QueueException;
 
 /**
  * This class manages new and old Tasks. If a new Task is created, it will
@@ -29,10 +23,11 @@ public class TaskManager extends Observable
 
 	private Hospital hospital_;
 	private Collection<TaskDescription> unscheduledDescriptions_;
-
+	private Collection<ScheduledTask> scheduledTasks_;
 	public TaskManager(Hospital hospital) {
 		hospital_ = hospital;
 		unscheduledDescriptions_ = new LinkedList<TaskDescription>();
+		scheduledTasks_=new LinkedList<ScheduledTask>();
 	}
 
 	/**
@@ -41,18 +36,40 @@ public class TaskManager extends Observable
 	 * @param description
 	 * @return
 	 * @throws InvalidSchedulingRequestException 
+	 * The requirements for this description have not yet been met and the description has been stored.
+	 * @throws CanNeverBeScheduledException 
+	 * The requirements for this description can never be met and the description is not stored.
 	 */
-	public ScheduledTask add(TaskDescription description) throws InvalidSchedulingRequestException {
+	public ScheduledTask add(TaskDescription description) throws InvalidSchedulingRequestException, CanNeverBeScheduledException {
 		UnscheduledTask task = new UnscheduledTask(description);
 
 		try {
-			return task.scheduleIn(hospital_);
+			ScheduledTask scheduledTask = task.scheduleIn(hospital_);
+			scheduledTasks_.add(scheduledTask);
+			return scheduledTask;
 		} catch (InvalidSchedulingRequestException e) {
 			addForLater(description);
 			throw e;
+		} catch (CanNeverBeScheduledException e) {
+			throw e;
 		}
 	}
-
+	/**
+	 * Gets all the tasks that are not yet scheduled in this taskmanager for this hospital
+	 * @return
+	 */
+	public Collection<TaskDescription> getUnscheduledDescriptions()
+	{
+		return new ArrayList<TaskDescription>(unscheduledDescriptions_);
+	}
+	/**
+	 * Gets all the scheduled tasks in this taskmanager.
+	 * @return
+	 */
+	public Collection<ScheduledTask> getScheduledTasks()
+	{
+		return new ArrayList<ScheduledTask>(scheduledTasks_);
+	}
 	private void addForLater(TaskDescription description) {
 		unscheduledDescriptions_.add(description);
 

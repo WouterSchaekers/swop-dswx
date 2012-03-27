@@ -21,6 +21,7 @@ public class AddHospitalStaffController extends NeedsLoginController
 		super(lc);
 	}
 	private Collection<UserFactory> passedOut=new ArrayList<UserFactory>();
+	
 	public Collection<UserFactory> getFactories()
 	{
 		passedOut = new ArrayList<UserFactory>();
