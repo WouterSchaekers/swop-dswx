@@ -21,6 +21,7 @@ public class MachinePool
 	 * @throws InvalidLocationException 
 	 */
 	public void addMachine(MachineBuilder m) throws InvalidLocationException, InvalidSerialException {
+		
 		Machine machine = m.build();
 		if(	alreadyContains(machine.getSerial()))
 			throw new InvalidSerialException();

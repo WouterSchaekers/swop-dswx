@@ -30,4 +30,5 @@ public abstract class MachineBuilder
 		else
 			throw new IllegalSetException("You can only set location once");
 	}
+	abstract boolean sameType(MachineBuilder builder);
 }

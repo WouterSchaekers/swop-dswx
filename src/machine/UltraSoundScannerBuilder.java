@@ -23,4 +23,9 @@ public class UltraSoundScannerBuilder extends MachineBuilder
 	MachineBuilder newBuilder() {
 		return new UltraSoundScannerBuilder();
 	}
+
+	@Override
+	boolean sameType(MachineBuilder builder) {
+		return builder instanceof UltraSoundScannerBuilder;
+	}
 }
