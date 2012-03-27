@@ -2,10 +2,7 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import system.Location;
-import users.Doctor;
 import users.HospitalAdmin;
-import users.Nurse;
 import users.User;
 import users.UserFactory;
 import exceptions.InvalidDomainObjectException;

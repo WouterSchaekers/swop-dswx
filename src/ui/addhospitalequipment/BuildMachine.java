@@ -4,8 +4,6 @@ import machine.MachineBuilder;
 import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
-import exceptions.InvalidLocationException;
-import exceptions.InvalidSerialException;
 
 public class BuildMachine extends AddHospitalEquipmentSuperClass
 {
@@ -33,19 +31,21 @@ public class BuildMachine extends AddHospitalEquipmentSuperClass
 		String location = input.nextLine();
 		MachineBuilder b = chainData.getMachineBuilder();
 		{
-			try {
-				//TODO: fix de null
-				chainData.getController().createMachine(b, serial, location, null);
-			} catch (InvalidLocationException e) {
-				System.out.println(e.getMessage());
-				return this;
-			} catch (InvalidSerialException e) {
-				System.out.println(e.getMessage());
-				return this;
-			}
+			// try {
+			// //TODO: fix de null
+			// // chainData.getController().createMachine(b, serial, location,
+			// null);
+			// } catch (InvalidLocationException e) {
+			// System.out.println(e.getMessage());
+			// return this;
+			// } catch (InvalidSerialException e) {
+			// System.out.println(e.getMessage());
+			// return this;
+			// }
+			// }
+			// System.out.println("Machine was sucesfully build and added to system");
+			return new SelectUsecase(data);
 		}
-		System.out.println("Machine was sucesfully build and added to system");
-		return new SelectUsecase(data);
-	}
 
+	}
 }

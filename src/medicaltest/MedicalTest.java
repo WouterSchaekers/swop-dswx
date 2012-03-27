@@ -3,7 +3,6 @@ package medicaltest;
 import patient.PatientFile;
 import result.Result;
 import scheduler.HospitalDate;
-import scheduler.tasks.TaskDescription;
 import scheduler.tasks.TaskDescriptionWithPatienFile;
 import controllers.interfaces.MedicalTestIN;
 import exceptions.InvalidAmountException;

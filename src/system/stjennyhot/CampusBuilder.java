@@ -1,11 +1,8 @@
 package system.stjennyhot;
 
 import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.Writer;
-import exceptions.InvalidCampusException;
 import system.Hospital;
+import exceptions.InvalidCampusException;
 
 public class CampusBuilder extends HospitalBuilder
 {
