@@ -1,23 +1,27 @@
 package machine;
 
-import system.Location;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidSerialException;
 
 public class BloodAnalyserBuilder extends MachineBuilder
 {
 
-	BloodAnalyserBuilder(MachinePool pool) {
-		super(pool);
+	BloodAnalyserBuilder( ) {
+		super();
 	}
-
+	@Override
 	public String toString() {
 		return "Blood analyzer";
 
 	}
-
-	public Machine build(int serial, Location location)
+	@Override
+	Machine build()
 			throws InvalidLocationException, InvalidSerialException {
-		return pool.createBloodAnalyser(serial, location);
+		return new BloodAnalyser(serial_, location_);
+	}
+
+	@Override
+	MachineBuilder newBuilder() {
+		return new BloodAnalyserBuilder();
 	}
 }
