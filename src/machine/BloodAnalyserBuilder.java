@@ -24,4 +24,8 @@ public class BloodAnalyserBuilder extends MachineBuilder
 	MachineBuilder newBuilder() {
 		return new BloodAnalyserBuilder();
 	}
+	@Override
+	boolean sameType(MachineBuilder builder) {
+		return builder instanceof BloodAnalyserBuilder;
+	}
 }

@@ -23,4 +23,9 @@ public class XRayScannerBuilder extends MachineBuilder
 	MachineBuilder newBuilder() {
 		return new XRayScannerBuilder();
 	}
+
+	@Override
+	boolean sameType(MachineBuilder builder) {
+		return builder instanceof XRayScannerBuilder;
+	}
 }
