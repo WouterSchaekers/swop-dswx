@@ -1,5 +1,6 @@
 package medicaltest;
 
+import scheduler.tasks.ScheduledTask;
 import exceptions.FactoryInstantiationException;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidHospitalDateException;
@@ -56,6 +57,7 @@ public class BloodAnalysisFactory extends MedicalTestFactory
 		}
 		return bloodAnalysis;
 	}
+	
 
 	/**
 	 * Checks all the set fields in this factory.

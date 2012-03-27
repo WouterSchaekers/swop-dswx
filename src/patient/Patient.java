@@ -6,6 +6,7 @@ import scheduler.TimeSlot;
 import scheduler.TimeTable;
 import system.Location;
 import exceptions.InvalidHospitalDateArgument;
+import exceptions.InvalidNameException;
 import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidTimeSlotException;
 
@@ -16,7 +17,9 @@ public class Patient implements Schedulable
 {
 	private String name;
 
-	Patient(String name) {
+	Patient(String name) throws InvalidNameException {
+		if(!isValidName(name))
+			throw new InvalidNameException("Invalid patient name");
 		this.name = name;
 	}
 
@@ -77,4 +80,12 @@ public class Patient implements Schedulable
 			return ((Patient)o).name.equals(name);
 		return false;
 	}
+	
+	/**
+	 * @return True if d is a valid name.
+	 */
+	private boolean isValidName(String n) {
+		return !n.equals("");
+	}
+
 }
