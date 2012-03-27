@@ -1,10 +1,8 @@
 package machine;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import scheduler.HospitalDate;
-import system.Location;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidSerialException;
 
@@ -14,14 +12,19 @@ import exceptions.InvalidSerialException;
 public class MachinePool
 {
 	private Collection<Machine> allMachines = new ArrayList<Machine>();;
-
+	private Collection<MachineBuilder> bob = new ArrayList<MachineBuilder>();
 	/**
 	 * Adds a machine to the machine pool
 	 * 
 	 * @param m
+	 * @throws InvalidSerialException 
+	 * @throws InvalidLocationException 
 	 */
-	public void addMachine(Machine m) {
-		allMachines.add(m);
+	public void addMachine(MachineBuilder m) throws InvalidLocationException, InvalidSerialException {
+		Machine machine = m.build();
+		if(	alreadyContains(machine.getSerial()))
+			throw new InvalidSerialException();
+		allMachines.add(m.build());
 	}
 
 	/**
@@ -32,7 +35,17 @@ public class MachinePool
 	public void removeMachine(Machine m) {
 		allMachines.remove(m);
 	}
-
+	public void addBuilder(MachineBuilder builder)
+	{
+		bob.add(builder);
+	}
+	public Collection<MachineBuilder> getAllBuilders()
+	{
+		ArrayList<MachineBuilder> rv = new ArrayList<MachineBuilder>();
+		for(MachineBuilder builder:this.bob)
+			rv.add(builder.newBuilder());
+		return rv;
+	}
 	/**
 	 * Returns a copy of the collection of all the machines in our hospital.
 	 * 
@@ -42,11 +55,6 @@ public class MachinePool
 		return new ArrayList<Machine>(this.allMachines);
 	}
 
-	public Collection<MachineBuilder> getAllBuilders() {
-		return Arrays.asList(new BloodAnalyserBuilder(this),
-				new UltraSoundScannerBuilder(this),
-				new XRayScannerBuilder(this));
-	}
 
 	public void updateTimeTables(HospitalDate newDate) {
 		for (Machine machine : allMachines) {
@@ -54,28 +62,12 @@ public class MachinePool
 		}
 	}
 
-	public XRayScanner createXrayScanner(int serial, Location location)
-			throws InvalidSerialException, InvalidLocationException {
-		this.alreadyContains(serial);
-		return new XRayScanner(serial, location);
-	}
-
-	public UltraSoundScanner createUltraSoundScanner(int serial, Location location)
-			throws InvalidSerialException, InvalidLocationException {
-		this.alreadyContains(serial);
-		return new UltraSoundScanner(serial, location);
-	}
-	
-	public BloodAnalyser createBloodAnalyser(int serial, Location location)
-			throws InvalidSerialException, InvalidLocationException {
-		alreadyContains(serial);
-		return new BloodAnalyser(serial, location);
-	}
-
-	private void alreadyContains(int serial) throws InvalidSerialException {
+	private boolean alreadyContains(int serial)  {
+		
 		for (Machine m : allMachines)
 			if (m.getSerial() == serial)
-				throw new InvalidSerialException();
+				return true;
+		return false;
 	}
 
 

@@ -1,13 +1,12 @@
 package machine;
 
-import system.Location;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidSerialException;
 
 public class UltraSoundScannerBuilder extends MachineBuilder
 {
-	UltraSoundScannerBuilder(MachinePool pool) {
-		super(pool);
+	UltraSoundScannerBuilder() {
+		super();
 	}
 
 	public String toString() {
@@ -15,8 +14,13 @@ public class UltraSoundScannerBuilder extends MachineBuilder
 
 	}
 
-	public UltraSoundScanner build(int serial, Location location)
+	public UltraSoundScanner build()
 			throws InvalidLocationException, InvalidSerialException {
-		return new UltraSoundScanner(serial, location);
+		return new UltraSoundScanner(serial_, location_);
+	}
+
+	@Override
+	MachineBuilder newBuilder() {
+		return new UltraSoundScannerBuilder();
 	}
 }
