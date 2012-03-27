@@ -56,6 +56,59 @@ public class Diagnose extends Observable implements DiagnoseIN
 		this.diag = diag;
 	}
 
+	public void addTreatment(Treatment t) throws InvalidTreatmentException {
+		if (this.isValidTreatment(t))
+			this.treatments.add(t);
+		else
+			throw new InvalidTreatmentException(
+					"Trying to add invalid treatment to diagnose!");
+	}
+
+	/**
+	 * Approves this diagnosis.
+	 * 
+	 * @throws ApproveDiagnoseException
+	 *             If this diagnose was not marked for second opinion.
+	 */
+	public void approve() throws ApproveDiagnoseException {
+		if (!isMarkedForSecOp())
+			throw new ApproveDiagnoseException("Exception at approve time of diagnose");
+		this.approved = true;
+		this.unmarkForSecOp();
+		this.setChanged();
+		this.notifyObservers();
+	}
+
+	private boolean canBeReplacedWith(Diagnose replacement) {
+		boolean rv = this.secopDoc.equals(replacement.attending);
+		rv &= (this.attending.equals(replacement.secopDoc));
+		rv &= replacement.secOpFlag;
+		return rv;
+	}
+
+	/**
+	 * @return True if doc is the Doctor assigned to be giving a second opinion
+	 *         on this Diagnose.
+	 */
+	private boolean canGiveSecondOpinion(Doctor doc) {
+		return doc.equals(this.needsSecOpFrom());
+	}
+
+	/**
+	 * @return True if doc is a valid doctor for this Diagnose.
+	 */
+	private boolean canHaveAsDoctor(Doctor doc) {
+		return !(doc == null);
+	}
+
+	/**
+	 * Disapproves this diagnosis.
+	 */
+	@Basic
+	private void disapprove() {
+		this.approved = false;
+	}
+
 	/**
 	 * This function allows a Doctor to give second opinion on this Diagnose.
 	 * 
@@ -84,11 +137,54 @@ public class Diagnose extends Observable implements DiagnoseIN
 		this.disapprove();
 	}
 
-	private boolean canBeReplacedWith(Diagnose replacement) {
-		boolean rv = this.secopDoc.equals(replacement.attending);
-		rv &= (this.attending.equals(replacement.secopDoc));
-		rv &= replacement.secOpFlag;
-		return rv;
+	public void disaprove(DiagnoseIN replacement)
+			throws ApproveDiagnoseException {
+		if (!isMarkedForSecOp())
+			throw new ApproveDiagnoseException("Invalid state for approvement of diagnose!");
+		this.approved = false;
+		this.secOpFlag = false;
+		this.attending = null;
+		this.secopDoc = null;
+
+	}
+
+	@Basic
+	public Doctor getAttending() {
+		return this.attending;
+	}
+
+	@Basic
+	public String getDiagnosis() {
+		return this.diag;
+	}
+
+	@Basic
+	public Collection<TreatmentIN> getTreatments() {
+		return new ArrayList<TreatmentIN>(treatments);
+	}
+
+	@Basic
+	public boolean isApproved() {
+		return this.approved;
+	}
+
+	@Basic
+	public boolean isMarkedForSecOp() {
+		return this.secOpFlag;
+	}
+
+	/**
+	 * @return True if diag is a valid Diagnose description for this Diagnose.
+	 */
+	private boolean isValidDiagnosis(String diag) {
+		return !diag.equals("");
+	}
+
+	/**
+	 * @return True if t is a valid treatment for this Diagnose.
+	 */
+	private boolean isValidTreatment(Treatment t) {
+		return t != null;
 	}
 
 	/**
@@ -114,113 +210,17 @@ public class Diagnose extends Observable implements DiagnoseIN
 		return rv;
 	}
 
-	/**
-	 * Unmarks this diagnosis for second opinion.
-	 */
-	private void unmarkForSecOp() {
-		this.secOpFlag = false;
-		this.secopDoc = null;
-	}
-
-	/**
-	 * Approves this diagnosis.
-	 * 
-	 * @throws ApproveDiagnoseException
-	 *             If this diagnose was not marked for second opinion.
-	 */
-	public void approve() throws ApproveDiagnoseException {
-		if (!isMarkedForSecOp())
-			throw new ApproveDiagnoseException("Exception at approve time of diagnose");
-		this.approved = true;
-		this.unmarkForSecOp();
-		this.setChanged();
-		this.notifyObservers();
-	}
-
-	/**
-	 * Disapproves this diagnosis.
-	 */
-	@Basic
-	private void disapprove() {
-		this.approved = false;
-	}
-
-	@Basic
-	public boolean isMarkedForSecOp() {
-		return this.secOpFlag;
-	}
-
-	@Basic
-	public boolean isApproved() {
-		return this.approved;
-	}
-
-	/**
-	 * @return True if doc is a valid doctor for this Diagnose.
-	 */
-	private boolean canHaveAsDoctor(Doctor doc) {
-		return !(doc == null);
-	}
-
-	/**
-	 * @return True if diag is a valid Diagnose description for this Diagnose.
-	 */
-	private boolean isValidDiagnosis(String diag) {
-		return !diag.equals("");
-	}
-
-	/**
-	 * @return True if doc is the Doctor assigned to be giving a second opinion
-	 *         on this Diagnose.
-	 */
-	private boolean canGiveSecondOpinion(Doctor doc) {
-		return doc.equals(this.needsSecOpFrom());
-	}
-
-	public void addTreatment(Treatment t) throws InvalidTreatmentException {
-		if (this.isValidTreatment(t))
-			this.treatments.add(t);
-		else
-			throw new InvalidTreatmentException(
-					"Trying to add invalid treatment to diagnose!");
-	}
-
-	@Basic
-	public String getDiagnosis() {
-		return this.diag;
-	}
-
-	@Basic
-	public Doctor getAttending() {
-		return this.attending;
-	}
-
-	@Basic
-	public Collection<TreatmentIN> getTreatments() {
-		return new ArrayList<TreatmentIN>(treatments);
-	}
-
 	@Override
 	public String toString() {
 		return this.getDiagnosis();
 	}
 
 	/**
-	 * @return True if t is a valid treatment for this Diagnose.
+	 * Unmarks this diagnosis for second opinion.
 	 */
-	private boolean isValidTreatment(Treatment t) {
-		return t != null;
-	}
-
-	public void disaprove(DiagnoseIN replacement)
-			throws ApproveDiagnoseException {
-		if (!isMarkedForSecOp())
-			throw new ApproveDiagnoseException("Invalid state for approvement of diagnose!");
-		this.approved = false;
+	private void unmarkForSecOp() {
 		this.secOpFlag = false;
-		this.attending = null;
 		this.secopDoc = null;
-
 	}
 
 }

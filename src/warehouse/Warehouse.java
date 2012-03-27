@@ -102,8 +102,8 @@ public class Warehouse extends Observable
 				rv++;
 		return rv;
 	}
-	//XXX: re evaluate this method
-	public int getCountAt(WarehouseItemType type, HospitalDate hospitalDate){
+	
+	private int getCountAt(WarehouseItemType type, HospitalDate hospitalDate){
 		int rv = 0;
 		for (WarehouseItem item : items_)
 			if (!item.isExpiredAt(hospitalDate) && item.getType().equals(type))

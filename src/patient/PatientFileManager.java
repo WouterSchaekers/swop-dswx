@@ -47,7 +47,7 @@ public class PatientFileManager
 	 * @throws InvalidNameException
 	 */
 	public PatientFile registerPatient(String name) throws InvalidNameException {
-		PatientFile pf = new PatientFile(name);
+		PatientFile pf = new PatientFile(new Patient(name));
 		patientFiles.add(pf);
 		return pf;
 	}

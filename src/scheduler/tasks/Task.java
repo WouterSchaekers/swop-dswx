@@ -1,14 +1,14 @@
 package scheduler.tasks;
 
-public abstract class Task
+public abstract class Task<T extends TaskDescription>
 {
-	protected final TaskDescription description_;
+	protected final T description_;
 
-	public Task(TaskDescription description) {
+	public Task(T description) {
 		description_ = description;
 	}
 
-	public final TaskDescription getDescription() {
+	public final T getDescription() {
 		return description_;
 	}
 }

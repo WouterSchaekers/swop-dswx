@@ -26,8 +26,10 @@ public class BloodAnalysis extends MedicalTest
 	 * The focus of this bloodanalysis
 	 */
 	private final String focus_;
-	
-	BloodAnalysis(PatientFile patientFile, HospitalDate creationTime, int amount, String focus) throws InvalidAmountException, InvalidHospitalDateException {
+
+	BloodAnalysis(PatientFile patientFile, HospitalDate creationTime,
+			int amount, String focus) throws InvalidAmountException,
+			InvalidHospitalDateException {
 		super(patientFile, 45 * HospitalDate.ONE_MINUTE, creationTime);
 		this.amount_ = amount;
 		this.focus_ = focus;
@@ -46,9 +48,12 @@ public class BloodAnalysis extends MedicalTest
 	@Override
 	public Collection<Requirement> getAllRequirements() {
 		Collection<Requirement> requirements = new LinkedList<Requirement>();
-		requirements.add(new SpecificRequirement(this.patientFile_.getPatient(), false));
-		requirements.add(new RequirementType<BloodAnalyser>(BloodAnalyser.class, false, 1));
+		requirements.add(new SpecificRequirement(
+				this.patientFile_.getPatient(), false));
+		requirements.add(new RequirementType<BloodAnalyser>(
+				BloodAnalyser.class, false, 1));
 		requirements.add(new RequirementType<Nurse>(Nurse.class, true, 1));
 		return requirements;
 	}
+
 }
