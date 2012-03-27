@@ -1,15 +1,10 @@
 package system.stjennyhot;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedWriter;
 import java.io.DataOutputStream;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
 import system.Hospital;

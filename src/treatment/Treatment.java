@@ -5,7 +5,6 @@ import patient.PatientFile;
 import result.Result;
 import scheduler.HospitalDate;
 import scheduler.requirements.Requirement;
-import scheduler.tasks.TaskDescription;
 import scheduler.tasks.TaskDescriptionWithPatienFile;
 import controllers.interfaces.TreatmentIN;
 import exceptions.InvalidAmountException;

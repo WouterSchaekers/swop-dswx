@@ -1,8 +1,8 @@
 package scheduler.tasks;
 
+import system.Hospital;
 import exceptions.CanNeverBeScheduledException;
 import exceptions.InvalidSchedulingRequestException;
-import system.Hospital;
 
  class UnscheduledTask extends Task
 {

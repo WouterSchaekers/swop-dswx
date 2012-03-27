@@ -1,9 +1,7 @@
 package system.stjennyhot;
 
-import java.io.BufferedWriter;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.Writer;
 import system.Hospital;
 
 public abstract class HospitalBuilder

@@ -48,10 +48,10 @@ public class AddHospitalEquipmentController extends NeedsLoginController
 	 * Creates a new machine from the given machine builder and adds it to the
 	 * hospital.
 	 */
-	public void createMachine(MachineBuilder b, int serial, String location, Location whereabouts)
+	public void createMachine(MachineBuilder b, Location whereabouts)
 			throws InvalidLocationException, InvalidSerialException {
 		
-		((Campus)(whereabouts)).getMachinePool().addMachine(b.build(serial, whereabouts));
+		((Campus)(whereabouts)).getMachinePool().addMachine(b);
 	}
 
 	@Override
