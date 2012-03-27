@@ -7,6 +7,7 @@ import java.util.Observer;
 import medicaltest.MedicalTest;
 import medicaltest.MedicalTestFactory;
 import scheduler.HospitalDate;
+import scheduler.tasks.FinishedTask;
 import scheduler.tasks.TaskManager;
 import users.Doctor;
 import be.kuleuven.cs.som.annotate.Basic;
@@ -64,7 +65,8 @@ public class PatientFile implements PatientFileIN
 		this.diagnosis.add(d);
 	}
 
-	public void addMedicalTest(MedicalTestFactory test) throws FactoryInstantiationException {
+	public void addMedicalTest(MedicalTestFactory test)
+			throws FactoryInstantiationException {
 		@SuppressWarnings("deprecation")
 		MedicalTest medicalTest = test.create();
 		this.medicaltests.add(medicalTest);
@@ -198,15 +200,25 @@ public class PatientFile implements PatientFileIN
 		return d != null;
 	}
 
-	/**
-	 * @return True if d is a valid name.
-	 */
-	private boolean isValidName(String n) {
-		return !n.equals("");
-	}
-
 	@Override
 	public String toString() {
 		return this.getName();
+	}
+
+	class FinishedMedicalTest<T extends MedicalTest> extends FinishedTask<T>
+	{
+
+		public FinishedMedicalTest(T description) {
+			super(description);
+			// TODO Auto-generated constructor stub
+		}
+
+	}
+
+	public <T extends MedicalTest> FinishedTask<T> addMedicalTest(
+			T bloodAnalysis) {
+		// TODO: add code to store
+		return new FinishedMedicalTest<T>(bloodAnalysis);
+
 	}
 }

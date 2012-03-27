@@ -1,6 +1,9 @@
 package scheduler.tasks;
-
-public class FinishedTask<T extends TaskDescription> extends Task<T>
+ /**
+  * NEVER EXTEND THIS CLASS
+  * 
+  */
+public abstract class FinishedTask<T extends TaskDescription> extends Task<T>
 {
 
 	public FinishedTask(T description) {
