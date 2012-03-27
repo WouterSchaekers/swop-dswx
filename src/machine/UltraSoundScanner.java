@@ -1,10 +1,7 @@
 package machine;
 
-import scheduler.HospitalDate;
-import scheduler.TimeSlot;
 import system.Location;
 import exceptions.InvalidLocationException;
-import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidSerialException;
 import exceptions.InvalidTimeSlotException;
 
