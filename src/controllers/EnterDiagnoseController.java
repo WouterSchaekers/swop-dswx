@@ -54,9 +54,9 @@ public class EnterDiagnoseController extends NeedsLoginAndPatientFileController
 			DoctorIN choice) throws InvalidDoctorException,
 			InvalidDiagnoseException {
 
-		Diagnose d = PatientFile.createDiagnoseSecondOp(diag,
-				(Doctor) lc.getUser(), (Doctor) choice,
-				hospital.getTaskManager());
+		Diagnose d = null;// PatientFile.createDiagnoseSecondOp(diag,
+		// (Doctor) lc.getUser(), (Doctor) choice,
+		// hospital.getTaskManager());
 		((PatientFile) pfoc.getPatientFile()).addDiagnosis(d);
 		return d;
 	}

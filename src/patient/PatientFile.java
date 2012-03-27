@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Observer;
 import medicaltest.MedicalTest;
+import medicaltest.MedicalTestFactory;
 import scheduler.HospitalDate;
 import scheduler.tasks.TaskManager;
 import users.Doctor;
@@ -14,6 +15,7 @@ import controllers.interfaces.MedicalTestIN;
 import controllers.interfaces.PatientFileIN;
 import controllers.interfaces.TreatmentIN;
 import exceptions.DischargePatientException;
+import exceptions.FactoryInstantiationException;
 import exceptions.InvalidDiagnoseException;
 import exceptions.InvalidDoctorException;
 import exceptions.InvalidNameException;
@@ -23,29 +25,27 @@ import exceptions.InvalidNameException;
  */
 public class PatientFile implements PatientFileIN
 {
-
 	private Patient patient_;
 	/**
 	 * All the Diagnosis for this patient.
 	 */
 	private Collection<Diagnose> diagnosis = new ArrayList<Diagnose>();
 	private boolean discharged = false;
+
 	private ArrayList<HospitalDate> xrays = new ArrayList<HospitalDate>();
+
 	private Collection<MedicalTest> medicaltests = new ArrayList<MedicalTest>();
 
 	/**
 	 * Default Constructor. Creates empty patient file with a name.
 	 * 
-	 * @param patientname
+	 * @param patient
 	 *            The name of the patient to whom this patient file belongs to.
 	 * @throws InvalidNameException
 	 *             if(!isValidName(patientname))
 	 */
-	public PatientFile(String patientname) throws InvalidNameException {
-		if (!isValidName(patientname))
-			throw new InvalidNameException(
-					"The given patientname is not valid!");
-		this.patient_ = new Patient(patientname);
+	PatientFile(Patient patient) throws InvalidNameException {
+		this.patient_ = patient;
 	}
 
 	/**
@@ -64,53 +64,10 @@ public class PatientFile implements PatientFileIN
 		this.diagnosis.add(d);
 	}
 
-	/**
-	 * Checks this patient in in the hospital.
-	 */
-	public void checkIn() {
-		this.discharged = false;
-	}
-
-	/**
-	 * This function discharges this patient.
-	 * 
-	 * @throws DischargePatientException
-	 */
-	void discharge() throws DischargePatientException {
-		if (!canBeDischarged())
-			throw new DischargePatientException();
-		this.discharged = true;
-	}
-
-	/**
-	 * @return True if this patient is ready to be discharged.
-	 */
-	private boolean canBeDischarged() {
-		for (Diagnose d : diagnosis) {
-			if (d.isMarkedForSecOp())
-				return false;
-			for (TreatmentIN t : d.getTreatments())
-				if (!t.hasFinished())
-					return false;
-			for (MedicalTest m : medicaltests)
-				if (!m.hasFinished())
-					return false;
-		}
-		return true;
-	}
-
-	/**
-	 * @return True if d is a valid Diagnose.
-	 */
-	private boolean isValidDiagnose(Diagnose d) {
-		return d != null;
-	}
-
-	/**
-	 * @return True if d is a valid name.
-	 */
-	private boolean isValidName(String n) {
-		return !n.equals("");
+	public void addMedicalTest(MedicalTestFactory test) throws FactoryInstantiationException {
+		@SuppressWarnings("deprecation")
+		MedicalTest medicalTest = test.create();
+		this.medicaltests.add(medicalTest);
 	}
 
 	/**
@@ -141,8 +98,75 @@ public class PatientFile implements PatientFileIN
 	}
 
 	/**
-	 * @return
-	 * The first date this patientfile has a 
+	 * @return True if this patient is ready to be discharged.
+	 */
+	private boolean canBeDischarged() {
+		for (Diagnose d : diagnosis) {
+			if (d.isMarkedForSecOp())
+				return false;
+			for (TreatmentIN t : d.getTreatments())
+				if (!t.hasFinished())
+					return false;
+			for (MedicalTest m : medicaltests)
+				if (!m.hasFinished())
+					return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Checks this patient in in the hospital.
+	 */
+	public void checkIn() {
+		this.discharged = false;
+	}
+
+	public void createDiagnose(Doctor user, String diag, TaskManager manager)
+			throws InvalidDiagnoseException, InvalidDoctorException {
+		Diagnose diagnose = new Diagnose(user, diag);
+		diagnose.addObserver((Observer) manager);
+		addDiagnosis(diagnose);
+
+	}
+
+	/**
+	 * This function discharges this patient.
+	 * 
+	 * @throws DischargePatientException
+	 */
+	void discharge() throws DischargePatientException {
+		if (!canBeDischarged())
+			throw new DischargePatientException();
+		this.discharged = true;
+	}
+
+	@Override
+	public Collection<DiagnoseIN> getAlldiagnosis() {
+		Collection<DiagnoseIN> rv = new ArrayList<DiagnoseIN>();
+		rv.addAll(diagnosis);
+		return rv;
+	}
+
+	@Override
+	public Collection<MedicalTestIN> getallMedicalTests() {
+		return new ArrayList<MedicalTestIN>(medicaltests);
+	}
+
+	@Override
+	public Collection<TreatmentIN> getAllTreatments() {
+		LinkedList<TreatmentIN> rv = new LinkedList<TreatmentIN>();
+		for (Diagnose d : this.diagnosis)
+			rv.addAll(d.getTreatments());
+		return rv;
+	}
+
+	@Basic
+	public Collection<Diagnose> getDiagnosis() {
+		return new ArrayList<Diagnose>(this.diagnosis);
+	}
+
+	/**
+	 * @return The first date this patientfile has a
 	 */
 	public HospitalDate getFirstNewXRaySchedDate(HospitalDate hospitalDate) {
 		if (this.amountOfXraysThisYear(hospitalDate) >= 9) {
@@ -153,76 +177,36 @@ public class PatientFile implements PatientFileIN
 	}
 
 	@Basic
-	public boolean isDischarged() {
-		return this.discharged;
-	}
-
-	@Basic
 	public String getName() {
 		return this.patient_.getName();
 	}
-	
+
 	@Basic
-	public Patient getPatient(){
+	public Patient getPatient() {
 		return this.patient_;
 	}
 
 	@Basic
-	public Collection<Diagnose> getDiagnosis() {
-		return new ArrayList<Diagnose>(this.diagnosis);
+	public boolean isDischarged() {
+		return this.discharged;
+	}
+
+	/**
+	 * @return True if d is a valid Diagnose.
+	 */
+	private boolean isValidDiagnose(Diagnose d) {
+		return d != null;
+	}
+
+	/**
+	 * @return True if d is a valid name.
+	 */
+	private boolean isValidName(String n) {
+		return !n.equals("");
 	}
 
 	@Override
 	public String toString() {
 		return this.getName();
-	}
-
-	@Override
-	public Collection<DiagnoseIN> getAlldiagnosis() {
-		Collection<DiagnoseIN> rv = new ArrayList<DiagnoseIN>();
-		rv.addAll(diagnosis);
-		return rv;
-	}
-	//XXX: static shit is noooooit nodig!
-	public static Diagnose createDiagnose(String diag, Doctor attending,
-			TaskManager taskmanager) throws InvalidDoctorException,
-			InvalidDiagnoseException {
-		Diagnose d = new Diagnose(attending, diag);
-		//d.addObserver(new DiagnoseObserverTaskManager(taskmanager));
-		return d;
-	}
-	//XXX:fix fast!
-	public static Diagnose createDiagnoseSecondOp(String diag,
-			Doctor attending, Doctor secondop, TaskManager taskmanager)
-			throws InvalidDoctorException, InvalidDiagnoseException {
-		Diagnose d = new Diagnose(attending, diag);
-		//d.addObserver(new DiagnoseObserverTaskManager(taskmanager));
-		d.markForSecOp(secondop);
-		return d;
-	}
-
-	public void addMedicalTest(MedicalTest test) {
-		this.medicaltests.add(test);
-	}
-
-	@Override
-	public Collection<TreatmentIN> getAllTreatments() {
-		LinkedList<TreatmentIN> rv = new LinkedList<TreatmentIN>();
-		for(Diagnose d : this.diagnosis)
-			rv.addAll(d.getTreatments());
-		return rv;
-	}
-
-	@Override
-	public Collection<MedicalTestIN> getallMedicalTests() {
-		return new ArrayList<MedicalTestIN>(medicaltests);
-	}
-
-	public void createDiagnose(Doctor user, String diag, TaskManager manager)
-			throws InvalidDiagnoseException, InvalidDoctorException {
-		Diagnose diagnose = new Diagnose(user, diag);
-		diagnose.addObserver((Observer) manager);
-		addDiagnosis(diagnose);
-
 	}
 }

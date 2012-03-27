@@ -17,13 +17,13 @@ public abstract class SchedulableUser extends User implements Schedulable
 	protected Location _preference;
 	protected Location _location;
 	protected TimeTable _timeTable = new TimeTable();
-	protected Collection<ScheduledTask> _scheduledTasks;
+	protected Collection<ScheduledTask<?>> _scheduledTasks;
 
 	 SchedulableUser(String name, Location preference) throws InvalidNameException {
 		super(name);
 		this._preference = preference;
 		this._timeTable = new TimeTable();
-		this._scheduledTasks = new LinkedList<ScheduledTask>();
+		this._scheduledTasks = new LinkedList<ScheduledTask<?>>();
 	}
 
 	@Override
@@ -56,13 +56,5 @@ public abstract class SchedulableUser extends User implements Schedulable
 		return this._location;
 	}
 	
-	public abstract Location getLocationAt(HospitalDate hospitalDate);
-
-	public Collection<ScheduledTask> getScheduledTasks() {
-		return this._scheduledTasks;
-	}
-
-	public void addScheduledTask(ScheduledTask scheduledTask) {
-		this._scheduledTasks.add(scheduledTask);
-	}
+	
 }

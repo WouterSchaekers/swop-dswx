@@ -87,10 +87,6 @@ public class Nurse extends SchedulableUser implements NurseIN
 				hospitalDate.getMinute(), hospitalDate.getSecond());
 	}
 
-	@Override
-	public Location getLocationAt(HospitalDate hospitalDate) {
-		return this._preference;
-	}
 
 	@Override
 	public boolean canTravel() {

@@ -34,6 +34,10 @@ public abstract class MedicalTestFactory
 	protected boolean isReady() {
 		return this.isValidPatientFile(patientFile_) && this.isValidSystemTime(creationDate_);
 	}
-	
+	/**
+	 * DO NOT CALL THIS METHOD!!!!
+	 *GIVE THE FACTORY TO A PATIENTFILE!!
+	 */
+	@Deprecated
 	public abstract MedicalTest create() throws FactoryInstantiationException;
 }

@@ -16,10 +16,10 @@ public class Patient implements Schedulable
 {
 	private String name;
 
-	public Patient(String name) {
+	Patient(String name) {
 		this.name = name;
 	}
-	
+
 	public String getName() {
 		return this.name;
 	}
@@ -43,11 +43,10 @@ public class Patient implements Schedulable
 			throws InvalidSchedulingRequestException {
 		// TODO Auto-generated method stub
 	}
-	
 
 	@Override
-	public TimeSlot getFirstFreeSlotBetween(Location location, HospitalDate startDate,
-			HospitalDate stopDate, long duration)
+	public TimeSlot getFirstFreeSlotBetween(Location location,
+			HospitalDate startDate, HospitalDate stopDate, long duration)
 			throws InvalidSchedulingRequestException, InvalidTimeSlotException,
 			InvalidHospitalDateArgument {
 		// TODO Auto-generated method stub
@@ -57,13 +56,8 @@ public class Patient implements Schedulable
 	@Override
 	public void updateTimeTable(HospitalDate newDate) {
 		// TODO Auto-generated method stub
-		
+
 	}
-
-
-
-	
-	
 
 	@Override
 	public Location getLocation() {
@@ -74,5 +68,13 @@ public class Patient implements Schedulable
 	@Override
 	public boolean canTravel() {
 		return true;
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if(o instanceof Patient)
+			return ((Patient)o).name.equals(name);
+		return false;
 	}
 }

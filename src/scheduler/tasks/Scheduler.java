@@ -18,7 +18,7 @@ public class Scheduler
 	public Scheduler() {
 	}
 
-	public ScheduledTask schedule(SchedulingData schedulingData)
+	public ScheduledTask<?> schedule(SchedulingData schedulingData)
 			throws InvalidSchedulingRequestException, CanNeverBeScheduledException {
 		Collection<Schedulable> resourcePool = schedulingData.getAllResources();
 		HospitalDate currentDate = schedulingData.getTimeLord().getSystemTime();
@@ -38,9 +38,9 @@ public class Scheduler
 		checkIfEnoughResources(availableResources);
 		HashMap<LinkedList<Schedulable>, LinkedList<Integer>> usedResourcesList = produceUsedResourcesList(availableResources);
 		LinkedList<Location> possibleLocations = getPossibleLocations(availableResources, schedulingData.getLocations());
-		ScheduledTask bestScheduledTask = null;
+		ScheduledTask<?> bestScheduledTask = null;
 		for (Location possibleLocation : possibleLocations) {
-			ScheduledTask possibleScheduledTask;
+			ScheduledTask<?> possibleScheduledTask;
 			try {
 				possibleScheduledTask = schedule(availableResources,
 						usedResourcesList, possibleLocation, startDate,
@@ -236,7 +236,7 @@ public class Scheduler
 	}
 
 	// Auxiliary methods for the scheduling algorithm.
-	private ScheduledTask produceScheduledTask(
+	private ScheduledTask<?> produceScheduledTask(
 			TaskDescription taskDescription,
 			HashMap<LinkedList<Schedulable>, Integer> availableResources,
 			HashMap<LinkedList<Schedulable>, LinkedList<Integer>> chosenResources,
@@ -249,7 +249,7 @@ public class Scheduler
 				usedResources.add(resourcePool.get(i));
 			}
 		}
-		return new ScheduledTask(taskDescription, usedResources, new TimeSlot(
+		return new ScheduledTask<TaskDescription>(taskDescription, usedResources, new TimeSlot(
 				new StartTimePoint(startDate), new StopTimePoint(stopDate)),
 				location);
 	}

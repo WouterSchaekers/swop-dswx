@@ -25,7 +25,6 @@ public abstract class Machine implements Schedulable
 	private final int serial_;
 	private final Location location_;
 	private final TimeTable timeTable_;
-	protected final Collection<ScheduledTask> scheduledTasks_;
 
 	/**
 	 * Default constructor.
@@ -46,7 +45,6 @@ public abstract class Machine implements Schedulable
 		this.serial_ = serial;
 		this.location_ = location;
 		this.timeTable_ = new TimeTable();
-		this.scheduledTasks_ = new LinkedList<ScheduledTask>();
 	}
 
 	/**

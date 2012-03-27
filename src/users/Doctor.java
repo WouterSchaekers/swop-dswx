@@ -23,14 +23,7 @@ public class Doctor extends SchedulableUser implements DoctorIN
 				duration);
 	}
 	
-	public Location getLocationAt(HospitalDate hospitalDate){
-		for(ScheduledTask scheduledTask : this._scheduledTasks){
-			if(scheduledTask.getTimeSlot().contains(hospitalDate)){
-				return scheduledTask.getLocation();
-			}
-		}
-		throw new NullPointerException("This person has no location at that moment.");
-	}
+	
 
 	@Override
 	public boolean canTravel() {

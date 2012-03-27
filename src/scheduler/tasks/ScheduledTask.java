@@ -6,13 +6,13 @@ import scheduler.Schedulable;
 import scheduler.TimeSlot;
 import system.Location;
 
-public class ScheduledTask extends Task
+public class ScheduledTask<T extends TaskDescription> extends Task<T>
 {
 	private Collection<Schedulable> resources_;
 	private TimeSlot timeSlot_;
 	private Location location_;
 
-	ScheduledTask(TaskDescription description,
+	ScheduledTask(T description,
 			Collection<Schedulable> resources, TimeSlot timeSlot, Location location) {
 		super(description);
 		this.resources_ = resources;
@@ -40,7 +40,7 @@ public class ScheduledTask extends Task
 		return this.timeSlot_;
 	}
 	
-	public boolean before(ScheduledTask otherTask){
+	public boolean before(ScheduledTask<?> otherTask){
 		return this.timeSlot_.getStartPoint().getHospitalDate().before(otherTask.getTimeSlot().getStartPoint().getHospitalDate());
 	}
 }
