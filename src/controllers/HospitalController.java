@@ -11,7 +11,7 @@ public class HospitalController
 {
 	protected Hospital hospital;
 	protected int campus;
-
+	
 	HospitalController(Hospital hospital)
 			throws InvalidHospitalException {
 		if (!isValidHospitalState(hospital)) {

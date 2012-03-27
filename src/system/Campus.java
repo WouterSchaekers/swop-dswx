@@ -1,7 +1,12 @@
 package system;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import machine.Machine;
 import machine.MachinePool;
 import scheduler.HospitalDate;
+import scheduler.Schedulable;
+import scheduler.TimeLord;
 import warehouse.Warehouse;
 
 /**
@@ -44,11 +49,18 @@ public class Campus implements Location
 		this.machinePool_ = machinePool;
 	}
 	
-	public HospitalDate getSystemTime(){
-		return this.hospital_.getSystemTime();
+	public TimeLord getSystemTime(){
+		return this.hospital_.getTimeKeeper();
 	}
 	
 	public String getCampusName(){
 		return this.campusName_;
+	}
+
+	public Collection<Schedulable> getSchedulables() {
+		Collection<Schedulable> rv = new ArrayList<Schedulable>();
+		for(Machine m: machinePool_.getAllMachines())
+			rv.add(m);
+		return rv;
 	}
 }

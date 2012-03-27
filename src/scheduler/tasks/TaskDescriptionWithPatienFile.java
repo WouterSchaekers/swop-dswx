@@ -1,0 +1,19 @@
+package scheduler.tasks;
+
+import patient.PatientFile;
+import scheduler.HospitalDate;
+import exceptions.InvalidAmountException;
+import exceptions.InvalidHospitalDateException;
+
+public abstract class TaskDescriptionWithPatienFile extends TaskDescription
+{
+	protected final PatientFile patientFile_;
+	public TaskDescriptionWithPatienFile(PatientFile patientFile,long duration, long extraTime,
+			HospitalDate creationDate) throws InvalidAmountException,
+			InvalidHospitalDateException {
+		super(duration, extraTime, creationDate);
+		this.patientFile_=patientFile;
+	}
+
+
+}

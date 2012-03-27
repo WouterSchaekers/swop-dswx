@@ -38,6 +38,7 @@ public class AddHospitalEquipmentController extends NeedsLoginController
 	 */
 	public Collection<MachineBuilder> getAllMachineBuilders() {
 		Iterator<Campus> campIterator = hospital.getAllCampusses().iterator();
+		
 		if(campIterator.hasNext())
 			return(campIterator.next().getMachinePool().getAllBuilders());
 		return null;
@@ -49,6 +50,7 @@ public class AddHospitalEquipmentController extends NeedsLoginController
 	 */
 	public void createMachine(MachineBuilder b, int serial, String location, Location whereabouts)
 			throws InvalidLocationException, InvalidSerialException {
+		
 		((Campus)(whereabouts)).getMachinePool().addMachine(b.build(serial, whereabouts));
 	}
 

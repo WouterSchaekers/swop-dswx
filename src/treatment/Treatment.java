@@ -6,6 +6,7 @@ import result.Result;
 import scheduler.HospitalDate;
 import scheduler.requirements.Requirement;
 import scheduler.tasks.TaskDescription;
+import scheduler.tasks.TaskDescriptionWithPatienFile;
 import controllers.interfaces.TreatmentIN;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidHospitalDateException;
@@ -14,7 +15,7 @@ import exceptions.InvalidResultException;
 /**
  * This class is the superclass of all treatments.
  */
-public abstract class Treatment extends TaskDescription implements TreatmentIN
+public abstract class Treatment extends TaskDescriptionWithPatienFile implements TreatmentIN
 {
 	protected Result result_;
 

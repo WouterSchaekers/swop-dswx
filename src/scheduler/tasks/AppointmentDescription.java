@@ -11,7 +11,7 @@ import users.Doctor;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidHospitalDateException;
 
-public class AppointmentDescription extends TaskDescription
+public class AppointmentDescription extends TaskDescriptionWithPatienFile
 {
 	private Doctor doctor;
 	

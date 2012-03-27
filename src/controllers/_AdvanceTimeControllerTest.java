@@ -31,9 +31,9 @@ public class _AdvanceTimeControllerTest
 		loginController = new LoginController(hospital);
 		hospital.addCampus("Campus 1");
 		Location w = hospital.getCampus("Campus 1");
-		nurse = new Nurse("jenny",w);
-		Doctor = new Doctor("jonathan",w);
-		hospitad = new HospitalAdmin("asdfd");
+//		nurse = new Nurse("jenny",w);
+//		Doctor = new Doctor("jonathan",w);
+//		hospitad = new HospitalAdmin("asdfd");
 	}
 
 	@Test(expected = InvalidLoginControllerException.class)

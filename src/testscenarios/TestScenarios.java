@@ -67,7 +67,7 @@ public class TestScenarios
 		fail("Controllerlayer not implemented fully yet (this is supposed to happen.");
 		System.out.print("Creating and intialising hospital... ");
 		Hospital h = new Hospital();
-		HospitalAdmin ha = new HospitalAdmin("admin");
+		HospitalAdmin ha = null;//new HospitalAdmin("admin");
 		System.out.println("Success!");
 
 		// Creating the login controller for the hadmin
@@ -79,21 +79,21 @@ public class TestScenarios
 		// the hadmin add XRayScanner, nurse, doctor,
 		System.out.print("Adding a new nurse: Jenny...");
 		AddHospitalStaffController ahsc = new AddHospitalStaffController(lc);
-		ahsc.addNurse("Jenny", "Campus 1");
+		//ahsc.addNurse("Jenny", "Campus 1");
 		System.out
 				.print(" Nurse added successfully!\nAdding a new doctor: Jonathan...");
-		ahsc.addDoctor("Jonathan", "Campus 1");
+	//	ahsc.addDoctor("Jonathan", "Campus 1");
 		System.out
 				.print(" Doctor added successfully!\nAdding a new x-ray scanner...");
 		AddHospitalEquipmentController ahec = new AddHospitalEquipmentController(
 				lc);
 
 		Collection<MachineBuilder> mbs = ahec.getAllMachineBuilders();
-		for (MachineBuilder mb : mbs)
-			if (mb.toString().equals("XrayScanner")) {
-				ahec.createMachine(mb, 523, "Location X", h);
-				break;
-			}
+//		for (MachineBuilder mb : mbs)
+//			if (mb.toString().equals("XrayScanner")) {
+//				ahec.createMachine(mb, 523, "Location X", h);
+//				break;
+//			}
 		System.out.println(" X-ray scanner created successfully!");
 		System.out.print("Logging out hospital admin...");
 		lc = null;

@@ -4,6 +4,7 @@ import patient.PatientFile;
 import result.Result;
 import scheduler.HospitalDate;
 import scheduler.tasks.TaskDescription;
+import scheduler.tasks.TaskDescriptionWithPatienFile;
 import controllers.interfaces.MedicalTestIN;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
@@ -14,7 +15,7 @@ import exceptions.InvalidTimeSlotException;
 /**
  * This class represents a medical test.
  */
-public abstract class MedicalTest extends TaskDescription implements MedicalTestIN
+public abstract class MedicalTest extends TaskDescriptionWithPatienFile implements MedicalTestIN
 {
 	private Result result;
 

@@ -33,10 +33,13 @@ public abstract class OrderStrategy implements Observer
 
 	@Override
 	public void update(Observable o, Object arg) {
-		int needed = this.getNeeded() - amountOfOpenOrders();
-		provider_.add(new StockOrder<WarehouseItemType>(warehouse_, type_,
-				warehouse_.getCampus().getSystemTime(), needed));
-	}
+		int needed = this.getNeeded() - amountOfOpenOrders()-warehouse_.getCurrentCount(type_);
+		while(needed>0)
+		{
+			provider_.add(new StockOrder<WarehouseItemType>(warehouse_, type_, warehouse_.getCampus().getSystemTime().getSystemTime()));
+			needed--;
+		}
+		}
 
 	private int amountOfOpenOrders() {
 		int futureCount = help.Collections.filter(provider_.getOrders(),

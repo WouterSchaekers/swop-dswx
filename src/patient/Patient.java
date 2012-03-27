@@ -44,8 +44,8 @@ public class Patient implements Schedulable
 	public void scheduleAt(TimeSlot timeSlot)
 			throws InvalidSchedulingRequestException {
 		// TODO Auto-generated method stub
-		
 	}
+	
 
 	@Override
 	public TimeSlot getFirstFreeSlotBetween(Location location, HospitalDate startDate,
@@ -62,17 +62,10 @@ public class Patient implements Schedulable
 		
 	}
 
-	@Override
-	public Collection<ScheduledTask> getScheduledTasks() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public void addScheduledTask(ScheduledTask scheduledTask) {
-		// TODO Auto-generated method stub
-		
-	}
+
+	
+	
 
 	@Override
 	public Location getLocation() {
