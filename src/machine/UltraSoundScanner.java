@@ -21,19 +21,6 @@ public class UltraSoundScanner extends Machine
 		super(serial, location);
 	}
 
-	@Override
-	public void scheduleAt(TimeSlot t) throws InvalidSchedulingRequestException {
-		this.getTimeTable().addTimeSlot(t);
-	}
 
-	@Override
-	public boolean canBeScheduledOn(HospitalDate startDate,
-			HospitalDate stopDate) {
-		return this.getTimeTable().hasFreeSlotAt(startDate, stopDate);
-	}
 
-	@Override
-	public boolean canTravel() {
-		return false;
-	}
 }
