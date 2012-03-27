@@ -23,9 +23,9 @@ public abstract class Machine implements Schedulable
 {
 
 	private final int serial_;
-	private Location location_;
-	private TimeTable timeTable_;
-	protected Collection<ScheduledTask> scheduledTasks_;
+	private final Location location_;
+	private final TimeTable timeTable_;
+	protected final Collection<ScheduledTask> scheduledTasks_;
 
 	/**
 	 * Default constructor.
@@ -52,14 +52,14 @@ public abstract class Machine implements Schedulable
 	/**
 	 * @return The serial of this machine.
 	 */
-	public int getSerial() {
+	public final int getSerial() {
 		return this.serial_;
 	}
 
 	/**
 	 * @return The location of this machine.
 	 */
-	public Location getLocation() {
+	public final Location getLocation() {
 		return this.location_;
 	}
 
@@ -68,7 +68,7 @@ public abstract class Machine implements Schedulable
 	 * a class invariant.
 	 */
 	@Override
-	public boolean equals(Object o) {
+	public final boolean equals(Object o) {
 		if (o instanceof Machine)
 			return ((Machine) o).serial_ == this.serial_;
 		return false;
@@ -76,12 +76,12 @@ public abstract class Machine implements Schedulable
 	}
 
 	@Override
-	public TimeTable getTimeTable() {
+	public final TimeTable getTimeTable() {
 		return this.timeTable_;
 	}
 
 	@Override
-	public TimeSlot getFirstFreeSlotBetween(Location location,
+	public final TimeSlot getFirstFreeSlotBetween(Location location,
 			HospitalDate startDate, HospitalDate stopDate, long duration)
 			throws InvalidSchedulingRequestException, InvalidTimeSlotException {
 		if (location != this.location_) {
@@ -93,23 +93,23 @@ public abstract class Machine implements Schedulable
 	}
 
 	@Override
-	public void updateTimeTable(HospitalDate newDate) {
+	public final void updateTimeTable(HospitalDate newDate) {
 		this.timeTable_.updateTimeTable(newDate);
 	}
 
 	@Override
-	public void scheduleAt(TimeSlot t) throws InvalidSchedulingRequestException {
+	public final void scheduleAt(TimeSlot t) throws InvalidSchedulingRequestException {
 		this.getTimeTable().addTimeSlot(t);
 	}
 
 	@Override
-	public boolean canBeScheduledOn(HospitalDate startDate,
+	public final  boolean canBeScheduledOn(HospitalDate startDate,
 			HospitalDate stopDate) {
 		return this.getTimeTable().hasFreeSlotAt(startDate, stopDate);
 	}
 
 	@Override
-	public boolean canTravel() {
+	public final boolean canTravel() {
 		return false;
 	}
 
