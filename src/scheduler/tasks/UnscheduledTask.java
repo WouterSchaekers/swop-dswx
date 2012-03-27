@@ -1,14 +1,28 @@
 package scheduler.tasks;
 
+import exceptions.InvalidSchedulingRequestException;
 import system.Hospital;
 
-public abstract class UnscheduledTask extends Task
+ class UnscheduledTask extends Task
 {
-	public UnscheduledTask(TaskDescription description) {
+	/**
+	 * Creates an unscheduled task in your hospital.
+	 * @param description
+	 */
+	 UnscheduledTask(TaskDescription description) {
 		super(description);
 	}
 
-	public boolean canBeScheduled(Hospital hospital) {
-		return false;
+	
+	Scheduler getScheduler()
+	{
+		return new Scheduler();
+	}
+
+
+	public ScheduledTask scheduleIn(Hospital hospital) throws InvalidSchedulingRequestException {
+			return this.getScheduler().schedule(new SchedulingData(description_,hospital));
+		
+		
 	}
 }

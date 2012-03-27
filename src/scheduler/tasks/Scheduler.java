@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import scheduler.HospitalDate;
 import scheduler.Schedulable;
-import scheduler.SchedulingData;
 import scheduler.StartTimePoint;
 import scheduler.StopTimePoint;
 import scheduler.TimeSlot;
@@ -22,8 +21,7 @@ public class Scheduler
 			throws InvalidSchedulingRequestException {
 		Collection<Schedulable> resourcePool = schedulingData.getAllResources();
 		HospitalDate currentDate = schedulingData.getTimeLord().getSystemTime();
-		UnscheduledTask unscheduledTask = schedulingData.getUnscheduledTask();
-		TaskDescription description = unscheduledTask.getDescription();
+		TaskDescription description = schedulingData.getDescription();
 		Collection<Requirement> requirements = description.getAllRequirements();
 		HospitalDate minimumDate = new HospitalDate(description
 				.getCreationTime().getTimeSinceStart()

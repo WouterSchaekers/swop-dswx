@@ -1,7 +1,10 @@
-package scheduler;
+package scheduler.tasks;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import scheduler.tasks.UnscheduledTask;
+import scheduler.Schedulable;
+import scheduler.TimeLord;
+import system.Hospital;
 import system.Location;
 
 /**
@@ -13,14 +16,23 @@ public class SchedulingData
 	private Collection<Schedulable> allSchedulables_;
 	private Collection<Location> locations_;
 	private TimeLord timeLord_;
-	private UnscheduledTask unscheduledTask_;
+	private TaskDescription unscheduledTask_;
 
-	public SchedulingData(Collection<Schedulable> schedulables, Collection<Location> locations, TimeLord timeLord,
-			UnscheduledTask unscheduledTask) {
+	private SchedulingData(Collection<Schedulable> schedulables, Collection<Location> locations, TimeLord timeLord,
+			TaskDescription unscheduledTask) {
 		this.allSchedulables_ = schedulables;
 		this.locations_ = locations;
 		this.timeLord_ = timeLord;
 		this.unscheduledTask_ = unscheduledTask;
+	}
+
+	public SchedulingData(TaskDescription description_, Hospital hospital) {
+		this(getAllCollections(hospital),new ArrayList<Location>(hospital.getAllCampusses()),hospital.getSystemTime(),description_);
+	}
+
+	private static Collection<Schedulable> getAllCollections(Hospital hospital) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	/**
@@ -44,7 +56,7 @@ public class SchedulingData
 	/**
 	 * @return the task_
 	 */
-	public UnscheduledTask getUnscheduledTask() {
+	public TaskDescription getDescription() {
 		return this.unscheduledTask_;
 	}
 }
