@@ -104,7 +104,11 @@ public class Hospital
 		throw new IllegalArgumentException("Campus does not exists");
 	}
 	
-	public LinkedList<Campus> getAllCampusses() {
+	public Collection<Location> getAllLocations() {
+		return new LinkedList<Location>(this.campusses_);
+	}
+	
+	public Collection<Campus> getAllCampusses() {
 		return new LinkedList<Campus>(this.campusses_);
 	}
 	

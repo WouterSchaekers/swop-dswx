@@ -46,10 +46,10 @@ public class TaskManager extends Observable
 	public <T extends TaskDescription> ScheduledTask<?> add(T description)
 			throws InvalidSchedulingRequestException,
 			CanNeverBeScheduledException {
-		UnscheduledTask<T> task = new UnscheduledTask<T>(description);
+		UnscheduledTask<T> task = new UnscheduledTask<T>(description, this.hospital_);
 
 		try {
-			ScheduledTask<?> scheduledTask = task.scheduleIn(hospital_);
+			ScheduledTask<?> scheduledTask = task.scheduleIn(this.hospital_);
 			scheduledTasks_.add(scheduledTask);
 			return scheduledTask;
 		} catch (InvalidSchedulingRequestException e) {
