@@ -12,6 +12,7 @@ import scheduler.tasks.TaskManager;
 import users.Doctor;
 import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.DiagnoseIN;
+import controllers.interfaces.DoctorIN;
 import controllers.interfaces.MedicalTestIN;
 import controllers.interfaces.PatientFileIN;
 import controllers.interfaces.TreatmentIN;
@@ -109,10 +110,10 @@ public class PatientFile implements PatientFileIN
 			for (TreatmentIN t : d.getTreatments())
 				if (!t.hasFinished())
 					return false;
-			for (MedicalTest m : medicaltests)
-				if (!m.hasFinished())
-					return false;
 		}
+		for (MedicalTest m : medicaltests)
+			if (!m.hasFinished())
+				return false;
 		return true;
 	}
 
@@ -138,7 +139,8 @@ public class PatientFile implements PatientFileIN
 	 */
 	void discharge() throws DischargePatientException {
 		if (!canBeDischarged())
-			throw new DischargePatientException("Patient cannot be discharged!");
+			throw new DischargePatientException(
+					"Patient cannot be discharged yet!");
 		this.discharged = true;
 	}
 
@@ -146,6 +148,16 @@ public class PatientFile implements PatientFileIN
 	public Collection<DiagnoseIN> getAlldiagnosis() {
 		Collection<DiagnoseIN> rv = new ArrayList<DiagnoseIN>();
 		rv.addAll(diagnosis);
+		return rv;
+	}
+
+	@Override
+	public Collection<DiagnoseIN> getPendingDiagnosisFor(DoctorIN d) {
+		Collection<DiagnoseIN> rv = new LinkedList<DiagnoseIN>();
+		for (Diagnose diag : this.diagnosis)
+			if (diag.isMarkedForSecOp() && !diag.isApproved()
+					&& diag.getAttending().equals((Doctor) d))
+				rv.add((DiagnoseIN) d);
 		return rv;
 	}
 
@@ -180,6 +192,7 @@ public class PatientFile implements PatientFileIN
 
 	/**
 	 * DO NOT USE THIS METHOD ANYWHERE OUTSIDE OF THE DOMAIN LAYER!
+	 * 
 	 * @return
 	 */
 	public Patient getPatient() {

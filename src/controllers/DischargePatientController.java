@@ -9,22 +9,40 @@ import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileException;
 import exceptions.InvalidPatientFileOpenController;
 
+/**
+ * Use this controller to discharge a patient from the hospital.
+ */
 public class DischargePatientController extends
 		NeedsLoginAndPatientFileController
 {
 
-	public DischargePatientController(LoginController lc, ConsultPatientFileController cpfc)
+	/**
+	 * Default constructor.
+	 * 
+	 * @throws InvalidPatientFileException
+	 *             If the patient file that is currently opened has already been
+	 *             discharged.
+	 */
+	public DischargePatientController(LoginController lc,
+			ConsultPatientFileController cpfc)
 			throws InvalidLoginControllerException, InvalidHospitalException,
 			InvalidPatientFileOpenController, InvalidPatientFileException {
 		super(lc, cpfc);
 		if (cpfc.getPatientFile().isDischarged())
 			throw new InvalidPatientFileException(
-					"Trying to discharge an invalid patientfile!");
+					"Trying to discharge a patient that already has been discharged!");
 	}
 
-	public void dischargePatient() throws DischargePatientException, InvalidPatientFileException {
+	/**
+	 * Discharges the patient whose file is currently opened.
+	 * 
+	 * @throws DischargePatientException
+	 * @throws InvalidPatientFileException
+	 */
+	public void dischargePatient() throws DischargePatientException,
+			InvalidPatientFileException {
 		hospital.getPatientFileManager().checkOut(
-				(PatientFile) pfoc.getPatientFile());
+				(PatientFile) cpfc.getPatientFile());
 	}
 
 	@Override

@@ -10,7 +10,7 @@ import exceptions.InvalidPatientFileOpenController;
 public abstract class NeedsLoginAndPatientFileController extends
 		NeedsLoginController
 {
-	protected ConsultPatientFileController pfoc;
+	protected ConsultPatientFileController cpfc;
 
 	/**
 	 * Default constructor.
@@ -29,14 +29,14 @@ public abstract class NeedsLoginAndPatientFileController extends
 		if (!isValidPatientFileOpenController(pfoc)) {
 			throw new InvalidPatientFileOpenController("");
 		}
-		this.pfoc = pfoc;
+		this.cpfc = pfoc;
 	}
 
 	boolean isValidPatientFileOpenController(ConsultPatientFileController pfoc) {
 		if (pfoc == null)
 			return false;
-		if (this.pfoc != null)
-			return this.pfoc.equals(pfoc);
+		if (this.cpfc != null)
+			return this.cpfc.equals(pfoc);
 		return true;
 	}
 }

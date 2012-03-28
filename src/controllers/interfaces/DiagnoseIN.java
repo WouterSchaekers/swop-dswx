@@ -2,22 +2,18 @@ package controllers.interfaces;
 
 import java.util.Collection;
 
-/**
- * @see
- * @author Dieter
- * 
- */
 public interface DiagnoseIN
 {
 
-	boolean isApproved();
+	public boolean isApproved();
 
-	Object needsSecOpFrom();
+	public DoctorIN needsSecOpFrom();
 
-	public abstract Collection<TreatmentIN> getTreatments();
+	public Collection<TreatmentIN> getTreatments();
 
-	public abstract DoctorIN getAttending();
+	public DoctorIN getAttending();
 
-	public abstract String getDiagnosis();
-
+	public String getDiagnosis();
+	
+	public boolean canBeReplacedWith(DiagnoseIN replacement);
 }

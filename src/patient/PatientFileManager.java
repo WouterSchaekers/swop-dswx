@@ -36,7 +36,7 @@ public class PatientFileManager
 	 */
 	public void checkOut(PatientFile patientFile)
 			throws DischargePatientException, InvalidPatientFileException {
-		if(this.patientIsDischarged(patientFile))
+		if(!this.patientIsDischarged(patientFile))
 			throw new DischargePatientException("Trying to discharge an already discharged patient!");
 		patientFile.discharge();
 	}

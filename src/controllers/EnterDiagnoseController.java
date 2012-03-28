@@ -19,23 +19,27 @@ public class EnterDiagnoseController extends NeedsLoginAndPatientFileController
 {
 
 	/**
-	 * Default constructor. Initialises this controller.
-	 * 
-	 * @param lc
-	 *            The LoginController of the Doctor trying to enter the diagnose
-	 *            of a patient.
-	 * @param patientFileOpenController
-	 *            The controller of the patient file opened by the doctor whom
-	 *            the logincontroller belongs to.
-	 * @throws InvalidLoginControllerException
-	 * @throws InvalidHospitalException
-	 * @throws InvalidPatientFileOpenController
+	 * Default constructor.
 	 */
 	public EnterDiagnoseController(LoginController lc,
 			ConsultPatientFileController patientFileOpenController)
 			throws InvalidLoginControllerException, InvalidHospitalException,
 			InvalidPatientFileOpenController {
 		super(lc, patientFileOpenController);
+	}
+
+	/**
+	 * Enters a diagnose to the patientfile that is currently opened in the
+	 * system.
+	 * 
+	 * @throws InvalidDiagnoseException
+	 * @throws InvalidDoctorException
+	 */
+	public DiagnoseIN enterDiagnose(String diag)
+			throws InvalidDiagnoseException, InvalidDoctorException {
+		Diagnose d = new Diagnose((Doctor) lc.getUser(), diag);
+		((PatientFile) cpfc.getPatientFile()).addDiagnosis(d);
+		return d;
 	}
 
 	/**
@@ -54,30 +58,9 @@ public class EnterDiagnoseController extends NeedsLoginAndPatientFileController
 			DoctorIN choice) throws InvalidDoctorException,
 			InvalidDiagnoseException {
 
-		Diagnose d = null;// PatientFile.createDiagnoseSecondOp(diag,
-		// (Doctor) lc.getUser(), (Doctor) choice,
-		// hospital.getTaskManager());
-		((PatientFile) pfoc.getPatientFile()).addDiagnosis(d);
-		return d;
-	}
-
-	/**
-	 * Enters a diagnose that does not need a second opinion.
-	 * 
-	 * @param diag
-	 *            The diagnose to be entered.
-	 * @return The diagnose object that was created.
-	 * @throws InvalidLoginControllerException
-	 * @throws InvalidPatientFileOpenController
-	 * @throws InvalidDiagnoseException
-	 * @throws InvalidDoctorException
-	 */
-	public DiagnoseIN enterDiagnose(String diag)
-			throws InvalidLoginControllerException,
-			InvalidPatientFileOpenController, InvalidDiagnoseException,
-			InvalidDoctorException {
-		Diagnose d = new Diagnose((Doctor) lc.getUser(), diag);
-		((PatientFile) pfoc.getPatientFile()).addDiagnosis(d);
+		Diagnose d = new Diagnose((Doctor)lc.getUser(), diag);
+		d.markForSecOp((Doctor)choice);
+		((PatientFile) cpfc.getPatientFile()).addDiagnosis(d);
 		return d;
 	}
 
