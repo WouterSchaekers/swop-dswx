@@ -59,11 +59,17 @@ public class Scheduler
 	 *            An mapping of the possible resources and the places of the
 	 *            used resources.
 	 * @param posLocs
+	 *            A LinkedList of locations that are suitable for scheduling.
 	 * @param desc
+	 *            The TaskDescription.
 	 * @param startDate
+	 *            The task has to be scheduled after this date.
 	 * @param stopDate
-	 * @return
+	 *            The task has to be scheudeld before this date.
+	 * @return The scheduled task of the unscheduled task.
 	 * @throws InvalidSchedulingRequestException
+	 *             The task cannot be scheduled, because there are not enough
+	 *             resources available at this specific moment.
 	 */
 	private ScheduledTask<?> schedule(LinkedHashMap<LinkedList<Schedulable>, Integer> avRes,
 			LinkedHashMap<LinkedList<Schedulable>, LinkedList<Integer>> usedResList,
@@ -73,53 +79,73 @@ public class Scheduler
 		for (Location posLoc : posLocs) {
 			ScheduledTask<?> posSchedTask;
 			try {
-				posSchedTask = schedule(avRes, usedResList, posLoc, startDate, stopDate, desc);
+				posSchedTask = schedule(avRes, usedResList, posLoc, desc, startDate, stopDate);
 			} catch (InvalidSchedulingRequestException e) {
 				posSchedTask = null;
 			}
-			if (bestSchedTask == null || posSchedTask.before(bestSchedTask)) {
+			if (bestSchedTask == null || posSchedTask.before(bestSchedTask))
 				bestSchedTask = posSchedTask;
-			}
 		}
-		if (bestSchedTask == null) {
+		if (bestSchedTask == null)
 			throw new InvalidSchedulingRequestException("The task cannot be scheduled.");
-		}
 		return bestSchedTask;
 	}
 
+	/**
+	 * Tries to schedule an a list of resources at a specific location, in a
+	 * specific time interval.
+	 * 
+	 * @param avRes
+	 *            HashMap that contains resources and the amount needed of them.
+	 * @param usedResList
+	 *            An mapping of the possible resources and the places of the
+	 *            used resources.
+	 * @param loc
+	 *            The location that has to be scheduled on.
+	 * @param desc
+	 *            The TaskDescription.
+	 * @param startDate
+	 *            The task has to be scheduled after this date.
+	 * @param stopDate
+	 *            The task has to be scheudeld before this date.
+	 * @return The scheduled task of the given list of resources at a specific
+	 *         location, in a specific time interval.
+	 * @throws InvalidSchedulingRequestException
+	 *             The task cannot be scheduled, because there are not enough
+	 *             resources available at this specific moment, at the specific
+	 *             location.
+	 */
 	private ScheduledTask<?> schedule(LinkedHashMap<LinkedList<Schedulable>, Integer> avRes,
-			LinkedHashMap<LinkedList<Schedulable>, LinkedList<Integer>> chosRes, Location loc,
-			HospitalDate startDate, HospitalDate stopDate, TaskDescription taskDesc)
+			LinkedHashMap<LinkedList<Schedulable>, LinkedList<Integer>> usedResList, Location loc,
+			TaskDescription desc, HospitalDate startDate, HospitalDate stopDate)
 			throws InvalidSchedulingRequestException {
 		LinkedList<Schedulable> bestOptToFind = null;
 		LinkedList<Schedulable> curResPool = null;
-		for (LinkedList<Schedulable> resPool : avRes.keySet()) {
-			if (avRes.get(resPool) > chosRes.get(resPool).size()) {
+		for (LinkedList<Schedulable> resPool : avRes.keySet())
+			if (avRes.get(resPool) > usedResList.get(resPool).size()) {
 				curResPool = resPool;
 				bestOptToFind = new LinkedList<Schedulable>(resPool);
-				delAlreadyUsedRes(bestOptToFind, chosRes.get(resPool));
+				delAlreadyUsedRes(bestOptToFind, usedResList.get(resPool));
 				break;
 			}
-		}
-		if (bestOptToFind == null) {
-			return produceSchedTask(taskDesc, avRes, chosRes, startDate, stopDate, loc);
-		}
-		int bestOption = findBestOpt(bestOptToFind, loc, startDate, stopDate, taskDesc.getDuration());
+		if (bestOptToFind == null)
+			return produceSchedTask(desc, avRes, usedResList, startDate, stopDate, loc);
+		int bestOption = findBestOpt(bestOptToFind, loc, startDate, stopDate, desc.getDuration());
 		TimeSlot bestSlot = null;
 		try {
 			bestSlot = bestOptToFind.get(bestOption).getFirstFreeSlotBetween(loc, startDate, stopDate,
-					taskDesc.getDuration());
+					desc.getDuration());
 		} catch (Exception e) {
 			throw new Error(e.toString());
 		}
 		HospitalDate newStartDate = bestSlot.getStartPoint().getHospitalDate();
 		HospitalDate newStopDate = bestSlot.getStopPoint().getHospitalDate();
 		try {
-			return schedule(avRes, cloneAndAddLinkedHashMapValues(chosRes, curResPool, bestOption), loc,
-					newStartDate, newStopDate, taskDesc);
+			return schedule(avRes, cloneAndAddLinkedHashMapValues(usedResList, curResPool, bestOption), loc,
+					desc, newStartDate, newStopDate);
 		} catch (InvalidSchedulingRequestException e) {
 			newStartDate = new HospitalDate(newStartDate.getTimeSinceStart() + 1);
-			return schedule(avRes, chosRes, loc, newStartDate, newStopDate, taskDesc);
+			return schedule(avRes, usedResList, loc, desc, newStartDate, newStopDate);
 		}
 	}
 
