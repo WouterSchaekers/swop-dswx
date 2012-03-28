@@ -17,8 +17,7 @@ public class PresentEnterDiagInputForm extends ApproveDiagnosisSuper
 	@Override
 	public Usecase Execute() {
 		System.out.println("Entering new diagnose for patient"
-				+ data.getPatientFileOpenController().getPatientFile()
-						.getName());
+				+ data.getPatientFileOpenController().getPatient().getName());
 		System.out.println("Please enter the diagnose !");
 		System.out.println();
 		System.out.println("Diagnose:");

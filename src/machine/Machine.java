@@ -1,12 +1,9 @@
 package machine;
 
-import java.util.Collection;
-import java.util.LinkedList;
 import scheduler.HospitalDate;
 import scheduler.Schedulable;
 import scheduler.TimeSlot;
 import scheduler.TimeTable;
-import scheduler.tasks.ScheduledTask;
 import system.Location;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidSchedulingRequestException;

@@ -138,7 +138,7 @@ public class PatientFile implements PatientFileIN
 	 */
 	void discharge() throws DischargePatientException {
 		if (!canBeDischarged())
-			throw new DischargePatientException();
+			throw new DischargePatientException("Patient cannot be discharged!");
 		this.discharged = true;
 	}
 
@@ -178,12 +178,10 @@ public class PatientFile implements PatientFileIN
 		return hospitalDate;
 	}
 
-	@Basic
-	public String getName() {
-		return this.patient_.getName();
-	}
-
-	@Basic
+	/**
+	 * DO NOT USE THIS METHOD ANYWHERE OUTSIDE OF THE DOMAIN LAYER!
+	 * @return
+	 */
 	public Patient getPatient() {
 		return this.patient_;
 	}
@@ -200,25 +198,16 @@ public class PatientFile implements PatientFileIN
 		return d != null;
 	}
 
-	@Override
-	public String toString() {
-		return this.getName();
-	}
-
-	class FinishedMedicalTest<T extends MedicalTest> extends FinishedTask<T>
-	{
-
-		public FinishedMedicalTest(T description) {
-			super(description);
-			// TODO Auto-generated constructor stub
-		}
-
-	}
-
 	public <T extends MedicalTest> FinishedTask<T> addMedicalTest(
 			T bloodAnalysis) {
 		// TODO: add code to store
 		return new FinishedMedicalTest<T>(bloodAnalysis);
 
+	}
+
+	@Override
+	public String getName() {
+		//TODO: consider if this method should really be here...
+		return this.getPatient().getName();
 	}
 }

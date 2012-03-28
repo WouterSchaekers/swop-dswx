@@ -16,7 +16,9 @@ public class Campus implements Location
 {
 	private String campusName_;
 	private MachinePool machinePool_ = new MachinePool();
-	private Warehouse warehouse_ = new Warehouse(this);
+	//TODO: gebruik builder.
+	private Warehouse warehouse_;
+	//private Warehouse warehouse_ = new Warehouse(this);
 	private Hospital hospital_;
 	
 	public Campus(String campusName, Hospital hospital){

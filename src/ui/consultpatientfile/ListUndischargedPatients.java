@@ -36,6 +36,7 @@ public class ListUndischargedPatients extends ConsultPatientFileSuperclass
 				map.put(file.getName(), file);
 				System.out.println(file.getName());
 			}
+			
 			System.out
 					.println("Q to quit, enter the patients name to select his patient file.");
 			String patientName = input.nextLine();

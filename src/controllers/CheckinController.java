@@ -1,6 +1,8 @@
 package controllers;
 
-import patient.PatientFile;
+import java.util.ArrayList;
+import java.util.Collection;
+import controllers.interfaces.PatientFileIN;
 import users.Nurse;
 import users.User;
 import exceptions.InvalidHospitalException;
@@ -8,50 +10,55 @@ import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidNameException;
 
 /**
- * This class is used to register and check in patients in the hospital.
+ * This class is used to check patients in into the hospital. If you would like
+ * to register a new patient, please use the register patient file controller.
  */
 public class CheckinController extends NeedsLoginController
 {
-	
+
 	/**
 	 * Default constructor.
 	 * 
 	 * @param lc
 	 *            The logincontroller for this checkincontroller.
-	 * @param pfm
-	 *            The patientfilemanager for this checkincontroller.
 	 * @throws InvalidLoginControllerException
 	 * @throws InvalidHospitalException
 	 */
 	public CheckinController(LoginController lc)
-			throws InvalidLoginControllerException,
-			InvalidHospitalException {
+			throws InvalidLoginControllerException, InvalidHospitalException {
 		super(lc);
 	}
 
 	/**
-	 * This method can be used to check a patient in that's already been
-	 * registered in the past.
+	 * Use this method to check in a patient with an existing patient file.
 	 * 
-	 * @param patientFile
-	 *            The patient to be checked in.
+	 * @throws InvalidNameException
 	 */
-	public void checkIn(PatientFile patientFile) {
-		hospital.getPatientFileManager().checkIn(patientFile);
+	public void checkIn(String name) throws InvalidNameException {
+		hospital.getPatientFileManager().checkIn(
+				hospital.getPatientFileManager().getPatientFileFrom(name));
 	}
 
 	/**
-	 * This method can be used to register a new patient.
+	 * Use this method to check in a patient with an existing patient file.
 	 * 
-	 * @return the patientfile
 	 * @throws InvalidNameException
-	 * @throws InvalidLoginControllerException
 	 */
-	public PatientFile signUpNewPatient(String name)
-			throws InvalidNameException {
-		return hospital.getPatientFileManager().registerPatient(name);
+	public void checkIn(PatientFileIN pf) throws InvalidNameException {
+		hospital.getPatientFileManager().checkIn(
+				hospital.getPatientFileManager().getPatientFileFrom(
+						pf.getName()));
 	}
-	
+
+	/**
+	 * Use this method to display a list of the possible patients to be checked
+	 * in into this hospital.
+	 */
+	public Collection<PatientFileIN> getAllPatientFiles() {
+		return new ArrayList<PatientFileIN>(hospital.getPatientFileManager()
+				.getAllPatientFiles());
+	}
+
 	@Override
 	boolean validUser(User u) {
 		return u instanceof Nurse;

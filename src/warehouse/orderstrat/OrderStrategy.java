@@ -3,6 +3,7 @@ package warehouse.orderstrat;
 import help.Filter;
 import java.util.Observable;
 import java.util.Observer;
+import scheduler.HospitalDate;
 import scheduler.TimeLord;
 import warehouse.Warehouse;
 import warehouse.item.WarehouseItemType;
@@ -20,7 +21,7 @@ public abstract class OrderStrategy implements Observer
 
 	/**
 	 * @param timeLord
-	 * To observe.
+	 *            To observe.
 	 */
 	public OrderStrategy(WarehouseItemType type, Warehouse warehouse,
 			StockProvider provider, TimeLord timeLord) {
@@ -33,13 +34,12 @@ public abstract class OrderStrategy implements Observer
 
 	@Override
 	public void update(Observable o, Object arg) {
-		int needed = this.getNeeded() - amountOfOpenOrders()-warehouse_.getCurrentCount(type_);
-		while(needed>0)
-		{
-			provider_.add(new StockOrder<WarehouseItemType>(warehouse_, type_, warehouse_.getCampus().getSystemTime().getSystemTime()));
-			needed--;
-		}
-		}
+		int needed = this.getNeeded() - amountOfOpenOrders();
+		HospitalDate time = warehouse_.getCampus().getSystemTime()
+				.getSystemTime();
+		provider_.add(new StockOrder<WarehouseItemType>(warehouse_, type_,
+				time, needed));
+	}
 
 	private int amountOfOpenOrders() {
 		int futureCount = help.Collections.filter(provider_.getOrders(),

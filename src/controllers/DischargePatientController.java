@@ -22,7 +22,7 @@ public class DischargePatientController extends
 					"Trying to discharge an invalid patientfile!");
 	}
 
-	public void dischargePatient() throws DischargePatientException {
+	public void dischargePatient() throws DischargePatientException, InvalidPatientFileException {
 		hospital.getPatientFileManager().checkOut(
 				(PatientFile) pfoc.getPatientFile());
 	}

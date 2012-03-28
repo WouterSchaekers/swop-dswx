@@ -3,6 +3,10 @@ package exceptions;
 public class DischargePatientException extends Exception
 {
 
+	public DischargePatientException(String string) {
+		super(string);
+	}
+
 	/**
 	 * 
 	 */

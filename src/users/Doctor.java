@@ -2,7 +2,6 @@ package users;
 
 import scheduler.HospitalDate;
 import scheduler.TimeSlot;
-import scheduler.tasks.ScheduledTask;
 import system.Location;
 import controllers.interfaces.DoctorIN;
 import exceptions.InvalidNameException;

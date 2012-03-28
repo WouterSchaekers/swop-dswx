@@ -5,24 +5,32 @@ import scheduler.Schedulable;
 import scheduler.TimeSlot;
 import scheduler.TimeTable;
 import system.Location;
+import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidHospitalDateArgument;
 import exceptions.InvalidNameException;
 import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidTimeSlotException;
 
 /**
- * This class represents a patient.
+ * This class represents a patient. Patients are linked to any number of patient
+ * files depending on which hospital they go to. Patients are Schedulables which
+ * means they have TimeTables.
  */
-public class Patient implements Schedulable
+class Patient implements Schedulable
 {
 	private String name;
-
-	Patient(String name) throws InvalidNameException {
+	private TimeTable timeTable_;
+	private Location location_;
+	
+	Patient(String name, Location location) throws InvalidNameException {
 		if(!isValidName(name))
-			throw new InvalidNameException("Invalid patient name");
+			throw new InvalidNameException("Invalid patient name given to Patient constructor!");
 		this.name = name;
+		location_ = location;
+		timeTable_ = new TimeTable();
 	}
 
+	@Basic
 	public String getName() {
 		return this.name;
 	}
@@ -31,20 +39,18 @@ public class Patient implements Schedulable
 	public boolean canBeScheduledOn(HospitalDate startDate,
 			HospitalDate stopDate) throws InvalidSchedulingRequestException,
 			InvalidTimeSlotException {
-		// TODO Auto-generated method stub
-		return false;
+		return timeTable_.hasFreeSlotAt(startDate, stopDate);
 	}
 
 	@Override
 	public TimeTable getTimeTable() throws InvalidTimeSlotException {
-		// TODO Auto-generated method stub
-		return null;
+		return this.timeTable_;
 	}
 
 	@Override
 	public void scheduleAt(TimeSlot timeSlot)
 			throws InvalidSchedulingRequestException {
-		// TODO Auto-generated method stub
+		this.timeTable_.addTimeSlot(timeSlot);
 	}
 
 	@Override
@@ -52,20 +58,19 @@ public class Patient implements Schedulable
 			HospitalDate startDate, HospitalDate stopDate, long duration)
 			throws InvalidSchedulingRequestException, InvalidTimeSlotException,
 			InvalidHospitalDateArgument {
-		// TODO Auto-generated method stub
-		return null;
+		return timeTable_.getFirstFreeSlotBetween(startDate, stopDate, duration);
 	}
 
 	@Override
 	public void updateTimeTable(HospitalDate newDate) {
-		// TODO Auto-generated method stub
-
+		timeTable_.updateTimeTable(newDate);
 	}
 
 	@Override
 	public Location getLocation() {
-		// TODO Auto-generated method stub
-		return null;
+		//TODO: moet Patient hier iets zinnigs kunnen returnen?
+		// Hoe weet de patient zijn location dan? Moeten we die setten elke keer de tijd aanpast?
+		return this.location_;
 	}
 
 	@Override

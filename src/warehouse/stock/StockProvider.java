@@ -46,16 +46,15 @@ public class StockProvider implements Observer
 		LinkedList<StockOrder<? extends WarehouseItemType>> updatedOrderlist = new LinkedList<StockOrder<? extends WarehouseItemType>>();
 		for (StockOrder<? extends WarehouseItemType> order : orders_) {
 			try {
-				if (order.canBeDelivered()) 
+				if (order.canBeDelivered())
 					order.deliver(expiryDate);
-				else 
+				else
 					updatedOrderlist.add(order);
 			} catch (Exception e) {
-
 				throw new Error(e.getMessage());
 			}
 		}
-	this.orders_ = updatedOrderlist;
+		this.orders_ = updatedOrderlist;
 	}
 
 	/**

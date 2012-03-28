@@ -35,18 +35,6 @@ public class TimeTable
 	};
 
 	/**
-	 * Alternative constructor where a certain amount of slots can just be given
-	 * as parameters, not as a collection.
-	 */
-	public TimeTable(TimeSlot... slots) throws InvalidTimeSlotException {
-		this(new LinkedList<TimeSlot>(Arrays.asList(slots)));
-	}
-
-	public TimeTable() {
-		this.timeSlots = new LinkedList<TimeSlot>();
-	}
-
-	/**
 	 * Default constructor. Will initialise all fields.
 	 * 
 	 * @param slots
@@ -64,6 +52,21 @@ public class TimeTable
 		this.eliminateOverlap();
 	}
 
+	/**
+	 * Alternative constructor where a certain amount of slots can just be given
+	 * as parameters, not as a collection.
+	 */
+	public TimeTable(TimeSlot... slots) throws InvalidTimeSlotException {
+		this(new LinkedList<TimeSlot>(Arrays.asList(slots)));
+	}
+
+	/**
+	 * Initialises an empty time table.
+	 */
+	public TimeTable() {
+		this.timeSlots = new LinkedList<TimeSlot>();
+	}
+	
 	public TimeSlot[] getArrayTimeSlots() {
 		TimeSlot[] returnValue = new TimeSlot[this.timeSlots.size()];
 		return this.timeSlots.toArray(returnValue);

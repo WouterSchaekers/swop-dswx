@@ -110,7 +110,9 @@ public class TestScenarios
 		System.out.println("Succes!");
 		System.out.print("Registering new patient in the hospital... ");
 		RegisterPatientController rpc = new RegisterPatientController(lc);
-		rpc.registerNewPatient("Dieter Geboers");
+		
+		//TODO location
+		//rpc.registerNewPatient("Dieter Geboers");
 		System.out
 				.println("Dieter Geboers's patient file was created and added to the hospital's database successfully!");
 

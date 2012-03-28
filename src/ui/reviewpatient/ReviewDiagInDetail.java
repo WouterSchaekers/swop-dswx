@@ -20,8 +20,8 @@ public class ReviewDiagInDetail extends Usecase
 	@Override
 	public Usecase Execute() {
 		System.out.println("Diagnose for "
-				+ data.getPatientFileOpenController().getPatientFile()
-						.getName() + " selected.");
+				+ data.getPatientFileOpenController().getPatient().getName()
+				+ " selected.");
 		System.out.println("By Doctor :" + diag.getAttending().getName());
 		System.out.println();
 		System.out.println("Diagnose details: " + diag.getDiagnosis());
