@@ -18,6 +18,11 @@ public class RequirementType<T extends Requirable> implements Requirement
 	public boolean isMetBy(Requirable requirable) {
 		return requirable.getClass().equals(type_);
 	}
+	
+	@Override
+	public boolean isCrucial(){
+		return true;
+	}
 
 	@Override
 	public boolean isMetOn(HospitalDate hospitalDate) {

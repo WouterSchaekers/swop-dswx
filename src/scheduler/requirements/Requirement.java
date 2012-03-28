@@ -8,6 +8,8 @@ public interface Requirement
 	
 	public boolean isMetBy(Requirable requirable);
 	
+	public boolean isCrucial();
+	
 	public boolean isMetOn(HospitalDate hospitalDate);
 	
 	public void collect();

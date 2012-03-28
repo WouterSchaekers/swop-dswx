@@ -21,6 +21,11 @@ public class WarehouseItemCondition implements Requirement
 	public boolean isMetBy(Requirable requirable) {
 		return false;
 	}
+	
+	@Override
+	public boolean isCrucial(){
+		return false;
+	}
 
 	@Override
 	public boolean isMetOn(HospitalDate hospitalDate) {
