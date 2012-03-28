@@ -33,6 +33,7 @@ public class Scheduler
 	 */
 	public ScheduledTask<?> schedule(UnscheduledTask<?> unschedTask)
 			throws InvalidSchedulingRequestException, CanNeverBeScheduledException {
+		// Extraction of information.
 		Collection<Schedulable> resPool = unschedTask.getAllResources();
 		HospitalDate curDate = unschedTask.getTimeLord().getSystemTime();
 		TaskDescription desc = unschedTask.getDescription();
@@ -41,7 +42,9 @@ public class Scheduler
 				+ desc.getExtraTime());
 		HospitalDate startDate = HospitalDate.getMaximum(curDate, minDate);
 		HospitalDate stopDate = new HospitalDate(HospitalDate.END_OF_TIME);
+		// The requirements that are already met.
 		Collection<Requirement> metReqs = getMetReqs(reqs, startDate);
+		// The resources that will meet the requirements.
 		LinkedHashMap<LinkedList<Schedulable>, Integer> avRes = getAvRes(resPool, reqs, metReqs);
 		removeDoubleBookings(avRes);
 		checkIfEnoughRes(avRes);
@@ -107,7 +110,6 @@ public class Scheduler
 		}
 	}
 
-	// Auxiliary methods for the main scheduling method.
 	/**
 	 * Returns the resources that are already met on a certain date.
 	 * 
@@ -129,8 +131,11 @@ public class Scheduler
 	}
 
 	/**
+	 * Returns the resources that are available and can be met to forfill the
+	 * requirements.
 	 * 
 	 * @param resPool
+	 * 
 	 * @param reqs
 	 * @param metReqs
 	 * @return
@@ -140,23 +145,18 @@ public class Scheduler
 			Collection<Requirement> reqs, Collection<Requirement> metReqs)
 			throws InvalidSchedulingRequestException {
 		Collection<Requirement> notMetYet = new LinkedList<Requirement>();
-		for (Requirement requirement : reqs) {
-			if (!metReqs.contains(requirement)) {
+		for (Requirement requirement : reqs)
+			if (!metReqs.contains(requirement))
 				notMetYet.add(requirement);
-			}
-		}
 		LinkedHashMap<LinkedList<Schedulable>, Integer> availableResources = new LinkedHashMap<LinkedList<Schedulable>, Integer>();
 		for (Requirement requirement : notMetYet) {
 			LinkedList<Schedulable> isMetBy = new LinkedList<Schedulable>();
-			for (Schedulable schedulable : resPool) {
-				if (requirement.isMetBy(schedulable)) {
+			for (Schedulable schedulable : resPool)
+				if (requirement.isMetBy(schedulable))
 					isMetBy.add(schedulable);
-				}
-			}
-			if (isMetBy.size() == 0) {
+			if (isMetBy.size() == 0)
 				throw new InvalidSchedulingRequestException(
 						"Some of the necessary conditions were not satisfied.");
-			}
 			availableResources.put(isMetBy, requirement.getAmount());
 		}
 		return availableResources;
@@ -245,7 +245,6 @@ public class Scheduler
 		return list3;
 	}
 
-	// Auxiliary methods for the scheduling algorithm.
 	private ScheduledTask<?> produceSchedTask(TaskDescription taskDesc,
 			LinkedHashMap<LinkedList<Schedulable>, Integer> avResources,
 			LinkedHashMap<LinkedList<Schedulable>, LinkedList<Integer>> chosRes, HospitalDate startDate,
