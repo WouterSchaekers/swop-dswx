@@ -2,11 +2,13 @@ package controllers;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedList;
 import machine.MachineBuilder;
 import system.Campus;
 import system.Location;
 import users.HospitalAdmin;
 import users.User;
+import controllers.interfaces.LocationIN;
 import exceptions.ControllerException;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLocationException;
@@ -34,13 +36,12 @@ public class AddHospitalEquipmentController extends NeedsLoginController
 
 	/**
 	 * @return All the objects that can create a kinds of different machines.
-	 * 
 	 */
 	public Collection<MachineBuilder> getAllMachineBuilders() {
 		Iterator<Campus> campIterator = hospital.getAllCampusses().iterator();
-		
-		if(campIterator.hasNext())
-			return(campIterator.next().getMachinePool().getAllBuilders());
+
+		if (campIterator.hasNext())
+			return (campIterator.next().getMachinePool().getAllBuilders());
 		return null;
 	}
 
@@ -48,10 +49,20 @@ public class AddHospitalEquipmentController extends NeedsLoginController
 	 * Creates a new machine from the given machine builder and adds it to the
 	 * hospital.
 	 */
-	public void createMachine(MachineBuilder b, Location whereabouts)
-			throws InvalidLocationException, InvalidSerialException {
-		
-		((Campus)(whereabouts)).getMachinePool().addMachine(b);
+	public void createMachine(MachineBuilder b, Location whereabouts) throws InvalidLocationException,
+			InvalidSerialException {
+
+		((Campus) (whereabouts)).getMachinePool().addMachine(b);
+	}
+
+	/**
+	 * @return all possible locations in this hospital.
+	 */
+	public Collection<LocationIN> getAllLocations() {
+		Collection<LocationIN> rv = new LinkedList<LocationIN>();
+		for (Location l : hospital.getAllCampusses())
+			rv.add(l);
+		return rv;
 	}
 
 	@Override
