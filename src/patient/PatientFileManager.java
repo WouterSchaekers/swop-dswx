@@ -55,7 +55,7 @@ public class PatientFileManager
 	public PatientFile registerPatient(String name, Location location) throws InvalidNameException, InvalidPatientFileException {	
 		if(this.containsFileOf(name))
 			throw new InvalidPatientFileException("Patient already exists in hospital!");
-		PatientFile pf = new PatientFile(new Patient(name,location));
+		PatientFile pf = new PatientFile(new Patient(name));
 		patientFiles.add(pf);
 		return pf;
 	}
