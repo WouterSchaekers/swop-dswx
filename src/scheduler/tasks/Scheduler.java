@@ -56,7 +56,8 @@ public class Scheduler
 	 * @param avRes
 	 *            HashMap that contains resources and the amount needed of them.
 	 * @param usedResList
-	 * 
+	 *            An mapping of the possible resources and the places of the
+	 *            used resources.
 	 * @param posLocs
 	 * @param desc
 	 * @param startDate
@@ -243,43 +244,49 @@ public class Scheduler
 		return usedResources;
 	}
 
-	
+	/**
+	 * Returns all the possible locations. The locations that contain not enough
+	 * resources are eliminated.
+	 * 
+	 * @param avRes
+	 *            HashMap that contains resources and the amount needed of them.
+	 * @param locs
+	 *            All locations of the hospital.
+	 * @return A LinkedList of locations that are suitable for scheduling.
+	 */
 	private LinkedList<Location> getPosLocs(LinkedHashMap<LinkedList<Schedulable>, Integer> avRes,
 			Collection<Location> locs) {
 		LinkedList<Location> possibleLocations = new LinkedList<Location>(locs);
-		boolean first = true;
 		for (LinkedList<Schedulable> resourcePool : avRes.keySet()) {
 			boolean canTravel = false;
 			LinkedList<Location> curPossibleLocations = new LinkedList<Location>();
 			LinkedHashMap<Location, Integer> amountOfResources = new LinkedHashMap<Location, Integer>();
 			for (Schedulable schedulable : resourcePool) {
-				if (schedulable.canTravel()) {
-					canTravel = true;
-				}
+				canTravel = schedulable.canTravel();
 				Location curLocation = schedulable.getLocation();
-				if (amountOfResources.containsKey(curLocation)) {
+				if (amountOfResources.containsKey(curLocation))
 					amountOfResources.put(curLocation, 1);
-				} else {
+				else
 					amountOfResources.put(curLocation, amountOfResources.get(curLocation) + 1);
-				}
 			}
-			for (Location location : amountOfResources.keySet()) {
-				if (amountOfResources.get(location) >= avRes.get(resourcePool)) {
+			for (Location location : amountOfResources.keySet())
+				if (amountOfResources.get(location) >= avRes.get(resourcePool))
 					curPossibleLocations.add(location);
-				}
-			}
-			if (!canTravel) {
-				if (first) {
-					first = false;
-					possibleLocations = curPossibleLocations;
-				} else {
-					possibleLocations = getIntersect(possibleLocations, curPossibleLocations);
-				}
-			}
+			if (!canTravel)
+				possibleLocations = getIntersect(possibleLocations, curPossibleLocations);
 		}
 		return possibleLocations;
 	}
 
+	/**
+	 * Returns the intersect of two lists (logical AND operation).
+	 * 
+	 * @param list1
+	 *            The first list.
+	 * @param list2
+	 *            The second list.
+	 * @return The intersect of list1 and list2.
+	 */
 	private LinkedList<Location> getIntersect(LinkedList<Location> list1, LinkedList<Location> list2) {
 		LinkedList<Location> list3 = new LinkedList<Location>();
 		for (Location location1 : list1) {
