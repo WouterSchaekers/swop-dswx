@@ -1,9 +1,5 @@
 package controllers;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import controllers.interfaces.PatientFileIN;
-import system.Location;
 import users.Nurse;
 import users.User;
 import exceptions.InvalidHospitalException;
@@ -17,7 +13,7 @@ import exceptions.InvalidPatientFileException;
 public class RegisterPatientController extends NeedsLoginController
 {
 	/**
-	 * Default constructor
+	 * Default constructor.
 	 * 
 	 * @see NeedsLoginController
 	 */
@@ -31,9 +27,9 @@ public class RegisterPatientController extends NeedsLoginController
 	 * 
 	 * @throws InvalidPatientFileException
 	 */
-	public void registerNewPatient(String name, Location location)
+	public void registerNewPatient(String name)
 			throws InvalidNameException, InvalidPatientFileException {
-		hospital.getPatientFileManager().registerPatient(name, location);
+		hospital.getPatientFileManager().registerPatient(name, ((Nurse)lc.getUser()).getLocation());
 	}
 
 	@Override
@@ -41,8 +37,4 @@ public class RegisterPatientController extends NeedsLoginController
 		return u instanceof Nurse;
 	}
 
-	public Collection<PatientFileIN> getAllPatientFiles() {
-		return new ArrayList<PatientFileIN>(hospital.getPatientFileManager()
-				.getAllPatientFiles());
-	}
 }

@@ -44,7 +44,7 @@ public class ConsultPatientFileController extends NeedsLoginController
 	public PatientFileIN getPatientFile() {
 		return this.pf;
 	}
-
+	
 	public PatientIN getPatient() {
 		return (PatientIN) (this.pf.getPatient());
 	}
