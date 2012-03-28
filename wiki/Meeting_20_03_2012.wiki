@@ -1,3 +1,14 @@
   * De createXRayScanner() moet weg uit MachinePool (niet hardcoden!) -> At runtime kunnen toevoegen.
   * Het waren... warehouse:
     * De manier van initaliseren is goed -> Dit ook doen voor MachinePool.
+    * Strategieën zijn goed.
+    * Notatie conTROLeren.
+    * Het is count per item en niet count per groepje van items.
+  * Scheduler:
+    * Requirement en Condition samenvoegen.
+  * Security:
+    * Niet zo paranoïa zijn, dat is nergens voor nodig.
+    * Het systeem mag niet aangepast  worden voor de UI.
+    * Ervoor zorgen dat dingen automatisch worden toegevoegd na creatie! (HEEL BELANGRIJK!) Zet dit ook in het verslag.
+    * Afscherming door constructoren package visible te maken.
+  * Het is goed dat de TaskManager de condition observeert voor het Warehouse en de Diagnose.
