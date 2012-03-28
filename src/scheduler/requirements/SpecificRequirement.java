@@ -16,6 +16,11 @@ public class SpecificRequirement implements Requirement
 	public boolean isMetBy(Requirable requirable) {
 		return requirable_.equals(requirable);
 	}
+	
+	@Override
+	public boolean isCrucial(){
+		return true;
+	}
 
 	@Override
 	public boolean isMetOn(HospitalDate hospitalDate) {
