@@ -18,11 +18,11 @@ public class Scheduler
 	public Scheduler() {
 	}
 
-	public ScheduledTask<?> schedule(SchedulingData schedulingData)
+	public ScheduledTask<?> schedule(UnscheduledTask<?> unscheduledTask)
 			throws InvalidSchedulingRequestException, CanNeverBeScheduledException {
-		Collection<Schedulable> resourcePool = schedulingData.getAllResources();
-		HospitalDate currentDate = schedulingData.getTimeLord().getSystemTime();
-		TaskDescription description = schedulingData.getDescription();
+		Collection<Schedulable> resourcePool = unscheduledTask.getAllResources();
+		HospitalDate currentDate = unscheduledTask.getTimeLord().getSystemTime();
+		TaskDescription description = unscheduledTask.getDescription();
 		Collection<Requirement> requirements = description.getAllRequirements();
 		HospitalDate minimumDate = new HospitalDate(description
 				.getCreationTime().getTimeSinceStart()
@@ -37,7 +37,7 @@ public class Scheduler
 		removeDoubleBookings(availableResources);
 		checkIfEnoughResources(availableResources);
 		HashMap<LinkedList<Schedulable>, LinkedList<Integer>> usedResourcesList = produceUsedResourcesList(availableResources);
-		LinkedList<Location> possibleLocations = getPossibleLocations(availableResources, schedulingData.getLocations());
+		LinkedList<Location> possibleLocations = getPossibleLocations(availableResources, unscheduledTask.getLocations());
 		ScheduledTask<?> bestScheduledTask = null;
 		for (Location possibleLocation : possibleLocations) {
 			ScheduledTask<?> possibleScheduledTask;
