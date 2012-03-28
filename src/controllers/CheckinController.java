@@ -34,16 +34,6 @@ public class CheckinController extends NeedsLoginController
 	 * 
 	 * @throws InvalidNameException
 	 */
-	public void checkIn(String name) throws InvalidNameException {
-		hospital.getPatientFileManager().checkIn(
-				hospital.getPatientFileManager().getPatientFileFrom(name));
-	}
-
-	/**
-	 * Use this method to check in a patient with an existing patient file.
-	 * 
-	 * @throws InvalidNameException
-	 */
 	public void checkIn(PatientFileIN pf) throws InvalidNameException {
 		hospital.getPatientFileManager().checkIn(
 				hospital.getPatientFileManager().getPatientFileFrom(
