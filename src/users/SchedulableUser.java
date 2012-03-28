@@ -14,14 +14,12 @@ import exceptions.InvalidTimeSlotException;
 
 public abstract class SchedulableUser extends User implements Schedulable
 {
-	protected Location _preference;
-	protected Location _location;
+	protected Location location_;
 	protected TimeTable _timeTable = new TimeTable();
 	protected Collection<ScheduledTask<?>> _scheduledTasks;
 
 	 SchedulableUser(String name, Location preference) throws InvalidNameException {
 		super(name);
-		this._preference = preference;
 		this._timeTable = new TimeTable();
 		this._scheduledTasks = new LinkedList<ScheduledTask<?>>();
 	}
@@ -49,11 +47,11 @@ public abstract class SchedulableUser extends User implements Schedulable
 	}
 	
 	public void setLocation(Location location){
-		this._location = location;
+		this.location_ = location;
 	}
 	
 	public Location getLocation(){
-		return this._location;
+		return this.location_;
 	}
 	
 	
