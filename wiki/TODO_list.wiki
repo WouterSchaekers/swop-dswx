@@ -31,7 +31,7 @@
 = Wie is er momenteel waaraan bezig? =
 <p>
 Dieter: Onbekend.<p>
-Stefaan: Errors fixen, all the things!<p>
+Stefaan: Controllers fixen, all the things!<p>
 Wouter: Scheduler reviewen en methodes errond (canBeScheduledAt ed) implementeren.<p>
 
 = Things that have been crossed off = 
