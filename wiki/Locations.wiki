@@ -1,9 +1,9 @@
 Summary over alles wat er te vinden is over de locations in de opgave:
 
-* Er worden 2 campussen gebruikt.
-* Elke locatie heeft eigen equipment, warehouse en staff (nurses en warehouse manager).
-* Patients kunnen enkel geregistreerd worden op één bepaalde campus.
-* Patients en doctors kunnen switchen tussen de locations.
-* Doctors kunnen een preference kiezen. Indien doctors geen preference opgegen, wordt het back-and-forth machanisme toegepast. Doctors mogen slechts 4 maar per dag switchen.
-* Het travelen zelf duurt 15 minuten.
-* Een appointement moet altijd gemaakt worden op de location waar de patient is geregistered.
+  * Er worden 2 campussen gebruikt.
+  * Elke locatie heeft eigen equipment, warehouse en staff (nurses en warehouse manager).
+  * Patients kunnen enkel geregistreerd worden op één bepaalde campus.
+  * Patients en doctors kunnen switchen tussen de locations.
+  * Doctors kunnen een preference kiezen. Indien doctors geen preference opgegen, wordt het back-and-forth machanisme toegepast. Doctors mogen slechts 4 maar per dag switchen.
+  * Het travelen zelf duurt 15 minuten.
+  * Een appointement moet altijd gemaakt worden op de location waar de patient is geregistered.
