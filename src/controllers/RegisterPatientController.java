@@ -21,18 +21,19 @@ public class RegisterPatientController extends NeedsLoginController
 	 * 
 	 * @see NeedsLoginController
 	 */
-	public RegisterPatientController(LoginController lc) throws InvalidLoginControllerException,
-			InvalidHospitalException {
+	public RegisterPatientController(LoginController lc)
+			throws InvalidLoginControllerException, InvalidHospitalException {
 		super(lc);
 	}
 
 	/**
 	 * Registers a new patient in this hospital.
-	 * @throws InvalidPatientFileException 
+	 * 
+	 * @throws InvalidPatientFileException
 	 */
 	public void registerNewPatient(String name, Location location)
 			throws InvalidNameException, InvalidPatientFileException {
-		hospital.getPatientFileManager().registerPatient(name,location);
+		hospital.getPatientFileManager().registerPatient(name, location);
 	}
 
 	@Override
