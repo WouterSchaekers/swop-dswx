@@ -33,7 +33,6 @@ public class Scheduler
 	 */
 	public ScheduledTask<?> schedule(UnscheduledTask<?> unschedTask)
 			throws InvalidSchedulingRequestException, CanNeverBeScheduledException {
-		// Extraction of information.
 		Collection<Schedulable> resPool = unschedTask.getAllResources();
 		HospitalDate curDate = unschedTask.getTimeLord().getSystemTime();
 		TaskDescription desc = unschedTask.getDescription();
@@ -42,9 +41,7 @@ public class Scheduler
 				+ desc.getExtraTime());
 		HospitalDate startDate = HospitalDate.getMaximum(curDate, minDate);
 		HospitalDate stopDate = new HospitalDate(HospitalDate.END_OF_TIME);
-		// The requirements that are already met.
 		Collection<Requirement> metReqs = getMetReqs(reqs, startDate);
-		// The resources that will meet the requirements.
 		LinkedHashMap<LinkedList<Schedulable>, Integer> avRes = getAvRes(resPool, reqs, metReqs);
 		removeDoubleBookings(avRes);
 		checkIfEnoughRes(avRes);
@@ -52,6 +49,21 @@ public class Scheduler
 				desc, startDate, stopDate);
 	}
 
+	/**
+	 * For each location, this method will try to schedule the task. The task
+	 * that comes first will be chosen.
+	 * 
+	 * @param avRes
+	 *            HashMap that contains resources and the amount needed of them.
+	 * @param usedResList
+	 * 
+	 * @param posLocs
+	 * @param desc
+	 * @param startDate
+	 * @param stopDate
+	 * @return
+	 * @throws InvalidSchedulingRequestException
+	 */
 	private ScheduledTask<?> schedule(LinkedHashMap<LinkedList<Schedulable>, Integer> avRes,
 			LinkedHashMap<LinkedList<Schedulable>, LinkedList<Integer>> usedResList,
 			Collection<Location> posLocs, TaskDescription desc, HospitalDate startDate, HospitalDate stopDate)
@@ -131,19 +143,26 @@ public class Scheduler
 	}
 
 	/**
-	 * Returns the resources that are available and can be met to forfill the
+	 * Returns the resources that are available and can be met to satisfy the
 	 * requirements.
 	 * 
 	 * @param resPool
-	 * 
+	 *            All the resources of the hospital.
 	 * @param reqs
+	 *            The requirements that have to be satisfied.
 	 * @param metReqs
-	 * @return
+	 *            The requirements that are already satisfied.
+	 * @return A HashMap that maps all resources that can satisfy the
+	 *         requirements with the needed amount.
 	 * @throws InvalidSchedulingRequestException
+	 *             Some of the requirement cannot be satisfied right now.
+	 * @throws CanNeverBeScheduledException
+	 *             Some of the requirements can never be satisfied with the
+	 *             existing resources.
 	 */
 	private LinkedHashMap<LinkedList<Schedulable>, Integer> getAvRes(Collection<Schedulable> resPool,
 			Collection<Requirement> reqs, Collection<Requirement> metReqs)
-			throws InvalidSchedulingRequestException {
+			throws InvalidSchedulingRequestException, CanNeverBeScheduledException {
 		Collection<Requirement> notMetYet = new LinkedList<Requirement>();
 		for (Requirement requirement : reqs)
 			if (!metReqs.contains(requirement))
@@ -154,32 +173,48 @@ public class Scheduler
 			for (Schedulable schedulable : resPool)
 				if (requirement.isMetBy(schedulable))
 					isMetBy.add(schedulable);
-			if (isMetBy.size() == 0)
+			if (isMetBy.size() == 0) {
+				if (requirement.isCrucial())
+					throw new CanNeverBeScheduledException(
+							"There are not enough resources to schedule this task.");
 				throw new InvalidSchedulingRequestException(
 						"Some of the necessary conditions were not satisfied.");
+			}
 			availableResources.put(isMetBy, requirement.getAmount());
 		}
 		return availableResources;
 	}
 
+	/**
+	 * Removes the specific resources that are booked in two different places.
+	 * 
+	 * @param avRes
+	 *            HashMap that contains resources and the amount needed of them.
+	 * @throws InvalidSchedulingRequestException
+	 *             Something is wrong with the setup of the description.
+	 */
 	private void removeDoubleBookings(LinkedHashMap<LinkedList<Schedulable>, Integer> avRes)
 			throws InvalidSchedulingRequestException {
-		for (LinkedList<Schedulable> resourcePool : avRes.keySet()) {
-			for (LinkedList<Schedulable> curSchedulablePool : avRes.keySet()) {
-				for (Schedulable schedulable : curSchedulablePool) {
-					if (resourcePool.contains(schedulable)) {
-						if (curSchedulablePool.size() == 1) {
+		for (LinkedList<Schedulable> resourcePool : avRes.keySet())
+			for (LinkedList<Schedulable> curSchedulablePool : avRes.keySet())
+				for (Schedulable schedulable : curSchedulablePool)
+					if (resourcePool.contains(schedulable))
+						if (curSchedulablePool.size() == 1)
 							resourcePool.remove(schedulable);
-						} else {
+						else
 							throw new InvalidSchedulingRequestException(
 									"There is something wrong with the setup of your description. There are duplicate requirements.");
-						}
-					}
-				}
-			}
-		}
 	}
 
+	/**
+	 * Checks if there are enough resources available in the hospital.
+	 * 
+	 * @param avRes
+	 *            HashMap that contains resources and the amount needed of them.
+	 * @throws CanNeverBeScheduledException
+	 *             Some of the requirements can never be satisfied with the
+	 *             existing resources.
+	 */
 	private void checkIfEnoughRes(LinkedHashMap<LinkedList<Schedulable>, Integer> avRes)
 			throws CanNeverBeScheduledException {
 		for (LinkedList<Schedulable> resourcePool : avRes.keySet()) {
@@ -190,6 +225,15 @@ public class Scheduler
 		}
 	}
 
+	/**
+	 * Returns an empty mapping of the possible resources and the places of the
+	 * used resources.
+	 * 
+	 * @param avRes
+	 *            HashMap that contains resources and the amount needed of them.
+	 * @return An empty mapping of the possible resources and the places of the
+	 *         used resources.
+	 */
 	private LinkedHashMap<LinkedList<Schedulable>, LinkedList<Integer>> produceUsedResList(
 			LinkedHashMap<LinkedList<Schedulable>, Integer> avRes) {
 		LinkedHashMap<LinkedList<Schedulable>, LinkedList<Integer>> usedResources = new LinkedHashMap<LinkedList<Schedulable>, LinkedList<Integer>>();
@@ -199,6 +243,7 @@ public class Scheduler
 		return usedResources;
 	}
 
+	
 	private LinkedList<Location> getPosLocs(LinkedHashMap<LinkedList<Schedulable>, Integer> avRes,
 			Collection<Location> locs) {
 		LinkedList<Location> possibleLocations = new LinkedList<Location>(locs);
