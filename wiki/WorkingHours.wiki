@@ -40,7 +40,7 @@
 || 28/03/12: 13u30 -> 15u30 || 1 S || 2 || Implementing checkincontroller, registerpatientcontroller, patient, patientFile || ||
 || 28/03/12: 16u00 -> 18u00 || 3 DSW || 2 || Reviewing assignment for issues concerning campus preferences, implementing diagnose- related controllers, discovering the capsule-concept and experimenting with it || ||
 || 28/03/12: 18u00 -> 19u00 || 2 DS || 1 || Elaborating on the design of Tasks, unscheduled tasks, finished tasks, scheduled tasks, descriptions,... || Wouter moest eten ||
-|| 28/03/12: 20u30 -> || 2 SW ||  ||  || Dieter winabar ||
+|| 28/03/12: 20u30 -> 23u30 || 2 SW || 3 || Implementing some controllers, refactoring the scheduling algorithm || Dieter winabar ||
 
 
 = Iteratie 2 =
