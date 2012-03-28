@@ -11,4 +11,5 @@ Summary over alles wat er te vinden is over de locations in de opgave:
   * Het is mogelijk dat er te weinig eten is voor de patient voor de komende twee dagen. In dat geval moet er een lijst komen van locations waar dat de patient zich kan registeren. (Het registeren zelf hoeft hier niet.)
 
 (1) VRAAGJE: Hoe kan een doctor zijn preference ingeven? Volgens de use-case moet er een lijst getoond worden van mogelijkheden, maar dat zijn er heel veel. In de uitleg over de campussen wordt er een voorbeeld gegeven van 4h op de eerste campus en 4h op de tweede campus (of 8h op de eerste campus). Is het de bedoeling dat we enkel die mogelijkheden geven? Ik zou zeggen van wel, al is de opgave er niet duidelijk over.
+
 Conclusie na een discussie tussen Stefaan en Wouter: Enkel de combinaties met 4h-4h en 8h worden weergegeven.
