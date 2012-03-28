@@ -6,7 +6,7 @@ public interface PatientFileIN
 {
 	public boolean isDischarged();
 
-	public Collection<DiagnoseIN> getAlldiagnosis();
+	public Collection<DiagnoseIN> getAllDiagnosis();
 
 	public Collection<TreatmentIN> getAllTreatments();
 

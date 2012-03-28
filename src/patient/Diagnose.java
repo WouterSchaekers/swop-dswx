@@ -2,18 +2,22 @@ package patient;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.Observable;
 import scheduler.tasks.Task;
 import treatment.Treatment;
+import treatment.TreatmentFactory;
 import users.Doctor;
 import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.DoctorIN;
 import controllers.interfaces.TreatmentIN;
 import exceptions.ApproveDiagnoseException;
+import exceptions.FactoryInstantiationException;
+import exceptions.InvalidAmountException;
 import exceptions.InvalidDiagnoseException;
 import exceptions.InvalidDoctorException;
-import exceptions.InvalidTreatmentException;
+import exceptions.InvalidHospitalDateException;
 
 /**
  * This class represents a diagnosis that's given to a patient after admission
@@ -28,9 +32,9 @@ public class Diagnose extends Observable implements DiagnoseIN
 	private Doctor attending = null;
 	private Doctor secopDoc = null;
 	/**
-	 * the treatments associated with this diagnosis
+	 * the treatments associated with this diagnose
 	 */
-	private Collection<Task<? extends Treatment>> treatments = new ArrayList<Task<? extends Treatment>>();
+	private Collection<Task<? extends Treatment>> treatments = new LinkedList<Task<? extends Treatment>>();
 
 	/**
 	 * Default constructor. Initialises fields.
@@ -55,12 +59,14 @@ public class Diagnose extends Observable implements DiagnoseIN
 		this.diag = diag;
 	}
 
-	public void addTreatment(Task<? extends Treatment> t) throws InvalidTreatmentException {
-		if (this.isValidTreatment(t))
-			this.treatments.add(t);
-		else
-			throw new InvalidTreatmentException(
-					"Trying to add invalid treatment to diagnose!");
+	public Treatment createTreatment(TreatmentFactory treatFact)
+			throws FactoryInstantiationException, InvalidAmountException,
+			InvalidHospitalDateException {
+		return treatFact.create();
+	}
+	
+	public void addTreatmentTask(Task<? extends Treatment> task) {
+		treatments.add(task);
 	}
 
 	/**
@@ -118,7 +124,7 @@ public class Diagnose extends Observable implements DiagnoseIN
 	}
 
 	@Basic
-	public String getDiagnosis() {
+	public String getDiagnose() {
 		return this.diag;
 	}
 
@@ -148,13 +154,6 @@ public class Diagnose extends Observable implements DiagnoseIN
 	}
 
 	/**
-	 * @return True if t is a valid treatment for this Diagnose.
-	 */
-	private boolean isValidTreatment(Task<? extends Treatment> t) {
-		return t != null;
-	}
-
-	/**
 	 * This function marks this Diagnose for second opinion.
 	 * 
 	 * @param from
@@ -179,7 +178,7 @@ public class Diagnose extends Observable implements DiagnoseIN
 
 	@Override
 	public String toString() {
-		return this.getDiagnosis();
+		return this.getDiagnose();
 	}
 
 	/**

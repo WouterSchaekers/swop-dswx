@@ -5,10 +5,10 @@ import scheduler.HospitalDate;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidHospitalDateException;
 
-public abstract class TaskDescriptionWithPatienFile extends TaskDescription
+public abstract class TaskDescriptionWithPatientFile extends TaskDescription
 {
 	protected final PatientFile patientFile_;
-	public TaskDescriptionWithPatienFile(PatientFile patientFile,long duration, long extraTime,
+	public TaskDescriptionWithPatientFile(PatientFile patientFile,long duration, long extraTime,
 			HospitalDate creationDate) throws InvalidAmountException,
 			InvalidHospitalDateException {
 		super(duration, extraTime, creationDate);
