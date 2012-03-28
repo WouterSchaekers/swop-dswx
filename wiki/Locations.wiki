@@ -7,3 +7,5 @@ Summary over alles wat er te vinden is over de locations in de opgave:
   * Doctors kunnen een preference kiezen. Indien doctors geen preference opgegen, wordt het back-and-forth machanisme toegepast. Doctors mogen slechts 4 maar per dag switchen.
   * Het travelen zelf duurt 15 minuten.
   * Een appointement moet altijd gemaakt worden op de location waar de patient is geregistered.
+  * Alle andere zaken (tests, treatments, ...) mogen op eender welke locatie gescheduled worden.
+  * Het is mogelijk dat er te weinig eten is voor de patient voor de komende twee dagen. In dat geval moet er een lijst komen van locations waar dat de patient zich kan registeren. (Het registeren zelf hoeft hier niet.)
