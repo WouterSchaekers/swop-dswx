@@ -13,7 +13,7 @@ public interface DiagnoseIN
 
 	public DoctorIN getAttending();
 
-	public String getDiagnosis();
+	public String getDiagnose();
 	
 	public boolean canBeReplacedWith(DiagnoseIN replacement);
 }

@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import scheduler.tasks.ScheduledTask;
 import system.Hospital;
 import users.User;
 import users.UserFilter;
@@ -47,14 +48,23 @@ public class LoginController extends HospitalController
 	/**
 	 * This method will login the user of this logincontroller.
 	 * 
+	 * @return A string with TODOs.
 	 * @throws IllegalArgumentException
 	 *             if (!isValidUser((User) user))
 	 */
-	public void logIn(UserIN user) throws IllegalArgumentException {
+	public String logIn(UserIN user) throws IllegalArgumentException {
 		if (!isValidUser((User) user))
 			throw new IllegalArgumentException("The given user is null!");
 		this.user = (User) user;
 		loggedIn = true;
+		
+		String todos = "TODOs:\n-----\n\n";
+		Collection<ScheduledTask<?>> colSched = hospital.getTaskManager().getScheduledTasks();
+		for(ScheduledTask<?> task : colSched) {
+			if(task.getUsedResources().contains(getUser()))
+				todos += " * " + task.toString() + "\n";
+		}
+		return todos;
 	}
 
 	/**

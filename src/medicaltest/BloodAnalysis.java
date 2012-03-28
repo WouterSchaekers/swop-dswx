@@ -62,7 +62,7 @@ public class BloodAnalysis extends MedicalTest
 	{
 		if(me.getDescription().equals(this))
 		{
-		return	patientFile_.addMedicalTest(this);
+		return	patientFile_.addFinishedMedicalTest(this);
 		}
 		throw new Exception();
 

@@ -1,7 +1,6 @@
 package controllers;
 
 import java.util.Collection;
-import medicaltest.MedicalTest;
 import medicaltest.MedicalTestFactory;
 import medicaltest.MedicalTests;
 import scheduler.HospitalDate;
@@ -13,12 +12,14 @@ import exceptions.InvalidPatientFileException;
 import exceptions.InvalidPatientFileOpenController;
 
 /**
- * This class can be used to create medical tests etc...
+ * Use to order medical tests for patients.
  */
-public class OrderMedicalTestController extends
-		NeedsLoginAndPatientFileController
+public class OrderMedicalTestController extends	NeedsLoginAndPatientFileController
 {
 
+	/**
+	 * Default constructor.
+	 */
 	public OrderMedicalTestController(LoginController lc,
 			ConsultPatientFileController cpf)
 			throws InvalidLoginControllerException, InvalidHospitalException,
@@ -29,14 +30,23 @@ public class OrderMedicalTestController extends
 					"Invalid patient file given to create medical test from: patient is discharged");
 	}
 
+	/**
+	 * Use to allow the user to select the factory from which he/she would like
+	 * to create a medical test from.
+	 */
 	public Collection<MedicalTestFactory> getMedicalTestFactories()
 			throws InvalidLoginControllerException,
 			InvalidPatientFileException, InvalidPatientFileOpenController {
 		return new MedicalTests().factories();
 	}
 	
-	public HospitalDate addMedicaltest(MedicalTest medicalTest){
-		//TODO: implement
+	/**
+	 * 
+	 * @param medicalTestFactory
+	 * @return
+	 */
+	public HospitalDate addMedicaltest(MedicalTestFactory medicalTestFactory) {
+		// TODO: implement
 		return null;
 	}
 

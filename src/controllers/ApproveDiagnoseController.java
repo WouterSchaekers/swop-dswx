@@ -85,7 +85,7 @@ public class ApproveDiagnoseController extends
 	}
 
 	private boolean isValidDiagnose(DiagnoseIN d) {
-		return cpfc.getPatientFile().getAlldiagnosis().contains(d);
+		return cpfc.getPatientFile().getAllDiagnosis().contains(d);
 	}
 	
 	@Override

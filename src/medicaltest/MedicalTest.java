@@ -3,7 +3,7 @@ package medicaltest;
 import patient.PatientFile;
 import result.Result;
 import scheduler.HospitalDate;
-import scheduler.tasks.TaskDescriptionWithPatienFile;
+import scheduler.tasks.TaskDescriptionWithPatientFile;
 import controllers.interfaces.MedicalTestIN;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
@@ -14,7 +14,7 @@ import exceptions.InvalidTimeSlotException;
 /**
  * This class represents a medical test.
  */
-public abstract class MedicalTest extends TaskDescriptionWithPatienFile implements MedicalTestIN
+public abstract class MedicalTest extends TaskDescriptionWithPatientFile implements MedicalTestIN
 {
 	private Result result;
 

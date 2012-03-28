@@ -145,9 +145,20 @@ public class PatientFile implements PatientFileIN
 	}
 
 	@Override
-	public Collection<DiagnoseIN> getAlldiagnosis() {
+	public Collection<DiagnoseIN> getAllDiagnosis() {
 		Collection<DiagnoseIN> rv = new ArrayList<DiagnoseIN>();
 		rv.addAll(diagnosis);
+		return rv;
+	}
+	
+	/**
+	 * @return All diagnosis kept in this patient file made by a certain doctor.
+	 */
+	public Collection<DiagnoseIN> getDiagnosisFrom(Doctor doc) {
+		Collection<DiagnoseIN> rv = new LinkedList<DiagnoseIN>();
+		for(Diagnose d : this.diagnosis)
+			if(d.getAttending().equals(doc))
+				rv.add((DiagnoseIN)d);
 		return rv;
 	}
 
@@ -211,7 +222,7 @@ public class PatientFile implements PatientFileIN
 		return d != null;
 	}
 
-	public <T extends MedicalTest> FinishedTask<T> addMedicalTest(
+	public <T extends MedicalTest> FinishedTask<T> addFinishedMedicalTest(
 			T bloodAnalysis) {
 		// TODO: add code to store
 		return new FinishedMedicalTest<T>(bloodAnalysis);
