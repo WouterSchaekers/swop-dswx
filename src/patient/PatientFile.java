@@ -207,7 +207,6 @@ public class PatientFile implements PatientFileIN
 
 	@Override
 	public String getName() {
-		//TODO: consider if this method should really be here...
 		return this.getPatient().getName();
 	}
 }

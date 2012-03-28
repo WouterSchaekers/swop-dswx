@@ -22,11 +22,10 @@ class Patient implements Schedulable
 	private TimeTable timeTable_;
 	private Location location_;
 	
-	Patient(String name, Location location) throws InvalidNameException {
+	Patient(String name) throws InvalidNameException {
 		if(!isValidName(name))
 			throw new InvalidNameException("Invalid patient name given to Patient constructor!");
 		this.name = name;
-		location_ = location;
 		timeTable_ = new TimeTable();
 	}
 
@@ -65,14 +64,22 @@ class Patient implements Schedulable
 	public void updateTimeTable(HospitalDate newDate) {
 		timeTable_.updateTimeTable(newDate);
 	}
+	
+	public void updateLocation(Location newLocation) {
+		if(!isValidLocation(newLocation))
+			throw new IllegalArgumentException("Illegal new location for patient!");
+		this.location_ = newLocation;
+	}
+	
+	private boolean isValidLocation(Location l){
+		return l != null;
+	}
 
 	@Override
 	public Location getLocation() {
-		//TODO: moet Patient hier iets zinnigs kunnen returnen?
-		// Hoe weet de patient zijn location dan? Moeten we die setten elke keer de tijd aanpast?
 		return this.location_;
 	}
-
+	
 	@Override
 	public boolean canTravel() {
 		return true;
