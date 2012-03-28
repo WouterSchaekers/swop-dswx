@@ -18,117 +18,100 @@ public class Scheduler
 	public Scheduler() {
 	}
 
-	public ScheduledTask<?> schedule(UnscheduledTask<?> unscheduledTask)
+	public ScheduledTask<?> schedule(UnscheduledTask<?> unschedTask)
 			throws InvalidSchedulingRequestException,
 			CanNeverBeScheduledException {
-		Collection<Schedulable> resourcePool = unscheduledTask
-				.getAllResources();
-		HospitalDate currentDate = unscheduledTask.getTimeLord()
-				.getSystemTime();
-		TaskDescription description = unscheduledTask.getDescription();
-		Collection<Requirement> requirements = description.getAllRequirements();
-		HospitalDate minimumDate = new HospitalDate(description
-				.getCreationTime().getTimeSinceStart()
-				+ description.getExtraTime());
-		HospitalDate startDate = HospitalDate.getMaximum(currentDate,
-				minimumDate);
+		Collection<Schedulable> resPool = unschedTask.getAllResources();
+		HospitalDate curDate = unschedTask.getTimeLord().getSystemTime();
+		TaskDescription desc = unschedTask.getDescription();
+		Collection<Requirement> reqs = desc.getAllRequirements();
+		HospitalDate minDate = new HospitalDate(desc.getCreationTime()
+				.getTimeSinceStart() + desc.getExtraTime());
+		HospitalDate startDate = HospitalDate.getMaximum(curDate, minDate);
 		HospitalDate stopDate = new HospitalDate(HospitalDate.END_OF_TIME);
-		Collection<Requirement> metRequirements = getMetRequirements(
-				resourcePool, requirements, startDate);
-		HashMap<LinkedList<Schedulable>, Integer> availableResources = getAvailableResources(
-				resourcePool, requirements, metRequirements);
-		removeDoubleBookings(availableResources);
-		checkIfEnoughResources(availableResources);
-		return schedule(
-				availableResources,
-				produceUsedResourcesList(availableResources),
-				getPossibleLocations(availableResources,
-						unscheduledTask.getLocations()), description,
-				startDate, stopDate);
+		Collection<Requirement> metReqs = getMetReqs(resPool, reqs, startDate);
+		HashMap<LinkedList<Schedulable>, Integer> avRes = getAvRes(resPool,
+				reqs, metReqs);
+		removeDoubleBookings(avRes);
+		checkIfEnoughRes(avRes);
+		return schedule(avRes, produceUsedResList(avRes),
+				getPosLocs(avRes, unschedTask.getLocations()), desc, startDate,
+				stopDate);
 	}
 
 	private ScheduledTask<?> schedule(
-			HashMap<LinkedList<Schedulable>, Integer> availableResources,
-			HashMap<LinkedList<Schedulable>, LinkedList<Integer>> usedResourcesList,
-			Collection<Location> possibleLocations,
-			TaskDescription description, HospitalDate startDate,
-			HospitalDate stopDate) throws InvalidSchedulingRequestException {
-		ScheduledTask<?> bestScheduledTask = null;
-		for (Location possibleLocation : possibleLocations) {
-			ScheduledTask<?> possibleScheduledTask;
+			HashMap<LinkedList<Schedulable>, Integer> avRes,
+			HashMap<LinkedList<Schedulable>, LinkedList<Integer>> usedResList,
+			Collection<Location> posLocs, TaskDescription desc,
+			HospitalDate startDate, HospitalDate stopDate)
+			throws InvalidSchedulingRequestException {
+		ScheduledTask<?> bestSchedTask = null;
+		for (Location posLoc : posLocs) {
+			ScheduledTask<?> posSchedTask;
 			try {
-				possibleScheduledTask = schedule(availableResources,
-						usedResourcesList, possibleLocation, startDate,
-						stopDate, description);
+				posSchedTask = schedule(avRes, usedResList, posLoc, startDate,
+						stopDate, desc);
 			} catch (InvalidSchedulingRequestException e) {
-				possibleScheduledTask = null;
+				posSchedTask = null;
 			}
-			if (bestScheduledTask == null
-					|| possibleScheduledTask.before(bestScheduledTask)) {
-				bestScheduledTask = possibleScheduledTask;
+			if (bestSchedTask == null || posSchedTask.before(bestSchedTask)) {
+				bestSchedTask = posSchedTask;
 			}
 		}
-		if (bestScheduledTask == null) {
+		if (bestSchedTask == null) {
 			throw new InvalidSchedulingRequestException(
 					"The task cannot be scheduled.");
 		}
-		return bestScheduledTask;
+		return bestSchedTask;
 	}
 
 	private ScheduledTask<?> schedule(
-			HashMap<LinkedList<Schedulable>, Integer> availableResources,
-			HashMap<LinkedList<Schedulable>, LinkedList<Integer>> chosenResources,
-			Location location, HospitalDate startDate, HospitalDate stopDate,
-			TaskDescription taskDescription)
-			throws InvalidSchedulingRequestException {
-		LinkedList<Schedulable> bestOptionToFind = null;
-		LinkedList<Schedulable> currentResourcePool = null;
-		for (LinkedList<Schedulable> resourcePool : availableResources.keySet()) {
-			if (availableResources.get(resourcePool) > chosenResources.get(
-					resourcePool).size()) {
-				currentResourcePool = resourcePool;
-				bestOptionToFind = new LinkedList<Schedulable>(resourcePool);
-				removeAlreadyUsedResources(bestOptionToFind,
-						chosenResources.get(resourcePool));
+			HashMap<LinkedList<Schedulable>, Integer> avRes,
+			HashMap<LinkedList<Schedulable>, LinkedList<Integer>> chosRes,
+			Location loc, HospitalDate startDate, HospitalDate stopDate,
+			TaskDescription taskDesc) throws InvalidSchedulingRequestException {
+		LinkedList<Schedulable> bestOptToFind = null;
+		LinkedList<Schedulable> curResPool = null;
+		for (LinkedList<Schedulable> resPool : avRes.keySet()) {
+			if (avRes.get(resPool) > chosRes.get(resPool).size()) {
+				curResPool = resPool;
+				bestOptToFind = new LinkedList<Schedulable>(resPool);
+				delAlreadyUsedRes(bestOptToFind, chosRes.get(resPool));
 				break;
 			}
 		}
-		if (bestOptionToFind == null) {
-			return produceScheduledTask(taskDescription, availableResources,
-					chosenResources, startDate, stopDate, location);
+		if (bestOptToFind == null) {
+			return produceSchedTask(taskDesc, avRes, chosRes, startDate,
+					stopDate, loc);
 		}
-		int bestOption = findBestOption(bestOptionToFind, location, startDate,
-				stopDate, taskDescription.getDuration());
+		int bestOption = findBestOpt(bestOptToFind, loc, startDate, stopDate,
+				taskDesc.getDuration());
 		TimeSlot bestSlot = null;
 		try {
-			bestSlot = bestOptionToFind.get(bestOption)
-					.getFirstFreeSlotBetween(location, startDate, stopDate,
-							taskDescription.getDuration());
+			bestSlot = bestOptToFind.get(bestOption).getFirstFreeSlotBetween(
+					loc, startDate, stopDate, taskDesc.getDuration());
 		} catch (Exception e) {
 			throw new Error(e.toString());
 		}
 		HospitalDate newStartDate = bestSlot.getStartPoint().getHospitalDate();
 		HospitalDate newStopDate = bestSlot.getStopPoint().getHospitalDate();
 		try {
-			return schedule(
-					availableResources,
-					cloneAndAddHashMapValues(chosenResources,
-							currentResourcePool, bestOption), location,
-					newStartDate, newStopDate, taskDescription);
+			return schedule(avRes,
+					cloneAndAddHashMapValues(chosRes, curResPool, bestOption),
+					loc, newStartDate, newStopDate, taskDesc);
 		} catch (InvalidSchedulingRequestException e) {
 			newStartDate = new HospitalDate(
 					newStartDate.getTimeSinceStart() + 1);
-			return schedule(availableResources, chosenResources, location,
-					newStartDate, newStopDate, taskDescription);
+			return schedule(avRes, chosRes, loc, newStartDate, newStopDate,
+					taskDesc);
 		}
 	}
 
 	// Auxiliary methods for the main scheduling method.
-	private Collection<Requirement> getMetRequirements(
-			Collection<Schedulable> resourcePool,
-			Collection<Requirement> requirements, HospitalDate startDate) {
+	private Collection<Requirement> getMetReqs(Collection<Schedulable> resPool,
+			Collection<Requirement> reqs, HospitalDate startDate) {
 		Collection<Requirement> isAlreadyMet = new LinkedList<Requirement>();
-		for (Requirement requirement : requirements) {
+		for (Requirement requirement : reqs) {
 			if (requirement.isMetOn(startDate)) {
 				isAlreadyMet.add(requirement);
 			}
@@ -136,21 +119,20 @@ public class Scheduler
 		return isAlreadyMet;
 	}
 
-	private HashMap<LinkedList<Schedulable>, Integer> getAvailableResources(
-			Collection<Schedulable> resourcePool,
-			Collection<Requirement> requirements,
-			Collection<Requirement> metRequirements)
+	private HashMap<LinkedList<Schedulable>, Integer> getAvRes(
+			Collection<Schedulable> resPool, Collection<Requirement> reqs,
+			Collection<Requirement> metReqs)
 			throws InvalidSchedulingRequestException {
 		Collection<Requirement> notMetYet = new LinkedList<Requirement>();
-		for (Requirement requirement : requirements) {
-			if (!metRequirements.contains(requirement)) {
+		for (Requirement requirement : reqs) {
+			if (!metReqs.contains(requirement)) {
 				notMetYet.add(requirement);
 			}
 		}
 		HashMap<LinkedList<Schedulable>, Integer> availableResources = new HashMap<LinkedList<Schedulable>, Integer>();
 		for (Requirement requirement : notMetYet) {
 			LinkedList<Schedulable> isMetBy = new LinkedList<Schedulable>();
-			for (Schedulable schedulable : resourcePool) {
+			for (Schedulable schedulable : resPool) {
 				if (requirement.isMetBy(schedulable)) {
 					isMetBy.add(schedulable);
 				}
@@ -165,11 +147,10 @@ public class Scheduler
 	}
 
 	private void removeDoubleBookings(
-			HashMap<LinkedList<Schedulable>, Integer> availableResources)
+			HashMap<LinkedList<Schedulable>, Integer> avRes)
 			throws InvalidSchedulingRequestException {
-		for (LinkedList<Schedulable> resourcePool : availableResources.keySet()) {
-			for (LinkedList<Schedulable> curSchedulablePool : availableResources
-					.keySet()) {
+		for (LinkedList<Schedulable> resourcePool : avRes.keySet()) {
+			for (LinkedList<Schedulable> curSchedulablePool : avRes.keySet()) {
 				for (Schedulable schedulable : curSchedulablePool) {
 					if (resourcePool.contains(schedulable)) {
 						if (curSchedulablePool.size() == 1) {
@@ -184,33 +165,32 @@ public class Scheduler
 		}
 	}
 
-	private void checkIfEnoughResources(
-			HashMap<LinkedList<Schedulable>, Integer> availableResources)
+	private void checkIfEnoughRes(
+			HashMap<LinkedList<Schedulable>, Integer> avRes)
 			throws CanNeverBeScheduledException {
-		for (LinkedList<Schedulable> resourcePool : availableResources.keySet()) {
-			if (resourcePool.size() < availableResources.get(resourcePool)) {
+		for (LinkedList<Schedulable> resourcePool : avRes.keySet()) {
+			if (resourcePool.size() < avRes.get(resourcePool)) {
 				throw new CanNeverBeScheduledException(
 						"There are not enough resources to schedule this task.");
 			}
 		}
 	}
 
-	private HashMap<LinkedList<Schedulable>, LinkedList<Integer>> produceUsedResourcesList(
-			HashMap<LinkedList<Schedulable>, Integer> availableResources) {
+	private HashMap<LinkedList<Schedulable>, LinkedList<Integer>> produceUsedResList(
+			HashMap<LinkedList<Schedulable>, Integer> avRes) {
 		HashMap<LinkedList<Schedulable>, LinkedList<Integer>> usedResources = new HashMap<LinkedList<Schedulable>, LinkedList<Integer>>();
-		for (LinkedList<Schedulable> resourcePool : availableResources.keySet()) {
+		for (LinkedList<Schedulable> resourcePool : avRes.keySet()) {
 			usedResources.put(resourcePool, new LinkedList<Integer>());
 		}
 		return usedResources;
 	}
 
-	private LinkedList<Location> getPossibleLocations(
-			HashMap<LinkedList<Schedulable>, Integer> availableResources,
-			Collection<Location> locations) {
-		LinkedList<Location> possibleLocations = new LinkedList<Location>(
-				locations);
+	private LinkedList<Location> getPosLocs(
+			HashMap<LinkedList<Schedulable>, Integer> avRes,
+			Collection<Location> locs) {
+		LinkedList<Location> possibleLocations = new LinkedList<Location>(locs);
 		boolean first = true;
-		for (LinkedList<Schedulable> resourcePool : availableResources.keySet()) {
+		for (LinkedList<Schedulable> resourcePool : avRes.keySet()) {
 			boolean canTravel = false;
 			LinkedList<Location> curPossibleLocations = new LinkedList<Location>();
 			HashMap<Location, Integer> amountOfResources = new HashMap<Location, Integer>();
@@ -227,8 +207,7 @@ public class Scheduler
 				}
 			}
 			for (Location location : amountOfResources.keySet()) {
-				if (amountOfResources.get(location) >= availableResources
-						.get(resourcePool)) {
+				if (amountOfResources.get(location) >= avRes.get(resourcePool)) {
 					curPossibleLocations.add(location);
 				}
 			}
@@ -257,46 +236,44 @@ public class Scheduler
 	}
 
 	// Auxiliary methods for the scheduling algorithm.
-	private ScheduledTask<?> produceScheduledTask(
-			TaskDescription taskDescription,
-			HashMap<LinkedList<Schedulable>, Integer> availableResources,
-			HashMap<LinkedList<Schedulable>, LinkedList<Integer>> chosenResources,
-			HospitalDate startDate, HospitalDate stopDate, Location location) {
+	private ScheduledTask<?> produceSchedTask(TaskDescription taskDesc,
+			HashMap<LinkedList<Schedulable>, Integer> avResources,
+			HashMap<LinkedList<Schedulable>, LinkedList<Integer>> chosRes,
+			HospitalDate startDate, HospitalDate stopDate, Location loc) {
 		Collection<Schedulable> usedResources = new LinkedList<Schedulable>();
-		for (LinkedList<Schedulable> resourcePool : availableResources.keySet()) {
-			LinkedList<Integer> usedInThisPool = chosenResources
-					.get(resourcePool);
+		for (LinkedList<Schedulable> resourcePool : avResources.keySet()) {
+			LinkedList<Integer> usedInThisPool = chosRes.get(resourcePool);
 			for (int i : usedInThisPool) {
 				usedResources.add(resourcePool.get(i));
 			}
 		}
-		return new ScheduledTask<TaskDescription>(taskDescription,
-				usedResources, new TimeSlot(new StartTimePoint(startDate),
-						new StopTimePoint(stopDate)), location);
+		return new ScheduledTask<TaskDescription>(taskDesc, usedResources,
+				new TimeSlot(new StartTimePoint(startDate), new StopTimePoint(
+						stopDate)), loc);
 	}
 
-	private void removeAlreadyUsedResources(LinkedList<Schedulable> resources,
+	private void delAlreadyUsedRes(LinkedList<Schedulable> res,
 			LinkedList<Integer> toRemove) {
 		LinkedList<Schedulable> removed = new LinkedList<Schedulable>();
-		for (int i = 0; i < resources.size(); i++) {
+		for (int i = 0; i < res.size(); i++) {
 			if (!toRemove.contains(i)) {
-				removed.add(resources.get(i));
+				removed.add(res.get(i));
 			}
 		}
-		resources = removed;
+		res = removed;
 	}
 
-	private int findBestOption(LinkedList<Schedulable> bestOptionToFind,
-			Location location, HospitalDate startDate, HospitalDate stopDate,
+	private int findBestOpt(LinkedList<Schedulable> bestOptToFind,
+			Location loc, HospitalDate startDate, HospitalDate stopDate,
 			long duration) throws InvalidSchedulingRequestException {
 		int bestOption = -1;
 		TimeSlot bestSlot = null;
 		HospitalDate bestDate = null;
-		for (int i = 0; i < bestOptionToFind.size(); i++) {
+		for (int i = 0; i < bestOptToFind.size(); i++) {
 			TimeSlot curSlot;
 			try {
-				curSlot = bestOptionToFind.get(i).getFirstFreeSlotBetween(
-						location, startDate, stopDate, duration);
+				curSlot = bestOptToFind.get(i).getFirstFreeSlotBetween(loc,
+						startDate, stopDate, duration);
 				HospitalDate curStartDate = curSlot.getStartPoint()
 						.getHospitalDate();
 				if (bestOption == -1
@@ -319,18 +296,17 @@ public class Scheduler
 	}
 
 	private HashMap<LinkedList<Schedulable>, LinkedList<Integer>> cloneAndAddHashMapValues(
-			HashMap<LinkedList<Schedulable>, LinkedList<Integer>> chosenResources,
-			LinkedList<Schedulable> resourcePool, int bestOption) {
+			HashMap<LinkedList<Schedulable>, LinkedList<Integer>> chosRes,
+			LinkedList<Schedulable> resPool, int bestOpt) {
 		HashMap<LinkedList<Schedulable>, LinkedList<Integer>> clonedHashMap = new HashMap<LinkedList<Schedulable>, LinkedList<Integer>>();
-		for (LinkedList<Schedulable> currentResourcePool : chosenResources
-				.keySet()) {
-			if (currentResourcePool != resourcePool) {
+		for (LinkedList<Schedulable> currentResourcePool : chosRes.keySet()) {
+			if (currentResourcePool != resPool) {
 				clonedHashMap.put(currentResourcePool, new LinkedList<Integer>(
-						chosenResources.get(currentResourcePool)));
+						chosRes.get(currentResourcePool)));
 			} else {
 				LinkedList<Integer> newLinkedList = new LinkedList<Integer>(
-						chosenResources.get(currentResourcePool));
-				newLinkedList.add(bestOption);
+						chosRes.get(currentResourcePool));
+				newLinkedList.add(bestOpt);
 				clonedHashMap.put(currentResourcePool, newLinkedList);
 			}
 		}
