@@ -30,9 +30,9 @@
 
 = Wie is er momenteel waaraan bezig? =
 <p>
-Dieter: P&O burgies afsnauwen<p>
-Stefaan: breaktime<p>
-Wouter: breaktimep>
+Dieter: Onbekend.<p>
+Stefaan: Errors fixen, all the things!<p>
+Wouter: Scheduler reviewen en methodes errond (canBeScheduledAt ed) implementeren.<p>
 
 = Things that have been crossed off = 
   * Treatment Factories gemaakt en getest
