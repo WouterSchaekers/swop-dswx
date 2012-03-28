@@ -8,6 +8,7 @@ import users.Doctor;
 import users.User;
 import controllers.interfaces.DoctorIN;
 import controllers.interfaces.PatientFileIN;
+import controllers.interfaces.PatientIN;
 import controllers.interfaces.UserIN;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
@@ -22,17 +23,14 @@ public class ConsultPatientFileController extends NeedsLoginController
 	private PatientFile pf;
 
 	public ConsultPatientFileController(LoginController lc)
-			throws InvalidHospitalException,
-			InvalidLoginControllerException {
+			throws InvalidHospitalException, InvalidLoginControllerException {
 		super(lc);
 		doctor = (DoctorIN) lc.getUser();
 	}
-	
+
 	public Collection<PatientFileIN> getActivePatientFiles() {
-		new ArrayList<PatientFileIN>(hospital.getPatientFileManager()
-				.getAllPatientFiles());
-		//TODO: fix		
-		return null;
+		return new ArrayList<PatientFileIN>(hospital.getPatientFileManager()
+				.getActivePatients());
 	}
 
 	public void openPatientFile(PatientFileIN pfdto) {
@@ -45,6 +43,10 @@ public class ConsultPatientFileController extends NeedsLoginController
 
 	public PatientFileIN getPatientFile() {
 		return this.pf;
+	}
+
+	public PatientIN getPatient() {
+		return (PatientIN) (this.pf.getPatient());
 	}
 
 	public UserIN getDocIN() {

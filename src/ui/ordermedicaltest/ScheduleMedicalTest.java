@@ -12,6 +12,7 @@ public class ScheduleMedicalTest extends OrderMedicalTestSuperClass
 		super(uiData, medData);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public Usecase Execute() {
 		try {

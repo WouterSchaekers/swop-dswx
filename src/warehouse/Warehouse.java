@@ -12,7 +12,9 @@ import exceptions.InvalidWarehouseItemException;
 import exceptions.WarehouseOverCapacityException;
 
 /**
- * This class represents a warehouse on the campus of a hospital.
+ * This class represents a warehouse on the campus of a hospital. If you would
+ * like to create a new warehouse, please use a
+ * <b><u><i>warehouseBuilder</i></u></b>.
  */
 public class Warehouse extends Observable
 {
@@ -26,7 +28,7 @@ public class Warehouse extends Observable
 	 * @param campus
 	 *            The campus this warehouse is for.
 	 */
-	public Warehouse(Campus campus) {
+	Warehouse(Campus campus) {
 		this.campus_ = campus;
 	}
 
@@ -54,7 +56,8 @@ public class Warehouse extends Observable
 	 */
 	public void add(WarehouseItem item) throws WarehouseOverCapacityException {
 		if (!canBeAdded(item))
-			throw new WarehouseOverCapacityException("Warehouse is over capacity!");
+			throw new WarehouseOverCapacityException(
+					"Warehouse is over capacity!");
 		items_.add(item);
 		this.notifyObservers();
 	}
@@ -102,14 +105,6 @@ public class Warehouse extends Observable
 				rv++;
 		return rv;
 	}
-	
-	private int getCountAt(WarehouseItemType type, HospitalDate hospitalDate){
-		int rv = 0;
-		for (WarehouseItem item : items_)
-			if (!item.isExpiredAt(hospitalDate) && item.getType().equals(type))
-				rv++;
-		return rv;
-	}
 
 	/**
 	 * @return True if this warehouse has the requested amount of units of the
@@ -118,15 +113,29 @@ public class Warehouse extends Observable
 	public boolean has(WarehouseItemType type, int amount) {
 		return getCurrentCount(type) >= amount;
 	}
-	
-	public boolean hasAt(WarehouseItemType type, int amount, HospitalDate hospitalDate){
+
+	/**
+	 * Used for scheduling.
+	 */
+	public boolean hasAt(WarehouseItemType type, int amount,
+			HospitalDate hospitalDate) {
 		return getCountAt(type, hospitalDate) >= amount;
 	}
-	
+
+	private int getCountAt(WarehouseItemType type, HospitalDate hospitalDate) {
+		int rv = 0;
+		for (WarehouseItem item : items_)
+			if (!item.isExpiredAt(hospitalDate) && item.getType().equals(type))
+				rv++;
+		return rv;
+	}
+
+	//TODO: gebruik capsules! ^-^
 	/**
-	 * <B>THIS METHOD IS TO BE USED BY EXPIREDITEMREMOVER ONLY! DO NOT USE ANYWHERE ELSE <u><i>EVER!</i><u></B>
+	 * <B>THIS METHOD IS TO BE USED BY EXPIREDITEMREMOVER ONLY! DO NOT USE
+	 * ANYWHERE ELSE <u><i>EVER!</i><u></B>
 	 */
-	public void removeItem(WarehouseItem warehouseItem){
+	public void removeItem(WarehouseItem warehouseItem) {
 		this.items_.remove(warehouseItem);
 		this.notifyObservers();
 	}

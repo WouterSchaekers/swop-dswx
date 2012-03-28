@@ -7,7 +7,6 @@ import ui.SelectUsecase;
 import ui.Usecase;
 import ui.UserinterfaceData;
 import users.Doctor;
-import controllers.RegisterPatientController;
 import controllers.interfaces.AppointmentIN;
 import controllers.interfaces.PatientFileIN;
 import controllers.interfaces.UserIN;
@@ -15,13 +14,10 @@ import controllers.interfaces.UserIN;
 public class SelectDoctor extends Usecase
 {
 	PatientFileIN pfile;
-	RegisterPatientController rpc;
 
-	public SelectDoctor(UserinterfaceData data, PatientFileIN patientFileDTO,
-			RegisterPatientController rpc) {
+	public SelectDoctor(UserinterfaceData data, PatientFileIN patientFileDTO) {
 		super(data);
 		this.pfile = patientFileDTO;
-		this.rpc = rpc;
 	}
 
 	@Override

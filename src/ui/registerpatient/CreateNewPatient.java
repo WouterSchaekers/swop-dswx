@@ -22,7 +22,8 @@ public class CreateNewPatient extends Usecase
 			System.out.println("enter name:");
 			String name = input.nextLine();
 
-			rpc.registerNewPatient(name);
+			//TODO: location
+			rpc.registerNewPatient(name, null);
 			return new DisplayAllPatients(data, rpc);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

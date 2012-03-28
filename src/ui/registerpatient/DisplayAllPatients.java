@@ -25,7 +25,7 @@ public class DisplayAllPatients extends Usecase
 		try {
 			System.out.println("List of all patients:");
 
-			for (PatientFileIN patient : rpc.getAllPatients()) {
+			for (PatientFileIN patient : rpc.getAllPatientFiles()) {
 				namePatientMap.put(patient.getName(), patient);
 				System.out.println(patient.getName());
 			}

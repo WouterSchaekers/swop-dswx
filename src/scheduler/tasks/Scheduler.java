@@ -60,7 +60,7 @@ public class Scheduler
 		return bestScheduledTask;
 	}
 	
-	private ScheduledTask schedule(
+	private ScheduledTask<?> schedule(
 			HashMap<LinkedList<Schedulable>, Integer> availableResources,
 			HashMap<LinkedList<Schedulable>, LinkedList<Integer>> chosenResources,
 			Location location, HospitalDate startDate, HospitalDate stopDate,

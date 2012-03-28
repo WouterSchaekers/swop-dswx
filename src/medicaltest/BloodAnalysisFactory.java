@@ -1,6 +1,5 @@
 package medicaltest;
 
-import scheduler.tasks.ScheduledTask;
 import exceptions.FactoryInstantiationException;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidHospitalDateException;
