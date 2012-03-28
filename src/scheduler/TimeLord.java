@@ -44,6 +44,5 @@ public class TimeLord extends Observable
 		while (getSystemTime().before(target)
 				&& getSystemTime().getTimeBetween(target) >= HospitalDate.ONE_MINUTE)
 			addOneMinute();
-
 	}
 }
