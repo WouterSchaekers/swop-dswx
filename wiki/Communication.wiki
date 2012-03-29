@@ -3,9 +3,7 @@
 Deze wiki pagina gebruiken we voor communicatie. Iedereen wordt verwacht om de wiki 2 maal daags te checken, zeker in piek-periodes :D
 
 = Volgende Dates =
-  * Maandag 19/3 na de latex sessie van ulyssis
-  * Dinsdag 20/3 om 10u30
-  * De volgende meeting met de dude (time currently still unknown)
+  * Vrijdag 30/03/2012 om 09u30
 <p>
 
 = Prentjes =
@@ -29,3 +27,5 @@ Een prentje van TaskDescriptions e.d.: <a href="http://www.imgdumper.nl/uploads5
 Een prentje van Warehouse: <a href="http://www.imgdumper.nl/uploads5/4f6628ca7c370/4f6628ca7a04d-Warehouse.png">klik!</a>
 
 TODO: een prentje van warehouse strategies...
+een prentje van states
+een prentje van use case sequence SSDs
