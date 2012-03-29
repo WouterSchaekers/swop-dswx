@@ -9,7 +9,6 @@ import exceptions.InvalidHospitalDateException;
 
 public abstract class TaskDescription
 {
-
 	private final long duration_;
 	private final long extraTime_;
 	private final HospitalDate creationDate_;
@@ -44,6 +43,8 @@ public abstract class TaskDescription
 	public final long getExtraTime() {
 		return this.extraTime_;
 	}
+	
+	public abstract void initTask();
 
 	private boolean isValidAmountOfExtraTime(long extraTime) {
 		return extraTime >= 0;

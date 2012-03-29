@@ -54,7 +54,7 @@ class TaskData
 		return this.location_;
 	}
 
-	public Result getResult_() {
+	public Result getResult() {
 		return result_;
 	}
 
@@ -82,6 +82,19 @@ class TaskData
 		if (timeSlot == null)
 			throw new IllegalArgumentException(timeSlot + " cannot be null!");
 		this.timeSlot_ = timeSlot;
+	}
+	
+	public TaskData clone() {
+		TaskData rv = new TaskData(this.hospital_);
+		rv.setLocation(this.getLocation());
+		rv.setResult_(this.getResult());
+		rv.setTimeSlot(this.getTimeSlot());
+		rv.setUsedResources(this.getResources());
+		return rv;
+	}
+
+	public boolean before(TaskData bestSchedTask) {
+		return this.getTimeSlot().before(bestSchedTask.getTimeSlot());
 	}
 
 }

@@ -69,4 +69,10 @@ public class Surgery extends Treatment implements SurgeryIN
 		requirements.add(new RequirementType<Nurse>(Nurse.class, true, 1));
 		return requirements;
 	}
+
+	@Override
+	public void initTask() {
+		// TODO Auto-generated method stub
+		
+	}
 }

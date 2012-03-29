@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import system.Hospital;
+import users.SchedulableUser;
 import exceptions.CanNeverBeScheduledException;
 import exceptions.InvalidSchedulingRequestException;
 
@@ -21,13 +22,14 @@ public class TaskManager
 {
 
 	private Hospital hospital_;
-	private Collection<TaskDescription> unscheduledDescriptions_;
-	private Collection<ScheduledTask<?>> scheduledTasks_;
+	/**
+	 * Contains all the tasks. Use their states to categorise them.
+	 */
+	private Collection<Task<?>> tasks_;
 
 	public TaskManager(Hospital hospital) {
 		hospital_ = hospital;
-		unscheduledDescriptions_ = new LinkedList<TaskDescription>();
-		scheduledTasks_ = new LinkedList<ScheduledTask<?>>();
+		tasks_ = new LinkedList<Task<?>>();
 	}
 
 	/**
@@ -42,29 +44,14 @@ public class TaskManager
 	 *             The requirements for this description can never be met and
 	 *             the description is not stored.
 	 */
-	public <T extends TaskDescription> ScheduledTask<?> add(T description)
+	public <T extends TaskDescription> Task<?> add(T description)
 			throws InvalidSchedulingRequestException,
 			CanNeverBeScheduledException {
-		UnscheduledTask<T> task = new UnscheduledTask<T>(description, this.hospital_);
-
-		try {
-			ScheduledTask<?> scheduledTask = task.scheduleIn(this.hospital_);
-			scheduledTasks_.add(scheduledTask);
-			return scheduledTask;
-		} catch (InvalidSchedulingRequestException e) {
-			addForLater(description);
-			throw e;
-		}
-	}
-
-	/**
-	 * Gets all the tasks that are not yet scheduled in this taskmanager for
-	 * this hospital
-	 * 
-	 * @return
-	 */
-	public Collection<TaskDescription> getUnscheduledDescriptions() {
-		return new ArrayList<TaskDescription>(unscheduledDescriptions_);
+		//TODO: fix 
+		// Task<?> scheduledTask = task.scheduleIn(this.hospital_);
+		Task<? extends TaskDescription> scheduledTask = null;
+		tasks_.add(scheduledTask);
+		return scheduledTask;
 	}
 
 	/**
@@ -72,13 +59,26 @@ public class TaskManager
 	 * 
 	 * @return
 	 */
-	public Collection<ScheduledTask<?>> getScheduledTasks() {
-		return new ArrayList<ScheduledTask<?>>(scheduledTasks_);
+	public Collection<Task<?>> getScheduledTasks() {
+		return new ArrayList<Task<?>>(tasks_);
 	}
-
-	private void addForLater(TaskDescription description) {
-		unscheduledDescriptions_.add(description);
-
+	
+	Hospital getHospital() {
+		return this.hospital_;
+	}
+	
+	/**
+	 * Used in the controller layer to give sensible information to the user.
+	 * 
+	 * @return The scheduled TODOs for a certain schedulable.
+	 */
+	@SuppressWarnings("unchecked")
+	public <T extends TaskDescription> Collection<Task<T>> getUnfinishedTasksFrom(SchedulableUser from) {
+		Collection<Task<T>> rv = new LinkedList<Task<T>>();
+		for(Task<?> task : tasks_)
+			if(task.isScheduled() && task.getData().getResources().contains(from))
+				rv.add((Task<T>) task);
+		return rv;
 	}
 
 }

@@ -8,8 +8,6 @@ import scheduler.HospitalDate;
 import scheduler.requirements.Requirement;
 import scheduler.requirements.RequirementType;
 import scheduler.requirements.SpecificRequirement;
-import scheduler.tasks.FinishedTask;
-import scheduler.tasks.ScheduledTask;
 import users.Nurse;
 import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidAmountException;
@@ -57,14 +55,10 @@ public class BloodAnalysis extends MedicalTest
 		requirements.add(new RequirementType<Nurse>(Nurse.class, true, 1));
 		return requirements;
 	}
-	
-	public FinishedTask<BloodAnalysis> finish(ScheduledTask<BloodAnalysis> me) throws Exception
-	{
-		if(me.getDescription().equals(this))
-		{
-		return	patientFile_.addFinishedMedicalTest(this);
-		}
-		throw new Exception();
 
+	@Override
+	public void initTask() {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -31,4 +31,10 @@ public class AppointmentDescription extends TaskDescriptionWithPatientFile
 	public Doctor getDocor() {
 		return doctor;
 	}
+
+	@Override
+	public void initTask() {
+		// TODO Auto-generated method stub
+		
+	}
 }

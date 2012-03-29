@@ -119,4 +119,8 @@ public class TimeSlot
 		return this._startTimePoint.equals(that._startTimePoint)
 				&& this._stopTimePoint.equals(that._stopTimePoint);
 	}
+
+	public boolean before(TimeSlot timeSlot) {
+		return this.getStartPoint().getHospitalDate().before(timeSlot.getStartPoint().getHospitalDate());
+	}
 }
