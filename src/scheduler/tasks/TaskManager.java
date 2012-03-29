@@ -3,7 +3,6 @@ package scheduler.tasks;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.Observable;
 import system.Hospital;
 import exceptions.CanNeverBeScheduledException;
 import exceptions.InvalidSchedulingRequestException;
@@ -18,7 +17,7 @@ import exceptions.InvalidSchedulingRequestException;
  * updateQueue() function every time its state changes. Once an unscheduled task
  * meets its requirements, it will be scheduled.
  */
-public class TaskManager extends Observable
+public class TaskManager
 {
 
 	private Hospital hospital_;
