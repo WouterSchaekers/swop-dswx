@@ -41,6 +41,9 @@
 || 28/03/12: 16u00 -> 18u00 || 3 DSW || 2 || Reviewing assignment for issues concerning campus preferences, implementing diagnose- related controllers, discovering the capsule-concept and experimenting with it || ||
 || 28/03/12: 18u00 -> 19u00 || 2 DS || 1 || Elaborating on the design of Tasks, unscheduled tasks, finished tasks, scheduled tasks, descriptions,... || Wouter moest eten ||
 || 28/03/12: 20u30 -> 23u30 || 2 SW || 3 || Implementing some controllers, refactoring the scheduling algorithm || Dieter winabar ||
+|| 29/03/12: 11u00 -> 13u30 || 1 W || 2.5 || Refactoring the scheduling algorithm || Dieter moest slapen en Stefaan ging naar de oefenzitting van CN ||
+|| 29/03/12: 15u00 -> 16u00 || 3 DSW || 1 || Making the last design decision: use task states instead of hierarchy of task || ||
+|| 29/03/12: 16u00 -> 19u00 || 2 SW || 3 || Implementing the taskstates and fixing all compile errors so that we will now be able to code on our own if needed. || Dieter had labo CN en moest daarna blijkbaar stomme dingen met Shana doen en haar lasagna gaan opeten. ||
 
 
 = Iteratie 2 =
