@@ -100,4 +100,10 @@ public class Medication extends Treatment implements MedicationIN
 		requirements.add(new RequirementType<Nurse>(Nurse.class, true, 1));
 		return requirements;
 	}
+
+	@Override
+	public void initTask() {
+		// TODO Auto-generated method stub
+		
+	}
 }

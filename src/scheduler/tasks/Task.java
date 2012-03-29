@@ -31,4 +31,13 @@ public final class Task<T extends TaskDescription>
 				.before(otherTask.getData().getTimeSlot().getStartPoint().getHospitalDate());
 	}
 
+	public boolean isScheduled() {
+		return myState_ instanceof ScheduledState;
+	}
+	
+	public boolean isFinished() {
+		return myState_ instanceof FinishedState;
+	}
+	
+
 }

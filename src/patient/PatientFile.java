@@ -7,7 +7,6 @@ import java.util.Observer;
 import medicaltest.MedicalTest;
 import medicaltest.MedicalTestFactory;
 import scheduler.HospitalDate;
-import scheduler.tasks.FinishedTask;
 import scheduler.tasks.TaskManager;
 import users.Doctor;
 import be.kuleuven.cs.som.annotate.Basic;
@@ -220,13 +219,6 @@ public class PatientFile implements PatientFileIN
 	 */
 	private boolean isValidDiagnose(Diagnose d) {
 		return d != null;
-	}
-
-	public <T extends MedicalTest> FinishedTask<T> addFinishedMedicalTest(
-			T bloodAnalysis) {
-		// TODO: add code to store
-		return new FinishedMedicalTest<T>(bloodAnalysis);
-
 	}
 
 	@Override

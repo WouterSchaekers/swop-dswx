@@ -6,7 +6,7 @@ import scheduler.HospitalDate;
 import scheduler.Schedulable;
 import scheduler.TimeSlot;
 import scheduler.TimeTable;
-import scheduler.tasks.ScheduledTask;
+import scheduler.tasks.Task;
 import system.Location;
 import exceptions.InvalidNameException;
 import exceptions.InvalidSchedulingRequestException;
@@ -16,12 +16,12 @@ public abstract class SchedulableUser extends User implements Schedulable
 {
 	protected Location location_;
 	protected TimeTable _timeTable = new TimeTable();
-	protected Collection<ScheduledTask<?>> _scheduledTasks;
+	protected Collection<Task<?>> _scheduledTasks;
 
 	 SchedulableUser(String name, Location preference) throws InvalidNameException {
 		super(name);
 		this._timeTable = new TimeTable();
-		this._scheduledTasks = new LinkedList<ScheduledTask<?>>();
+		this._scheduledTasks = new LinkedList<Task<?>>();
 	}
 
 	@Override

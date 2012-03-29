@@ -2,8 +2,8 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import scheduler.tasks.ScheduledTask;
 import system.Hospital;
+import users.SchedulableUser;
 import users.User;
 import users.UserFilter;
 import users.UserManager;
@@ -58,12 +58,13 @@ public class LoginController extends HospitalController
 		this.user = (User) user;
 		loggedIn = true;
 		
-		String todos = "TODOs:\n-----\n\n";
-		Collection<ScheduledTask<?>> colSched = hospital.getTaskManager().getScheduledTasks();
-		for(ScheduledTask<?> task : colSched) {
-			if(task.getUsedResources().contains(getUser()))
-				todos += " * " + task.toString() + "\n";
-		}
+		String todos;
+		if(this.getUser() instanceof SchedulableUser) {
+			 todos = "TODOs:\n-----\n\n";
+			todos += hospital.getTaskManager().getUnfinishedTasksFrom((SchedulableUser) getUser());
+			//TODO: zien dat het mooi is met een for lusje en een propere toString (superstring!)
+		} else 
+			todos = "";
 		return todos;
 	}
 

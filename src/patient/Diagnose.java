@@ -131,8 +131,7 @@ public class Diagnose extends Observable implements DiagnoseIN
 	@Basic
 	public Collection<TreatmentIN> getTreatments() {
 		ArrayList<TreatmentIN> rv = new ArrayList<TreatmentIN>();
-		for (Task<? extends Treatment> t : this.treatments)
-			rv.add((TreatmentIN)(t));
+		//TODO: fix (stef)
 		return rv;
 	}
 
