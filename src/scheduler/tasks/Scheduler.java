@@ -15,8 +15,7 @@ import exceptions.InvalidSchedulingRequestException;
 
 public class Scheduler
 {
-	public Scheduler() {
-	}
+	public Scheduler() {}
 
 	/**
 	 * Tries to schedule an unscheduled task.
