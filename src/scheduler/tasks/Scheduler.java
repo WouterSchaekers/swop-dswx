@@ -31,11 +31,11 @@ public class Scheduler
 	 *             The task can never be scheduled with the current amount of
 	 *             resources available right now in the hospital.
 	 */
-	public ScheduledTask<?> schedule(UnscheduledTask<?> unschedTask) throws InvalidSchedulingRequestException,
+	public <T extends TaskDescription> ScheduledTask<T> schedule(UnscheduledTask<T> unschedTask) throws InvalidSchedulingRequestException,
 			CanNeverBeScheduledException {
 		Collection<Schedulable> resPool = unschedTask.getAllResources();
 		HospitalDate curDate = unschedTask.getTimeLord().getSystemTime();
-		TaskDescription desc = unschedTask.getDescription();
+		T desc = unschedTask.getDescription();
 		Collection<Requirement> reqs = desc.getAllRequirements();
 		HospitalDate minDate = new HospitalDate(desc.getCreationTime().getTimeSinceStart() + desc.getExtraTime());
 		HospitalDate startDate = HospitalDate.getMaximum(curDate, minDate);
@@ -70,13 +70,13 @@ public class Scheduler
 	 *             The task cannot be scheduled, because there are not enough
 	 *             resources available at this specific moment.
 	 */
-	private ScheduledTask<?> schedule(LinkedHashMap<LinkedList<Schedulable>, Integer> avRes,
+	private <T extends TaskDescription> ScheduledTask<T> schedule(LinkedHashMap<LinkedList<Schedulable>, Integer> avRes,
 			LinkedHashMap<LinkedList<Schedulable>, LinkedList<Integer>> usedResList, Collection<Location> posLocs,
-			TaskDescription desc, HospitalDate startDate, HospitalDate stopDate)
+			T desc, HospitalDate startDate, HospitalDate stopDate)
 			throws InvalidSchedulingRequestException {
-		ScheduledTask<?> bestSchedTask = null;
+		ScheduledTask<T> bestSchedTask = null;
 		for (Location posLoc : posLocs) {
-			ScheduledTask<?> posSchedTask;
+			ScheduledTask<T> posSchedTask;
 			try {
 				posSchedTask = schedule(avRes, usedResList, posLoc, desc, startDate, stopDate);
 			} catch (InvalidSchedulingRequestException e) {
@@ -114,9 +114,9 @@ public class Scheduler
 	 *             resources available at this specific moment, at the specific
 	 *             location.
 	 */
-	private ScheduledTask<?> schedule(LinkedHashMap<LinkedList<Schedulable>, Integer> avRes,
+	private <T extends TaskDescription> ScheduledTask<T> schedule(LinkedHashMap<LinkedList<Schedulable>, Integer> avRes,
 			LinkedHashMap<LinkedList<Schedulable>, LinkedList<Integer>> usedResList, Location loc,
-			TaskDescription desc, HospitalDate startDate, HospitalDate stopDate)
+			T desc, HospitalDate startDate, HospitalDate stopDate)
 			throws InvalidSchedulingRequestException {
 		LinkedList<Schedulable> curResPool = null;
 		LinkedList<Schedulable> bestOptToFind = findListToSchedule(avRes, usedResList, curResPool);
@@ -371,8 +371,8 @@ public class Scheduler
 	 *            The location where the task is held.
 	 * @return A scheduled task from the resources that have been chosen.
 	 */
-	private ScheduledTask<?> produceSchedTask(LinkedHashMap<LinkedList<Schedulable>, Integer> avResources,
-			LinkedHashMap<LinkedList<Schedulable>, LinkedList<Integer>> chosRes, TaskDescription desc,
+	private <T extends TaskDescription>ScheduledTask<T> produceSchedTask(LinkedHashMap<LinkedList<Schedulable>, Integer> avResources,
+			LinkedHashMap<LinkedList<Schedulable>, LinkedList<Integer>> chosRes, T desc,
 			HospitalDate startDate, Location loc) {
 		Collection<Schedulable> usedResources = new LinkedList<Schedulable>();
 		for (LinkedList<Schedulable> resourcePool : avResources.keySet()) {
@@ -380,7 +380,7 @@ public class Scheduler
 			for (int i : usedInThisPool)
 				usedResources.add(resourcePool.get(i));
 		}
-		return new ScheduledTask<TaskDescription>(desc, usedResources, new TimeSlot(new StartTimePoint(startDate),
+		return new ScheduledTask<T>(desc, usedResources, new TimeSlot(new StartTimePoint(startDate),
 				new StopTimePoint(new HospitalDate(startDate.getTimeSinceStart() + desc.getDuration()))), loc);
 	}
 
