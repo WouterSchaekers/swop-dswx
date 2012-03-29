@@ -384,30 +384,49 @@ public class Scheduler
 				new StopTimePoint(new HospitalDate(startDate.getTimeSinceStart() + desc.getDuration()))), loc);
 	}
 
+	/**
+	 * Returns the index of the schedulable that has the best timeslot.
+	 * 
+	 * @param bestOptToFind
+	 *            The list of schedulables that make a chance to be the best
+	 *            schedulable.
+	 * @param loc
+	 *            The location that has to be scheduled on.
+	 * @param startDate
+	 *            The task has to be scheduled after this date.
+	 * @param stopDate
+	 *            The task has to be scheudeld before this date.
+	 * @param duration
+	 *            The duration of the task.
+	 * @return The index of the schedulable that has the best timeslot, on the
+	 *         given location, between a certain start -and endDate and with a
+	 *         given duration.
+	 * @throws InvalidSchedulingRequestException
+	 *             There is no good slot available for the given time
+	 *             limitations and given location.
+	 */
 	private int findBestOpt(LinkedList<Schedulable> bestOptToFind, Location loc, HospitalDate startDate,
 			HospitalDate stopDate, long duration) throws InvalidSchedulingRequestException {
 		int bestOption = -1;
 		TimeSlot bestSlot = null;
-		HospitalDate bestDate = null;
 		for (int i = 0; i < bestOptToFind.size(); i++) {
 			TimeSlot curSlot;
 			try {
 				curSlot = bestOptToFind.get(i).getFirstFreeSlotBetween(loc, startDate, stopDate, duration);
 				HospitalDate curStartDate = curSlot.getStartPoint().getHospitalDate();
+				HospitalDate bestStartDate = bestSlot.getStartPoint().getHospitalDate();
 				if (bestOption == -1
-						|| (curStartDate.before(bestDate) || (curStartDate.equals(bestDate) && curSlot.getLength() > bestSlot
-								.getLength()))) {
+						|| (curStartDate.before(bestStartDate) || (curStartDate.equals(bestStartDate) && curSlot
+								.getLength() > bestSlot.getLength()))) {
 					bestOption = i;
 					bestSlot = curSlot;
-					bestDate = curStartDate;
 				}
 			} catch (Exception e) {
 				throw new Error(e.toString());
 			}
 		}
-		if (bestOption == -1) {
+		if (bestOption == -1)
 			throw new InvalidSchedulingRequestException("No Schedulable of this list can be schedulabled.");
-		}
 		return bestOption;
 	}
 
