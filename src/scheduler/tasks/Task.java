@@ -1,6 +1,7 @@
 package scheduler.tasks;
 
 import java.util.Collection;
+import java.util.Observable;
 import scheduler.Schedulable;
 import system.Hospital;
 import system.Location;
@@ -8,7 +9,7 @@ import system.Location;
 /**
  * Represents a task that can be scheduled, completed or queued.
  */
-public final class Task<T extends TaskDescription>
+public final class Task<T extends TaskDescription> extends Observable
 {
 	private TaskState myState_;
 
@@ -69,6 +70,15 @@ public final class Task<T extends TaskDescription>
 
 	public Collection<Schedulable> getResources() {
 		return myState_.getResources();
+	}
+
+	public void deInitialise() {
+		getDescription().deInit(this);
+		
+	}
+
+	public void init() {
+		getDescription().initTask(this);
 	}
 
 }

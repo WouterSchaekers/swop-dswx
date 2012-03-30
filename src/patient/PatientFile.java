@@ -110,9 +110,9 @@ public class PatientFile implements PatientFileIN
 				if (!t.hasFinished())
 					return false;
 		}
-		for (MedicalTest m : medicaltests)
-			if (!m.hasFinished())
-				return false;
+	//	for (MedicalTest m : medicaltests)
+//			if (!m.hasFinished())
+//				return false;
 		return true;
 	}
 
