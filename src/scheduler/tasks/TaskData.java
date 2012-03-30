@@ -73,8 +73,8 @@ class TaskData
 		return this.timeSlot_.getStopPoint().getHospitalDate();
 	}
 
-	public TimeLord getTimeLord() {
-		return this.hospital_.getTimeKeeper();
+	public HospitalDate getSystemTime() {
+		return this.hospital_.getTimeKeeper().getSystemTime();
 	}
 
 	public TimeSlot getTimeSlot() {
