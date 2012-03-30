@@ -3,6 +3,7 @@ package scheduler.tasks;
 import java.util.Collection;
 import java.util.LinkedList;
 import patient.PatientFile;
+import result.Result;
 import scheduler.HospitalDate;
 import scheduler.requirements.Requirement;
 import scheduler.requirements.RequirementType;
@@ -43,5 +44,20 @@ public class AppointmentDescription extends TaskDescriptionWithPatientFile
 	public <T extends TaskDescription> void deInit(Task<T> task) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public boolean needsResult() {
+		return false;
+	}
+
+	@Override
+	public void setResult(String result) {
+		; // do nothing
+	}
+
+	@Override
+	public Result getResult() {
+		return null;
 	}
 }

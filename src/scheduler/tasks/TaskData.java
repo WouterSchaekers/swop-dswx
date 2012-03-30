@@ -1,7 +1,7 @@
 package scheduler.tasks;
 
 import java.util.Collection;
-import result.Result;
+import java.util.LinkedList;
 import scheduler.HospitalDate;
 import scheduler.Schedulable;
 import scheduler.TimeLord;
@@ -18,7 +18,6 @@ class TaskData
 	private Hospital hospital_;
 	private Location location_;
 	private Collection<Schedulable> resources_;
-	private Result result_;
 	private TimeSlot timeSlot_;
 
 	public TaskData(Hospital hospital) {
@@ -35,7 +34,6 @@ class TaskData
 	public TaskData clone() {
 		TaskData rv = new TaskData(this.hospital_);
 		rv.setLocation(this.getLocation());
-		rv.setResult_(this.getResult());
 		rv.setTimeSlot(this.getTimeSlot());
 		rv.setUsedResources(this.getResources());
 		return rv;
@@ -58,11 +56,7 @@ class TaskData
 	}
 
 	public Collection<Schedulable> getResources() {
-		return this.resources_;
-	}
-
-	public Result getResult() {
-		return result_;
+		return new LinkedList<Schedulable>(this.resources_);
 	}
 
 	public HospitalDate getStartDate() {
@@ -89,10 +83,6 @@ class TaskData
 		if (location == null)
 			throw new IllegalArgumentException(location + " cannot be null!");
 		this.location_ = location;
-	}
-
-	void setResult_(Result result_) {
-		this.result_ = result_;
 	}
 
 	void setTimeSlot(TimeSlot timeSlot) {

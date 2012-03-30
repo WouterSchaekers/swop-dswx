@@ -1,6 +1,5 @@
 package patient;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Observable;
@@ -11,7 +10,7 @@ import users.Doctor;
 import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.DoctorIN;
-import controllers.interfaces.TreatmentIN;
+import controllers.interfaces.TaskIN;
 import exceptions.ApproveDiagnoseException;
 import exceptions.FactoryInstantiationException;
 import exceptions.InvalidAmountException;
@@ -26,11 +25,11 @@ import exceptions.InvalidHospitalDateException;
  */
 public class Diagnose extends Observable implements DiagnoseIN
 {
-	private String diag = "";
 	private boolean approved = false;
-	private boolean secOpFlag = false;
 	private Doctor attending = null;
+	private String diag = "";
 	private Doctor secopDoc = null;
+	private boolean secOpFlag = false;
 	/**
 	 * the treatments associated with this diagnose
 	 */
@@ -48,32 +47,43 @@ public class Diagnose extends Observable implements DiagnoseIN
 	 * @throws InvalidDiagnoseException
 	 *             if !isValidDiagnosis(diag)
 	 */
-	public Diagnose(Doctor doc, String diag) throws InvalidDoctorException,
-			InvalidDiagnoseException {
+	public Diagnose(Doctor doc, String diag) throws InvalidDoctorException, InvalidDiagnoseException {
 		if (!this.canHaveAsDoctor(doc))
 			throw new InvalidDoctorException("Doctor is invalid!");
 		if (!this.isValidDiagnosis(diag))
-			throw new InvalidDiagnoseException(
-					"Diagnose in Diagnoseconstructor is invalid!");
+			throw new InvalidDiagnoseException("Diagnose in Diagnoseconstructor is invalid!");
 		this.attending = doc;
 		this.diag = diag;
 	}
 
-	public Treatment createTreatment(TreatmentFactory treatFact)
-			throws FactoryInstantiationException, InvalidAmountException,
-			InvalidHospitalDateException {
-		return treatFact.create();
+	/**
+	 * USE THIS METHOD ONLY IN THE DOMAIN LAYER!!
+	 */
+	public void addTreatment(Task<? extends Treatment> treatment) {
+		if (!isValidtreatment(treatment))
+			throw new IllegalArgumentException(treatment + " is not valid!");
+		this.treatments.add(treatment);
 	}
-	
-	public void addTreatmentTask(Task<? extends Treatment> task) {
-		treatments.add(task);
+
+	/**
+	 * Approves this diagnosis.
+	 * 
+	 * @throws ApproveDiagnoseException
+	 *             If this diagnose was not marked for second opinion.
+	 */
+	public void approve() throws ApproveDiagnoseException {
+		if (!isMarkedForSecOp())
+			throw new ApproveDiagnoseException("Can't approve diagnose that does not need second opinion!");
+		this.approved = true;
+		this.unmarkForSecOp();
+		this.notifyObservers();
 	}
 
 	/**
 	 * @return True if this diagnose can be replaced by the given replacement.
 	 */
 	public boolean canBeReplacedWith(DiagnoseIN replacement) {
-		Diagnose temp = (Diagnose)replacement;
+		Diagnose temp = (Diagnose) replacement;
 		boolean rv = this.secopDoc.equals(temp.attending);
 		rv &= (this.attending.equals(temp.secopDoc));
 		rv &= temp.secOpFlag;
@@ -84,34 +94,25 @@ public class Diagnose extends Observable implements DiagnoseIN
 	 * @return True if doc is a valid doctor for this Diagnose.
 	 */
 	private boolean canHaveAsDoctor(Doctor doc) {
-		return !(doc == null);
+		return !(doc == null || this.secopDoc.equals(doc));
 	}
-	
+
 	/**
-	 * Approves this diagnosis.
-	 * 
-	 * @throws ApproveDiagnoseException
-	 *             If this diagnose was not marked for second opinion.
+	 * Use to create treatment descriptions.
 	 */
-	public void approve() throws ApproveDiagnoseException {
-		if (!isMarkedForSecOp())
-			throw new ApproveDiagnoseException(
-					"Can't approve diagnose that does not need second opinion!");
-		this.approved = true;
-		this.unmarkForSecOp();
-		this.notifyObservers();
+	public Treatment createTreatment(TreatmentFactory treatFact) throws FactoryInstantiationException,
+			InvalidAmountException, InvalidHospitalDateException {
+		return treatFact.create();
 	}
 
 	/**
 	 * Disapproves this diagnose.
-	 *
+	 * 
 	 * @throws ApproveDiagnoseException
 	 */
-	public void disapprove()
-			throws ApproveDiagnoseException {
+	public void disapprove() throws ApproveDiagnoseException {
 		if (!isMarkedForSecOp())
-			throw new ApproveDiagnoseException(
-					"Can't disapprove diagnose that does not need second opinion!");
+			throw new ApproveDiagnoseException("Can't disapprove diagnose that does not need second opinion!");
 		this.approved = false;
 		this.secOpFlag = false;
 		this.attending = null;
@@ -129,10 +130,8 @@ public class Diagnose extends Observable implements DiagnoseIN
 	}
 
 	@Basic
-	public Collection<TreatmentIN> getTreatments() {
-		ArrayList<TreatmentIN> rv = new ArrayList<TreatmentIN>();
-		//TODO: fix (stef)
-		return rv;
+	public Collection<TaskIN> getTreatments() {
+		return new LinkedList<TaskIN>(treatments);
 	}
 
 	@Basic
@@ -152,6 +151,10 @@ public class Diagnose extends Observable implements DiagnoseIN
 		return !diag.equals("");
 	}
 
+	private boolean isValidtreatment(Task<?> treatment) {
+		return treatment != null;
+	}
+
 	/**
 	 * This function marks this Diagnose for second opinion.
 	 * 
@@ -162,8 +165,7 @@ public class Diagnose extends Observable implements DiagnoseIN
 	 */
 	public void markForSecOp(Doctor from) throws InvalidDoctorException {
 		if (!canHaveAsDoctor(from))
-			throw new InvalidDoctorException(
-					"Invalid Doctor given to request for second opinion!");
+			throw new InvalidDoctorException("Invalid Doctor given to request for second opinion!");
 		this.secOpFlag = true;
 		this.approved = false;
 		this.secopDoc = from;

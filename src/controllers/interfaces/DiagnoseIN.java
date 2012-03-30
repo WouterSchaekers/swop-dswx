@@ -9,7 +9,7 @@ public interface DiagnoseIN
 
 	public DoctorIN needsSecOpFrom();
 
-	public Collection<TreatmentIN> getTreatments();
+	public Collection<TaskIN> getTreatments();
 
 	public DoctorIN getAttending();
 

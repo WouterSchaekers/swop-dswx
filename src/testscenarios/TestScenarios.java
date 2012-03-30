@@ -1,8 +1,6 @@
 package testscenarios;
 
 import static org.junit.Assert.fail;
-import java.util.Collection;
-import machine.MachineBuilder;
 import org.junit.Test;
 import scheduler.HospitalDate;
 import system.Hospital;
@@ -78,7 +76,8 @@ public class TestScenarios
 
 		// the hadmin add XRayScanner, nurse, doctor,
 		System.out.print("Adding a new nurse: Jenny...");
-		AddHospitalStaffController ahsc = new AddHospitalStaffController(lc);
+		//AddHospitalStaffController ahsc = 
+		new AddHospitalStaffController(lc);
 		//ahsc.addNurse("Jenny", "Campus 1");
 		System.out
 				.print(" Nurse added successfully!\nAdding a new doctor: Jonathan...");
@@ -88,7 +87,8 @@ public class TestScenarios
 		AddHospitalEquipmentController ahec = new AddHospitalEquipmentController(
 				lc);
 
-		Collection<MachineBuilder> mbs = ahec.getAllMachineBuilders();
+		// Collection<MachineBuilder> mbs = 
+		ahec.getAllMachineBuilders();
 //		for (MachineBuilder mb : mbs)
 //			if (mb.toString().equals("XrayScanner")) {
 //				ahec.createMachine(mb, 523, "Location X", h);
@@ -109,7 +109,8 @@ public class TestScenarios
 		lc.logIn(lc.getSpecificNurse("Jenny"));
 		System.out.println("Succes!");
 		System.out.print("Registering new patient in the hospital... ");
-		RegisterPatientController rpc = new RegisterPatientController(lc);
+		//RegisterPatientController rpc = 
+		new RegisterPatientController(lc);
 		
 		//TODO location
 		//rpc.registerNewPatient("Dieter Geboers");

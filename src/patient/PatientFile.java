@@ -7,14 +7,15 @@ import java.util.Observer;
 import medicaltest.MedicalTest;
 import medicaltest.MedicalTestFactory;
 import scheduler.HospitalDate;
+import scheduler.tasks.Task;
+import scheduler.tasks.TaskDescription;
 import scheduler.tasks.TaskManager;
 import users.Doctor;
 import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.DoctorIN;
-import controllers.interfaces.MedicalTestIN;
 import controllers.interfaces.PatientFileIN;
-import controllers.interfaces.TreatmentIN;
+import controllers.interfaces.TaskIN;
 import exceptions.DischargePatientException;
 import exceptions.FactoryInstantiationException;
 import exceptions.InvalidDiagnoseException;
@@ -26,16 +27,16 @@ import exceptions.InvalidNameException;
  */
 public class PatientFile implements PatientFileIN
 {
-	private Patient patient_;
 	/**
 	 * All the Diagnosis for this patient.
 	 */
 	private Collection<Diagnose> diagnosis = new ArrayList<Diagnose>();
 	private boolean discharged = false;
+	private Collection<Task<? extends TaskDescription>> medicaltests = new LinkedList<Task<? extends TaskDescription>>();
+
+	private Patient patient_;
 
 	private ArrayList<HospitalDate> xrays = new ArrayList<HospitalDate>();
-
-	private Collection<MedicalTest> medicaltests = new ArrayList<MedicalTest>();
 
 	/**
 	 * Default Constructor. Creates empty patient file with a name.
@@ -59,19 +60,20 @@ public class PatientFile implements PatientFileIN
 	 */
 	public void addDiagnosis(Diagnose d) throws InvalidDiagnoseException {
 		if (!isValidDiagnose(d))
-			throw new InvalidDiagnoseException(
-					"The given Diagnose is not a valid!");
+			throw new InvalidDiagnoseException("The given Diagnose is not a valid!");
 
 		this.diagnosis.add(d);
 	}
-
-	public void addMedicalTest(MedicalTestFactory test)
-			throws FactoryInstantiationException {
-		@SuppressWarnings("deprecation")
-		MedicalTest medicalTest = test.create();
+	
+	/**
+	 * USE THIS METHOD ONLY IN THE DOMAIN LAYER!!
+	 */
+	public void addMedicalTest(Task<? extends MedicalTest> medicalTest) {
+		if(! isValidMedicalTest(medicalTest))
+				throw new IllegalArgumentException(medicalTest+ " is not valid!");
 		this.medicaltests.add(medicalTest);
 	}
-
+	
 	/**
 	 * This method must be called if an XRrayScan is ordered for this patient.
 	 * It is needed to keep track of the amount of xrays a patient has had in
@@ -92,8 +94,7 @@ public class PatientFile implements PatientFileIN
 	public int amountOfXraysThisYear(HospitalDate hospitalDate) {
 		int amount = 0;
 		for (HospitalDate xr : this.xrays) {
-			if (hospitalDate.before(xr)
-					&& xr.getTimeBetween(hospitalDate) <= HospitalDate.ONE_YEAR)
+			if (hospitalDate.before(xr) && xr.getTimeBetween(hospitalDate) <= HospitalDate.ONE_YEAR)
 				amount++;
 		}
 		return amount;
@@ -106,13 +107,13 @@ public class PatientFile implements PatientFileIN
 		for (Diagnose d : diagnosis) {
 			if (d.isMarkedForSecOp())
 				return false;
-			for (TreatmentIN t : d.getTreatments())
-				if (!t.hasFinished())
+			for (TaskIN t : d.getTreatments())
+				if (!t.isFinished())
 					return false;
 		}
-	//	for (MedicalTest m : medicaltests)
-//			if (!m.hasFinished())
-//				return false;
+		for (Task<? extends TaskDescription> m : medicaltests)
+			if (!m.isFinished())
+				return false;
 		return true;
 	}
 
@@ -123,12 +124,17 @@ public class PatientFile implements PatientFileIN
 		this.discharged = false;
 	}
 
-	public void createDiagnose(Doctor user, String diag, TaskManager manager)
-			throws InvalidDiagnoseException, InvalidDoctorException {
+	public void createDiagnose(Doctor user, String diag, TaskManager manager) throws InvalidDiagnoseException,
+			InvalidDoctorException {
 		Diagnose diagnose = new Diagnose(user, diag);
 		diagnose.addObserver((Observer) manager);
 		addDiagnosis(diagnose);
 
+	}
+
+	@SuppressWarnings("deprecation")
+	public MedicalTest createMedicalTest(MedicalTestFactory test) throws FactoryInstantiationException {
+		return test.create();
 	}
 
 	/**
@@ -138,8 +144,7 @@ public class PatientFile implements PatientFileIN
 	 */
 	void discharge() throws DischargePatientException {
 		if (!canBeDischarged())
-			throw new DischargePatientException(
-					"Patient cannot be discharged yet!");
+			throw new DischargePatientException("Patient cannot be discharged yet!");
 		this.discharged = true;
 	}
 
@@ -149,39 +154,10 @@ public class PatientFile implements PatientFileIN
 		rv.addAll(diagnosis);
 		return rv;
 	}
-	
-	/**
-	 * @return All diagnosis kept in this patient file made by a certain doctor.
-	 */
-	public Collection<DiagnoseIN> getDiagnosisFrom(Doctor doc) {
-		Collection<DiagnoseIN> rv = new LinkedList<DiagnoseIN>();
-		for(Diagnose d : this.diagnosis)
-			if(d.getAttending().equals(doc))
-				rv.add((DiagnoseIN)d);
-		return rv;
-	}
 
 	@Override
-	public Collection<DiagnoseIN> getPendingDiagnosisFor(DoctorIN d) {
-		Collection<DiagnoseIN> rv = new LinkedList<DiagnoseIN>();
-		for (Diagnose diag : this.diagnosis)
-			if (diag.isMarkedForSecOp() && !diag.isApproved()
-					&& diag.getAttending().equals((Doctor) d))
-				rv.add((DiagnoseIN) d);
-		return rv;
-	}
-
-	@Override
-	public Collection<MedicalTestIN> getallMedicalTests() {
-		return new ArrayList<MedicalTestIN>(medicaltests);
-	}
-
-	@Override
-	public Collection<TreatmentIN> getAllTreatments() {
-		LinkedList<TreatmentIN> rv = new LinkedList<TreatmentIN>();
-		for (Diagnose d : this.diagnosis)
-			rv.addAll(d.getTreatments());
-		return rv;
+	public Collection<TaskIN> getallMedicalTests() {
+		return new LinkedList<TaskIN>(medicaltests);
 	}
 
 	@Basic
@@ -190,23 +166,46 @@ public class PatientFile implements PatientFileIN
 	}
 
 	/**
+	 * @return All diagnosis kept in this patient file made by a certain doctor.
+	 */
+	public Collection<DiagnoseIN> getDiagnosisFrom(Doctor doc) {
+		Collection<DiagnoseIN> rv = new LinkedList<DiagnoseIN>();
+		for (Diagnose d : this.diagnosis)
+			if (d.getAttending().equals(doc))
+				rv.add((DiagnoseIN) d);
+		return rv;
+	}
+
+	/**
 	 * @return The first date this patientfile has a
 	 */
 	public HospitalDate getFirstNewXRaySchedDate(HospitalDate hospitalDate) {
 		if (this.amountOfXraysThisYear(hospitalDate) >= 9) {
-			return new HospitalDate(this.xrays.get(xrays.size() - 10)
-					.getTimeSinceStart());
+			return new HospitalDate(this.xrays.get(xrays.size() - 10).getTimeSinceStart());
 		}
 		return hospitalDate;
+	}
+
+	@Override
+	public String getName() {
+		return this.getPatient().getName();
 	}
 
 	/**
 	 * DO NOT USE THIS METHOD ANYWHERE OUTSIDE OF THE DOMAIN LAYER!
 	 * 
-	 * @return
 	 */
 	public Patient getPatient() {
 		return this.patient_;
+	}
+
+	@Override
+	public Collection<DiagnoseIN> getPendingDiagnosisFor(DoctorIN d) {
+		Collection<DiagnoseIN> rv = new LinkedList<DiagnoseIN>();
+		for (Diagnose diag : this.diagnosis)
+			if (diag.isMarkedForSecOp() && !diag.isApproved() && diag.getAttending().equals((Doctor) d))
+				rv.add((DiagnoseIN) d);
+		return rv;
 	}
 
 	@Basic
@@ -221,8 +220,7 @@ public class PatientFile implements PatientFileIN
 		return d != null;
 	}
 
-	@Override
-	public String getName() {
-		return this.getPatient().getName();
+	private boolean isValidMedicalTest(Task<? extends MedicalTest> medicalTest) {
+		return medicalTest != null;
 	}
 }
