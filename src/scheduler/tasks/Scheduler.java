@@ -168,7 +168,10 @@ public class Scheduler
 	private LinkedList<Requirement> getUnmetRequirements(Collection<Requirement> reqs, Collection<Requirement> metReqs){
 		LinkedList<Requirement> unmetRequirements = new LinkedList<Requirement>();
 		for(Requirement req : metReqs)
-			if()
+			if(true){
+				
+			}
+		return null;
 	}
 
 	/**
