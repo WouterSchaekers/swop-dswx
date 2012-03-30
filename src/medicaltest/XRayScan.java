@@ -8,6 +8,8 @@ import scheduler.HospitalDate;
 import scheduler.requirements.Requirement;
 import scheduler.requirements.RequirementType;
 import scheduler.requirements.SpecificRequirement;
+import scheduler.tasks.Task;
+import scheduler.tasks.TaskDescription;
 import users.Nurse;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidHospitalDateException;
@@ -54,8 +56,16 @@ public class XRayScan extends MedicalTest
 		return requirements;
 	}
 
+	
+
 	@Override
-	public void initTask() {
+	public <T extends TaskDescription> void initTask(Task<T> task) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public <T extends TaskDescription> void deInit(Task<T> task) {
 		// TODO Auto-generated method stub
 		
 	}

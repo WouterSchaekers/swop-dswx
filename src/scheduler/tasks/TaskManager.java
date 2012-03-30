@@ -3,8 +3,11 @@ package scheduler.tasks;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Observable;
+import java.util.Observer;
 import system.Hospital;
 import users.SchedulableUser;
+import exceptions.AlreadyScheduledException;
 import exceptions.CanNeverBeScheduledException;
 import exceptions.InvalidSchedulingRequestException;
 
@@ -18,7 +21,7 @@ import exceptions.InvalidSchedulingRequestException;
  * updateQueue() function every time its state changes. Once an unscheduled task
  * meets its requirements, it will be scheduled.
  */
-public class TaskManager
+public class TaskManager implements Observer
 {
 
 	private Hospital hospital_;
@@ -44,14 +47,19 @@ public class TaskManager
 	 *             The requirements for this description can never be met and
 	 *             the description is not stored.
 	 */
-	public <T extends TaskDescription> Task<?> add(T description)
-			throws InvalidSchedulingRequestException,
+	public <T extends TaskDescription> Task<?> add(T description) throws InvalidSchedulingRequestException,
 			CanNeverBeScheduledException {
-		//TODO: fix 
-		// Task<?> scheduledTask = task.scheduleIn(this.hospital_);
-		Task<? extends TaskDescription> scheduledTask = null;
-		tasks_.add(scheduledTask);
-		return scheduledTask;
+		Task<T> task = new Task<T>(description, hospital_);
+		task.init();
+		tasks_.add(task);
+		try {
+			new Scheduler().schedule(task);
+		} catch (AlreadyScheduledException e) {
+			throw new Error(e.getMessage());
+		} catch (InvalidSchedulingRequestException e) {
+			task.addObserver(this);
+		}
+		return task;
 	}
 
 	/**
@@ -62,11 +70,11 @@ public class TaskManager
 	public Collection<Task<?>> getScheduledTasks() {
 		return new ArrayList<Task<?>>(tasks_);
 	}
-	
+
 	Hospital getHospital() {
 		return this.hospital_;
 	}
-	
+
 	/**
 	 * Used in the controller layer to give sensible information to the user.
 	 * 
@@ -75,10 +83,34 @@ public class TaskManager
 	@SuppressWarnings("unchecked")
 	public <T extends TaskDescription> Collection<Task<T>> getUnfinishedTasksFrom(SchedulableUser from) {
 		Collection<Task<T>> rv = new LinkedList<Task<T>>();
-		for(Task<?> task : tasks_)
-			if(task.isScheduled() && task.getData().getResources().contains(from))
+		for (Task<?> task : tasks_)
+			if (task.isScheduled() && task.getData().getResources().contains(from))
 				rv.add((Task<T>) task);
 		return rv;
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		Task<?> task;
+		if (o instanceof Task<?>)
+			task = (Task<?>) o;
+		else
+			return;
+		if (!task.isQueued())
+			return;
+
+		try {
+			new Scheduler().schedule(task);
+		} catch (InvalidSchedulingRequestException e) {
+			;
+		} catch (CanNeverBeScheduledException e) {
+			tasks_.remove(task);
+			task.deInitialise();
+		} catch (AlreadyScheduledException e) {
+			throw new Error("Fatal scheduling error, shutting down...");
+
+		}
+
 	}
 
 }

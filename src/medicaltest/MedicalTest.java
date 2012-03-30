@@ -52,7 +52,5 @@ public abstract class MedicalTest extends TaskDescriptionWithPatientFile impleme
 		return this.result;
 	}
 
-	public boolean hasFinished() {
-		return this.result != null;
-	}
+	
 }

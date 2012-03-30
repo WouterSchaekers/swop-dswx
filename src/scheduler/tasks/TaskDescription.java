@@ -43,9 +43,12 @@ public abstract class TaskDescription
 	public final long getExtraTime() {
 		return this.extraTime_;
 	}
-	
-	public abstract void initTask();
-
+	/**
+	 * 
+	 * @param task
+	 */
+	public abstract <T extends TaskDescription>  void initTask(Task<T> task);
+	public abstract <T extends TaskDescription> void deInit(Task<T> task);
 	private boolean isValidAmountOfExtraTime(long extraTime) {
 		return extraTime >= 0;
 	}

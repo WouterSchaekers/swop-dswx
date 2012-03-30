@@ -32,8 +32,15 @@ public class AppointmentDescription extends TaskDescriptionWithPatientFile
 		return doctor;
 	}
 
+
 	@Override
-	public void initTask() {
+	public <T extends TaskDescription> void initTask(Task<T> task) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public <T extends TaskDescription> void deInit(Task<T> task) {
 		// TODO Auto-generated method stub
 		
 	}
