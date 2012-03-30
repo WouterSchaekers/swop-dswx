@@ -1,29 +1,27 @@
 package scheduler.tasks;
 
+import java.util.Collection;
+import scheduler.Schedulable;
+import system.Hospital;
+import system.Location;
+
 /**
  * Represents a task that can be scheduled, completed or queued.
  */
 public final class Task<T extends TaskDescription>
 {
-	private final T description_;
 	private TaskState myState_;
-	
-	Task(T description) {
-		description_ = description;
-	}
 
-	public final T getDescription() {
-		return description_;
-	}
-
-	void setState(TaskState nextState) throws IllegalStateException {
-		if(myState_.isValidNextState(nextState))
-			this.myState_ = nextState;
-		else throw new IllegalStateException("Invalid state given to setState!");
-	}
-
-	TaskData getData() {
-		return this.myState_.getData();
+	/**
+	 * Initialises a new Task and assigns it the queued-state.
+	 * 
+	 * @param description
+	 * @param hospital
+	 */
+	Task(T description, Hospital hospital) {
+		TaskData data = new TaskData(hospital);
+		data.setDescription(description);
+		myState_ = new QueuedState(data);
 	}
 
 	boolean before(Task<?> otherTask) {
@@ -31,13 +29,46 @@ public final class Task<T extends TaskDescription>
 				.before(otherTask.getData().getTimeSlot().getStartPoint().getHospitalDate());
 	}
 
-	public boolean isScheduled() {
-		return myState_ instanceof ScheduledState;
+	/**
+	 * @return The data for this Task.
+	 */
+	TaskData getData() {
+		return this.myState_.getData();
 	}
-	
+
+	@SuppressWarnings("unchecked")
+	public T getDescription() {
+		return (T) myState_.getData().getDescription();
+	}
+
 	public boolean isFinished() {
-		return myState_ instanceof FinishedState;
+		return myState_.isFinished();
 	}
-	
+
+	public boolean isQueued() {
+		return myState_.isQueued();
+	}
+
+	public boolean isScheduled() {
+		return myState_.isScheduled();
+	}
+
+	/**
+	 * Cycles through to the next state: Queued -> Scheduled -> Finished
+	 * 
+	 * @param newData
+	 *            A data object that contains the data for the new state.
+	 */
+	void nextState(TaskData newData) {
+		this.myState_ = myState_.nextState(newData);
+	}
+
+	public Location getLocation() {
+		return myState_.getLocation();
+	}
+
+	public Collection<Schedulable> getResources() {
+		return myState_.getResources();
+	}
 
 }

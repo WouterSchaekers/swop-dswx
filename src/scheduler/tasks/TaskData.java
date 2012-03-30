@@ -14,6 +14,7 @@ import system.Location;
  */
 class TaskData
 {
+	private TaskDescription description_;
 	private Hospital hospital_;
 	private Location location_;
 	private Collection<Schedulable> resources_;
@@ -26,20 +27,42 @@ class TaskData
 		this.hospital_ = hospital;
 	}
 
-	public Collection<Location> getLocations() {
-		return this.hospital_.getAllLocations();
+	public boolean before(TaskData bestSchedTask) {
+		return this.getTimeSlot().before(bestSchedTask.getTimeSlot());
+	}
+
+	@Override
+	public TaskData clone() {
+		TaskData rv = new TaskData(this.hospital_);
+		rv.setLocation(this.getLocation());
+		rv.setResult_(this.getResult());
+		rv.setTimeSlot(this.getTimeSlot());
+		rv.setUsedResources(this.getResources());
+		return rv;
 	}
 
 	public Collection<Schedulable> getAllResources() {
 		return this.hospital_.getAllSchedulables();
 	}
 
-	public TimeLord getTimeLord() {
-		return this.hospital_.getTimeKeeper();
+	public TaskDescription getDescription() {
+		return description_;
+	}
+
+	public Location getLocation() {
+		return this.location_;
+	}
+
+	public Collection<Location> getLocations() {
+		return this.hospital_.getAllLocations();
 	}
 
 	public Collection<Schedulable> getResources() {
 		return this.resources_;
+	}
+
+	public Result getResult() {
+		return result_;
 	}
 
 	public HospitalDate getStartDate() {
@@ -50,22 +73,16 @@ class TaskData
 		return this.timeSlot_.getStopPoint().getHospitalDate();
 	}
 
-	public Location getLocation() {
-		return this.location_;
-	}
-
-	public Result getResult() {
-		return result_;
+	public TimeLord getTimeLord() {
+		return this.hospital_.getTimeKeeper();
 	}
 
 	public TimeSlot getTimeSlot() {
 		return this.timeSlot_;
 	}
 
-	void setUsedResources(Collection<Schedulable> usedResources) {
-		if (usedResources == null)
-			throw new IllegalArgumentException(usedResources + " cannot be null!");
-		this.resources_ = usedResources;
+	void setDescription(TaskDescription description_) {
+		this.description_ = description_;
 	}
 
 	void setLocation(Location location) {
@@ -83,18 +100,11 @@ class TaskData
 			throw new IllegalArgumentException(timeSlot + " cannot be null!");
 		this.timeSlot_ = timeSlot;
 	}
-	
-	public TaskData clone() {
-		TaskData rv = new TaskData(this.hospital_);
-		rv.setLocation(this.getLocation());
-		rv.setResult_(this.getResult());
-		rv.setTimeSlot(this.getTimeSlot());
-		rv.setUsedResources(this.getResources());
-		return rv;
-	}
 
-	public boolean before(TaskData bestSchedTask) {
-		return this.getTimeSlot().before(bestSchedTask.getTimeSlot());
+	void setUsedResources(Collection<Schedulable> usedResources) {
+		if (usedResources == null)
+			throw new IllegalArgumentException(usedResources + " cannot be null!");
+		this.resources_ = usedResources;
 	}
 
 }
