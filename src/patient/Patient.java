@@ -1,6 +1,8 @@
 package patient;
 
 import scheduler.HospitalDate;
+import scheduler.LocationTimeSlot;
+import scheduler.LocationTimeTable;
 import scheduler.Schedulable;
 import scheduler.TimeSlot;
 import scheduler.TimeTable;
@@ -20,6 +22,7 @@ class Patient implements Schedulable
 {
 	private String name;
 	private TimeTable timeTable_;
+	private LocationTimeTable locationTimeTable_;
 	private Location location_;
 	
 	Patient(String name) throws InvalidNameException {
@@ -47,9 +50,10 @@ class Patient implements Schedulable
 	}
 
 	@Override
-	public void scheduleAt(TimeSlot timeSlot)
+	public void scheduleAt(TimeSlot timeSlot, Location location)
 			throws InvalidSchedulingRequestException {
 		this.timeTable_.addTimeSlot(timeSlot);
+		this.locationTimeTable_.addLocationTimeSlot(new LocationTimeSlot(timeSlot, location));
 	}
 
 	@Override

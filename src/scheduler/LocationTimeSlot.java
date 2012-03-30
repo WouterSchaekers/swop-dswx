@@ -11,6 +11,10 @@ public class LocationTimeSlot extends TimeSlot
 		this.location_ = location;
 	}
 	
+	public LocationTimeSlot(TimeSlot timeSlot, Location location) {
+		this(timeSlot.getStartPoint(), timeSlot.getStopPoint(), location);
+	}
+
 	public Location getLocation(){
 		return this.location_;
 	}

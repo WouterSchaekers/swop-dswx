@@ -93,7 +93,7 @@ public abstract class Machine implements Schedulable
 	}
 
 	@Override
-	public final void scheduleAt(TimeSlot t) throws InvalidSchedulingRequestException {
+	public final void scheduleAt(TimeSlot t, Location location) throws InvalidSchedulingRequestException {
 		this.getTimeTable().addTimeSlot(t);
 	}
 

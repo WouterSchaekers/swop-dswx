@@ -20,7 +20,7 @@ public interface Schedulable extends Requirable
 	public TimeTable getTimeTable() throws InvalidTimeSlotException;
 	
 	
-	void scheduleAt(TimeSlot timeSlot)
+	void scheduleAt(TimeSlot timeSlot, Location location)
 			throws InvalidSchedulingRequestException;
 
 	public TimeSlot getFirstFreeSlotBetween(Location location, HospitalDate startDate,
