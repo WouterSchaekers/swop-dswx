@@ -48,9 +48,9 @@ public class Scheduler
 		Collection<Requirement> metReqs = getMetReqs(reqs, startDate);
 		LinkedHashMap<LinkedList<Schedulable>, Integer> avRes = getAvRes(resPool, reqs, metReqs);
 		removeDoubleBookings(avRes);
-		checkIfEnoughRes(avRes);
-		TaskData data = schedule(avRes, produceUsedResList(avRes),
-				getPosLocs(avRes, unscheduledTask.getData().getLocations()), desc, startDate, stopDate, taskData);
+		LinkedList<Location> locs = getLocationsWithEnoughResources(avRes,
+				new LinkedList<Location>(taskData.getLocations()));
+		TaskData data = schedule(avRes, produceUsedResList(avRes), locs, desc, startDate, stopDate, taskData);
 		unscheduledTask.nextState(data);
 	}
 
@@ -80,21 +80,19 @@ public class Scheduler
 			LinkedHashMap<LinkedList<Schedulable>, LinkedList<Integer>> usedResList, Collection<Location> posLocs,
 			T desc, HospitalDate startDate, HospitalDate stopDate, TaskData taskData)
 			throws InvalidSchedulingRequestException {
-		TaskData bestSchedTask = null;
+		TaskData bestTaskData = null;
 		for (Location posLoc : posLocs) {
-			TaskData posSchedTask;
+			TaskData posTaskData = null;
 			try {
-				// TODO: toodoo voor wouter.
-				posSchedTask = schedule(avRes, usedResList, posLoc, desc, startDate, stopDate, taskData);
+				posTaskData = schedule(avRes, usedResList, posLoc, desc, startDate, stopDate, taskData);
 			} catch (InvalidSchedulingRequestException e) {
-				posSchedTask = null;
 			}
-			if (bestSchedTask == null || posSchedTask.before(bestSchedTask))
-				bestSchedTask = posSchedTask;
+			if (bestTaskData == null || posTaskData.before(bestTaskData))
+				bestTaskData = posTaskData;
 		}
-		if (bestSchedTask == null)
+		if (bestTaskData == null)
 			throw new InvalidSchedulingRequestException("The task cannot be scheduled.");
-		return bestSchedTask;
+		return bestTaskData;
 	}
 
 	/**
@@ -198,11 +196,6 @@ public class Scheduler
 			for (Schedulable schedulable : resPool)
 				if (requirement.isMetBy(schedulable))
 					isMetBy.add(schedulable);
-			if (isMetBy.size() == 0) {
-				if (requirement.isCrucial())
-					throw new CanNeverBeScheduledException("There are not enough resources to schedule this task.");
-				throw new InvalidSchedulingRequestException("Some of the necessary conditions were not satisfied.");
-			}
 			availableResources.put(isMetBy, requirement.getAmount());
 		}
 		return availableResources;
@@ -238,13 +231,14 @@ public class Scheduler
 	 *             Some of the requirements can never be satisfied with the
 	 *             existing resources.
 	 */
-	private void checkIfEnoughRes(LinkedHashMap<LinkedList<Schedulable>, Integer> avRes)
-			throws CanNeverBeScheduledException {
+	private LinkedList<Location> getLocationsWithEnoughResources(LinkedHashMap<LinkedList<Schedulable>, Integer> avRes,
+			LinkedList<Location> locs) throws CanNeverBeScheduledException {
 		for (LinkedList<Schedulable> resourcePool : avRes.keySet()) {
 			if (resourcePool.size() < avRes.get(resourcePool)) {
 				throw new CanNeverBeScheduledException("There are not enough resources to schedule this task.");
 			}
 		}
+		return null;
 	}
 
 	/**
