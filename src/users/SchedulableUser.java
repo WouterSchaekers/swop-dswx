@@ -18,23 +18,21 @@ public abstract class SchedulableUser extends User implements Schedulable
 	protected TimeTable _timeTable = new TimeTable();
 	protected Collection<Task<?>> _scheduledTasks;
 
-	 SchedulableUser(String name, Location preference) throws InvalidNameException {
+	SchedulableUser(String name, Location preference) throws InvalidNameException {
 		super(name);
 		this._timeTable = new TimeTable();
 		this._scheduledTasks = new LinkedList<Task<?>>();
 	}
 
 	@Override
-	public boolean canBeScheduledOn(HospitalDate startDate,
-			HospitalDate stopDate) throws InvalidSchedulingRequestException,
-			InvalidTimeSlotException {
+	public boolean canBeScheduledOn(HospitalDate startDate, HospitalDate stopDate)
+			throws InvalidSchedulingRequestException, InvalidTimeSlotException {
 		;
 		return _timeTable.hasFreeSlotAt(startDate, stopDate);
 	}
 
 	@Override
-	public void scheduleAt(TimeSlot timeSlot)
-			throws InvalidSchedulingRequestException {
+	public void scheduleAt(TimeSlot timeSlot) throws InvalidSchedulingRequestException {
 		this._timeTable.addTimeSlot(timeSlot);
 	}
 
@@ -45,14 +43,13 @@ public abstract class SchedulableUser extends User implements Schedulable
 	public void updateTimeTable(HospitalDate newDate) {
 		this._timeTable.updateTimeTable(newDate);
 	}
-	
-	public void setLocation(Location location){
+
+	public void setLocation(Location location) {
 		this.location_ = location;
 	}
-	
-	public Location getLocation(){
+
+	public Location getLocation() {
 		return this.location_;
 	}
-	
-	
+
 }
