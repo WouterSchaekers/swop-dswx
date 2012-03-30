@@ -50,9 +50,7 @@ public class Scheduler
 		checkIfEnoughRes(avRes);
 		TaskData data = schedule(avRes, produceUsedResList(avRes), getPosLocs(avRes, task.getData().getLocations()), desc,
 				startDate, stopDate, taskData);
-		changeTaskState(task, data);
-		TaskState newState = new ScheduledState(data);
-		task.setState(newState);
+		task.nextState(data);
 	}
 
 	/**
@@ -456,10 +454,5 @@ public class Scheduler
 			}
 		}
 		return clonedLinkedHashMap;
-	}
-	
-	private void changeTaskState(Task task, TaskData data){
-		TaskState newState = new ScheduledState(data);
-		task.setState(newState);
 	}
 }
