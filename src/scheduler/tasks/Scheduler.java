@@ -164,6 +164,12 @@ public class Scheduler
 		}
 		return isAlreadyMet;
 	}
+	
+	private LinkedList<Requirement> getUnmetRequirements(Collection<Requirement> reqs, Collection<Requirement> metReqs){
+		LinkedList<Requirement> unmetRequirements = new LinkedList<Requirement>();
+		for(Requirement req : metReqs)
+			if()
+	}
 
 	/**
 	 * Returns the resources that are available and can be met to satisfy the
@@ -227,18 +233,33 @@ public class Scheduler
 	 * 
 	 * @param avRes
 	 *            HashMap that contains resources and the amount needed of them.
+	 * @param locs
+	 *            All the locations of the hospital.
 	 * @throws CanNeverBeScheduledException
 	 *             Some of the requirements can never be satisfied with the
 	 *             existing resources.
 	 */
 	private LinkedList<Location> getLocationsWithEnoughResources(LinkedHashMap<LinkedList<Schedulable>, Integer> avRes,
 			LinkedList<Location> locs) throws CanNeverBeScheduledException {
-		for (LinkedList<Schedulable> resourcePool : avRes.keySet()) {
-			if (resourcePool.size() < avRes.get(resourcePool)) {
-				throw new CanNeverBeScheduledException("There are not enough resources to schedule this task.");
+		LinkedList<Location> possibleLocations = new LinkedList<Location>();
+		for (Location loc : locs) {
+			boolean enoughResources = true;
+			for (LinkedList<Schedulable> resourcePool : avRes.keySet()) {
+				int amount = 0;
+				for (Schedulable resource : resourcePool)
+					if (resource.canTravel() || resource.getLocation() == loc)
+						amount++;
+				if (amount < avRes.get(resourcePool)) {
+					enoughResources = false;
+					break;
+				}
 			}
+			if (enoughResources)
+				possibleLocations.add(loc);
 		}
-		return null;
+		if (possibleLocations.size() == 0)
+			throw new CanNeverBeScheduledException("This task can never be scheduled in this hospital.");
+		return possibleLocations;
 	}
 
 	/**
@@ -257,59 +278,6 @@ public class Scheduler
 			usedResources.put(resourcePool, new LinkedList<Integer>());
 		}
 		return usedResources;
-	}
-
-	/**
-	 * Returns all the possible locations. The locations that contain not enough
-	 * resources are eliminated.
-	 * 
-	 * @param avRes
-	 *            HashMap that contains resources and the amount needed of them.
-	 * @param locs
-	 *            All locations of the hospital.
-	 * @return A LinkedList of locations that are suitable for scheduling.
-	 */
-	private LinkedList<Location> getPosLocs(LinkedHashMap<LinkedList<Schedulable>, Integer> avRes,
-			Collection<Location> locs) {
-		LinkedList<Location> possibleLocations = new LinkedList<Location>(locs);
-		for (LinkedList<Schedulable> resourcePool : avRes.keySet()) {
-			boolean canTravel = false;
-			LinkedList<Location> curPossibleLocations = new LinkedList<Location>();
-			LinkedHashMap<Location, Integer> amountOfResources = new LinkedHashMap<Location, Integer>();
-			for (Schedulable schedulable : resourcePool) {
-				canTravel = schedulable.canTravel();
-				Location curLocation = schedulable.getLocation();
-				if (amountOfResources.containsKey(curLocation))
-					amountOfResources.put(curLocation, 1);
-				else
-					amountOfResources.put(curLocation, amountOfResources.get(curLocation) + 1);
-			}
-			for (Location location : amountOfResources.keySet())
-				if (amountOfResources.get(location) >= avRes.get(resourcePool))
-					curPossibleLocations.add(location);
-			if (!canTravel)
-				possibleLocations = getIntersect(possibleLocations, curPossibleLocations);
-		}
-		return possibleLocations;
-	}
-
-	/**
-	 * Returns the intersect of two lists (logical AND operation).
-	 * 
-	 * @param list1
-	 *            The first list.
-	 * @param list2
-	 *            The second list.
-	 * @return The intersect of list1 and list2.
-	 */
-	private LinkedList<Location> getIntersect(LinkedList<Location> list1, LinkedList<Location> list2) {
-		LinkedList<Location> list3 = new LinkedList<Location>();
-		for (Location location1 : list1) {
-			if (list2.contains(location1)) {
-				list3.add(location1);
-			}
-		}
-		return list3;
 	}
 
 	/**
