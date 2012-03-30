@@ -44,7 +44,9 @@
 || 29/03/12: 11u00 -> 13u30 || 1 W || 2.5 || Refactoring the scheduling algorithm || Dieter moest slapen en Stefaan ging naar de oefenzitting van CN ||
 || 29/03/12: 15u00 -> 16u00 || 3 DSW || 1 || Making the last design decision: use task states instead of hierarchy of task || ||
 || 29/03/12: 16u00 -> 19u00 || 2 SW || 3 || Implementing the taskstates and fixing all compile errors so that we will now be able to code on our own if needed. || Dieter had labo CN en moest daarna blijkbaar stomme dingen met Shana doen en haar lasagna gaan opeten. ||
-
+|| 30/03/12: 12u00 -> 13u00 || 2 SW || 1 || Finishing the implemention the taskstates. || Dieter had oefenzitting CN. ||
+|| 30/03/12: 13u00 -> 14u30 || 2 DSW || 1.5 || Considering the design around initialising and de-initialising Tasks for Treatments that have yet unapproved diagnoses. || ||
+|| 30/03/12: 20u00 -> 23u30 || 2 SW || 3.5 || Discussing the design options for implementing the campus preferences of doctors and the impact on scheduling, reimplementing Diagnose and PatientFile the way we decided to with Dieter. || ||
 
 = Iteratie 2 =
 || *Timepoint* || *Members* || *Workload* || *Purpose* || *Comments* ||
