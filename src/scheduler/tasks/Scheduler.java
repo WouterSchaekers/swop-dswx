@@ -10,6 +10,7 @@ import scheduler.StopTimePoint;
 import scheduler.TimeSlot;
 import scheduler.requirements.Requirement;
 import system.Location;
+import exceptions.AlreadyScheduledException;
 import exceptions.CanNeverBeScheduledException;
 import exceptions.InvalidSchedulingRequestException;
 
@@ -20,7 +21,7 @@ public class Scheduler
 	/**
 	 * Tries to schedule an unscheduled task.
 	 * 
-	 * @param unschedTask
+	 * @param task
 	 *            The task that has to be scheduled.
 	 * @return The scheduled task of the unscheduled task.
 	 * @throws InvalidSchedulingRequestException
@@ -29,13 +30,16 @@ public class Scheduler
 	 * @throws CanNeverBeScheduledException
 	 *             The task can never be scheduled with the current amount of
 	 *             resources available right now in the hospital.
+	 * @throws AlreadyScheduledException 
 	 */
-	public <T extends TaskDescription> void schedule(Task<T> unschedTask) throws InvalidSchedulingRequestException,
-			CanNeverBeScheduledException {
-		TaskData taskData = unschedTask.getData();
+	public <T extends TaskDescription> void schedule(Task<T> task) throws InvalidSchedulingRequestException,
+			CanNeverBeScheduledException, AlreadyScheduledException {
+		if(!task.isQueued())
+			throw new AlreadyScheduledException("This task has already been scheduled.");
+		TaskData taskData = task.getData();
 		Collection<Schedulable> resPool = taskData.getAllResources();
 		HospitalDate curDate = taskData.getTimeLord().getSystemTime();
-		T desc = unschedTask.getDescription();
+		T desc = task.getDescription();
 		Collection<Requirement> reqs = desc.getAllRequirements();
 		HospitalDate minDate = new HospitalDate(desc.getCreationTime().getTimeSinceStart() + desc.getExtraTime());
 		HospitalDate startDate = HospitalDate.getMaximum(curDate, minDate);
@@ -44,10 +48,11 @@ public class Scheduler
 		LinkedHashMap<LinkedList<Schedulable>, Integer> avRes = getAvRes(resPool, reqs, metReqs);
 		removeDoubleBookings(avRes);
 		checkIfEnoughRes(avRes);
-		TaskData data = schedule(avRes, produceUsedResList(avRes), getPosLocs(avRes, unschedTask.getData().getLocations()), desc,
+		TaskData data = schedule(avRes, produceUsedResList(avRes), getPosLocs(avRes, task.getData().getLocations()), desc,
 				startDate, stopDate, taskData);
+		changeTaskState(task, data);
 		TaskState newState = new ScheduledState(data);
-		unschedTask.setState(newState);
+		task.setState(newState);
 	}
 
 	/**
@@ -451,5 +456,10 @@ public class Scheduler
 			}
 		}
 		return clonedLinkedHashMap;
+	}
+	
+	private void changeTaskState(Task task, TaskData data){
+		TaskState newState = new ScheduledState(data);
+		task.setState(newState);
 	}
 }
