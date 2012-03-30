@@ -28,7 +28,7 @@ public class AppointmentDescription extends TaskDescriptionWithPatientFile
 		return requirements;
 	}
 
-	public Doctor getDocor() {
+	public Doctor getDoctor() {
 		return doctor;
 	}
 
