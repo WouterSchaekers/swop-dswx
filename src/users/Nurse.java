@@ -39,7 +39,7 @@ public class Nurse extends SchedulableUser implements NurseIN
 	public boolean canBeScheduledOn(HospitalDate startDate,
 			HospitalDate stopDate) throws InvalidSchedulingRequestException,
 			InvalidTimeSlotException {
-		return this._timeTable.hasFreeSlotAt(startDate, stopDate);
+		return this.timeTable_.hasFreeSlotAt(startDate, stopDate);
 	}
 
 	@Override
@@ -96,5 +96,10 @@ public class Nurse extends SchedulableUser implements NurseIN
 	@Override
 	public UserFactory getType() {
 		return new NurseFactory();
+	}
+	
+	@Override
+	public void scheduleAt(TimeSlot timeSlot, Location location) throws InvalidSchedulingRequestException {
+		this.timeTable_.addTimeSlot(timeSlot);
 	}
 }

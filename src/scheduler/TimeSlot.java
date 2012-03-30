@@ -8,8 +8,8 @@ import be.kuleuven.cs.som.annotate.Basic;
  */
 public class TimeSlot
 {
-	private StartTimePoint _startTimePoint;
-	private StopTimePoint _stopTimePoint;
+	private StartTimePoint startTimePoint_;
+	private StopTimePoint stopTimePoint_;
 
 	/**
 	 * Default Constructor. Will initialise both time points.
@@ -23,48 +23,56 @@ public class TimeSlot
 		if(!isValid(t1, t2)){
 			throw new IllegalArgumentException("Invalid TimeSlot.");
 		}
-		this._startTimePoint = new StartTimePoint(t1.getHospitalDate());
-		this._stopTimePoint = new StopTimePoint(t2.getHospitalDate());
+		this.startTimePoint_ = new StartTimePoint(t1.getHospitalDate());
+		this.stopTimePoint_ = new StopTimePoint(t2.getHospitalDate());
 	}
 
 	@Basic
 	public StartTimePoint getStartPoint() {
-		return _startTimePoint;
+		return startTimePoint_;
+	}
+	
+	public HospitalDate getStartDate(){
+		return this.startTimePoint_.getHospitalDate();
 	}
 
 	@Basic
 	public void setStartPoint(TimePoint t1) {
-		this._startTimePoint = new StartTimePoint(t1.getHospitalDate());
+		this.startTimePoint_ = new StartTimePoint(t1.getHospitalDate());
 	}
 
 	@Basic
 	public StopTimePoint getStopPoint() {
-		return _stopTimePoint;
+		return stopTimePoint_;
+	}
+	
+	public HospitalDate getStopDate(){
+		return this.stopTimePoint_.getHospitalDate();
 	}
 
 	@Basic
 	public void setStopPoint(TimePoint t2) {
-		this._stopTimePoint = new StopTimePoint(t2.getHospitalDate());
+		this.stopTimePoint_ = new StopTimePoint(t2.getHospitalDate());
 	}
 
 	@Override
 	public String toString() {
-		return "[ " + _startTimePoint.toString() + ","
-				+ _stopTimePoint.toString() + " ]";
+		return "[ " + startTimePoint_.toString() + ","
+				+ stopTimePoint_.toString() + " ]";
 	}
 
 	/**
 	 * @return The length of the timespan that this timeslot covers.
 	 */
 	public long getLength() {
-		return this._stopTimePoint.getTime() - this._startTimePoint.getTime();
+		return this.stopTimePoint_.getTime() - this.startTimePoint_.getTime();
 	}
 	
 	public boolean contains(HospitalDate hospitalDate){
-		if(this._startTimePoint.getHospitalDate().after(hospitalDate)){
+		if(this.startTimePoint_.getHospitalDate().after(hospitalDate)){
 			return false;
 		}
-		if(hospitalDate.after(this._startTimePoint.getHospitalDate())){
+		if(hospitalDate.after(this.startTimePoint_.getHospitalDate())){
 			return false;
 		}
 		return true;
@@ -81,13 +89,13 @@ public class TimeSlot
 	public boolean overlaps(TimeSlot timeslot) {
 		TimePoint t1 = timeslot.getStartPoint();
 		TimePoint t2 = timeslot.getStopPoint();
-		return t1.isBetweenExcluding(this._startTimePoint, this._stopTimePoint)
-				|| t2.isBetweenExcluding(this._startTimePoint, this._stopTimePoint) || t1.equals(this._startTimePoint)
-				|| t2.equals(this._stopTimePoint);
+		return t1.isBetweenExcluding(this.startTimePoint_, this.stopTimePoint_)
+				|| t2.isBetweenExcluding(this.startTimePoint_, this.stopTimePoint_) || t1.equals(this.startTimePoint_)
+				|| t2.equals(this.stopTimePoint_);
 	}
 
 	public boolean isToBack(HospitalDate hospitalDate) {
-		return this._stopTimePoint.getTime() == hospitalDate.getTimeSinceStart();
+		return this.stopTimePoint_.getTime() == hospitalDate.getTimeSinceStart();
 	}
 
 	/**
@@ -116,8 +124,8 @@ public class TimeSlot
 		if (!(o instanceof TimeSlot))
 			return false;
 		TimeSlot that = (TimeSlot) o;
-		return this._startTimePoint.equals(that._startTimePoint)
-				&& this._stopTimePoint.equals(that._stopTimePoint);
+		return this.startTimePoint_.equals(that.startTimePoint_)
+				&& this.stopTimePoint_.equals(that.stopTimePoint_);
 	}
 
 	public boolean before(TimeSlot timeSlot) {

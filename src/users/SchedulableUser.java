@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.LinkedList;
 import scheduler.HospitalDate;
 import scheduler.Schedulable;
-import scheduler.TimeSlot;
 import scheduler.TimeTable;
 import scheduler.tasks.Task;
 import system.Location;
@@ -15,33 +14,28 @@ import exceptions.InvalidTimeSlotException;
 public abstract class SchedulableUser extends User implements Schedulable
 {
 	protected Location location_;
-	protected TimeTable _timeTable = new TimeTable();
-	protected Collection<Task<?>> _scheduledTasks;
+	protected TimeTable timeTable_;
+	protected Collection<Task<?>> scheduledTasks_;
 
-	SchedulableUser(String name, Location preference) throws InvalidNameException {
+	protected SchedulableUser(String name, Location preference) throws InvalidNameException {
 		super(name);
-		this._timeTable = new TimeTable();
-		this._scheduledTasks = new LinkedList<Task<?>>();
+		this.timeTable_ = new TimeTable();
+		this.scheduledTasks_ = new LinkedList<Task<?>>();
 	}
 
 	@Override
 	public boolean canBeScheduledOn(HospitalDate startDate, HospitalDate stopDate)
 			throws InvalidSchedulingRequestException, InvalidTimeSlotException {
 		;
-		return _timeTable.hasFreeSlotAt(startDate, stopDate);
-	}
-
-	@Override
-	public void scheduleAt(TimeSlot timeSlot) throws InvalidSchedulingRequestException {
-		this._timeTable.addTimeSlot(timeSlot);
+		return timeTable_.hasFreeSlotAt(startDate, stopDate);
 	}
 
 	public TimeTable getTimeTable() throws InvalidTimeSlotException {
-		return new TimeTable(this._timeTable.getTimeSlots());
+		return new TimeTable(this.timeTable_.getTimeSlots());
 	}
 
 	public void updateTimeTable(HospitalDate newDate) {
-		this._timeTable.updateTimeTable(newDate);
+		this.timeTable_.updateTimeTable(newDate);
 	}
 
 	public void setLocation(Location location) {

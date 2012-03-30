@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.LinkedList;
 import scheduler.HospitalDate;
 import scheduler.Schedulable;
-import scheduler.TimeLord;
 import scheduler.TimeSlot;
 import system.Hospital;
 import system.Location;
