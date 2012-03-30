@@ -16,12 +16,13 @@ import exceptions.InvalidSchedulingRequestException;
 
 public class Scheduler
 {
-	public Scheduler() {}
+	public Scheduler() {
+	}
 
 	/**
 	 * Tries to schedule an unscheduled task.
 	 * 
-	 * @param task
+	 * @param unscheduledTask
 	 *            The task that has to be scheduled.
 	 * @return The scheduled task of the unscheduled task.
 	 * @throws InvalidSchedulingRequestException
@@ -30,16 +31,16 @@ public class Scheduler
 	 * @throws CanNeverBeScheduledException
 	 *             The task can never be scheduled with the current amount of
 	 *             resources available right now in the hospital.
-	 * @throws AlreadyScheduledException 
+	 * @throws AlreadyScheduledException
 	 */
-	public <T extends TaskDescription> void schedule(Task<T> task) throws InvalidSchedulingRequestException,
+	public <T extends TaskDescription> void schedule(Task<T> unscheduledTask) throws InvalidSchedulingRequestException,
 			CanNeverBeScheduledException, AlreadyScheduledException {
-		if(!task.isQueued())
+		if (!unscheduledTask.isQueued())
 			throw new AlreadyScheduledException("This task has already been scheduled.");
-		TaskData taskData = task.getData();
+		TaskData taskData = unscheduledTask.getData();
 		Collection<Schedulable> resPool = taskData.getAllResources();
-		HospitalDate curDate = taskData.getTimeLord().getSystemTime();
-		T desc = task.getDescription();
+		HospitalDate curDate = taskData.getSystemTime();
+		T desc = unscheduledTask.getDescription();
 		Collection<Requirement> reqs = desc.getAllRequirements();
 		HospitalDate minDate = new HospitalDate(desc.getCreationTime().getTimeSinceStart() + desc.getExtraTime());
 		HospitalDate startDate = HospitalDate.getMaximum(curDate, minDate);
@@ -48,9 +49,9 @@ public class Scheduler
 		LinkedHashMap<LinkedList<Schedulable>, Integer> avRes = getAvRes(resPool, reqs, metReqs);
 		removeDoubleBookings(avRes);
 		checkIfEnoughRes(avRes);
-		TaskData data = schedule(avRes, produceUsedResList(avRes), getPosLocs(avRes, task.getData().getLocations()), desc,
-				startDate, stopDate, taskData);
-		task.nextState(data);
+		TaskData data = schedule(avRes, produceUsedResList(avRes),
+				getPosLocs(avRes, unscheduledTask.getData().getLocations()), desc, startDate, stopDate, taskData);
+		unscheduledTask.nextState(data);
 	}
 
 	/**
@@ -83,7 +84,7 @@ public class Scheduler
 		for (Location posLoc : posLocs) {
 			TaskData posSchedTask;
 			try {
-				//TODO: toodoo voor wouter.
+				// TODO: toodoo voor wouter.
 				posSchedTask = schedule(avRes, usedResList, posLoc, desc, startDate, stopDate, taskData);
 			} catch (InvalidSchedulingRequestException e) {
 				posSchedTask = null;
@@ -121,13 +122,12 @@ public class Scheduler
 	 *             location.
 	 */
 	private <T extends TaskDescription> TaskData schedule(LinkedHashMap<LinkedList<Schedulable>, Integer> avRes,
-			LinkedHashMap<LinkedList<Schedulable>, LinkedList<Integer>> usedResList, Location loc,
-			T desc, HospitalDate startDate, HospitalDate stopDate, TaskData taskData)
-			throws InvalidSchedulingRequestException {
+			LinkedHashMap<LinkedList<Schedulable>, LinkedList<Integer>> usedResList, Location loc, T desc,
+			HospitalDate startDate, HospitalDate stopDate, TaskData taskData) throws InvalidSchedulingRequestException {
 		LinkedList<Schedulable> curResPool = null;
 		LinkedList<Schedulable> bestOptToFind = findListToSchedule(avRes, usedResList, curResPool);
 		if (bestOptToFind == null)
-			return produceTaskData(avRes, usedResList, startDate, loc,taskData, desc.getDuration());
+			return produceTaskData(avRes, usedResList, startDate, loc, taskData, desc.getDuration());
 		int bestOption = findBestOpt(bestOptToFind, loc, startDate, stopDate, desc.getDuration());
 		TimeSlot bestSlot = null;
 		try {
@@ -143,7 +143,7 @@ public class Scheduler
 					newStartDate, newStopDate, taskData);
 		} catch (InvalidSchedulingRequestException e) {
 			newStartDate = new HospitalDate(newStartDate.getTimeSinceStart() + 1);
-			return schedule(avRes, usedResList, loc, desc, newStartDate, newStopDate,taskData);
+			return schedule(avRes, usedResList, loc, desc, newStartDate, newStopDate, taskData);
 		}
 	}
 
