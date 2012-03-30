@@ -5,11 +5,12 @@ import java.util.Observable;
 import scheduler.Schedulable;
 import system.Hospital;
 import system.Location;
+import controllers.interfaces.TaskIN;
 
 /**
  * Represents a task that can be scheduled, completed or queued.
  */
-public final class Task<T extends TaskDescription> extends Observable
+public final class Task<T extends TaskDescription> extends Observable implements TaskIN
 {
 	private TaskState myState_;
 
@@ -37,6 +38,7 @@ public final class Task<T extends TaskDescription> extends Observable
 		return this.myState_.getData();
 	}
 
+	
 	@SuppressWarnings("unchecked")
 	public T getDescription() {
 		return (T) myState_.getData().getDescription();

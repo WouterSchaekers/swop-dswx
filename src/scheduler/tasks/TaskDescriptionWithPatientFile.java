@@ -2,6 +2,7 @@ package scheduler.tasks;
 
 import patient.PatientFile;
 import scheduler.HospitalDate;
+import controllers.interfaces.PatientFileIN;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidHospitalDateException;
 
@@ -13,6 +14,10 @@ public abstract class TaskDescriptionWithPatientFile extends TaskDescription
 			HospitalDate creationDate) throws InvalidAmountException, InvalidHospitalDateException {
 		super(duration, extraTime, creationDate);
 		this.patientFile_ = patientFile;
+	}
+
+	public PatientFileIN getPatientFile() {
+		return patientFile_;
 	}
 
 }

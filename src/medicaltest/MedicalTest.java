@@ -8,7 +8,7 @@ import controllers.interfaces.MedicalTestIN;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
 import exceptions.InvalidHospitalDateException;
-import exceptions.InvalidResultException;
+import exceptions.InvalidReportException;
 import exceptions.InvalidTimeSlotException;
 
 /**
@@ -16,7 +16,7 @@ import exceptions.InvalidTimeSlotException;
  */
 public abstract class MedicalTest extends TaskDescriptionWithPatientFile implements MedicalTestIN
 {
-	private Result result;
+	protected Result result;
 
 	/**
 	 * Default constructor.
@@ -35,17 +35,16 @@ public abstract class MedicalTest extends TaskDescriptionWithPatientFile impleme
 		super(patientFile_, duration_, 0, creationTime_);
 	}
 
-	/**
-	 * @return True if r is a valid Result.
-	 */
-	private boolean isValidResult(Result r) {
-		return r != null;
+	public boolean needsResult() {
+		return result == null;
 	}
 
-	public void setResult(Result r) throws InvalidResultException {
-		if(! this.isValidResult(r))
-			throw new InvalidResultException("Invalid result for medical test!");
-		this.result = r;
+	public void setResult(String result) {
+		try {
+			this.result = new Result(result);
+		} catch (InvalidReportException e) {
+			throw new Error(e);
+		}
 	}
 	
 	public Result getResult(){

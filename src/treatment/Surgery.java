@@ -83,5 +83,5 @@ public class Surgery extends Treatment implements SurgeryIN
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 }

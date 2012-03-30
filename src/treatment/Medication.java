@@ -114,5 +114,4 @@ public class Medication extends Treatment implements MedicationIN
 		// TODO Auto-generated method stub
 		
 	}
-
 }

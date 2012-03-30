@@ -25,17 +25,15 @@ import exceptions.InvalidTreatmentException;
 /**
  * Use this controller to prescribe a treatment for a patient's diagnose.
  */
-public class PrescribeTreatmentController extends
-		NeedsLoginAndPatientFileController
+public class PrescribeTreatmentController extends NeedsLoginAndPatientFileController
 {
 
 	/**
 	 * Default constructor.
 	 */
-	public PrescribeTreatmentController(LoginController lc,
-			ConsultPatientFileController pfoc)
-			throws InvalidLoginControllerException, InvalidHospitalException,
-			InvalidPatientFileOpenController, InvalidPatientFileException {
+	public PrescribeTreatmentController(LoginController lc, ConsultPatientFileController pfoc)
+			throws InvalidLoginControllerException, InvalidHospitalException, InvalidPatientFileOpenController,
+			InvalidPatientFileException {
 		super(lc, pfoc);
 		if (pfoc.getPatientFile().isDischarged())
 			throw new InvalidPatientFileException(
@@ -46,26 +44,16 @@ public class PrescribeTreatmentController extends
 	 * Adds a treatment to the selected Diagnose.
 	 */
 	@SuppressWarnings("unchecked")
-	public void addTreatment(DiagnoseIN selected,
-			TreatmentFactory treatmentFactory) throws InvalidDiagnoseException,
-			InvalidTreatmentException, FactoryInstantiationException,
-			InvalidAmountException, InvalidHospitalDateException,
-			InvalidSchedulingRequestException, CanNeverBeScheduledException {
+	public void addTreatment(DiagnoseIN selected, TreatmentFactory treatmentFactory) throws InvalidDiagnoseException,
+			InvalidTreatmentException, FactoryInstantiationException, InvalidAmountException,
+			InvalidHospitalDateException, InvalidSchedulingRequestException, CanNeverBeScheduledException {
 		if (!getAllPossibleDiagnosis().contains(selected))
-			throw new InvalidDiagnoseException(
-					"Trying to add a treatment to a diagnose that this doctor has not made!");
+			throw new InvalidDiagnoseException("Trying to add a treatment to a diagnose that this doctor has not made!");
 		if (!(selected instanceof Diagnose))
-			throw new IllegalArgumentException(
-					"The selected diagnose is invalid!");
-		// TODO: zelfde als bij patientfile en medical test... hoe kan een
-		// diagnose zijn treatmenttasks bijhouden?
-		// De implementatie is zeker voor kritiek vatbaar. 't Is dan ook maar
-		// een concept he ;)
-		Treatment treatment = ((Diagnose) selected)
-				.createTreatment(treatmentFactory);
-		((Diagnose) selected)
-				.addTreatmentTask((Task<? extends Treatment>) hospital
-						.getTaskManager().add(treatment));
+			throw new IllegalArgumentException("The selected diagnose is invalid!");
+
+		Treatment treatment = ((Diagnose) selected).createTreatment(treatmentFactory);
+		((Diagnose) selected).addTreatment((Task<? extends Treatment>) hospital.getTaskManager().add(treatment));
 	}
 
 	/**
@@ -73,8 +61,7 @@ public class PrescribeTreatmentController extends
 	 *         to.
 	 */
 	public Collection<DiagnoseIN> getAllPossibleDiagnosis() {
-		return ((PatientFile) cpfc.getPatientFile())
-				.getDiagnosisFrom((Doctor) lc.getUser());
+		return ((PatientFile) cpfc.getPatientFile()).getDiagnosisFrom((Doctor) lc.getUser());
 	}
 
 	/**

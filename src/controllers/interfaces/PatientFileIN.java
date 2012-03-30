@@ -8,9 +8,7 @@ public interface PatientFileIN
 
 	public Collection<DiagnoseIN> getAllDiagnosis();
 
-	public Collection<TreatmentIN> getAllTreatments();
-
-	public Collection<MedicalTestIN> getallMedicalTests();
+	public Collection<TaskIN> getallMedicalTests();
 
 	public String getName();
 

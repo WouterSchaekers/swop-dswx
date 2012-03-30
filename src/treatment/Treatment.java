@@ -9,32 +9,39 @@ import scheduler.tasks.TaskDescriptionWithPatientFile;
 import controllers.interfaces.TreatmentIN;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidHospitalDateException;
-import exceptions.InvalidResultException;
+import exceptions.InvalidReportException;
 
 /**
  * This class is the superclass of all treatments.
  */
 public abstract class Treatment extends TaskDescriptionWithPatientFile implements TreatmentIN
 {
-	protected Result result_;
 
 	public Treatment(PatientFile patientFile, long duration, HospitalDate creationTime) throws InvalidAmountException, InvalidHospitalDateException {
 		super(patientFile, duration, 0, creationTime);
 	}
-
-	public void setResult(Result r) throws InvalidResultException {
-		if(! this.isValidResult(result_))
-			throw new InvalidResultException("Invalid result given to Treatment");
-		this.result_ = r;
-	}
-	
-	/**
-	 * @return True if r is a valid Result.
-	 */
-	private boolean isValidResult(Result r) {
-		return r != null;
-	}
 	
 	@Override
 	public abstract Collection<Requirement> getAllRequirements();
+	
+
+	@Override
+	public boolean needsResult() {
+		return result == null;
+	}
+
+	@Override
+	public void setResult(String result) {
+		try {
+			this.result = new Result(result);
+		} catch (InvalidReportException e) {
+			throw new Error(e);
+		}		
+	}
+
+	@Override
+	public Result getResult() {
+		return result;
+	}
+
 }
