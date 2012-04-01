@@ -2,7 +2,7 @@ package patient;
 
 import scheduler.HospitalDate;
 import scheduler.LocationTimeSlot;
-import scheduler.LocationTimeTable;
+import scheduler.LocationTimeTableBackAndForth;
 import scheduler.Schedulable;
 import scheduler.TimeSlot;
 import scheduler.TimeTable;
@@ -22,7 +22,7 @@ class Patient implements Schedulable
 {
 	private String name;
 	private TimeTable timeTable_;
-	private LocationTimeTable locationTimeTable_;
+	private LocationTimeTableBackAndForth locationTimeTable_;
 	private Location location_;
 	
 	Patient(String name) throws InvalidNameException {

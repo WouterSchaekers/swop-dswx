@@ -67,16 +67,6 @@ public class TimeSlot
 	public long getLength() {
 		return this.stopTimePoint_.getTime() - this.startTimePoint_.getTime();
 	}
-	
-	public boolean contains(HospitalDate hospitalDate){
-		if(this.startTimePoint_.getHospitalDate().after(hospitalDate)){
-			return false;
-		}
-		if(hospitalDate.after(this.startTimePoint_.getHospitalDate())){
-			return false;
-		}
-		return true;
-	}
 
 	/**
 	 * Checks wether this timeslot overlaps the given timeslot. Back-to-back
