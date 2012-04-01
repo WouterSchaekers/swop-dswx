@@ -2,7 +2,7 @@ package users;
 
 import scheduler.HospitalDate;
 import scheduler.LocationTimeSlot;
-import scheduler.LocationTimeTable;
+import scheduler.LocationTimeTablePreference;
 import scheduler.TimeSlot;
 import system.Location;
 import controllers.interfaces.DoctorIN;
@@ -13,11 +13,10 @@ import exceptions.InvalidTimeSlotException;
 public class Doctor extends SchedulableUser implements DoctorIN
 {
 	private PreferenceState prefState_;
-	private LocationTimeTable locationTimeTable_;
+	private LocationTimeTablePreference locationTimeTable_;
 
 	Doctor(String name, Location preference) throws InvalidNameException {
 		super(name, preference);
-		this.locationTimeTable_ = new LocationTimeTable();
 	}
 
 	@Override
@@ -53,12 +52,16 @@ public class Doctor extends SchedulableUser implements DoctorIN
 	public UserFactory getType() {
 		return new DocotorFactory();
 	}
+	
+	void nextState(PreferenceState preferenceState){
+		this.prefState_ = preferenceState;
+	}
 
 	@Override
 	public void scheduleAt(TimeSlot timeSlot, Location location) throws InvalidSchedulingRequestException {
 		this.timeTable_.addTimeSlot(timeSlot);
 		// Dit mag en kan zo niet!!! Er moet een opsplitsing gemaakt worden
 		// tussen de states! -> Oplossing = locationTimeTable in State steken.
-		this.locationTimeTable_.addLocationTimeSlot(new LocationTimeSlot(timeSlot, location));
+		//this.locationTimeTable_.addLocationTimeSlot(new LocationTimeSlot(timeSlot, location));
 	}
 }
