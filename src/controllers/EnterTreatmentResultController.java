@@ -1,13 +1,13 @@
 package controllers;
 
 import java.util.Collection;
-import result.Result;
-import treatment.Treatment;
 import users.Nurse;
 import users.User;
+import controllers.interfaces.TaskIN;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileOpenController;
+import exceptions.InvalidResultException;
 
 /**
  * Use this controller to enter the result of a treatment.
@@ -16,18 +16,29 @@ public class EnterTreatmentResultController extends NeedsLoginAndPatientFileCont
 {
 
 	public EnterTreatmentResultController(LoginController lc, ConsultPatientFileController pfoc)
-			throws InvalidLoginControllerException, InvalidHospitalException,
-			InvalidPatientFileOpenController {
+			throws InvalidLoginControllerException, InvalidHospitalException, InvalidPatientFileOpenController {
 		super(lc, pfoc);
 	}
 
-	public Collection<Treatment> getAllTreatments() {
-		// TODO: implement
-		return null;
+	/**
+	 * 
+	 * @return All finished Treatments that do not have results yet.
+	 * @throws InvalidLoginControllerException
+	 * @throws InvalidPatientFileOpenController
+	 */
+	public Collection<TaskIN> getTreatmentsThatNeedResults() {
+		return hospital.getTaskManager().getTreatmentsThatNeedResults();
 	}
 
-	public void addResultTo(Result r, Treatment t) {
-		// TODO: implement
+	/**
+	 * Adds the given report to the selected Task.
+	 * 
+	 * @throws InvalidResultException
+	 */
+	public void addResultTo(TaskIN selected, String report) throws InvalidResultException {
+		if (!(selected.isFinished() || selected.getDescription().needsResult()))
+			throw new InvalidResultException("Selected task does not need a result!");
+		selected.getDescription().setResult(report);
 	}
 
 	@Override

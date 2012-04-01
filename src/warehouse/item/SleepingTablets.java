@@ -18,4 +18,9 @@ public class SleepingTablets extends WarehouseItem
 		return new SleepingTabletsType();
 	}
 
+	@Override
+	public boolean equals(WarehouseItemType warehouseItemType) {
+		return warehouseItemType instanceof SleepingTabletsType;
+	}
+
 }
