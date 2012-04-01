@@ -11,29 +11,29 @@ import exceptions.InvalidTimeSlotException;
  */
 public interface Schedulable extends Requirable
 {
-//TODO: zeg hier dingen over in het verslag, scheduleAt mag niet publiek zijn
-	//maar java doet moeilijk! interfaces laten dit niet toe
-	public boolean canBeScheduledOn(HospitalDate startDate,
-			HospitalDate stopDate) throws InvalidSchedulingRequestException,
-			InvalidTimeSlotException;
+	// TODO: zeg hier dingen over in het verslag, scheduleAt mag niet publiek
+	// zijn
+	// maar java doet moeilijk! interfaces laten dit niet toe
+	public boolean canBeScheduledOn(HospitalDate startDate, HospitalDate stopDate)
+			throws InvalidSchedulingRequestException, InvalidTimeSlotException;
 
 	public TimeTable getTimeTable() throws InvalidTimeSlotException;
-	
-	
-	void scheduleAt(TimeSlot timeSlot, Location location)
-			throws InvalidSchedulingRequestException;
 
-	public TimeSlot getFirstFreeSlotBetween(Location location, HospitalDate startDate,
-			HospitalDate stopDate, long duration)
-			throws InvalidSchedulingRequestException, InvalidTimeSlotException,
+	void scheduleAt(TimeSlot timeSlot, Location location) throws InvalidSchedulingRequestException;
+
+	public TimeSlot getFirstFreeSlotBetween(Location location, HospitalDate startDate, HospitalDate stopDate,
+			long duration) throws InvalidSchedulingRequestException, InvalidTimeSlotException,
 			InvalidHospitalDateArgument;
+
 	/**
-	 * Sets the start time of the timetable to newdate, since everything before that point has already passed.
+	 * Sets the start time of the timetable to newdate, since everything before
+	 * that point has already passed.
+	 * 
 	 * @param newDate
 	 */
 	public void updateTimeTable(HospitalDate newDate);
-	
+
 	public boolean canTravel();
-	
+
 	public Location getLocation();
 }

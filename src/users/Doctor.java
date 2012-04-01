@@ -63,5 +63,6 @@ public class Doctor extends SchedulableUser implements DoctorIN
 		// Dit mag en kan zo niet!!! Er moet een opsplitsing gemaakt worden
 		// tussen de states! -> Oplossing = locationTimeTable in State steken.
 		//this.locationTimeTable_.addLocationTimeSlot(new LocationTimeSlot(timeSlot, location));
+		//Dit is ondertussen al kindof gefixed.
 	}
 }

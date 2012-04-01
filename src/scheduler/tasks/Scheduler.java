@@ -24,7 +24,6 @@ public class Scheduler
 	 * 
 	 * @param unscheduledTask
 	 *            The task that has to be scheduled.
-	 * @return The scheduled task of the unscheduled task.
 	 * @throws InvalidSchedulingRequestException
 	 *             The task cannot be scheduled, because there are not enough
 	 *             resources available at this specific moment.
@@ -32,6 +31,7 @@ public class Scheduler
 	 *             The task can never be scheduled with the current amount of
 	 *             resources available right now in the hospital.
 	 * @throws AlreadyScheduledException
+	 *             The taks has already been scheduled.
 	 */
 	public <T extends TaskDescription> void schedule(Task<T> unscheduledTask) throws InvalidSchedulingRequestException,
 			CanNeverBeScheduledException, AlreadyScheduledException {
@@ -46,7 +46,8 @@ public class Scheduler
 		HospitalDate startDate = HospitalDate.getMaximum(curDate, minDate);
 		HospitalDate stopDate = new HospitalDate(HospitalDate.END_OF_TIME);
 		Collection<Requirement> metReqs = getMetReqs(reqs, startDate);
-		LinkedHashMap<LinkedList<Schedulable>, Integer> avRes = getAvRes(resPool, reqs, metReqs);
+		Collection<Requirement> unmetReqs = getUnmetRequirements(reqs, metReqs);
+		LinkedHashMap<LinkedList<Schedulable>, Integer> avRes = getAvRes(resPool, unmetReqs);
 		removeDoubleBookings(avRes);
 		LinkedList<Location> locs = getLocationsWithEnoughResources(avRes,
 				new LinkedList<Location>(taskData.getLocations()));
@@ -71,7 +72,7 @@ public class Scheduler
 	 *            The task has to be scheduled after this date.
 	 * @param stopDate
 	 *            The task has to be scheudeld before this date.
-	 * @return The scheduled task of the unscheduled task.
+	 * @return The taskdata with the information about the scheduled task.
 	 * @throws InvalidSchedulingRequestException
 	 *             The task cannot be scheduled, because there are not enough
 	 *             resources available at this specific moment.
@@ -112,8 +113,9 @@ public class Scheduler
 	 *            The task has to be scheduled after this date.
 	 * @param stopDate
 	 *            The task has to be scheudeld before this date.
-	 * @return The scheduled task of the given list of resources at a specific
-	 *         location, in a specific time interval.
+	 * @return The taskdata with the information about the scheduled task of the
+	 *         given list of resources at a specific location, in a specific
+	 *         time interval.
 	 * @throws InvalidSchedulingRequestException
 	 *             The task cannot be scheduled, because there are not enough
 	 *             resources available at this specific moment, at the specific
@@ -140,13 +142,15 @@ public class Scheduler
 			return schedule(avRes, cloneAndAddLinkedHashMapValues(usedResList, curResPool, bestOption), loc, desc,
 					newStartDate, newStopDate, taskData);
 		} catch (InvalidSchedulingRequestException e) {
-			newStartDate = new HospitalDate(newStartDate.getTimeSinceStart() + 1);
+			newStartDate = getNextStartDate(bestOptToFind, loc, newStartDate);
+			if (newStartDate.before(newStopDate))
+				throw new InvalidSchedulingRequestException("The task cannot be scheudled at this location.");
 			return schedule(avRes, usedResList, loc, desc, newStartDate, newStopDate, taskData);
 		}
 	}
 
 	/**
-	 * Returns the resources that are already met on a certain date.
+	 * Returns the requirements that are already met on a certain date.
 	 * 
 	 * @param reqs
 	 *            The requirements that need to be satisfied.
@@ -164,14 +168,23 @@ public class Scheduler
 		}
 		return isAlreadyMet;
 	}
-	
-	private LinkedList<Requirement> getUnmetRequirements(Collection<Requirement> reqs, Collection<Requirement> metReqs){
+
+	/**
+	 * Returns the requirements that are not yet met on a certain date.
+	 * 
+	 * @param reqs
+	 *            The requirements that need to be satisfied.
+	 * @param metReqs
+	 *            The requirements that are already satisfied.
+	 * @return A collection of requirements that were not yet satisfied.
+	 */
+	private LinkedList<Requirement> getUnmetRequirements(Collection<Requirement> reqs, Collection<Requirement> metReqs) {
 		LinkedList<Requirement> unmetRequirements = new LinkedList<Requirement>();
-		for(Requirement req : metReqs)
-			if(true){
-				
+		for (Requirement req : reqs)
+			if (!metReqs.contains(req)) {
+				unmetRequirements.add(req);
 			}
-		return null;
+		return unmetRequirements;
 	}
 
 	/**
@@ -180,10 +193,8 @@ public class Scheduler
 	 * 
 	 * @param resPool
 	 *            All the resources of the hospital.
-	 * @param reqs
-	 *            The requirements that have to be satisfied.
-	 * @param metReqs
-	 *            The requirements that are already satisfied.
+	 * @param notMetYet
+	 *            The requirements that are not satisfied yet.
 	 * @return A HashMap that maps all resources that can satisfy the
 	 *         requirements with the needed amount.
 	 * @throws InvalidSchedulingRequestException
@@ -193,12 +204,7 @@ public class Scheduler
 	 *             existing resources.
 	 */
 	private LinkedHashMap<LinkedList<Schedulable>, Integer> getAvRes(Collection<Schedulable> resPool,
-			Collection<Requirement> reqs, Collection<Requirement> metReqs) throws InvalidSchedulingRequestException,
-			CanNeverBeScheduledException {
-		Collection<Requirement> notMetYet = new LinkedList<Requirement>();
-		for (Requirement requirement : reqs)
-			if (!metReqs.contains(requirement))
-				notMetYet.add(requirement);
+			Collection<Requirement> notMetYet) throws InvalidSchedulingRequestException, CanNeverBeScheduledException {
 		LinkedHashMap<LinkedList<Schedulable>, Integer> availableResources = new LinkedHashMap<LinkedList<Schedulable>, Integer>();
 		for (Requirement requirement : notMetYet) {
 			LinkedList<Schedulable> isMetBy = new LinkedList<Schedulable>();
@@ -405,6 +411,29 @@ public class Scheduler
 		return bestOption;
 	}
 
+	private HospitalDate getNextStartDate(LinkedList<Schedulable> scheds, Location loc, HospitalDate startDate) {
+		LinkedList<Schedulable> usableSchedulables = new LinkedList<Schedulable>();
+		for (Schedulable schedulable : scheds) {
+			if (schedulable.getLocation() == loc) {
+				usableSchedulables.add(schedulable);
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * Clones the incoming HashMap and adds the number of the chosen schedulable to the correct list.
+	 * 
+	 * @param chosRes
+	 * 			The resources that have been chosen.
+	 * @param resPool
+	 * 			The resourcespool where it's all about.
+	 * @param bestOpt
+	 * 			The index of the resource that has been chosen and need to be added to the HashMap.
+	 * @return
+	 * 			A clone of chosRes, with the extra bestOpt number in the value of resPool.
+	 */
 	private LinkedHashMap<LinkedList<Schedulable>, LinkedList<Integer>> cloneAndAddLinkedHashMapValues(
 			LinkedHashMap<LinkedList<Schedulable>, LinkedList<Integer>> chosRes, LinkedList<Schedulable> resPool,
 			int bestOpt) {
