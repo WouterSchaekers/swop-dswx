@@ -1,10 +1,13 @@
 package treatment;
 
 import java.util.Collection;
+import medicaltest.MedicalTest;
 import patient.PatientFile;
 import result.Result;
 import scheduler.HospitalDate;
 import scheduler.requirements.Requirement;
+import scheduler.tasks.Task;
+import scheduler.tasks.TaskDescription;
 import scheduler.tasks.TaskDescriptionWithPatientFile;
 import controllers.interfaces.TreatmentIN;
 import exceptions.InvalidAmountException;
@@ -43,5 +46,18 @@ public abstract class Treatment extends TaskDescriptionWithPatientFile implement
 	public Result getResult() {
 		return result;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public <T extends TaskDescription> void initTask(Task<T> task) {
+		this.patientFile_.addMedicalTest((Task<? extends MedicalTest>) task);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public <T extends TaskDescription> void deInit(Task<T> task) {
+		this.patientFile_.removeTest((Task<? extends MedicalTest>) task);
+	}
+
 
 }

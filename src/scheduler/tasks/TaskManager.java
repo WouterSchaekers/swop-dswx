@@ -7,6 +7,7 @@ import java.util.Observable;
 import java.util.Observer;
 import medicaltest.MedicalTest;
 import system.Hospital;
+import treatment.Treatment;
 import users.SchedulableUser;
 import controllers.interfaces.TaskIN;
 import exceptions.AlreadyScheduledException;
@@ -88,14 +89,6 @@ public class TaskManager implements Observer
 		return rv;
 	}
 
-	public <T extends TaskDescription> Collection<TaskIN> getMedicalTestsThatNeedResults() {
-		Collection<TaskIN> rv = new LinkedList<TaskIN>();
-		for (Task<?> t : tasks_)
-			if (t.getDescription() instanceof MedicalTest && t.isFinished() && t.getDescription().needsResult())
-				rv.add(t);
-		return rv;
-	}
-
 	@Override
 	public void update(Observable o, Object arg) {
 		Task<?> task;
@@ -118,5 +111,22 @@ public class TaskManager implements Observer
 
 		}
 
+	}
+
+	public <T extends TaskDescription> Collection<TaskIN> getMedicalTestsThatNeedResults() {
+		Collection<TaskIN> rv = new LinkedList<TaskIN>();
+		for (Task<?> t : tasks_)
+			if (t.getDescription() instanceof MedicalTest && t.isFinished() && t.getDescription().needsResult())
+				rv.add(t);
+		return rv;
+	}
+
+	
+	public Collection<TaskIN> getTreatmentsThatNeedResults() {
+		Collection<TaskIN> rv = new LinkedList<TaskIN>();
+		for (Task<?> t : tasks_)
+			if (t.getDescription() instanceof Treatment && t.isFinished() && t.getDescription().needsResult())
+				rv.add(t);
+		return rv;
 	}
 }

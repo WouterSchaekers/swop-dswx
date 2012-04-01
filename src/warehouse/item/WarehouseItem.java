@@ -33,8 +33,5 @@ public abstract class WarehouseItem
 	 */
 	public abstract WarehouseItemType getType();
 	
-	public boolean equals(WarehouseItemType warehouseItemType){
-		//TODO: fix
-		return false;
-	}
+	public abstract boolean equals(WarehouseItemType warehouseItemType);
 }

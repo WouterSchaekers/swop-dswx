@@ -8,8 +8,6 @@ import scheduler.HospitalDate;
 import scheduler.requirements.Requirement;
 import scheduler.requirements.RequirementType;
 import scheduler.requirements.SpecificRequirement;
-import scheduler.tasks.Task;
-import scheduler.tasks.TaskDescription;
 import users.Nurse;
 import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidAmountException;
@@ -57,17 +55,4 @@ public class BloodAnalysis extends MedicalTest
 		requirements.add(new RequirementType<Nurse>(Nurse.class, true, 1));
 		return requirements;
 	}
-
-	@Override
-	public <T extends TaskDescription> void initTask(Task<T> task) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public <T extends TaskDescription> void deInit(Task<T> task) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

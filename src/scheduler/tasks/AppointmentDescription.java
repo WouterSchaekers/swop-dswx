@@ -15,12 +15,13 @@ import exceptions.InvalidHospitalDateException;
 public class AppointmentDescription extends TaskDescriptionWithPatientFile
 {
 	private Doctor doctor;
-	
-	public AppointmentDescription(Doctor doctor, PatientFile patientFile, HospitalDate creationTime) throws InvalidAmountException, InvalidHospitalDateException {
-		super(patientFile, 30*HospitalDate.ONE_MINUTE, HospitalDate.ONE_HOUR, creationTime);
+
+	public AppointmentDescription(Doctor doctor, PatientFile patientFile, HospitalDate creationTime)
+			throws InvalidAmountException, InvalidHospitalDateException {
+		super(patientFile, 30 * HospitalDate.ONE_MINUTE, HospitalDate.ONE_HOUR, creationTime);
 		this.doctor = doctor;
 	}
-	
+
 	@Override
 	public Collection<Requirement> getAllRequirements() {
 		Collection<Requirement> requirements = new LinkedList<Requirement>();
@@ -33,17 +34,14 @@ public class AppointmentDescription extends TaskDescriptionWithPatientFile
 		return doctor;
 	}
 
-
 	@Override
 	public <T extends TaskDescription> void initTask(Task<T> task) {
-		// TODO Auto-generated method stub
-		
+		; // do nothing
 	}
 
 	@Override
 	public <T extends TaskDescription> void deInit(Task<T> task) {
-		// TODO Auto-generated method stub
-		
+		; // do nothing
 	}
 
 	@Override

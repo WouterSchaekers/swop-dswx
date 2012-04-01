@@ -212,6 +212,13 @@ public class PatientFile implements PatientFileIN
 	public boolean isDischarged() {
 		return this.discharged;
 	}
+	
+	/**
+	 * ONLY USE IN DOMAIN LAYER!!
+	 */
+	public void removeTest(Task<? extends MedicalTest> test) {
+		this.medicaltests.remove(test);
+	}
 
 	/**
 	 * @return True if d is a valid Diagnose.

@@ -15,4 +15,9 @@ public class Misc extends WarehouseItem
 		return new MiscType();
 	}
 
+	@Override
+	public boolean equals(WarehouseItemType warehouseItemType) {
+		return warehouseItemType instanceof MiscType;
+	}
+
 }

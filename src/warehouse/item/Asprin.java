@@ -18,4 +18,9 @@ public class Asprin extends WarehouseItem
 		return new AsprinType();
 	}
 
+	@Override
+	public boolean equals(WarehouseItemType warehouseItemType) {
+		return warehouseItemType instanceof AsprinType;
+	}
+
 }

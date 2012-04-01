@@ -18,4 +18,9 @@ public class Meal extends WarehouseItem
 		return date.after(this.expiryDate);
 	}
 
+	@Override
+	public boolean equals(WarehouseItemType warehouseItemType) {
+		return warehouseItemType instanceof MealType;
+	}
+
 }

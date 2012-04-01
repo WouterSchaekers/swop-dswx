@@ -15,4 +15,9 @@ public class ActivatedCarbon extends WarehouseItem
 		return new ActivatedCarbonType();
 	}
 
+	@Override
+	public boolean equals(WarehouseItemType warehouseItemType) {
+		return warehouseItemType instanceof ActivatedCarbonType;
+	}
+
 }

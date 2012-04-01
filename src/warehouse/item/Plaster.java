@@ -15,4 +15,9 @@ public class Plaster extends WarehouseItem
 		return new PlasterType();
 	}
 
+	@Override
+	public boolean equals(WarehouseItemType warehouseItemType) {
+		return warehouseItemType instanceof PlasterType;
+	}
+
 }

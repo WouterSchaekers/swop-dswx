@@ -1,8 +1,6 @@
 package users;
 
 import scheduler.HospitalDate;
-import scheduler.LocationTimeSlot;
-import scheduler.LocationTimeTablePreference;
 import scheduler.TimeSlot;
 import system.Location;
 import controllers.interfaces.DoctorIN;
@@ -13,7 +11,7 @@ import exceptions.InvalidTimeSlotException;
 public class Doctor extends SchedulableUser implements DoctorIN
 {
 	private PreferenceState prefState_;
-	private LocationTimeTablePreference locationTimeTable_;
+	//private LocationTimeTablePreference locationTimeTable_;
 
 	Doctor(String name, Location preference) throws InvalidNameException {
 		super(name, preference);

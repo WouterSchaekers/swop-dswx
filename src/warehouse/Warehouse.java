@@ -130,7 +130,6 @@ public class Warehouse extends Observable
 		return rv;
 	}
 
-	//TODO: gebruik capsules! ^-^
 	/**
 	 * <B>THIS METHOD IS TO BE USED BY EXPIREDITEMREMOVER ONLY! DO NOT USE
 	 * ANYWHERE ELSE <u><i>EVER!</i><u></B>

@@ -19,4 +19,9 @@ public class Vitamin extends WarehouseItem
 		return new VitaminType();
 	}
 
+	@Override
+	public boolean equals(WarehouseItemType warehouseItemType) {
+		return warehouseItemType instanceof VitaminType;
+	}
+
 }
