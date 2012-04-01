@@ -12,7 +12,9 @@ import scheduler.requirements.Requirement;
 import system.Location;
 import exceptions.AlreadyScheduledException;
 import exceptions.CanNeverBeScheduledException;
+import exceptions.InvalidHospitalDateArgument;
 import exceptions.InvalidSchedulingRequestException;
+import exceptions.InvalidTimeSlotException;
 
 public class Scheduler
 {
@@ -142,8 +144,8 @@ public class Scheduler
 			return schedule(avRes, cloneAndAddLinkedHashMapValues(usedResList, curResPool, bestOption), loc, desc,
 					newStartDate, newStopDate, taskData);
 		} catch (InvalidSchedulingRequestException e) {
-			newStartDate = getNextStartDate(bestOptToFind, loc, newStartDate);
-			if (newStartDate.before(newStopDate))
+			newStartDate = getNextStartDate(bestOptToFind, loc, newStartDate, newStopDate, desc.getDuration());
+			if (!newStartDate.before(newStopDate))
 				throw new InvalidSchedulingRequestException("The task cannot be scheudled at this location.");
 			return schedule(avRes, usedResList, loc, desc, newStartDate, newStopDate, taskData);
 		}
@@ -411,28 +413,63 @@ public class Scheduler
 		return bestOption;
 	}
 
-	private HospitalDate getNextStartDate(LinkedList<Schedulable> scheds, Location loc, HospitalDate startDate) {
+	/**
+	 * Amongst a list of schedulables, search the start date of the first free slot that is after the given startDate.
+	 * 
+	 * @param scheds
+	 * 			A list of schedulables that can be chosen from. 
+	 * @param loc
+	 * 			The location of the schedulable.
+	 * @param startDate
+	 * 			The start date.
+	 * @param stopDate
+	 * 			The stop date.
+	 * @param duration
+	 * 			The required duration.
+	 * @return
+	 * 			The first date of the next free slot.
+	 * @throws InvalidSchedulingRequestException
+	 * 			There a no more free slots left.
+	 */
+	private HospitalDate getNextStartDate(LinkedList<Schedulable> scheds, Location loc, HospitalDate startDate,
+			HospitalDate stopDate, long duration) throws InvalidSchedulingRequestException {
 		LinkedList<Schedulable> usableSchedulables = new LinkedList<Schedulable>();
 		for (Schedulable schedulable : scheds) {
 			if (schedulable.getLocation() == loc) {
 				usableSchedulables.add(schedulable);
 			}
 		}
-
-		return null;
+		HospitalDate nextStartDate = startDate;
+		for (Schedulable schedulable : usableSchedulables) {
+			try {
+				TimeSlot firstTimeSlot = schedulable.getFirstFreeSlotBetween(loc, startDate, stopDate, duration);
+				HospitalDate newStartDate = firstTimeSlot.getStartDate();
+				if(nextStartDate.equals(startDate) || newStartDate.before(nextStartDate))
+					nextStartDate = newStartDate;
+			} catch (InvalidTimeSlotException e) {
+				throw new Error("Scheduler, getNextStartDate");
+			} catch (InvalidHospitalDateArgument e) {
+				throw new Error("Scheduler, getNextStartDate");
+			}
+		}
+		if(nextStartDate == startDate)
+			throw new InvalidSchedulingRequestException("There are no more free slots available for these schedulables.");
+		return nextStartDate;
 	}
 
 	/**
-	 * Clones the incoming HashMap and adds the number of the chosen schedulable to the correct list.
+	 * Clones the incoming HashMap and adds the number of the chosen schedulable
+	 * to the correct list.
 	 * 
 	 * @param chosRes
-	 * 			The resources that have been chosen.
+	 *            The resources that have been chosen.
 	 * @param resPool
-	 * 			The resourcespool where it's all about.
+	 *            The resourcespool where it's all about.
 	 * @param bestOpt
-	 * 			The index of the resource that has been chosen and need to be added to the HashMap.
-	 * @return
-	 * 			A clone of chosRes, with the extra bestOpt number in the value of resPool.
+	 *            The index of the resource that has been chosen and need to be
+	 *            added to the HashMap.
+	 * @return A clone of chosRes, with the extra bestOpt number in the value of
+	 *         resPool.
 	 */
 	private LinkedHashMap<LinkedList<Schedulable>, LinkedList<Integer>> cloneAndAddLinkedHashMapValues(
 			LinkedHashMap<LinkedList<Schedulable>, LinkedList<Integer>> chosRes, LinkedList<Schedulable> resPool,
