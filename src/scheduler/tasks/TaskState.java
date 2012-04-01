@@ -21,4 +21,5 @@ public interface TaskState
 	boolean isValidNewData(TaskData data);
 
 	public TaskState nextState(TaskData data);
+
 }

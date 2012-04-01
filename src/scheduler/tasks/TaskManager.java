@@ -5,8 +5,10 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;
+import medicaltest.MedicalTest;
 import system.Hospital;
 import users.SchedulableUser;
+import controllers.interfaces.TaskIN;
 import exceptions.AlreadyScheduledException;
 import exceptions.CanNeverBeScheduledException;
 import exceptions.InvalidSchedulingRequestException;
@@ -36,10 +38,8 @@ public class TaskManager implements Observer
 	}
 
 	/**
-	 * Returns a scheduled task if the given taskdescription can be scheduled.
+	 * Returns a Task created based on the given description.
 	 * 
-	 * @param description
-	 * @return
 	 * @throws InvalidSchedulingRequestException
 	 *             The requirements for this description have not yet been met
 	 *             and the description has been stored.
@@ -47,8 +47,7 @@ public class TaskManager implements Observer
 	 *             The requirements for this description can never be met and
 	 *             the description is not stored.
 	 */
-	public <T extends TaskDescription> Task<?> add(T description) throws InvalidSchedulingRequestException,
-			CanNeverBeScheduledException {
+	public <T extends TaskDescription> Task<?> add(T description) throws CanNeverBeScheduledException {
 		Task<T> task = new Task<T>(description, hospital_);
 		task.init();
 		tasks_.add(task);
@@ -89,6 +88,14 @@ public class TaskManager implements Observer
 		return rv;
 	}
 
+	public <T extends TaskDescription> Collection<TaskIN> getMedicalTestsThatNeedResults() {
+		Collection<TaskIN> rv = new LinkedList<TaskIN>();
+		for (Task<?> t : tasks_)
+			if (t.getDescription() instanceof MedicalTest && t.isFinished() && t.getDescription().needsResult())
+				rv.add(t);
+		return rv;
+	}
+
 	@Override
 	public void update(Observable o, Object arg) {
 		Task<?> task;
@@ -112,5 +119,4 @@ public class TaskManager implements Observer
 		}
 
 	}
-
 }

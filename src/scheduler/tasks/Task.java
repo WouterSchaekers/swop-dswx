@@ -2,6 +2,7 @@ package scheduler.tasks;
 
 import java.util.Collection;
 import java.util.Observable;
+import scheduler.HospitalDate;
 import scheduler.Schedulable;
 import system.Hospital;
 import system.Location;
@@ -16,11 +17,12 @@ public final class Task<T extends TaskDescription> extends Observable implements
 
 	/**
 	 * Initialises a new Task and assigns it the queued-state.
+	 * <br><br>*** ONLY CREATE IN SCHEDULER-PACKAGE OR CONTROLLERLAYER ***
 	 * 
 	 * @param description
 	 * @param hospital
 	 */
-	Task(T description, Hospital hospital) {
+	public Task(T description, Hospital hospital) {
 		TaskData data = new TaskData(hospital);
 		data.setDescription(description);
 		myState_ = new QueuedState(data);
@@ -81,6 +83,10 @@ public final class Task<T extends TaskDescription> extends Observable implements
 
 	public void init() {
 		getDescription().initTask(this);
+	}
+
+	public HospitalDate getDate() {
+		return myState_.getData().getStartDate();
 	}
 
 }

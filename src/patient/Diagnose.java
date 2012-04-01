@@ -100,9 +100,14 @@ public class Diagnose extends Observable implements DiagnoseIN
 	/**
 	 * Use to create treatment descriptions.
 	 */
-	public Treatment createTreatment(TreatmentFactory treatFact) throws FactoryInstantiationException,
-			InvalidAmountException, InvalidHospitalDateException {
-		return treatFact.create();
+	public Treatment createTreatment(TreatmentFactory treatFact) throws FactoryInstantiationException {
+		try { 
+			return treatFact.create();
+		} catch (InvalidAmountException e) {
+			throw new FactoryInstantiationException(e.getMessage());
+		} catch (InvalidHospitalDateException e) {
+			throw new FactoryInstantiationException(e.getMessage());
+		}		
 	}
 
 	/**
