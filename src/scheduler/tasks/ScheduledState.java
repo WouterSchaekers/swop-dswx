@@ -54,5 +54,4 @@ class ScheduledState implements TaskState
 		return data != null && data.getDescription() != null
 				&& data.getDescription().equals(this.data_.getDescription());
 	}
-
 }

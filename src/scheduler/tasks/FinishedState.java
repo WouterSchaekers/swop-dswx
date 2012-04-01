@@ -55,5 +55,4 @@ class FinishedState implements TaskState
 				&& data.getDescription() != null && data.getTimeSlot() != null
 				&& data.getDescription().equals(this.data_.getDescription());
 	}
-
 }

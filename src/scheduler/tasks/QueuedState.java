@@ -9,7 +9,7 @@ class QueuedState implements TaskState
 	private TaskData data_;
 
 	public QueuedState(TaskData taskData) {
-		if (! isValidNewData(taskData))
+		if (!isValidNewData(taskData))
 			throw new IllegalArgumentException("Invalid data given to QueuedState!");
 		this.data_ = taskData;
 	}
@@ -54,5 +54,4 @@ class QueuedState implements TaskState
 		return data != null && data.getDescription() != null
 				&& data.getDescription().equals(this.data_.getDescription());
 	}
-
 }
