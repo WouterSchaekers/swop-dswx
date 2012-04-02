@@ -76,7 +76,6 @@ public class LocationTimeTable
 	}
 
 	public LinkedList<LocationTimeSlot> getSlots() {
-		// TODO Auto-generated method stub
-		return null;
+		return new LinkedList<LocationTimeSlot>(this.locationTimeSlots_);
 	}
 }

@@ -9,7 +9,6 @@ import scheduler.requirements.Requirement;
 import scheduler.requirements.RequirementType;
 import scheduler.requirements.SpecificRequirement;
 import users.Doctor;
-import exceptions.InvalidAmountException;
 import exceptions.InvalidHospitalDateException;
 
 public class AppointmentDescription extends TaskDescriptionWithPatientFile
@@ -17,7 +16,7 @@ public class AppointmentDescription extends TaskDescriptionWithPatientFile
 	private Doctor doctor;
 
 	public AppointmentDescription(Doctor doctor, PatientFile patientFile, HospitalDate creationTime)
-			throws InvalidAmountException, InvalidHospitalDateException {
+			throws InvalidHospitalDateException {
 		super(patientFile, 30 * HospitalDate.ONE_MINUTE, HospitalDate.ONE_HOUR, creationTime);
 		this.doctor = doctor;
 	}

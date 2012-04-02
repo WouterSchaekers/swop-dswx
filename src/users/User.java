@@ -4,7 +4,7 @@ import controllers.interfaces.UserIN;
 import exceptions.InvalidNameException;
 
 public abstract class User implements UserIN
-{
+{	
 	protected String name;
 
 	User(String name) throws InvalidNameException {

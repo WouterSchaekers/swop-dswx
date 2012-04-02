@@ -7,6 +7,11 @@ import java.util.Map;
 
 public class DomainObjectManager<T>
 {
+	/**
+    * Checks if the object that was passed out is the samne object as the objec passed out by the getfactories
+    * method
+    */
+
 	private Map<Integer,DomainObject<T>> _obs = new HashMap<Integer, DomainObject<T>>();
 	private int i = 0;
 	public Collection<DomainObject<T>> transform(Collection<T> domainObjects)

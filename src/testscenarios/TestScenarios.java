@@ -11,6 +11,7 @@ import controllers.CreateAppointmentController;
 import controllers.LoginController;
 import controllers.RegisterPatientController;
 import controllers.interfaces.DoctorIN;
+import exceptions.CanNeverBeScheduledException;
 import exceptions.DischargePatientException;
 import exceptions.FactoryInstantiationException;
 import exceptions.InvalidAmountException;
@@ -55,13 +56,14 @@ public class TestScenarios
 	 * Jonathan <br>
 	 * <br>
 	 * Scenario ends here.
+	 * @throws CanNeverBeScheduledException 
 	 */
 	@Test
 	public void scenario1() throws UserAlreadyExistsException,
 			InvalidNameException, InvalidTimeSlotException,
 			InvalidLoginControllerException, InvalidHospitalException,
 			InvalidLocationException, InvalidSerialException,
-			InvalidPatientFileOpenController {
+			InvalidPatientFileOpenController, CanNeverBeScheduledException {
 		fail("Controllerlayer not implemented fully yet (this is supposed to happen.");
 		System.out.print("Creating and intialising hospital... ");
 		Hospital h = new Hospital();
@@ -99,11 +101,11 @@ public class TestScenarios
 		lc = null;
 		System.out.println("Hospital admin logged out successfully!\n");
 
-		// TODO: adapt code so that it works with the Patient-class.
+		// adapt code so that it works with the Patient-class.
 		System.out.println("A new patient has arrived: Dieter Geboers.\n");
 
 		System.out.print("Logging in Jenny... ");
-		// TODO: list scheduled tasks in which Jenny is involved in that still
+		//  list scheduled tasks in which Jenny is involved in that still
 		// have to be executed by her.
 		lc = new LoginController(h);
 		lc.logIn(lc.getSpecificNurse("Jenny"));
@@ -112,7 +114,7 @@ public class TestScenarios
 		//RegisterPatientController rpc = 
 		new RegisterPatientController(lc);
 		
-		//TODO location
+		//location
 		//rpc.registerNewPatient("Dieter Geboers");
 		System.out
 				.println("Dieter Geboers's patient file was created and added to the hospital's database successfully!");
@@ -294,8 +296,7 @@ public class TestScenarios
 //		EnterMedicaltestResultController emrc = new EnterMedicaltestResultController(
 //				lc);
 //
-//		// TODO: do this properly
-//		// FYI: it's just a concept ^-'
+//
 //		LinkedList<MedicalTest> mtests = emrc.getAllMedicalTests();
 //		LinkedList<MedicalTest> unfinishedMtests = new LinkedList<MedicalTest>();
 //		System.out

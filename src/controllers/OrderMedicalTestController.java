@@ -36,7 +36,8 @@ public class OrderMedicalTestController extends NeedsLoginAndPatientFileControll
 	 */
 	public Collection<MedicalTestFactory> getMedicalTestFactories() throws InvalidLoginControllerException,
 			InvalidPatientFileException, InvalidPatientFileOpenController {
-		return new MedicalTests().factories();
+		new MedicalTests();
+		return MedicalTests.factories();
 	}
 
 	/**

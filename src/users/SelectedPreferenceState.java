@@ -55,4 +55,12 @@ class SelectedPreferenceState extends PreferenceState
 	public void scheduleTaskAt(LocationTimeSlot slot) {
 		tasks_.addLocationTimeSlot(slot);
 	}
+
+	@Override
+	public LinkedList<Location> getCurrentPreference() {
+		LinkedList<Location> rv = new LinkedList<Location>();
+		for(LocationTimeSlot tsl : pref_.getSlots())
+			rv.add(tsl.getLocation());
+		return rv;
+	}
 }

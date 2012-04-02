@@ -11,9 +11,6 @@ import exceptions.InvalidTimeSlotException;
  */
 public interface Schedulable extends Requirable
 {
-	// TODO: zeg hier dingen over in het verslag, scheduleAt mag niet publiek
-	// zijn
-	// maar java doet moeilijk! interfaces laten dit niet toe
 	public boolean canBeScheduledOn(HospitalDate startDate, HospitalDate stopDate)
 			throws InvalidSchedulingRequestException, InvalidTimeSlotException;
 

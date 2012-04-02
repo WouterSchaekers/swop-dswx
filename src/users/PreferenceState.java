@@ -11,5 +11,7 @@ abstract class PreferenceState
 
 	public abstract LinkedList<LocationTimeSlot> getSlots();
 	
-	public abstract void scheduleTaskAt(LocationTimeSlot slot); 
+	public abstract void scheduleTaskAt(LocationTimeSlot slot);
+
+	public abstract LinkedList<Location> getCurrentPreference();
 }

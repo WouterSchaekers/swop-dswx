@@ -38,7 +38,7 @@ public class AddHospitalEquipmentController extends NeedsLoginController
 	 * @return All the objects that can create a kinds of different machines.
 	 */
 	public Collection<MachineBuilder> getAllMachineBuilders() {
-		Iterator<Campus> campIterator = hospital.getAllCampusses().iterator();
+		Iterator<Campus> campIterator = hospital.getAllCampuses().iterator();
 
 		if (campIterator.hasNext())
 			return (campIterator.next().getMachinePool().getAllBuilders());
@@ -60,7 +60,7 @@ public class AddHospitalEquipmentController extends NeedsLoginController
 	 */
 	public Collection<LocationIN> getAllLocations() {
 		Collection<LocationIN> rv = new LinkedList<LocationIN>();
-		for (Location l : hospital.getAllCampusses())
+		for (Location l : hospital.getAllCampuses())
 			rv.add(l);
 		return rv;
 	}

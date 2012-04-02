@@ -64,4 +64,13 @@ public class Campus implements Location
 			rv.add(m);
 		return rv;
 	}
+	
+	@Override
+	public String toString() {
+		String rv = this.campusName_;
+		for (int i = rv.length(); i < 14; i++) {
+			rv+=" ";
+		}
+		return rv;
+	}
 }

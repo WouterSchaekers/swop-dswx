@@ -1,5 +1,6 @@
 package users;
 
+import system.Location;
 import controllers.interfaces.WarehouseAdminIN;
 import exceptions.InvalidNameException;
 
@@ -9,8 +10,14 @@ import exceptions.InvalidNameException;
  */
 public class WarehouseAdmin extends User implements WarehouseAdminIN
 {
-	public WarehouseAdmin(String name) throws InvalidNameException {
+	private Location myCampus_;
+	public WarehouseAdmin(String name, Location campus) throws InvalidNameException {
 		super(name);
+		myCampus_ = campus;
+	}
+	
+	public Location getLocation() {
+		return this.myCampus_;
 	}
 
 	@Override

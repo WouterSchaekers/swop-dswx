@@ -1,12 +1,11 @@
 package scheduler.tasks;
 
 import java.util.Collection;
-import controllers.interfaces.DescriptionIN;
 import result.Result;
 import scheduler.HospitalDate;
 import scheduler.requirements.Requirement;
 import be.kuleuven.cs.som.annotate.Basic;
-import exceptions.InvalidAmountException;
+import controllers.interfaces.DescriptionIN;
 import exceptions.InvalidHospitalDateException;
 
 public abstract class TaskDescription implements DescriptionIN
@@ -16,10 +15,10 @@ public abstract class TaskDescription implements DescriptionIN
 	private final HospitalDate creationDate_;
 	protected Result result;
 
-	public TaskDescription(long duration, long extraTime, HospitalDate creationDate) throws InvalidAmountException,
-			InvalidHospitalDateException {
+	public TaskDescription(long duration, long extraTime, HospitalDate creationDate)
+			throws InvalidHospitalDateException {
 		if (!isValidAmountOfExtraTime(extraTime))
-			throw new InvalidAmountException(
+			throw new IllegalArgumentException(
 					"Invalid amount of extra time since system start given to Unscheduled Task");
 		if (!isValidSystemTime(creationDate))
 			throw new InvalidHospitalDateException("Invalid creationTime given to Unscheduled Task");

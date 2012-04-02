@@ -75,7 +75,7 @@ public class PrescribeTreatmentController extends NeedsLoginAndPatientFileContro
 	 * @return All factories with which new treatments can be created
 	 */
 	public Collection<TreatmentFactory> getTreatmentFactories() {
-		return new Treatments().factories();
+		return Treatments.factories();
 	}
 
 	@Override

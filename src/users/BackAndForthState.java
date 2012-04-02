@@ -40,4 +40,9 @@ class BackAndForthState extends PreferenceState
 		locationTimeTablePreference_.addLocationTimeSlot(slot);
 	}
 
+	@Override
+	public LinkedList<Location> getCurrentPreference() {
+		return null;
+	}
+
 }
