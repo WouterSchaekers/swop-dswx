@@ -27,6 +27,7 @@ public class CreateAppointmentController extends NeedsLoginController
 	public HospitalDate scheduleNewAppointment(String doctorName,
 			String patientName) {
 		try {
+			//TODO: fix
 			new AppointmentDescription(
 					(Doctor) (UserFilter.SpecificDoctorFilter(hospital
 							.getUserManager().getAllUsers(), doctorName)),

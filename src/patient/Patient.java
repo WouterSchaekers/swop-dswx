@@ -2,7 +2,7 @@ package patient;
 
 import scheduler.HospitalDate;
 import scheduler.LocationTimeSlot;
-import scheduler.LocationTimeTableBackAndForth;
+import scheduler.LocationTimeTable;
 import scheduler.Schedulable;
 import scheduler.TimeSlot;
 import scheduler.TimeTable;
@@ -22,8 +22,7 @@ class Patient implements Schedulable
 {
 	private String name;
 	private TimeTable timeTable_;
-	private LocationTimeTableBackAndForth locationTimeTable_;
-	private Location location_;
+	private LocationTimeTable locationTimeTable_;
 	
 	Patient(String name) throws InvalidNameException {
 		if(!isValidName(name))
@@ -68,22 +67,7 @@ class Patient implements Schedulable
 	public void updateTimeTable(HospitalDate newDate) {
 		timeTable_.updateTimeTable(newDate);
 	}
-	
-	public void updateLocation(Location newLocation) {
-		if(!isValidLocation(newLocation))
-			throw new IllegalArgumentException("Illegal new location for patient!");
-		this.location_ = newLocation;
-	}
-	
-	private boolean isValidLocation(Location l){
-		return l != null;
-	}
 
-	@Override
-	public Location getLocation() {
-		return this.location_;
-	}
-	
 	@Override
 	public boolean canTravel() {
 		return true;
@@ -102,6 +86,11 @@ class Patient implements Schedulable
 	 */
 	private boolean isValidName(String n) {
 		return !n.equals("");
+	}
+
+	@Override
+	public Location getLocationAt(HospitalDate hospitalDate) {
+		return locationTimeTable_.getLocationAt(hospitalDate);
 	}
 
 }

@@ -16,7 +16,7 @@ public class XRayScannerBuilder extends MachineBuilder
 
 	XRayScanner build()
 			throws InvalidLocationException, InvalidSerialException {
-		return new XRayScanner(serial_, location_);
+		return new XRayScanner(serial_, loc_, location_);
 	}
 
 	@Override

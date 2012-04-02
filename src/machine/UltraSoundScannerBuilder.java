@@ -16,7 +16,7 @@ public class UltraSoundScannerBuilder extends MachineBuilder
 
 	public UltraSoundScanner build()
 			throws InvalidLocationException, InvalidSerialException {
-		return new UltraSoundScanner(serial_, location_);
+		return new UltraSoundScanner(serial_, loc_, location_);
 	}
 
 	@Override

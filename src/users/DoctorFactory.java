@@ -6,7 +6,7 @@ import exceptions.InvalidNameException;
  * Object that can create a Doctor object, also represents the type of the user
  * 
  */
-public class DocotorFactory extends UserFactory
+public class DoctorFactory extends UserFactory
 {
 	private String name_;
 	private Location location_;
@@ -24,7 +24,7 @@ public class DocotorFactory extends UserFactory
 	}
 	@Override
 	UserFactory newInstance() {
-		return new DocotorFactory();
+		return new DoctorFactory();
 	}
 	
 

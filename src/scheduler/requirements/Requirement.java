@@ -8,6 +8,9 @@ public interface Requirement
 	
 	public boolean isMetBy(Requirable requirable);
 	
+	/**
+	 * @return True if the requirement can't be met by advancing the time. 
+	 */
 	public boolean isCrucial();
 	
 	public boolean isMetOn(HospitalDate hospitalDate);

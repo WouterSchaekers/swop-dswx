@@ -121,4 +121,8 @@ public class TimeSlot
 	public boolean before(TimeSlot timeSlot) {
 		return this.getStartPoint().getHospitalDate().before(timeSlot.getStartPoint().getHospitalDate());
 	}
+
+	public boolean contains(HospitalDate date) {
+		return date.after(this.getStartDate()) && date.before(this.getStopDate());
+	}
 }
