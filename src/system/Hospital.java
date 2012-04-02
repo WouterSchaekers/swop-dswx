@@ -108,7 +108,7 @@ public class Hospital
 		return new LinkedList<Location>(this.campusses_);
 	}
 	
-	public Collection<Campus> getAllCampusses() {
+	public Collection<Campus> getAllCampuses() {
 		return new LinkedList<Campus>(this.campusses_);
 	}
 	

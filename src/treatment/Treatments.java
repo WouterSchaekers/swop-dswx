@@ -8,9 +8,8 @@ import java.util.LinkedList;
  */
 public class Treatments
 {
-private final Collection<TreatmentFactory> treatments = new LinkedList<TreatmentFactory>();
-	
-	public Collection<TreatmentFactory> factories() {
+	public static Collection<TreatmentFactory> factories() {
+		Collection<TreatmentFactory> treatments = new LinkedList<TreatmentFactory>();
 		treatments.clear();
 		treatments.add(new CastFactory());
 		treatments.add(new SurgeryFactory());

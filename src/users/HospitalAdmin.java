@@ -11,6 +11,6 @@ public class HospitalAdmin extends User implements HospitalAdminIN
 
 	@Override
 	public UserFactory getType() {
-		return new HospitalAdminFactory();
+		throw new RuntimeException("This method should not be called... ever...");
 	}
 }
