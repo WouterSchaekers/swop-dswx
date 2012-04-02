@@ -15,7 +15,6 @@ import exceptions.InvalidPatientFileOpenController;
 
 public class CreateAppointmentController extends NeedsLoginController
 {
-
 	public CreateAppointmentController(LoginController lc)
 			throws InvalidLoginControllerException, InvalidHospitalException,
 			InvalidPatientFileOpenController {
@@ -27,7 +26,6 @@ public class CreateAppointmentController extends NeedsLoginController
 	 */
 	public HospitalDate scheduleNewAppointment(String doctorName,
 			String patientName) {
-		// TODO: fix
 		try {
 			new AppointmentDescription(
 					(Doctor) (UserFilter.SpecificDoctorFilter(hospital

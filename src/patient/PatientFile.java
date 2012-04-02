@@ -18,6 +18,7 @@ import controllers.interfaces.PatientFileIN;
 import controllers.interfaces.TaskIN;
 import exceptions.DischargePatientException;
 import exceptions.FactoryInstantiationException;
+import exceptions.InvalidComplaintsException;
 import exceptions.InvalidDiagnoseException;
 import exceptions.InvalidDoctorException;
 import exceptions.InvalidNameException;
@@ -58,10 +59,9 @@ public class PatientFile implements PatientFileIN
 	 * @throws InvalidDiagnoseException
 	 *             if(!isValidDiagnose(d))
 	 */
-	public void addDiagnosis(Diagnose d) throws InvalidDiagnoseException {
+	private void addDiagnose(Diagnose d) throws InvalidDiagnoseException {
 		if (!isValidDiagnose(d))
 			throw new InvalidDiagnoseException("The given Diagnose is not a valid!");
-
 		this.diagnosis.add(d);
 	}
 	
@@ -83,6 +83,7 @@ public class PatientFile implements PatientFileIN
 	 *            The date on which the XRay is scheduled.
 	 */
 	public void addXRay(HospitalDate d) {
+		//TODO fix da ding van die XRays
 		xrays.add(d);
 	}
 
@@ -124,14 +125,43 @@ public class PatientFile implements PatientFileIN
 		this.discharged = false;
 	}
 
-	public void createDiagnose(Doctor user, String diag, TaskManager manager) throws InvalidDiagnoseException,
-			InvalidDoctorException {
-		Diagnose diagnose = new Diagnose(user, diag);
+	/**
+	 * Use to create diagnosis for this patient file.
+	 * 
+	 * @param user
+	 *            The doctor who made the diagnose.
+	 * @param complaints
+	 *            The complaints the patient had that lead to the diagnose.
+	 * @param diag
+	 *            The diagnose.
+	 * @param manager
+	 *            The TaskManager that should observe the state of the newly
+	 *            created diagnose object should it's approved-state change.
+	 * @return The created diagnose
+	 * @throws InvalidDiagnoseException
+	 * @throws InvalidDoctorException
+	 * @throws InvalidComplaintsException
+	 */
+	public DiagnoseIN createDiagnose(String complaints, String diag, Doctor user, Doctor secOp, TaskManager manager)
+			throws InvalidDiagnoseException, InvalidDoctorException, InvalidComplaintsException {
+		Diagnose diagnose;
+		diagnose = new Diagnose(user, complaints, diag);
 		diagnose.addObserver((Observer) manager);
-		addDiagnosis(diagnose);
-
+		this.addDiagnose(diagnose);
+		
+		if(secOp != null) {
+			diagnose.markForSecOp(secOp);
+		}
+		return diagnose;
 	}
 
+	/**
+	 * Use to create new medical test descriptions.
+	 * 
+	 * @param test
+	 * @return The created medical test description.
+	 * @throws FactoryInstantiationException
+	 */
 	@SuppressWarnings("deprecation")
 	public MedicalTest createMedicalTest(MedicalTestFactory test) throws FactoryInstantiationException {
 		return test.create();
@@ -144,7 +174,7 @@ public class PatientFile implements PatientFileIN
 	 */
 	void discharge() throws DischargePatientException {
 		if (!canBeDischarged())
-			throw new DischargePatientException("Patient cannot be discharged yet!");
+			throw new DischargePatientException("Patient cannot be discharged!");
 		this.discharged = true;
 	}
 
@@ -158,11 +188,6 @@ public class PatientFile implements PatientFileIN
 	@Override
 	public Collection<TaskIN> getallMedicalTests() {
 		return new LinkedList<TaskIN>(medicaltests);
-	}
-
-	@Basic
-	public Collection<Diagnose> getDiagnosis() {
-		return new ArrayList<Diagnose>(this.diagnosis);
 	}
 
 	/**
@@ -187,7 +212,7 @@ public class PatientFile implements PatientFileIN
 	}
 
 	@Override
-	public String getName() {
+	public String getPatientName() {
 		return this.getPatient().getName();
 	}
 
@@ -227,6 +252,10 @@ public class PatientFile implements PatientFileIN
 		return d != null;
 	}
 
+	/**
+	 * @return True if medicalTest is a valid medical test.
+	 */
+	
 	private boolean isValidMedicalTest(Task<? extends MedicalTest> medicalTest) {
 		return medicalTest != null;
 	}

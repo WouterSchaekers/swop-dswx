@@ -19,5 +19,4 @@ public abstract class TaskDescriptionWithPatientFile extends TaskDescription
 	public PatientFileIN getPatientFile() {
 		return patientFile_;
 	}
-
 }

@@ -15,4 +15,6 @@ public interface Requirement
 	public void collect();
 	
 	public boolean backToBack();
+	
+	public boolean isMarkedForDeletion();
 }

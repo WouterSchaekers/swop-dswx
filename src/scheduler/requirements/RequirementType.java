@@ -41,4 +41,9 @@ public class RequirementType<T extends Requirable> implements Requirement
 	public int getAmount(){
 		return this.amount_;
 	}
+
+	@Override
+	public boolean isMarkedForDeletion() {
+		return false;
+	}
 }

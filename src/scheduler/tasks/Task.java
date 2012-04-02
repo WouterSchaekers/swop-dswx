@@ -78,7 +78,6 @@ public final class Task<T extends TaskDescription> extends Observable implements
 
 	public void deInitialise() {
 		getDescription().deInit(this);
-		
 	}
 
 	public void init() {

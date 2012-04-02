@@ -14,6 +14,7 @@ import controllers.interfaces.TaskIN;
 import exceptions.ApproveDiagnoseException;
 import exceptions.FactoryInstantiationException;
 import exceptions.InvalidAmountException;
+import exceptions.InvalidComplaintsException;
 import exceptions.InvalidDiagnoseException;
 import exceptions.InvalidDoctorException;
 import exceptions.InvalidHospitalDateException;
@@ -22,38 +23,48 @@ import exceptions.InvalidHospitalDateException;
  * This class represents a diagnosis that's given to a patient after admission
  * and examination. It keeps a collections of Treatments to keep track of which
  * Diagnosis have been treated with which Treatments.
+ * <p><b>Do not create Diagnose objects yourself! Use the API of the patient file to do so!</b><p>
  */
 public class Diagnose extends Observable implements DiagnoseIN
 {
-	private boolean approved = false;
-	private Doctor attending = null;
-	private String diag = "";
-	private Doctor secopDoc = null;
-	private boolean secOpFlag = false;
+	private String complaints;
+	private boolean approved;
+	private Doctor attending;
+	private String diag;
+	private Doctor secopDoc;
+	private boolean secOpFlag;
+	private boolean mustBeDeleted = false;
 	/**
 	 * the treatments associated with this diagnose
 	 */
-	private Collection<Task<? extends Treatment>> treatments = new LinkedList<Task<? extends Treatment>>();
+	private Collection<Task<? extends Treatment>> treatments;
 
 	/**
 	 * Default constructor. Initialises fields.
 	 * 
 	 * @param doc
-	 *            The doctor who made the diagnosis.
+	 *            The doctor who made the diagnose.
 	 * @param diag
-	 *            The diagnosis made by the doctor.
+	 *            The diagnose made by the doctor.
+	 * @param complaints
+	 *            The complaints the patient has made that lead to this
+	 *            diagnose.
 	 * @throws InvalidDoctorException
-	 *             If !isValidDoc(doc)
 	 * @throws InvalidDiagnoseException
-	 *             if !isValidDiagnosis(diag)
+	 * @throws InvalidComplaintsException
 	 */
-	public Diagnose(Doctor doc, String diag) throws InvalidDoctorException, InvalidDiagnoseException {
+	public Diagnose(Doctor doc, String complaints, String diag) throws InvalidDoctorException,
+			InvalidDiagnoseException, InvalidComplaintsException {
 		if (!this.canHaveAsDoctor(doc))
 			throw new InvalidDoctorException("Doctor is invalid!");
 		if (!this.isValidDiagnosis(diag))
 			throw new InvalidDiagnoseException("Diagnose in Diagnoseconstructor is invalid!");
+		if (!this.isValidDiagnosis(complaints))
+			throw new InvalidComplaintsException("Invalid complaints were given when trying to create new Diagnose!");
+		this.complaints = complaints;
 		this.attending = doc;
 		this.diag = diag;
+		this.treatments = new LinkedList<Task<? extends Treatment>>();
 	}
 
 	/**
@@ -82,11 +93,11 @@ public class Diagnose extends Observable implements DiagnoseIN
 	/**
 	 * @return True if this diagnose can be replaced by the given replacement.
 	 */
-	public boolean canBeReplacedWith(DiagnoseIN replacement) {
-		Diagnose temp = (Diagnose) replacement;
-		boolean rv = this.secopDoc.equals(temp.attending);
-		rv &= (this.attending.equals(temp.secopDoc));
-		rv &= temp.secOpFlag;
+	public boolean canBeReplacedWith(String newDiag, String newComplaints, Doctor newAttending, Doctor newSecOp) {
+		boolean rv = this.secopDoc.equals(newAttending);
+		rv &= newSecOp != null;
+		rv &= (this.attending.equals(newSecOp));
+		rv &= newComplaints.equals(this.getComplaints());
 		return rv;
 	}
 
@@ -101,13 +112,13 @@ public class Diagnose extends Observable implements DiagnoseIN
 	 * Use to create treatment descriptions.
 	 */
 	public Treatment createTreatment(TreatmentFactory treatFact) throws FactoryInstantiationException {
-		try { 
+		try {
 			return treatFact.create();
 		} catch (InvalidAmountException e) {
 			throw new FactoryInstantiationException(e.getMessage());
 		} catch (InvalidHospitalDateException e) {
 			throw new FactoryInstantiationException(e.getMessage());
-		}		
+		}
 	}
 
 	/**
@@ -122,11 +133,17 @@ public class Diagnose extends Observable implements DiagnoseIN
 		this.secOpFlag = false;
 		this.attending = null;
 		this.secopDoc = null;
+		this.notifyObservers(treatments);
 	}
 
 	@Basic
 	public Doctor getAttending() {
 		return this.attending;
+	}
+	
+	@Basic
+	public String getComplaints() {
+		return this.complaints;
 	}
 
 	@Basic
@@ -153,7 +170,7 @@ public class Diagnose extends Observable implements DiagnoseIN
 	 * @return True if diag is a valid Diagnose description for this Diagnose.
 	 */
 	private boolean isValidDiagnosis(String diag) {
-		return !diag.equals("");
+		return diag != null && !diag.equals("");
 	}
 
 	private boolean isValidtreatment(Task<?> treatment) {
@@ -176,6 +193,24 @@ public class Diagnose extends Observable implements DiagnoseIN
 		this.secopDoc = from;
 	}
 
+	/**
+	 * ONLY USE IN DOMAIN LAYER!!
+	 */
+	public void removeTreatment(Task<?> treatment) {
+		this.treatments.remove(treatment);
+	}
+	
+	/**
+	 * ONLY USE IN DOMAIN LAYER!!
+	 */
+	public void markForDeletion() {
+		this.mustBeDeleted = true;
+	}
+	
+	public boolean mustBeDeleted() {
+		return this.mustBeDeleted;
+	}
+
 	@Basic
 	public DoctorIN needsSecOpFrom() {
 		DoctorIN rv = (DoctorIN) (this.secopDoc);
@@ -194,5 +229,4 @@ public class Diagnose extends Observable implements DiagnoseIN
 		this.secOpFlag = false;
 		this.secopDoc = null;
 	}
-
 }
