@@ -35,7 +35,7 @@
 || 22/03/12: 15u00 -> 18u00 || 1 W || 3 || Scheduling algorithm || Stefaan had migraine en lag te QQ'en. Dieter moest met Shana leuke dingen doen. ||
 || 23/03/12: 11u00 -> 14u00 || 2 SW || 3 || Scheduling algorithm, factory pattern for treatment. || Dieter oefenzitting CN ||
 || 23/03/12: 14u00 -> 15u00 || 1 D || 1 || UserTypes maken || ||
-|| 27/03/12: 14u00 -> 17u00 || 2 DW || 3 || Paired programming: code cleanups and discussing the design revolving around the creation of medical tests and where to store them,... || Stefaan had verplicht labo CN. ||
+|| 27/03/12: 14u00 -> 17u00 || 2 DW || 3 || Paired programming: code cleanups and discussing the design revolving around the creation of medical tests and where to store them,... || Stefaan had labo CN. ||
 || 27/03/12: 17u00 -> 19u00 || 3 DSW || 2 || More of the above... || ||
 || 28/03/12: 13u30 -> 15u30 || 1 S || 2 || Implementing checkincontroller, registerpatientcontroller, patient, patientFile || ||
 || 28/03/12: 16u00 -> 18u00 || 3 DSW || 2 || Reviewing assignment for issues concerning campus preferences, implementing diagnose- related controllers, discovering the capsule-concept and experimenting with it || ||
