@@ -6,6 +6,7 @@ import users.Doctor;
 import users.User;
 import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.DoctorIN;
+import exceptions.InvalidComplaintsException;
 import exceptions.InvalidDiagnoseException;
 import exceptions.InvalidDoctorException;
 import exceptions.InvalidHospitalException;
@@ -21,10 +22,8 @@ public class EnterDiagnoseController extends NeedsLoginAndPatientFileController
 	/**
 	 * Default constructor.
 	 */
-	public EnterDiagnoseController(LoginController lc,
-			ConsultPatientFileController patientFileOpenController)
-			throws InvalidLoginControllerException, InvalidHospitalException,
-			InvalidPatientFileOpenController {
+	public EnterDiagnoseController(LoginController lc, ConsultPatientFileController patientFileOpenController)
+			throws InvalidLoginControllerException, InvalidHospitalException, InvalidPatientFileOpenController {
 		super(lc, patientFileOpenController);
 	}
 
@@ -34,12 +33,12 @@ public class EnterDiagnoseController extends NeedsLoginAndPatientFileController
 	 * 
 	 * @throws InvalidDiagnoseException
 	 * @throws InvalidDoctorException
+	 * @throws InvalidComplaintsException
 	 */
-	public DiagnoseIN enterDiagnose(String diag)
-			throws InvalidDiagnoseException, InvalidDoctorException {
-		Diagnose d = new Diagnose((Doctor) lc.getUser(), diag);
-		((PatientFile) cpfc.getPatientFile()).addDiagnosis(d);
-		return d;
+	public DiagnoseIN enterDiagnose(String complaints, String diag) throws InvalidDiagnoseException,
+			InvalidDoctorException, InvalidComplaintsException {
+		return ((PatientFile) cpfc.getPatientFile()).createDiagnose(complaints, diag, (Doctor) lc.getUser(), null,
+				hospital.getTaskManager());
 	}
 
 	/**
@@ -53,14 +52,13 @@ public class EnterDiagnoseController extends NeedsLoginAndPatientFileController
 	 * @return The diagnose object that was created.
 	 * @throws InvalidDoctorException
 	 * @throws InvalidDiagnoseException
+	 * @throws InvalidComplaintsException
 	 */
-	public DiagnoseIN enterDiagnoseWithSecondOpinion(String diag,
-			DoctorIN choice) throws InvalidDoctorException,
-			InvalidDiagnoseException {
+	public DiagnoseIN enterDiagnoseWithSecondOpinion(String diag, String complaints, DoctorIN choice)
+			throws InvalidDoctorException, InvalidDiagnoseException, InvalidComplaintsException {
 
-		Diagnose d = new Diagnose((Doctor)lc.getUser(), diag);
-		d.markForSecOp((Doctor)choice);
-		((PatientFile) cpfc.getPatientFile()).addDiagnosis(d);
+		DiagnoseIN d = ((PatientFile) cpfc.getPatientFile()).createDiagnose(complaints, diag, (Doctor) lc.getUser(), null, hospital.getTaskManager());
+		((Diagnose)d).markForSecOp((Doctor) choice);
 		return d;
 	}
 

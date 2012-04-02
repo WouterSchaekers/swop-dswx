@@ -62,6 +62,5 @@ public class _AdvanceTimeControllerTest
 	@Test
 	public void test() throws InvalidLoginControllerException,
 			InvalidLocationException, InvalidSerialException {
-		// TODO TEST
 	}
 }

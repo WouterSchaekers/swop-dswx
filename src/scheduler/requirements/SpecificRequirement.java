@@ -39,4 +39,9 @@ public class SpecificRequirement implements Requirement
 	public int getAmount(){
 		return 1;
 	}
+
+	@Override
+	public boolean isMarkedForDeletion() {
+		return false;
+	}
 }

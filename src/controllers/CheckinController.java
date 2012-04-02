@@ -37,7 +37,7 @@ public class CheckinController extends NeedsLoginController
 	public void checkIn(PatientFileIN pf) throws InvalidNameException {
 		hospital.getPatientFileManager().checkIn(
 				hospital.getPatientFileManager().getPatientFileFrom(
-						pf.getName()));
+						pf.getPatientName()));
 	}
 
 	/**

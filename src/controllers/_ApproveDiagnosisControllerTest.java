@@ -61,6 +61,5 @@ public class _ApproveDiagnosisControllerTest
 	@Test
 	public void test() throws InvalidLoginControllerException,
 			InvalidLocationException, InvalidSerialException {
-		// TODO TEST
 	}
 }

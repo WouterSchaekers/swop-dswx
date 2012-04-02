@@ -49,4 +49,9 @@ public class WarehouseItemCondition implements Requirement
 	public int getAmount(){
 		return this.amount_;
 	}
+
+	@Override
+	public boolean isMarkedForDeletion() {
+		return false;
+	}
 }

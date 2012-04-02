@@ -29,12 +29,29 @@ public abstract class MedicalTest extends TaskDescriptionWithPatientFile impleme
 	 *            The duration of this medical test.
 	 * @throws InvalidDurationException
 	 *             If(!isValidDuration(duration))
-	 * @throws InvalidHospitalDateException 
-	 * @throws InvalidAmountException 
+	 * @throws InvalidHospitalDateException
+	 * @throws InvalidAmountException
 	 * @throws InvalidTimeSlotException
 	 */
-	public MedicalTest(PatientFile patientFile_, long duration_, HospitalDate creationTime_) throws InvalidAmountException, InvalidHospitalDateException {
+	public MedicalTest(PatientFile patientFile_, long duration_, HospitalDate creationTime_)
+			throws InvalidAmountException, InvalidHospitalDateException {
 		super(patientFile_, duration_, 0, creationTime_);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public <T extends TaskDescription> void deInit(Task<T> task) {
+		this.patientFile_.removeTest((Task<? extends MedicalTest>) task);
+	}
+
+	public Result getResult() {
+		return this.result;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public <T extends TaskDescription> void initTask(Task<T> task) {
+		this.patientFile_.addMedicalTest((Task<? extends MedicalTest>) task);
 	}
 
 	public boolean needsResult() {
@@ -47,22 +64,6 @@ public abstract class MedicalTest extends TaskDescriptionWithPatientFile impleme
 		} catch (InvalidReportException e) {
 			throw new Error(e);
 		}
-	}
-	
-	public Result getResult(){
-		return this.result;
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public <T extends TaskDescription> void initTask(Task<T> task) {
-		this.patientFile_.addMedicalTest((Task<? extends MedicalTest>) task);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public <T extends TaskDescription> void deInit(Task<T> task) {
-		this.patientFile_.removeTest((Task<? extends MedicalTest>) task);
 	}
 
 }
