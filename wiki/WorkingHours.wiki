@@ -48,7 +48,10 @@
 || 30/03/12: 13u00 -> 14u30 || 2 DSW || 1.5 || Considering the design around initialising and de-initialising Tasks for Treatments that have yet unapproved diagnoses. || ||
 || 30/03/12: 20u00 -> 23u30 || 2 SW || 3.5 || Discussing the design options for implementing the campus preferences of doctors and the impact on scheduling, reimplementing Diagnose and PatientFile the way we decided to with Dieter. || ||
 || 01/04/12: 19u30 -> 20u30 || 1 W || 1 || Improving Scheduler algorithm. || ||
-|| 01/04/12: 21u00 -> 02u00 || 1 S || 5 || Implementing some controllers (see commit log) ||  ||
+|| 01/04/12: 21u00 -> 02u00 || 1 S || 5 || Implementing some controllers (see commit log) || ||
+|| 02/04/12: 15u00 -> 16u00 || 1 S || 1 || Implementing some more controllers ||  ||
+|| 02/04/12: 16u00 -> 19u00 || 2 SW || 3 || Finishing implementing LocationTimeTables and PreferenceStates properly. ||  ||
+
 
 = Iteratie 2 =
 || *Timepoint* || *Members* || *Workload* || *Purpose* || *Comments* ||
