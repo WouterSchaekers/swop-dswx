@@ -19,8 +19,9 @@ import exceptions.InvalidTimeSlotException;
 public abstract class Machine implements Schedulable
 {
 
-	private final int serial_;
-	private final Location location_;
+	protected final int serial_;
+	private final Location campusLocation_;
+	protected String location_;
 	private final TimeTable timeTable_;
 
 	/**
@@ -34,12 +35,13 @@ public abstract class Machine implements Schedulable
 	 *             If the location provided is null or an empty string.
 	 * @throws InvalidTimeSlotException
 	 */
-	Machine(int serial, Location location) throws InvalidLocationException,
+	Machine(int serial, String location, Location campusLocation) throws InvalidLocationException,
 			InvalidSerialException {
 		if (location == null) {
 			throw new InvalidLocationException("Location is not set or empty.");
 		}
 		this.serial_ = serial;
+		this.campusLocation_ = campusLocation;
 		this.location_ = location;
 		this.timeTable_ = new TimeTable();
 	}
@@ -54,7 +56,14 @@ public abstract class Machine implements Schedulable
 	/**
 	 * @return The location of this machine.
 	 */
-	public final Location getLocation() {
+	public final Location getCampusLocation() {
+		return this.campusLocation_;
+	}
+
+	/**
+	 * The location within a campus of this machine.
+	 */
+	public String getLocationWithinCampus() {
 		return this.location_;
 	}
 
@@ -76,15 +85,12 @@ public abstract class Machine implements Schedulable
 	}
 
 	@Override
-	public final TimeSlot getFirstFreeSlotBetween(Location location,
-			HospitalDate startDate, HospitalDate stopDate, long duration)
-			throws InvalidSchedulingRequestException, InvalidTimeSlotException {
-		if (location != this.location_) {
-			throw new InvalidSchedulingRequestException(
-					"The machine is not available at this location");
+	public final TimeSlot getFirstFreeSlotBetween(Location location, HospitalDate startDate, HospitalDate stopDate,
+			long duration) throws InvalidSchedulingRequestException, InvalidTimeSlotException {
+		if (location != this.campusLocation_) {
+			throw new InvalidSchedulingRequestException("The machine is not available at this location");
 		}
-		return this.getTimeTable().getFirstFreeSlotBetween(startDate, stopDate,
-				duration);
+		return this.getTimeTable().getFirstFreeSlotBetween(startDate, stopDate, duration);
 	}
 
 	@Override
@@ -98,8 +104,7 @@ public abstract class Machine implements Schedulable
 	}
 
 	@Override
-	public final  boolean canBeScheduledOn(HospitalDate startDate,
-			HospitalDate stopDate) {
+	public final boolean canBeScheduledOn(HospitalDate startDate, HospitalDate stopDate) {
 		return this.getTimeTable().hasFreeSlotAt(startDate, stopDate);
 	}
 
@@ -107,5 +112,9 @@ public abstract class Machine implements Schedulable
 	public final boolean canTravel() {
 		return false;
 	}
-
+	
+	@Override
+	public Location getLocationAt(HospitalDate hospitalDate) {
+		return this.campusLocation_;
+	}
 }

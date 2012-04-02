@@ -52,7 +52,7 @@ public class Scheduler
 		LinkedHashMap<LinkedList<Schedulable>, Integer> avRes = getAvRes(resPool, unmetReqs);
 		removeDoubleBookings(avRes);
 		LinkedList<Location> locs = getLocationsWithEnoughResources(avRes,
-				new LinkedList<Location>(taskData.getLocations()));
+				new LinkedList<Location>(taskData.getLocations()), curDate);
 		TaskData data = schedule(avRes, produceUsedResList(avRes), locs, desc, startDate, stopDate, taskData);
 		unscheduledTask.nextState(data);
 	}
@@ -251,14 +251,14 @@ public class Scheduler
 	 *             existing resources.
 	 */
 	private LinkedList<Location> getLocationsWithEnoughResources(LinkedHashMap<LinkedList<Schedulable>, Integer> avRes,
-			LinkedList<Location> locs) throws CanNeverBeScheduledException {
+			LinkedList<Location> locs, HospitalDate now) throws CanNeverBeScheduledException {
 		LinkedList<Location> possibleLocations = new LinkedList<Location>();
 		for (Location loc : locs) {
 			boolean enoughResources = true;
 			for (LinkedList<Schedulable> resourcePool : avRes.keySet()) {
 				int amount = 0;
 				for (Schedulable resource : resourcePool)
-					if (resource.canTravel() || resource.getLocation() == loc)
+					if (resource.canTravel() || resource.getLocationAt(now) == loc)
 						amount++;
 				if (amount < avRes.get(resourcePool)) {
 					enoughResources = false;
@@ -435,7 +435,7 @@ public class Scheduler
 			HospitalDate stopDate, long duration) throws InvalidSchedulingRequestException {
 		LinkedList<Schedulable> usableSchedulables = new LinkedList<Schedulable>();
 		for (Schedulable schedulable : scheds) {
-			if (schedulable.getLocation() == loc) {
+			if (schedulable.getLocationAt(startDate) == loc) {
 				usableSchedulables.add(schedulable);
 			}
 		}

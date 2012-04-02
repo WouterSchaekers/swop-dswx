@@ -22,4 +22,8 @@ public class LocationTimeSlot extends TimeSlot
 	public boolean contains(HospitalDate hospitalDate){
 		return hospitalDate.equals(this.getStartDate()) || (hospitalDate.before(this.getStopDate()) && hospitalDate.after(this.getStartDate()));
 	}
+	
+	public long getTimeBetween(LocationTimeSlot slot) {
+		return slot.getStopDate().getTimeBetween(this.getStartDate());
+	}
 }

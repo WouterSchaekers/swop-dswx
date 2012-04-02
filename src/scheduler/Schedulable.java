@@ -32,8 +32,8 @@ public interface Schedulable extends Requirable
 	 * @param newDate
 	 */
 	public void updateTimeTable(HospitalDate newDate);
-
+	
 	public boolean canTravel();
-
-	public Location getLocation();
+	
+	public Location getLocationAt(HospitalDate hospitalDate);
 }

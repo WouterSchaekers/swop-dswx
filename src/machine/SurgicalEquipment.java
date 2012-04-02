@@ -7,10 +7,8 @@ import exceptions.InvalidSerialException;
 public class SurgicalEquipment extends Machine
 {
 
-	SurgicalEquipment(int serial, Location location)
+	SurgicalEquipment(int serial, String loc, Location location)
 			throws InvalidLocationException, InvalidSerialException {
-		super(serial, location);
+		super(serial, loc, location);
 	}
-
-
 }

@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import java.util.Observer;
 import medicaltest.MedicalTest;
 import medicaltest.MedicalTestFactory;
-import scheduler.HospitalDate;
 import scheduler.tasks.Task;
 import scheduler.tasks.TaskDescription;
 import scheduler.tasks.TaskManager;
@@ -34,10 +33,8 @@ public class PatientFile implements PatientFileIN
 	private Collection<Diagnose> diagnosis = new ArrayList<Diagnose>();
 	private boolean discharged = false;
 	private Collection<Task<? extends TaskDescription>> medicaltests = new LinkedList<Task<? extends TaskDescription>>();
-
 	private Patient patient_;
 
-	private ArrayList<HospitalDate> xrays = new ArrayList<HospitalDate>();
 
 	/**
 	 * Default Constructor. Creates empty patient file with a name.
@@ -74,33 +71,6 @@ public class PatientFile implements PatientFileIN
 		this.medicaltests.add(medicalTest);
 	}
 	
-	/**
-	 * This method must be called if an XRrayScan is ordered for this patient.
-	 * It is needed to keep track of the amount of xrays a patient has had in
-	 * the past year.
-	 * 
-	 * @param d
-	 *            The date on which the XRay is scheduled.
-	 */
-	public void addXRay(HospitalDate d) {
-		//TODO fix da ding van die XRays
-		xrays.add(d);
-	}
-
-	/**
-	 * @param curDate
-	 *            The current system time.
-	 * @return The amount of xrays this patient has had in the last year.
-	 */
-	public int amountOfXraysThisYear(HospitalDate hospitalDate) {
-		int amount = 0;
-		for (HospitalDate xr : this.xrays) {
-			if (hospitalDate.before(xr) && xr.getTimeBetween(hospitalDate) <= HospitalDate.ONE_YEAR)
-				amount++;
-		}
-		return amount;
-	}
-
 	/**
 	 * @return True if this patient is ready to be discharged.
 	 */
@@ -186,7 +156,7 @@ public class PatientFile implements PatientFileIN
 	}
 
 	@Override
-	public Collection<TaskIN> getallMedicalTests() {
+	public Collection<TaskIN> getAllMedicalTests() {
 		return new LinkedList<TaskIN>(medicaltests);
 	}
 
@@ -199,16 +169,6 @@ public class PatientFile implements PatientFileIN
 			if (d.getAttending().equals(doc))
 				rv.add((DiagnoseIN) d);
 		return rv;
-	}
-
-	/**
-	 * @return The first date this patientfile has a
-	 */
-	public HospitalDate getFirstNewXRaySchedDate(HospitalDate hospitalDate) {
-		if (this.amountOfXraysThisYear(hospitalDate) >= 9) {
-			return new HospitalDate(this.xrays.get(xrays.size() - 10).getTimeSinceStart());
-		}
-		return hospitalDate;
 	}
 
 	@Override

@@ -13,11 +13,8 @@ public class BloodAnalyser extends Machine
 	 * 
 	 * @throws InvalidTimeSlotException
 	 * */
-	BloodAnalyser(int serial, Location location) throws InvalidLocationException,
+	BloodAnalyser(int serial, String loc, Location location) throws InvalidLocationException,
 			InvalidSerialException {
-		super(serial, location);
+		super(serial, loc, location);
 	}
-
-	
-
 }

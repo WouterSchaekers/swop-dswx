@@ -102,4 +102,9 @@ public class Nurse extends SchedulableUser implements NurseIN
 	public void scheduleAt(TimeSlot timeSlot, Location location) throws InvalidSchedulingRequestException {
 		this.timeTable_.addTimeSlot(timeSlot);
 	}
+
+	@Override
+	public Location getLocationAt(HospitalDate hospitalDate) {
+		return this.location_;
+	}
 }

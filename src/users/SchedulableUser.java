@@ -41,9 +41,4 @@ public abstract class SchedulableUser extends User implements Schedulable
 	public void setLocation(Location location) {
 		this.location_ = location;
 	}
-
-	public Location getLocation() {
-		return this.location_;
-	}
-
 }

@@ -3,20 +3,56 @@ package users;
 import java.util.LinkedList;
 import scheduler.HospitalDate;
 import scheduler.LocationTimeSlot;
-import scheduler.LocationTimeTablePreference;
+import scheduler.LocationTimeTable;
 import system.Location;
 
+/**
+ * Represents the choice of a Doctor to have a selected preference for campuses.
+ */
 class SelectedPreferenceState extends PreferenceState
 {
-	LocationTimeTablePreference locationTimeTablePreference_;
-	
-	public SelectedPreferenceState(LinkedList<LocationTimeSlot> locationTimeSlots){
-		this.locationTimeTablePreference_ = new LocationTimeTablePreference(locationTimeSlots);
-	}
-	
-	@Override
-	public Location getLocationAt(HospitalDate hospitalDate) {
-		return this.locationTimeTablePreference_.getLocationAt(hospitalDate);
+	LocationTimeTable tasks_;
+	LocationTimeTable pref_;
+
+	/**
+	 * Constructor without tasks.
+	 */
+	public SelectedPreferenceState(LinkedList<LocationTimeSlot> preferences) {
+		this.pref_ = new LocationTimeTable(preferences);
+		this.tasks_ = new LocationTimeTable(new LinkedList<LocationTimeSlot>());
 	}
 
+	/**
+	 * Default constructor.
+	 * 
+	 * @param preferences
+	 *            The preferences of the doctor. Should be 2 timeslots long.
+	 * @param slots
+	 *            Slots carried over by a change of state: from back&forth to
+	 *            this
+	 */
+	public SelectedPreferenceState(LinkedList<LocationTimeSlot> preferences, LinkedList<LocationTimeSlot> slots) {
+		if (preferences.size() != 2)
+			throw new IllegalArgumentException("Invalid preference!");
+		this.pref_ = new LocationTimeTable(new LinkedList<LocationTimeSlot>(preferences));
+		this.tasks_ = new LocationTimeTable(new LinkedList<LocationTimeSlot>(slots));
+	}
+
+	@Override
+	public Location getLocationAt(HospitalDate hospitalDate) {
+		Location location = tasks_.getLocationAt(hospitalDate);
+		if (location == null)
+			return pref_.getPreferedLocationAt(hospitalDate);
+		return location;
+	}
+
+	@Override
+	public LinkedList<LocationTimeSlot> getSlots() {
+		return tasks_.getSlots();
+	}
+
+	@Override
+	public void scheduleTaskAt(LocationTimeSlot slot) {
+		tasks_.addLocationTimeSlot(slot);
+	}
 }

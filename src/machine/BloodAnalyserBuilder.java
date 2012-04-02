@@ -11,13 +11,13 @@ public class BloodAnalyserBuilder extends MachineBuilder
 	}
 	@Override
 	public String toString() {
-		return "Blood analyzer";
+		return "Blood analyser";
 
 	}
 	@Override
 	Machine build()
 			throws InvalidLocationException, InvalidSerialException {
-		return new BloodAnalyser(serial_, location_);
+		return new BloodAnalyser(serial_, loc_, location_);
 	}
 
 	@Override

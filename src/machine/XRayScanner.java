@@ -13,10 +13,8 @@ public class XRayScanner extends Machine
 	 * 
 	 * @throws InvalidTimeSlotException
 	 * */
-	XRayScanner(int serial, Location location) throws InvalidLocationException,
+	XRayScanner(int serial, String loc, Location location) throws InvalidLocationException,
 			InvalidSerialException {
-		super(serial, location);
+		super(serial, loc, location);
 	}
-	
-
 }
