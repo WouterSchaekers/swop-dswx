@@ -20,6 +20,9 @@ public class SelectLocationPreferenceController extends NeedsLoginController
 	
 	private LinkedList<Location[]> possiblePreferences = new LinkedList<Location[]>();
 
+	/**
+	 * @return All possible preferences a doctor could want.
+	 */
 	public LinkedList<String> getPossiblePreferences() {
 		LinkedList<String> preferences = new LinkedList<String>();
 		preferences.add("\n|* |   Campus 1   |   Campus 2   |");

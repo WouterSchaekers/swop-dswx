@@ -1,6 +1,8 @@
 package controllers;
 
 import java.util.Collection;
+import java.util.LinkedList;
+import scheduler.HospitalDate;
 import system.Campus;
 import users.User;
 import users.WarehouseAdmin;
@@ -9,9 +11,15 @@ import warehouse.item.WarehouseItem;
 import warehouse.item.WarehouseItemType;
 import warehouse.item.WarehouseItemTypes;
 import warehouse.stock.StockOrder;
+import controllers.interfaces.StockOrderIN;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
+import exceptions.InvalidOrderStateException;
+import exceptions.WarehouseOverCapacityException;
 
+/**
+ * Use to fill the stock of a warehouse.
+ */
 public class FillStockInWarehouseController extends NeedsLoginController
 {
 	private WarehouseAdmin ad = (WarehouseAdmin)(lc.getUser());
@@ -22,26 +30,48 @@ public class FillStockInWarehouseController extends NeedsLoginController
 			InvalidHospitalException {
 		super(lc);
 	}
-
+	
+	/**
+	 * 
+	 * @return All types of items that can be put into warehouses.
+	 */
 	public Collection<WarehouseItemType> getItemTypes() {
 		return WarehouseItemTypes.itemTypes();
 	}
 
+	/**
+	 * Gets the warehouse items from the warehouse of the admin that has logged in.
+	 */
 	public Collection<WarehouseItem> getWarehouseItems() {
 		return w.getAllItems();
 	}
 
-	public Collection<StockOrder<?>> getAllStockOrders() {
-		//Warehouse w = 
-		camp.getWarehouse();
-		//TODO fix
-		return null;
+	/**
+	 * Gets the stock orders from the warehouse of the admin that has logged in.
+	 */
+	public Collection<StockOrderIN> getAllStockOrders() {
+		return camp.getStockprovider().getOrderINs();
 	}
-	
-	public void addWarehouseItems(Collection<StockOrder<? extends WarehouseItemType>> items) {
-		//TODO: fix
+
+	/**
+	 * Delivers the given items to the warehouse of the admin who has logged in.
+	 * 
+	 * @param expiryDate
+	 *            The expiry date for the selected items.
+	 * @throws WarehouseOverCapacityException
+	 * @throws InvalidOrderStateException
+	 */
+	@SuppressWarnings("unchecked")
+	public <T extends WarehouseItemType> void deliverItems(Collection<StockOrderIN> selectedItems,
+			HospitalDate expiryDate) throws WarehouseOverCapacityException, InvalidOrderStateException {
+		Collection<StockOrder<T>> items = new LinkedList<StockOrder<T>>();
+		for (StockOrderIN order : selectedItems)
+			items.add((StockOrder<T>) order);
+		for (StockOrder<T> order : items) {
+			order.deliver(expiryDate);
+		}
 	}
-	
+
 	@Override
 	boolean validUser(User u) {
 		return u instanceof WarehouseAdmin;

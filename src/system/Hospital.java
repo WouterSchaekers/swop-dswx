@@ -119,7 +119,8 @@ public class Hospital
 	public void addCampus(String name) throws InvalidCampusException {
 		if(name.equals(""))
 			throw new InvalidCampusException("Invalid new campus name was given!");
-		this.campusses_.add(new Campus("name", this));
+		Campus camp = new Campus("name", this, systemTime_);
+		this.campusses_.add(camp);
 	}
 	
 	/**
