@@ -28,10 +28,11 @@ public class Surgery extends Treatment implements SurgeryIN
 	 * @param description
 	 *            The description of this surgery.
 	 * @throws InvalidDescriptionException
-	 * @throws InvalidHospitalDateException 
-	 * @throws InvalidAmountException 
+	 * @throws InvalidHospitalDateException
+	 * @throws InvalidAmountException
 	 */
-	public Surgery(PatientFile patientFile, HospitalDate creationTime, String description) throws InvalidAmountException, InvalidHospitalDateException {
+	public Surgery(PatientFile patientFile, HospitalDate creationTime, String description)
+			throws InvalidHospitalDateException {
 		super(patientFile, HospitalDate.ONE_MINUTE * 180, creationTime);
 		setDescription(description);
 	}
@@ -44,8 +45,7 @@ public class Surgery extends Treatment implements SurgeryIN
 	@Basic
 	public void setDescription(String description) {
 		if (!isValidDescription(description))
-			throw new IllegalArgumentException(
-					"Invalid description given in setDescription() of Surgery!");
+			throw new IllegalArgumentException("Invalid description given in setDescription() of Surgery!");
 		this.description = description;
 	}
 
@@ -64,7 +64,7 @@ public class Surgery extends Treatment implements SurgeryIN
 	@Override
 	public Collection<Requirement> getAllRequirements() {
 		Collection<Requirement> requirements = new LinkedList<Requirement>();
-		requirements.add(new SpecificRequirement(this.patientFile_.getPatient(),false));
+		requirements.add(new SpecificRequirement(this.patientFile_.getPatient(), false));
 		requirements.add(new RequirementType<MiscType>(MiscType.class, false, 1));
 		requirements.add(new RequirementType<Nurse>(Nurse.class, true, 1));
 		return requirements;

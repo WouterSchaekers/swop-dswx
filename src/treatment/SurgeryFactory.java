@@ -1,7 +1,6 @@
 package treatment;
 
 import exceptions.FactoryInstantiationException;
-import exceptions.InvalidAmountException;
 import exceptions.InvalidHospitalDateException;
 
 public class SurgeryFactory extends TreatmentFactory
@@ -28,8 +27,7 @@ public class SurgeryFactory extends TreatmentFactory
 	}
 
 	@Override
-	public Treatment create() throws FactoryInstantiationException,
-			InvalidAmountException, InvalidHospitalDateException {
+	public Treatment create() throws FactoryInstantiationException, InvalidHospitalDateException {
 		if (isReady())
 			return new Surgery(patientFile_, creationDate_, description_);
 		throw new FactoryInstantiationException("Surgery was not ready yet!");

@@ -1,7 +1,6 @@
 package treatment;
 
 import exceptions.FactoryInstantiationException;
-import exceptions.InvalidAmountException;
 import exceptions.InvalidHospitalDateException;
 
 public class CastFactory extends TreatmentFactory
@@ -35,8 +34,7 @@ public class CastFactory extends TreatmentFactory
 	}
 	
 	@Override
-	public Treatment create() throws FactoryInstantiationException,
-			InvalidAmountException, InvalidHospitalDateException {
+	public Treatment create() throws FactoryInstantiationException, InvalidHospitalDateException {
 		if(isReady())
 			return new Cast(patientFile_, creationDate_, bodyPart_, length_);
 		throw new FactoryInstantiationException("Cast was not ready yet!");

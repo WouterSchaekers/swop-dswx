@@ -35,7 +35,7 @@ public class Cast extends Treatment implements CastIN
 	 * @throws InvalidHospitalDateException 
 	 * @throws InvalidAmountException 
 	 */
-	public Cast(PatientFile patientFile, HospitalDate creationTime, String bodyPart, int length) throws InvalidAmountException, InvalidHospitalDateException {
+	public Cast(PatientFile patientFile, HospitalDate creationTime, String bodyPart, int length) throws InvalidHospitalDateException {
 		super(patientFile, DURATION_, creationTime);
 		this.bodyPart_ = bodyPart;
 		this.length_ = length;
