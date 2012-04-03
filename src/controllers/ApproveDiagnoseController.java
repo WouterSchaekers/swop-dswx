@@ -2,7 +2,6 @@ package controllers;
 
 import java.util.Collection;
 import patient.Diagnose;
-import patient.PatientFile;
 import users.Doctor;
 import users.User;
 import controllers.interfaces.DiagnoseIN;
@@ -52,24 +51,13 @@ public class ApproveDiagnoseController extends NeedsLoginAndPatientFileControlle
 	 * Disapproves the selected diagnose and enters a replacement.
 	 * 
 	 * @throws ApproveDiagnoseException
+	 * @throws InvalidComplaintsException 
 	 * @throws InvalidDoctorException
 	 */
 	public void disapproveDiagnose(DiagnoseIN selected, String newDiag, String newComplaints)
-			throws InvalidDiagnoseException, ApproveDiagnoseException {
-		try {
-			if (isValidDiagnose(selected)
-					&& selected.canBeReplacedWith(newComplaints, newDiag, (Doctor) lc.getUser(),
-							(Doctor) selected.getAttending())) {
-				((Diagnose) selected).disapprove();
-				((PatientFile) (cpfc.getPatientFile())).createDiagnose(newComplaints, newDiag, (Doctor) lc.getUser(),
-						(Doctor) selected.getAttending(), hospital.getTaskManager());
-			} else
-				throw new InvalidDiagnoseException("Cannot disapprove the given daignose!");
-		} catch (InvalidDoctorException e) {
-			throw new Error(e.getMessage());
-		} catch (InvalidComplaintsException e) {
-			throw new Error(e.getMessage());
-		}
+			throws InvalidDiagnoseException, ApproveDiagnoseException, InvalidDoctorException, InvalidComplaintsException {
+		((Diagnose)selected).disapprove(newDiag, newComplaints);
+		
 	}
 
 	/**

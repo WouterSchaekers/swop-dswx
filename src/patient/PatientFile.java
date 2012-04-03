@@ -3,12 +3,10 @@ package patient;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.Observer;
 import medicaltest.MedicalTest;
 import medicaltest.MedicalTestFactory;
 import scheduler.tasks.Task;
 import scheduler.tasks.TaskDescription;
-import scheduler.tasks.TaskManager;
 import users.Doctor;
 import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.DiagnoseIN;
@@ -21,6 +19,7 @@ import exceptions.InvalidComplaintsException;
 import exceptions.InvalidDiagnoseException;
 import exceptions.InvalidDoctorException;
 import exceptions.InvalidNameException;
+import exceptions.InvalidPatientFileException;
 
 /**
  * This class represents the patient file of a patient.
@@ -104,19 +103,19 @@ public class PatientFile implements PatientFileIN
 	 *            The complaints the patient had that lead to the diagnose.
 	 * @param diag
 	 *            The diagnose.
-	 * @param manager
-	 *            The TaskManager that should observe the state of the newly
-	 *            created diagnose object should it's approved-state change.
 	 * @return The created diagnose
 	 * @throws InvalidDiagnoseException
 	 * @throws InvalidDoctorException
 	 * @throws InvalidComplaintsException
 	 */
-	public DiagnoseIN createDiagnose(String complaints, String diag, Doctor user, Doctor secOp, TaskManager manager)
+	public DiagnoseIN createDiagnose(String complaints, String diag, Doctor user, Doctor secOp)
 			throws InvalidDiagnoseException, InvalidDoctorException, InvalidComplaintsException {
 		Diagnose diagnose;
-		diagnose = new Diagnose(user, complaints, diag);
-		diagnose.addObserver((Observer) manager);
+		try {
+			diagnose = new Diagnose(user, complaints, diag,this);
+		} catch (InvalidPatientFileException e) {
+			throw new Error("unexpected error, can not create diagnose for this patientfile");
+		}
 		this.addDiagnose(diagnose);
 		
 		if(secOp != null) {
@@ -219,4 +218,5 @@ public class PatientFile implements PatientFileIN
 	private boolean isValidMedicalTest(Task<? extends MedicalTest> medicalTest) {
 		return medicalTest != null;
 	}
+
 }
