@@ -7,9 +7,6 @@ import users.User;
 import controllers.interfaces.DiagnoseIN;
 import exceptions.ApproveDiagnoseException;
 import exceptions.DischargePatientException;
-import exceptions.InvalidComplaintsException;
-import exceptions.InvalidDiagnoseException;
-import exceptions.InvalidDoctorException;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileOpenController;
@@ -48,14 +45,17 @@ public class ApproveDiagnoseController extends NeedsLoginAndPatientFileControlle
 	}
 
 	/**
-	 * Disapproves the selected diagnose and enters a replacement.
-	 * 
+	 * Disapprove diagnose! if an exception is thrown the domain remains unchanged.
+	 * @param selected
+	 * The selected diagnose.
+	 * @param newDiag
+	 * The replacement diagnose.
+	 * @param newComplaints
+	 * The replacement complaint
 	 * @throws ApproveDiagnoseException
-	 * @throws InvalidComplaintsException 
-	 * @throws InvalidDoctorException
+	 * The passed diagnose is not marked for second opinion
 	 */
-	public void disapproveDiagnose(DiagnoseIN selected, String newDiag, String newComplaints)
-			throws InvalidDiagnoseException, ApproveDiagnoseException, InvalidDoctorException, InvalidComplaintsException {
+	public void disapproveDiagnose(DiagnoseIN selected, String newDiag, String newComplaints) throws ApproveDiagnoseException 	{
 		((Diagnose)selected).disapprove(newDiag, newComplaints);
 		
 	}

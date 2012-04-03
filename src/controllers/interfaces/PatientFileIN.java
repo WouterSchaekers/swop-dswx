@@ -10,7 +10,7 @@ public interface PatientFileIN
 
 	public Collection<TaskIN> getAllMedicalTests();
 
-	public String getPatientName();
-
+	
 	public Collection<DiagnoseIN> getPendingDiagnosisFor(DoctorIN d);
+	public PatientIN getPatient();
 }

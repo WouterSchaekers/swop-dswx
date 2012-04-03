@@ -1,5 +1,6 @@
 package warehouse.orderstrat;
 
+import help.Collections;
 import patient.PatientFileManager;
 import scheduler.TimeLord;
 import warehouse.Warehouse;
@@ -20,7 +21,7 @@ public class PatientMealStrategy extends OrderStrategy
 	 *         amount in stock
 	 */
 	protected int getNeeded() {
-		int patients = man_.amountOfActivePatients();
+		int patients = Collections.filter(man_.getAllPatientFiles(), PatientFileManager.active).size();
 		int amount = 15 + patients * 6 - warehouse_.getCurrentCount(type_);
 		if (amount < 0)
 			return 0;
