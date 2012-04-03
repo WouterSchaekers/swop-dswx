@@ -1,2 +1,0 @@
-=UltraSoundScan extends [MedicalTest] =
-A class representing an UltraSoundScan: requires a nurse and an ultrasound scanner
