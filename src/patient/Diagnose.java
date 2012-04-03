@@ -13,7 +13,6 @@ import controllers.interfaces.DoctorIN;
 import controllers.interfaces.TaskIN;
 import exceptions.ApproveDiagnoseException;
 import exceptions.FactoryInstantiationException;
-import exceptions.InvalidAmountException;
 import exceptions.InvalidComplaintsException;
 import exceptions.InvalidDiagnoseException;
 import exceptions.InvalidDoctorException;
@@ -123,8 +122,6 @@ public class Diagnose extends Observable implements DiagnoseIN
 	public Treatment createTreatment(TreatmentFactory treatFact) throws FactoryInstantiationException {
 		try {
 			return treatFact.create();
-		} catch (InvalidAmountException e) {
-			throw new FactoryInstantiationException(e.getMessage());
 		} catch (InvalidHospitalDateException e) {
 			throw new FactoryInstantiationException(e.getMessage());
 		}

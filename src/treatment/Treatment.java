@@ -11,7 +11,6 @@ import scheduler.tasks.TaskDescription;
 import scheduler.tasks.TaskDescriptionWithPatientFile;
 import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.TreatmentIN;
-import exceptions.InvalidAmountException;
 import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidReportException;
 
@@ -21,8 +20,8 @@ import exceptions.InvalidReportException;
 public abstract class Treatment extends TaskDescriptionWithPatientFile implements TreatmentIN
 {
 
-	public Treatment(PatientFile patientFile, long duration, HospitalDate creationTime) throws InvalidAmountException,
-			InvalidHospitalDateException {
+	public Treatment(PatientFile patientFile, long duration, HospitalDate creationTime)
+			throws InvalidHospitalDateException {
 		super(patientFile, duration, 0, creationTime);
 	}
 

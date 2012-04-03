@@ -35,7 +35,7 @@ public class Medication extends Treatment implements MedicationIN
 	 * @throws InvalidHospitalDateException 
 	 * @throws InvalidAmountException 
 	 */
-	public Medication(PatientFile patientFile, HospitalDate creationTime, MedicationType medicationType, Warehouse warehouse, String description, boolean sensitive) throws InvalidAmountException, InvalidHospitalDateException {
+	public Medication(PatientFile patientFile, HospitalDate creationTime, MedicationType medicationType, Warehouse warehouse, String description, boolean sensitive) throws InvalidHospitalDateException {
 		super(patientFile, HospitalDate.ONE_MINUTE * 20, creationTime);
 		this.description_ = description;
 		this.sensitive_ = sensitive;
