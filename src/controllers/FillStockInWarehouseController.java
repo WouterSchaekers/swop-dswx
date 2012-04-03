@@ -20,12 +20,14 @@ import exceptions.WarehouseOverCapacityException;
 /**
  * Use to fill the stock of a warehouse.
  */
+@controllers.PUBLICAPI
 public class FillStockInWarehouseController extends NeedsLoginController
 {
 	private WarehouseAdmin ad = (WarehouseAdmin)(lc.getUser());
 	private Campus camp = (Campus)(ad.getLocation());
 	private Warehouse w = camp.getWarehouse();
-	
+
+	@controllers.PUBLICAPI
 	public FillStockInWarehouseController(LoginController lc) throws InvalidLoginControllerException,
 			InvalidHospitalException {
 		super(lc);
@@ -35,6 +37,7 @@ public class FillStockInWarehouseController extends NeedsLoginController
 	 * 
 	 * @return All types of items that can be put into warehouses.
 	 */
+	@controllers.PUBLICAPI
 	public Collection<WarehouseItemType> getItemTypes() {
 		return WarehouseItemTypes.itemTypes();
 	}
@@ -42,6 +45,7 @@ public class FillStockInWarehouseController extends NeedsLoginController
 	/**
 	 * Gets the warehouse items from the warehouse of the admin that has logged in.
 	 */
+	@controllers.PUBLICAPI
 	public Collection<WarehouseItem> getWarehouseItems() {
 		return w.getAllItems();
 	}
@@ -49,6 +53,7 @@ public class FillStockInWarehouseController extends NeedsLoginController
 	/**
 	 * Gets the stock orders from the warehouse of the admin that has logged in.
 	 */
+	@controllers.PUBLICAPI
 	public Collection<StockOrderIN> getAllStockOrders() {
 		return camp.getStockprovider().getOrderINs();
 	}
@@ -61,6 +66,7 @@ public class FillStockInWarehouseController extends NeedsLoginController
 	 * @throws WarehouseOverCapacityException
 	 * @throws InvalidOrderStateException
 	 */
+	@controllers.PUBLICAPI
 	@SuppressWarnings("unchecked")
 	public <T extends WarehouseItemType> void deliverItems(Collection<StockOrderIN> selectedItems,
 			HospitalDate expiryDate) throws WarehouseOverCapacityException, InvalidOrderStateException {

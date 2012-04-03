@@ -4,12 +4,12 @@ import users.User;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 
-public abstract class NeedsLoginController extends HospitalController
+ abstract class NeedsLoginController extends HospitalController
 {
 
 	protected LoginController lc;
 
-	public NeedsLoginController(LoginController lc) throws InvalidLoginControllerException,
+	 NeedsLoginController(LoginController lc) throws InvalidLoginControllerException,
 			InvalidHospitalException {
 		super(lc.hospital);
 		if (isValidLoginController(lc))

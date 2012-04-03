@@ -18,6 +18,7 @@ import exceptions.InvalidSerialException;
 /**
  * Allows you to add new equipment to the hospital.
  */
+@controllers.PUBLICAPI
 public class AddHospitalEquipmentController extends NeedsLoginController
 {
 	/**
@@ -28,6 +29,7 @@ public class AddHospitalEquipmentController extends NeedsLoginController
 	 * @throws InvalidLoginControllerException
 	 * @throws InvalidHospitalException
 	 */
+	@controllers.PUBLICAPI
 	public AddHospitalEquipmentController(LoginController lc) throws InvalidLoginControllerException,
 			InvalidHospitalException {
 		super(lc);
@@ -37,6 +39,7 @@ public class AddHospitalEquipmentController extends NeedsLoginController
 	 * @return All the objects that can create a kinds of different machines.
 	 * @throws InvalidCampusException 
 	 */
+	@controllers.PUBLICAPI
 	public Collection<MachineBuilder> getAllMachineBuilders(LocationIN campus) throws InvalidCampusException {
 		if(!(campus instanceof Campus))
 		{
@@ -50,6 +53,7 @@ public class AddHospitalEquipmentController extends NeedsLoginController
 	 * Creates a new machine from the given machine builder and adds it to the
 	 * hospital.
 	 */
+	@controllers.PUBLICAPI
 	public void createMachine(MachineBuilder b, LocationIN whereabouts) throws InvalidLocationException,
 			InvalidSerialException {
 		((Campus) whereabouts).getMachinePool().addMachine(b);
@@ -58,6 +62,7 @@ public class AddHospitalEquipmentController extends NeedsLoginController
 	/**
 	 * @return all possible locations in this hospital.
 	 */
+	@controllers.PUBLICAPI
 	public Collection<LocationIN> getAllLocations() {
 		Collection<LocationIN> rv = new LinkedList<LocationIN>();
 		for (Location l : hospital.getAllCampuses())

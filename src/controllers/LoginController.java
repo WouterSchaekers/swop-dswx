@@ -19,11 +19,13 @@ import exceptions.InvalidHospitalException;
  * between the amount of logged in users and the amount of controllers. Each
  * logincontroller will remember what user they logged in.
  */
+@controllers.PUBLICAPI
 public class LoginController extends HospitalController
 {
 	private boolean loggedIn = false;
 	private User user = null;
 
+	@controllers.PUBLICAPI
 	public LoginController(Hospital hospital) throws InvalidHospitalException {
 		super(hospital);
 	}
@@ -31,6 +33,7 @@ public class LoginController extends HospitalController
 	/**
 	 * @return A collection of all users currently in the system.
 	 */
+	@controllers.PUBLICAPI
 	public Collection<UserIN> getAllUsers() {
 		UserManager um = hospital.getUserManager();
 		ArrayList<UserIN> users = new ArrayList<UserIN>();
@@ -38,11 +41,13 @@ public class LoginController extends HospitalController
 			users.add(u);
 		return users;
 	}
-	
+
+	@controllers.PUBLICAPI
 	public NurseIN getSpecificNurse(String name) {
 		return UserFilter.SpecificNurseFilter(hospital.getUserManager().getAllUsers(), name);
 	}
-	
+
+	@controllers.PUBLICAPI
 	public DoctorIN getSpecificDoctor(String name) {
 		return UserFilter.SpecificDoctorFilter(hospital.getUserManager().getAllUsers(), name);
 	}
@@ -54,6 +59,7 @@ public class LoginController extends HospitalController
 	 * @throws IllegalArgumentException
 	 *             if (!isValidUser((User) user))
 	 */
+	@controllers.PUBLICAPI
 	public String logIn(UserIN user) throws IllegalArgumentException {
 		if (!isValidUser((User) user))
 			throw new IllegalArgumentException("The given user is null!");
@@ -87,6 +93,7 @@ public class LoginController extends HospitalController
 	/**
 	 * @return True if the user of this controller is logged in.
 	 */
+	@controllers.PUBLICAPI
 	public boolean loggedIn() {
 		return loggedIn;
 	}
@@ -101,6 +108,7 @@ public class LoginController extends HospitalController
 	/**
 	 * @return The user whom has been granted log on access.
 	 */
+	@controllers.PUBLICAPI
 	public UserIN getUserIN() {
 		return user;
 	}

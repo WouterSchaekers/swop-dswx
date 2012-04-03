@@ -7,7 +7,7 @@ import exceptions.InvalidPatientFileOpenController;
 /**
  * This class is the superclass of all controller that need both a logincontroller and a patientfilecontroller.
  */
-public abstract class NeedsLoginAndPatientFileController extends
+abstract class NeedsLoginAndPatientFileController extends
 		NeedsLoginController
 {
 	protected ConsultPatientFileController cpfc;
@@ -22,7 +22,7 @@ public abstract class NeedsLoginAndPatientFileController extends
 	 * @throws InvalidHospitalException
 	 * @throws InvalidPatientFileOpenController
 	 */
-	public NeedsLoginAndPatientFileController(LoginController lc, ConsultPatientFileController pfoc)
+	 NeedsLoginAndPatientFileController(LoginController lc, ConsultPatientFileController pfoc)
 			throws InvalidLoginControllerException,
 			InvalidHospitalException, InvalidPatientFileOpenController {
 		super(lc);

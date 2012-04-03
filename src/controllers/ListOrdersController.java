@@ -14,11 +14,13 @@ import exceptions.InvalidLoginControllerException;
 /**
  * Use to list the orders from a warehouse.
  */
+@controllers.PUBLICAPI
 public class ListOrdersController extends NeedsLoginController
 {
 	private WarehouseAdmin admin = (WarehouseAdmin)(lc.getUser());
 	private Campus campus = (Campus)(admin.getLocation());
-	
+
+	@controllers.PUBLICAPI
 	public ListOrdersController(LoginController lc) throws InvalidLoginControllerException,
 			InvalidHospitalException {
 		super(lc);
@@ -27,6 +29,7 @@ public class ListOrdersController extends NeedsLoginController
 	/**
 	 * @return The categories of warehouse items.
 	 */
+	@controllers.PUBLICAPI
 	public Collection<WarehouseItemType> getCategories() {
 		return WarehouseItemTypes.itemTypes();
 	}
@@ -34,6 +37,7 @@ public class ListOrdersController extends NeedsLoginController
 	/**
 	 * Use to get all open undelivered stock orders for a specified item type.
 	 */
+	@controllers.PUBLICAPI
 	public LinkedList<StockOrderIN> getStockOrders(WarehouseItemType selected) {
 		LinkedList<StockOrderIN> rv = new LinkedList<StockOrderIN>();
 		Collection<StockOrderIN> orders = campus.getStockprovider().getOrderINs();

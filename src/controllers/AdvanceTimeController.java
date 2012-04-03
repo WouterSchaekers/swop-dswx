@@ -7,8 +7,10 @@ import users.User;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 
+@controllers.PUBLICAPI
 public class AdvanceTimeController extends NeedsLoginController
 {
+	@controllers.PUBLICAPI
 	public AdvanceTimeController(LoginController lc) throws InvalidLoginControllerException,
 			InvalidHospitalException {
 		super(lc);
@@ -21,6 +23,7 @@ public class AdvanceTimeController extends NeedsLoginController
 	 * @throws InvalidSystemTime 
 	 * If the provided hospitaldate is before the old systemtime, 
 	 */
+	@controllers.PUBLICAPI
 	public void setNewSystemTime(HospitalDate hospitalDate) throws InvalidSystemTime {
 
 		this.hospital.getTimeKeeper().setSystemTime(hospitalDate);

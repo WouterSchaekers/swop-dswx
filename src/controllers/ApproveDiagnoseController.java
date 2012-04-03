@@ -14,6 +14,7 @@ import exceptions.InvalidPatientFileOpenController;
 /**
  * Use this controller to give a second opinion on a diagnose of a patient.
  */
+@controllers.PUBLICAPI
 public class ApproveDiagnoseController extends NeedsLoginAndPatientFileController
 {
 
@@ -24,6 +25,7 @@ public class ApproveDiagnoseController extends NeedsLoginAndPatientFileControlle
 	 *             If the patient of the patient file the doctor currently has
 	 *             opened has already been discharged.
 	 */
+	@controllers.PUBLICAPI
 	public ApproveDiagnoseController(LoginController lc, ConsultPatientFileController cpfc)
 			throws InvalidLoginControllerException, InvalidHospitalException, InvalidPatientFileOpenController,
 			DischargePatientException {
@@ -37,6 +39,7 @@ public class ApproveDiagnoseController extends NeedsLoginAndPatientFileControlle
 	 * 
 	 * @throws ApproveDiagnoseException
 	 */
+	@controllers.PUBLICAPI
 	public void approveDiagnose(DiagnoseIN selected) throws ApproveDiagnoseException {
 		if (isValidDiagnose(selected))
 			((Diagnose) selected).approve();
@@ -64,6 +67,7 @@ public class ApproveDiagnoseController extends NeedsLoginAndPatientFileControlle
 	 * Use to display pending diagnosis for the doctor who currently is logged
 	 * on.
 	 */
+	@controllers.PUBLICAPI
 	public Collection<DiagnoseIN> getPendingDiagnosis() {
 		return cpfc.getPatientFile().getPendingDiagnosisFor((Doctor) lc.getUser());
 	}

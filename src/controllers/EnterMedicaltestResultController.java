@@ -9,8 +9,10 @@ import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileOpenController;
 import exceptions.InvalidResultException;
 
+@controllers.PUBLICAPI
 public class EnterMedicaltestResultController extends NeedsLoginController
 {
+	@controllers.PUBLICAPI
 	public EnterMedicaltestResultController(LoginController lc)
 			throws InvalidLoginControllerException, InvalidHospitalException,
 			InvalidPatientFileOpenController {
@@ -23,6 +25,7 @@ public class EnterMedicaltestResultController extends NeedsLoginController
 	 * @throws InvalidLoginControllerException
 	 * @throws InvalidPatientFileOpenController
 	 */
+	@controllers.PUBLICAPI
 	public Collection<TaskIN> getMedicalTestsThatNeedResults() {
 		return hospital.getTaskManager().getMedicalTestsThatNeedResults();
 	}
@@ -32,6 +35,7 @@ public class EnterMedicaltestResultController extends NeedsLoginController
 	 * 
 	 * @throws InvalidResultException
 	 */
+	@controllers.PUBLICAPI
 	public void addResultTo(TaskIN selected, String report) throws InvalidResultException {
 		if(!(selected.isFinished() || selected.getDescription().needsResult()))
 			throw new InvalidResultException("Selected task does not need a result!");

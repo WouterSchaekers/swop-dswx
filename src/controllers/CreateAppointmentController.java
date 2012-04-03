@@ -19,8 +19,10 @@ import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidPatientFileOpenController;
 
+@controllers.PUBLICAPI
 public class CreateAppointmentController extends NeedsLoginController
 {
+	@controllers.PUBLICAPI
 	public CreateAppointmentController(LoginController lc) throws InvalidLoginControllerException,
 			InvalidHospitalException, InvalidPatientFileOpenController {
 		super(lc);
@@ -31,6 +33,7 @@ public class CreateAppointmentController extends NeedsLoginController
 	 * @throws CanNeverBeScheduledException
 	 * @throws InvalidNameException 
 	 */
+	@controllers.PUBLICAPI
 	public HospitalDate scheduleNewAppointment(DoctorIN doc, PatientFileIN patient)
 			throws CanNeverBeScheduledException, InvalidNameException {
 		AppointmentDescription description;
@@ -47,6 +50,7 @@ public class CreateAppointmentController extends NeedsLoginController
 		throw new IllegalStateException("This should not happen... Appointment was not scheduled but queued!");
 	}
 
+	@controllers.PUBLICAPI
 	public Collection<DoctorIN> getAllDoctors() {
 		return UserFilter.DoctorFilter(hospital.getUserManager().getAllUsers());
 	}
