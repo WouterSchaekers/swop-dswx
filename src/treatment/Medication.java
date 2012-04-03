@@ -7,7 +7,9 @@ import scheduler.HospitalDate;
 import scheduler.requirements.Requirement;
 import scheduler.requirements.RequirementType;
 import scheduler.requirements.SpecificRequirement;
+import scheduler.requirements.WarehouseItemCondition;
 import users.Nurse;
+import warehouse.Warehouse;
 import warehouse.item.MedicationType;
 import controllers.interfaces.MedicationIN;
 import exceptions.InvalidAmountException;
@@ -18,8 +20,10 @@ import exceptions.InvalidHospitalDateException;
  */
 public class Medication extends Treatment implements MedicationIN
 {
-	private String description_ = "";
-	private boolean sensitive_ = false;
+	private String description_;
+	private boolean sensitive_;
+	private MedicationType medicationType_;
+	private Warehouse warehouse_;
 
 	/**
 	 * Default constructor.
@@ -31,49 +35,27 @@ public class Medication extends Treatment implements MedicationIN
 	 * @throws InvalidHospitalDateException 
 	 * @throws InvalidAmountException 
 	 */
-	public Medication(PatientFile patientFile, HospitalDate creationTime, String description, boolean sensitive) throws InvalidAmountException, InvalidHospitalDateException {
+	public Medication(PatientFile patientFile, HospitalDate creationTime, MedicationType medicationType, Warehouse warehouse, String description, boolean sensitive) throws InvalidAmountException, InvalidHospitalDateException {
 		super(patientFile, HospitalDate.ONE_MINUTE * 20, creationTime);
-		setDescription(description);
-		setSensitive(sensitive);
+		this.description_ = description;
+		this.sensitive_ = sensitive;
+		this.medicationType_ = medicationType;
+		this.warehouse_ = warehouse;
 	}
 
 	/**
 	 * @return Information about this medicinal treatment.
 	 */
 	public String information() {
-		return toString() + ": " + getDescription() + " " + sensitiveText()
+		return toString() + ": " + this.description_ + " " + sensitiveText()
 				+ ".";
-	}
-
-	/**
-	 * @return The description of this medicinal treatment.
-	 */
-	public String getDescription() {
-		return description_;
-	}
-
-	/**
-	 * This method allows to change the description of this treatment.
-	 * 
-	 * @param description
-	 *            The new description for this medicinal treatment.
-	 */
-	public void setDescription(String description) {
-		this.description_ = description;
-	}
-
-	/**
-	 * @return True if this is a sensitive medication.
-	 */
-	public boolean isSensitive() {
-		return sensitive_;
 	}
 
 	/**
 	 * @return A string about whether or not the medication is sensitive.
 	 */
 	public String sensitiveText() {
-		return (isSensitive()) ? "the medication is sensitive"
+		return (this.sensitive_) ? "the medication is sensitive"
 				: "the medication is not sensitive";
 	}
 
@@ -96,7 +78,7 @@ public class Medication extends Treatment implements MedicationIN
 	public Collection<Requirement> getAllRequirements() {
 		Collection<Requirement> requirements = new LinkedList<Requirement>();
 		requirements.add(new SpecificRequirement(this.patientFile_.getPatient(),false));
-		requirements.add(new RequirementType<MedicationType>(MedicationType.class, false, 1));
+		requirements.add(new WarehouseItemCondition(this.medicationType_, this.warehouse_, 1));
 		requirements.add(new RequirementType<Nurse>(Nurse.class, true, 1));
 		return requirements;
 	}
