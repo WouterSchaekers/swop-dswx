@@ -6,15 +6,15 @@ public interface DiagnoseIN
 {
 
 	
-	public DoctorIN getAttending();
+	public DoctorIN getAttendingIN();
 
-	public String getComplaints();
+	public String getComplaintsIN();
 
-	public String getDiagnose();
+	public String getDiagnoseIN();
 
-	public Collection<TaskIN> getTreatments();
+	public Collection<TaskIN> getTreatmentsIN();
 	
-	public boolean isApproved();
+	public boolean isApprovedIN();
 	
-	public DoctorIN needsSecOpFrom();
+	public DoctorIN needsSecOpFromIN();
 }

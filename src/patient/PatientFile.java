@@ -7,6 +7,7 @@ import medicaltest.MedicalTest;
 import medicaltest.MedicalTestFactory;
 import scheduler.tasks.Task;
 import scheduler.tasks.TaskDescription;
+import treatment.Treatment;
 import users.Doctor;
 import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.DiagnoseIN;
@@ -78,7 +79,7 @@ public class PatientFile implements PatientFileIN
 		for (Diagnose d : diagnosis) {
 			if (d.isMarkedForSecOp())
 				return false;
-			for (TaskIN t : d.getTreatments())
+			for (Task<? extends Treatment> t : d.getTreatments())
 				if (!t.isFinished())
 					return false;
 		}
@@ -169,7 +170,7 @@ public class PatientFile implements PatientFileIN
 	public Collection<DiagnoseIN> getDiagnosisFrom(Doctor doc) {
 		Collection<DiagnoseIN> rv = new LinkedList<DiagnoseIN>();
 		for (Diagnose d : this.diagnosis)
-			if (d.getAttending().equals(doc))
+			if (d.getAttendingIN().equals(doc))
 				rv.add((DiagnoseIN) d);
 		return rv;
 	}
@@ -190,7 +191,7 @@ public class PatientFile implements PatientFileIN
 	public Collection<DiagnoseIN> getPendingDiagnosisFor(DoctorIN d) {
 		Collection<DiagnoseIN> rv = new LinkedList<DiagnoseIN>();
 		for (Diagnose diag : this.diagnosis)
-			if (diag.isMarkedForSecOp() && !diag.isApproved() && diag.getAttending().equals((Doctor) d))
+			if (diag.isMarkedForSecOp() && !diag.isApprovedIN() && diag.getAttendingIN().equals((Doctor) d))
 				rv.add((DiagnoseIN) d);
 		return rv;
 	}
