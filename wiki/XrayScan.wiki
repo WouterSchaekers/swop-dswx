@@ -1,2 +1,0 @@
-= Xray scan extends [MedicalTest] =
-A class representing an xray-scan: requires a nurse and an x-ray scanner
