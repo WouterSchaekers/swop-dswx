@@ -1,8 +1,0 @@
-= Medical test descriptions =
-
-All medical tests require a nurse and a machine for further details check the following pages.
-[[XrayScan]]
-[[UltraSoundScan]]
-[[BloodAnalysis]]
-
-These are all created by
