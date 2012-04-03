@@ -51,6 +51,7 @@
 || 01/04/12: 21u00 -> 02u00 || 1 S || 5 || Implementing some controllers (see commit log) || ||
 || 02/04/12: 15u00 -> 16u00 || 1 S || 1 || Implementing some more controllers ||  ||
 || 02/04/12: 16u00 -> 19u00 || 2 SW || 3 || Finishing implementing LocationTimeTables and PreferenceStates properly. ||  ||
+|| 03/04/12: 12u00 -> 14u00 || 2 SW ||  || Finishing the implementation of the last controllers, debugging scheduling algorithm. ||  ||
 
 
 = Iteratie 2 =
