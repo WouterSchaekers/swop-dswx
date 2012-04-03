@@ -45,9 +45,9 @@ public abstract class Treatment extends TaskDescriptionWithPatientFile implement
 	 */
 	@Override
 	public <T extends TaskDescription> void deInit(Task<T> task) {
-		Collection<DiagnoseIN> diags = this.patientFile_.getAllDiagnosisIN();
-		for (DiagnoseIN d : diags) {
-			if (d.getTreatmentsIN().contains(task.getDescription())) {
+		Collection<Diagnose> diags = this.patientFile_.getAllDiagnosis();
+		for (Diagnose d : diags) {
+			if (d.getTreatments().contains(task.getDescription())) {
 				((Diagnose) d).removeTreatment(task);
 				return;
 			}

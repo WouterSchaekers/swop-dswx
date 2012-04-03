@@ -159,6 +159,11 @@ public class PatientFile implements PatientFileIN
 		return rv;
 	}
 
+	public Collection<Diagnose> getAllDiagnosis() {
+		Collection<Diagnose> rv = new ArrayList<Diagnose>();
+		rv.addAll(diagnosis);
+		return rv;
+	}
 	public Collection<Task<?>> getAllMedicalTests() {
 		return new LinkedList<Task<?>>(medicaltests);
 	}
