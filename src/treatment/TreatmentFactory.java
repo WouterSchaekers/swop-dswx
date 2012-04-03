@@ -3,9 +3,11 @@ package treatment;
 import patient.PatientFile;
 import scheduler.HospitalDate;
 import exceptions.FactoryInstantiationException;
-import exceptions.InvalidAmountException;
 import exceptions.InvalidHospitalDateException;
 
+/**
+ * A TreatmentFactory is an abstract factory, used to create Treatments.
+ */
 public abstract class TreatmentFactory
 {
 	protected PatientFile patientFile_;
@@ -52,19 +54,20 @@ public abstract class TreatmentFactory
 	/**
 	 * Checks whether the factory is ready for production.
 	 * 
-	 * @return True if the patientFile is valid and the creationDate is valid.
+	 * @return True if the patientFile and the creationDate is valid.
 	 */
 	protected boolean isReady() {
 		return isValidPatientFile() && isValidCreationDate();
 	}
 
 	/**
-	 * Creates a Treatment from the given information.
+	 * Creates a Treatment built from the given information.
 	 * 
-	 * @return
+	 * @return A Treatment built from the given information.
 	 * @throws FactoryInstantiationException
-	 * @throws InvalidAmountException
+	 *             The factory was not ready yet.
 	 * @throws InvalidHospitalDateException
+	 *             The used creationDate was invalid.
 	 */
 	public abstract Treatment create() throws FactoryInstantiationException, InvalidHospitalDateException;
 }
