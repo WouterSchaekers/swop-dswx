@@ -37,33 +37,22 @@ public abstract class Treatment extends TaskDescriptionWithPatientFile implement
 	}
 
 	/**
-	 * Deinitializes the task. All the diagnoses of the patientFile that have
-	 * the given task will be removed from the diagnose.
+	 * Returns the Result of the Treatment.
 	 * 
-	 * @param task
-	 *            The task that has to be deinitialized.
-	 */
-	@Override
-	public <T extends TaskDescription> void deInit(Task<T> task) {
-		Collection<Diagnose> diags = this.patientFile_.getAllDiagnosis();
-		for (Diagnose d : diags) {
-			if (d.getTreatments().contains(task.getDescription())) {
-				((Diagnose) d).removeTreatment(task);
-				return;
-			}
-		}
-		throw new IllegalArgumentException(
-				"Error! PatientFile does not contain the diagnose for the treatment that's being deinitialised.!");
-	}
-
-	/**
-	 * 
+	 * @return The Result of the Treatment.
 	 */
 	@Override
 	public Result getResult() {
 		return result_;
 	}
-
+²
+	/**
+	 * Sets the result of the Description.
+	 * 
+	 * @param result
+	 *            The result of the Description.
+	 */
+	@Override
 	public void setResult(String result) {
 		try {
 			this.result_ = new Result(result);
@@ -72,6 +61,12 @@ public abstract class Treatment extends TaskDescriptionWithPatientFile implement
 		}
 	}
 
+	/**
+	 * Initializes the task.
+	 * 
+	 * @param task
+	 *            The task that has to be initialized.
+	 */
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	@Override
 	public <T extends TaskDescription> void initTask(Task<T> task) {
@@ -85,7 +80,32 @@ public abstract class Treatment extends TaskDescriptionWithPatientFile implement
 		throw new IllegalArgumentException(
 				"Error! PatientFile does not contain the diagnose for the treatment created!");
 	}
+	
+	/**
+	 * Deinitializes the task. All the diagnoses of the patientFile that have
+	 * the given task will be removed from the diagnose.
+	 * 
+	 * @param task
+	 *            The task that has to be deinitialized.
+	 */
+	@Override
+	public <T extends TaskDescription> void deInit(Task<T> task) {
+		Collection<DiagnoseIN> diags = this.patientFile_.getAllDiagnosis();
+		for (DiagnoseIN d : diags) {
+			if (d.getTreatments().contains(task.getDescription())) {
+				((Diagnose) d).removeTreatment(task);
+				return;
+			}
+		}
+		throw new IllegalArgumentException(
+				"Error! PatientFile does not contain the diagnose for the treatment that's being deinitialised.!");
+	}
 
+	/**
+	 * Returns whether the Description needs a result.
+	 * 
+	 * @return True if the Description needs a result.
+	 */
 	@Override
 	public boolean needsResult() {
 		return result_ == null;

@@ -15,19 +15,19 @@ public interface DescriptionIN
 	public boolean needsResult();
 
 	/**
+	 * Returns the Result of the Description.
+	 * 
+	 * @return The Result of the Description.
+	 */
+	public Result getResult();
+	
+	/**
 	 * Sets the result of the Description.
 	 * 
 	 * @param result
 	 *            The result of the Description.
 	 */
 	public void setResult(String result);
-
-	/**
-	 * Returns the Result of the Description.
-	 * 
-	 * @return The Result in the Description.
-	 */
-	public Result getResult();
 
 	/**
 	 * Returns the safe interface of the PatientFile.
