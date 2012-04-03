@@ -2,7 +2,6 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import patient.NoSuchPatientException;
 import patient.PatientFile;
 import controllers.interfaces.PatientFileIN;
 import users.Nurse;
@@ -11,6 +10,7 @@ import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidPatientFileException;
+import exceptions.NoSuchPatientException;
 
 /**
  * This class is used to check patients in into the hospital. If you would like
