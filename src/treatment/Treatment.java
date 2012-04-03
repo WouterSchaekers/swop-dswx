@@ -5,7 +5,6 @@ import patient.Diagnose;
 import patient.PatientFile;
 import result.Result;
 import scheduler.HospitalDate;
-import scheduler.requirements.Requirement;
 import scheduler.tasks.Task;
 import scheduler.tasks.TaskDescription;
 import scheduler.tasks.TaskDescriptionWithPatientFile;
@@ -20,29 +19,57 @@ import exceptions.InvalidReportException;
 public abstract class Treatment extends TaskDescriptionWithPatientFile implements TreatmentIN
 {
 
-	public Treatment(PatientFile patientFile, long duration, HospitalDate creationTime)
+	/**
+	 * Default constructor of Treatment.
+	 * 
+	 * @param patientFile
+	 *            The patientFile.
+	 * @param duration
+	 *            The duration of the task.
+	 * @param creationDate
+	 *            The date on which this description has been created.
+	 * @throws InvalidHospitalDateException
+	 *             The given creationDate was not valid.
+	 */
+	public Treatment(PatientFile patientFile, long duration, HospitalDate creationDate)
 			throws InvalidHospitalDateException {
-		super(patientFile, duration, 0, creationTime);
+		super(patientFile, duration, 0, creationDate);
 	}
 
+	/**
+	 * Deinitializes the task. All the diagnoses of the patientFile that have
+	 * the given task will be removed from the diagnose.
+	 * 
+	 * @param task
+	 *            The task that has to be deinitialized.
+	 */
 	@Override
 	public <T extends TaskDescription> void deInit(Task<T> task) {
 		Collection<DiagnoseIN> diags = this.patientFile_.getAllDiagnosis();
 		for (DiagnoseIN d : diags) {
 			if (d.getTreatments().contains(task.getDescription())) {
 				((Diagnose) d).removeTreatment(task);
+				return;
 			}
 		}
 		throw new IllegalArgumentException(
 				"Error! PatientFile does not contain the diagnose for the treatment that's being deinitialised.!");
 	}
 
-	@Override
-	public abstract Collection<Requirement> getAllRequirements();
-
+	/**
+	 * 
+	 */
 	@Override
 	public Result getResult() {
 		return result_;
+	}
+
+	public void setResult(String result) {
+		try {
+			this.result_ = new Result(result);
+		} catch (InvalidReportException e) {
+			throw new Error(e);
+		}
 	}
 
 	@SuppressWarnings({ "unchecked", "deprecation" })
@@ -63,14 +90,4 @@ public abstract class Treatment extends TaskDescriptionWithPatientFile implement
 	public boolean needsResult() {
 		return result_ == null;
 	}
-
-	@Override
-	public void setResult(String result) {
-		try {
-			this.result_ = new Result(result);
-		} catch (InvalidReportException e) {
-			throw new Error(e);
-		}
-	}
-
 }
