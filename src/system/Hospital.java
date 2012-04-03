@@ -37,7 +37,10 @@ public class Hospital
 			this.patientFileManager_ = new PatientFileManager();
 			this.taskManager_ = new TaskManager(this);
 			this.campusses_ = new LinkedList<Campus>();
-			//TODO: initilise campusses and give them warehouses.
+			for (int i = 0; i < 2; i++) {
+				Campus c = new Campus("Campus " + ++i, this, systemTime_);
+				this.campusses_.add(c);
+			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			throw new Error();
@@ -62,16 +65,19 @@ public class Hospital
 	 *            The TaskManager for this hospital.
 	 * @param warehouse
 	 *            The Warehouse for this hospital.
-	 * @throws  
+	 * @throws
 	 */
 	public Hospital(TimeLord timeLord, UserManager userManager, PatientFileManager patientFileManager,
-			Scheduler scheduler, TaskManager taskManager,
-			HospitalAdmin hospitalAdmin) {
+			Scheduler scheduler, TaskManager taskManager, HospitalAdmin hospitalAdmin) {
 		this.systemTime_ = timeLord;
 		this.userManager_ = userManager;
 		this.patientFileManager_ = patientFileManager;
 		this.taskManager_ = taskManager;
 		this.campusses_ = new LinkedList<Campus>();
+		for (int i = 0; i < 2; i++) {
+			Campus c = new Campus("Campus " + ++i, this, systemTime_);
+			this.campusses_.add(c);
+		}
 	}
 
 	@Basic
@@ -95,68 +101,69 @@ public class Hospital
 	}
 
 	@Basic
-	public Campus getCampus(String name){
-		for(Campus campus : campusses_){
-			if(campus.getCampusName().equals(name)){
+	public Campus getCampus(String name) {
+		for (Campus campus : campusses_) {
+			if (campus.getCampusName().equals(name)) {
 				return campus;
 			}
 		}
 		throw new IllegalArgumentException("Campus does not exists");
 	}
-	
+
 	public Collection<Location> getAllLocations() {
 		return new LinkedList<Location>(this.campusses_);
 	}
-	
+
 	public Collection<Campus> getAllCampuses() {
 		return new LinkedList<Campus>(this.campusses_);
 	}
-	
+
 	/**
 	 * Adds a campus to this hospital.
 	 */
 	@Basic
 	public void addCampus(String name) throws InvalidCampusException {
-		if(name.equals(""))
+		if (name.equals(""))
 			throw new InvalidCampusException("Invalid new campus name was given!");
 		Campus camp = new Campus("name", this, systemTime_);
 		this.campusses_.add(camp);
 	}
-	
+
 	/**
 	 * Removes a campus from this hospital.
 	 */
 	public void removeCampus(String name) {
 		LinkedList<Campus> newCP = new LinkedList<Campus>();
-		for(Campus c : this.campusses_)
-			if((c.getCampusName().equals(name)))
-					newCP.add(c);
+		for (Campus c : this.campusses_)
+			if ((c.getCampusName().equals(name)))
+				newCP.add(c);
 	}
+
 	/**
 	 * Vieze methode bah
+	 * 
 	 * @return
 	 */
-	public Collection<Schedulable> getAllSchedulables()
-	{
+	public Collection<Schedulable> getAllSchedulables() {
 		ArrayList<Object> sched = new ArrayList<Object>();
-		for(Object o:userManager_.getAllUsers())
+		for (Object o : userManager_.getAllUsers())
 			sched.add(o);
-		for(Object o:patientFileManager_.getAllPatientFiles())
+		for (Object o : patientFileManager_.getAllPatientFiles())
 			sched.add(o);
-		for(Campus c:campusses_)
-			for(Schedulable s: c.getSchedulables())
+		for (Campus c : campusses_)
+			for (Schedulable s : c.getSchedulables())
 				sched.add(s);
-		Collection<?>  c  = Collections.filter(sched, schedulableFilter());
+		Collection<?> c = Collections.filter(sched, schedulableFilter());
 		Collection<Schedulable> rv = new ArrayList<Schedulable>();
-		for(Object o:c)
-			rv.add((Schedulable)o);
+		for (Object o : c)
+			rv.add((Schedulable) o);
 		return rv;
 	}
-	private static final Filter schedulableFilter()
-	{
+
+	private static final Filter schedulableFilter() {
 		return new Filter()
 		{
-			
+
 			@Override
 			public <T> boolean allows(T arg) {
 				return arg instanceof Schedulable;
