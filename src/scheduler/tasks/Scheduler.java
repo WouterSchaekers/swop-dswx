@@ -223,20 +223,14 @@ public class Scheduler
 	 * 
 	 * @param avRes
 	 *            HashMap that contains resources and the amount needed of them.
-	 * @throws InvalidSchedulingRequestException
-	 *             Something is wrong with the setup of the description.
 	 */
-	private void removeDoubleBookings(LinkedHashMap<LinkedList<Schedulable>, Integer> avRes)
-			throws InvalidSchedulingRequestException {
+	private void removeDoubleBookings(LinkedHashMap<LinkedList<Schedulable>, Integer> avRes) {
 		for (LinkedList<Schedulable> resourcePool : avRes.keySet())
 			for (LinkedList<Schedulable> curSchedulablePool : avRes.keySet())
 				for (Schedulable schedulable : curSchedulablePool)
 					if (resourcePool.contains(schedulable))
 						if (curSchedulablePool.size() == 1)
 							resourcePool.remove(schedulable);
-						else
-							throw new InvalidSchedulingRequestException(
-									"There is something wrong with the setup of your description. There are duplicate requirements.");
 	}
 
 	/**
