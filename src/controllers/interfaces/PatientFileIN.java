@@ -6,11 +6,11 @@ public interface PatientFileIN
 {
 	public boolean isDischarged();
 
-	public Collection<DiagnoseIN> getAllDiagnosis();
+	public Collection<DiagnoseIN> getAllDiagnosisIN();
 
-	public Collection<TaskIN> getAllMedicalTests();
+	public Collection<TaskIN> getAllMedicalTestsIN();
 
 	
-	public Collection<DiagnoseIN> getPendingDiagnosisFor(DoctorIN d);
-	public PatientIN getPatient();
+	public Collection<DiagnoseIN> getPendingDiagnosisForIN(DoctorIN d);
+	public PatientIN getPatientIN();
 }

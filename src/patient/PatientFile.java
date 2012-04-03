@@ -153,15 +153,14 @@ public class PatientFile implements PatientFileIN
 	}
 
 	@Override
-	public Collection<DiagnoseIN> getAllDiagnosis() {
+	public Collection<DiagnoseIN> getAllDiagnosisIN() {
 		Collection<DiagnoseIN> rv = new ArrayList<DiagnoseIN>();
 		rv.addAll(diagnosis);
 		return rv;
 	}
 
-	@Override
-	public Collection<TaskIN> getAllMedicalTests() {
-		return new LinkedList<TaskIN>(medicaltests);
+	public Collection<Task<?>> getAllMedicalTests() {
+		return new LinkedList<Task<?>>(medicaltests);
 	}
 
 	/**
@@ -188,7 +187,7 @@ public class PatientFile implements PatientFileIN
 	}
 
 	@Override
-	public Collection<DiagnoseIN> getPendingDiagnosisFor(DoctorIN d) {
+	public Collection<DiagnoseIN> getPendingDiagnosisForIN(DoctorIN d) {
 		Collection<DiagnoseIN> rv = new LinkedList<DiagnoseIN>();
 		for (Diagnose diag : this.diagnosis)
 			if (diag.isMarkedForSecOp() && !diag.isApprovedIN() && diag.getAttendingIN().equals((Doctor) d))
@@ -221,6 +220,12 @@ public class PatientFile implements PatientFileIN
 	
 	private boolean isValidMedicalTest(Task<? extends MedicalTest> medicalTest) {
 		return medicalTest != null;
+	}
+
+	@Override
+	public Collection<TaskIN> getAllMedicalTestsIN() {
+
+		return new ArrayList<TaskIN>(medicaltests);
 	}
 
 }

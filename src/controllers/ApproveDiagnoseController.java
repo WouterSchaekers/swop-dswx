@@ -69,11 +69,11 @@ public class ApproveDiagnoseController extends NeedsLoginAndPatientFileControlle
 	 */
 	@controllers.PUBLICAPI
 	public Collection<DiagnoseIN> getPendingDiagnosis() {
-		return cpfc.getPatientFile().getPendingDiagnosisFor((Doctor) lc.getUser());
+		return cpfc.getPatientFile().getPendingDiagnosisForIN((Doctor) lc.getUser());
 	}
 
 	private boolean isValidDiagnose(DiagnoseIN d) {
-		return cpfc.getPatientFile().getAllDiagnosis().contains(d);
+		return cpfc.getPatientFile().getAllDiagnosisIN().contains(d);
 	}
 
 	@Override
