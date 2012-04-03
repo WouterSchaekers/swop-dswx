@@ -18,8 +18,10 @@ import exceptions.InvalidPatientFileOpenController;
 /**
  * Use to order medical tests for patients.
  */
+@controllers.PUBLICAPI
 public class OrderMedicalTestController extends NeedsLoginAndPatientFileController
 {
+	@controllers.PUBLICAPI
 	public OrderMedicalTestController(LoginController lc, ConsultPatientFileController cpf)
 			throws InvalidLoginControllerException, InvalidHospitalException, InvalidPatientFileOpenController,
 			InvalidPatientFileException {
@@ -33,6 +35,7 @@ public class OrderMedicalTestController extends NeedsLoginAndPatientFileControll
 	 * Use to allow the user to select the factory from which he/she would like
 	 * to create a medical test from.
 	 */
+	@controllers.PUBLICAPI
 	public Collection<MedicalTestFactory> getMedicalTestFactories() throws InvalidLoginControllerException,
 			InvalidPatientFileException, InvalidPatientFileOpenController {
 		
@@ -52,6 +55,7 @@ public class OrderMedicalTestController extends NeedsLoginAndPatientFileControll
 	 *             If there is not enough staff in the hospital to schedule the
 	 *             requested medical test.
 	 */
+	@controllers.PUBLICAPI
 	public <T extends MedicalTest> HospitalDate addMedicaltest(MedicalTestFactory medicalTestFactory)
 			throws FactoryInstantiationException, CanNeverBeScheduledException {
 		PatientFile pf = (PatientFile) cpfc.getPatientFile();

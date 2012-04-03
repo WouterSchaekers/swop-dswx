@@ -12,6 +12,7 @@ import exceptions.InvalidLoginControllerException;
 /**
  * A controller that allows you to open patientfiles.
  */
+@controllers.PUBLICAPI
 public class ConsultPatientFileController extends NeedsLoginController
 {
 	private PatientFile pf;
@@ -19,6 +20,7 @@ public class ConsultPatientFileController extends NeedsLoginController
 	/**
 	 * Default constructor.
 	 */
+	@controllers.PUBLICAPI
 	public ConsultPatientFileController(LoginController lc)
 			throws InvalidHospitalException, InvalidLoginControllerException {
 		super(lc);
@@ -28,6 +30,7 @@ public class ConsultPatientFileController extends NeedsLoginController
 	 * Use to list all patient files of patients who have not yet been
 	 * discharged.
 	 */
+	@controllers.PUBLICAPI
 	public Collection<PatientFileIN> getAllPatientFiles() {
 		return new ArrayList<PatientFileIN>(hospital.getPatientFileManager()
 				.getAllPatientFiles());
@@ -37,6 +40,7 @@ public class ConsultPatientFileController extends NeedsLoginController
 	 * Use to open a patient file you may have selected from the
 	 * getActivePatientFiles() method.
 	 */
+	@controllers.PUBLICAPI
 	public void openPatientFile(PatientFileIN pfdto) {
 		if(pf!=null)
 			throw new IllegalStateException("controller already has a patientfile open");
@@ -50,6 +54,7 @@ public class ConsultPatientFileController extends NeedsLoginController
 	/**
 	 * @return The patient file that is opened with this ConsultPatientFileController.
 	 */
+	@controllers.PUBLICAPI
 	public PatientFileIN getPatientFile() {
 		return this.pf;
 	}
@@ -58,6 +63,7 @@ public class ConsultPatientFileController extends NeedsLoginController
 	/**
 	 * Closes the patient file this doctor has opened.
 	 */
+	@controllers.PUBLICAPI
 	public void closePatientFile() {
 		this.hospital = null;
 		this.pf = null;

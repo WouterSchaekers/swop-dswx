@@ -12,9 +12,11 @@ import exceptions.InvalidResultException;
 /**
  * Use this controller to enter the result of a treatment.
  */
+@controllers.PUBLICAPI
 public class EnterTreatmentResultController extends NeedsLoginAndPatientFileController
 {
 
+	@controllers.PUBLICAPI
 	public EnterTreatmentResultController(LoginController lc, ConsultPatientFileController pfoc)
 			throws InvalidLoginControllerException, InvalidHospitalException, InvalidPatientFileOpenController {
 		super(lc, pfoc);
@@ -26,6 +28,7 @@ public class EnterTreatmentResultController extends NeedsLoginAndPatientFileCont
 	 * @throws InvalidLoginControllerException
 	 * @throws InvalidPatientFileOpenController
 	 */
+	@controllers.PUBLICAPI
 	public Collection<TaskIN> getTreatmentsThatNeedResults() {
 		return hospital.getTaskManager().getTreatmentsThatNeedResults();
 	}
@@ -35,6 +38,7 @@ public class EnterTreatmentResultController extends NeedsLoginAndPatientFileCont
 	 * 
 	 * @throws InvalidResultException
 	 */
+	@controllers.PUBLICAPI
 	public void addResultTo(TaskIN selected, String report) throws InvalidResultException {
 		if (!(selected.isFinished() || selected.getDescription().needsResult()))
 			throw new InvalidResultException("Selected task does not need a result!");

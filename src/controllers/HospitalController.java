@@ -7,7 +7,7 @@ import exceptions.InvalidHospitalException;
  * This controller is the parent controller of all controllers that require a
  * Hospital to fetch data from.
  */
-public class HospitalController
+ class HospitalController
 {
 	protected Hospital hospital;
 	

@@ -12,6 +12,7 @@ import exceptions.InvalidPatientFileOpenController;
 /**
  * Use this controller to discharge a patient from the hospital.
  */
+@controllers.PUBLICAPI
 public class DischargePatientController extends
 		NeedsLoginAndPatientFileController
 {
@@ -23,6 +24,7 @@ public class DischargePatientController extends
 	 *             If the patient file that is currently opened has already been
 	 *             discharged.
 	 */
+	@controllers.PUBLICAPI
 	public DischargePatientController(LoginController lc,
 			ConsultPatientFileController cpfc)
 			throws InvalidLoginControllerException, InvalidHospitalException,
@@ -39,6 +41,7 @@ public class DischargePatientController extends
 	 * @throws DischargePatientException
 	 * @throws InvalidPatientFileException
 	 */
+	@controllers.PUBLICAPI
 	public void dischargePatient() throws DischargePatientException,
 			InvalidPatientFileException {
 		hospital.getPatientFileManager().checkOut(

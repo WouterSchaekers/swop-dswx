@@ -15,12 +15,14 @@ import exceptions.InvalidPatientFileOpenController;
 /**
  * Use this controller to enter the diagnose of a patient.
  */
+@controllers.PUBLICAPI
 public class EnterDiagnoseController extends NeedsLoginAndPatientFileController
 {
 
 	/**
 	 * Default constructor.
 	 */
+	@controllers.PUBLICAPI
 	public EnterDiagnoseController(LoginController lc, ConsultPatientFileController patientFileOpenController)
 			throws InvalidLoginControllerException, InvalidHospitalException, InvalidPatientFileOpenController {
 		super(lc, patientFileOpenController);
@@ -34,6 +36,7 @@ public class EnterDiagnoseController extends NeedsLoginAndPatientFileController
 	 * @throws InvalidDoctorException
 	 * @throws InvalidComplaintsException
 	 */
+	@controllers.PUBLICAPI
 	public DiagnoseIN enterDiagnose(String complaints, String diag) throws InvalidDiagnoseException,
 			InvalidDoctorException, InvalidComplaintsException {
 		return ((PatientFile) cpfc.getPatientFile()).createDiagnose(complaints, diag, (Doctor) lc.getUser(), null);
@@ -52,6 +55,7 @@ public class EnterDiagnoseController extends NeedsLoginAndPatientFileController
 	 * @throws InvalidDiagnoseException
 	 * @throws InvalidComplaintsException
 	 */
+	@controllers.PUBLICAPI
 	public DiagnoseIN enterDiagnoseWithSecondOpinion(String diag, String complaints, DoctorIN choice) throws InvalidDiagnoseException, InvalidDoctorException, InvalidComplaintsException
 	{
 		return ((PatientFile) cpfc.getPatientFile()).createDiagnose(complaints, diag, (Doctor) lc.getUser(),

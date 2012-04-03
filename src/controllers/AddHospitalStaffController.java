@@ -9,8 +9,10 @@ import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidNameException;
 import exceptions.UserAlreadyExistsException;
 
+@controllers.PUBLICAPI
 public class AddHospitalStaffController extends NeedsLoginController
 {
+	@controllers.PUBLICAPI
 	public AddHospitalStaffController(LoginController lc) throws InvalidLoginControllerException,
 			InvalidHospitalException {
 		super(lc);
@@ -19,6 +21,7 @@ public class AddHospitalStaffController extends NeedsLoginController
 	/**
 	 * Adds new personnel to this hospital.
 	 */
+	@controllers.PUBLICAPI
 	public void addStaff(UserFactory fact) throws UserAlreadyExistsException, InvalidNameException {
 		this.hospital.getUserManager().createUser(fact);
 	}
@@ -26,6 +29,7 @@ public class AddHospitalStaffController extends NeedsLoginController
 	/**
 	 * Use to get all user factories.
 	 */
+	@controllers.PUBLICAPI
 	public Collection<UserFactory> getFactories() {
 		return this.hospital.getUserManager().getUserFacotories();
 	}
