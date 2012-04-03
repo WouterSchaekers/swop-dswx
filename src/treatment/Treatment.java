@@ -45,7 +45,7 @@ public abstract class Treatment extends TaskDescriptionWithPatientFile implement
 	public Result getResult() {
 		return result_;
 	}
-²
+
 	/**
 	 * Sets the result of the Description.
 	 * 
