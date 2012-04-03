@@ -15,7 +15,7 @@ public class UltraSoundScanFactory extends MedicalTestFactory
 	private boolean recordVid;
 	private boolean recordImages;
 
-	UltraSoundScanFactory() {
+	public UltraSoundScanFactory() {
 	}
 
 	/**
@@ -87,5 +87,10 @@ public class UltraSoundScanFactory extends MedicalTestFactory
 	 */
 	private boolean isValidScanInfo(String scaninfo) {
 		return scaninfo != null;
+	}
+
+	@Override
+	public MedicalTestFactory newInstance() {
+		return new UltraSoundScanFactory();
 	}
 }

@@ -40,4 +40,6 @@ public abstract class MedicalTestFactory
 	 */
 	@Deprecated
 	public abstract MedicalTest create() throws FactoryInstantiationException;
+
+	public abstract MedicalTestFactory newInstance() ;
 }

@@ -3,7 +3,6 @@ package controllers;
 import java.util.Collection;
 import medicaltest.MedicalTest;
 import medicaltest.MedicalTestFactory;
-import medicaltest.MedicalTests;
 import patient.PatientFile;
 import scheduler.HospitalDate;
 import scheduler.tasks.Task;
@@ -36,8 +35,8 @@ public class OrderMedicalTestController extends NeedsLoginAndPatientFileControll
 	 */
 	public Collection<MedicalTestFactory> getMedicalTestFactories() throws InvalidLoginControllerException,
 			InvalidPatientFileException, InvalidPatientFileOpenController {
-		new MedicalTests();
-		return MedicalTests.factories();
+		
+		return hospital.getMedicalTests();
 	}
 
 	/**

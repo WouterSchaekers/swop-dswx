@@ -5,6 +5,7 @@ import help.Filter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
+import medicaltest.MedicalTestFactory;
 import patient.PatientFileManager;
 import scheduler.Schedulable;
 import scheduler.TimeLord;
@@ -25,8 +26,8 @@ public class Hospital
 	private PatientFileManager patientFileManager_;
 	private TaskManager taskManager_;
 	private TimeLord systemTime_;
-	private LinkedList<Campus> campusses_;
-
+	private Collection<Campus> campusses_;
+	private Collection<MedicalTestFactory> medicalTestFactories_;
 	/**
 	 * Initializes an empty hospital with a hospital admin and 2 campusses.
 	 */
@@ -37,6 +38,7 @@ public class Hospital
 			this.patientFileManager_ = new PatientFileManager();
 			this.taskManager_ = new TaskManager(this);
 			this.campusses_ = new LinkedList<Campus>();
+			this.medicalTestFactories_=new ArrayList<MedicalTestFactory>();
 			for (int i = 0; i < 2; i++) {
 				Campus c = new Campus("Campus " + ++i, this, systemTime_);
 				this.campusses_.add(c);
@@ -169,5 +171,22 @@ public class Hospital
 				return arg instanceof Schedulable;
 			}
 		};
+	}
+
+	public Collection<MedicalTestFactory> getMedicalTests() {
+		return clonemedicalTestFactories();
+		
+	}
+	public void addMedicalTestFactory(MedicalTestFactory fact)
+	{
+		medicalTestFactories_.add(fact);
+	}
+	private Collection<MedicalTestFactory> clonemedicalTestFactories() {
+		Collection<MedicalTestFactory> rv= new ArrayList<MedicalTestFactory>();
+		for(MedicalTestFactory fact:medicalTestFactories_)
+			rv.add(fact.newInstance());
+		return rv;
+		
+		
 	}
 }

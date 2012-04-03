@@ -96,17 +96,20 @@ public class PatientFile implements PatientFileIN
 	}
 
 	/**
-	 * Use to create diagnosis for this patient file.
-	 * 
-	 * @param user
-	 *            The doctor who made the diagnose.
+	 * Factory method for diagnose.
 	 * @param complaints
-	 *            The complaints the patient had that lead to the diagnose.
+	 * The complaints of the patient
 	 * @param diag
-	 *            The diagnose.
-	 * @return The created diagnose
+	 * The diagnose of the doctor
+	 * @param user
+	 * The Doctor that gives this diagnose
+	 * @param secOp
+	 * The Doctor that has to give a second opinion, if null is provided it will not be marked for second op.
+	 * @return
 	 * @throws InvalidDiagnoseException
+	 * @see Diagnose
 	 * @throws InvalidDoctorException
+	 * @see Diagnose
 	 * @throws InvalidComplaintsException
 	 */
 	public DiagnoseIN createDiagnose(String complaints, String diag, Doctor user, Doctor secOp)

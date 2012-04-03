@@ -45,7 +45,7 @@ public abstract class Treatment extends TaskDescriptionWithPatientFile implement
 		return result;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "deprecation" })
 	@Override
 	public <T extends TaskDescription> void initTask(Task<T> task) {
 		Collection<DiagnoseIN> diags = this.patientFile_.getAllDiagnosis();
