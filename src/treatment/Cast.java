@@ -22,23 +22,25 @@ import exceptions.InvalidLengthException;
 public class Cast extends Treatment implements CastIN
 {
 	private String bodyPart_;
-	private int length_;
+	private int castDuration_;
 	public final static long DURATION_ = 2*HospitalDate.ONE_HOUR;
 
 	/**
 	 * Default constructor.
 	 * 
+	 * @param patientFile
+	 * 			The patientFile for which this cast is intended.
 	 * @param bodyPart
 	 *            The bodypart on which the cast needs to be cast onto.
 	 * @param length
-	 *            The lengths of the cast.
+	 *            The length of the cast.
 	 * @throws InvalidHospitalDateException 
 	 * @throws InvalidAmountException 
 	 */
-	public Cast(PatientFile patientFile, HospitalDate creationTime, String bodyPart, int length) throws InvalidHospitalDateException {
+	public Cast(PatientFile patientFile, HospitalDate creationTime, String bodyPart, int castDuration) throws InvalidHospitalDateException {
 		super(patientFile, DURATION_, creationTime);
 		this.bodyPart_ = bodyPart;
-		this.length_ = length;
+		this.castDuration_ = castDuration;
 	}
 
 	/**
@@ -70,7 +72,7 @@ public class Cast extends Treatment implements CastIN
 
 	@Basic
 	public int getLength() {
-		return length_;
+		return castDuration_;
 	}
 
 	@Basic
@@ -78,7 +80,7 @@ public class Cast extends Treatment implements CastIN
 		if (!isValidLength(length))
 			throw new InvalidLengthException(
 					"Invalid length assigned to setLength() in Cast!");
-		this.length_ = length;
+		this.castDuration_ = length;
 	}
 
 	@Override

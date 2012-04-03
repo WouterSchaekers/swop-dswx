@@ -3,7 +3,6 @@ package treatment;
 import warehouse.Warehouse;
 import warehouse.item.MedicationType;
 import exceptions.FactoryInstantiationException;
-import exceptions.InvalidAmountException;
 import exceptions.InvalidHospitalDateException;
 
 /**

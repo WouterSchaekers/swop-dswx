@@ -42,7 +42,7 @@ public abstract class Treatment extends TaskDescriptionWithPatientFile implement
 
 	@Override
 	public Result getResult() {
-		return result;
+		return result_;
 	}
 
 	@SuppressWarnings({ "unchecked", "deprecation" })
@@ -61,13 +61,13 @@ public abstract class Treatment extends TaskDescriptionWithPatientFile implement
 
 	@Override
 	public boolean needsResult() {
-		return result == null;
+		return result_ == null;
 	}
 
 	@Override
 	public void setResult(String result) {
 		try {
-			this.result = new Result(result);
+			this.result_ = new Result(result);
 		} catch (InvalidReportException e) {
 			throw new Error(e);
 		}
