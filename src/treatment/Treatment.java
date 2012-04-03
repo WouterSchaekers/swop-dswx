@@ -8,7 +8,6 @@ import scheduler.HospitalDate;
 import scheduler.tasks.Task;
 import scheduler.tasks.TaskDescription;
 import scheduler.tasks.TaskDescriptionWithPatientFile;
-import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.TreatmentIN;
 import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidReportException;
