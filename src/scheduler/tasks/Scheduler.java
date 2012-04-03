@@ -54,6 +54,7 @@ public class Scheduler
 		LinkedList<Location> locs = getLocationsWithEnoughResources(avRes,
 				new LinkedList<Location>(taskData.getLocations()), curDate);
 		TaskData data = schedule(avRes, produceUsedResList(avRes), locs, desc, startDate, stopDate, taskData);
+		actuallyScheduleResources(data);
 		unscheduledTask.nextState(data);
 	}
 
@@ -206,13 +207,15 @@ public class Scheduler
 	 *             existing resources.
 	 */
 	private LinkedHashMap<LinkedList<Schedulable>, Integer> getAvRes(Collection<Schedulable> resPool,
-			Collection<Requirement> notMetYet) throws InvalidSchedulingRequestException, CanNeverBeScheduledException {
+			Collection<Requirement> notMetYet) throws InvalidSchedulingRequestException {
 		LinkedHashMap<LinkedList<Schedulable>, Integer> availableResources = new LinkedHashMap<LinkedList<Schedulable>, Integer>();
 		for (Requirement requirement : notMetYet) {
 			LinkedList<Schedulable> isMetBy = new LinkedList<Schedulable>();
 			for (Schedulable schedulable : resPool)
 				if (requirement.isMetBy(schedulable))
 					isMetBy.add(schedulable);
+			if (isMetBy.size() < requirement.getAmount() && !requirement.isCrucial())
+				throw new InvalidSchedulingRequestException("There are not enough non-crucial resources available.");
 			availableResources.put(isMetBy, requirement.getAmount());
 		}
 		return availableResources;
@@ -263,7 +266,8 @@ public class Scheduler
 				possibleLocations.add(loc);
 		}
 		if (possibleLocations.size() == 0)
-			throw new CanNeverBeScheduledException("This task can never be scheduled in this hospital.");
+			throw new CanNeverBeScheduledException(
+					"This task can never be scheduled in this hospital with the current amount of schedulables.");
 		return possibleLocations;
 	}
 
@@ -408,22 +412,22 @@ public class Scheduler
 	}
 
 	/**
-	 * Amongst a list of schedulables, search the start date of the first free slot that is after the given startDate.
+	 * Amongst a list of schedulables, search the start date of the first free
+	 * slot that is after the given startDate.
 	 * 
 	 * @param scheds
-	 * 			A list of schedulables that can be chosen from. 
+	 *            A list of schedulables that can be chosen from.
 	 * @param loc
-	 * 			The location of the schedulable.
+	 *            The location of the schedulable.
 	 * @param startDate
-	 * 			The start date.
+	 *            The start date.
 	 * @param stopDate
-	 * 			The stop date.
+	 *            The stop date.
 	 * @param duration
-	 * 			The required duration.
-	 * @return
-	 * 			The first date of the next free slot.
+	 *            The required duration.
+	 * @return The first date of the next free slot.
 	 * @throws InvalidSchedulingRequestException
-	 * 			There a no more free slots left.
+	 *             There a no more free slots left.
 	 */
 	private HospitalDate getNextStartDate(LinkedList<Schedulable> scheds, Location loc, HospitalDate startDate,
 			HospitalDate stopDate, long duration) throws InvalidSchedulingRequestException {
@@ -438,7 +442,7 @@ public class Scheduler
 			try {
 				TimeSlot firstTimeSlot = schedulable.getFirstFreeSlotBetween(loc, startDate, stopDate, duration);
 				HospitalDate newStartDate = firstTimeSlot.getStartDate();
-				if(nextStartDate.equals(startDate) || newStartDate.before(nextStartDate))
+				if (nextStartDate.equals(startDate) || newStartDate.before(nextStartDate))
 					nextStartDate = newStartDate;
 			} catch (InvalidTimeSlotException e) {
 				throw new Error("Scheduler, getNextStartDate");
@@ -446,8 +450,9 @@ public class Scheduler
 				throw new Error("Scheduler, getNextStartDate");
 			}
 		}
-		if(nextStartDate == startDate)
-			throw new InvalidSchedulingRequestException("There are no more free slots available for these schedulables.");
+		if (nextStartDate == startDate)
+			throw new InvalidSchedulingRequestException(
+					"There are no more free slots available for these schedulables.");
 		return nextStartDate;
 	}
 
@@ -479,5 +484,30 @@ public class Scheduler
 			}
 		}
 		return clonedLinkedHashMap;
+	}
+
+	/**
+	 * Schedules all the resources and collects all the requirements that are in
+	 * the taskData, with the given information in the taskData.
+	 * 
+	 * @param taskData
+	 *            Provides the information to execute the Scheduling.
+	 */
+	private void actuallyScheduleResources(TaskData taskData) {
+		Collection<Requirement> listOfRequirements = taskData.getDescription().getAllRequirements();
+		for (Requirement req : listOfRequirements)
+			req.collect();
+		Collection<Schedulable> listOfSchedulables = taskData.getAllResources();
+		HospitalDate startDate = taskData.getStartDate();
+		HospitalDate stopDate = taskData.getStopDate();
+		TimeSlot timeSlot = new TimeSlot(new StartTimePoint(startDate), new StopTimePoint(stopDate));
+		Location location = taskData.getLocation();
+		for (Schedulable sched : listOfSchedulables)
+			try {
+				sched.scheduleAt(timeSlot, location);
+			} catch (InvalidSchedulingRequestException e) {
+				throw new Error(
+						"The scheduling algorithm has chosen a timeslot that is not available for the current schedulable.");
+			}
 	}
 }
