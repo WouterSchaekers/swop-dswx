@@ -14,7 +14,7 @@ public class XRayScanFactory extends MedicalTestFactory
 	private int num;
 	private float zoomlevel;
 
-	XRayScanFactory() {
+	public XRayScanFactory() {
 	}
 
 	/**
@@ -114,6 +114,11 @@ public class XRayScanFactory extends MedicalTestFactory
 			System.out.println(e);
 		}
 		return xRayScan;
+	}
+
+	@Override
+	public MedicalTestFactory newInstance() {
+		return new XRayScanFactory();
 	}
 
 }

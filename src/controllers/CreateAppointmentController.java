@@ -31,11 +31,11 @@ public class CreateAppointmentController extends NeedsLoginController
 	 * @throws CanNeverBeScheduledException
 	 * @throws InvalidNameException 
 	 */
-	public HospitalDate scheduleNewAppointment(DoctorIN doctorName, PatientFileIN patientName)
+	public HospitalDate scheduleNewAppointment(DoctorIN doc, PatientFileIN patient)
 			throws CanNeverBeScheduledException, InvalidNameException {
 		AppointmentDescription description;
 		try {
-			description = new AppointmentDescription((Doctor) doctorName,(PatientFile) patientName, hospital
+			description = new AppointmentDescription((Doctor) doc,(PatientFile) patient, hospital
 					.getTimeKeeper().getSystemTime());
 		} catch (InvalidHospitalDateException e) {
 			throw new Error(e);

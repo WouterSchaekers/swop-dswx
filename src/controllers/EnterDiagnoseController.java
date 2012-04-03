@@ -1,6 +1,5 @@
 package controllers;
 
-import patient.Diagnose;
 import patient.PatientFile;
 import users.Doctor;
 import users.User;
@@ -53,12 +52,10 @@ public class EnterDiagnoseController extends NeedsLoginAndPatientFileController
 	 * @throws InvalidDiagnoseException
 	 * @throws InvalidComplaintsException
 	 */
-	public DiagnoseIN enterDiagnoseWithSecondOpinion(String diag, String complaints, DoctorIN choice)
-			throws InvalidDoctorException, InvalidDiagnoseException, InvalidComplaintsException {
-
-		DiagnoseIN d = ((PatientFile) cpfc.getPatientFile()).createDiagnose(complaints, diag, (Doctor) lc.getUser(), null);
-		((Diagnose)d).markForSecOp((Doctor) choice);
-		return d;
+	public DiagnoseIN enterDiagnoseWithSecondOpinion(String diag, String complaints, DoctorIN choice) throws InvalidDiagnoseException, InvalidDoctorException, InvalidComplaintsException
+	{
+		return ((PatientFile) cpfc.getPatientFile()).createDiagnose(complaints, diag, (Doctor) lc.getUser(),
+				(Doctor) choice);
 	}
 
 	@Override

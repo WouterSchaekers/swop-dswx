@@ -23,7 +23,6 @@ import exceptions.InvalidPatientFileException;
  * This class represents a diagnosis that's given to a patient after admission
  * and examination. It keeps a collections of Treatments to keep track of which
  * Diagnosis have been treated with which Treatments.
- * <p><b>Do not create Diagnose objects yourself! Use the API of the patient file to do so!</b><p>
  */
 public class Diagnose extends Observable implements DiagnoseIN
 {
@@ -75,6 +74,7 @@ public class Diagnose extends Observable implements DiagnoseIN
 	/**
 	 * USE THIS METHOD ONLY IN THE DOMAIN LAYER!!
 	 */
+	@Deprecated
 	public void addTreatment(Task<? extends Treatment> treatment) {
 		if (!isValidtreatment(treatment))
 			throw new IllegalArgumentException(treatment + " is not valid!");
@@ -213,7 +213,7 @@ public class Diagnose extends Observable implements DiagnoseIN
 	 * @throws InvalidDoctorException
 	 *             if !canHaveAsDoctor(from)
 	 */
-	public void markForSecOp(Doctor from) throws InvalidDoctorException {
+	void markForSecOp(Doctor from) throws InvalidDoctorException {
 		if (!canHaveAsDoctor(from))
 			throw new InvalidDoctorException("Invalid Doctor given to request for second opinion!");
 		this.secOpFlag = true;

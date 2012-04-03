@@ -13,7 +13,7 @@ public class BloodAnalysisFactory extends MedicalTestFactory
 	 * Default constructor, only visible in the package since you have to create
 	 * the factories in the MedicalTestsClass.
 	 */
-	BloodAnalysisFactory() {
+	public BloodAnalysisFactory() {
 	}
 
 	/**
@@ -92,6 +92,11 @@ public class BloodAnalysisFactory extends MedicalTestFactory
 	 */
 	private boolean isValidNumberOfAnalysis(int numberOfAnalysis) {
 		return numberOfAnalysis > 0;
+	}
+
+	@Override
+	public MedicalTestFactory newInstance() {
+		return new BloodAnalysisFactory();
 	}
 
 }

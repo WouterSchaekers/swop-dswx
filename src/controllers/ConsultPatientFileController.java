@@ -5,11 +5,7 @@ import java.util.Collection;
 import patient.PatientFile;
 import users.Doctor;
 import users.User;
-import be.kuleuven.cs.som.annotate.Basic;
-import controllers.interfaces.DoctorIN;
 import controllers.interfaces.PatientFileIN;
-import controllers.interfaces.PatientIN;
-import controllers.interfaces.UserIN;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 
@@ -18,7 +14,6 @@ import exceptions.InvalidLoginControllerException;
  */
 public class ConsultPatientFileController extends NeedsLoginController
 {
-	private DoctorIN doctor;
 	private PatientFile pf;
 
 	/**
@@ -27,7 +22,6 @@ public class ConsultPatientFileController extends NeedsLoginController
 	public ConsultPatientFileController(LoginController lc)
 			throws InvalidHospitalException, InvalidLoginControllerException {
 		super(lc);
-		doctor = (DoctorIN) lc.getUser();
 	}
 
 	/**
@@ -44,6 +38,8 @@ public class ConsultPatientFileController extends NeedsLoginController
 	 * getActivePatientFiles() method.
 	 */
 	public void openPatientFile(PatientFileIN pfdto) {
+		if(pf!=null)
+			throw new IllegalStateException("controller already has a patientfile open");
 		if (pfdto instanceof PatientFile)
 			this.pf = (PatientFile) pfdto;
 		else
@@ -58,27 +54,12 @@ public class ConsultPatientFileController extends NeedsLoginController
 		return this.pf;
 	}
 	
-	/** 
-	 * @return The patient to whom the patient file in this ConsultPatientFileController belongs to.
-	 */
-	public PatientIN getPatient() {
-		return (PatientIN) (this.pf.getPatient());
-	}
-	
-	/**
-	 * @return The doctor to whom this controller belongs to.
-	 */
-	@Basic
-	public UserIN getDocIN() {
-		return this.doctor;
-	}
-	
+
 	/**
 	 * Closes the patient file this doctor has opened.
 	 */
 	public void closePatientFile() {
 		this.hospital = null;
-		this.doctor = null;
 		this.pf = null;
 	}
 
