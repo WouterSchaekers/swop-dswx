@@ -4,8 +4,9 @@ public class StandardHospitalBuilder
 {
 
 	public Hospital build() {
-		// TODO Auto-generated method stub
-		return null;
+		Hospital hospital = new Hospital();
+		;
+		return hospital;
 	}
 
 }
