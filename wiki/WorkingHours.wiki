@@ -52,7 +52,7 @@
 || 02/04/12: 15u00 -> 16u00 || 1 S || 1 || Implementing some more controllers ||  ||
 || 02/04/12: 16u00 -> 19u00 || 2 SW || 3 || Finishing implementing LocationTimeTables and PreferenceStates properly. ||  ||
 || 03/04/12: 12u00 -> 14u00 || 2 SW ||  || Finishing the implementation of the last controllers, debugging scheduling algorithm. ||  ||
-
+|| 03/04/12: 15u00 -> 19u00 || 3 DSW || 4 || Reviewing the controller implementations with Dieter, making a new TODO list, starting the work on the report, implementing the UI, some tests,... ||  ||
 
 = Iteratie 2 =
 || *Timepoint* || *Members* || *Workload* || *Purpose* || *Comments* ||
