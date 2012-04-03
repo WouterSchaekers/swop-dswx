@@ -1,5 +1,7 @@
 package treatment;
 
+import warehouse.Warehouse;
+import warehouse.item.MedicationType;
 import exceptions.FactoryInstantiationException;
 import exceptions.InvalidAmountException;
 import exceptions.InvalidHospitalDateException;
@@ -8,32 +10,50 @@ public class MedicationFactory extends TreatmentFactory
 {
 	private String description_;
 	private boolean sensitive_;
+	private MedicationType medicationType_;
+	private Warehouse warehouse_;
 	
 	/**
 	 * Default constructor. Package visible as it should only be used by Treatments.
 	 */
 	MedicationFactory() {}
 	
-	public void setDescription(String description) {
-		this.description_ = description;
-	}
-	
 	private boolean isValidDescription() {
 		return !(description_ == null || description_.isEmpty());
+	}
+	
+	private boolean isValidMedicationType(){
+		return this.medicationType_ != null;
+	}
+	
+	private boolean isValidWarehouse(){
+		return this.warehouse_ != null;
+	}
+	
+	public void setDescription(String description) {
+		this.description_ = description;
 	}
 	
 	public void setSensitive(boolean sensitive) {
 		this.sensitive_ = sensitive;
 	}
 	
+	public void setMedicationType(MedicationType medicationType){
+		this.medicationType_ = medicationType;
+	}
+	
+	public void setWarehouse(Warehouse warehouse){
+		this.warehouse_ = warehouse;
+	}
+	
 	protected boolean isReady() {
-		return super.isReady() && isValidDescription();
+		return super.isReady() && isValidDescription() && isValidMedicationType() && isValidWarehouse();
 	}
 	
 	@Override
 	public Treatment create() throws FactoryInstantiationException, InvalidAmountException, InvalidHospitalDateException {
 		if(isReady())
-			return new Medication(patientFile_, creationDate_, description_, sensitive_);
+			return new Medication(this.patientFile_, this.creationDate_, this.medicationType_, this.warehouse_, this.description_, this.sensitive_);
 		throw new FactoryInstantiationException("Medication was not ready yet!");
 	}
 
