@@ -1,5 +1,6 @@
 #Description of how the user interface works
 
+@Deprecated
 = Introduction =
 
 The user interface is based on the Command pattern and the State pattern. All the states implement the following interface: 
