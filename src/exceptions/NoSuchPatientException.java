@@ -1,4 +1,4 @@
-package patient;
+package exceptions;
 
 public class NoSuchPatientException extends Exception
 {

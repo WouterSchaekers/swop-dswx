@@ -8,6 +8,7 @@ import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.DischargePatientException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidPatientFileException;
+import exceptions.NoSuchPatientException;
 
 /**
  * This class can be used to manage and interact with patient files.
