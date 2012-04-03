@@ -1,6 +1,5 @@
 package warehouse.stock;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Observable;
@@ -8,6 +7,7 @@ import java.util.Observer;
 import scheduler.HospitalDate;
 import warehouse.item.WarehouseItemType;
 import be.kuleuven.cs.som.annotate.Basic;
+import controllers.interfaces.StockOrderIN;
 
 /**
  * This class represents a person that manages a stock order pool.
@@ -20,12 +20,19 @@ public class StockProvider implements Observer
 	 * Initialises a new stock provider with an empty stock order pool.
 	 */
 	public StockProvider() {
-		orders_ = new ArrayList<StockOrder<? extends WarehouseItemType>>();
+		orders_ = new LinkedList<StockOrder<? extends WarehouseItemType>>();
 	}
 
 	@Basic
+	public Collection<StockOrderIN> getOrderINs() {
+		return new LinkedList<StockOrderIN>(orders_);
+	}
+	
+	/**
+	 * ONLY USE IN DOMAIN MODEL.
+	 */
 	public Collection<StockOrder<? extends WarehouseItemType>> getOrders() {
-		return new ArrayList<StockOrder<? extends WarehouseItemType>>(orders_);
+		return new LinkedList<StockOrder<? extends WarehouseItemType>>(orders_);
 	}
 
 	/**

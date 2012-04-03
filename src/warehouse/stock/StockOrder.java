@@ -3,6 +3,7 @@ package warehouse.stock;
 import scheduler.HospitalDate;
 import warehouse.Warehouse;
 import warehouse.item.WarehouseItemType;
+import controllers.interfaces.StockOrderIN;
 import exceptions.InvalidOrderStateException;
 import exceptions.WarehouseOverCapacityException;
 
@@ -14,7 +15,7 @@ import exceptions.WarehouseOverCapacityException;
  * @param <T>
  *            The warehouse item type that this stock order is for.
  */
-public class StockOrder<T extends WarehouseItemType>
+public class StockOrder<T extends WarehouseItemType> implements StockOrderIN
 {
 	private boolean delivered_;
 	private T type_;
@@ -83,7 +84,14 @@ public class StockOrder<T extends WarehouseItemType>
 				creationDate_.getMonth(), creationDate_.getDay() + 2, 6, 0, 0);
 	}
 
+	@SuppressWarnings("unchecked")
 	public T getType() {
 		return type_;
+	}
+	
+	@Override
+	public String toString() {
+		
+		return "";
 	}
 }
