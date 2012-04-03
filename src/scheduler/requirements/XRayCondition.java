@@ -9,7 +9,6 @@ import scheduler.StartTimePoint;
 import scheduler.StopTimePoint;
 import scheduler.TimeSlot;
 import scheduler.tasks.Task;
-import controllers.interfaces.TaskIN;
 
 public class XRayCondition implements Requirement
 {
@@ -55,10 +54,10 @@ public class XRayCondition implements Requirement
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean isMetOn(HospitalDate hospitalDate) {
-		Collection<TaskIN> allTests = patientFile_.getAllMedicalTests();
+		Collection<Task<?>> allTests = patientFile_.getAllMedicalTests();
 		Collection<Task<XRayScan>> xrays = new LinkedList<Task<XRayScan>>();
 
-		for (TaskIN task : allTests) {
+		for (Task<?> task : allTests) {
 			if (!task.isQueued() && task.getDescription() instanceof XRayScan)
 				xrays.add((Task<XRayScan>) task);
 		}

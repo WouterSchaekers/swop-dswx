@@ -82,7 +82,7 @@ public class PatientFileManager
 	 */
 	private boolean containsFileOf(String name) {
 		for(PatientFile pf : this.patientFiles)
-			if(pf.getPatient().getName().equals(name))
+			if(pf.getPatientIN().getName().equals(name))
 				return true;
 		return false;
 	}

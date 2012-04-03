@@ -45,7 +45,7 @@ public abstract class Treatment extends TaskDescriptionWithPatientFile implement
 	 */
 	@Override
 	public <T extends TaskDescription> void deInit(Task<T> task) {
-		Collection<DiagnoseIN> diags = this.patientFile_.getAllDiagnosis();
+		Collection<DiagnoseIN> diags = this.patientFile_.getAllDiagnosisIN();
 		for (DiagnoseIN d : diags) {
 			if (d.getTreatmentsIN().contains(task.getDescription())) {
 				((Diagnose) d).removeTreatment(task);
@@ -75,7 +75,7 @@ public abstract class Treatment extends TaskDescriptionWithPatientFile implement
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	@Override
 	public <T extends TaskDescription> void initTask(Task<T> task) {
-		Collection<DiagnoseIN> diags = this.patientFile_.getAllDiagnosis();
+		Collection<DiagnoseIN> diags = this.patientFile_.getAllDiagnosisIN();
 		for (DiagnoseIN d : diags) {
 			if (d.getTreatmentsIN().contains(task.getDescription())) {
 				((Diagnose) d).addTreatment((Task<? extends Treatment>) task);
