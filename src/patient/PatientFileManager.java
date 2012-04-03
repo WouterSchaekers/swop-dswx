@@ -1,8 +1,8 @@
 package patient;
 
+import help.Filter;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedList;
 import system.Location;
 import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.DischargePatientException;
@@ -21,9 +21,17 @@ public class PatientFileManager
 	 * 
 	 * @param patientFile
 	 *            The patientfile of the patient who needs to be checked in.
+	 * @throws InvalidPatientFileException 
+	 * @throws NoSuchPatientException 
 	 */
-	public void checkIn(PatientFile patientFile) {
+	public void checkIn(PatientFile patientFile) throws InvalidPatientFileException  {
+		if(!isValidPatientFile(patientFile))
+			throw new InvalidPatientFileException();
 		patientFile.checkIn();
+	}
+
+	private boolean isValidPatientFile(PatientFile patientFile) {
+		return patientFile!=null&&patientFiles.contains(patientFile);
 	}
 
 	/**
@@ -36,8 +44,8 @@ public class PatientFileManager
 	 */
 	public void checkOut(PatientFile patientFile)
 			throws DischargePatientException, InvalidPatientFileException {
-		if(!this.patientIsDischarged(patientFile))
-			throw new DischargePatientException("Trying to discharge an already discharged patient!");
+		if(!isValidPatientFile(patientFile))
+			throw new InvalidPatientFileException();
 		patientFile.discharge();
 	}
 
@@ -89,78 +97,26 @@ public class PatientFileManager
 
 		return returnval;
 	}
-
-	/**
-	 * This method will fetch the patientfile from a certain patient.
-	 * 
-	 * @param name
-	 *            The name of the patient.
-	 * @return The patientfile of the requested patient or null if no such
-	 *         patient is found.
-	 * @throws InvalidNameException
-	 */
-	public PatientFile getPatientFileFrom(String name)
-			throws InvalidNameException {
-		if (!isValidName(name))
-			throw new InvalidNameException(
-					"Invalid name for query in patientfile database!");
-		for (PatientFile pf : patientFiles)
-			if (pf.getPatient().getName().equalsIgnoreCase(name))
-				return pf;
-		return null;
-	}
-
-	private boolean patientIsDischarged(PatientFile pf)
-			throws InvalidPatientFileException {
-		if (this.containsFileOf(pf.getPatient().getName()))
-			return pf.isDischarged();
-		else
-			throw new InvalidPatientFileException("PatientFile not in pfm!");
-	}
-
-	/**
-	 * @return True if d is a valid name.
-	 */
-	private boolean isValidName(String n) {
-		return !n.equals("");
-	}
-	
-	/**
-	 * @return A collection of patients that can be checked in into this hospital.
-	 */
-	public Collection<PatientFile> getDischargedPatients() {
-		Collection<PatientFile> rv = new LinkedList<PatientFile>();
-		for(PatientFile pf : this.patientFiles)
-			if(pf.isDischarged())
-				rv.add(pf);
-		return rv;
-	}
-
-	/**
-	 * This method is used in the warehouse to determine the amount of meals to
-	 * be ordered.
-	 * 
-	 * @return The amount of patients that are currently staying in this
-	 *         hospital.
-	 */
-	public int amountOfActivePatients() {
-		return this.getActivePatients().size();
-	}
-
-	/**
-	 * This method is used in the controllers that should be able to print a
-	 * list of patients that are currently staying in this hospital.
-	 * 
-	 * @return A collection of patients that are currently staying in this
-	 *         hospital.
-	 */
-	public Collection<PatientFile> getActivePatients() {
-		Collection<PatientFile> rv = new LinkedList<PatientFile>();
-		for (PatientFile pf : this.patientFiles) {
-			if (!pf.isDischarged())
-				rv.add(pf);
+	public static final Filter active = new Filter()
+	{
+		
+		@Override
+		public <T> boolean allows(T arg) {
+			if(arg instanceof PatientFile)
+				if(!((PatientFile)arg).isDischarged())
+					return true;
+			return false;
 		}
-		return rv;
-	}
-
+	};
+	public static final Filter inactive = new Filter()
+	{
+		
+		@Override
+		public <T> boolean allows(T arg) {
+			if(arg instanceof PatientFile)
+				if(((PatientFile)arg).isDischarged())
+					return true;
+			return false;
+		}
+	};
 }

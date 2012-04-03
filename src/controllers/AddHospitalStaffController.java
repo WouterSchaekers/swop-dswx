@@ -4,7 +4,6 @@ import java.util.Collection;
 import users.HospitalAdmin;
 import users.User;
 import users.UserFactory;
-import users.Users;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidNameException;
@@ -28,7 +27,7 @@ public class AddHospitalStaffController extends NeedsLoginController
 	 * Use to get all user factories.
 	 */
 	public Collection<UserFactory> getFactories() {
-		return Users.factories();
+		return this.hospital.getUserManager().getUserFacotories();
 	}
 
 	@Override

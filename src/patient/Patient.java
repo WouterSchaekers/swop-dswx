@@ -1,5 +1,6 @@
 package patient;
 
+import controllers.interfaces.PatientIN;
 import scheduler.HospitalDate;
 import scheduler.LocationTimeSlot;
 import scheduler.LocationTimeTable;
@@ -18,7 +19,7 @@ import exceptions.InvalidTimeSlotException;
  * files depending on which hospital they go to. Patients are Schedulables which
  * means they have TimeTables.
  */
-class Patient implements Schedulable
+class Patient implements Schedulable,PatientIN
 {
 	private String name;
 	private TimeTable timeTable_;

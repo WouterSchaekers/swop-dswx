@@ -39,10 +39,17 @@ public class TimeLord extends Observable
 	/**
 	 * 
 	 * @param target
+	 * @throws InvalidSystemTime 
 	 */
-	public void setSystemTime(HospitalDate target) {
+	public void setSystemTime(HospitalDate target) throws InvalidSystemTime {
+		if(!isValidNewSystemTime(target))
+			throw new InvalidSystemTime();
 		while (getSystemTime().before(target)
 				&& getSystemTime().getTimeBetween(target) >= HospitalDate.ONE_MINUTE)
 			addOneMinute();
+	}
+
+	private boolean isValidNewSystemTime(HospitalDate target) {
+		return target!=null&&systemTime.before(target);
 	}
 }

@@ -1,7 +1,6 @@
 package controllers;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedList;
 import machine.MachineBuilder;
 import system.Campus;
@@ -10,6 +9,7 @@ import users.HospitalAdmin;
 import users.User;
 import controllers.interfaces.LocationIN;
 import exceptions.ControllerException;
+import exceptions.InvalidCampusException;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidLoginControllerException;
@@ -20,7 +20,6 @@ import exceptions.InvalidSerialException;
  */
 public class AddHospitalEquipmentController extends NeedsLoginController
 {
-
 	/**
 	 * Default constructor to add hospital equipment to the hospital.
 	 * 
@@ -36,13 +35,15 @@ public class AddHospitalEquipmentController extends NeedsLoginController
 
 	/**
 	 * @return All the objects that can create a kinds of different machines.
+	 * @throws InvalidCampusException 
 	 */
-	public Collection<MachineBuilder> getAllMachineBuilders() {
-		Iterator<Campus> campIterator = hospital.getAllCampuses().iterator();
-
-		if (campIterator.hasNext())
-			return (campIterator.next().getMachinePool().getAllBuilders());
-		return null;
+	public Collection<MachineBuilder> getAllMachineBuilders(LocationIN campus) throws InvalidCampusException {
+		if(!(campus instanceof Campus))
+		{
+			throw new InvalidCampusException("location object provided was not a campus");
+		}
+		Campus c=(Campus)campus;
+		return c.getMachinePool().getAllBuilders();
 	}
 
 	/**

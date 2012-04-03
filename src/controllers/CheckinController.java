@@ -2,12 +2,15 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import patient.NoSuchPatientException;
+import patient.PatientFile;
 import controllers.interfaces.PatientFileIN;
 import users.Nurse;
 import users.User;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidNameException;
+import exceptions.InvalidPatientFileException;
 
 /**
  * This class is used to check patients in into the hospital. If you would like
@@ -33,11 +36,11 @@ public class CheckinController extends NeedsLoginController
 	 * Use this method to check in a patient with an existing patient file.
 	 * 
 	 * @throws InvalidNameException
+	 * @throws NoSuchPatientException 
+	 * @throws InvalidPatientFileException 
 	 */
-	public void checkIn(PatientFileIN pf) throws InvalidNameException {
-		hospital.getPatientFileManager().checkIn(
-				hospital.getPatientFileManager().getPatientFileFrom(
-						pf.getPatientName()));
+	public void checkIn(PatientFileIN pf) throws  NoSuchPatientException, InvalidPatientFileException {
+		hospital.getPatientFileManager().checkIn((PatientFile)pf);
 	}
 
 	/**

@@ -12,6 +12,7 @@ import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.DoctorIN;
 import controllers.interfaces.PatientFileIN;
+import controllers.interfaces.PatientIN;
 import controllers.interfaces.TaskIN;
 import exceptions.DischargePatientException;
 import exceptions.FactoryInstantiationException;
@@ -90,7 +91,7 @@ public class PatientFile implements PatientFileIN
 	/**
 	 * Checks this patient in in the hospital.
 	 */
-	public void checkIn() {
+	void checkIn() {
 		this.discharged = false;
 	}
 
@@ -170,11 +171,10 @@ public class PatientFile implements PatientFileIN
 		return rv;
 	}
 
-	@Override
-	public String getPatientName() {
-		return this.getPatient().getName();
+	public PatientIN getPatientIN()
+	{
+		return patient_;
 	}
-
 	/**
 	 * DO NOT USE THIS METHOD ANYWHERE OUTSIDE OF THE DOMAIN LAYER!
 	 * 

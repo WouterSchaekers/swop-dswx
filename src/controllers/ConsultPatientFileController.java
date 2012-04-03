@@ -34,9 +34,9 @@ public class ConsultPatientFileController extends NeedsLoginController
 	 * Use to list all patient files of patients who have not yet been
 	 * discharged.
 	 */
-	public Collection<PatientFileIN> getActivePatientFiles() {
+	public Collection<PatientFileIN> getAllPatientFiles() {
 		return new ArrayList<PatientFileIN>(hospital.getPatientFileManager()
-				.getActivePatients());
+				.getAllPatientFiles());
 	}
 
 	/**

@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import patient.PatientFile;
 import scheduler.HospitalDate;
@@ -10,6 +11,7 @@ import users.Nurse;
 import users.User;
 import users.UserFilter;
 import controllers.interfaces.DoctorIN;
+import controllers.interfaces.PatientFileIN;
 import exceptions.CanNeverBeScheduledException;
 import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidHospitalException;
@@ -29,12 +31,11 @@ public class CreateAppointmentController extends NeedsLoginController
 	 * @throws CanNeverBeScheduledException
 	 * @throws InvalidNameException 
 	 */
-	public HospitalDate scheduleNewAppointment(String doctorName, String patientName)
+	public HospitalDate scheduleNewAppointment(DoctorIN doctorName, PatientFileIN patientName)
 			throws CanNeverBeScheduledException, InvalidNameException {
 		AppointmentDescription description;
 		try {
-			description = new AppointmentDescription((Doctor) (UserFilter.SpecificDoctorFilter(hospital
-					.getUserManager().getAllUsers(), doctorName)), this.getPatient(patientName), hospital
+			description = new AppointmentDescription((Doctor) doctorName,(PatientFile) patientName, hospital
 					.getTimeKeeper().getSystemTime());
 		} catch (InvalidHospitalDateException e) {
 			throw new Error(e);
@@ -49,11 +50,9 @@ public class CreateAppointmentController extends NeedsLoginController
 	public Collection<DoctorIN> getAllDoctors() {
 		return UserFilter.DoctorFilter(hospital.getUserManager().getAllUsers());
 	}
-
-	private PatientFile getPatient(String name) throws InvalidNameException {
-
-		return hospital.getPatientFileManager().getPatientFileFrom(name);
-
+	public Collection<PatientFileIN> getAllPatientFiles()
+	{
+		return new ArrayList<PatientFileIN>( this.hospital.getPatientFileManager().getAllPatientFiles());
 	}
 
 	@Override

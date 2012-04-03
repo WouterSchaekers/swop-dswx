@@ -142,18 +142,22 @@ public class Diagnose extends Observable implements DiagnoseIN
 		this.secOpFlag = false;
 		this.attending = null;
 		this.secopDoc = null;
-		this.notifyObservers(treatments);
+		this.notifyObservers(this);
 	}
 
-	public void disapprove(String newDiagnose,String newComplaints) throws  ApproveDiagnoseException, InvalidDiagnoseException, InvalidDoctorException, InvalidComplaintsException
-	{
+	public void disapprove(String newDiagnose,String newComplaints) throws ApproveDiagnoseException 	{
 		Doctor futureSecondOp = this.getAttending();
 		Doctor futureAttending = (Doctor) this.needsSecOpFrom();
 		if(!canBeReplacedWith(newDiagnose, newComplaints, futureAttending, futureSecondOp))
 			throw new ApproveDiagnoseException("");
 		this.disapprove();
+		try{
+			
 		this.myPatientFile.createDiagnose(newComplaints, newDiagnose, futureAttending, futureAttending);
-		
+		}catch(Exception e)
+		{
+			throw new Error(e);
+		}
 	}
 
 	@Basic
