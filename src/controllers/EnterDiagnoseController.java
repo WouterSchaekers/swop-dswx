@@ -37,8 +37,7 @@ public class EnterDiagnoseController extends NeedsLoginAndPatientFileController
 	 */
 	public DiagnoseIN enterDiagnose(String complaints, String diag) throws InvalidDiagnoseException,
 			InvalidDoctorException, InvalidComplaintsException {
-		return ((PatientFile) cpfc.getPatientFile()).createDiagnose(complaints, diag, (Doctor) lc.getUser(), null,
-				hospital.getTaskManager());
+		return ((PatientFile) cpfc.getPatientFile()).createDiagnose(complaints, diag, (Doctor) lc.getUser(), null);
 	}
 
 	/**
@@ -57,7 +56,7 @@ public class EnterDiagnoseController extends NeedsLoginAndPatientFileController
 	public DiagnoseIN enterDiagnoseWithSecondOpinion(String diag, String complaints, DoctorIN choice)
 			throws InvalidDoctorException, InvalidDiagnoseException, InvalidComplaintsException {
 
-		DiagnoseIN d = ((PatientFile) cpfc.getPatientFile()).createDiagnose(complaints, diag, (Doctor) lc.getUser(), null, hospital.getTaskManager());
+		DiagnoseIN d = ((PatientFile) cpfc.getPatientFile()).createDiagnose(complaints, diag, (Doctor) lc.getUser(), null);
 		((Diagnose)d).markForSecOp((Doctor) choice);
 		return d;
 	}
