@@ -1,5 +1,6 @@
 package patient;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Observable;
@@ -102,7 +103,7 @@ public class Diagnose extends Observable implements DiagnoseIN
 		boolean rv = this.secopDoc.equals(newAttending);
 		rv &= newSecOp != null;
 		rv &= (this.attending.equals(newSecOp));
-		rv &= newComplaints.equals(this.getComplaints());
+		rv &= newComplaints.equals(this.getComplaintsIN());
 		return rv;
 	}
 
@@ -143,8 +144,8 @@ public class Diagnose extends Observable implements DiagnoseIN
 	}
 
 	public void disapprove(String newDiagnose,String newComplaints) throws ApproveDiagnoseException 	{
-		Doctor futureSecondOp = this.getAttending();
-		Doctor futureAttending = (Doctor) this.needsSecOpFrom();
+		Doctor futureSecondOp = this.getAttendingIN();
+		Doctor futureAttending = (Doctor) this.needsSecOpFromIN();
 		if(!canBeReplacedWith(newDiagnose, newComplaints, futureAttending, futureSecondOp))
 			throw new ApproveDiagnoseException("");
 		this.disapprove();
@@ -158,27 +159,27 @@ public class Diagnose extends Observable implements DiagnoseIN
 	}
 
 	@Basic
-	public Doctor getAttending() {
+	public Doctor getAttendingIN() {
 		return this.attending;
 	}
 	
 	@Basic
-	public String getComplaints() {
+	public String getComplaintsIN() {
 		return this.complaints;
 	}
 
 	@Basic
-	public String getDiagnose() {
+	public String getDiagnoseIN() {
 		return this.diag;
 	}
 
 	@Basic
-	public Collection<TaskIN> getTreatments() {
+	public Collection<TaskIN> getTreatmentsIN() {
 		return new LinkedList<TaskIN>(treatments);
 	}
 
 	@Basic
-	public boolean isApproved() {
+	public boolean isApprovedIN() {
 		return this.approved;
 	}
 
@@ -226,7 +227,7 @@ public class Diagnose extends Observable implements DiagnoseIN
 	}
 	
 	@Basic
-	public DoctorIN needsSecOpFrom() {
+	public DoctorIN needsSecOpFromIN() {
 		DoctorIN rv = (DoctorIN) (this.secopDoc);
 		return rv;
 	}
@@ -240,7 +241,7 @@ public class Diagnose extends Observable implements DiagnoseIN
 
 	@Override
 	public String toString() {
-		return this.getDiagnose();
+		return this.getDiagnoseIN();
 	}
 
 	/**
@@ -249,5 +250,10 @@ public class Diagnose extends Observable implements DiagnoseIN
 	private void unmarkForSecOp() {
 		this.secOpFlag = false;
 		this.secopDoc = null;
+	}
+
+	public Collection<Task<? extends Treatment>> getTreatments() {
+		return new ArrayList<Task<? extends Treatment>>(treatments);
+		
 	}
 }
