@@ -1,5 +1,8 @@
 package medicaltest;
 
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.Observable;
 import patient.PatientFile;
 import result.Result;
 import scheduler.HospitalDate;
@@ -85,5 +88,13 @@ public abstract class MedicalTest extends TaskDescriptionWithPatientFile impleme
 		} catch (InvalidReportException e) {
 			throw new Error(e);
 		}
+	}
+
+	/**
+	 * Returns the observables that observe this treatment.
+	 */
+	@Override
+	public Collection<Observable> getObservables() {
+		return new LinkedList<Observable>();
 	}
 }
