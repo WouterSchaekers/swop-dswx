@@ -57,11 +57,6 @@ public class Surgery extends Treatment implements SurgeryIN
 	}
 
 	@Override
-	public boolean hasFinished() {
-		return false;
-	}
-
-	@Override
 	public Collection<Requirement> getAllRequirements() {
 		Collection<Requirement> requirements = new LinkedList<Requirement>();
 		requirements.add(new SpecificRequirement(this.patientFile_.getPatient(), false));
