@@ -25,13 +25,13 @@ public class Surgery extends Treatment implements SurgeryIN
 	 * 
 	 * @param patientFile
 	 *            The patientFile for which this cast is intended.
-	 * @param creationTime
+	 * @param creationDate
 	 *            The date on which this description has been created.
 	 * @param description
 	 *            The description of the surgery.
 	 */
-	Surgery(PatientFile patientFile, HospitalDate creationTime, String description) {
-		super(patientFile, DURATION_, creationTime);
+	Surgery(PatientFile patientFile, HospitalDate creationDate, String description) {
+		super(patientFile, DURATION_, creationDate);
 		this.description_ = description;
 	}
 
