@@ -51,30 +51,30 @@ public class Nurse extends SchedulableUser implements NurseIN
 			throws InvalidSchedulingRequestException, InvalidTimeSlotException,
 			InvalidHospitalDateArgument {
 		HospitalDate tmpStartWorkingHour = new HospitalDate(1, 1, 1,
-				Nurse.STARTHOUR, 1, 1);
+				Nurse.STARTHOUR, 0, 0);
 		HospitalDate tmpStopWorkingHour = new HospitalDate(1, 1, 1,
-				Nurse.STOPHOUR, 1, 1);
+				Nurse.STOPHOUR, 0, 0);
 		HospitalDate tmpStartDate = this.createDummyDate(startDate);
 		HospitalDate tmpStopDate = this.createDummyDate(stopDate);
 		if (tmpStartDate.before(tmpStartWorkingHour)) {
 			startDate = new HospitalDate(startDate.getYear(),
 					startDate.getMonth(), startDate.getDay(), Nurse.STARTHOUR,
-					1, 1);
+					0, 0);
 		} else if (tmpStopWorkingHour.before(tmpStartDate)
 				|| tmpStopWorkingHour.equals(tmpStartDate)) {
 			startDate = new HospitalDate(startDate.getYear(),
 					startDate.getMonth(), startDate.getDay() + 1,
-					Nurse.STARTHOUR, 1, 1);
+					Nurse.STARTHOUR, 0, 0);
 		}
 		if (tmpStopDate.before(tmpStartWorkingHour)
 				|| tmpStopDate.equals(tmpStartWorkingHour)) {
 			stopDate = new HospitalDate(stopDate.getYear(),
 					stopDate.getMonth(), stopDate.getDay() - 1,
-					Nurse.STARTHOUR, 1, 1);
+					Nurse.STARTHOUR, 0, 0);
 		} else if (tmpStopWorkingHour.before(tmpStopDate)) {
 			stopDate = new HospitalDate(stopDate.getYear(),
-					stopDate.getMonth(), stopDate.getDay(), Nurse.STARTHOUR, 1,
-					1);
+					stopDate.getMonth(), stopDate.getDay(), Nurse.STARTHOUR, 0,
+					0);
 		}
 		if (stopDate.before(startDate)) {
 			throw new InvalidSchedulingRequestException(
