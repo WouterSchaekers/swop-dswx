@@ -47,7 +47,7 @@ public class TaskManager implements Observer
 	 *             The requirements for this description can never be met and
 	 *             the description is not stored.
 	 */
-	public <T extends TaskDescription> Task<?> add(T description) throws CanNeverBeScheduledException {
+	public <T extends TaskDescription> Task<T> add(T description) throws CanNeverBeScheduledException {
 		Task<T> task = new Task<T>(description, hospital_);
 		task.init();
 		tasks_.add(task);

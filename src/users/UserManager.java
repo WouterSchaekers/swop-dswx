@@ -36,9 +36,11 @@ public class UserManager
 		return new LinkedList<User>(this.users_);
 	}
 
-	public void createUser(UserFactory factory)
+	public User createUser(UserFactory factory)
 			throws UserAlreadyExistsException, InvalidNameException {
-		addUser(factory.create());
+		User u= factory.create();
+		addUser(u);
+		return u;
 	}
 
 	public Collection<UserFactory> getUserFacotories() {
