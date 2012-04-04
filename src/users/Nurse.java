@@ -4,6 +4,7 @@ import scheduler.HospitalDate;
 import scheduler.TimeSlot;
 import system.Location;
 import controllers.interfaces.NurseIN;
+import controllers.interfaces.UserFactoryIN;
 import exceptions.InvalidHospitalDateArgument;
 import exceptions.InvalidNameException;
 import exceptions.InvalidSchedulingRequestException;
@@ -106,5 +107,10 @@ public class Nurse extends SchedulableUser implements NurseIN
 	@Override
 	public Location getLocationAt(HospitalDate hospitalDate) {
 		return this.location_;
+	}
+
+	@Override
+	public UserFactoryIN getTypeIN() {
+		return getType();
 	}
 }

@@ -30,4 +30,8 @@ public class DoctorFactory extends UserFactory
 		return new DoctorFactory();
 	}
 
+	@Override
+	public String toTitle() {return "Doctor";
+	}
+
 }

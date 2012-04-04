@@ -8,6 +8,7 @@ import scheduler.StopTimePoint;
 import scheduler.TimeSlot;
 import system.Location;
 import controllers.interfaces.DoctorIN;
+import controllers.interfaces.UserFactoryIN;
 import exceptions.InvalidNameException;
 import exceptions.InvalidPreferenceException;
 import exceptions.InvalidSchedulingRequestException;
@@ -100,10 +101,16 @@ public class Doctor extends SchedulableUser implements DoctorIN
 	@Override
 	public void scheduleAt(TimeSlot timeSlot, Location location) throws InvalidSchedulingRequestException {
 		this.timeTable_.addTimeSlot(timeSlot);
-		// Dit mag en kan zo niet!!! Er moet een opsplitsing gemaakt worden
+		//XXX Dit mag en kan zo niet!!! Er moet een opsplitsing gemaakt worden
 		// tussen de states! -> Oplossing = locationTimeTable in State steken.
 		// this.locationTimeTable_.addLocationTimeSlot(new
 		// LocationTimeSlot(timeSlot, location));
 		// Dit is ondertussen al kindof gefixt.
+	}
+
+	@Override
+	public UserFactoryIN getTypeIN() {
+		
+		return getType();
 	}
 }

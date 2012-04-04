@@ -1,6 +1,7 @@
 package users;
 
 import system.Location;
+import controllers.interfaces.UserFactoryIN;
 import controllers.interfaces.WarehouseAdminIN;
 import exceptions.InvalidNameException;
 
@@ -23,6 +24,11 @@ public class WarehouseAdmin extends User implements WarehouseAdminIN
 	@Override
 	public UserFactory getType() {
 		return new WarehouseAdminFactory();
+	}
+
+	@Override
+	public UserFactoryIN getTypeIN() {
+		return getType();
 	}
 	
 }
