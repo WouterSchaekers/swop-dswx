@@ -51,7 +51,7 @@ public class Scheduler
 		Collection<Requirement> metReqs = getMetReqs(reqs, startDate);
 		Collection<Requirement> unmetReqs = getUnmetRequirements(reqs, metReqs);
 		Map<LinkedList<Schedulable>, Integer> avRes = getAvRes(resPool, unmetReqs);
-		avRes = removeDoubleBookings(avRes);
+		//avRes = removeDoubleBookings(avRes);
 		LinkedList<Location> locs = getLocationsWithEnoughResources(avRes,
 				new LinkedList<Location>(taskData.getLocations()), curDate);
 		TaskData data = schedule(avRes, produceUsedResList(avRes), locs, desc, startDate, stopDate, taskData);

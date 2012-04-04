@@ -110,8 +110,8 @@ public class MedicationFactory extends TreatmentFactory
 	public Treatment create() throws FactoryInstantiationException {
 		if (!isReady())
 			throw new FactoryInstantiationException("Medication was not ready yet!");
-		return new Medication(this.patientFile_, this.creationDate_, this.medicationType_, this.warehouse_,
-				this.description_, this.sensitive_);
+		return new Medication(this.getPatientFile(), this.creationDate_, this.medicationType_, this.warehouse_,
+				this.description_, this.sensitive_, diagnose_);
 	}
 
 	@Override

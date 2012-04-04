@@ -2,6 +2,7 @@ package treatment;
 
 import java.util.Collection;
 import java.util.LinkedList;
+import patient.Diagnose;
 import patient.PatientFile;
 import scheduler.HospitalDate;
 import scheduler.requirements.Requirement;
@@ -33,8 +34,8 @@ public class Cast extends Treatment implements CastIN
 	 * @param castDuration
 	 *            The duration of this treatment.
 	 */
-	Cast(PatientFile patientFile, HospitalDate creationDate, String bodyPart, int castDuration) {
-		super(patientFile, DURATION_, creationDate);
+	Cast(PatientFile patientFile, HospitalDate creationDate, String bodyPart, int castDuration,Diagnose diagnose) {
+		super(patientFile, diagnose, DURATION_, creationDate);
 		this.bodyPart_ = bodyPart;
 		this.castDuration_ = castDuration;
 	}

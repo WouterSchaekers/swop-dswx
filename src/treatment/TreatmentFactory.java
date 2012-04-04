@@ -1,5 +1,6 @@
 package treatment;
 
+import patient.Diagnose;
 import patient.PatientFile;
 import scheduler.HospitalDate;
 import exceptions.FactoryInstantiationException;
@@ -9,19 +10,20 @@ import exceptions.FactoryInstantiationException;
  */
 public abstract class TreatmentFactory
 {
-	protected PatientFile patientFile_;
+	
 	protected HospitalDate creationDate_;
+	protected Diagnose diagnose_;
 
-	/**
-	 * Sets the patientFile of the factory.
-	 * 
-	 * @param patientFile
-	 *            The patientFile.
-	 */
-	public void setPatientFile(PatientFile patientFile) {
-		this.patientFile_ = patientFile;
+
+	
+	public void setDiagnose(Diagnose diagnose)
+	{
+		this.diagnose_=diagnose;
 	}
-
+	protected PatientFile getPatientFile()
+	{
+		return diagnose_.getPatientFile();
+	}
 	/**
 	 * Sets the creationDate of the facotory.
 	 * 
@@ -38,7 +40,7 @@ public abstract class TreatmentFactory
 	 * @return True if the patientFile is not null.
 	 */
 	private boolean isValidPatientFile() {
-		return this.patientFile_ != null;
+		return this.getPatientFile() != null;
 	}
 
 	/**
@@ -61,11 +63,13 @@ public abstract class TreatmentFactory
 
 	/**
 	 * Creates a Treatment built from the given information.
+	 * Should only be called in a 
 	 * 
 	 * @return A Treatment built from the given information.
 	 * @throws FactoryInstantiationException
 	 *             The factory was not ready yet.
 	 */
+	@Deprecated
 	public abstract Treatment create() throws FactoryInstantiationException;
 
 	public abstract TreatmentFactory newInstance();

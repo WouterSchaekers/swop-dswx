@@ -17,6 +17,8 @@ import exceptions.InvalidReportException;
 public abstract class Treatment extends TaskDescriptionWithPatientFile implements TreatmentIN
 {
 
+	protected final Diagnose diagnose_;
+
 	/**
 	 * Default constructor of Treatment.
 	 * 
@@ -27,8 +29,9 @@ public abstract class Treatment extends TaskDescriptionWithPatientFile implement
 	 * @param creationDate
 	 *            The date on which this description has been created.
 	 */
-	public Treatment(PatientFile patientFile, long duration, HospitalDate creationDate) {
+	public Treatment(PatientFile patientFile,Diagnose diagnose, long duration, HospitalDate creationDate) {
 		super(patientFile, duration, 0, creationDate);
+		this.diagnose_=diagnose;
 	}
 
 	/**
@@ -67,10 +70,11 @@ public abstract class Treatment extends TaskDescriptionWithPatientFile implement
 	public <T extends TaskDescription> void initTask(Task<T> task) {
 		Collection<Diagnose> diags = this.patientFile_.getAllDiagnosis();
 		for (Diagnose d : diags) {
-			if (d.getTreatments().contains(task.getDescription())) {
-				((Diagnose) d).addTreatment((Task<? extends Treatment>) task);
-				return;
-			}
+			if(d==diagnose_)
+				{
+					d.addTreatmentTask((Task<? extends Treatment>)task);
+					return;
+				}
 		}
 		throw new IllegalArgumentException(
 				"Error! PatientFile does not contain the diagnose for the treatment created!");
@@ -105,4 +109,5 @@ public abstract class Treatment extends TaskDescriptionWithPatientFile implement
 	public boolean needsResult() {
 		return result_ == null;
 	}
+	
 }
