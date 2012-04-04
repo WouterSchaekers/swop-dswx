@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 import scheduler.tasks.Task;
 import scheduler.tasks.TaskDescription;
 import system.Hospital;
@@ -44,12 +45,12 @@ public class LoginController extends HospitalController
 
 	@controllers.PUBLICAPI
 	public NurseIN getSpecificNurse(String name) {
-		return UserFilter.SpecificNurseFilter(hospital.getUserManager().getAllUsers(), name);
+		return UserFilter.SpecificNurseFilter(new LinkedList<UserIN>(hospital.getUserManager().getAllUsers()), name);
 	}
 
 	@controllers.PUBLICAPI
 	public DoctorIN getSpecificDoctor(String name) {
-		return UserFilter.SpecificDoctorFilter(hospital.getUserManager().getAllUsers(), name);
+		return UserFilter.SpecificDoctorFilter(new LinkedList<UserIN>(hospital.getUserManager().getAllUsers()),name);
 	}
 
 	/**

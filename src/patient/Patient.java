@@ -1,6 +1,5 @@
 package patient;
 
-import controllers.interfaces.PatientIN;
 import scheduler.HospitalDate;
 import scheduler.LocationTimeSlot;
 import scheduler.LocationTimeTable;
@@ -9,6 +8,7 @@ import scheduler.TimeSlot;
 import scheduler.TimeTable;
 import system.Location;
 import be.kuleuven.cs.som.annotate.Basic;
+import controllers.interfaces.PatientIN;
 import exceptions.InvalidHospitalDateArgument;
 import exceptions.InvalidNameException;
 import exceptions.InvalidSchedulingRequestException;

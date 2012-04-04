@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import be.kuleuven.cs.som.annotate.Basic;
-import controllers.interfaces.UserIN;
 import exceptions.InvalidNameException;
 import exceptions.UserAlreadyExistsException;
-
+/**
+ * A class representing the collection of all the users in the hospital/campus.
+ * 
+ * *
+ */
 public class UserManager
 {
 
@@ -16,9 +19,12 @@ public class UserManager
 
 	/**
 	 * Default constructor.
+	 * @throws InvalidNameException 
+	 * When the provided name is invalid for the hospitaladmin that must be created in this usermanager
 	 */
-	public UserManager() {
+	public UserManager(String name) throws InvalidNameException {
 		users_ = new ArrayList<User>();
+		users_.add(new HospitalAdmin(name));
 	}
 
 	public void addType(UserFactory fact) {
@@ -26,8 +32,8 @@ public class UserManager
 	}
 
 	@Basic
-	public LinkedList<UserIN> getAllUsers() {
-		return new LinkedList<UserIN>(this.users_);
+	public LinkedList<User> getAllUsers() {
+		return new LinkedList<User>(this.users_);
 	}
 
 	public void createUser(UserFactory factory)

@@ -8,13 +8,16 @@ public class CampusBuilder
 	private String campusName_;
 	private Hospital hospital_;
 	private WarehouseBuilder warehouseBuilder_;
+	public CampusBuilder(String string,Hospital hospital)
+	{
+		campusName_ = string;
+		hospital_=hospital;
+	}
 	public Campus create()
 	{
-	//	new NormalWarehouseBuilder(campus);
 		warehouseBuilder_ = new NormalWarehouseBuilder();
 		Campus campus = new Campus(campusName_, hospital_, warehouseBuilder_);
-		
-		return null;
+		return campus;
 		
 	}
 }
