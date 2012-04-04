@@ -6,9 +6,7 @@ import scheduler.HospitalDate;
 import system.Campus;
 import users.User;
 import users.WarehouseAdmin;
-import warehouse.Warehouse;
 import warehouse.item.WarehouseItemType;
-import warehouse.item.WarehouseItemTypes;
 import warehouse.stock.StockOrder;
 import controllers.interfaces.StockOrderIN;
 import exceptions.InvalidHospitalException;
@@ -23,25 +21,11 @@ import exceptions.WarehouseOverCapacityException;
 public class FillStockInWarehouseController extends NeedsLoginController
 {
 	private Campus campus = (Campus)(((WarehouseAdmin)(lc.getUser())).getLocation());
-	private Warehouse warehouse = campus.getWarehouse();
 
 	@controllers.PUBLICAPI
 	public FillStockInWarehouseController(LoginController lc) throws InvalidLoginControllerException,
 			InvalidHospitalException {
 		super(lc);
-	}
-	
-	/**
-	 * 
-	 * @return All types of items that can be put into warehouses.
-	 */
-	@controllers.PUBLICAPI
-	public Collection<WarehouseItemType> getItemTypes() {
-		return WarehouseItemTypes.itemTypes();
-	}
-
-	public int getCurrentCountOf(WarehouseItemType type) {
-		return warehouse.getCurrentCount(type);
 	}
 	
 	/**
