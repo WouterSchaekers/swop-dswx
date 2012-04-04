@@ -1,6 +1,5 @@
 package treatment;
 
-import warehouse.Warehouse;
 import exceptions.FactoryInstantiationException;
 
 /**
@@ -9,7 +8,6 @@ import exceptions.FactoryInstantiationException;
 public class SurgeryFactory extends TreatmentFactory
 {
 	private String description_;
-	private Warehouse warehouse;
 
 	/**
 	 * Default constructor. Package visible since it should only be used by
@@ -28,10 +26,8 @@ public class SurgeryFactory extends TreatmentFactory
 	public void setDescription(String description) {
 		this.description_ = description;
 	}
-	public void setWarehouse(Warehouse warehouse)
-	{
-		this.warehouse=warehouse;
-	}
+	
+
 	/**
 	 * Checks whether the description is valid.
 	 * 
@@ -59,9 +55,10 @@ public class SurgeryFactory extends TreatmentFactory
 	 *             The factory was not ready yet.
 	 */
 	@Override
+	@Deprecated
 	public Treatment create() throws FactoryInstantiationException {
 		if (isReady())
-			return new Surgery(getPatientFile(), creationDate_, description_, diagnose_,warehouse);
+			return new Surgery(getPatientFile(), creationDate_, description_, diagnose_,warehouse_);
 		throw new FactoryInstantiationException("Surgery was not ready yet!");
 	}
 

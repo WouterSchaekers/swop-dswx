@@ -8,6 +8,7 @@ import scheduler.HospitalDate;
 import scheduler.tasks.Task;
 import scheduler.tasks.TaskDescription;
 import scheduler.tasks.TaskDescriptionWithPatientFile;
+import warehouse.Warehouse;
 import controllers.interfaces.TreatmentIN;
 import exceptions.InvalidReportException;
 
@@ -18,7 +19,7 @@ public abstract class Treatment extends TaskDescriptionWithPatientFile implement
 {
 
 	protected final Diagnose diagnose_;
-
+	protected final Warehouse warehouse_;
 	/**
 	 * Default constructor of Treatment.
 	 * 
@@ -28,10 +29,12 @@ public abstract class Treatment extends TaskDescriptionWithPatientFile implement
 	 *            The duration of the task.
 	 * @param creationDate
 	 *            The date on which this description has been created.
+	 * @param warehouse 
 	 */
-	public Treatment(PatientFile patientFile,Diagnose diagnose, long duration, HospitalDate creationDate) {
+	public Treatment(PatientFile patientFile,Diagnose diagnose, long duration, HospitalDate creationDate, Warehouse warehouse) {
 		super(patientFile, duration, 0, creationDate);
 		this.diagnose_=diagnose;
+		this.warehouse_=warehouse;
 	}
 
 	/**
@@ -109,5 +112,4 @@ public abstract class Treatment extends TaskDescriptionWithPatientFile implement
 	public boolean needsResult() {
 		return result_ == null;
 	}
-	
 }

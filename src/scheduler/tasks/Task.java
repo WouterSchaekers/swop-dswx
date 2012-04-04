@@ -2,6 +2,7 @@ package scheduler.tasks;
 
 import java.util.Collection;
 import java.util.Observable;
+import java.util.Observer;
 import scheduler.HospitalDate;
 import scheduler.Schedulable;
 import scheduler.TimeSlot;
@@ -12,7 +13,7 @@ import controllers.interfaces.TaskIN;
 /**
  * Represents a task that can be scheduled, completed or queued.
  */
-public final class Task<T extends TaskDescription> extends Observable implements TaskIN
+public final class Task<T extends TaskDescription> extends Observable implements TaskIN, Observer
 {
 	private TaskState myState_;
 
@@ -27,6 +28,8 @@ public final class Task<T extends TaskDescription> extends Observable implements
 		TaskData data = new TaskData(hospital);
 		data.setDescription(description);
 		myState_ = new QueuedState(data);
+		for(Observable o:description.getObservables())
+			o.addObserver(this);
 	}
 
 	boolean before(Task<?> otherTask) {
@@ -92,5 +95,13 @@ public final class Task<T extends TaskDescription> extends Observable implements
 	public TimeSlot getTimeSlot(){
 		return this.myState_.getData().getTimeSlot().clone();
 	}
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		this.notifyObservers();
+		this.notifyObservers(null);
+	}
+
+	
 
 }

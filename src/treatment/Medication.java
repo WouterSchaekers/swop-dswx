@@ -2,6 +2,7 @@ package treatment;
 
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Observable;
 import patient.Diagnose;
 import patient.PatientFile;
 import scheduler.HospitalDate;
@@ -22,7 +23,6 @@ public class Medication extends Treatment implements MedicationIN
 	private String description_;
 	private boolean sensitive_;
 	private MedicationType medicationType_;
-	private Warehouse warehouse_;
 	public final static long SENSITIVE_DURATION_ = HospitalDate.ONE_MINUTE * 20;
 	public final static long NON_SENSITIVE_DURATION_ = HospitalDate.ONE_MINUTE * 10;
 
@@ -45,11 +45,10 @@ public class Medication extends Treatment implements MedicationIN
 	 */
 	Medication(PatientFile patientFile, HospitalDate creationDate, MedicationType medicationType,
 			Warehouse warehouse, String description, boolean sensitive, Diagnose diagnose) {
-		super(patientFile, diagnose, getDuration(sensitive), creationDate);
+		super(patientFile, diagnose, getDuration(sensitive), creationDate,warehouse);
 		this.description_ = description;
 		this.sensitive_ = sensitive;
 		this.medicationType_ = medicationType;
-		this.warehouse_ = warehouse;
 	}
 
 	/**
@@ -103,5 +102,11 @@ public class Medication extends Treatment implements MedicationIN
 		requirements.add(new WarehouseItemCondition(this.medicationType_, this.warehouse_, 1));
 		requirements.add(new RequirementType<Nurse>(Nurse.class, true, 1));
 		return requirements;
+	}
+
+	@Override
+	public Collection<Observable> getObservables() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

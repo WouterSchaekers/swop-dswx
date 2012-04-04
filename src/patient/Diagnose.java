@@ -6,14 +6,12 @@ import java.util.LinkedList;
 import java.util.Observable;
 import scheduler.tasks.Task;
 import treatment.Treatment;
-import treatment.TreatmentFactory;
 import users.Doctor;
 import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.DoctorIN;
 import controllers.interfaces.TaskIN;
 import exceptions.ApproveDiagnoseException;
-import exceptions.FactoryInstantiationException;
 import exceptions.InvalidComplaintsException;
 import exceptions.InvalidDiagnoseException;
 import exceptions.InvalidDoctorException;
@@ -55,21 +53,22 @@ public class Diagnose extends Observable implements DiagnoseIN
 	 * @throws InvalidPatientFileException 
 	 */
 	Diagnose(Doctor doc, String complaints, String diag,PatientFile creator) throws InvalidDoctorException,
-			InvalidDiagnoseException, InvalidComplaintsException, InvalidPatientFileException {
-		if(!this.canHaveAsPatientFile(creator))
-			throw new InvalidPatientFileException("can not have this as creator");
-		if (!this.canHaveAsDoctor(doc))
-			throw new InvalidDoctorException("Doctor is invalid!");
-		if (!this.isValidDiagnosis(diag))
-			throw new InvalidDiagnoseException("Diagnose in Diagnoseconstructor is invalid!");
-		if (!this.isValidDiagnosis(complaints))
-			throw new InvalidComplaintsException("Invalid complaints were given when trying to create new Diagnose!");
-		this.myPatientFile = creator;
-		this.complaints = complaints;
-		this.attending = doc;
-		this.diag = diag;
-		this.treatments = new LinkedList<Task<? extends Treatment>>();
-	}
+	InvalidDiagnoseException, InvalidComplaintsException, InvalidPatientFileException {
+if(!this.canHaveAsPatientFile(creator))
+	throw new InvalidPatientFileException("can not have this as creator");
+if (!this.canHaveAsDoctor(doc))
+	throw new InvalidDoctorException("Doctor is invalid!");
+if (!this.isValidDiagnosis(diag))
+	throw new InvalidDiagnoseException("Diagnose in Diagnoseconstructor is invalid!");
+if (!this.isValidDiagnosis(complaints))
+	throw new InvalidComplaintsException("Invalid complaints were given when trying to create new Diagnose!");
+this.myPatientFile = creator;
+this.complaints = complaints;
+this.attending = doc;
+this.diag = diag;
+this.treatments = new LinkedList<Task<? extends Treatment>>();
+
+}
 
 	/**
 	 * USE THIS METHOD ONLY IN THE DOMAIN LAYER (init method of Diagnose)!!
@@ -93,6 +92,7 @@ public class Diagnose extends Observable implements DiagnoseIN
 		this.approved = true;
 		this.unmarkForSecOp();
 		this.notifyObservers();
+		this.notifyObservers(null);
 	}
 
 	/**
@@ -116,15 +116,7 @@ public class Diagnose extends Observable implements DiagnoseIN
 		
 		return creator != null;
 	}
-	/**
-	 * Use to create treatment descriptions.
-	 */
-	@SuppressWarnings("deprecation")
-	public Treatment createTreatment(TreatmentFactory treatFact) throws FactoryInstantiationException {
-		//THE ONLY PLACE THIS METHOD IS CALLED
-		Treatment treat =treatFact.create();
-		return treat;
-	}
+
 
 	/**
 	 * Disapproves this diagnose.
@@ -178,7 +170,10 @@ public class Diagnose extends Observable implements DiagnoseIN
 
 	@Basic
 	public boolean isApprovedIN() {
-		return this.approved;
+		if(isMarkedForSecOp())	
+			return this.approved;
+		else
+			return true;
 	}
 
 	@Basic

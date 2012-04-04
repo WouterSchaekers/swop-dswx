@@ -1,6 +1,7 @@
 package scheduler.tasks;
 
 import java.util.Collection;
+import java.util.Observable;
 import result.Result;
 import scheduler.HospitalDate;
 import scheduler.requirements.Requirement;
@@ -123,4 +124,6 @@ public abstract class TaskDescription implements DescriptionIN
 	{
 		return o ==this;
 	}
+
+	public abstract Collection<Observable> getObservables();
 }

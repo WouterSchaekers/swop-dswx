@@ -1,7 +1,9 @@
 package treatment;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Observable;
 import patient.Diagnose;
 import patient.PatientFile;
 import scheduler.HospitalDate;
@@ -22,7 +24,6 @@ import controllers.interfaces.SurgeryIN;
 public class Surgery extends Treatment implements SurgeryIN
 {
 	private String description_;
-	private Warehouse warehouse_;
 	public final static long DURATION_ = HospitalDate.ONE_MINUTE * 180;
 
 	/**
@@ -37,9 +38,8 @@ public class Surgery extends Treatment implements SurgeryIN
 	 * @param diagnose_ 
 	 */
 	Surgery(PatientFile patientFile, HospitalDate creationDate, String description, Diagnose diagnose_,Warehouse warehouse) {
-		super(patientFile, diagnose_, DURATION_, creationDate);
+		super(patientFile, diagnose_, DURATION_, creationDate,warehouse);
 		this.description_ = description;
-		this.warehouse_=warehouse;
 	}
 
 	/**
@@ -63,5 +63,13 @@ public class Surgery extends Treatment implements SurgeryIN
 		requirements.add(new RequirementType<Nurse>(Nurse.class, true, 1));
 		requirements.add(new DiagnoseCondition(diagnose_));
 		return requirements;
+	}
+
+	@Override
+	public Collection<Observable> getObservables() {
+		ArrayList<Observable> obs = new ArrayList<Observable>();
+		obs.add(warehouse_);
+		obs.add(diagnose_);
+		return obs;
 	}
 }

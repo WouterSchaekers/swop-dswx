@@ -3,6 +3,8 @@ package treatment;
 import patient.Diagnose;
 import patient.PatientFile;
 import scheduler.HospitalDate;
+import warehouse.Warehouse;
+import controllers.interfaces.DiagnoseIN;
 import exceptions.FactoryInstantiationException;
 
 /**
@@ -13,12 +15,15 @@ public abstract class TreatmentFactory
 	
 	protected HospitalDate creationDate_;
 	protected Diagnose diagnose_;
+	protected Warehouse warehouse_;
 
-
-	
-	public void setDiagnose(Diagnose diagnose)
+	public void setWarehouse(Warehouse warehouse)
 	{
-		this.diagnose_=diagnose;
+		this.warehouse_=warehouse;
+	}
+	public void setDiagnose(DiagnoseIN diagnose)
+	{
+		this.diagnose_=(Diagnose)diagnose;
 	}
 	protected PatientFile getPatientFile()
 	{

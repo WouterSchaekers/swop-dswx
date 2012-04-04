@@ -1,7 +1,9 @@
 package scheduler.tasks;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Observable;
 import patient.PatientFile;
 import result.Result;
 import scheduler.HospitalDate;
@@ -56,5 +58,10 @@ public class AppointmentDescription extends TaskDescriptionWithPatientFile
 	@Override
 	public Result getResult() {
 		return null;
+	}
+
+	@Override
+	public Collection<Observable> getObservables() {
+		return new ArrayList<Observable>();
 	}
 }
