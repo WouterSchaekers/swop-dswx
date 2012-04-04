@@ -9,5 +9,9 @@ public class ActivatedCarbonType extends MedicationType
 	public WarehouseItem create(HospitalDate expirydate) {
 		return new ActivatedCarbon();
 	}
-
+	@Override
+	public boolean equals(Object object)
+	{
+		return object instanceof ActivatedCarbonType;
+	}
 }

@@ -10,7 +10,7 @@ public class CastFactory extends TreatmentFactory
 	/**
 	 * Default constructor. Package visible since it should only be used by Treatments.
 	 */
-	CastFactory() {
+	public CastFactory() {
 		;
 	}
 	

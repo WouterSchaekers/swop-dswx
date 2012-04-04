@@ -17,7 +17,7 @@ public class MedicationFactory extends TreatmentFactory
 	/**
 	 * Default constructor.
 	 */
-	MedicationFactory() {
+	public MedicationFactory() {
 		;
 	}
 

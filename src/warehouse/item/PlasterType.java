@@ -9,5 +9,9 @@ public class PlasterType extends WarehouseItemType
 	public WarehouseItem create(HospitalDate expirydate) {
 		return new Plaster();
 	}
-
+	@Override
+	public boolean equals(Object object)
+	{
+		return object instanceof PlasterType;
+	}
 }

@@ -2,6 +2,7 @@ package warehouse;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import scheduler.HospitalDate;
@@ -20,7 +21,7 @@ import exceptions.WarehouseOverCapacityException;
 public class Warehouse extends Observable
 {
 	private Map<Class<? extends WarehouseItemType>, Integer> maxItemsMap_=new HashMap<Class<? extends WarehouseItemType>, Integer>();
-	private LinkedList<WarehouseItem> items_;
+	private List<WarehouseItem> items_;
 	private Campus campus_;
 
 	/**
@@ -31,6 +32,7 @@ public class Warehouse extends Observable
 	 */
 	Warehouse(Campus campus) {
 		this.campus_ = campus;
+		items_ = new LinkedList<WarehouseItem>();
 	}
 
 	/**
@@ -55,7 +57,8 @@ public class Warehouse extends Observable
 	/**
 	 * Adds an item to this warehouse.
 	 */
-	public void add(WarehouseItem item) throws WarehouseOverCapacityException {
+	public void add(WarehouseItemType type,HospitalDate exp) throws WarehouseOverCapacityException {
+		WarehouseItem item = type.create(exp);
 		if (!canBeAdded(item))
 			throw new WarehouseOverCapacityException(
 					"Warehouse is over capacity!");
@@ -75,8 +78,8 @@ public class Warehouse extends Observable
 	 *         specified type. Returns -1 if no such item was found.
 	 */
 	public int getMaxCount(WarehouseItemType type) {
-		if (maxItemsMap_.containsKey(type))
-			return maxItemsMap_.get(type);
+		if (maxItemsMap_.containsKey(type.getClass()))
+			return maxItemsMap_.get(type.getClass());
 		return -1;
 	}
 

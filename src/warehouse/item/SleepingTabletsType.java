@@ -9,5 +9,9 @@ public class SleepingTabletsType extends MedicationType
 	public WarehouseItem create(HospitalDate expirydate) {
 		return new SleepingTablets(expirydate);
 	}
-
+	@Override
+	public boolean equals(Object object)
+	{
+		return object instanceof SleepingTabletsType;
+	}
 }
