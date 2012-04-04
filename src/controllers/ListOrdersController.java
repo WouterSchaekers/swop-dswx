@@ -17,12 +17,11 @@ import exceptions.InvalidLoginControllerException;
 @controllers.PUBLICAPI
 public class ListOrdersController extends NeedsLoginController
 {
-	private WarehouseAdmin admin = (WarehouseAdmin)(lc.getUser());
-	private Campus campus = (Campus)(admin.getLocation());
+	private WarehouseAdmin admin = (WarehouseAdmin) (lc.getUser());
+	private Campus campus = (Campus) (admin.getLocation());
 
 	@controllers.PUBLICAPI
-	public ListOrdersController(LoginController lc) throws InvalidLoginControllerException,
-			InvalidHospitalException {
+	public ListOrdersController(LoginController lc) throws InvalidLoginControllerException, InvalidHospitalException {
 		super(lc);
 	}
 
@@ -41,8 +40,8 @@ public class ListOrdersController extends NeedsLoginController
 	public LinkedList<StockOrderIN> getStockOrders(WarehouseItemType selected) {
 		LinkedList<StockOrderIN> rv = new LinkedList<StockOrderIN>();
 		Collection<StockOrderIN> orders = campus.getStockprovider().getOrderINs();
-		for(StockOrderIN order : orders) {
-			if(! order.hasBeenDelivered())
+		for (StockOrderIN order : orders) {
+			if (!order.hasBeenDelivered())
 				rv.add(order);
 		}
 		return rv;
