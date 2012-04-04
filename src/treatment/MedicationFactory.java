@@ -113,4 +113,9 @@ public class MedicationFactory extends TreatmentFactory
 		return new Medication(this.patientFile_, this.creationDate_, this.medicationType_, this.warehouse_,
 				this.description_, this.sensitive_);
 	}
+
+	@Override
+	public TreatmentFactory newInstance() {
+		return new MedicationFactory();
+	}
 }

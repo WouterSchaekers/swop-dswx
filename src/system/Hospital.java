@@ -11,6 +11,7 @@ import patient.PatientFileManager;
 import scheduler.Schedulable;
 import scheduler.TimeLord;
 import scheduler.tasks.TaskManager;
+import treatment.TreatmentFactory;
 import users.HospitalAdmin;
 import users.UserManager;
 import be.kuleuven.cs.som.annotate.Basic;
@@ -28,8 +29,7 @@ public class Hospital implements HospitalIN
 	private TimeLord systemTime_;
 	private Collection<Campus> campusses_;
 	private Collection<MedicalTestFactory> medicalTestFactories_;
-
-
+	private Collection<TreatmentFactory> treatmentFactories_;
 
 	/**
 	 * Constructor that creates a new hospital with the given data as initial
@@ -51,22 +51,24 @@ public class Hospital implements HospitalIN
 	 *            The Warehouse for this hospital.
 	 * @throws
 	 */
-	public Hospital(TimeLord timeLord, UserManager userManager, PatientFileManager patientFileManager,HospitalAdmin hospitalAdmin,TaskManagerBuilder tsmb) {
+	public Hospital(TimeLord timeLord, UserManager userManager, PatientFileManager patientFileManager,
+			HospitalAdmin hospitalAdmin, TaskManagerBuilder tsmb) {
 		this.systemTime_ = timeLord;
 		this.userManager_ = userManager;
 		this.patientFileManager_ = patientFileManager;
 		this.campusses_ = new LinkedList<Campus>();
-		this.taskManager_=tsmb.create(this);
+		this.taskManager_ = tsmb.create(this);
 	}
-	
+
 	/**
 	 * Method for a campus to make sure the double bind is made.
+	 * 
 	 * @param campus
 	 */
-	void addCampus(Campus campus)
-	{
+	void addCampus(Campus campus) {
 		this.campusses_.add(campus);
 	}
+
 	@Basic
 	public TimeLord getTimeKeeper() {
 		return systemTime_;
@@ -115,11 +117,6 @@ public class Hospital implements HospitalIN
 				newCP.add(c);
 	}
 
-	/**
-	 * Vieze methode bah
-	 * 
-	 * @return
-	 */
 	public Collection<Schedulable> getAllSchedulables() {
 		ArrayList<Object> sched = new ArrayList<Object>();
 		for (Object o : userManager_.getAllUsers())
@@ -158,6 +155,23 @@ public class Hospital implements HospitalIN
 	private Collection<MedicalTestFactory> clonemedicalTestFactories() {
 		Collection<MedicalTestFactory> rv = new ArrayList<MedicalTestFactory>();
 		for (MedicalTestFactory fact : medicalTestFactories_)
+			rv.add(fact.newInstance());
+		return rv;
+
+	}
+
+	public Collection<TreatmentFactory> getTreatments() {
+		return cloneTreatmentFactories();
+
+	}
+
+	public void addTreatmentFactory(TreatmentFactory fact) {
+		treatmentFactories_.add(fact);
+	}
+
+	private Collection<TreatmentFactory> cloneTreatmentFactories() {
+		Collection<TreatmentFactory> rv = new LinkedList<TreatmentFactory>();
+		for (TreatmentFactory fact : treatmentFactories_)
 			rv.add(fact.newInstance());
 		return rv;
 

@@ -71,8 +71,6 @@ public class OrderMedicalTestController extends NeedsLoginAndPatientFileControll
 		@SuppressWarnings("unchecked")
 		Task<T> createdTest = (Task<T>) hospital.getTaskManager().add(medicalTestFactory.create());
 
-		// attempt to schedule and return date if it worked.
-		hospital.getTaskManager().update(createdTest, null);
 		if (createdTest.isScheduled())
 			return createdTest.getDate();
 		return null;

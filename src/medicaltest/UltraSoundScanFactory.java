@@ -48,7 +48,6 @@ public class UltraSoundScanFactory extends MedicalTestFactory
 	public MedicalTest create() throws FactoryInstantiationException {
 		if (!ready())
 			throw new FactoryInstantiationException("UltraSoundScanFactory is not properly instantiated yet.");
-		UltraSoundScan ultraSoundScan = null;
 		return new UltraSoundScan(patientFile_, creationDate_, scaninfo, recordVid, recordImages);
 	}
 
