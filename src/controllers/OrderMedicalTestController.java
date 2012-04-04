@@ -3,11 +3,11 @@ package controllers;
 import java.util.Collection;
 import medicaltest.MedicalTest;
 import medicaltest.MedicalTestFactory;
-import patient.PatientFile;
 import scheduler.HospitalDate;
 import scheduler.tasks.Task;
 import users.Doctor;
 import users.User;
+import controllers.interfaces.PatientFileIN;
 import exceptions.CanNeverBeScheduledException;
 import exceptions.FactoryInstantiationException;
 import exceptions.InvalidHospitalException;
@@ -41,6 +41,14 @@ public class OrderMedicalTestController extends NeedsLoginAndPatientFileControll
 		
 		return hospital.getMedicalTests();
 	}
+	
+	/**
+	 * Use returned collection to set the patient file field of the medical test factory that should
+	 * create the test for the patient file that is currently open.
+	 */
+	public Collection<PatientFileIN> getPatientFiles() {
+		return this.hospital.getPatientFileManager().getPatientFileINs();
+	}
 
 	/**
 	 * Adds a new medical test created from the given factory to the patient
@@ -58,12 +66,10 @@ public class OrderMedicalTestController extends NeedsLoginAndPatientFileControll
 	@controllers.PUBLICAPI
 	public <T extends MedicalTest> HospitalDate addMedicaltest(MedicalTestFactory medicalTestFactory)
 			throws FactoryInstantiationException, CanNeverBeScheduledException {
-		PatientFile pf = (PatientFile) cpfc.getPatientFile();
 		// create the description and transform it into a task that gets added
 		// to the taskman's queue right away.
 		@SuppressWarnings("unchecked")
 		Task<T> createdTest = (Task<T>) hospital.getTaskManager().add(medicalTestFactory.create());
-		pf.addMedicalTest(createdTest);
 
 		// attempt to schedule and return date if it worked.
 		hospital.getTaskManager().update(createdTest, null);
