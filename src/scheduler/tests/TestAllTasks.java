@@ -20,6 +20,7 @@ import users.NurseFactory;
 import users.UserFactory;
 import exceptions.CanNeverBeScheduledException;
 import exceptions.InvalidHospitalDateException;
+import exceptions.InvalidLocationException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidPatientFileException;
 import exceptions.UserAlreadyExistsException;
@@ -29,7 +30,7 @@ public class TestAllTasks
 	Hospital hospital = new StandardHospitalBuilder().build();
 	Campus location = hospital.getAllCampuses().iterator().next();
 	@Test
-	public void scheduleAppointment() throws UserAlreadyExistsException, InvalidNameException, InvalidPatientFileException, InvalidHospitalDateException, CanNeverBeScheduledException
+	public void scheduleAppointment() throws UserAlreadyExistsException, InvalidNameException, InvalidPatientFileException, InvalidHospitalDateException, CanNeverBeScheduledException, InvalidLocationException
 	{
 		DoctorFactory f= new DoctorFactory();
 		f.setLocation(location);
@@ -45,6 +46,7 @@ public class TestAllTasks
 	{
 		NurseFactory f= new NurseFactory();
 		f.setName("Jenny");
+		f.setLocation(location);
 		Nurse user =(Nurse) hospital.getUserManager().createUser(f);
 		PatientFile file =hospital.getPatientFileManager().registerPatient("jenny", location);
 		BloodAnalyserBuilder builder = bloodanalyzer(location.getMachinePool().getAllBuilders());

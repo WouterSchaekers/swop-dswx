@@ -6,6 +6,7 @@ import system.Location;
 import controllers.interfaces.NurseIN;
 import controllers.interfaces.UserFactoryIN;
 import exceptions.InvalidHospitalDateArgument;
+import exceptions.InvalidLocationException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidTimeSlotException;
@@ -24,9 +25,10 @@ public class Nurse extends SchedulableUser implements NurseIN
 	 * 
 	 * @param name
 	 *            The name of this Nurse.
+	 * @throws InvalidLocationException 
 	 */
 	 Nurse(String name, Location preference)
-			throws InvalidNameException {
+			throws InvalidNameException, InvalidLocationException {
 		super(name, preference);
 	}
 

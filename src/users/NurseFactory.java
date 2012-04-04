@@ -1,6 +1,7 @@
 package users;
 
 import system.Location;
+import exceptions.InvalidLocationException;
 import exceptions.InvalidNameException;
 
 public class NurseFactory extends UserFactory
@@ -18,7 +19,7 @@ public class NurseFactory extends UserFactory
 	private Location location_;
 
 	@Override
-	User create() throws InvalidNameException {
+	User create() throws InvalidNameException, InvalidLocationException {
 		return new Nurse(name_,location_);
 	}
 

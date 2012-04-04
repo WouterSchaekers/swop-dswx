@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import be.kuleuven.cs.som.annotate.Basic;
+import exceptions.InvalidLocationException;
 import exceptions.InvalidNameException;
 import exceptions.UserAlreadyExistsException;
 /**
@@ -37,7 +38,7 @@ public class UserManager
 	}
 
 	public User createUser(UserFactory factory)
-			throws UserAlreadyExistsException, InvalidNameException {
+			throws UserAlreadyExistsException, InvalidNameException, InvalidLocationException {
 		User u= factory.create();
 		addUser(u);
 		return u;
