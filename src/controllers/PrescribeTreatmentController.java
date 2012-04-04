@@ -5,7 +5,6 @@ import patient.Diagnose;
 import patient.PatientFile;
 import scheduler.HospitalDate;
 import scheduler.tasks.Task;
-import treatment.Treatment;
 import treatment.TreatmentFactory;
 import users.Doctor;
 import users.User;
@@ -50,9 +49,7 @@ public class PrescribeTreatmentController extends NeedsLoginAndPatientFileContro
 			throw new InvalidDiagnoseException("The selected diagnose is invalid!");
 		if (!getAllPossibleDiagnosis().contains(selected))
 			throw new InvalidDiagnoseException("Trying to add a treatment to a diagnose that this doctor has not made!");
-
-		Treatment treatment = ((Diagnose) selected).createTreatment(treatmentFactory);
-		Task<?> createdTreatment = hospital.getTaskManager().add(treatment);
+		Task<?> createdTreatment = hospital.getTaskManager().add(treatmentFactory.create());
 		
 		if (createdTreatment.isScheduled())
 			return createdTreatment.getDate();
