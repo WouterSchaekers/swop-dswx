@@ -51,7 +51,7 @@ public class Scheduler
 		Collection<Requirement> metReqs = getMetReqs(reqs, startDate);
 		Collection<Requirement> unmetReqs = getUnmetRequirements(reqs, metReqs);
 		Map<LinkedList<Schedulable>, Integer> avRes = getAvRes(resPool, unmetReqs);
-		// removeDoubleBookings(avRes);
+		avRes = removeDoubleBookings(avRes);
 		LinkedList<Location> locs = getLocationsWithEnoughResources(avRes,
 				new LinkedList<Location>(taskData.getLocations()), curDate);
 		TaskData data = schedule(avRes, produceUsedResList(avRes), locs, desc, startDate, stopDate, taskData);
@@ -226,15 +226,34 @@ public class Scheduler
 	 * 
 	 * @param avRes
 	 *            HashMap that contains resources and the amount needed of them.
+	 * @return A copy of avRes with the double resources removed.
 	 */
-	private void removeDoubleBookings(Map<LinkedList<Schedulable>, Integer> avRes) {
-		// XXX: fix fast
-		for (LinkedList<Schedulable> resourcePool : avRes.keySet())
-			for (LinkedList<Schedulable> curSchedulablePool : avRes.keySet())
-				for (Schedulable schedulable : curSchedulablePool)
-					if (resourcePool.contains(schedulable))
-						if (curSchedulablePool.size() == 1)
-							resourcePool.remove(schedulable);
+	private Map<LinkedList<Schedulable>, Integer> removeDoubleBookings(Map<LinkedList<Schedulable>, Integer> avRes) {
+		Map<LinkedList<Schedulable>, Integer> newAvRes = new HashMap<LinkedList<Schedulable>, Integer>();
+		LinkedList<LinkedList<Schedulable>> keys = new LinkedList<LinkedList<Schedulable>>(avRes.keySet());
+		LinkedList<Integer> values = new LinkedList<Integer>();
+		LinkedList<Integer> toCheck = new LinkedList<Integer>();
+		for (int i = 0; i < keys.size(); i++) {
+			LinkedList<Schedulable> key = keys.get(i);
+			values.add(avRes.get(key));
+			if (key.size() == 1)
+				toCheck.add(i);
+		}
+		for (int i = 0; i < toCheck.size(); i++) {
+			int index = toCheck.get(i);
+			Schedulable unique = keys.get(index).get(0);
+			for (int j = 0; j < keys.size(); j++) {
+				LinkedList<Schedulable> key = keys.get(j);
+				if (key.contains(unique) && i != j) {
+					System.out.println("gefokt");
+					key.remove(unique);
+				}
+			}
+		}
+		for (int i = 0; i < keys.size(); i++) {
+			newAvRes.put(keys.get(i), values.get(i));
+		}
+		return newAvRes;
 	}
 
 	/**
@@ -255,9 +274,11 @@ public class Scheduler
 			boolean enoughResources = true;
 			for (LinkedList<Schedulable> resourcePool : avRes.keySet()) {
 				int amount = 0;
-				for (Schedulable resource : resourcePool)
-					if (resource.canTravel() || resource.getLocationAt(now) == loc)
+				for (Schedulable resource : resourcePool) {
+					if (resource.canTravel() || resource.getLocationAt(now) == loc) {
 						amount++;
+					}
+				}
 				if (amount < avRes.get(resourcePool)) {
 					enoughResources = false;
 					break;
@@ -312,23 +333,6 @@ public class Scheduler
 		}
 		return bestOptToFind;
 	}
-	
-	//TODO: commentaar
-//	private Map<LinkedList<Schedulable>, LinkedList<Integer>> addFoundToList(Map<LinkedList<Schedulable>, LinkedList<Integer>> usedResList, LinkedList<Schedulable> toAdd, int number){
-//		Map<LinkedList<Schedulable>, LinkedList<Integer>> newUsedResList = new HashMap<LinkedList<Schedulable>, LinkedList<Integer>>(usedResList);
-//		LinkedList<Integer> newList = new LinkedList<Integer>(usedResList.get(toAdd));
-//		newList.add(number);
-//		newUsedResList.put(toAdd, newList);
-////		for(LinkedList<Schedulable> resources : usedResList.keySet())
-////			if(resources == toAdd){
-////				LinkedList<Integer> newList = new LinkedList<Integer>(usedResList.get(resources));
-////				newList.add(number);
-////				newUsedResList.put(resources, newList);
-////			}
-////			else
-////				newUsedResList.put(resources, usedResList.get(resources));
-//		return newUsedResList;
-//	}
 
 	/**
 	 * Deletes the resources that are already used for scheduling. The index of
