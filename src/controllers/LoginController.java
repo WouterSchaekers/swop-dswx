@@ -10,7 +10,6 @@ import users.UserManager;
 import controllers.interfaces.CampusIN;
 import controllers.interfaces.DoctorIN;
 import controllers.interfaces.HospitalIN;
-import controllers.interfaces.LocationIN;
 import controllers.interfaces.NurseIN;
 import controllers.interfaces.UserIN;
 import exceptions.InvalidHospitalException;
