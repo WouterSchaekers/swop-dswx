@@ -19,7 +19,7 @@ import warehouse.stock.StockProvider;
 public class Campus implements Location,CampusIN
 {
 	private String campusName_;
-	private MachinePool machinePool_ = new MachinePool();
+	private MachinePool machinePool_ ;
 	private WarehouseSet warehouse_;
 	private Hospital hospital_;
 
@@ -27,11 +27,12 @@ public class Campus implements Location,CampusIN
 	 * Creates a Campus & creates the double bind to hospital.
 	 * @param warehouseBuilder TODO
 	 */
-	public Campus(String campusName, Hospital hospital, WarehouseBuilder warehouseBuilder) {
+	public Campus(String campusName, Hospital hospital, WarehouseBuilder warehouseBuilder,MachinePool machinePool) {
 		this.campusName_ = campusName;
 		this.hospital_ = hospital;
 		hospital.addCampus(this);
 		this.warehouse_ =warehouseBuilder.create(this);
+		this.machinePool_=machinePool;
 	}
 
 	public Hospital getHospital() {

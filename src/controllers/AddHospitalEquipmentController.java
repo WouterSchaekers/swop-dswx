@@ -41,11 +41,13 @@ public class AddHospitalEquipmentController extends NeedsLoginController
 	 * @throws InvalidCampusException
 	 */
 	@controllers.PUBLICAPI
-	public Collection<MachineBuilder> getAllMachineBuilders() throws InvalidCampusException {
+	public Collection<MachineBuilder> getAllMachineBuilders() 
+	{
+
 		return getAllMachineBuilders(lc.getLocation());
 	}
+	private Collection<MachineBuilder> getAllMachineBuilders(CampusIN campus)  {
 
-	private Collection<MachineBuilder> getAllMachineBuilders(CampusIN campus) throws InvalidCampusException {
 		Campus c = (Campus) campus;
 		return c.getMachinePool().getAllBuilders();
 	}
