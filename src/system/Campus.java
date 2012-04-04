@@ -2,7 +2,6 @@ package system;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import controllers.interfaces.CampusIN;
 import machine.Machine;
 import machine.MachinePool;
 import scheduler.Schedulable;
@@ -11,6 +10,7 @@ import warehouse.NormalWarehouseBuilder.WarehouseSet;
 import warehouse.Warehouse;
 import warehouse.WarehouseBuilder;
 import warehouse.stock.StockProvider;
+import controllers.interfaces.CampusIN;
 
 /**
  * This class represents a campus that's part of a hospital. Campusses have

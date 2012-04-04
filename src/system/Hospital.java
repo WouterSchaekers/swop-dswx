@@ -5,7 +5,6 @@ import help.Filter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
-import controllers.interfaces.HospitalIN;
 import medicaltest.MedicalTestFactory;
 import patient.PatientFileManager;
 import scheduler.Schedulable;
@@ -14,6 +13,7 @@ import scheduler.tasks.TaskManager;
 import users.HospitalAdmin;
 import users.UserManager;
 import be.kuleuven.cs.som.annotate.Basic;
+import controllers.interfaces.HospitalIN;
 
 /**
  * This class represents a hospital. It can be used to pass a bunch of data to
