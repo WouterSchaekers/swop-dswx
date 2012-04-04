@@ -87,6 +87,7 @@ public class TestAllTasks
 		} catch (DischargePatientException e) {
 			exce = true;
 		}
+		System.out.println(task.getTimeSlot());
 		assertTrue(exce);
 
 	}

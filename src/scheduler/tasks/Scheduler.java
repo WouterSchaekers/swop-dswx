@@ -53,10 +53,13 @@ public class Scheduler
 		Map<LinkedList<Schedulable>, Integer> avRes = getAvRes(resPool, unmetReqs);
 		avRes = removeDoubleBookings(avRes);
 		LinkedList<Location> locs = getLocationsWithEnoughResources(avRes, taskData.getLocations(), curDate);
-		TaskData data = schedule(avRes, produceUsedResList(avRes), locs, desc, startDate, stopDate, taskData);
-		isBackToBack(data);
-		actuallyScheduleResources(data);
-		unscheduledTask.nextState(data);
+		TaskData scheduledData = schedule(avRes, produceUsedResList(avRes), locs, desc, startDate, stopDate, taskData);
+		if (!isBackToBack(scheduledData)) {
+			//scheduledData = scheduleAtFullHour(avRes, produceUsedResList(avRes), locs, desc, startDate, stopDate,
+					//taskData, scheduledData);
+		}
+		actuallyScheduleResources(scheduledData);
+		unscheduledTask.nextState(scheduledData);
 	}
 
 	/**
@@ -150,6 +153,46 @@ public class Scheduler
 				throw new InvalidSchedulingRequestException("The task cannot be scheudled at this location.");
 			return schedule(avRes, usedResList, loc, desc, newStartDate, newStopDate, taskData);
 		}
+	}
+
+	/**
+	 * Tries to schedule an a list of resources at a specific location, in a
+	 * specific time interval.
+	 * 
+	 * @param avRes
+	 *            HashMap that contains resources and the amount needed of them.
+	 * @param usedResList
+	 *            A mapping of the possible resources and the places of the used
+	 *            resources.
+	 * @param loc
+	 *            The location that has to be scheduled on.
+	 * @param desc
+	 *            The TaskDescription.
+	 * @param startDate
+	 *            The task has to be scheduled after this date.
+	 * @param stopDate
+	 *            The task has to be scheudeld before this date.
+	 * @return The taskdata with the information about the scheduled task of the
+	 *         given list of resources at a specific location, in a specific
+	 *         time interval.
+	 * @throws InvalidSchedulingRequestException
+	 *             The task cannot be scheduled, because there are not enough
+	 *             resources available at this specific moment, at the specific
+	 *             location.
+	 */
+	private <T extends TaskDescription> TaskData scheduleAtFullHour(Map<LinkedList<Schedulable>, Integer> avRes,
+			Map<LinkedList<Schedulable>, LinkedList<Integer>> usedResList, Collection<Location> posLocs, T desc,
+			HospitalDate startDate, HospitalDate stopDate, TaskData taskData, TaskData scheduledData)
+			throws InvalidSchedulingRequestException {
+		HospitalDate curStartDate = scheduledData.getStartDate();
+		while (!isFullHour(curStartDate)) {
+			HospitalDate nextHour = getNextHour(curStartDate);
+			scheduledData = schedule(avRes, new HashMap<LinkedList<Schedulable>, LinkedList<Integer>>(usedResList),
+					posLocs, desc, nextHour, stopDate, taskData);
+			curStartDate = scheduledData.getStartDate();
+			System.out.println(curStartDate);
+		}
+		return scheduledData;
 	}
 
 	/**
@@ -547,5 +590,28 @@ public class Scheduler
 			if (sched.mustBeBackToBack() && !sched.getTimeTable().isBackToBack(startDate))
 				return false;
 		return true;
+	}
+
+	/**
+	 * Checks whether the given hospitalDate is at a full hour.
+	 * 
+	 * @param hospitalDate
+	 *            The date that has to be checked.
+	 * @return True if the hospitalDate is at a full hour.
+	 */
+	private boolean isFullHour(HospitalDate hospitalDate) {
+		return hospitalDate.getTotalMillis() % HospitalDate.ONE_HOUR == 0;
+	}
+
+	/**
+	 * Gives the next full hour of the current hospitalDate.
+	 * 
+	 * @param hospitalDate
+	 *            The date that has to be given the next full hour off.
+	 * @return The hospitalDate at the next full hour.
+	 */
+	private HospitalDate getNextHour(HospitalDate hospitalDate) {
+		return new HospitalDate(hospitalDate.getTimeSinceStart() + HospitalDate.ONE_HOUR
+				- (hospitalDate.getTotalMillis() % HospitalDate.ONE_HOUR));
 	}
 }

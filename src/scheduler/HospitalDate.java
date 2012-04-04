@@ -58,6 +58,9 @@ public class HospitalDate
 	 * One hour in millis.
 	 */
 	public final static long ONE_HOUR = ONE_MINUTE * 60;
+	/**
+	 * One day in millis.
+	 */
 	public final static long ONE_DAY = ONE_HOUR * 24;
 	/**
 	 * One month is always 30 days.
@@ -189,7 +192,7 @@ public class HospitalDate
 	/**
 	 * @depricated instead use getTimeSinceStart()
 	 */
-	private long getTotalMillis() {
+	public long getTotalMillis() {
 		return gregorianCalendar.getTimeInMillis();
 	}
 
@@ -210,7 +213,7 @@ public class HospitalDate
 	}
 	
 	public static HospitalDate getMaximum(HospitalDate hospitalDateOne, HospitalDate hospitalDateTwo){
-		if(hospitalDateOne.after(hospitalDateTwo)){
+		if(hospitalDateOne.before(hospitalDateTwo)){
 			return hospitalDateTwo;
 		}
 		else{
@@ -221,6 +224,7 @@ public class HospitalDate
 	/**
 	 * @return The current date as a string.
 	 */
+	@Override
 	public String toString() {
 		String hour = (("" + this.getHour()).length() == 1) ? "0"
 				+ this.getHour() : "" + this.getHour();
@@ -237,6 +241,7 @@ public class HospitalDate
 		return new HospitalDate(this);
 	}
 
+	@Override
 	public boolean equals(Object o) {
 		if (o instanceof HospitalDate) {
 			return this.gregorianCalendar
