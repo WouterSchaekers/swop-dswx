@@ -118,4 +118,9 @@ public abstract class TaskDescription implements DescriptionIN
 	private boolean isValidSystemTime(HospitalDate systemTime) {
 		return systemTime != null;
 	}
+	@Override
+	public boolean equals(Object o)
+	{
+		return o ==this;
+	}
 }

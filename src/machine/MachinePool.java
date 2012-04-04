@@ -20,22 +20,16 @@ public class MachinePool
 	 * @throws InvalidSerialException 
 	 * @throws InvalidLocationException 
 	 */
-	public void addMachine(MachineBuilder m) throws InvalidLocationException, InvalidSerialException {
+	public Machine addMachine(MachineBuilder m) throws InvalidLocationException, InvalidSerialException {
 		
 		Machine machine = m.build();
 		if(	alreadyContains(machine.getSerial()))
 			throw new InvalidSerialException();
 		allMachines.add(m.build());
+		return machine;
 	}
 
-	/**
-	 * Removes a machine from the machine pool
-	 * 
-	 * @param m
-	 */
-	public void removeMachine(Machine m) {
-		allMachines.remove(m);
-	}
+
 	public void addBuilder(MachineBuilder builder)
 	{
 		bob.add(builder);
