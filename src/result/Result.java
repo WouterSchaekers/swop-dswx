@@ -8,7 +8,7 @@ import exceptions.InvalidReportException;
  */
 public class Result
 {
-	private String report = "";
+	private String report_ = "";
 
 	/**
 	 * Default constructor.
@@ -18,21 +18,27 @@ public class Result
 	 * @throws InvalidReportException
 	 */
 	public Result(String report) throws InvalidReportException {
-		if (this.canHaveAsDetail(report))
-			this.report = report;
-		else
+		if (!isValidReport(report))
 			throw new InvalidReportException("Invalid report for Result!");
-	}
-
-	@Basic
-	public String getReport() {
-		return report;
+		this.report_ = report;
 	}
 
 	/**
-	 * @return True if s is a valid detail for this Result.
+	 * Returns the report of this result.
+	 * 
+	 * @return The report of this result.
 	 */
-	protected boolean canHaveAsDetail(String s) {
+	@Basic
+	public String getReport() {
+		return this.report_;
+	}
+
+	/**
+	 * Checks whether the given string is a valid report.
+	 * 
+	 * @return True if s is a not null and not empty.
+	 */
+	protected boolean isValidReport(String s) {
 		return s != null && !s.equals("");
 	}
 }
