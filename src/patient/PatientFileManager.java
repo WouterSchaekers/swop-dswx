@@ -3,8 +3,10 @@ package patient;
 import help.Filter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 import system.Location;
 import be.kuleuven.cs.som.annotate.Basic;
+import controllers.interfaces.PatientFileIN;
 import exceptions.DischargePatientException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidPatientFileException;
@@ -98,6 +100,17 @@ public class PatientFileManager
 
 		return returnval;
 	}
+	
+	/**
+	 * Use to get all patientfiles in the controllers.
+	 */
+	public Collection<PatientFileIN> getPatientFileINs() {
+		Collection<PatientFileIN> rv = new LinkedList<PatientFileIN>();
+		for(PatientFile pf : this.patientFiles)
+			rv.add(pf);
+		return rv;
+	}
+	
 	public static final Filter active = new Filter()
 	{
 		
