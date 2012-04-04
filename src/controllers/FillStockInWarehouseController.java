@@ -6,8 +6,6 @@ import scheduler.HospitalDate;
 import system.Campus;
 import users.User;
 import users.WarehouseAdmin;
-import warehouse.Warehouse;
-import warehouse.item.WarehouseItem;
 import warehouse.item.WarehouseItemType;
 import warehouse.item.WarehouseItemTypes;
 import warehouse.stock.StockOrder;
@@ -25,7 +23,6 @@ public class FillStockInWarehouseController extends NeedsLoginController
 {
 	private WarehouseAdmin ad = (WarehouseAdmin)(lc.getUser());
 	private Campus camp = (Campus)(ad.getLocation());
-	private Warehouse w = camp.getWarehouse();
 
 	@controllers.PUBLICAPI
 	public FillStockInWarehouseController(LoginController lc) throws InvalidLoginControllerException,
@@ -40,14 +37,6 @@ public class FillStockInWarehouseController extends NeedsLoginController
 	@controllers.PUBLICAPI
 	public Collection<WarehouseItemType> getItemTypes() {
 		return WarehouseItemTypes.itemTypes();
-	}
-
-	/**
-	 * Gets the warehouse items from the warehouse of the admin that has logged in.
-	 */
-	@controllers.PUBLICAPI
-	public Collection<WarehouseItem> getWarehouseItems() {
-		return w.getAllItems();
 	}
 
 	/**
