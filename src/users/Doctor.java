@@ -9,6 +9,7 @@ import scheduler.TimeSlot;
 import system.Location;
 import controllers.interfaces.DoctorIN;
 import controllers.interfaces.UserFactoryIN;
+import exceptions.InvalidLocationException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidPreferenceException;
 import exceptions.InvalidSchedulingRequestException;
@@ -25,9 +26,10 @@ public class Doctor extends SchedulableUser implements DoctorIN
 	 * Initialises a new Doctor. Default preference state = back and forth.
 	 * 
 	 * @throws InvalidNameException
+	 * @throws InvalidLocationException 
 	 */
-	Doctor(String name, Location location) throws InvalidNameException {
-		super(name, null);
+	Doctor(String name, Location location) throws InvalidNameException, InvalidLocationException {
+		super(name, location);
 		prefState_ = new BackAndForthState(new LinkedList<LocationTimeSlot>());
 	}
 

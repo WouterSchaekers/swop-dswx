@@ -5,6 +5,7 @@ import users.HospitalAdmin;
 import users.User;
 import users.UserFactory;
 import exceptions.InvalidHospitalException;
+import exceptions.InvalidLocationException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidNameException;
 import exceptions.UserAlreadyExistsException;
@@ -20,9 +21,10 @@ public class AddHospitalStaffController extends NeedsLoginController
 
 	/**
 	 * Adds new personnel to this hospital.
+	 * @throws InvalidLocationException 
 	 */
 	@controllers.PUBLICAPI
-	public void addStaff(UserFactory fact) throws UserAlreadyExistsException, InvalidNameException {
+	public void addStaff(UserFactory fact) throws UserAlreadyExistsException, InvalidNameException, InvalidLocationException {
 		this.hospital.getUserManager().createUser(fact);
 	}
 
