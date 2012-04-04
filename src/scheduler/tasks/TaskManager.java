@@ -32,7 +32,6 @@ public class TaskManager implements Observer
 	 * Contains all the tasks. Use their states to categorise them.
 	 */
 	private Collection<Task<?>> tasks_;
-
 	public TaskManager(Hospital hospital) {
 		hospital_ = hospital;
 		tasks_ = new LinkedList<Task<?>>();

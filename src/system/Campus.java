@@ -30,7 +30,7 @@ public class Campus implements Location
 		this.campusName_ = campusName;
 		this.hospital_ = hospital;
 		hospital.addCampus(this);
-		this.warehouse_ =null;//XXX: new NormalWarehouseBuilder(this, timeLord).create();
+		this.warehouse_ =warehouseBuilder.create(this);
 	}
 
 	public Hospital getHospital() {

@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 import patient.PatientFile;
 import scheduler.HospitalDate;
 import scheduler.tasks.AppointmentDescription;
@@ -12,6 +13,7 @@ import users.Nurse;
 import users.User;
 import controllers.interfaces.DoctorIN;
 import controllers.interfaces.PatientFileIN;
+import controllers.interfaces.UserIN;
 import exceptions.CanNeverBeScheduledException;
 import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidHospitalException;
@@ -52,7 +54,7 @@ public class CreateAppointmentController extends NeedsLoginController
 
 	@controllers.PUBLICAPI
 	public Collection<DoctorIN> getAllDoctors() {
-		return UserFilter.DoctorFilter(hospital.getUserManager().getAllUsers());
+		return UserFilter.DoctorFilter(new LinkedList<UserIN>(hospital.getUserManager().getAllUsers()));
 	}
 	public Collection<PatientFileIN> getAllPatientFiles()
 	{

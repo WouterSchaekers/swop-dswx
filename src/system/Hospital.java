@@ -13,7 +13,6 @@ import scheduler.tasks.TaskManager;
 import users.HospitalAdmin;
 import users.UserManager;
 import be.kuleuven.cs.som.annotate.Basic;
-import exceptions.InvalidCampusException;
 
 /**
  * This class represents a hospital. It can be used to pass a bunch of data to
@@ -50,14 +49,14 @@ public class Hospital
 	 *            The Warehouse for this hospital.
 	 * @throws
 	 */
-	public Hospital(TimeLord timeLord, UserManager userManager, PatientFileManager patientFileManager,
-			 TaskManager taskManager, HospitalAdmin hospitalAdmin) {
+	public Hospital(TimeLord timeLord, UserManager userManager, PatientFileManager patientFileManager,HospitalAdmin hospitalAdmin,TaskManagerBuilder tsmb) {
 		this.systemTime_ = timeLord;
 		this.userManager_ = userManager;
 		this.patientFileManager_ = patientFileManager;
-		this.taskManager_ = taskManager;
 		this.campusses_ = new LinkedList<Campus>();
+		this.taskManager_=tsmb.create(this);
 	}
+	
 	/**
 	 * Method for a campus to make sure the double bind is made.
 	 * @param campus
