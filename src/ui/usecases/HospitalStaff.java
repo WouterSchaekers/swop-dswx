@@ -1,6 +1,11 @@
 package ui.usecases;
 
 import java.util.Collection;
+import ui.MainMenu;
+import ui.UIData;
+import ui.UseCase;
+import ui.usecases.Selector.Displayer;
+import users.UserFactory;
 import controllers.AddHospitalStaffController;
 import controllers.interfaces.CampusIN;
 import exceptions.InvalidHospitalException;
@@ -8,13 +13,6 @@ import exceptions.InvalidLocationException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidNameException;
 import exceptions.UserAlreadyExistsException;
-import sun.print.resources.serviceui;
-import ui.MainMenu;
-import ui.UIData;
-import ui.UseCase;
-import ui.usecases.Selector.Displayer;
-import users.NurseFactory;
-import users.UserFactory;
 
 public class HospitalStaff extends UseCase
 {
