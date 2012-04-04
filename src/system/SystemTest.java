@@ -8,5 +8,7 @@ public class SystemTest
 	public void test()
 	{
 		Hospital hospital = new StandardHospitalBuilder().build();
+		hospital.getAllCampuses();
+		
 	}
 }
