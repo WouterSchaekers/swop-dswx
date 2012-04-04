@@ -41,7 +41,7 @@ public class Scheduler
 		if (!unscheduledTask.isQueued())
 			throw new AlreadyScheduledException("This task has already been scheduled.");
 		TaskData taskData = unscheduledTask.getData();
-		Collection<Schedulable> resPool = taskData.getAllResources();
+		Collection<Schedulable> resPool = taskData.getAllAvailableResources();
 		HospitalDate curDate = taskData.getSystemTime();
 		T desc = unscheduledTask.getDescription();
 		Collection<Requirement> reqs = desc.getAllRequirements();
@@ -51,10 +51,10 @@ public class Scheduler
 		Collection<Requirement> metReqs = getMetReqs(reqs, startDate);
 		Collection<Requirement> unmetReqs = getUnmetRequirements(reqs, metReqs);
 		Map<LinkedList<Schedulable>, Integer> avRes = getAvRes(resPool, unmetReqs);
-		//avRes = removeDoubleBookings(avRes);
-		LinkedList<Location> locs = getLocationsWithEnoughResources(avRes,
-				new LinkedList<Location>(taskData.getLocations()), curDate);
+		avRes = removeDoubleBookings(avRes);
+		LinkedList<Location> locs = getLocationsWithEnoughResources(avRes, taskData.getLocations(), curDate);
 		TaskData data = schedule(avRes, produceUsedResList(avRes), locs, desc, startDate, stopDate, taskData);
+		isBackToBack(data);
 		actuallyScheduleResources(data);
 		unscheduledTask.nextState(data);
 	}
@@ -268,7 +268,7 @@ public class Scheduler
 	 *             existing resources.
 	 */
 	private LinkedList<Location> getLocationsWithEnoughResources(Map<LinkedList<Schedulable>, Integer> avRes,
-			LinkedList<Location> locs, HospitalDate now) throws CanNeverBeScheduledException {
+			Collection<Location> locs, HospitalDate now) throws CanNeverBeScheduledException {
 		LinkedList<Location> possibleLocations = new LinkedList<Location>();
 		for (Location loc : locs) {
 			boolean enoughResources = true;
@@ -517,7 +517,7 @@ public class Scheduler
 		Collection<Requirement> listOfRequirements = taskData.getDescription().getAllRequirements();
 		for (Requirement req : listOfRequirements)
 			req.collect();
-		Collection<Schedulable> listOfSchedulables = taskData.getAllResources();
+		Collection<Schedulable> listOfSchedulables = taskData.getAllAvailableResources();
 		HospitalDate startDate = taskData.getStartDate();
 		HospitalDate stopDate = taskData.getStopDate();
 		TimeSlot timeSlot = new TimeSlot(new StartTimePoint(startDate), new StopTimePoint(stopDate));
@@ -529,5 +529,23 @@ public class Scheduler
 				throw new Error(
 						"The scheduling algorithm has chosen a timeslot that is not available for the current schedulable.");
 			}
+	}
+
+	/**
+	 * Checks whether the given data is back to back for all the Schedulables
+	 * that need to be scheduled backToBack.
+	 * 
+	 * @param data
+	 *            The data that has to be checked.
+	 * @return True if the given data is back to back for all the Schedulables
+	 *         that need to be scheduled backToBack.
+	 */
+	private boolean isBackToBack(TaskData data) {
+		Collection<Schedulable> usedResources = data.getResources();
+		HospitalDate startDate = data.getStartDate();
+		for (Schedulable sched : usedResources)
+			if (sched.mustBeBackToBack() && !sched.getTimeTable().isBackToBack(startDate))
+				return false;
+		return true;
 	}
 }

@@ -117,4 +117,9 @@ public abstract class Machine implements Schedulable
 	public Location getLocationAt(HospitalDate hospitalDate) {
 		return this.campusLocation_;
 	}
+	
+	@Override
+	public boolean mustBeBackToBack(){
+		return false;
+	}
 }

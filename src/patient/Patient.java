@@ -47,7 +47,7 @@ class Patient implements Schedulable,PatientIN
 	}
 
 	@Override
-	public TimeTable getTimeTable() throws InvalidTimeSlotException {
+	public TimeTable getTimeTable() {
 		return this.timeTable_;
 	}
 
@@ -95,6 +95,11 @@ class Patient implements Schedulable,PatientIN
 	@Override
 	public Location getLocationAt(HospitalDate hospitalDate) {
 		return locationTimeTable_.getLocationAt(hospitalDate);
+	}
+	
+	@Override
+	public boolean mustBeBackToBack(){
+		return false;
 	}
 
 }

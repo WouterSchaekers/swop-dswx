@@ -40,11 +40,25 @@ public abstract class SchedulableUser extends User implements Schedulable
 		return timeTable_.hasFreeSlotAt(startDate, stopDate);
 	}
 
-	public TimeTable getTimeTable() throws InvalidTimeSlotException {
-		return new TimeTable(this.timeTable_.getTimeSlots());
+	@Override
+	public TimeTable getTimeTable() {
+		TimeTable timeTable = null;
+		try{
+			timeTable = new TimeTable(this.timeTable_.getTimeSlots());
+		}
+		catch(InvalidTimeSlotException e){
+			System.out.println(e);
+		}
+		return timeTable;
 	}
 
+	@Override
 	public void updateTimeTable(HospitalDate newDate) {
 		this.timeTable_.updateTimeTable(newDate);
+	}
+	
+	@Override
+	public boolean mustBeBackToBack(){
+		return true;
 	}
 }
