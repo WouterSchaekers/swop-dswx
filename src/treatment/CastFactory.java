@@ -80,6 +80,11 @@ public class CastFactory extends TreatmentFactory
 		throw new FactoryInstantiationException("Cast was not ready yet!");
 	}
 
+	/**
+	 * Returns a new instance of the current factory.
+	 * 
+	 * @return A new instance of the current factory.
+	 */
 	@Override
 	public TreatmentFactory newInstance() {
 		return new CastFactory();

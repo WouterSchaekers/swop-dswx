@@ -1,6 +1,8 @@
 package treatment;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Observable;
 import patient.Diagnose;
 import patient.PatientFile;
 import result.Result;
@@ -20,6 +22,7 @@ public abstract class Treatment extends TaskDescriptionWithPatientFile implement
 
 	protected final Diagnose diagnose_;
 	protected final Warehouse warehouse_;
+
 	/**
 	 * Default constructor of Treatment.
 	 * 
@@ -29,12 +32,17 @@ public abstract class Treatment extends TaskDescriptionWithPatientFile implement
 	 *            The duration of the task.
 	 * @param creationDate
 	 *            The date on which this description has been created.
-	 * @param warehouse 
+	 * @param diagnose
+	 *            The diagnose of this cast.
+	 * @param warehouse
+	 *            The warehouse where the materials for this cast will come
+	 *            from.
 	 */
-	public Treatment(PatientFile patientFile,Diagnose diagnose, long duration, HospitalDate creationDate, Warehouse warehouse) {
+	public Treatment(PatientFile patientFile, Diagnose diagnose, long duration, HospitalDate creationDate,
+			Warehouse warehouse) {
 		super(patientFile, duration, 0, creationDate);
-		this.diagnose_=diagnose;
-		this.warehouse_=warehouse;
+		this.diagnose_ = diagnose;
+		this.warehouse_ = warehouse;
 	}
 
 	/**
@@ -73,16 +81,15 @@ public abstract class Treatment extends TaskDescriptionWithPatientFile implement
 	public <T extends TaskDescription> void initTask(Task<T> task) {
 		Collection<Diagnose> diags = this.patientFile_.getAllDiagnosis();
 		for (Diagnose d : diags) {
-			if(d==diagnose_)
-				{
-					d.addTreatmentTask((Task<? extends Treatment>)task);
-					return;
-				}
+			if (d == diagnose_) {
+				d.addTreatmentTask((Task<? extends Treatment>) task);
+				return;
+			}
 		}
 		throw new IllegalArgumentException(
 				"Error! PatientFile does not contain the diagnose for the treatment created!");
 	}
-	
+
 	/**
 	 * Deinitializes the task. All the diagnoses of the patientFile that have
 	 * the given task will be removed from the diagnose.
@@ -111,5 +118,13 @@ public abstract class Treatment extends TaskDescriptionWithPatientFile implement
 	@Override
 	public boolean needsResult() {
 		return result_ == null;
+	}
+
+	@Override
+	public Collection<Observable> getObservables() {
+		ArrayList<Observable> observables = new ArrayList<Observable>();
+		observables.add(diagnose_);
+		observables.add(warehouse_);
+		return observables;
 	}
 }

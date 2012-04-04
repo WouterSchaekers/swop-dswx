@@ -1,9 +1,7 @@
 package treatment;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.Observable;
 import patient.Diagnose;
 import patient.PatientFile;
 import scheduler.HospitalDate;
@@ -26,7 +24,8 @@ public class Cast extends Treatment implements CastIN
 	public final static long DURATION_ = 2 * HospitalDate.ONE_HOUR;
 
 	/**
-	 * Default constructor. Package visible since it should only be used by the factories.
+	 * Default constructor. Package visible since it should only be used by the
+	 * factories.
 	 * 
 	 * @param patientFile
 	 *            The patientFile for which this cast is intended.
@@ -36,9 +35,15 @@ public class Cast extends Treatment implements CastIN
 	 *            The bodypart on which the cast needs to be cast onto.
 	 * @param castDuration
 	 *            The duration of this treatment.
-	 * @param warehouse 
+	 * @param diagnose
+	 *            The diagnose of this cast.
+	 * @param warehouse
+	 *            The warehouse where the materials for this cast will come
+	 *            from.
+	 * @param warehouse
 	 */
-	Cast(PatientFile patientFile, HospitalDate creationDate, String bodyPart, int castDuration,Diagnose diagnose, Warehouse warehouse) {
+	Cast(PatientFile patientFile, HospitalDate creationDate, String bodyPart, int castDuration, Diagnose diagnose,
+			Warehouse warehouse) {
 		super(patientFile, diagnose, DURATION_, creationDate, warehouse);
 		this.bodyPart_ = bodyPart;
 		this.castDuration_ = castDuration;
@@ -72,13 +77,5 @@ public class Cast extends Treatment implements CastIN
 		requirements.add(new RequirementType<PlasterType>(PlasterType.class, false, 1));
 		requirements.add(new RequirementType<Nurse>(Nurse.class, true, 1));
 		return requirements;
-	}
-
-	@Override
-	public Collection<Observable> getObservables() {
-		ArrayList<Observable> observables = new ArrayList<Observable>();
-		observables.add(diagnose_);
-		observables.add(warehouse_);
-		return null;
 	}
 }

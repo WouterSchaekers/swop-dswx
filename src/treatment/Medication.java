@@ -2,7 +2,6 @@ package treatment;
 
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.Observable;
 import patient.Diagnose;
 import patient.PatientFile;
 import scheduler.HospitalDate;
@@ -27,7 +26,8 @@ public class Medication extends Treatment implements MedicationIN
 	public final static long NON_SENSITIVE_DURATION_ = HospitalDate.ONE_MINUTE * 10;
 
 	/**
-	 * Default constructor. Package visible since it should only be used by the factories.
+	 * Default constructor. Package visible since it should only be used by the
+	 * factories.
 	 * 
 	 * @param patientFile
 	 *            The patientFile.
@@ -41,11 +41,16 @@ public class Medication extends Treatment implements MedicationIN
 	 *            The description of the medication.
 	 * @param sensitive
 	 *            Boolean that says whether it is sensitive or not.
-	 * @param diagnose 
+	 * @param diagnose
+	 *            The diagnose of this cast.
+	 * @param warehouse
+	 *            The warehouse where the materials for this cast will come
+	 *            from.
+	 * @param diagnose
 	 */
-	Medication(PatientFile patientFile, HospitalDate creationDate, MedicationType medicationType,
-			Warehouse warehouse, String description, boolean sensitive, Diagnose diagnose) {
-		super(patientFile, diagnose, getDuration(sensitive), creationDate,warehouse);
+	Medication(PatientFile patientFile, HospitalDate creationDate, MedicationType medicationType, Warehouse warehouse,
+			String description, boolean sensitive, Diagnose diagnose) {
+		super(patientFile, diagnose, getDuration(sensitive), creationDate, warehouse);
 		this.description_ = description;
 		this.sensitive_ = sensitive;
 		this.medicationType_ = medicationType;
@@ -74,17 +79,16 @@ public class Medication extends Treatment implements MedicationIN
 	public void setSensitive(boolean sensitive) {
 		this.sensitive_ = sensitive;
 	}
-	
+
 	/**
 	 * Returns the duration of the medication based on the sensitivity.
 	 * 
 	 * @param sensitive
-	 * 			Boolean whether it is sensitive or not.
-	 * @return
-	 * 			The duration of the medication based on the sensitivity.
+	 *            Boolean whether it is sensitive or not.
+	 * @return The duration of the medication based on the sensitivity.
 	 */
-	private static long getDuration(boolean sensitive){
-		if(sensitive)
+	private static long getDuration(boolean sensitive) {
+		if (sensitive)
 			return Medication.SENSITIVE_DURATION_;
 		else
 			return Medication.NON_SENSITIVE_DURATION_;
@@ -102,11 +106,5 @@ public class Medication extends Treatment implements MedicationIN
 		requirements.add(new WarehouseItemCondition(this.medicationType_, this.warehouse_, 1));
 		requirements.add(new RequirementType<Nurse>(Nurse.class, true, 1));
 		return requirements;
-	}
-
-	@Override
-	public Collection<Observable> getObservables() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

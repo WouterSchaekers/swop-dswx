@@ -62,6 +62,11 @@ public class SurgeryFactory extends TreatmentFactory
 		throw new FactoryInstantiationException("Surgery was not ready yet!");
 	}
 
+	/**
+	 * Returns a new instance of the current factory.
+	 * 
+	 * @return A new instance of the current factory.
+	 */
 	@Override
 	public TreatmentFactory newInstance() {
 		return new SurgeryFactory();
