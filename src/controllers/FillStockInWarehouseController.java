@@ -6,6 +6,7 @@ import scheduler.HospitalDate;
 import system.Campus;
 import users.User;
 import users.WarehouseAdmin;
+import warehouse.Warehouse;
 import warehouse.item.WarehouseItemType;
 import warehouse.item.WarehouseItemTypes;
 import warehouse.stock.StockOrder;
@@ -21,8 +22,8 @@ import exceptions.WarehouseOverCapacityException;
 @controllers.PUBLICAPI
 public class FillStockInWarehouseController extends NeedsLoginController
 {
-	private WarehouseAdmin ad = (WarehouseAdmin)(lc.getUser());
-	private Campus camp = (Campus)(ad.getLocation());
+	private Campus campus = (Campus)(((WarehouseAdmin)(lc.getUser())).getLocation());
+	private Warehouse warehouse = campus.getWarehouse();
 
 	@controllers.PUBLICAPI
 	public FillStockInWarehouseController(LoginController lc) throws InvalidLoginControllerException,
@@ -39,12 +40,16 @@ public class FillStockInWarehouseController extends NeedsLoginController
 		return WarehouseItemTypes.itemTypes();
 	}
 
+	public int getCurrentCountOf(WarehouseItemType type) {
+		return warehouse.getCurrentCount(type);
+	}
+	
 	/**
 	 * Gets the stock orders from the warehouse of the admin that has logged in.
 	 */
 	@controllers.PUBLICAPI
 	public Collection<StockOrderIN> getAllStockOrders() {
-		return camp.getStockprovider().getOrderINs();
+		return campus.getStockprovider().getOrderINs();
 	}
 
 	/**
