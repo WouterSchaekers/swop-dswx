@@ -2,15 +2,30 @@ package ui;
 
 import java.util.Collection;
 import java.util.LinkedList;
-import system.Hospital;
-import ui.UIRunner.UseCase;
+import java.util.Stack;
+import exceptions.InvalidHospitalException;
+import ui.usecases.Login;
 import ui.usecases.Selector;
 
-public class MainMenu implements UseCase
+public class MainMenu extends UseCase
 {
-	public MainMenu(Hospital hospital)
+	public MainMenu(UIData data)
 	{
+	super(data)	;
+	}
+	private Collection<UseCase> getAvailable()
+	{
+		Collection<UseCase> rv = new Stack<UseCase>();
+		addLogin(rv);
 		
+		return rv;
+	}
+	
+	private void addLogin(Collection<UseCase> rv) {
+		try {
+			rv.add(new Login(data));
+		} catch (InvalidHospitalException e) {
+		}
 	}
 	@Override
 	public UseCase execute() {

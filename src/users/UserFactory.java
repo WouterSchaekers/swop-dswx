@@ -1,10 +1,11 @@
 package users;
 
+import controllers.interfaces.UserFactoryIN;
 import exceptions.InvalidNameException;
 /**
  * Class that represents a type of user in the system
  */
-public abstract class UserFactory
+public abstract class UserFactory implements UserFactoryIN
 {
 	/**
 	 * Abstract method that is package only so that the only way User objects can be created is by 

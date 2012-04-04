@@ -27,4 +27,9 @@ public class NurseFactory extends UserFactory
 		return new NurseFactory();
 	}
 
+	@Override
+	public String toTitle() {
+		return "Nurse";
+	}
+
 }

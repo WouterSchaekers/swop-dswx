@@ -2,12 +2,7 @@ package ui;
 
 public class UIRunner
 {
-	public interface UseCase
-	{
-
-		public UseCase execute();
-
-	}
+	
 
 	private UseCase start;
 

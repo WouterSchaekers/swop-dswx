@@ -11,6 +11,7 @@ import users.SchedulableUser;
 import users.User;
 import users.UserManager;
 import controllers.interfaces.DoctorIN;
+import controllers.interfaces.HospitalIN;
 import controllers.interfaces.NurseIN;
 import controllers.interfaces.UserIN;
 import exceptions.InvalidHospitalException;
@@ -27,8 +28,8 @@ public class LoginController extends HospitalController
 	private User user = null;
 
 	@controllers.PUBLICAPI
-	public LoginController(Hospital hospital) throws InvalidHospitalException {
-		super(hospital);
+	public LoginController(HospitalIN hospital) throws InvalidHospitalException {
+		super((Hospital)hospital);
 	}
 
 	/**

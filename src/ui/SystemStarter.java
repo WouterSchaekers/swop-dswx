@@ -7,6 +7,6 @@ public class SystemStarter
 {
 	public static void main(String[] args) {
 		Hospital hospital = new StandardHospitalBuilder().build();
-		new UIRunner(new MainMenu(hospital)).run();
+		new UIRunner(new MainMenu(new UIData(hospital))).run();
 	}
 }

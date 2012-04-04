@@ -26,4 +26,9 @@ public class WarehouseAdminFactory extends UserFactory
 		return new WarehouseAdminFactory();
 	}
 
+	@Override
+	public String toTitle() {
+		return "Warehouse admin";
+	}
+
 }
