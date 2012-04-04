@@ -48,19 +48,20 @@ public class ApproveDiagnoseController extends NeedsLoginAndPatientFileControlle
 	}
 
 	/**
-	 * Disapprove diagnose! if an exception is thrown the domain remains unchanged.
+	 * Disapprove diagnose! if an exception is thrown the domain remains
+	 * unchanged.
+	 * 
 	 * @param selected
-	 * The selected diagnose.
+	 *            The selected diagnose.
 	 * @param newDiag
-	 * The replacement diagnose.
+	 *            The replacement diagnose.
 	 * @param newComplaints
-	 * The replacement complaint
+	 *            The replacement complaint
 	 * @throws ApproveDiagnoseException
-	 * The passed diagnose is not marked for second opinion
+	 *             The passed diagnose is not marked for second opinion
 	 */
-	public void disapproveDiagnose(DiagnoseIN selected, String newDiag, String newComplaints) throws ApproveDiagnoseException 	{
-		((Diagnose)selected).disapprove(newDiag, newComplaints);
-		
+	public void disapproveDiagnose(DiagnoseIN selected, String newDiag) throws ApproveDiagnoseException {
+		((Diagnose) selected).disapprove(newDiag, selected.getComplaintsIN());
 	}
 
 	/**
