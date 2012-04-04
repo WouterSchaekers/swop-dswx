@@ -3,20 +3,50 @@ package ui;
 import java.util.Collection;
 import java.util.Stack;
 import ui.usecases.HospitalEquipmentUseCase;
+import ui.usecases.HospitalStaff;
 import ui.usecases.Login;
+import ui.usecases.Logout;
+import ui.usecases.Quit;
 import ui.usecases.Selector;
 
 public class MainMenu extends UseCase
 {
+	
 	public MainMenu(UIData data) {
-		super(data);
+		super(data,-1);
 	}
 
 	private Collection<UseCase> getAvailable() {
 		Collection<UseCase> rv = new Stack<UseCase>();
 		addLogin(rv);
 		addHospitalEquipment(rv);
+		addHospitalStaff(rv);
+		addQuit(rv);
+		addLougout(rv);
 		return rv;
+	}
+
+	private void addLougout(Collection<UseCase> rv) {
+		try {
+			rv.add(new Logout(data));
+		} catch (Exception e) {
+			;
+		}
+		
+	}
+
+	private void addQuit(Collection<UseCase> rv) {
+		rv.add(new Quit(data));
+		
+	}
+
+	private void addHospitalStaff(Collection<UseCase> rv) {
+	try{
+		rv.add(new HospitalStaff(data));
+	}catch(Exception e)
+	{
+		
+	}
 	}
 
 	private void addHospitalEquipment(Collection<UseCase> rv) {
@@ -38,7 +68,7 @@ public class MainMenu extends UseCase
 	@Override
 	public UseCase execute() {
 
-		Selector<UseCase> selector = new Selector<UseCase>(getAvailable(), new Selector.Displayer<UseCase>()
+		Selector<UseCase> selector = new OrderedSelector<UseCase>(getAvailable(), new Selector.Displayer<UseCase>()
 		{
 			@Override
 			public void display(UseCase s) {
@@ -53,5 +83,6 @@ public class MainMenu extends UseCase
 		} else
 			return usecase;
 	}
+
 
 }

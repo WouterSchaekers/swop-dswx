@@ -17,13 +17,13 @@ public class Login extends UseCase
 
 		@Override
 		public void display(CampusIN t) {
-			System.out.println("Campus:"+t.getName());
+			System.out.print("Campus:"+t.getName());
 			
 		}
 	};
 
 	public Login(UIData data) throws Exception {
-		super(data);
+		super(data,1);
 		this.loginc = new LoginController(data.hospital());
 		if(data.getLoginController()!=null&&data.getLoginController().loggedIn())
 			throw new Exception();

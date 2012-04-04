@@ -26,7 +26,7 @@ public class HospitalEquipmentUseCase extends UseCase
 	};
 
 	public HospitalEquipmentUseCase(UIData data) throws Exception {
-		super(data);
+		super(data,2);
 		addEquipment = new AddHospitalEquipmentController(data.getLoginController());
 	}
 

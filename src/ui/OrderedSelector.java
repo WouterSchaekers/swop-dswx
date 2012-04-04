@@ -1,11 +1,20 @@
-package ui.usecases;
+package ui;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-public class Selector<T>
+import ui.usecases.Selector;
+
+public class OrderedSelector<T extends Comparable<T>> extends Selector<T>
 {
+
+	public OrderedSelector(Collection<T> coll, ui.usecases.Selector.Displayer<T> displayer) {
+		super(coll, displayer);
+	}
 	public interface Displayer<T>
 	{
 		public void display(T t);
@@ -29,7 +38,9 @@ public class Selector<T>
 			}
 			Map<Integer, T> m = new HashMap<Integer, T>();
 			int menuOption =0;
-			for(T t:selector.coll)
+			List<T> list = new ArrayList<T>(coll);
+			Collections.sort(list);
+			for(T t:list)
 				m.put(menuOption++, t);
 			for(int i:m.keySet())
 			{
@@ -51,18 +62,13 @@ public class Selector<T>
 				System.out.println(entered+" is not a valid menu option!");
 				return new StartRunner(selector);
 			}
-			selector.selected = m.get(entered);
+			selected = m.get(entered);
 			return null;
 		}
 		
 	}
-	public final Displayer<T> displayer;
-	public final Collection<T> coll;
 	private T selected = null;
-	public Selector(Collection<T> coll, Displayer<T> displayer) {
-		this.coll = coll;
-		this.displayer = displayer;
-	}
+	
 	private void run()
 	{
 		SelectionRunner current = new StartRunner(this) ;
@@ -75,4 +81,5 @@ public class Selector<T>
 		run();
 		return selected;
 	}
+
 }
