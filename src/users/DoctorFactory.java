@@ -1,5 +1,6 @@
 package users;
 
+import controllers.interfaces.LocationIN;
 import system.Location;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidNameException;
@@ -12,7 +13,7 @@ public class DoctorFactory extends UserFactory
 {
 	private String name_;
 	private Location location_;
-
+	
 	public void setName(String name) {
 		name_ = name;
 	}
@@ -33,6 +34,11 @@ public class DoctorFactory extends UserFactory
 
 	@Override
 	public String toTitle() {return "Doctor";
+	}
+
+	@Override
+	public void setLocation(LocationIN name) {
+		setLocation((Location)name);
 	}
 
 }

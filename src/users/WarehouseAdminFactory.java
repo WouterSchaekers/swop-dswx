@@ -1,5 +1,6 @@
 package users;
 
+import controllers.interfaces.LocationIN;
 import system.Location;
 import exceptions.InvalidNameException;
 
@@ -30,5 +31,8 @@ public class WarehouseAdminFactory extends UserFactory
 	public String toTitle() {
 		return "Warehouse admin";
 	}
-
+	@Override
+	public void setLocation(LocationIN name) {
+		setLocation((Location)name);
+	}
 }

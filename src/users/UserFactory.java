@@ -1,5 +1,6 @@
 package users;
 
+import controllers.interfaces.LocationIN;
 import controllers.interfaces.UserFactoryIN;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidNameException;
@@ -20,4 +21,6 @@ public abstract class UserFactory implements UserFactoryIN
 	 * @return
 	 */
 	abstract UserFactory newInstance();
+	public abstract void setName(String name);
+	public abstract void setLocation(LocationIN name);
 }
