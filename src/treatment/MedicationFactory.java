@@ -3,7 +3,6 @@ package treatment;
 import warehouse.Warehouse;
 import warehouse.item.MedicationType;
 import exceptions.FactoryInstantiationException;
-import exceptions.InvalidHospitalDateException;
 
 /**
  * A MedicationFactory is a factory, used to create a Medication.
@@ -106,8 +105,6 @@ public class MedicationFactory extends TreatmentFactory
 	 * @return A Treatment built from the given information.
 	 * @throws FactoryInstantiationException
 	 *             The factory was not ready yet.
-	 * @throws InvalidHospitalDateException
-	 *             The used creationDate was invalid.
 	 */
 	@Override
 	public Treatment create() throws FactoryInstantiationException {

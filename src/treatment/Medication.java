@@ -12,7 +12,6 @@ import users.Nurse;
 import warehouse.Warehouse;
 import warehouse.item.MedicationType;
 import controllers.interfaces.MedicationIN;
-import exceptions.InvalidHospitalDateException;
 
 /**
  * This class represent treatment by medication.
@@ -26,7 +25,7 @@ public class Medication extends Treatment implements MedicationIN
 	public final static long DURATION_ = HospitalDate.ONE_MINUTE * 20;
 
 	/**
-	 * Default constructor.
+	 * Default constructor. Package visible since it should only be used by the factories.
 	 * 
 	 * @param patientFile
 	 *            The patientFile.
@@ -40,10 +39,8 @@ public class Medication extends Treatment implements MedicationIN
 	 *            The description of the medication.
 	 * @param sensitive
 	 *            Boolean that says whether it is sensitive or not.
-	 * @throws InvalidHospitalDateException
-	 *             The given creationDate was not valid.
 	 */
-	public Medication(PatientFile patientFile, HospitalDate creationDate, MedicationType medicationType,
+	Medication(PatientFile patientFile, HospitalDate creationDate, MedicationType medicationType,
 			Warehouse warehouse, String description, boolean sensitive) {
 		super(patientFile, DURATION_, creationDate);
 		this.description_ = description;

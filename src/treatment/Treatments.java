@@ -8,6 +8,11 @@ import java.util.LinkedList;
  */
 public class Treatments
 {
+	/**
+	 * Creates and returns all the treatment factories.
+	 * 
+	 * @return All the treatment facotories.
+	 */
 	public static Collection<TreatmentFactory> factories() {
 		Collection<TreatmentFactory> treatments = new LinkedList<TreatmentFactory>();
 		treatments.clear();
