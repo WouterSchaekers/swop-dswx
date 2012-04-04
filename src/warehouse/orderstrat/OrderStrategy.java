@@ -62,7 +62,9 @@ public abstract class OrderStrategy implements Observer
 	public void update(Observable o, Object arg) {
 		int needed = this.getNeeded() - amountOfOpenOrders();
 		HospitalDate time = warehouse_.getCampus().getSystemTime().getSystemTime();
-		provider_.add(new StockOrder<WarehouseItemType>(warehouse_, type_, time, needed));
+	
+		if(needed>0)
+			provider_.add(new StockOrder<WarehouseItemType>(warehouse_, type_, time, needed));
 	}
 
 	private int amountOfOpenOrders() {

@@ -98,7 +98,6 @@ public final class Task<T extends TaskDescription> extends Observable implements
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		System.out.println("called");
 		this.setChanged();
 		this.notifyObservers();
 		this.notifyObservers(null);
