@@ -7,6 +7,7 @@ import system.Campus;
 import system.Location;
 import users.HospitalAdmin;
 import users.User;
+import controllers.interfaces.CampusIN;
 import controllers.interfaces.LocationIN;
 import exceptions.ControllerException;
 import exceptions.InvalidCampusException;
@@ -40,11 +41,12 @@ public class AddHospitalEquipmentController extends NeedsLoginController
 	 * @throws InvalidCampusException 
 	 */
 	@controllers.PUBLICAPI
-	public Collection<MachineBuilder> getAllMachineBuilders(LocationIN campus) throws InvalidCampusException {
-		if(!(campus instanceof Campus))
-		{
-			throw new InvalidCampusException("location object provided was not a campus");
-		}
+	public Collection<MachineBuilder> getAllMachineBuilders() throws InvalidCampusException
+	{
+		return getAllMachineBuilders(lc.getLocation());
+	}
+	private Collection<MachineBuilder> getAllMachineBuilders(CampusIN campus) throws InvalidCampusException {
+	
 		Campus c=(Campus)campus;
 		return c.getMachinePool().getAllBuilders();
 	}
@@ -52,9 +54,15 @@ public class AddHospitalEquipmentController extends NeedsLoginController
 	/**
 	 * Creates a new machine from the given machine builder and adds it to the
 	 * hospital.
+	 * @throws InvalidSerialException 
+	 * @throws InvalidLocationException 
 	 */
 	@controllers.PUBLICAPI
-	public void createMachine(MachineBuilder b, LocationIN whereabouts) throws InvalidLocationException,
+	public void createMachine(MachineBuilder b) throws InvalidLocationException, InvalidSerialException
+	{
+		createMachine(b, lc.getLocation());
+	}
+	private void createMachine(MachineBuilder b, LocationIN whereabouts) throws InvalidLocationException,
 			InvalidSerialException {
 		((Campus) whereabouts).getMachinePool().addMachine(b);
 	}

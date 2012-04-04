@@ -35,7 +35,7 @@ public class _ApproveDiagnosisControllerTest
 	@Test(expected = InvalidLoginControllerException.class)
 	public void authenticationTest1() throws InvalidLoginControllerException,
 			InvalidHospitalException {
-		loginController.logIn(nurse);
+		//loginController.logIn(nurse);
 		addHospitalEquipmentController = new AddHospitalEquipmentController(
 				loginController);
 	}
@@ -43,7 +43,7 @@ public class _ApproveDiagnosisControllerTest
 	@Test(expected = InvalidLoginControllerException.class)
 	public void authenticationTest2() throws InvalidLoginControllerException,
 			InvalidHospitalException {
-		loginController.logIn(hospitad);
+	//	loginController.logIn(hospitad);
 		addHospitalEquipmentController = new AddHospitalEquipmentController(
 				loginController);
 	}
@@ -51,7 +51,7 @@ public class _ApproveDiagnosisControllerTest
 	@Test
 	public void authenticationTest3() throws InvalidLoginControllerException,
 			InvalidHospitalException {
-		loginController.logIn(doctor);
+	//	loginController.logIn(doctor);
 		addHospitalEquipmentController = new AddHospitalEquipmentController(
 				loginController);
 		assertTrue(addHospitalEquipmentController

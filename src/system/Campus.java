@@ -2,6 +2,7 @@ package system;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import controllers.interfaces.CampusIN;
 import machine.Machine;
 import machine.MachinePool;
 import scheduler.Schedulable;
@@ -15,7 +16,7 @@ import warehouse.stock.StockProvider;
  * This class represents a campus that's part of a hospital. Campusses have
  * their own MachinePool, Warehouse and name. Use this name to identify them.
  */
-public class Campus implements Location
+public class Campus implements Location,CampusIN
 {
 	private String campusName_;
 	private MachinePool machinePool_ = new MachinePool();
@@ -73,5 +74,11 @@ public class Campus implements Location
 			rv += " ";
 		}
 		return rv;
+	}
+
+	@Override
+	public String getName() {
+		
+		return campusName_;
 	}
 }

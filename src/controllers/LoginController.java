@@ -3,15 +3,14 @@ package controllers;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
-import scheduler.tasks.Task;
-import scheduler.tasks.TaskDescription;
 import system.Hospital;
 import ui.UserFilter;
-import users.SchedulableUser;
 import users.User;
 import users.UserManager;
+import controllers.interfaces.CampusIN;
 import controllers.interfaces.DoctorIN;
 import controllers.interfaces.HospitalIN;
+import controllers.interfaces.LocationIN;
 import controllers.interfaces.NurseIN;
 import controllers.interfaces.UserIN;
 import exceptions.InvalidHospitalException;
@@ -26,6 +25,7 @@ public class LoginController extends HospitalController
 {
 	private boolean loggedIn = false;
 	private User user = null;
+	private CampusIN campus;
 
 	@controllers.PUBLICAPI
 	public LoginController(HospitalIN hospital) throws InvalidHospitalException {
@@ -62,22 +62,19 @@ public class LoginController extends HospitalController
 	 *             if (!isValidUser((User) user))
 	 */
 	@controllers.PUBLICAPI
-	public String logIn(UserIN user) throws IllegalArgumentException {
+	public void logIn(UserIN user,CampusIN at) throws IllegalArgumentException {
 		if (!isValidUser((User) user))
 			throw new IllegalArgumentException("The given user is null!");
+		if(!isValidCampus(at))
+			throw new IllegalArgumentException("The given campus is null");
 		this.user = (User) user;
 		loggedIn = true;
-		
-		String todos;
-		if(this.getUser() instanceof SchedulableUser) {
-			todos = "TODOs:\n-----\n\n";
-			Collection<Task<TaskDescription>> t = hospital.getTaskManager().getUnfinishedTasksFrom((SchedulableUser) getUser());
-			for (Task<?> task : t) {
-				todos += task.toString();
-			}
-		} else 
-			todos = "";
-		return todos;
+		this.campus=at;
+		return ;
+	}
+
+	private boolean isValidCampus(CampusIN at) {
+		return at!=null;
 	}
 
 	/**
@@ -124,5 +121,12 @@ public class LoginController extends HospitalController
 			return false;
 		LoginController that = (LoginController) o;
 		return this.loggedIn == that.loggedIn & this.user.equals(that.user);
+	}
+	public Collection<CampusIN> getLocations()
+	{
+		return new ArrayList<CampusIN>(hospital.getAllCampuses());
+	}
+	public CampusIN getLocation() {
+		return campus;
 	}
 }
