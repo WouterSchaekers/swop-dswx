@@ -32,13 +32,7 @@ public class HospitalDateTest
 
 	@Test
 	public void setTimeTest() {
-		HospitalDate h = new HospitalDate();
-		h.setYear(2011);
-		h.setMonth(11);
-		h.setDay(11);
-		h.setHour(11);
-		h.setMinute(11);
-		h.setSecond(11);
+		HospitalDate h = new HospitalDate(2011, 11, 11, 11, 11, 11);
 		assertTrue(h.getYear() == 2011);
 		assertTrue(h.getMonth() == 11);
 		assertTrue(h.getDay() == 11);
