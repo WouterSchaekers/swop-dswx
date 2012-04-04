@@ -44,7 +44,6 @@ public class BloodAnalysisFactory extends MedicalTestFactory
 	public MedicalTest create() throws FactoryInstantiationException {
 		if (!ready())
 			throw new FactoryInstantiationException("BloodAnalysisFactory is not properly instantiated yet.");
-		BloodAnalysis bloodAnalysis = null;
 		return new BloodAnalysis(this.patientFile_, this.creationDate_, numberOfAnalysis_, focus_);
 	}
 	

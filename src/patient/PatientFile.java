@@ -129,17 +129,17 @@ public class PatientFile implements PatientFileIN
 		return diagnose;
 	}
 
-	/**
-	 * Use to create new medical test descriptions.
-	 * 
-	 * @param test
-	 * @return The created medical test description.
-	 * @throws FactoryInstantiationException
-	 */
-	@SuppressWarnings("deprecation")
-	public MedicalTest createMedicalTest(MedicalTestFactory test) throws FactoryInstantiationException {
-		return test.create();
-	}
+//	/**
+//	 * Use to create new medical test descriptions.
+//	 * 
+//	 * @param test
+//	 * @return The created medical test description.
+//	 * @throws FactoryInstantiationException
+//	 */
+//	@SuppressWarnings("deprecation")
+//	public MedicalTest createMedicalTest(MedicalTestFactory test) throws FactoryInstantiationException {
+//		return test.create();
+//	}
 
 	/**
 	 * This function discharges this patient.

@@ -26,15 +26,15 @@ public class Cast extends Treatment implements CastIN
 	 * 
 	 * @param patientFile
 	 *            The patientFile for which this cast is intended.
-	 * @param creationTime
+	 * @param creationDate
 	 *            The date on which this description has been created.
 	 * @param bodyPart
 	 *            The bodypart on which the cast needs to be cast onto.
 	 * @param castDuration
 	 *            The duration of this treatment.
 	 */
-	Cast(PatientFile patientFile, HospitalDate creationTime, String bodyPart, int castDuration) {
-		super(patientFile, DURATION_, creationTime);
+	Cast(PatientFile patientFile, HospitalDate creationDate, String bodyPart, int castDuration) {
+		super(patientFile, DURATION_, creationDate);
 		this.bodyPart_ = bodyPart;
 		this.castDuration_ = castDuration;
 	}

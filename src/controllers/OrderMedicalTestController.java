@@ -62,7 +62,7 @@ public class OrderMedicalTestController extends NeedsLoginAndPatientFileControll
 		// create the description and transform it into a task that gets added
 		// to the taskman's queue right away.
 		@SuppressWarnings("unchecked")
-		Task<T> createdTest = (Task<T>) hospital.getTaskManager().add(pf.createMedicalTest(medicalTestFactory));
+		Task<T> createdTest = (Task<T>) hospital.getTaskManager().add(medicalTestFactory.create());
 		pf.addMedicalTest(createdTest);
 
 		// attempt to schedule and return date if it worked.

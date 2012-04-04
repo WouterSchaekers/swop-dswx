@@ -5,41 +5,63 @@ import scheduler.HospitalDate;
 import exceptions.FactoryInstantiationException;
 import exceptions.InvalidHospitalDateException;
 
+/**
+ * A MedicalTestFactory is a factory, used to create MedicalTests.
+ */
 public abstract class MedicalTestFactory
 {
 	protected PatientFile patientFile_;
 	protected HospitalDate creationDate_;
-	
-	public void setPatientFile(PatientFile patientFile){
-		if(! isValidPatientFile(patientFile))
-			throw new IllegalArgumentException("Invalid patient file given to medical test factory!");
+
+	/**
+	 * Sets the patientFile of the MedicalTest.
+	 * 
+	 * @param patientFile
+	 *            The patientFile of the MedicalTest.
+	 */
+	public void setPatientFile(PatientFile patientFile) {
 		this.patientFile_ = patientFile;
 	}
-	
-	public void setCreationDate(HospitalDate creationDate) throws InvalidHospitalDateException{
-		if (!isValidSystemTime(creationDate))
-			throw new InvalidHospitalDateException(
-					"Invalid creationTime given to Unscheduled Task");
+
+	/**
+	 * Sets the creationDate of the MedicalTest.
+	 * 
+	 * @param creationDate
+	 *            The creationDate of the MedicalTest.
+	 */
+	public void setCreationDate(HospitalDate creationDate) {
 		this.creationDate_ = creationDate;
 	}
-	
-	private boolean isValidPatientFile(PatientFile patientFile){
-		return patientFile != null;
-	}
-	
-	private boolean isValidSystemTime(HospitalDate time) {
-		return time != null;
-	}
-	
-	protected boolean isReady() {
-		return this.isValidPatientFile(patientFile_) && this.isValidSystemTime(creationDate_);
-	}
+
 	/**
-	 * DO NOT CALL THIS METHOD!!!!
-	 *GIVE THE FACTORY TO A PATIENTFILE!!
+	 * Checks whether the patientFile is valid or not.
+	 * 
+	 * @return True if the factory has a valid patientFile.
 	 */
-	@Deprecated
+	private boolean isValidPatientFile() {
+		return this.patientFile_ != null;
+	}
+
+	/**
+	 * Checks whether the creationDate is valid or not.
+	 * 
+	 * @return True if the creationDate is valid.
+	 */
+	private boolean isValidCreationDate() {
+		return this.creationDate_ != null;
+	}
+
+	/**
+	 * Checks whether the factory is ready for production.
+	 * 
+	 * @return True if the patientFile and the creationDate is valid.
+	 */
+	protected boolean isReady() {
+		return this.isValidPatientFile() && this.isValidCreationDate();
+	}
+
+	
 	public abstract MedicalTest create() throws FactoryInstantiationException;
 
-	public abstract MedicalTestFactory newInstance() ;
+	public abstract MedicalTestFactory newInstance();
 }
