@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Observable;
 import scheduler.HospitalDate;
 import scheduler.Schedulable;
+import scheduler.TimeSlot;
 import system.Hospital;
 import system.Location;
 import controllers.interfaces.TaskIN;
@@ -86,6 +87,10 @@ public final class Task<T extends TaskDescription> extends Observable implements
 
 	public HospitalDate getDate() {
 		return myState_.getData().getStartDate();
+	}
+	
+	public TimeSlot getTimeSlot(){
+		return this.myState_.getData().getTimeSlot().clone();
 	}
 
 }

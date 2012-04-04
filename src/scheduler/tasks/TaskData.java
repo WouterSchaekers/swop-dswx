@@ -32,9 +32,10 @@ class TaskData
 	@Override
 	public TaskData clone() {
 		TaskData rv = new TaskData(this.hospital_);
-		rv.setLocation(this.getLocation());
-		rv.setTimeSlot(this.getTimeSlot());
-		rv.setUsedResources(this.getResources());
+		rv.setLocation(this.location_);
+		rv.setTimeSlot(this.timeSlot_);
+		rv.setUsedResources(this.resources_);
+		rv.setDescription(this.description_);
 		return rv;
 	}
 
@@ -55,7 +56,9 @@ class TaskData
 	}
 
 	public Collection<Schedulable> getResources() {
-		return new LinkedList<Schedulable>(this.resources_);
+		if(this.resources_ != null)
+			return new LinkedList<Schedulable>(this.resources_);
+		return new LinkedList<Schedulable>();
 	}
 
 	public HospitalDate getStartDate() {
@@ -79,20 +82,14 @@ class TaskData
 	}
 
 	void setLocation(Location location) {
-		if (location == null)
-			throw new IllegalArgumentException(location + " cannot be null!");
 		this.location_ = location;
 	}
 
 	void setTimeSlot(TimeSlot timeSlot) {
-		if (timeSlot == null)
-			throw new IllegalArgumentException(timeSlot + " cannot be null!");
 		this.timeSlot_ = timeSlot;
 	}
 
 	void setUsedResources(Collection<Schedulable> usedResources) {
-		if (usedResources == null)
-			throw new IllegalArgumentException(usedResources + " cannot be null!");
 		this.resources_ = usedResources;
 	}
 

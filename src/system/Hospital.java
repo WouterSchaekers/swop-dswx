@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import medicaltest.MedicalTestFactory;
+import patient.PatientFile;
 import patient.PatientFileManager;
 import scheduler.Schedulable;
 import scheduler.TimeLord;
@@ -123,8 +124,8 @@ public class Hospital implements HospitalIN
 		ArrayList<Object> sched = new ArrayList<Object>();
 		for (Object o : userManager_.getAllUsers())
 			sched.add(o);
-		for (Object o : patientFileManager_.getAllPatientFiles())
-			sched.add(o);
+		for (PatientFile o : patientFileManager_.getAllPatientFiles())
+			sched.add(o.getPatient());
 		for (Campus c : campusses_)
 			for (Schedulable s : c.getSchedulables())
 				sched.add(s);

@@ -51,7 +51,6 @@ class ScheduledState implements TaskState
 
 	@Override
 	public boolean isValidNewData(TaskData data) {
-		return data != null && data.getDescription() != null
-				&& data.getDescription().equals(this.data_.getDescription());
+		return data != null && data.getDescription() != null;
 	}
 }
