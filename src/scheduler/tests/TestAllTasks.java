@@ -3,6 +3,8 @@ package scheduler.tests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import java.util.Collection;
+import java.util.Observable;
+import java.util.Observer;
 import machine.BloodAnalyserBuilder;
 import machine.MachineBuilder;
 import medicaltest.BloodAnalysisFactory;
@@ -149,7 +151,6 @@ public class TestAllTasks
 		Diagnose diagnose = file.createDiagnose("We zijn gebuisd.", "Thibault fok of", doctorJasper, doctorJonathan);
 		// add stuff to hospital.
 		WarehouseItemType type = new MiscType();
-		location.getWarehouse().add(type, HospitalDate.END_OF_TIME);
 		SurgeryFactory surgeryfactory = new SurgeryFactory();
 		surgeryfactory.setCreationDate(now());
 		surgeryfactory.setDescription("Thibault verwijderen van de wereld.");
@@ -159,11 +160,14 @@ public class TestAllTasks
 		Task<Treatment> surgery = hospital.getTaskManager().add(surgeryfactory.create());
 		assertFalse(surgery.isScheduled());
 		diagnose.approve();
+		assertFalse(surgery.isScheduled());
+		location.getWarehouse().add(type, HospitalDate.END_OF_TIME);
 		assertTrue(surgery.isScheduled());
 	}
 
 	private HospitalDate now() {
 		return hospital.getTimeKeeper().getSystemTime();
 	}
+	
 
 }

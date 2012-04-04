@@ -91,8 +91,10 @@ this.treatments = new LinkedList<Task<? extends Treatment>>();
 			throw new ApproveDiagnoseException("Can't approve diagnose that does not need second opinion!");
 		this.approved = true;
 		this.unmarkForSecOp();
+		this.setChanged();
 		this.notifyObservers();
 		this.notifyObservers(null);
+		
 	}
 
 	/**
