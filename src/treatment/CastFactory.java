@@ -1,14 +1,18 @@
 package treatment;
 
 import exceptions.FactoryInstantiationException;
-import exceptions.InvalidHospitalDateException;
 
+/**
+ * A CastFactory is a factory, used to create casts.
+ */
 public class CastFactory extends TreatmentFactory
 {
 	/**
 	 * Default constructor. Package visible since it should only be used by Treatments.
 	 */
-	CastFactory() {}
+	CastFactory() {
+		;
+	}
 	
 	private String bodyPart_;
 	private int castDuration_;
@@ -57,6 +61,7 @@ public class CastFactory extends TreatmentFactory
 	 * 
 	 * @return True if the bodyPart and the duration is valid.
 	 */
+	@Override
 	protected boolean isReady() {
 		return super.isReady() && isValidBodyPart() && isValidDuration();
 	}
@@ -67,8 +72,6 @@ public class CastFactory extends TreatmentFactory
 	 * @return A Cast built from the given information.
 	 * @throws FactoryInstantiationException
 	 *             The factory was not ready yet.
-	 * @throws InvalidHospitalDateException
-	 *             The used creationDate was invalid.
 	 */
 	@Override
 	public Treatment create() throws FactoryInstantiationException {
@@ -76,5 +79,4 @@ public class CastFactory extends TreatmentFactory
 			return new Cast(patientFile_, creationDate_, bodyPart_, castDuration_);
 		throw new FactoryInstantiationException("Cast was not ready yet!");
 	}
-
 }

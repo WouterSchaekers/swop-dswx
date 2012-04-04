@@ -11,7 +11,6 @@ import users.Nurse;
 import warehouse.item.PlasterType;
 import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.CastIN;
-import exceptions.InvalidHospitalDateException;
 
 /**
  * This class represents a treatment by cast.
@@ -23,23 +22,23 @@ public class Cast extends Treatment implements CastIN
 	public final static long DURATION_ = 2 * HospitalDate.ONE_HOUR;
 
 	/**
-	 * Default constructor.
+	 * Default constructor. Package visible since it should only be used by the factories.
 	 * 
 	 * @param patientFile
 	 *            The patientFile for which this cast is intended.
+	 * @param creationTime
+	 *            The date on which this description has been created.
 	 * @param bodyPart
 	 *            The bodypart on which the cast needs to be cast onto.
 	 * @param castDuration
 	 *            The duration of this treatment.
-	 * @throws InvalidHospitalDateException
-	 *             The given creationDate was not valid.
 	 */
 	Cast(PatientFile patientFile, HospitalDate creationTime, String bodyPart, int castDuration) {
 		super(patientFile, DURATION_, creationTime);
 		this.bodyPart_ = bodyPart;
 		this.castDuration_ = castDuration;
 	}
-	
+
 	/**
 	 * @return The duration of the cast.
 	 */

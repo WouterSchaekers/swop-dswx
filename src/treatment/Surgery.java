@@ -11,50 +11,43 @@ import users.Nurse;
 import warehouse.item.MiscType;
 import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.SurgeryIN;
-import exceptions.InvalidAmountException;
-import exceptions.InvalidDescriptionException;
-import exceptions.InvalidHospitalDateException;
 
 /**
  * This class represents a surgical treatment.
  */
 public class Surgery extends Treatment implements SurgeryIN
 {
-	private String description = "";
+	private String description_;
+	public final static long DURATION_ = HospitalDate.ONE_MINUTE * 180;
 
 	/**
-	 * Default constructor.
+	 * Default constructor. Package visible since it should only be used by the factories.
 	 * 
+	 * @param patientFile
+	 *            The patientFile for which this cast is intended.
+	 * @param creationTime
+	 *            The date on which this description has been created.
 	 * @param description
-	 *            The description of this surgery.
-	 * @throws InvalidDescriptionException
-	 * @throws InvalidHospitalDateException
-	 * @throws InvalidAmountException
+	 *            The description of the surgery.
 	 */
-	public Surgery(PatientFile patientFile, HospitalDate creationTime, String description) {
-		super(patientFile, HospitalDate.ONE_MINUTE * 180, creationTime);
-		setDescription(description);
+	Surgery(PatientFile patientFile, HospitalDate creationTime, String description) {
+		super(patientFile, DURATION_, creationTime);
+		this.description_ = description;
 	}
 
+	/**
+	 * @return The description of the surgery.
+	 */
 	@Basic
 	public String getDescription() {
-		return description;
-	}
-
-	@Basic
-	public void setDescription(String description) {
-		if (!isValidDescription(description))
-			throw new IllegalArgumentException("Invalid description given in setDescription() of Surgery!");
-		this.description = description;
+		return description_;
 	}
 
 	/**
-	 * @return True if b is a valid description.
+	 * Returns all the requirements that are needed to forfill this task.
+	 * 
+	 * @return All the requirements that are needed to forfill this task.
 	 */
-	private boolean isValidDescription(String d) {
-		return !d.equals("");
-	}
-
 	@Override
 	public Collection<Requirement> getAllRequirements() {
 		Collection<Requirement> requirements = new LinkedList<Requirement>();
