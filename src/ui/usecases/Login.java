@@ -53,7 +53,7 @@ public class Login extends UseCase
 			return new MainMenu(data);
 		}
 		userDisplayer.display(selected);
-		printLn("Was sucesfully selected, please choose a campus.");
+		printLn("Was successfully selected, please choose a campus.");
 		CampusIN selectedCampus = campusSelector.get();
 		if(selectedCampus == null)
 		{
