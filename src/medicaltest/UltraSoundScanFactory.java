@@ -1,8 +1,6 @@
 package medicaltest;
 
 import exceptions.FactoryInstantiationException;
-import exceptions.InvalidAmountException;
-import exceptions.InvalidHospitalDateException;
 
 /**
  * This class represents something that can create UltraSoundScans.
@@ -51,14 +49,7 @@ public class UltraSoundScanFactory extends MedicalTestFactory
 		if (!ready())
 			throw new FactoryInstantiationException("UltraSoundScanFactory is not properly instantiated yet.");
 		UltraSoundScan ultraSoundScan = null;
-		try {
-			ultraSoundScan = new UltraSoundScan(patientFile_, creationDate_, scaninfo, recordVid, recordImages);
-		} catch (InvalidAmountException e) {
-			System.out.println(e);
-		} catch (InvalidHospitalDateException e) {
-			System.out.println(e);
-		}
-		return ultraSoundScan;
+		return new UltraSoundScan(patientFile_, creationDate_, scaninfo, recordVid, recordImages);
 	}
 
 	@Override

@@ -13,7 +13,6 @@ import users.User;
 import controllers.interfaces.DiagnoseIN;
 import exceptions.CanNeverBeScheduledException;
 import exceptions.FactoryInstantiationException;
-import exceptions.InvalidAmountException;
 import exceptions.InvalidDiagnoseException;
 import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidHospitalException;

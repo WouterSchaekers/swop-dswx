@@ -10,8 +10,6 @@ import scheduler.requirements.RequirementType;
 import scheduler.requirements.SpecificRequirement;
 import users.Nurse;
 import be.kuleuven.cs.som.annotate.Basic;
-import exceptions.InvalidAmountException;
-import exceptions.InvalidHospitalDateException;
 
 /**
  * This class represents a bloodanalysis test.
@@ -28,8 +26,7 @@ public class BloodAnalysis extends MedicalTest
 	private final String focus_;
 
 	BloodAnalysis(PatientFile patientFile, HospitalDate creationTime,
-			int amount, String focus) throws InvalidAmountException,
-			InvalidHospitalDateException {
+			int amount, String focus) {
 		super(patientFile, 45 * HospitalDate.ONE_MINUTE, creationTime);
 		this.amount_ = amount;
 		this.focus_ = focus;

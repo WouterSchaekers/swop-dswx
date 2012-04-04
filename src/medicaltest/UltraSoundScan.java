@@ -9,8 +9,6 @@ import scheduler.requirements.Requirement;
 import scheduler.requirements.RequirementType;
 import scheduler.requirements.SpecificRequirement;
 import users.Nurse;
-import exceptions.InvalidAmountException;
-import exceptions.InvalidHospitalDateException;
 
 public class UltraSoundScan extends MedicalTest
 {
@@ -18,7 +16,7 @@ public class UltraSoundScan extends MedicalTest
 	private final boolean recordVid;
 	private final boolean recordImages;
 
-	UltraSoundScan(PatientFile patientFile, HospitalDate creationTime, String scaninfo, boolean recordVid, boolean recordImages) throws InvalidAmountException, InvalidHospitalDateException {
+	UltraSoundScan(PatientFile patientFile, HospitalDate creationTime, String scaninfo, boolean recordVid, boolean recordImages) {
 		super(patientFile, 30 * HospitalDate.ONE_MINUTE, creationTime);
 		this.scaninfo = scaninfo;
 		this.recordVid = recordVid;

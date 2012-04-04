@@ -1,8 +1,6 @@
 package medicaltest;
 
 import exceptions.FactoryInstantiationException;
-import exceptions.InvalidAmountException;
-import exceptions.InvalidHospitalDateException;
 
 /**
  * The Factory that creates an XRayScan This factory requires : A bodypart, a
@@ -106,14 +104,7 @@ public class XRayScanFactory extends MedicalTestFactory
 		if (!this.ready())
 			throw new FactoryInstantiationException("XRayScanFactory is not properly instantiated yet.");
 		XRayScan xRayScan = null;
-		try {
-			xRayScan = new XRayScan(this.patientFile_, this.creationDate_, bodypart, num, zoomlevel);
-		} catch (InvalidAmountException e) {
-			System.out.println(e);
-		} catch (InvalidHospitalDateException e) {
-			System.out.println(e);
-		}
-		return xRayScan;
+		return xRayScan = new XRayScan(this.patientFile_, this.creationDate_, bodypart, num, zoomlevel);
 	}
 
 	@Override
