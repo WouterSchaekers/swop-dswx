@@ -54,7 +54,8 @@
 || 03/04/12: 12u00 -> 14u00 || 2 SW ||  || Finishing the implementation of the last controllers, debugging scheduling algorithm. ||  ||
 || 03/04/12: 15u00 -> 20u00 || 3 DSW || 5 || Reviewing the controller implementations with Dieter, making a new TODO list, starting the work on the report, implementing the UI, some tests,... ||  ||
 || 03/04/12: 11u00 -> 12u00 || 2 DW || 1 || Reviewing the visibility of methods and constructors. Checking for strange parameters,... || Stefaan lag nog te slapen! ||
-|| 03/04/12: 12u00 ->  || 3 DSW ||  || Refactoring some code, writing scheduling tests ||  ||
+|| 03/04/12: 12u00 -> 13u30 || 3 DSW || 1.5 || Refactoring some code, writing scheduling tests, making the report, making SSDs || ||
+|| 03/04/12: 13u30 -> 14u30 || 2 DS || 1 || More of the above... || Wouter ging eten op kot. ||
 
 = Iteratie 2 =
 || *Timepoint* || *Members* || *Workload* || *Purpose* || *Comments* ||
