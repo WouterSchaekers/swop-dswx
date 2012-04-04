@@ -59,6 +59,7 @@ public class TestAllTasks
 				.getSystemTime());
 		Task<AppointmentDescription> task = hospital.getTaskManager().add(appointment);
 		assertTrue(task.isScheduled());
+		System.out.println(task.getTimeSlot());
 	}
 
 	@Test
@@ -129,6 +130,7 @@ public class TestAllTasks
 		surgeryfactory.setWarehouse(location.getWarehouse());
 		Task<Treatment> surgery = hospital.getTaskManager().add(surgeryfactory.create());
 		assertTrue(surgery.isScheduled());
+		System.out.println(surgery.getTimeSlot());
 	}
 
 	@Test
@@ -163,6 +165,7 @@ public class TestAllTasks
 		assertFalse(surgery.isScheduled());
 		location.getWarehouse().add(type, HospitalDate.END_OF_TIME);
 		assertTrue(surgery.isScheduled());
+		System.out.println(surgery.getTimeSlot());
 	}
 
 	private HospitalDate now() {

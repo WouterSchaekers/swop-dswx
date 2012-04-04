@@ -55,8 +55,8 @@ public class Scheduler
 		LinkedList<Location> locs = getLocationsWithEnoughResources(avRes, taskData.getLocations(), curDate);
 		TaskData scheduledData = schedule(avRes, produceUsedResList(avRes), locs, desc, startDate, stopDate, taskData);
 		if (!isBackToBack(scheduledData)) {
-			//scheduledData = scheduleAtFullHour(avRes, produceUsedResList(avRes), locs, desc, startDate, stopDate,
-					//taskData, scheduledData);
+			scheduledData = scheduleAtFullHour(avRes, produceUsedResList(avRes), locs, desc, startDate, stopDate,
+					taskData, scheduledData);
 		}
 		actuallyScheduleResources(scheduledData);
 		unscheduledTask.nextState(scheduledData);
@@ -190,7 +190,6 @@ public class Scheduler
 			scheduledData = schedule(avRes, new HashMap<LinkedList<Schedulable>, LinkedList<Integer>>(usedResList),
 					posLocs, desc, nextHour, stopDate, taskData);
 			curStartDate = scheduledData.getStartDate();
-			System.out.println(curStartDate);
 		}
 		return scheduledData;
 	}
@@ -288,7 +287,6 @@ public class Scheduler
 			for (int j = 0; j < keys.size(); j++) {
 				LinkedList<Schedulable> key = keys.get(j);
 				if (key.contains(unique) && i != j) {
-					System.out.println("gefokt");
 					key.remove(unique);
 				}
 			}
