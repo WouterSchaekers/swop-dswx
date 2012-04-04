@@ -34,7 +34,6 @@ public class PatientFile implements PatientFileIN
 	private Collection<Task<? extends TaskDescription>> medicaltests = new LinkedList<Task<? extends TaskDescription>>();
 	private Patient patient_;
 
-
 	/**
 	 * Default Constructor. Creates empty patient file with a name.
 	 * 
@@ -60,16 +59,16 @@ public class PatientFile implements PatientFileIN
 			throw new InvalidDiagnoseException("The given Diagnose is not a valid!");
 		this.diagnosis.add(d);
 	}
-	
+
 	/**
 	 * USE THIS METHOD ONLY IN THE DOMAIN LAYER!!
 	 */
 	public void addMedicalTest(Task<? extends MedicalTest> medicalTest) {
-		if(! isValidMedicalTest(medicalTest))
-				throw new IllegalArgumentException(medicalTest+ " is not valid!");
+		if (!isValidMedicalTest(medicalTest))
+			throw new IllegalArgumentException(medicalTest + " is not valid!");
 		this.medicaltests.add(medicalTest);
 	}
-	
+
 	/**
 	 * @return True if this patient is ready to be discharged.
 	 */
@@ -96,14 +95,16 @@ public class PatientFile implements PatientFileIN
 
 	/**
 	 * Factory method for diagnose.
+	 * 
 	 * @param complaints
-	 * The complaints of the patient
+	 *            The complaints of the patient
 	 * @param diag
-	 * The diagnose of the doctor
+	 *            The diagnose of the doctor
 	 * @param user
-	 * The Doctor that gives this diagnose
+	 *            The Doctor that gives this diagnose
 	 * @param secOp
-	 * The Doctor that has to give a second opinion, if null is provided it will not be marked for second op.
+	 *            The Doctor that has to give a second opinion, if null is
+	 *            provided it will not be marked for second op.
 	 * @return
 	 * @throws InvalidDiagnoseException
 	 * @see Diagnose
@@ -115,29 +116,17 @@ public class PatientFile implements PatientFileIN
 			throws InvalidDiagnoseException, InvalidDoctorException, InvalidComplaintsException {
 		Diagnose diagnose;
 		try {
-			diagnose = new Diagnose(user, complaints, diag,this);
+			diagnose = new Diagnose(user, complaints, diag, this);
 		} catch (InvalidPatientFileException e) {
 			throw new Error("unexpected error, can not create diagnose for this patientfile");
 		}
 		this.addDiagnose(diagnose);
-		
-		if(secOp != null) {
+
+		if (secOp != null) {
 			diagnose.markForSecOp(secOp);
 		}
 		return diagnose;
 	}
-
-//	/**
-//	 * Use to create new medical test descriptions.
-//	 * 
-//	 * @param test
-//	 * @return The created medical test description.
-//	 * @throws FactoryInstantiationException
-//	 */
-//	@SuppressWarnings("deprecation")
-//	public MedicalTest createMedicalTest(MedicalTestFactory test) throws FactoryInstantiationException {
-//		return test.create();
-//	}
 
 	/**
 	 * This function discharges this patient.
@@ -162,6 +151,7 @@ public class PatientFile implements PatientFileIN
 		rv.addAll(diagnosis);
 		return rv;
 	}
+
 	public Collection<Task<?>> getAllMedicalTests() {
 		return new LinkedList<Task<?>>(medicaltests);
 	}
@@ -177,10 +167,10 @@ public class PatientFile implements PatientFileIN
 		return rv;
 	}
 
-	public PatientIN getPatientIN()
-	{
+	public PatientIN getPatientIN() {
 		return patient_;
 	}
+
 	/**
 	 * DO NOT USE THIS METHOD ANYWHERE OUTSIDE OF THE DOMAIN LAYER!
 	 * 
@@ -202,7 +192,7 @@ public class PatientFile implements PatientFileIN
 	public boolean isDischarged() {
 		return this.discharged;
 	}
-	
+
 	/**
 	 * ONLY USE IN DOMAIN LAYER!!
 	 */
@@ -220,7 +210,7 @@ public class PatientFile implements PatientFileIN
 	/**
 	 * @return True if medicalTest is a valid medical test.
 	 */
-	
+
 	private boolean isValidMedicalTest(Task<? extends MedicalTest> medicalTest) {
 		return medicalTest != null;
 	}
