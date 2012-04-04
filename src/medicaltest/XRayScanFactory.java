@@ -103,8 +103,7 @@ public class XRayScanFactory extends MedicalTestFactory
 	public MedicalTest create() throws FactoryInstantiationException{
 		if (!this.ready())
 			throw new FactoryInstantiationException("XRayScanFactory is not properly instantiated yet.");
-		XRayScan xRayScan = null;
-		return xRayScan = new XRayScan(this.patientFile_, this.creationDate_, bodypart, num, zoomlevel);
+		return new XRayScan(this.patientFile_, this.creationDate_, bodypart, num, zoomlevel);
 	}
 
 	@Override
