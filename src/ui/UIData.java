@@ -1,8 +1,8 @@
 package ui;
 
+import system.Hospital;
 import controllers.LoginController;
 import controllers.interfaces.HospitalIN;
-import system.Hospital;
 
 public class UIData
 {

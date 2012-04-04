@@ -1,12 +1,12 @@
 package ui.usecases;
 
-import controllers.LoginController;
-import controllers.interfaces.CampusIN;
-import controllers.interfaces.UserIN;
 import ui.MainMenu;
 import ui.UIData;
 import ui.UseCase;
 import ui.usecases.Selector.Displayer;
+import controllers.LoginController;
+import controllers.interfaces.CampusIN;
+import controllers.interfaces.UserIN;
 
 public class Login extends UseCase
 {
