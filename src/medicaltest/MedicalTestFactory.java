@@ -3,7 +3,6 @@ package medicaltest;
 import patient.PatientFile;
 import scheduler.HospitalDate;
 import exceptions.FactoryInstantiationException;
-import exceptions.InvalidHospitalDateException;
 
 /**
  * A MedicalTestFactory is a factory, used to create MedicalTests.

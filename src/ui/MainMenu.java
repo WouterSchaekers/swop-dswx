@@ -1,9 +1,7 @@
 package ui;
 
 import java.util.Collection;
-import java.util.LinkedList;
 import java.util.Stack;
-import exceptions.InvalidHospitalException;
 import ui.usecases.HospitalEquipmentUseCase;
 import ui.usecases.Login;
 import ui.usecases.Selector;
