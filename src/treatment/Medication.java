@@ -23,6 +23,7 @@ public class Medication extends Treatment implements MedicationIN
 	private boolean sensitive_;
 	private MedicationType medicationType_;
 	private Warehouse warehouse_;
+	public final static long DURATION_ = HospitalDate.ONE_MINUTE * 20;
 
 	/**
 	 * Default constructor.
@@ -43,8 +44,8 @@ public class Medication extends Treatment implements MedicationIN
 	 *             The given creationDate was not valid.
 	 */
 	public Medication(PatientFile patientFile, HospitalDate creationDate, MedicationType medicationType,
-			Warehouse warehouse, String description, boolean sensitive) throws InvalidHospitalDateException {
-		super(patientFile, HospitalDate.ONE_MINUTE * 20, creationDate);
+			Warehouse warehouse, String description, boolean sensitive) {
+		super(patientFile, DURATION_, creationDate);
 		this.description_ = description;
 		this.sensitive_ = sensitive;
 		this.medicationType_ = medicationType;

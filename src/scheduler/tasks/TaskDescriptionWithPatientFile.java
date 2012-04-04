@@ -3,7 +3,6 @@ package scheduler.tasks;
 import patient.PatientFile;
 import scheduler.HospitalDate;
 import controllers.interfaces.PatientFileIN;
-import exceptions.InvalidHospitalDateException;
 
 /**
  * This class is an abstract representation of a TaskDescriptionWithPatientFile.
@@ -25,11 +24,9 @@ public abstract class TaskDescriptionWithPatientFile extends TaskDescription
 	 *            the current time.
 	 * @param creationDate
 	 *            The date on which this description has been created.
-	 * @throws InvalidHospitalDateException
-	 *             The given creationDate was not valid.
 	 */
 	public TaskDescriptionWithPatientFile(PatientFile patientFile, long duration, long extraTime,
-			HospitalDate creationDate) throws InvalidHospitalDateException {
+			HospitalDate creationDate) {
 		super(duration, extraTime, creationDate);
 		this.patientFile_ = patientFile;
 	}

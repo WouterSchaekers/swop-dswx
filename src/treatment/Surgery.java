@@ -31,8 +31,7 @@ public class Surgery extends Treatment implements SurgeryIN
 	 * @throws InvalidHospitalDateException
 	 * @throws InvalidAmountException
 	 */
-	public Surgery(PatientFile patientFile, HospitalDate creationTime, String description)
-			throws InvalidHospitalDateException {
+	public Surgery(PatientFile patientFile, HospitalDate creationTime, String description) {
 		super(patientFile, HospitalDate.ONE_MINUTE * 180, creationTime);
 		setDescription(description);
 	}

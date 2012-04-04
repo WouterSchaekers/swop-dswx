@@ -6,7 +6,6 @@ import scheduler.HospitalDate;
 import scheduler.requirements.Requirement;
 import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.DescriptionIN;
-import exceptions.InvalidHospitalDateException;
 
 /**
  * This class is an abstract representation of a TaskDescription. The
@@ -30,16 +29,13 @@ public abstract class TaskDescription implements DescriptionIN
 	 *            the current time.
 	 * @param creationDate
 	 *            The date on which this description has been created.
-	 * @throws InvalidHospitalDateException
-	 *             The given creationDate was not valid.
 	 */
-	public TaskDescription(long duration, long extraTime, HospitalDate creationDate)
-			throws InvalidHospitalDateException {
+	public TaskDescription(long duration, long extraTime, HospitalDate creationDate){
 		if (!isValidAmountOfExtraTime(extraTime))
 			throw new IllegalArgumentException(
 					"Invalid amount of extra time since system start given to Unscheduled Task");
 		if (!isValidSystemTime(creationDate))
-			throw new InvalidHospitalDateException("Invalid creationTime given to Unscheduled Task");
+			throw new IllegalArgumentException("Invalid creationTime given to Unscheduled Task");
 		this.duration_ = duration;
 		this.extraTime_ = extraTime;
 		this.creationDate_ = creationDate;
