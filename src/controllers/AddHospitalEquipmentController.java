@@ -38,30 +38,30 @@ public class AddHospitalEquipmentController extends NeedsLoginController
 
 	/**
 	 * @return All the objects that can create a kinds of different machines.
-	 * @throws InvalidCampusException 
+	 * @throws InvalidCampusException
 	 */
 	@controllers.PUBLICAPI
-	public Collection<MachineBuilder> getAllMachineBuilders() throws InvalidCampusException
-	{
+	public Collection<MachineBuilder> getAllMachineBuilders() throws InvalidCampusException {
 		return getAllMachineBuilders(lc.getLocation());
 	}
+
 	private Collection<MachineBuilder> getAllMachineBuilders(CampusIN campus) throws InvalidCampusException {
-	
-		Campus c=(Campus)campus;
+		Campus c = (Campus) campus;
 		return c.getMachinePool().getAllBuilders();
 	}
 
 	/**
 	 * Creates a new machine from the given machine builder and adds it to the
 	 * hospital.
-	 * @throws InvalidSerialException 
-	 * @throws InvalidLocationException 
+	 * 
+	 * @throws InvalidSerialException
+	 * @throws InvalidLocationException
 	 */
 	@controllers.PUBLICAPI
-	public void createMachine(MachineBuilder b) throws InvalidLocationException, InvalidSerialException
-	{
+	public void createMachine(MachineBuilder b) throws InvalidLocationException, InvalidSerialException {
 		createMachine(b, lc.getLocation());
 	}
+
 	private void createMachine(MachineBuilder b, LocationIN whereabouts) throws InvalidLocationException,
 			InvalidSerialException {
 		((Campus) whereabouts).getMachinePool().addMachine(b);
