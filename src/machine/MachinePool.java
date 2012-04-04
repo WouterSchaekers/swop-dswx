@@ -30,7 +30,7 @@ public class MachinePool
 	}
 
 
-	public void addBuilder(MachineBuilder builder)
+	void addBuilder(MachineBuilder builder)
 	{
 		bob.add(builder);
 	}
