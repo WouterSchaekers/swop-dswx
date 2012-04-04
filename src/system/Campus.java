@@ -6,9 +6,9 @@ import machine.Machine;
 import machine.MachinePool;
 import scheduler.Schedulable;
 import scheduler.TimeLord;
-import warehouse.NormalWarehouseBuilder;
 import warehouse.NormalWarehouseBuilder.WarehouseSet;
 import warehouse.Warehouse;
+import warehouse.WarehouseBuilder;
 import warehouse.stock.StockProvider;
 
 /**
@@ -19,33 +19,32 @@ public class Campus implements Location
 {
 	private String campusName_;
 	private MachinePool machinePool_ = new MachinePool();
-	private WarehouseSet warehouseSet_;
+	private WarehouseSet warehouse_;
 	private Hospital hospital_;
 
 	/**
-	 * @param timeLord
-	 * To create normal warehousebuilder with
+	 * Creates a Campus & creates the double bind to hospital.
+	 * @param warehouseBuilder TODO
 	 */
-	public Campus(String campusName, Hospital hospital, TimeLord timeLord) {
+	public Campus(String campusName, Hospital hospital, WarehouseBuilder warehouseBuilder) {
 		this.campusName_ = campusName;
 		this.hospital_ = hospital;
-		this.warehouseSet_ = new NormalWarehouseBuilder(this, timeLord).create();
+		hospital.addCampus(this);
+		this.warehouse_ =null;//XXX: new NormalWarehouseBuilder(this, timeLord).create();
 	}
 
 	public Hospital getHospital() {
 		return this.hospital_;
 	}
 
-	public void setHospital(Hospital hospital) {
-		this.hospital_ = hospital;
-	}
+	
 
 	public Warehouse getWarehouse() {
-		return this.warehouseSet_.warehouse;
+		return this.warehouse_.warehouse;
 	}
 
 	public StockProvider getStockprovider() {
-		return this.warehouseSet_.provider;
+		return this.warehouse_.provider;
 	}
 
 	public MachinePool getMachinePool() {

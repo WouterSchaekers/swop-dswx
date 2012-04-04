@@ -9,7 +9,6 @@ import medicaltest.MedicalTestFactory;
 import patient.PatientFileManager;
 import scheduler.Schedulable;
 import scheduler.TimeLord;
-import scheduler.tasks.Scheduler;
 import scheduler.tasks.TaskManager;
 import users.HospitalAdmin;
 import users.UserManager;
@@ -29,26 +28,7 @@ public class Hospital
 	private Collection<Campus> campusses_;
 	private Collection<MedicalTestFactory> medicalTestFactories_;
 
-	/**
-	 * Initializes an empty hospital with a hospital admin and 2 campusses.
-	 */
-	public Hospital() {
-		try {
-			this.systemTime_ = new TimeLord();
-			this.userManager_ = new UserManager();
-			this.patientFileManager_ = new PatientFileManager();
-			this.taskManager_ = new TaskManager(this);
-			this.campusses_ = new LinkedList<Campus>();
-			this.medicalTestFactories_ = new ArrayList<MedicalTestFactory>();
-			for (int i = 0; i < 2; i++) {
-				Campus c = new Campus("Campus " + ++i, this, systemTime_);
-				this.campusses_.add(c);
-			}
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			throw new Error();
-		}
-	}
+
 
 	/**
 	 * Constructor that creates a new hospital with the given data as initial
@@ -71,18 +51,21 @@ public class Hospital
 	 * @throws
 	 */
 	public Hospital(TimeLord timeLord, UserManager userManager, PatientFileManager patientFileManager,
-			Scheduler scheduler, TaskManager taskManager, HospitalAdmin hospitalAdmin) {
+			 TaskManager taskManager, HospitalAdmin hospitalAdmin) {
 		this.systemTime_ = timeLord;
 		this.userManager_ = userManager;
 		this.patientFileManager_ = patientFileManager;
 		this.taskManager_ = taskManager;
 		this.campusses_ = new LinkedList<Campus>();
-		for (int i = 0; i < 2; i++) {
-			Campus c = new Campus("Campus " + ++i, this, systemTime_);
-			this.campusses_.add(c);
-		}
 	}
-
+	/**
+	 * Method for a campus to make sure the double bind is made.
+	 * @param campus
+	 */
+	void addCampus(Campus campus)
+	{
+		this.campusses_.add(campus);
+	}
 	@Basic
 	public TimeLord getTimeKeeper() {
 		return systemTime_;
@@ -119,17 +102,6 @@ public class Hospital
 
 	public Collection<Campus> getAllCampuses() {
 		return new LinkedList<Campus>(this.campusses_);
-	}
-
-	/**
-	 * Adds a campus to this hospital.
-	 */
-	@Basic
-	public void addCampus(String name) throws InvalidCampusException {
-		if (name.equals(""))
-			throw new InvalidCampusException("Invalid new campus name was given!");
-		Campus camp = new Campus("name", this, systemTime_);
-		this.campusses_.add(camp);
 	}
 
 	/**
