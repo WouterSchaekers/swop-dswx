@@ -1,6 +1,6 @@
 package scheduler.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import java.util.Collection;
 import machine.BloodAnalyserBuilder;
@@ -24,6 +24,7 @@ import users.Nurse;
 import users.NurseFactory;
 import warehouse.item.MiscType;
 import warehouse.item.WarehouseItemType;
+import exceptions.ApproveDiagnoseException;
 import exceptions.CanNeverBeScheduledException;
 import exceptions.DischargePatientException;
 import exceptions.FactoryInstantiationException;
@@ -130,7 +131,7 @@ public class TestAllTasks
 	@Test
 	public void scheduleTreatment2() throws UserAlreadyExistsException, InvalidNameException, InvalidLocationException,
 			InvalidPatientFileException, InvalidDiagnoseException, InvalidDoctorException, InvalidComplaintsException,
-			FactoryInstantiationException, CanNeverBeScheduledException, WarehouseOverCapacityException {
+			FactoryInstantiationException, CanNeverBeScheduledException, WarehouseOverCapacityException, ApproveDiagnoseException {
 		NurseFactory f = new NurseFactory();
 		f.setName("Jenny");
 		f.setLocation(location);
@@ -153,8 +154,11 @@ public class TestAllTasks
 		surgeryfactory.setDescription("Thibault verwijderen van de wereld.");
 		surgeryfactory.setDiagnose(diagnose);
 		surgeryfactory.setWarehouse(location.getWarehouse());
+		
 		Task<Treatment> surgery = hospital.getTaskManager().add(surgeryfactory.create());
 		assertFalse(surgery.isScheduled());
+		diagnose.approve();
+		assertTrue(surgery.isScheduled());
 	}
 
 	private HospitalDate now() {

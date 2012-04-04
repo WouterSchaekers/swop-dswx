@@ -1,7 +1,9 @@
 package treatment;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Observable;
 import patient.Diagnose;
 import patient.PatientFile;
 import scheduler.HospitalDate;
@@ -9,6 +11,7 @@ import scheduler.requirements.Requirement;
 import scheduler.requirements.RequirementType;
 import scheduler.requirements.SpecificRequirement;
 import users.Nurse;
+import warehouse.Warehouse;
 import warehouse.item.PlasterType;
 import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.CastIN;
@@ -33,9 +36,10 @@ public class Cast extends Treatment implements CastIN
 	 *            The bodypart on which the cast needs to be cast onto.
 	 * @param castDuration
 	 *            The duration of this treatment.
+	 * @param warehouse 
 	 */
-	Cast(PatientFile patientFile, HospitalDate creationDate, String bodyPart, int castDuration,Diagnose diagnose) {
-		super(patientFile, diagnose, DURATION_, creationDate);
+	Cast(PatientFile patientFile, HospitalDate creationDate, String bodyPart, int castDuration,Diagnose diagnose, Warehouse warehouse) {
+		super(patientFile, diagnose, DURATION_, creationDate, warehouse);
 		this.bodyPart_ = bodyPart;
 		this.castDuration_ = castDuration;
 	}
@@ -68,5 +72,13 @@ public class Cast extends Treatment implements CastIN
 		requirements.add(new RequirementType<PlasterType>(PlasterType.class, false, 1));
 		requirements.add(new RequirementType<Nurse>(Nurse.class, true, 1));
 		return requirements;
+	}
+
+	@Override
+	public Collection<Observable> getObservables() {
+		ArrayList<Observable> observables = new ArrayList<Observable>();
+		observables.add(diagnose_);
+		observables.add(warehouse_);
+		return null;
 	}
 }

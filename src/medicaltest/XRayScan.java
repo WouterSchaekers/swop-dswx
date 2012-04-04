@@ -1,7 +1,9 @@
 package medicaltest;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Observable;
 import machine.XRayScanner;
 import patient.PatientFile;
 import scheduler.HospitalDate;
@@ -50,5 +52,10 @@ public class XRayScan extends MedicalTest
 		requirements.add(new RequirementType<XRayScanner>(XRayScanner.class, false, 1));
 		requirements.add(new RequirementType<Nurse>(Nurse.class, true, 1));
 		return requirements;
+	}
+
+	@Override
+	public Collection<Observable> getObservables() {
+		return new ArrayList<Observable>();
 	}
 }

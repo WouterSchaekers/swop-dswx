@@ -14,7 +14,6 @@ import controllers.interfaces.DoctorIN;
 import controllers.interfaces.PatientFileIN;
 import controllers.interfaces.PatientIN;
 import controllers.interfaces.TaskIN;
-import exceptions.ApproveDiagnoseException;
 import exceptions.DischargePatientException;
 import exceptions.InvalidComplaintsException;
 import exceptions.InvalidDiagnoseException;
@@ -125,12 +124,6 @@ public class PatientFile implements PatientFileIN
 
 		if (secOp != null) {
 			diagnose.markForSecOp(secOp);
-		} else {
-			try {
-				diagnose.approve();
-			} catch (ApproveDiagnoseException e) {
-				throw new Error(e);
-			}
 		}
 		return diagnose;
 	}

@@ -2,6 +2,7 @@ package medicaltest;
 
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Observable;
 import machine.UltraSoundScanner;
 import patient.PatientFile;
 import scheduler.HospitalDate;
@@ -42,5 +43,11 @@ public class UltraSoundScan extends MedicalTest
 		requirements.add(new RequirementType<UltraSoundScanner>(UltraSoundScanner.class, false, 1));
 		requirements.add(new RequirementType<Nurse>(Nurse.class, true, 1));
 		return requirements;
+	}
+
+	@Override
+	public Collection<Observable> getObservables() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

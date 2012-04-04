@@ -49,6 +49,7 @@ public class TaskManager implements Observer
 	 */
 	public <T extends TaskDescription> Task<T> add(T description) throws CanNeverBeScheduledException {
 		Task<T> task = new Task<T>(description, hospital_);
+		task.addObserver(this);
 		task.init();
 		tasks_.add(task);
 		try {
