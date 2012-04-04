@@ -12,20 +12,20 @@ public class Login extends UseCase
 {
 
 	private LoginController loginc;
-	public static final Displayer<CampusIN> campusDisplayer=new Displayer<CampusIN>()
+	public static final Displayer<CampusIN> campusDisplayer = new Displayer<CampusIN>()
 	{
 
 		@Override
 		public void display(CampusIN t) {
-			System.out.print("Campus:"+t.getName());
-			
+			System.out.print("Campus:" + t.getName());
+
 		}
 	};
 
 	public Login(UIData data) throws Exception {
-		super(data,1);
+		super(data, 1);
 		this.loginc = new LoginController(data.hospital());
-		if(data.getLoginController()!=null&&data.getLoginController().loggedIn())
+		if (data.getLoginController() != null && data.getLoginController().loggedIn())
 			throw new Exception();
 	}
 
@@ -45,28 +45,26 @@ public class Login extends UseCase
 		printLn("Login screen v1.1:");
 		printLn("These are the available users:");
 		Selector<UserIN> uiselector = new Selector<UserIN>(loginc.getAllUsers(), userDisplayer);
-		Selector<CampusIN> campusSelector = new Selector<CampusIN>(loginc.getLocations(),campusDisplayer);
+		Selector<CampusIN> campusSelector = new Selector<CampusIN>(loginc.getLocations(), campusDisplayer);
 		UserIN selected = uiselector.get();
-		if(selected==null)
-		{
+		if (selected == null) {
 			System.out.println("No user was logged in.");
 			return new MainMenu(data);
 		}
 		userDisplayer.display(selected);
 		printLn("Was successfully selected, please choose a campus.");
 		CampusIN selectedCampus = campusSelector.get();
-		if(selectedCampus == null)
-		{
+		if (selectedCampus == null) {
 			System.out.println("No campus selected.");
 			return new MainMenu(data);
 		}
 		data.setLoginController(loginc);
-		loginc.logIn(selected,selectedCampus);
+		loginc.logIn(selected, selectedCampus);
 		return new MainMenu(data);
 	}
+
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return "Login ";
 	}
 }

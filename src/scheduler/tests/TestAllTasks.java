@@ -21,7 +21,6 @@ import treatment.SurgeryFactory;
 import treatment.Treatment;
 import users.Doctor;
 import users.DoctorFactory;
-import users.Nurse;
 import users.NurseFactory;
 import warehouse.item.MiscType;
 import warehouse.item.WarehouseItemType;
@@ -40,6 +39,7 @@ import exceptions.InvalidSerialException;
 import exceptions.UserAlreadyExistsException;
 import exceptions.WarehouseOverCapacityException;
 
+@SuppressWarnings("deprecation")
 public class TestAllTasks
 {
 	Hospital hospital = new StandardHospitalBuilder().build();
@@ -68,7 +68,7 @@ public class TestAllTasks
 		NurseFactory f = new NurseFactory();
 		f.setName("Jenny");
 		f.setLocation(location);
-		Nurse user = (Nurse) hospital.getUserManager().createUser(f);
+		hospital.getUserManager().createUser(f);
 		PatientFile file = hospital.getPatientFileManager().registerPatient("jenny", location);
 		BloodAnalyserBuilder builder = bloodanalyzer(location.getMachinePool().getAllBuilders());
 		builder.setLocation(location);
@@ -108,7 +108,7 @@ public class TestAllTasks
 		NurseFactory f = new NurseFactory();
 		f.setName("Jenny");
 		f.setLocation(location);
-		Nurse nurse = (Nurse) hospital.getUserManager().createUser(f);
+		hospital.getUserManager().createUser(f);
 		DoctorFactory docFactory1 = new DoctorFactory();
 		docFactory1.setName("Jasper");
 		docFactory1.setLocation(location);
@@ -116,7 +116,7 @@ public class TestAllTasks
 		DoctorFactory docFactory2 = new DoctorFactory();
 		docFactory2.setName("Jonathan");
 		docFactory2.setLocation(location);
-		Doctor doctorJonathan = (Doctor) hospital.getUserManager().createUser(docFactory1);
+		hospital.getUserManager().createUser(docFactory1);
 		PatientFile file = hospital.getPatientFileManager().registerPatient("jasmine", location);
 		Diagnose diagnose = file.createDiagnose("We zijn gebuisd.", "Thibault fok of", doctorJasper, null);
 		// add stuff to hospital.
@@ -135,11 +135,12 @@ public class TestAllTasks
 	@Test
 	public void scheduleTreatment2() throws UserAlreadyExistsException, InvalidNameException, InvalidLocationException,
 			InvalidPatientFileException, InvalidDiagnoseException, InvalidDoctorException, InvalidComplaintsException,
-			FactoryInstantiationException, CanNeverBeScheduledException, WarehouseOverCapacityException, ApproveDiagnoseException {
+			FactoryInstantiationException, CanNeverBeScheduledException, WarehouseOverCapacityException,
+			ApproveDiagnoseException {
 		NurseFactory f = new NurseFactory();
 		f.setName("Jenny");
 		f.setLocation(location);
-		Nurse nurse = (Nurse) hospital.getUserManager().createUser(f);
+		hospital.getUserManager().createUser(f);
 		DoctorFactory docFactory1 = new DoctorFactory();
 		docFactory1.setName("Jasper");
 		docFactory1.setLocation(location);
@@ -157,7 +158,7 @@ public class TestAllTasks
 		surgeryfactory.setDescription("Thibault verwijderen van de wereld.");
 		surgeryfactory.setDiagnose(diagnose);
 		surgeryfactory.setWarehouse(location.getWarehouse());
-		
+
 		Task<Treatment> surgery = hospital.getTaskManager().add(surgeryfactory.create());
 		assertFalse(surgery.isScheduled());
 		diagnose.approve();
@@ -166,14 +167,16 @@ public class TestAllTasks
 		assertTrue(surgery.isScheduled());
 		System.out.println(surgery.getTimeSlot());
 	}
+
 	@Test
 	public void scheduleTreatment3() throws UserAlreadyExistsException, InvalidNameException, InvalidLocationException,
 			InvalidPatientFileException, InvalidDiagnoseException, InvalidDoctorException, InvalidComplaintsException,
-			FactoryInstantiationException, CanNeverBeScheduledException, WarehouseOverCapacityException, ApproveDiagnoseException, InvalidSystemTime {
+			FactoryInstantiationException, CanNeverBeScheduledException, WarehouseOverCapacityException,
+			ApproveDiagnoseException, InvalidSystemTime {
 		NurseFactory f = new NurseFactory();
 		f.setName("Jenny");
 		f.setLocation(location);
-		Nurse nurse = (Nurse) hospital.getUserManager().createUser(f);
+		hospital.getUserManager().createUser(f);
 		DoctorFactory docFactory1 = new DoctorFactory();
 		docFactory1.setName("Jasper");
 		docFactory1.setLocation(location);
@@ -191,19 +194,21 @@ public class TestAllTasks
 		surgeryfactory.setDescription("Thibault verwijderen van de wereld.");
 		surgeryfactory.setDiagnose(diagnose);
 		surgeryfactory.setWarehouse(location.getWarehouse());
-		
+
 		Task<Treatment> surgery = hospital.getTaskManager().add(surgeryfactory.create());
 		assertFalse(surgery.isScheduled());
 		diagnose.approve();
 		assertFalse(surgery.isScheduled());
 		location.getWarehouse().add(type, HospitalDate.END_OF_TIME);
 		assertTrue(surgery.isScheduled());
-		hospital.getTimeKeeper().setSystemTime(new HospitalDate(hospital.getTimeKeeper().getSystemTime().getTimeSinceStart()+HospitalDate.ONE_DAY*7));
+		hospital.getTimeKeeper().setSystemTime(
+				new HospitalDate(hospital.getTimeKeeper().getSystemTime().getTimeSinceStart() + HospitalDate.ONE_DAY
+						* 7));
 
 	}
+
 	private HospitalDate now() {
 		return hospital.getTimeKeeper().getSystemTime();
 	}
-	
 
 }
