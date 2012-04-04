@@ -6,12 +6,4 @@ package controllers.interfaces;
 @controllers.PUBLICAPI
 public interface TreatmentIN
 {
-
-	/**
-	 * Returns whether the Treatment has finished or not.
-	 * 
-	 * @return True if the Treatment has finished.
-	 */
-	@controllers.PUBLICAPI
-	boolean hasFinished();
 }
