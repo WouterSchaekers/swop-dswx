@@ -1,8 +1,6 @@
 package medicaltest;
 
 import exceptions.FactoryInstantiationException;
-import exceptions.InvalidAmountException;
-import exceptions.InvalidHospitalDateException;
 
 public class BloodAnalysisFactory extends MedicalTestFactory
 {
@@ -47,14 +45,7 @@ public class BloodAnalysisFactory extends MedicalTestFactory
 		if (!ready())
 			throw new FactoryInstantiationException("BloodAnalysisFactory is not properly instantiated yet.");
 		BloodAnalysis bloodAnalysis = null;
-		try {
-			bloodAnalysis = new BloodAnalysis(this.patientFile_, this.creationDate_, numberOfAnalysis_, focus_);
-		} catch (InvalidAmountException e) {
-			System.out.println(e);
-		} catch (InvalidHospitalDateException e) {
-			System.out.println(e);
-		}
-		return bloodAnalysis;
+		return new BloodAnalysis(this.patientFile_, this.creationDate_, numberOfAnalysis_, focus_);
 	}
 	
 

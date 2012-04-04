@@ -7,11 +7,8 @@ import scheduler.tasks.Task;
 import scheduler.tasks.TaskDescription;
 import scheduler.tasks.TaskDescriptionWithPatientFile;
 import controllers.interfaces.MedicalTestIN;
-import exceptions.InvalidAmountException;
 import exceptions.InvalidDurationException;
-import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidReportException;
-import exceptions.InvalidTimeSlotException;
 
 /**
  * This class represents a medical test.
@@ -29,12 +26,8 @@ public abstract class MedicalTest extends TaskDescriptionWithPatientFile impleme
 	 *            The duration of this medical test.
 	 * @throws InvalidDurationException
 	 *             If(!isValidDuration(duration))
-	 * @throws InvalidHospitalDateException
-	 * @throws InvalidAmountException
-	 * @throws InvalidTimeSlotException
 	 */
-	public MedicalTest(PatientFile patientFile_, long duration_, HospitalDate creationTime_)
-			throws InvalidAmountException, InvalidHospitalDateException {
+	public MedicalTest(PatientFile patientFile_, long duration_, HospitalDate creationTime_) {
 		super(patientFile_, duration_, 0, creationTime_);
 	}
 
@@ -54,10 +47,12 @@ public abstract class MedicalTest extends TaskDescriptionWithPatientFile impleme
 		this.patientFile_.addMedicalTest((Task<? extends MedicalTest>) task);
 	}
 
+	@Override
 	public boolean needsResult() {
 		return result == null;
 	}
 
+	@Override
 	public void setResult(String result) {
 		try {
 			this.result = new Result(result);

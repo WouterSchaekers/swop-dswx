@@ -9,8 +9,6 @@ import scheduler.requirements.Requirement;
 import scheduler.requirements.RequirementType;
 import scheduler.requirements.SpecificRequirement;
 import users.Nurse;
-import exceptions.InvalidAmountException;
-import exceptions.InvalidHospitalDateException;
 
 public class XRayScan extends MedicalTest
 {
@@ -18,7 +16,7 @@ public class XRayScan extends MedicalTest
 	private int num_;
 	private float zoomlevel_;
 
-	XRayScan(PatientFile patientFile, HospitalDate creationTime, String bodypart, int num, float zoomlevel) throws InvalidAmountException, InvalidHospitalDateException {
+	XRayScan(PatientFile patientFile, HospitalDate creationTime, String bodypart, int num, float zoomlevel) {
 		super(patientFile, 15 * HospitalDate.ONE_MINUTE, creationTime);
 		this.bodypart_ = bodypart;
 		this.num_ = num;
