@@ -28,4 +28,5 @@ public class BloodAnalyserBuilder extends MachineBuilder
 	boolean sameType(MachineBuilder builder) {
 		return builder instanceof BloodAnalyserBuilder;
 	}
+	
 }

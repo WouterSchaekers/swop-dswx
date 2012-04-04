@@ -1,5 +1,7 @@
 package ui;
 
+import java.util.Scanner;
+
 public abstract class UseCase
 {
 	protected final UIData data;
@@ -16,5 +18,8 @@ public abstract class UseCase
 	{
 		System.out.print(string);
 	}
-	
+	protected final String read()
+	{
+		return new Scanner(System.in).nextLine();
+	}
 }
