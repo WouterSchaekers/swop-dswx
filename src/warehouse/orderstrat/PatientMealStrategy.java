@@ -12,8 +12,11 @@ public class PatientMealStrategy extends OrderStrategy
 	private PatientFileManager man_;
 
 	public PatientMealStrategy(MealType type, Warehouse warehouse,
-			StockProvider provider, TimeLord timeLord) {
+			StockProvider provider, TimeLord timeLord,PatientFileManager patientFileManager) {
 		super(type, warehouse, provider, timeLord);
+		if(patientFileManager==null)
+			throw new NullPointerException("Provided patientfilemanager is null.");
+		this.man_=patientFileManager;
 	}
 
 	/**

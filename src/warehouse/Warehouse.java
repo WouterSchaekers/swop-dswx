@@ -63,6 +63,7 @@ public class Warehouse extends Observable
 			throw new WarehouseOverCapacityException(
 					"Warehouse is over capacity!");
 		items_.add(item);
+		this.setChanged();
 		this.notifyObservers();
 	}
 
