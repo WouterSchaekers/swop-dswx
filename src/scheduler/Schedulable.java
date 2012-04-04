@@ -14,7 +14,7 @@ public interface Schedulable extends Requirable
 	public boolean canBeScheduledOn(HospitalDate startDate, HospitalDate stopDate)
 			throws InvalidSchedulingRequestException, InvalidTimeSlotException;
 
-	public TimeTable getTimeTable() throws InvalidTimeSlotException;
+	public TimeTable getTimeTable();
 
 	void scheduleAt(TimeSlot timeSlot, Location location) throws InvalidSchedulingRequestException;
 
@@ -31,6 +31,8 @@ public interface Schedulable extends Requirable
 	public void updateTimeTable(HospitalDate newDate);
 	
 	public boolean canTravel();
+	
+	public boolean mustBeBackToBack();
 	
 	public Location getLocationAt(HospitalDate hospitalDate);
 }

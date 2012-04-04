@@ -39,7 +39,7 @@ class TaskData
 		return rv;
 	}
 
-	public Collection<Schedulable> getAllResources() {
+	public Collection<Schedulable> getAllAvailableResources() {
 		return this.hospital_.getAllSchedulables();
 	}
 
@@ -52,7 +52,7 @@ class TaskData
 	}
 
 	public Collection<Location> getLocations() {
-		return this.hospital_.getAllLocations();
+		return new LinkedList<Location>(this.hospital_.getAllLocations());
 	}
 
 	public Collection<Schedulable> getResources() {

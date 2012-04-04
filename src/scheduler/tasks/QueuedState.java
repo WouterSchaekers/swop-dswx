@@ -31,7 +31,7 @@ class QueuedState implements TaskState
 
 	@Override
 	public Collection<Schedulable> getResources() {
-		return data_.getAllResources();
+		return data_.getAllAvailableResources();
 	}
 
 	@Override
