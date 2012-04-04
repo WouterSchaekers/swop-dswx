@@ -114,6 +114,11 @@ public class MedicationFactory extends TreatmentFactory
 				this.description_, this.sensitive_, diagnose_);
 	}
 
+	/**
+	 * Returns a new instance of the current factory.
+	 * 
+	 * @return A new instance of the current factory.
+	 */
 	@Override
 	public TreatmentFactory newInstance() {
 		return new MedicationFactory();

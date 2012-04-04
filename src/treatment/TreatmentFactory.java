@@ -12,23 +12,40 @@ import exceptions.FactoryInstantiationException;
  */
 public abstract class TreatmentFactory
 {
-	
+
 	protected HospitalDate creationDate_;
 	protected Diagnose diagnose_;
 	protected Warehouse warehouse_;
 
-	public void setWarehouse(Warehouse warehouse)
-	{
-		this.warehouse_=warehouse;
+	/**
+	 * Sets the warehouse of this factory.
+	 * 
+	 * @param warehouse
+	 *            The warehouse.
+	 */
+	public void setWarehouse(Warehouse warehouse) {
+		this.warehouse_ = warehouse;
 	}
-	public void setDiagnose(DiagnoseIN diagnose)
-	{
-		this.diagnose_=(Diagnose)diagnose;
+
+	/**
+	 * Sets the diagnose of the factory.
+	 * 
+	 * @param diagnose
+	 *            The diagnose.
+	 */
+	public void setDiagnose(DiagnoseIN diagnose) {
+		this.diagnose_ = (Diagnose) diagnose;
 	}
-	protected PatientFile getPatientFile()
-	{
+
+	/**
+	 * Returns the patientFile.
+	 * 
+	 * @return The patientFile.
+	 */
+	protected PatientFile getPatientFile() {
 		return diagnose_.getPatientFile();
 	}
+
 	/**
 	 * Sets the creationDate of the facotory.
 	 * 
@@ -49,6 +66,24 @@ public abstract class TreatmentFactory
 	}
 
 	/**
+	 * Checks whether the warehouse is valid.
+	 * 
+	 * @return True if the warehouse is not null.
+	 */
+	private boolean isValidWarehouse() {
+		return this.warehouse_ != null;
+	}
+
+	/**
+	 * Checks whether the diagnose is valid.
+	 * 
+	 * @return True if the diagnose is not null.
+	 */
+	private boolean isValidDiagnose() {
+		return this.diagnose_ != null;
+	}
+
+	/**
 	 * Checks whether the creationDate is valid.
 	 * 
 	 * @return True if the creationDate is not null.
@@ -63,12 +98,12 @@ public abstract class TreatmentFactory
 	 * @return True if the patientFile and the creationDate is valid.
 	 */
 	protected boolean isReady() {
-		return isValidPatientFile() && isValidCreationDate();
+		return isValidPatientFile() && isValidCreationDate() && isValidDiagnose() && isValidWarehouse();
 	}
 
 	/**
-	 * Creates a Treatment built from the given information.
-	 * Should only be called in a 
+	 * Creates a Treatment built from the given information. Should only be
+	 * called in a
 	 * 
 	 * @return A Treatment built from the given information.
 	 * @throws FactoryInstantiationException
@@ -77,5 +112,10 @@ public abstract class TreatmentFactory
 	@Deprecated
 	public abstract Treatment create() throws FactoryInstantiationException;
 
+	/**
+	 * Returns a new instance of the current factory.
+	 * 
+	 * @return A new instance of the current factory.
+	 */
 	public abstract TreatmentFactory newInstance();
 }
