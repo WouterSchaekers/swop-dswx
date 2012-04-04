@@ -3,8 +3,6 @@ package scheduler.tests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import java.util.Collection;
-import java.util.Observable;
-import java.util.Observer;
 import machine.BloodAnalyserBuilder;
 import machine.MachineBuilder;
 import medicaltest.BloodAnalysisFactory;

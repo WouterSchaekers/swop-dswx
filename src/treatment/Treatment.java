@@ -120,6 +120,9 @@ public abstract class Treatment extends TaskDescriptionWithPatientFile implement
 		return result_ == null;
 	}
 
+	/**
+	 * Returns the observables that observe this treatment.
+	 */
 	@Override
 	public Collection<Observable> getObservables() {
 		ArrayList<Observable> observables = new ArrayList<Observable>();

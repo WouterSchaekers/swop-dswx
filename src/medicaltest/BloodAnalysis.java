@@ -1,9 +1,7 @@
 package medicaltest;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.Observable;
 import machine.BloodAnalyser;
 import patient.PatientFile;
 import scheduler.HospitalDate;
@@ -18,45 +16,59 @@ import be.kuleuven.cs.som.annotate.Basic;
  */
 public class BloodAnalysis extends MedicalTest
 {
-	/**
-	 * amount of times an analysis has to be run
-	 */
 	private final int amount_;
-	/**
-	 * The focus of this bloodanalysis
-	 */
 	private final String focus_;
 
-	BloodAnalysis(PatientFile patientFile, HospitalDate creationTime,
-			int amount, String focus) {
-		super(patientFile, 45 * HospitalDate.ONE_MINUTE, creationTime);
+	/**
+	 * The default constructor. Package visible since it should only be used by
+	 * the factories.
+	 * 
+	 * @param patientFile
+	 *            The patientFile for which this cast is intended.
+	 * @param creationDate
+	 *            The date on which this description has been created.
+	 * @param amount
+	 *            The number of analyses.
+	 * @param focus
+	 *            The focus of this analysis.
+	 */
+	BloodAnalysis(PatientFile patientFile, HospitalDate creationDate, int amount, String focus) {
+		super(patientFile, 45 * HospitalDate.ONE_MINUTE, creationDate);
 		this.amount_ = amount;
 		this.focus_ = focus;
 	}
 
+	/**
+	 * Returns the number of analyses.
+	 * 
+	 * @return The number of analyses.
+	 */
 	@Basic
 	public int getAmount() {
 		return amount_;
 	}
 
+	/**
+	 * Returns the focus of the analysis.
+	 * 
+	 * @return The focus of the analysis.
+	 */
 	@Basic
 	public String getFocus() {
 		return this.focus_;
 	}
 
+	/**
+	 * Returns all the requirements that are needed to forfill this task.
+	 * 
+	 * @return All the requirements that are needed to forfill this task.
+	 */
 	@Override
 	public Collection<Requirement> getAllRequirements() {
 		Collection<Requirement> requirements = new LinkedList<Requirement>();
-		requirements.add(new SpecificRequirement(
-				this.patientFile_.getPatient(), false));
-		requirements.add(new RequirementType<BloodAnalyser>(
-				BloodAnalyser.class, false, 1));
+		requirements.add(new SpecificRequirement(this.patientFile_.getPatient(), false));
+		requirements.add(new RequirementType<BloodAnalyser>(BloodAnalyser.class, false, 1));
 		requirements.add(new RequirementType<Nurse>(Nurse.class, true, 1));
 		return requirements;
-	}
-
-	@Override
-	public Collection<Observable> getObservables() {
-		return new ArrayList<Observable>();
 	}
 }
