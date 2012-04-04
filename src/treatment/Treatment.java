@@ -9,7 +9,6 @@ import scheduler.tasks.Task;
 import scheduler.tasks.TaskDescription;
 import scheduler.tasks.TaskDescriptionWithPatientFile;
 import controllers.interfaces.TreatmentIN;
-import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidReportException;
 
 /**
@@ -27,11 +26,8 @@ public abstract class Treatment extends TaskDescriptionWithPatientFile implement
 	 *            The duration of the task.
 	 * @param creationDate
 	 *            The date on which this description has been created.
-	 * @throws InvalidHospitalDateException
-	 *             The given creationDate was not valid.
 	 */
-	public Treatment(PatientFile patientFile, long duration, HospitalDate creationDate)
-			throws InvalidHospitalDateException {
+	public Treatment(PatientFile patientFile, long duration, HospitalDate creationDate) {
 		super(patientFile, duration, 0, creationDate);
 	}
 

@@ -110,7 +110,7 @@ public class MedicationFactory extends TreatmentFactory
 	 *             The used creationDate was invalid.
 	 */
 	@Override
-	public Treatment create() throws FactoryInstantiationException, InvalidHospitalDateException {
+	public Treatment create() throws FactoryInstantiationException {
 		if (!isReady())
 			throw new FactoryInstantiationException("Medication was not ready yet!");
 		return new Medication(this.patientFile_, this.creationDate_, this.medicationType_, this.warehouse_,

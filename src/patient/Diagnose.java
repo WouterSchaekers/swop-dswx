@@ -17,7 +17,6 @@ import exceptions.FactoryInstantiationException;
 import exceptions.InvalidComplaintsException;
 import exceptions.InvalidDiagnoseException;
 import exceptions.InvalidDoctorException;
-import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidPatientFileException;
 
 /**
@@ -121,11 +120,7 @@ public class Diagnose extends Observable implements DiagnoseIN
 	 * Use to create treatment descriptions.
 	 */
 	public Treatment createTreatment(TreatmentFactory treatFact) throws FactoryInstantiationException {
-		try {
-			return treatFact.create();
-		} catch (InvalidHospitalDateException e) {
-			throw new FactoryInstantiationException(e.getMessage());
-		}
+		return treatFact.create();
 	}
 
 	/**

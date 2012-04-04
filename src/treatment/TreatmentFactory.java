@@ -29,7 +29,7 @@ public abstract class TreatmentFactory
 	 * @param creationDate
 	 *            The creationDate.
 	 */
-	public void setCreationDate(HospitalDate creationDate) throws InvalidHospitalDateException {
+	public void setCreationDate(HospitalDate creationDate) {
 		this.creationDate_ = creationDate;
 	}
 
@@ -69,5 +69,5 @@ public abstract class TreatmentFactory
 	 * @throws InvalidHospitalDateException
 	 *             The used creationDate was invalid.
 	 */
-	public abstract Treatment create() throws FactoryInstantiationException, InvalidHospitalDateException;
+	public abstract Treatment create() throws FactoryInstantiationException;
 }
