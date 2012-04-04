@@ -32,6 +32,7 @@ public class TimeLord extends Observable
 	private void addOneMinute() {
 		this.systemTime = new HospitalDate(this.systemTime.getTimeSinceStart()
 				+ HospitalDate.ONE_MINUTE);
+		this.setChanged();
 		this.notifyObservers();
 
 	}

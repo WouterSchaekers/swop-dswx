@@ -13,6 +13,7 @@ import org.junit.Test;
 import patient.Diagnose;
 import patient.PatientFile;
 import scheduler.HospitalDate;
+import scheduler.InvalidSystemTime;
 import scheduler.tasks.AppointmentDescription;
 import scheduler.tasks.Task;
 import system.Campus;
@@ -167,7 +168,41 @@ public class TestAllTasks
 		assertTrue(surgery.isScheduled());
 		System.out.println(surgery.getTimeSlot());
 	}
+	@Test
+	public void scheduleTreatment3() throws UserAlreadyExistsException, InvalidNameException, InvalidLocationException,
+			InvalidPatientFileException, InvalidDiagnoseException, InvalidDoctorException, InvalidComplaintsException,
+			FactoryInstantiationException, CanNeverBeScheduledException, WarehouseOverCapacityException, ApproveDiagnoseException, InvalidSystemTime {
+		NurseFactory f = new NurseFactory();
+		f.setName("Jenny");
+		f.setLocation(location);
+		Nurse nurse = (Nurse) hospital.getUserManager().createUser(f);
+		DoctorFactory docFactory1 = new DoctorFactory();
+		docFactory1.setName("Jasper");
+		docFactory1.setLocation(location);
+		Doctor doctorJasper = (Doctor) hospital.getUserManager().createUser(docFactory1);
+		DoctorFactory docFactory2 = new DoctorFactory();
+		docFactory2.setName("Jonathan");
+		docFactory2.setLocation(location);
+		Doctor doctorJonathan = (Doctor) hospital.getUserManager().createUser(docFactory1);
+		PatientFile file = hospital.getPatientFileManager().registerPatient("jasmine", location);
+		Diagnose diagnose = file.createDiagnose("We zijn gebuisd.", "Thibault fok of", doctorJasper, doctorJonathan);
+		// add stuff to hospital.
+		WarehouseItemType type = new MiscType();
+		SurgeryFactory surgeryfactory = new SurgeryFactory();
+		surgeryfactory.setCreationDate(now());
+		surgeryfactory.setDescription("Thibault verwijderen van de wereld.");
+		surgeryfactory.setDiagnose(diagnose);
+		surgeryfactory.setWarehouse(location.getWarehouse());
+		
+		Task<Treatment> surgery = hospital.getTaskManager().add(surgeryfactory.create());
+		assertFalse(surgery.isScheduled());
+		diagnose.approve();
+		assertFalse(surgery.isScheduled());
+		location.getWarehouse().add(type, HospitalDate.END_OF_TIME);
+		assertTrue(surgery.isScheduled());
+		hospital.getTimeKeeper().setSystemTime(new HospitalDate(hospital.getTimeKeeper().getSystemTime().getTimeSinceStart()+HospitalDate.ONE_YEAR));
 
+	}
 	private HospitalDate now() {
 		return hospital.getTimeKeeper().getSystemTime();
 	}

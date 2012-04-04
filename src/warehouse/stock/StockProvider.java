@@ -69,6 +69,7 @@ public class StockProvider implements Observer
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
+		System.out.println("fok you bier");
 		if (!(arg instanceof HospitalDate))
 			throw new IllegalArgumentException(
 					"No HospitalDate was given to the observer that notifies the stockprovider!");
