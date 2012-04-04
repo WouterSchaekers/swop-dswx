@@ -59,4 +59,9 @@ public class SurgeryFactory extends TreatmentFactory
 			return new Surgery(patientFile_, creationDate_, description_);
 		throw new FactoryInstantiationException("Surgery was not ready yet!");
 	}
+
+	@Override
+	public TreatmentFactory newInstance() {
+		return new SurgeryFactory();
+	}
 }

@@ -67,4 +67,6 @@ public abstract class TreatmentFactory
 	 *             The factory was not ready yet.
 	 */
 	public abstract Treatment create() throws FactoryInstantiationException;
+
+	public abstract TreatmentFactory newInstance();
 }

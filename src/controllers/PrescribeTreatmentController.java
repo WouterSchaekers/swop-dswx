@@ -7,7 +7,6 @@ import scheduler.HospitalDate;
 import scheduler.tasks.Task;
 import treatment.Treatment;
 import treatment.TreatmentFactory;
-import treatment.Treatments;
 import users.Doctor;
 import users.User;
 import controllers.interfaces.DiagnoseIN;
@@ -51,12 +50,10 @@ public class PrescribeTreatmentController extends NeedsLoginAndPatientFileContro
 			throw new InvalidDiagnoseException("The selected diagnose is invalid!");
 		if (!getAllPossibleDiagnosis().contains(selected))
 			throw new InvalidDiagnoseException("Trying to add a treatment to a diagnose that this doctor has not made!");
-		
+
 		Treatment treatment = ((Diagnose) selected).createTreatment(treatmentFactory);
 		Task<?> createdTreatment = hospital.getTaskManager().add(treatment);
-
-		// attempt to schedule and return date if it worked.
-		hospital.getTaskManager().update(createdTreatment, null);
+		
 		if (createdTreatment.isScheduled())
 			return createdTreatment.getDate();
 		return null;
@@ -74,7 +71,7 @@ public class PrescribeTreatmentController extends NeedsLoginAndPatientFileContro
 	 * @return All factories with which new treatments can be created
 	 */
 	public Collection<TreatmentFactory> getTreatmentFactories() {
-		return Treatments.factories();
+		return hospital.getTreatments();
 	}
 
 	@Override

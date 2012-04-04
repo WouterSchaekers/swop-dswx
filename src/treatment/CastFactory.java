@@ -79,4 +79,9 @@ public class CastFactory extends TreatmentFactory
 			return new Cast(patientFile_, creationDate_, bodyPart_, castDuration_);
 		throw new FactoryInstantiationException("Cast was not ready yet!");
 	}
+
+	@Override
+	public TreatmentFactory newInstance() {
+		return new CastFactory();
+	}
 }
