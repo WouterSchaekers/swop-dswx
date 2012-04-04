@@ -1,5 +1,6 @@
 package warehouse;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Observable;
@@ -18,7 +19,7 @@ import exceptions.WarehouseOverCapacityException;
  */
 public class Warehouse extends Observable
 {
-	private Map<Class<? extends WarehouseItemType>, Integer> maxItemsMap_;
+	private Map<Class<? extends WarehouseItemType>, Integer> maxItemsMap_=new HashMap<Class<? extends WarehouseItemType>, Integer>();
 	private LinkedList<WarehouseItem> items_;
 	private Campus campus_;
 
