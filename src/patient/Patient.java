@@ -1,5 +1,6 @@
 package patient;
 
+import java.util.LinkedList;
 import scheduler.HospitalDate;
 import scheduler.LocationTimeSlot;
 import scheduler.LocationTimeTable;
@@ -29,7 +30,8 @@ class Patient implements Schedulable,PatientIN
 		if(!isValidName(name))
 			throw new InvalidNameException("Invalid patient name given to Patient constructor!");
 		this.name = name;
-		timeTable_ = new TimeTable();
+		this.timeTable_ = new TimeTable();
+		this.locationTimeTable_ = new LocationTimeTable(new LinkedList<LocationTimeSlot>());
 	}
 
 	@Basic
@@ -53,7 +55,8 @@ class Patient implements Schedulable,PatientIN
 	public void scheduleAt(TimeSlot timeSlot, Location location)
 			throws InvalidSchedulingRequestException {
 		this.timeTable_.addTimeSlot(timeSlot);
-		this.locationTimeTable_.addLocationTimeSlot(new LocationTimeSlot(timeSlot, location));
+		LocationTimeSlot slot = new LocationTimeSlot(timeSlot, location);
+		this.locationTimeTable_.addLocationTimeSlot(slot);
 	}
 
 	@Override
