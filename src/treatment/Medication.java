@@ -22,7 +22,8 @@ public class Medication extends Treatment implements MedicationIN
 	private boolean sensitive_;
 	private MedicationType medicationType_;
 	private Warehouse warehouse_;
-	public final static long DURATION_ = HospitalDate.ONE_MINUTE * 20;
+	public final static long SENSITIVE_DURATION_ = HospitalDate.ONE_MINUTE * 20;
+	public final static long NON_SENSITIVE_DURATION_ = HospitalDate.ONE_MINUTE * 10;
 
 	/**
 	 * Default constructor. Package visible since it should only be used by the factories.
@@ -42,7 +43,7 @@ public class Medication extends Treatment implements MedicationIN
 	 */
 	Medication(PatientFile patientFile, HospitalDate creationDate, MedicationType medicationType,
 			Warehouse warehouse, String description, boolean sensitive) {
-		super(patientFile, DURATION_, creationDate);
+		super(patientFile, getDuration(sensitive), creationDate);
 		this.description_ = description;
 		this.sensitive_ = sensitive;
 		this.medicationType_ = medicationType;
@@ -71,6 +72,21 @@ public class Medication extends Treatment implements MedicationIN
 	 */
 	public void setSensitive(boolean sensitive) {
 		this.sensitive_ = sensitive;
+	}
+	
+	/**
+	 * Returns the duration of the medication based on the sensitivity.
+	 * 
+	 * @param sensitive
+	 * 			Boolean whether it is sensitive or not.
+	 * @return
+	 * 			The duration of the medication based on the sensitivity.
+	 */
+	private static long getDuration(boolean sensitive){
+		if(sensitive)
+			return Medication.SENSITIVE_DURATION_;
+		else
+			return Medication.NON_SENSITIVE_DURATION_;
 	}
 
 	/**
