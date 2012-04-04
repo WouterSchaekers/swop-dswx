@@ -1,6 +1,5 @@
 package system;
 
-import machine.MachinePool;
 import machine.MachinePoolBuilder;
 import warehouse.NormalWarehouseBuilder;
 import warehouse.WarehouseBuilder;

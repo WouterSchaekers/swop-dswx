@@ -1,7 +1,5 @@
 package controllers.interfaces;
 
-import users.UserFactory;
-
 @controllers.PUBLICAPI
 public interface UserIN
 {
