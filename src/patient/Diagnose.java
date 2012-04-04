@@ -110,7 +110,7 @@ public class Diagnose extends Observable implements DiagnoseIN
 	 * @return True if doc is a valid doctor for this Diagnose.
 	 */
 	private boolean canHaveAsDoctor(Doctor doc) {
-		return !(doc == null || this.secopDoc.equals(doc));
+		return !(doc == null ||( this.secopDoc!=null&&this.secopDoc.equals(doc)));
 	}
 	private boolean canHaveAsPatientFile(PatientFile creator) {
 		

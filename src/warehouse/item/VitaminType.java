@@ -9,5 +9,9 @@ public class VitaminType extends MedicationType
 	public WarehouseItem create(HospitalDate expirydate) {
 		return new Vitamin(expirydate);
 	}
-
+	@Override
+	public boolean equals(Object object)
+	{
+		return object instanceof VitaminType;
+	}
 }

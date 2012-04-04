@@ -9,4 +9,9 @@ public class MealType extends WarehouseItemType
 	public WarehouseItem create(HospitalDate expirydate) {
 		return new Meal(expirydate);
 	}
+	@Override
+	public boolean equals(Object object)
+	{
+		return object instanceof MealType;
+	}
 }

@@ -63,7 +63,7 @@ public class StockOrder<T extends WarehouseItemType> implements StockOrderIN
 					"This order is not ready for delivery yet!");
 
 		for (int i = 0; i < amount_; i++)
-			warehouse_.add(type_.create(expiryDate));
+			warehouse_.add(type_,expiryDate);
 		delivered_ = true;
 	}
 

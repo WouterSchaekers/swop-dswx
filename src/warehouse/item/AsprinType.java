@@ -9,5 +9,9 @@ public class AsprinType extends MedicationType
 	public WarehouseItem create(HospitalDate expiryDate) {
 		return new Asprin(expiryDate);
 	}
-
+	@Override
+	public boolean equals(Object object)
+	{
+		return object instanceof AsprinType;
+	}
 }

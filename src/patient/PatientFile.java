@@ -112,7 +112,7 @@ public class PatientFile implements PatientFileIN
 	 * @see Diagnose
 	 * @throws InvalidComplaintsException
 	 */
-	public DiagnoseIN createDiagnose(String complaints, String diag, Doctor user, Doctor secOp)
+	public Diagnose createDiagnose(String complaints, String diag, Doctor user, Doctor secOp)
 			throws InvalidDiagnoseException, InvalidDoctorException, InvalidComplaintsException {
 		Diagnose diagnose;
 		try {

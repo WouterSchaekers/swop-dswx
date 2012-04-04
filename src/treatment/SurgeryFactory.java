@@ -13,7 +13,7 @@ public class SurgeryFactory extends TreatmentFactory
 	 * Default constructor. Package visible since it should only be used by
 	 * Treatments.
 	 */
-	SurgeryFactory() {
+	public SurgeryFactory() {
 		;
 	}
 
