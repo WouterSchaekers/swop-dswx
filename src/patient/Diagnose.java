@@ -72,10 +72,10 @@ public class Diagnose extends Observable implements DiagnoseIN
 	}
 
 	/**
-	 * USE THIS METHOD ONLY IN THE DOMAIN LAYER!!
+	 * USE THIS METHOD ONLY IN THE DOMAIN LAYER (init method of Diagnose)!!
 	 */
 	@Deprecated
-	public void addTreatment(Task<? extends Treatment> treatment) {
+	public void addTreatmentTask(Task<? extends Treatment> treatment) {
 		if (!isValidtreatment(treatment))
 			throw new IllegalArgumentException(treatment + " is not valid!");
 		this.treatments.add(treatment);
@@ -119,8 +119,11 @@ public class Diagnose extends Observable implements DiagnoseIN
 	/**
 	 * Use to create treatment descriptions.
 	 */
+	@SuppressWarnings("deprecation")
 	public Treatment createTreatment(TreatmentFactory treatFact) throws FactoryInstantiationException {
-		return treatFact.create();
+		//THE ONLY PLACE THIS METHOD IS CALLED
+		Treatment treat =treatFact.create();
+		return treat;
 	}
 
 	/**
@@ -250,5 +253,9 @@ public class Diagnose extends Observable implements DiagnoseIN
 	public Collection<Task<? extends Treatment>> getTreatments() {
 		return new ArrayList<Task<? extends Treatment>>(treatments);
 		
+	}
+	public PatientFile getPatientFile()
+	{
+		return this.myPatientFile;
 	}
 }

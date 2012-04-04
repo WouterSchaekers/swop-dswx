@@ -2,12 +2,16 @@ package treatment;
 
 import java.util.Collection;
 import java.util.LinkedList;
+import patient.Diagnose;
 import patient.PatientFile;
 import scheduler.HospitalDate;
+import scheduler.requirements.DiagnoseCondition;
 import scheduler.requirements.Requirement;
 import scheduler.requirements.RequirementType;
 import scheduler.requirements.SpecificRequirement;
+import scheduler.requirements.WarehouseItemCondition;
 import users.Nurse;
+import warehouse.Warehouse;
 import warehouse.item.MiscType;
 import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.SurgeryIN;
@@ -18,6 +22,7 @@ import controllers.interfaces.SurgeryIN;
 public class Surgery extends Treatment implements SurgeryIN
 {
 	private String description_;
+	private Warehouse warehouse_;
 	public final static long DURATION_ = HospitalDate.ONE_MINUTE * 180;
 
 	/**
@@ -29,10 +34,12 @@ public class Surgery extends Treatment implements SurgeryIN
 	 *            The date on which this description has been created.
 	 * @param description
 	 *            The description of the surgery.
+	 * @param diagnose_ 
 	 */
-	Surgery(PatientFile patientFile, HospitalDate creationDate, String description) {
-		super(patientFile, DURATION_, creationDate);
+	Surgery(PatientFile patientFile, HospitalDate creationDate, String description, Diagnose diagnose_,Warehouse warehouse) {
+		super(patientFile, diagnose_, DURATION_, creationDate);
 		this.description_ = description;
+		this.warehouse_=warehouse;
 	}
 
 	/**
@@ -52,8 +59,9 @@ public class Surgery extends Treatment implements SurgeryIN
 	public Collection<Requirement> getAllRequirements() {
 		Collection<Requirement> requirements = new LinkedList<Requirement>();
 		requirements.add(new SpecificRequirement(this.patientFile_.getPatient(), false));
-		requirements.add(new RequirementType<MiscType>(MiscType.class, false, 1));
+		requirements.add(new WarehouseItemCondition(new MiscType(), warehouse_, 1));
 		requirements.add(new RequirementType<Nurse>(Nurse.class, true, 1));
+		requirements.add(new DiagnoseCondition(diagnose_));
 		return requirements;
 	}
 }

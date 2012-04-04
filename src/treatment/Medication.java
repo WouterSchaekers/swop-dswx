@@ -2,6 +2,7 @@ package treatment;
 
 import java.util.Collection;
 import java.util.LinkedList;
+import patient.Diagnose;
 import patient.PatientFile;
 import scheduler.HospitalDate;
 import scheduler.requirements.Requirement;
@@ -40,10 +41,11 @@ public class Medication extends Treatment implements MedicationIN
 	 *            The description of the medication.
 	 * @param sensitive
 	 *            Boolean that says whether it is sensitive or not.
+	 * @param diagnose 
 	 */
 	Medication(PatientFile patientFile, HospitalDate creationDate, MedicationType medicationType,
-			Warehouse warehouse, String description, boolean sensitive) {
-		super(patientFile, getDuration(sensitive), creationDate);
+			Warehouse warehouse, String description, boolean sensitive, Diagnose diagnose) {
+		super(patientFile, diagnose, getDuration(sensitive), creationDate);
 		this.description_ = description;
 		this.sensitive_ = sensitive;
 		this.medicationType_ = medicationType;

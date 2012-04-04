@@ -127,7 +127,7 @@ public class PatientFile implements PatientFileIN
 		}
 		return diagnose;
 	}
-
+	
 	/**
 	 * This function discharges this patient.
 	 * 
