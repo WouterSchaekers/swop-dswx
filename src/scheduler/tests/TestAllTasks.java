@@ -200,7 +200,7 @@ public class TestAllTasks
 		assertFalse(surgery.isScheduled());
 		location.getWarehouse().add(type, HospitalDate.END_OF_TIME);
 		assertTrue(surgery.isScheduled());
-		hospital.getTimeKeeper().setSystemTime(new HospitalDate(hospital.getTimeKeeper().getSystemTime().getTimeSinceStart()+HospitalDate.ONE_YEAR));
+		hospital.getTimeKeeper().setSystemTime(new HospitalDate(hospital.getTimeKeeper().getSystemTime().getTimeSinceStart()+HospitalDate.ONE_DAY*7));
 
 	}
 	private HospitalDate now() {
