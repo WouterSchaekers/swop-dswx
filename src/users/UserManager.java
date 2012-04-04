@@ -39,6 +39,7 @@ public class UserManager
 
 	public User createUser(UserFactory factory)
 			throws UserAlreadyExistsException, InvalidNameException, InvalidLocationException {
+		
 		User u= factory.create();
 		addUser(u);
 		return u;

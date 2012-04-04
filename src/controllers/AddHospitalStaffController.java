@@ -1,6 +1,8 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import controllers.interfaces.CampusIN;
 import users.HospitalAdmin;
 import users.User;
 import users.UserFactory;
@@ -20,7 +22,7 @@ public class AddHospitalStaffController extends NeedsLoginController
 	}
 
 	/**
-	 * Adds new personnel to this hospital.
+	 * Adds new personnel to the .
 	 * @throws InvalidLocationException 
 	 */
 	@controllers.PUBLICAPI
@@ -35,9 +37,15 @@ public class AddHospitalStaffController extends NeedsLoginController
 	public Collection<UserFactory> getFactories() {
 		return this.hospital.getUserManager().getUserFacotories();
 	}
-
+	@controllers.PUBLICAPI
+	public Collection<CampusIN> getLocations()
+	{
+		return new ArrayList<CampusIN>( this.hospital.getAllCampuses());
+		
+	}
 	@Override
 	boolean validUser(User u) {
 		return u instanceof HospitalAdmin;
 	}
+	
 }
