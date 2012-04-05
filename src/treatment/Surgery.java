@@ -39,9 +39,8 @@ public class Surgery extends Treatment
 	 *            The warehouse where the materials for this cast will come
 	 *            from.
 	 */
-	Surgery(PatientFile patientFile, HospitalDate creationDate, String description, Diagnose diagnose,
-			Warehouse warehouse) {
-		super(patientFile, diagnose, DURATION_, creationDate, warehouse);
+	Surgery(PatientFile patientFile, HospitalDate creationDate, String description, Diagnose diagnose) {
+		super(patientFile, diagnose, DURATION_, creationDate);
 		this.description_ = description;
 	}
 
@@ -62,7 +61,7 @@ public class Surgery extends Treatment
 	public Collection<Requirement> getAllRequirements() {
 		Collection<Requirement> requirements = new LinkedList<Requirement>();
 		requirements.add(new SpecificRequirement(this.patientFile_.getPatient(), false));
-		requirements.add(new WarehouseItemCondition(new MiscType(), warehouse_, 1));
+		requirements.add(new WarehouseItemCondition(new MiscType(),, 1));
 		requirements.add(new RequirementType<Nurse>(Nurse.class, true, 1));
 		requirements.add(new DiagnoseCondition(diagnose_));
 		return requirements;

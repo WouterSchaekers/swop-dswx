@@ -57,7 +57,7 @@ public class SurgeryFactory extends TreatmentFactory
 	@Deprecated
 	public Treatment create() throws FactoryInstantiationException {
 		if (isReady())
-			return new Surgery(getPatientFile(), creationDate_, description_, diagnose_,warehouse_);
+			return new Surgery(getPatientFile(), creationDate_, description_, diagnose_);
 		throw new FactoryInstantiationException("Surgery was not ready yet!");
 	}
 

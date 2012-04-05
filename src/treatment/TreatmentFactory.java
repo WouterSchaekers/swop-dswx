@@ -15,17 +15,7 @@ public abstract class TreatmentFactory
 
 	protected HospitalDate creationDate_;
 	protected Diagnose diagnose_;
-	protected Warehouse warehouse_;
-	
-	/**
-	 * Sets the warehouse of this factory.
-	 * 
-	 * @param warehouse
-	 *            The warehouse.
-	 */
-	public void setWarehouse(Warehouse warehouse) {
-		this.warehouse_ = warehouse;
-	}
+
 
 	/**
 	 * Sets the diagnose of the factory.
@@ -65,14 +55,7 @@ public abstract class TreatmentFactory
 		return this.getPatientFile() != null;
 	}
 
-	/**
-	 * Checks whether the warehouse is valid.
-	 * 
-	 * @return True if the warehouse is not null.
-	 */
-	private boolean isValidWarehouse() {
-		return this.warehouse_ != null;
-	}
+
 
 	/**
 	 * Checks whether the diagnose is valid.
@@ -98,7 +81,7 @@ public abstract class TreatmentFactory
 	 * @return True if the patientFile and the creationDate is valid.
 	 */
 	protected boolean isReady() {
-		return isValidPatientFile() && isValidCreationDate() && isValidDiagnose() && isValidWarehouse();
+		return isValidPatientFile() && isValidCreationDate() && isValidDiagnose() ;
 	}
 
 	/**

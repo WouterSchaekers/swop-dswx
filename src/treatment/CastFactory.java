@@ -76,7 +76,7 @@ public class CastFactory extends TreatmentFactory
 	@Override
 	public Treatment create() throws FactoryInstantiationException {
 		if(isReady())
-			return new Cast(this.getPatientFile(), creationDate_, bodyPart_, castDuration_,diagnose_,warehouse_);
+			return new Cast(this.getPatientFile(), creationDate_, bodyPart_, castDuration_,diagnose_);
 		throw new FactoryInstantiationException("Cast was not ready yet!");
 	}
 

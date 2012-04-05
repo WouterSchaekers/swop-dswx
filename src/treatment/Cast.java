@@ -42,9 +42,8 @@ public class Cast extends Treatment
 	 *            from.
 	 * @param warehouse
 	 */
-	Cast(PatientFile patientFile, HospitalDate creationDate, String bodyPart, int castDuration, Diagnose diagnose,
-			Warehouse warehouse) {
-		super(patientFile, diagnose, DURATION_, creationDate, warehouse);
+	Cast(PatientFile patientFile, HospitalDate creationDate, String bodyPart, int castDuration, Diagnose diagnose) {
+		super(patientFile, diagnose, DURATION_, creationDate);
 		this.bodyPart_ = bodyPart;
 		this.castDuration_ = castDuration;
 	}
