@@ -5,60 +5,60 @@ import exceptions.FactoryInstantiationException;
 public class BloodAnalysisResultFactory implements ResultFactory
 {
 
-
-	private Integer amountOfBlood;
-	private Integer whiteCellCount;
-	private Integer redCellCount;
-	private Integer plateletCount;
+	private Integer amountOfBlood_;
+	private Integer whiteCellCount_;
+	private Integer redCellCount_;
+	private Integer plateletCount_;
 
 	@Override
 	public Result create() throws FactoryInstantiationException {
-		if(!isReady())
-			throw new FactoryInstantiationException("Bloodanalysis ");
-		return new BloodAnalysisResult(amountOfBlood, whiteCellCount, redCellCount, plateletCount);
+		if (!isReady())
+			throw new FactoryInstantiationException("The BloodAnalysis Factory is not ready yet!");
+		return new BloodAnalysisResult(this.amountOfBlood_, this.whiteCellCount_, this.redCellCount_,
+				this.plateletCount_);
 	}
 
 	private boolean isReady() {
-		if(!amountOfBloodReady())
+		if (!amountOfBloodReady())
 			return false;
-		if(!amountOfwhiteCellCountReady())
+		if (!amountOfwhiteCellCountReady())
 			return false;
-		if(!amounOfRedCellCountReady())
+		if (!amounOfRedCellCountReady())
 			return false;
-		if(!amountOfplateletCountReady())
+		if (!amountOfPlateletCountReady())
 			return false;
 		return true;
 	}
 
-	private boolean amountOfplateletCountReady() {
-		return amountOfBlood!=null&&amountOfBlood>=0;
+	private boolean amountOfPlateletCountReady() {
+		return this.amountOfBlood_ != null && this.amountOfBlood_ >= 0;
 	}
 
 	private boolean amounOfRedCellCountReady() {
-		return whiteCellCount!=null&&whiteCellCount>=0;
+		return this.whiteCellCount_ != null && this.whiteCellCount_ >= 0;
 	}
 
 	private boolean amountOfwhiteCellCountReady() {
-		return redCellCount!=null&&redCellCount>=0;
+		return this.redCellCount_ != null && this.redCellCount_ >= 0;
 	}
 
 	private boolean amountOfBloodReady() {
-		return amountOfBlood!=null&&amountOfBlood>=0;
+		return this.amountOfBlood_ != null && this.amountOfBlood_ >= 0;
 	}
 
 	public void setAmountOfBlood(Integer amountOfBlood) {
-		this.amountOfBlood = amountOfBlood;
+		this.amountOfBlood_ = amountOfBlood;
 	}
 
 	public void setWhiteCellCount(Integer whiteCellCount) {
-		this.whiteCellCount = whiteCellCount;
+		this.whiteCellCount_ = whiteCellCount;
 	}
 
 	public void setRedCellCount(Integer redCellCount) {
-		this.redCellCount = redCellCount;
+		this.redCellCount_ = redCellCount;
 	}
 
 	public void setPlateletCount(Integer plateletCount) {
-		this.plateletCount = plateletCount;
+		this.plateletCount_ = plateletCount;
 	}
 }
