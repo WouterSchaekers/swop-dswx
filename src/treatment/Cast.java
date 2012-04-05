@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import patient.Diagnose;
 import patient.PatientFile;
-import result.CastResultBuilder;
+import result.CastResultFactory;
 import result.Result;
 import result.ResultFactory;
 import scheduler.HospitalDate;
@@ -81,7 +81,7 @@ public class Cast extends Treatment
 	@Override
 	public ResultFactory get() {
 		
-		return new CastResultBuilder();
+		return new CastResultFactory();
 	}
 	@Override
 	public Result give(ResultFactory builder) throws InvalidResultException, FactoryInstantiationException {
