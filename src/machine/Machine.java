@@ -7,13 +7,12 @@ import scheduler.TimeTable;
 import system.Location;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidSchedulingRequestException;
-import exceptions.InvalidSerialException;
 import exceptions.InvalidTimeSlotException;
 
 /**
  * This class represents a machine in the hospital.
  * 
- * @Invar serial is unique for every machine object
+ * @Invar The serial is unique for every machine object
  */
 
 public abstract class Machine implements Schedulable
@@ -29,17 +28,16 @@ public abstract class Machine implements Schedulable
 	 * 
 	 * @param serial
 	 *            The serial of this machine.
-	 * @throws InvalidSerialException
-	 *             If the serial provided is already contained in the system.
+	 * @param location
+	 *            The location of this machine inside the campus.
+	 * @param campusLocation
+	 *            The campus of this machine.
 	 * @throws InvalidLocationException
 	 *             If the location provided is null or an empty string.
-	 * @throws InvalidTimeSlotException
 	 */
-	Machine(int serial, String location, Location campusLocation) throws InvalidLocationException,
-			InvalidSerialException {
-		if (location == null) {
+	Machine(int serial, String location, Location campusLocation) throws InvalidLocationException {
+		if (location == null || location.isEmpty())
 			throw new InvalidLocationException("Location is not set or empty.");
-		}
 		this.serial_ = serial;
 		this.campusLocation_ = campusLocation;
 		this.location_ = location;
@@ -76,50 +74,69 @@ public abstract class Machine implements Schedulable
 		if (o instanceof Machine)
 			return ((Machine) o).serial_ == this.serial_;
 		return false;
-
 	}
 
+	/**
+	 * Returns the timeTable of this Machine.
+	 */
 	@Override
 	public final TimeTable getTimeTable() {
 		return this.timeTable_;
 	}
 
+	/**
+	 * Returns the first slot that this Machine is available in the given
+	 * location and given time.
+	 */
 	@Override
 	public final TimeSlot getFirstFreeSlotBetween(Location location, HospitalDate startDate, HospitalDate stopDate,
 			long duration) throws InvalidSchedulingRequestException, InvalidTimeSlotException {
-		if (location != this.campusLocation_) {
+		if (location != this.campusLocation_)
 			throw new InvalidSchedulingRequestException("The machine is not available at this location");
-		}
 		return this.getTimeTable().getFirstFreeSlotBetween(startDate, stopDate, duration);
 	}
 
+	/**
+	 * Updates the timeTable. All the timeslots that ended before the given date
+	 * will be deleted.
+	 */
 	@Override
 	public final void updateTimeTable(HospitalDate newDate) {
 		this.timeTable_.updateTimeTable(newDate);
 	}
 
+	/**
+	 * Schedules the Machine at the given timeSlot and given location.
+	 */
 	@Override
 	public final void scheduleAt(TimeSlot t, Location location) throws InvalidSchedulingRequestException {
 		this.getTimeTable().addTimeSlot(t);
 	}
 
+	/**
+	 * Checks whether the machine can be scheduled on the given dates.
+	 */
 	@Override
 	public final boolean canBeScheduledOn(HospitalDate startDate, HospitalDate stopDate) {
 		return this.getTimeTable().hasFreeSlotAt(startDate, stopDate);
 	}
 
+	/**
+	 * Returns whether the Machine can travel or not. Since Machines don't have
+	 * legs, this will always return false.
+	 */
 	@Override
 	public final boolean canTravel() {
 		return false;
 	}
-	
+
 	@Override
 	public Location getLocationAt(HospitalDate hospitalDate) {
 		return this.campusLocation_;
 	}
-	
+
 	@Override
-	public boolean mustBeBackToBack(){
+	public boolean mustBeBackToBack() {
 		return false;
 	}
 }

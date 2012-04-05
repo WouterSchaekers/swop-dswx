@@ -425,7 +425,7 @@ public class TimeTable
 	public void updateTimeTable(HospitalDate newDate) {
 		LinkedList<TimeSlot> newTimeSlots = new LinkedList<TimeSlot>();
 		for (TimeSlot timeSlot : timeSlots) {
-			if (timeSlot.getStopPoint().getHospitalDate().before(newDate)) {
+			if (newDate.before(timeSlot.getStopPoint().getHospitalDate())) {
 				newTimeSlots.add(timeSlot);
 			}
 		}
