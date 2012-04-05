@@ -4,6 +4,9 @@ import java.util.Collection;
 import java.util.LinkedList;
 import machine.XRayScanner;
 import patient.PatientFile;
+import result.Result;
+import result.ResultFactory;
+import result.XRayScanResultBuilder;
 import scheduler.HospitalDate;
 import scheduler.requirements.Requirement;
 import scheduler.requirements.RequirementType;
@@ -80,5 +83,16 @@ public class XRayScan extends MedicalTest
 		requirements.add(new RequirementType<XRayScanner>(XRayScanner.class, false, 1));
 		requirements.add(new RequirementType<Nurse>(Nurse.class, true, 1));
 		return requirements;
+	}
+
+	@Override
+	public ResultFactory get() {
+		return new XRayScanResultBuilder();
+	}
+
+	@Override
+	public Result give(ResultFactory builder) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

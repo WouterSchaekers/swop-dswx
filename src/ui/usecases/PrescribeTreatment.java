@@ -13,6 +13,11 @@ import treatment.TreatmentFactory;
 import ui.UIData;
 import ui.UseCase;
 import ui.usecases.Selector.Displayer;
+import controllers.PrescribeTreatmentController;
+import controllers.interfaces.DiagnoseIN;
+import exceptions.CanNeverBeScheduledException;
+import exceptions.FactoryInstantiationException;
+import exceptions.InvalidDiagnoseException;
 
 public class PrescribeTreatment extends UseCase
 {

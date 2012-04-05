@@ -1,13 +1,13 @@
 package ui.usecases;
 
+import ui.UIData;
+import ui.UseCase;
 import controllers.DischargePatientController;
 import exceptions.DischargePatientException;
 import exceptions.InvalidConsultPatientFileController;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileException;
-import ui.UIData;
-import ui.UseCase;
 
 public class DischargePatient extends UseCase
 {

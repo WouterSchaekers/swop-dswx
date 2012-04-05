@@ -7,10 +7,10 @@ import controllers.EnterDiagnoseController;
 import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.DoctorIN;
 import exceptions.InvalidComplaintsException;
+import exceptions.InvalidConsultPatientFileController;
 import exceptions.InvalidDiagnoseException;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
-import exceptions.InvalidConsultPatientFileController;
 
 public class EnterDiagnose extends UseCase
 {

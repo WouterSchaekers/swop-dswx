@@ -10,7 +10,6 @@ import scheduler.HospitalDate;
 import scheduler.tasks.Task;
 import scheduler.tasks.TaskDescription;
 import scheduler.tasks.TaskDescriptionWithPatientFile;
-import exceptions.InvalidReportException;
 
 /**
  * This class is the superclass of all treatments.
@@ -19,6 +18,7 @@ public abstract class Treatment extends TaskDescriptionWithPatientFile
 {
 
 	protected final Diagnose diagnose_;
+	private Result result_;
 	/**
 	 * Default constructor of Treatment.
 	 * 
@@ -34,31 +34,6 @@ public abstract class Treatment extends TaskDescriptionWithPatientFile
 	public Treatment(PatientFile patientFile, Diagnose diagnose, long duration, HospitalDate creationDate) {
 		super(patientFile, duration, 0, creationDate);
 		this.diagnose_ = diagnose;
-	}
-
-	/**
-	 * Returns the Result of the Treatment.
-	 * 
-	 * @return The Result of the Treatment.
-	 */
-	@Override
-	public Result getResult() {
-		return result_;
-	}
-
-	/**
-	 * Sets the result of the Description.
-	 * 
-	 * @param result
-	 *            The result of the Description.
-	 */
-	@Override
-	public void setResult(String result) {
-		try {
-			this.result_ = new Result(result);
-		} catch (InvalidReportException e) {
-			throw new Error(e);
-		}
 	}
 
 	/**
@@ -101,15 +76,7 @@ public abstract class Treatment extends TaskDescriptionWithPatientFile
 				"Error! PatientFile does not contain the diagnose for the treatment that's being deinitialised.!");
 	}
 
-	/**
-	 * Returns whether the Description needs a result.
-	 * 
-	 * @return True if the Description needs a result.
-	 */
-	@Override
-	public boolean needsResult() {
-		return result_ == null;
-	}
+
 
 	/**
 	 * Returns the observables that observe this treatment.
@@ -120,4 +87,9 @@ public abstract class Treatment extends TaskDescriptionWithPatientFile
 		observables.add(diagnose_);
 		return observables;
 	}
+	protected final void setResult(Result result)
+	{
+		result_=result;
+	}
+	public final Result getResult(){return result_;}
 }

@@ -10,11 +10,11 @@ import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.DoctorIN;
 import controllers.interfaces.UserIN;
 import exceptions.InvalidComplaintsException;
+import exceptions.InvalidConsultPatientFileController;
 import exceptions.InvalidDiagnoseException;
 import exceptions.InvalidDoctorException;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
-import exceptions.InvalidConsultPatientFileController;
 
 /**
  * Use this controller to enter the diagnose of a patient.

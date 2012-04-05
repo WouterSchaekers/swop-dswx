@@ -10,9 +10,9 @@ import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.DoctorIN;
 import exceptions.ApproveDiagnoseException;
 import exceptions.DischargePatientException;
+import exceptions.InvalidConsultPatientFileController;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
-import exceptions.InvalidConsultPatientFileController;
 
 /**
  * Use this controller to give a second opinion on a diagnose of a patient.

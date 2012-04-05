@@ -2,8 +2,14 @@ package medicaltest;
 
 import java.util.Collection;
 import java.util.LinkedList;
+import exceptions.FactoryInstantiationException;
+import exceptions.InvalidResultException;
 import machine.UltraSoundScanner;
 import patient.PatientFile;
+import result.Result;
+import result.ResultFactory;
+import result.UltraSoundScanResultFactory;
+import result.UltrasoundScanResult;
 import scheduler.HospitalDate;
 import scheduler.requirements.Requirement;
 import scheduler.requirements.RequirementType;
@@ -81,5 +87,23 @@ public class UltraSoundScan extends MedicalTest
 		requirements.add(new RequirementType<UltraSoundScanner>(UltraSoundScanner.class, false, 1));
 		requirements.add(new RequirementType<Nurse>(Nurse.class, true, 1));
 		return requirements;
+	}
+
+	@Override
+	public ResultFactory get() {
+		return new UltraSoundScanResultFactory();
+	}
+
+	@Override
+	public Result give(ResultFactory builder) throws InvalidResultException, FactoryInstantiationException {
+		Result myresult = builder.create();
+		if(!validResult(myresult))
+			throw new InvalidResultException("invalid result");
+		setResult(myresult);
+		return myresult;
+	}
+
+	private boolean validResult(Result myresult) {
+		return myresult!=null&&myresult instanceof UltrasoundScanResult;
 	}
 }

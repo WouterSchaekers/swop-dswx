@@ -2,8 +2,13 @@ package treatment;
 
 import java.util.Collection;
 import java.util.LinkedList;
+import exceptions.FactoryInstantiationException;
+import exceptions.InvalidResultException;
 import patient.Diagnose;
 import patient.PatientFile;
+import result.CastResultBuilder;
+import result.Result;
+import result.ResultFactory;
 import scheduler.HospitalDate;
 import scheduler.requirements.Requirement;
 import scheduler.requirements.RequirementType;
@@ -71,5 +76,23 @@ public class Cast extends Treatment
 		requirements.add(new WarehouseItemCondition(new PlasterType(), 1));
 		requirements.add(new RequirementType<Nurse>(Nurse.class, true, 1));
 		return requirements;
+	}
+
+	@Override
+	public ResultFactory get() {
+		
+		return new CastResultBuilder();
+	}
+	@Override
+	public Result give(ResultFactory builder) throws InvalidResultException, FactoryInstantiationException {
+		Result myresult = builder.create();
+		if(!validResult(myresult))
+			throw new InvalidResultException("invalid result");
+		setResult(myresult);
+		return myresult;
+	}
+
+	private boolean validResult(Result myresult) {
+		return false;
 	}
 }
