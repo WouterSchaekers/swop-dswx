@@ -3,17 +3,22 @@ package scheduler.tasks;
 import java.util.Collection;
 import java.util.Observable;
 import java.util.Observer;
+import result.Result;
+import result.ResultFactory;
+import result.ResultHolder;
 import scheduler.HospitalDate;
 import scheduler.Schedulable;
 import scheduler.TimeSlot;
 import system.Hospital;
 import system.Location;
 import controllers.interfaces.TaskIN;
+import exceptions.FactoryInstantiationException;
+import exceptions.InvalidResultException;
 
 /**
  * Represents a task that can be scheduled, completed or queued.
  */
-public final class Task<T extends TaskDescription> extends Observable implements TaskIN, Observer
+public final class Task<T extends TaskDescription> extends Observable implements TaskIN, Observer,ResultHolder
 {
 	private TaskState myState_;
 
@@ -103,6 +108,25 @@ public final class Task<T extends TaskDescription> extends Observable implements
 		this.notifyObservers(null);
 	}
 
+	@Override
+	public ResultFactory get() {
+		return getDescription().get();
+	}
+	
+	@Override
+	public Result give(ResultFactory builder) throws InvalidResultException, FactoryInstantiationException {
+		return getDescription().give(builder);
+	}
+
+	@Override
+	public Result getResult() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	
 	
 
 }

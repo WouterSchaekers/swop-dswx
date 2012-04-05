@@ -10,9 +10,9 @@ import controllers.CreateAppointmentController;
 import controllers.interfaces.DoctorIN;
 import controllers.interfaces.PatientFileIN;
 import exceptions.CanNeverBeScheduledException;
+import exceptions.InvalidConsultPatientFileController;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
-import exceptions.InvalidConsultPatientFileController;
 
 public class CreateAppointment extends UseCase
 {

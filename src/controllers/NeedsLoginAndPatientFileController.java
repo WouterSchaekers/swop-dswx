@@ -1,8 +1,8 @@
 package controllers;
 
+import exceptions.InvalidConsultPatientFileController;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
-import exceptions.InvalidConsultPatientFileController;
 
 /**
  * This class is to be extended by all controllers that need both a login

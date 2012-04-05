@@ -6,7 +6,6 @@ import users.User;
 import controllers.interfaces.TaskIN;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
-import exceptions.InvalidResultException;
 
 /**
  * Use this controller to enter the result of a medical test that has completed.
@@ -42,7 +41,7 @@ public class EnterMedicaltestResultController extends NeedsLoginController
 	 */
 	@controllers.PUBLICAPI
 	public Collection<TaskIN> getMedicalTestsThatNeedResults() {
-		return hospital.getTaskManager().getMedicalTestsThatNeedResults();
+		return null;//hospital.getTaskManager().getMedicalTestsThatNeedResults();
 	}
 
 	/**
@@ -52,12 +51,12 @@ public class EnterMedicaltestResultController extends NeedsLoginController
 	 *             If the selected task does not need a result or is not
 	 *             finished yet.
 	 */
-	@controllers.PUBLICAPI
-	public void addResultTo(TaskIN selectedMedicalTest, String report) throws InvalidResultException {
-		if (!(selectedMedicalTest.isFinished() || selectedMedicalTest.getDescription().needsResult()))
-			throw new InvalidResultException("Selected task does not need a result!");
-		selectedMedicalTest.getDescription().setResult(report);
-	}
+//	@controllers.PUBLICAPI
+//	public void addResultTo(TaskIN selectedMedicalTest, String report) throws InvalidResultException {
+//		if (!(selectedMedicalTest.isFinished() || selectedMedicalTest.getDescription().needsResult()))
+//			throw new InvalidResultException("Selected task does not need a result!");
+//		selectedMedicalTest.getDescription().setResult(report);
+//	}
 
 	/**
 	 * @return True if the given user is a nurse.

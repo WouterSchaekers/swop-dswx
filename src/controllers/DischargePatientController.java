@@ -4,10 +4,10 @@ import patient.PatientFile;
 import users.Doctor;
 import users.User;
 import exceptions.DischargePatientException;
+import exceptions.InvalidConsultPatientFileController;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileException;
-import exceptions.InvalidConsultPatientFileController;
 
 /**
  * Use this controller to discharge a patient from the hospital.

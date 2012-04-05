@@ -3,17 +3,17 @@ package scheduler.tasks;
 import java.util.Collection;
 import java.util.Observable;
 import result.Result;
+import result.ResultHolder;
 import scheduler.HospitalDate;
 import scheduler.requirements.Requirement;
 import be.kuleuven.cs.som.annotate.Basic;
-import controllers.interfaces.DescriptionIN;
 
 /**
  * This class is an abstract representation of a TaskDescription. The
  * TaskDescription contains all the information needed to create and schedule a
  * Task.
  */
-public abstract class TaskDescription implements DescriptionIN
+public abstract class TaskDescription implements ResultHolder
 {
 	private final long duration_;
 	private final long extraTime_;

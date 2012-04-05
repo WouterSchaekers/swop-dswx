@@ -9,7 +9,6 @@ import scheduler.HospitalDate;
 import scheduler.tasks.Task;
 import scheduler.tasks.TaskDescription;
 import scheduler.tasks.TaskDescriptionWithPatientFile;
-import exceptions.InvalidReportException;
 
 /**
  * This class represents a medical test.
@@ -60,15 +59,7 @@ public abstract class MedicalTest extends TaskDescriptionWithPatientFile
 		return this.result_;
 	}
 
-	/**
-	 * Returns whether the MedicalTest needs a result.
-	 * 
-	 * @return True if the MedicalTest needs a result.
-	 */
-	@Override
-	public boolean needsResult() {
-		return result_ == null;
-	}
+
 
 	/**
 	 * Sets the result of the MedicalTest.
@@ -76,13 +67,8 @@ public abstract class MedicalTest extends TaskDescriptionWithPatientFile
 	 * @param result
 	 *            The result of the MedicalTest.
 	 */
-	@Override
-	public void setResult(String result) {
-		try {
-			this.result_ = new Result(result);
-		} catch (InvalidReportException e) {
-			throw new Error(e);
-		}
+	protected void setResult(Result result) {
+		result_=result;
 	}
 
 	/**

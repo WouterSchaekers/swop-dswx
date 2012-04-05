@@ -10,10 +10,10 @@ import users.User;
 import controllers.interfaces.PatientFileIN;
 import exceptions.CanNeverBeScheduledException;
 import exceptions.FactoryInstantiationException;
+import exceptions.InvalidConsultPatientFileController;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileException;
-import exceptions.InvalidConsultPatientFileController;
 
 /**
  * Use to order medical tests for patients.

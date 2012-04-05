@@ -1,12 +1,9 @@
 package controllers;
 
-import java.util.Collection;
 import users.Nurse;
 import users.User;
-import controllers.interfaces.TaskIN;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
-import exceptions.InvalidResultException;
 
 /**
  * Use this controller to enter the result of a treatment that has finished.
@@ -38,10 +35,10 @@ public class EnterTreatmentResultController extends NeedsLoginController
 	/**
 	 * @return All treatments that have finished and need results.
 	 */
-	@controllers.PUBLICAPI
-	public Collection<TaskIN> getTreatmentsThatNeedResults() {
-		return hospital.getTaskManager().getTreatmentsThatNeedResults();
-	}
+//	@controllers.PUBLICAPI
+//	public Collection<TaskIN> getTreatmentsThatNeedResults() {
+//		return hospital.getTaskManager().getTreatmentsThatNeedResults();
+//	}
 
 	/**
 	 * Adds the given report to the selected treatment.
@@ -49,12 +46,12 @@ public class EnterTreatmentResultController extends NeedsLoginController
 	 * @throws InvalidResultException
 	 *             If the given result is invalid.
 	 */
-	@controllers.PUBLICAPI
-	public void addResultTo(TaskIN selectedTreatment, String report) throws InvalidResultException {
-		if (!(selectedTreatment.isFinished() || selectedTreatment.getDescription().needsResult()))
-			throw new InvalidResultException("Selected task does not need a result!");
-		selectedTreatment.getDescription().setResult(report);
-	}
+//	@controllers.PUBLICAPI
+//	public void addResultTo(TaskIN selectedTreatment, String report) throws InvalidResultException {
+//		if (!(selectedTreatment.isFinished() || selectedTreatment.getDescription().needsResult()))
+//			throw new InvalidResultException("Selected task does not need a result!");
+//		selectedTreatment.getDescription().setResult(report);
+//	}
 
 	/**
 	 * @return True if the given user is a nurse.

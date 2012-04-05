@@ -2,8 +2,13 @@ package treatment;
 
 import java.util.Collection;
 import java.util.LinkedList;
+import exceptions.FactoryInstantiationException;
+import exceptions.InvalidResultException;
 import patient.Diagnose;
 import patient.PatientFile;
+import result.Result;
+import result.ResultFactory;
+import result.SurgeryResultFactory;
 import scheduler.HospitalDate;
 import scheduler.requirements.DiagnoseCondition;
 import scheduler.requirements.Requirement;
@@ -61,5 +66,24 @@ public class Surgery extends Treatment
 		requirements.add(new RequirementType<Nurse>(Nurse.class, true, 1));
 		requirements.add(new DiagnoseCondition(diagnose_));
 		return requirements;
+	}
+
+	@Override
+	public ResultFactory get() {
+		return new SurgeryResultFactory();
+	}
+
+	@Override
+	public Result give(ResultFactory builder) throws InvalidResultException, FactoryInstantiationException {
+		Result myresult = builder.create();
+		if(!validResult(myresult))
+			throw new InvalidResultException("invalid result");
+		setResult(myresult);
+		return myresult;
+	}
+
+	private boolean validResult(Result myresult) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

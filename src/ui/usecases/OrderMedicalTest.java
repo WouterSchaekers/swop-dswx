@@ -1,13 +1,13 @@
 package ui.usecases;
 
-import scheduler.HospitalDate;
-import ui.UIData;
-import ui.UseCase;
-import ui.usecases.Selector.Displayer;
 import medicaltest.BloodAnalysisFactory;
 import medicaltest.MedicalTestFactory;
 import medicaltest.UltraSoundScanFactory;
 import medicaltest.XRayScanFactory;
+import scheduler.HospitalDate;
+import ui.UIData;
+import ui.UseCase;
+import ui.usecases.Selector.Displayer;
 import controllers.OrderMedicalTestController;
 import controllers.interfaces.PatientFileIN;
 import exceptions.CanNeverBeScheduledException;

@@ -5,7 +5,9 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Observable;
 import patient.PatientFile;
+import result.NoResultFactory;
 import result.Result;
+import result.ResultFactory;
 import scheduler.HospitalDate;
 import scheduler.requirements.Requirement;
 import scheduler.requirements.RequirementType;
@@ -45,15 +47,7 @@ public class AppointmentDescription extends TaskDescriptionWithPatientFile
 		; // do nothing
 	}
 
-	@Override
-	public boolean needsResult() {
-		return false;
-	}
 
-	@Override
-	public void setResult(String result) {
-		; // do nothing
-	}
 
 	@Override
 	public Result getResult() {
@@ -63,5 +57,15 @@ public class AppointmentDescription extends TaskDescriptionWithPatientFile
 	@Override
 	public Collection<Observable> getObservables() {
 		return new ArrayList<Observable>();
+	}
+
+	@Override
+	public ResultFactory get() {
+		return new NoResultFactory();
+	}
+
+	@Override
+	public Result give(ResultFactory builder) {
+		return null;
 	}
 }

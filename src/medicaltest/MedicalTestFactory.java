@@ -1,8 +1,8 @@
 package medicaltest;
 
-import controllers.interfaces.PatientFileIN;
 import patient.PatientFile;
 import scheduler.HospitalDate;
+import controllers.interfaces.PatientFileIN;
 import exceptions.FactoryInstantiationException;
 
 /**
