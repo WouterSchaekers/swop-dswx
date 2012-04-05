@@ -258,6 +258,7 @@ public class Scheduler
 	 *             Some of the requirements can never be satisfied with the
 	 *             existing resources.
 	 */
+	//XXX: wat als een warehouse het wel heeft en het andre niet, dan gaat het andere exceptions throwen.
 	private Map<LinkedList<Schedulable>, Integer> getAvRes(Collection<Schedulable> resPool,
 			Collection<Requirement> notMetYet) throws InvalidSchedulingRequestException {
 		Map<LinkedList<Schedulable>, Integer> availableResources = new HashMap<LinkedList<Schedulable>, Integer>();
