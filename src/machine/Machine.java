@@ -27,7 +27,7 @@ public abstract class Machine implements Schedulable
 	 * Default constructor.
 	 * 
 	 * @param serial
-	 *            The serial of this machine.
+	 *            The (unique) serial of this machine.
 	 * @param location
 	 *            The location of this machine inside the campus.
 	 * @param campusLocation
@@ -35,9 +35,7 @@ public abstract class Machine implements Schedulable
 	 * @throws InvalidLocationException
 	 *             If the location provided is null or an empty string.
 	 */
-	Machine(int serial, String location, Location campusLocation) throws InvalidLocationException {
-		if (location == null || location.isEmpty())
-			throw new InvalidLocationException("Location is not set or empty.");
+	Machine(int serial, String location, Location campusLocation) {
 		this.serial_ = serial;
 		this.campusLocation_ = campusLocation;
 		this.location_ = location;
@@ -130,11 +128,18 @@ public abstract class Machine implements Schedulable
 		return false;
 	}
 
+	/**
+	 * Returns the location of the Machine at a given date.
+	 */
 	@Override
 	public Location getLocationAt(HospitalDate hospitalDate) {
 		return this.campusLocation_;
 	}
 
+	/**
+	 * Returns whether the Machine must be scheduled back to back. Always
+	 * returns false.
+	 */
 	@Override
 	public boolean mustBeBackToBack() {
 		return false;

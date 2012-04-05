@@ -13,34 +13,36 @@ public class MachinePool
 {
 	private Collection<Machine> allMachines = new ArrayList<Machine>();;
 	private Collection<MachineBuilder> bob = new ArrayList<MachineBuilder>();
+
 	/**
 	 * Adds a machine to the machine pool
 	 * 
 	 * @param m
-	 * @throws InvalidSerialException 
-	 * @throws InvalidLocationException 
+	 * @throws InvalidSerialException
+	 * @throws InvalidLocationException
 	 */
-	public Machine addMachine(MachineBuilder m) throws InvalidLocationException, InvalidSerialException {
-		
+	public Machine addMachine(MachineBuilder m) throws InvalidSerialException, InvalidLocationException {
+
 		Machine machine = m.build();
-		if(	alreadyContains(machine.getSerial()))
+		if (alreadyContains(machine.getSerial()))
 			throw new InvalidSerialException();
+		if (!isValidLocation(machine.getLocationWithinCampus()))
+			throw new InvalidLocationException();
 		allMachines.add(m.build());
 		return machine;
 	}
 
-
-	void addBuilder(MachineBuilder builder)
-	{
+	void addBuilder(MachineBuilder builder) {
 		bob.add(builder);
 	}
-	public Collection<MachineBuilder> getAllBuilders()
-	{
+
+	public Collection<MachineBuilder> getAllBuilders() {
 		ArrayList<MachineBuilder> rv = new ArrayList<MachineBuilder>();
-		for(MachineBuilder builder:this.bob)
+		for (MachineBuilder builder : this.bob)
 			rv.add(builder.newBuilder());
 		return rv;
 	}
+
 	/**
 	 * Returns a copy of the collection of all the machines in our hospital.
 	 * 
@@ -50,20 +52,21 @@ public class MachinePool
 		return new ArrayList<Machine>(this.allMachines);
 	}
 
-
 	public void updateTimeTables(HospitalDate newDate) {
 		for (Machine machine : allMachines) {
 			machine.updateTimeTable(newDate);
 		}
 	}
 
-	private boolean alreadyContains(int serial)  {
-		
+	private boolean alreadyContains(int serial) {
+
 		for (Machine m : allMachines)
 			if (m.getSerial() == serial)
 				return true;
 		return false;
 	}
 
-
+	private boolean isValidLocation(String location) {
+		return location != null && !location.isEmpty();
+	}
 }

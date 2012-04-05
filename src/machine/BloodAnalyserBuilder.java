@@ -1,7 +1,5 @@
 package machine;
 
-import exceptions.InvalidLocationException;
-import exceptions.InvalidSerialException;
 
 public class BloodAnalyserBuilder extends MachineBuilder
 {
@@ -15,8 +13,7 @@ public class BloodAnalyserBuilder extends MachineBuilder
 
 	}
 	@Override
-	Machine build()
-			throws InvalidLocationException, InvalidSerialException {
+	Machine build() {
 		return new BloodAnalyser(serial_, loc_, location_);
 	}
 

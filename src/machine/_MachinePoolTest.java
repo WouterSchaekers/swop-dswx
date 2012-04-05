@@ -13,41 +13,40 @@ public class _MachinePoolTest
 {
 	MachinePool pool;
 	Campus campus;
+
 	@Before
-	public void setup()
-	{
+	public void setup() {
 		Hospital hospital = new StandardHospitalBuilder().build();
 		campus = hospital.getAllCampuses().iterator().next();
 		pool = campus.getMachinePool();
 	}
+
 	@Test
-	public void TestNames()
-	{
-		int i =0;
+	public void TestNames() {
+		int i = 0;
 		String location = "Location";
-		for(MachineBuilder builder:pool.getAllBuilders())
-		{
+		for (MachineBuilder builder : pool.getAllBuilders()) {
 			i++;
-			String l= location+i;
+			String l = location + i;
 			builder.setLocation(campus);
 			builder.setLocationWithinCampus(l);
 			builder.setSerial(i);
-			boolean succes =true;
+			boolean succes = true;
 			Machine machine = null;
 			try {
-				machine=	pool.addMachine(builder);
+				machine = pool.addMachine(builder);
 			} catch (InvalidLocationException e) {
-				succes =false;
+				succes = false;
 			} catch (InvalidSerialException e) {
-				succes =false;
+				succes = false;
 			}
-			succes =true;
-			if(!succes)
+			succes = true;
+			if (!succes)
 				continue;
-			assertTrue(machine.getCampusLocation()==campus);
+			assertTrue(machine.getCampusLocation() == campus);
 			assertTrue(machine.getLocationWithinCampus().equals(l));
-			assertTrue(machine.getSerial()==i);
-			
+			assertTrue(machine.getSerial() == i);
+
 			assertTrue(succes);
 			builder.toString();
 		}

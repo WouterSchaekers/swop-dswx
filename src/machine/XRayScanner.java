@@ -1,8 +1,6 @@
 package machine;
 
 import system.Location;
-import exceptions.InvalidLocationException;
-import exceptions.InvalidSerialException;
 import exceptions.InvalidTimeSlotException;
 
 public class XRayScanner extends Machine
@@ -13,8 +11,7 @@ public class XRayScanner extends Machine
 	 * 
 	 * @throws InvalidTimeSlotException
 	 * */
-	XRayScanner(int serial, String loc, Location location) throws InvalidLocationException,
-			InvalidSerialException {
+	XRayScanner(int serial, String loc, Location location) {
 		super(serial, loc, location);
 	}
 }
