@@ -56,6 +56,7 @@ public class EnterDiagnose extends UseCase
 			if(doctors.isEmpty())
 			{
 				printLn("No doctors in this hospital to give a second opinion.");
+				return mm();
 			}
 			Selector<DoctorIN> docSelector = new Selector<DoctorIN>(doctors, Selector.docdisplayer);
 			DoctorIN selected = docSelector.get();

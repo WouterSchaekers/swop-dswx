@@ -21,6 +21,7 @@ public class ExtendedStandardHospitalBuilder
 		addNurse(campus,"Jenny");
 		addNurse(campus,"Jasmine");
 		addDoctor(campus,"jonathan");
+		addDoctor(campus,"Stefaan");
 		addPatient(campus,"daan");
 		addAllMachines(campus);
 		return rv;
