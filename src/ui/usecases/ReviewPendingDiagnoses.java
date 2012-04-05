@@ -1,7 +1,5 @@
 package ui.usecases;
 
-import help.Collections;
-import help.Filter;
 import java.util.Collection;
 import ui.UIData;
 import ui.UseCase;

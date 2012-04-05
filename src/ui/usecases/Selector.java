@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import ui.usecases.Selector.Displayer;
 import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.DoctorIN;
 import controllers.interfaces.PatientFileIN;

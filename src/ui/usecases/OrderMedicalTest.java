@@ -1,7 +1,6 @@
 package ui.usecases;
 
 import scheduler.HospitalDate;
-import treatment.MedicationFactory;
 import ui.UIData;
 import ui.UseCase;
 import ui.usecases.Selector.Displayer;
