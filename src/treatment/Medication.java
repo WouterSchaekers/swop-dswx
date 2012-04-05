@@ -34,8 +34,6 @@ public class Medication extends Treatment
 	 *            The date on which this description has been created.
 	 * @param medicationType
 	 *            The type of the medication.
-	 * @param warehouse
-	 *            The warehouse where this medication comes from.
 	 * @param description
 	 *            The description of the medication.
 	 * @param sensitive
@@ -47,9 +45,8 @@ public class Medication extends Treatment
 	 *            from.
 	 * @param diagnose
 	 */
-	Medication(PatientFile patientFile, HospitalDate creationDate, MedicationType medicationType, Warehouse warehouse,
-			String description, boolean sensitive, Diagnose diagnose) {
-		super(patientFile, diagnose, getDuration(sensitive), creationDate, warehouse);
+	Medication(PatientFile patientFile, HospitalDate creationDate, MedicationType medicationType, String description, boolean sensitive, Diagnose diagnose) {
+		super(patientFile, diagnose, getDuration(sensitive), creationDate);
 		this.description_ = description;
 		this.sensitive_ = sensitive;
 		this.medicationType_ = medicationType;
@@ -102,7 +99,7 @@ public class Medication extends Treatment
 	public Collection<Requirement> getAllRequirements() {
 		Collection<Requirement> requirements = new LinkedList<Requirement>();
 		requirements.add(new SpecificRequirement(this.patientFile_.getPatient(), false));
-		requirements.add(new WarehouseItemCondition(this.medicationType_, this.warehouse_, 1));
+		requirements.add(new WarehouseItemCondition(this.medicationType_, 1));
 		requirements.add(new RequirementType<Nurse>(Nurse.class, true, 1));
 		return requirements;
 	}

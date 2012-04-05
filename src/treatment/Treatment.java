@@ -20,8 +20,6 @@ public abstract class Treatment extends TaskDescriptionWithPatientFile
 {
 
 	protected final Diagnose diagnose_;
-	protected final Warehouse warehouse_;
-
 	/**
 	 * Default constructor of Treatment.
 	 * 
@@ -37,11 +35,9 @@ public abstract class Treatment extends TaskDescriptionWithPatientFile
 	 *            The warehouse where the materials for this cast will come
 	 *            from.
 	 */
-	public Treatment(PatientFile patientFile, Diagnose diagnose, long duration, HospitalDate creationDate,
-			Warehouse warehouse) {
+	public Treatment(PatientFile patientFile, Diagnose diagnose, long duration, HospitalDate creationDate) {
 		super(patientFile, duration, 0, creationDate);
 		this.diagnose_ = diagnose;
-		this.warehouse_ = warehouse;
 	}
 
 	/**
@@ -126,7 +122,6 @@ public abstract class Treatment extends TaskDescriptionWithPatientFile
 	public Collection<Observable> getObservables() {
 		ArrayList<Observable> observables = new ArrayList<Observable>();
 		observables.add(diagnose_);
-		observables.add(warehouse_);
 		return observables;
 	}
 }
