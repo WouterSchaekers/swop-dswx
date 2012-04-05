@@ -1,16 +1,22 @@
 package machine;
 
 import system.Location;
-import exceptions.InvalidTimeSlotException;
 
+/**
+ * This class represents a XRay Scanner.
+ */
 public class XRayScanner extends Machine
 {
 	/**
-	 * Creates an XRayScanner scanner, exceptions are thrown as in the super
-	 * class: {@link Machine#Machine(int, String)}
+	 * Creates a XRay Scanner.
 	 * 
-	 * @throws InvalidTimeSlotException
-	 * */
+	 * @param serial
+	 *            The (unique) serial of this machine.
+	 * @param location
+	 *            The location of this machine inside the campus.
+	 * @param campusLocation
+	 *            The campus of this machine.
+	 */
 	XRayScanner(int serial, String loc, Location location) {
 		super(serial, loc, location);
 	}
