@@ -24,17 +24,17 @@ public class PatientFileManager
 	 * 
 	 * @param patientFile
 	 *            The patientfile of the patient who needs to be checked in.
-	 * @throws InvalidPatientFileException 
-	 * @throws NoSuchPatientException 
+	 * @throws InvalidPatientFileException
+	 * @throws NoSuchPatientException
 	 */
-	public void checkIn(PatientFile patientFile) throws InvalidPatientFileException  {
-		if(!isValidPatientFile(patientFile))
+	public void checkIn(PatientFile patientFile) throws InvalidPatientFileException {
+		if (!isValidPatientFile(patientFile) || ! patientFile.isDischarged())
 			throw new InvalidPatientFileException();
 		patientFile.checkIn();
 	}
 
 	private boolean isValidPatientFile(PatientFile patientFile) {
-		return patientFile!=null&&patientFiles.contains(patientFile);
+		return patientFile != null && patientFiles.contains(patientFile);
 	}
 
 	/**
@@ -43,11 +43,10 @@ public class PatientFileManager
 	 * @param patientFile
 	 *            The patientfile of the patient who is checking out.
 	 * @throws DischargePatientException
-	 * @throws InvalidPatientFileException 
+	 * @throws InvalidPatientFileException
 	 */
-	public void checkOut(PatientFile patientFile)
-			throws DischargePatientException, InvalidPatientFileException {
-		if(!isValidPatientFile(patientFile))
+	public void checkOut(PatientFile patientFile) throws DischargePatientException, InvalidPatientFileException {
+		if (!isValidPatientFile(patientFile))
 			throw new InvalidPatientFileException();
 		patientFile.discharge();
 	}
@@ -61,10 +60,11 @@ public class PatientFileManager
 	 *            The location of this patient.
 	 * @return The patientfile for the new patient.
 	 * @throws InvalidNameException
-	 * @throws InvalidPatientFileException 
+	 * @throws InvalidPatientFileException
 	 */
-	public PatientFile registerPatient(String name, Location location) throws InvalidNameException, InvalidPatientFileException {	
-		if(this.containsFileOf(name))
+	public PatientFile registerPatient(String name, Location location) throws InvalidNameException,
+			InvalidPatientFileException {
+		if (this.containsFileOf(name))
 			throw new InvalidPatientFileException("Patient already exists in hospital!");
 		PatientFile pf = new PatientFile(new Patient(name));
 		patientFiles.add(pf);
@@ -83,8 +83,8 @@ public class PatientFileManager
 	 * @return True if the file exists in this patient file manager.
 	 */
 	private boolean containsFileOf(String name) {
-		for(PatientFile pf : this.patientFiles)
-			if(pf.getPatient().getName().equals(name))
+		for (PatientFile pf : this.patientFiles)
+			if (pf.getPatient().getName().equals(name))
 				return true;
 		return false;
 	}
@@ -100,35 +100,35 @@ public class PatientFileManager
 
 		return returnval;
 	}
-	
+
 	/**
 	 * Use to get all patientfiles in the controllers.
 	 */
 	public Collection<PatientFileIN> getPatientFileINs() {
 		Collection<PatientFileIN> rv = new LinkedList<PatientFileIN>();
-		for(PatientFile pf : this.patientFiles)
+		for (PatientFile pf : this.patientFiles)
 			rv.add(pf);
 		return rv;
 	}
-	
+
 	public static final Filter active = new Filter()
 	{
-		
+
 		@Override
 		public <T> boolean allows(T arg) {
-			if(arg instanceof PatientFile)
-				if(!((PatientFile)arg).isDischarged())
+			if (arg instanceof PatientFile)
+				if (!((PatientFile) arg).isDischarged())
 					return true;
 			return false;
 		}
 	};
 	public static final Filter inactive = new Filter()
 	{
-		
+
 		@Override
 		public <T> boolean allows(T arg) {
-			if(arg instanceof PatientFile)
-				if(((PatientFile)arg).isDischarged())
+			if (arg instanceof PatientFile)
+				if (((PatientFile) arg).isDischarged())
 					return true;
 			return false;
 		}

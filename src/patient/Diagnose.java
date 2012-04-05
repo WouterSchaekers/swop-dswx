@@ -50,25 +50,25 @@ public class Diagnose extends Observable implements DiagnoseIN
 	 * @throws InvalidDoctorException
 	 * @throws InvalidDiagnoseException
 	 * @throws InvalidComplaintsException
-	 * @throws InvalidPatientFileException 
+	 * @throws InvalidPatientFileException
 	 */
-	Diagnose(Doctor doc, String complaints, String diag,PatientFile creator) throws InvalidDoctorException,
-	InvalidDiagnoseException, InvalidComplaintsException, InvalidPatientFileException {
-if(!this.canHaveAsPatientFile(creator))
-	throw new InvalidPatientFileException("can not have this as creator");
-if (!this.canHaveAsDoctor(doc))
-	throw new InvalidDoctorException("Doctor is invalid!");
-if (!this.isValidDiagnosis(diag))
-	throw new InvalidDiagnoseException("Diagnose in Diagnoseconstructor is invalid!");
-if (!this.isValidDiagnosis(complaints))
-	throw new InvalidComplaintsException("Invalid complaints were given when trying to create new Diagnose!");
-this.myPatientFile = creator;
-this.complaints = complaints;
-this.attending = doc;
-this.diag = diag;
-this.treatments = new LinkedList<Task<? extends Treatment>>();
+	Diagnose(Doctor doc, String complaints, String diag, PatientFile creator) throws InvalidDoctorException,
+			InvalidDiagnoseException, InvalidComplaintsException, InvalidPatientFileException {
+		if (!this.canHaveAsPatientFile(creator))
+			throw new InvalidPatientFileException("can not have this as creator");
+		if (!this.canHaveAsDoctor(doc))
+			throw new InvalidDoctorException("Doctor is invalid!");
+		if (!this.isValidDiagnosis(diag))
+			throw new InvalidDiagnoseException("Diagnose in Diagnoseconstructor is invalid!");
+		if (!this.isValidDiagnosis(complaints))
+			throw new InvalidComplaintsException("Invalid complaints were given when trying to create new Diagnose!");
+		this.myPatientFile = creator;
+		this.complaints = complaints;
+		this.attending = doc;
+		this.diag = diag;
+		this.treatments = new LinkedList<Task<? extends Treatment>>();
 
-}
+	}
 
 	/**
 	 * USE THIS METHOD ONLY IN THE DOMAIN LAYER (init method of Diagnose)!!
@@ -82,20 +82,20 @@ this.treatments = new LinkedList<Task<? extends Treatment>>();
 
 	/**
 	 * Approves this diagnosis.
-	 * @param secondop TODO
+	 * 
+	 * @param secondOp
 	 * 
 	 * @throws ApproveDiagnoseException
 	 *             If this diagnose was not marked for second opinion.
 	 */
-	public void approveBy(Doctor secondop) throws ApproveDiagnoseException {
-		if (!isMarkedForSecOpBy(secondop))
-			throw new ApproveDiagnoseException("Can't approve this diagnose!");
+	public void approveBy(Doctor secondOp) throws ApproveDiagnoseException {
+		if (!isMarkedForSecOpBy(secondOp))
+			throw new ApproveDiagnoseException("The given doctor is not allowed to approve this diagnose!");
 		this.approved = true;
 		this.unmarkForSecOp();
 		this.setChanged();
 		this.notifyObservers();
 		this.notifyObservers(null);
-		
 	}
 
 	/**
@@ -113,13 +113,13 @@ this.treatments = new LinkedList<Task<? extends Treatment>>();
 	 * @return True if doc is a valid doctor for this Diagnose.
 	 */
 	private boolean canHaveAsDoctor(Doctor doc) {
-		return !(doc == null ||( this.secopDoc!=null&&this.secopDoc.equals(doc)));
-	}
-	private boolean canHaveAsPatientFile(PatientFile creator) {
-		
-		return creator != null;
+		return !(doc == null || (this.secopDoc != null && this.secopDoc.equals(doc)));
 	}
 
+	private boolean canHaveAsPatientFile(PatientFile creator) {
+
+		return creator != null;
+	}
 
 	/**
 	 * Disapproves this diagnose.
@@ -136,17 +136,16 @@ this.treatments = new LinkedList<Task<? extends Treatment>>();
 		this.notifyObservers(this);
 	}
 
-	public void disapprove(String newDiagnose,String newComplaints) throws ApproveDiagnoseException 	{
+	public void disapproveBy(String newDiagnose, String newComplaints, DoctorIN secondOp)
+			throws ApproveDiagnoseException {
 		Doctor futureSecondOp = this.getAttendingIN();
-		Doctor futureAttending = (Doctor) this.needsSecOpFromIN();
-		if(!canBeReplacedWith(newDiagnose, newComplaints, futureAttending, futureSecondOp))
+		Doctor futureAttending = (Doctor) secondOp;
+		if (!canBeReplacedWith(newDiagnose, newComplaints, futureAttending, futureSecondOp))
 			throw new ApproveDiagnoseException("");
 		this.disapprove();
-		try{
-			
-		this.myPatientFile.createDiagnose(newComplaints, newDiagnose, futureAttending, futureAttending);
-		}catch(Exception e)
-		{
+		try {
+			this.myPatientFile.createDiagnose(newComplaints, newDiagnose, futureAttending, futureAttending);
+		} catch (Exception e) {
 			throw new Error(e);
 		}
 	}
@@ -155,7 +154,7 @@ this.treatments = new LinkedList<Task<? extends Treatment>>();
 	public Doctor getAttendingIN() {
 		return this.attending;
 	}
-	
+
 	@Basic
 	public String getComplaintsIN() {
 		return this.complaints;
@@ -173,7 +172,7 @@ this.treatments = new LinkedList<Task<? extends Treatment>>();
 
 	@Basic
 	public boolean isApprovedIN() {
-		if(isMarkedForSecOpBy(null))	
+		if (isMarkedForSecOpBy(null))
 			return this.approved;
 		else
 			return true;
@@ -181,7 +180,7 @@ this.treatments = new LinkedList<Task<? extends Treatment>>();
 
 	@Basic
 	public boolean isMarkedForSecOpBy(Doctor doctor) {
-		return this.secOpFlag&&this.secopDoc.equals(doctor);
+		return this.secOpFlag && this.secopDoc.equals(doctor);
 	}
 
 	/**
@@ -217,11 +216,11 @@ this.treatments = new LinkedList<Task<? extends Treatment>>();
 		this.approved = false;
 		this.secopDoc = from;
 	}
-	
+
 	public boolean mustBeDeleted() {
 		return this.mustBeDeleted;
 	}
-	
+
 	@Basic
 	public DoctorIN needsSecOpFromIN() {
 		DoctorIN rv = (DoctorIN) (this.secopDoc);
@@ -250,10 +249,10 @@ this.treatments = new LinkedList<Task<? extends Treatment>>();
 
 	public Collection<Task<? extends Treatment>> getTreatments() {
 		return new ArrayList<Task<? extends Treatment>>(treatments);
-		
+
 	}
-	public PatientFile getPatientFile()
-	{
+
+	public PatientFile getPatientFile() {
 		return this.myPatientFile;
 	}
 }

@@ -5,6 +5,7 @@ import patient.Diagnose;
 import users.Doctor;
 import users.User;
 import controllers.interfaces.DiagnoseIN;
+import controllers.interfaces.DoctorIN;
 import exceptions.ApproveDiagnoseException;
 import exceptions.DischargePatientException;
 import exceptions.InvalidHospitalException;
@@ -55,7 +56,7 @@ public class EvaluateDiagnoseController extends NeedsLoginAndPatientFileControll
 	 * @throws ApproveDiagnoseException
 	 *             If the selected diagnose does not require a second opinion or
 	 *             the user that's calling this method is not the given doctor
-	 *             of whom the attending doctor required a second opinion from.
+	 *             of whom the attending doctor required a second opinion.
 	 */
 	@controllers.PUBLICAPI
 	public void approveDiagnose(DiagnoseIN selected) throws ApproveDiagnoseException {
@@ -66,20 +67,19 @@ public class EvaluateDiagnoseController extends NeedsLoginAndPatientFileControll
 	}
 
 	/**
-	 * Disapprove diagnose! if an exception is thrown the domain remains
-	 * unchanged.
+	 * Disapproves the selected diagnose and replaces it with a new one.
 	 * 
 	 * @param selected
 	 *            The selected diagnose.
 	 * @param newDiag
-	 *            The replacement diagnose.
-	 * @param newComplaints
-	 *            The replacement complaint
+	 *            The replacement for the selected diagnose.
 	 * @throws ApproveDiagnoseException
-	 *             The passed diagnose is not marked for second opinion
+	 *             If the disapprove of the selected diagnose failed due to
+	 *             authorization reasons, or invalid parameters.
 	 */
 	public void disapproveDiagnose(DiagnoseIN selected, String newDiag) throws ApproveDiagnoseException {
-		((Diagnose) selected).disapprove(newDiag, selected.getComplaintsIN());
+		((Diagnose) selected).disapproveBy(newDiag, selected.getComplaintsIN(),
+				(DoctorIN) (this.loginController_.getUserIN()));
 	}
 
 	/**
@@ -88,13 +88,20 @@ public class EvaluateDiagnoseController extends NeedsLoginAndPatientFileControll
 	 */
 	@controllers.PUBLICAPI
 	public Collection<DiagnoseIN> getPendingDiagnosis() {
-		return consultPatientFileController_.getPatientFile().getPendingDiagnosisForIN((Doctor) loginController_.getUser());
+		return consultPatientFileController_.getPatientFile().getPendingDiagnosisForIN(
+				(Doctor) loginController_.getUser());
 	}
 
+	/**
+	 * @return True if the given diagnose is one that is pending.
+	 */
 	private boolean isValidDiagnose(DiagnoseIN d) {
 		return consultPatientFileController_.getPatientFile().getAllDiagnosisIN().contains(d);
 	}
 
+	/**
+	 * True if the given user is a Doctor.
+	 */
 	@Override
 	boolean validUser(User u) {
 		return u instanceof Doctor;
