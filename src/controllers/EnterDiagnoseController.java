@@ -14,7 +14,7 @@ import exceptions.InvalidDiagnoseException;
 import exceptions.InvalidDoctorException;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
-import exceptions.InvalidPatientFileOpenController;
+import exceptions.InvalidConsultPatientFileController;
 
 /**
  * Use this controller to enter the diagnose of a patient.
@@ -37,14 +37,14 @@ public class EnterDiagnoseController extends NeedsLoginAndPatientFileController
 	 *             not a doctor or if the controller is invalid in any other
 	 *             way.
 	 * @throws InvalidHospitalException
-	 * @throws InvalidPatientFileOpenController
+	 * @throws InvalidConsultPatientFileController
 	 * @see HospitalController
 	 * @see NeedsLoginAndPatientFileController
 	 */
 	@controllers.PUBLICAPI
 	public EnterDiagnoseController(LoginController loginController,
 			ConsultPatientFileController consultPatientFileController) throws InvalidLoginControllerException,
-			InvalidHospitalException, InvalidPatientFileOpenController {
+			InvalidHospitalException, InvalidConsultPatientFileController {
 		super(loginController, consultPatientFileController);
 	}
 

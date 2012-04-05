@@ -10,14 +10,14 @@ import exceptions.InvalidComplaintsException;
 import exceptions.InvalidDiagnoseException;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
-import exceptions.InvalidPatientFileOpenController;
+import exceptions.InvalidConsultPatientFileController;
 
 public class EnterDiagnose extends UseCase
 {
 	
 	private EnterDiagnoseController controller;
 
-	public EnterDiagnose(UIData data) throws InvalidLoginControllerException, InvalidHospitalException, InvalidPatientFileOpenController {
+	public EnterDiagnose(UIData data) throws InvalidLoginControllerException, InvalidHospitalException, InvalidConsultPatientFileController {
 		super(data, 115);
 		controller = new EnterDiagnoseController(data.getLoginController(), data.getConsultPatientFileopenController());
 	}

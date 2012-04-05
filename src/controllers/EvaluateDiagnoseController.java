@@ -10,7 +10,7 @@ import exceptions.ApproveDiagnoseException;
 import exceptions.DischargePatientException;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
-import exceptions.InvalidPatientFileOpenController;
+import exceptions.InvalidConsultPatientFileController;
 
 /**
  * Use this controller to give a second opinion on a diagnose of a patient.
@@ -37,13 +37,13 @@ public class EvaluateDiagnoseController extends NeedsLoginAndPatientFileControll
 	 *             If the patient that's in the consult patient file controller
 	 *             is currently discharged.
 	 * @throws InvalidHospitalException
-	 * @throws InvalidPatientFileOpenController
+	 * @throws InvalidConsultPatientFileController
 	 * @see HospitalController
 	 * @see NeedsLoginAndPatientFileController
 	 */
 	@controllers.PUBLICAPI
 	public EvaluateDiagnoseController(LoginController lc, ConsultPatientFileController cpfc)
-			throws InvalidLoginControllerException, InvalidHospitalException, InvalidPatientFileOpenController,
+			throws InvalidLoginControllerException, InvalidHospitalException, InvalidConsultPatientFileController,
 			DischargePatientException {
 		super(lc, cpfc);
 		if (cpfc.getPatientFile().isDischarged())

@@ -15,7 +15,7 @@ import exceptions.InvalidDiagnoseException;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileException;
-import exceptions.InvalidPatientFileOpenController;
+import exceptions.InvalidConsultPatientFileController;
 
 /**
  * Use this controller to prescribe a treatment for a patient's diagnose.
@@ -35,7 +35,7 @@ public class PrescribeTreatmentController extends NeedsLoginAndPatientFileContro
 	 *             If the given login controller does not belong to a doctor or
 	 *             is invalid in any other way.
 	 * @throws InvalidHospitalException
-	 * @throws InvalidPatientFileOpenController
+	 * @throws InvalidConsultPatientFileController
 	 * @throws InvalidPatientFileException
 	 *             If the patient file opened in the consult patient file
 	 *             controller has been discharged.
@@ -44,7 +44,7 @@ public class PrescribeTreatmentController extends NeedsLoginAndPatientFileContro
 	 */
 	public PrescribeTreatmentController(LoginController loginController,
 			ConsultPatientFileController consultPatientFileController) throws InvalidLoginControllerException,
-			InvalidHospitalException, InvalidPatientFileOpenController, InvalidPatientFileException {
+			InvalidHospitalException, InvalidConsultPatientFileController, InvalidPatientFileException {
 		super(loginController, consultPatientFileController);
 		if (consultPatientFileController.getPatientFile().isDischarged())
 			throw new InvalidPatientFileException(
