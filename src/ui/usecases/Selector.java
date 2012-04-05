@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.DoctorIN;
 public class Selector<T>
 {
@@ -61,6 +62,18 @@ public class Selector<T>
 	public final Displayer<T> displayer;
 	public final Collection<T> coll;
 	private T selected = null;
+	public static final Displayer<DiagnoseIN> diagnose = new Displayer<DiagnoseIN>()
+	{
+	
+		@Override
+		public void display(DiagnoseIN t) {
+			System.out.println("Diagnose :"+t.getDiagnoseIN());
+			System.out.println("Complaints:"+t.getComplaintsIN());
+			System.out.print("By :"+t.getAttendingIN().getName());
+			
+			
+		}
+	};
 	public Selector(Collection<T> coll, Displayer<T> displayer) {
 		this.coll = coll;
 		this.displayer = displayer;

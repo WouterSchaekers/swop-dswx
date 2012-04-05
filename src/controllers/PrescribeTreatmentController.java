@@ -81,7 +81,7 @@ public class PrescribeTreatmentController extends NeedsLoginAndPatientFileContro
 		if (!getAllPossibleDiagnosis().contains(selected))
 			throw new InvalidDiagnoseException("Trying to add a treatment to a diagnose that this doctor has not made!");
 		@SuppressWarnings("deprecation")
-		Task<?> createdTreatment = hospital.getTaskManager().add(treatmentFactory.create());
+		Task<?> createdTreatment = hospital.getTaskManager().add(hospital.creatMedTest(treatmentFactory));
 
 		if (createdTreatment.isScheduled())
 			return createdTreatment.getDate();
