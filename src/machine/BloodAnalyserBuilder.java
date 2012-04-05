@@ -15,15 +15,6 @@ public class BloodAnalyserBuilder extends MachineBuilder
 	}
 
 	/**
-	 * The textual representation of this blood analyser.
-	 */
-	@Override
-	public String toString() {
-		return "Blood Analyser";
-
-	}
-
-	/**
 	 * Builds the Blood Analyser.
 	 */
 	@Override
@@ -38,12 +29,12 @@ public class BloodAnalyserBuilder extends MachineBuilder
 	MachineBuilder newBuilder() {
 		return new BloodAnalyserBuilder();
 	}
-
+	
 	/**
-	 * Checks whether the given builder is a Blood Analyser Builder.
+	 * The textual representation of this Blood Analyser Builder.
 	 */
 	@Override
-	boolean sameType(MachineBuilder builder) {
-		return builder instanceof BloodAnalyserBuilder;
+	public String toString() {
+		return "Blood Analyser Builder";
 	}
 }
