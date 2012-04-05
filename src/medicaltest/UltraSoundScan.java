@@ -89,21 +89,42 @@ public class UltraSoundScan extends MedicalTest
 		return requirements;
 	}
 
+	/**
+	 * @return An UltraSoundScanFactory.
+	 */
 	@Override
 	public ResultFactory get() {
 		return new UltraSoundScanResultFactory();
 	}
 
+	/**
+	 * Gives a result, based on the information of the factory.
+	 * 
+	 * @param resultFactory
+	 *            The factory the result will be based on.
+	 * @return The Result based on the ResultFactory.
+	 * @throws InvalidResultException
+	 *             The given factory is not a UltraSoundScanFactory.
+	 * @throws FactoryInstantiationException
+	 *             The Factory was not ready yet.
+	 */
 	@Override
-	public Result give(ResultFactory builder) throws InvalidResultException, FactoryInstantiationException {
-		Result myresult = builder.create();
-		if(!validResult(myresult))
-			throw new InvalidResultException("invalid result");
-		setResult(myresult);
-		return myresult;
+	public Result give(ResultFactory resultFactory) throws InvalidResultException, FactoryInstantiationException {
+		Result result = resultFactory.create();
+		if (!validResult(result))
+			throw new InvalidResultException("The given factory is not a UltraSoundScanFactory.");
+		setResult(result);
+		return result;
 	}
 
-	private boolean validResult(Result myresult) {
-		return myresult!=null&&myresult instanceof UltraSoundScanResult;
+	/**
+	 * Checks whether the given result is valid or not.
+	 * 
+	 * @param result
+	 *            The result that has to be checked.
+	 * @return True if the result is not null and is a UltraSoundScanResult.
+	 */
+	private boolean validResult(Result result) {
+		return result != null && result instanceof UltraSoundScanResult;
 	}
 }

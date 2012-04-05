@@ -45,7 +45,7 @@ public abstract class MedicalTest extends TaskDescriptionWithPatientFile
 
 	/**
 	 * @throws IllegalStateException
-	 * when called. Medical tests should never be deinitialised.
+	 *             when called. Medical tests should never be deinitialised.
 	 */
 	@Override
 	public <T extends TaskDescription> void deInit(Task<T> task) {
@@ -66,7 +66,7 @@ public abstract class MedicalTest extends TaskDescriptionWithPatientFile
 	 *            The result of the MedicalTest.
 	 */
 	protected void setResult(Result result) {
-		result_=result;
+		result_ = result;
 	}
 
 	/**
