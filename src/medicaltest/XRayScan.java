@@ -24,6 +24,10 @@ public class XRayScan extends MedicalTest
 	private final String bodypart_;
 	private int num_;
 	private float zoomlevel_;
+	/**
+	 * The duration of an XRayScan.
+	 */
+	public final static long DURATION_ = 15 * HospitalDate.ONE_MINUTE;
 
 	/**
 	 * The default constructor. Package visible since it should only be used by
@@ -41,7 +45,7 @@ public class XRayScan extends MedicalTest
 	 *            The level of zoom.
 	 */
 	XRayScan(PatientFile patientFile, HospitalDate creationDate, String bodypart, int num, float zoomlevel) {
-		super(patientFile, 15 * HospitalDate.ONE_MINUTE, creationDate);
+		super(patientFile, XRayScan.DURATION_, creationDate);
 		this.bodypart_ = bodypart;
 		this.num_ = num;
 		this.zoomlevel_ = zoomlevel;
@@ -115,7 +119,7 @@ public class XRayScan extends MedicalTest
 		setResult(result);
 		return result;
 	}
-	
+
 	/**
 	 * Checks whether the given result is valid or not.
 	 * 

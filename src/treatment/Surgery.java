@@ -6,6 +6,7 @@ import patient.Diagnose;
 import patient.PatientFile;
 import result.Result;
 import result.ResultFactory;
+import result.SurgeryResult;
 import result.SurgeryResultFactory;
 import scheduler.HospitalDate;
 import scheduler.requirements.DiagnoseCondition;
@@ -25,6 +26,9 @@ import exceptions.InvalidResultException;
 public class Surgery extends Treatment
 {
 	private String description_;
+	/**
+	 * The duration of a Surgery.
+	 */
 	public final static long DURATION_ = HospitalDate.ONE_MINUTE * 180;
 
 	/**
@@ -68,22 +72,42 @@ public class Surgery extends Treatment
 		return requirements;
 	}
 
+	/**
+	 * @return A SurgeryResultFactory.
+	 */
 	@Override
 	public ResultFactory get() {
 		return new SurgeryResultFactory();
 	}
 
+	/**
+	 * Gives a result, based on the information of the factory.
+	 * 
+	 * @param resultFactory
+	 *            The factory the result will be based on.
+	 * @return The Result based on the ResultFactory.
+	 * @throws InvalidResultException
+	 *             The given factory is not a SurgeryResultFactory.
+	 * @throws FactoryInstantiationException
+	 *             The Factory was not ready yet.
+	 */
 	@Override
-	public Result give(ResultFactory builder) throws InvalidResultException, FactoryInstantiationException {
-		Result myresult = builder.create();
-		if(!validResult(myresult))
-			throw new InvalidResultException("invalid result");
-		setResult(myresult);
-		return myresult;
+	public Result give(ResultFactory resultFactory) throws InvalidResultException, FactoryInstantiationException {
+		Result result = resultFactory.create();
+		if (!validResult(result))
+			throw new InvalidResultException("The given factory is not a SurgeryResultFactory.");
+		setResult(result);
+		return result;
 	}
 
-	private boolean validResult(Result myresult) {
-		// TODO Auto-generated method stub
-		return false;
+	/**
+	 * Checks whether the given result is valid or not.
+	 * 
+	 * @param result
+	 *            The result that has to be checked.
+	 * @return True if the result is not null and is a SurgeryResult.
+	 */
+	private boolean validResult(Result result) {
+		return result != null && result instanceof SurgeryResult;
 	}
 }
