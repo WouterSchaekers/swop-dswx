@@ -33,5 +33,9 @@ public class AdvanceTimeController extends NeedsLoginController
 	boolean validUser(User u) {
 		return u instanceof HospitalAdmin;
 	}
-
+	@controllers.PUBLICAPI
+	public HospitalDate getTime()
+	{
+		return this.hospital.getTimeKeeper().getSystemTime();
+	}
 }
