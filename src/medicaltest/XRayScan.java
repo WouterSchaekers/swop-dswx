@@ -6,7 +6,7 @@ import machine.XRayScanner;
 import patient.PatientFile;
 import result.Result;
 import result.ResultFactory;
-import result.XRayScanResultBuilder;
+import result.XRayScanResultFactory;
 import scheduler.HospitalDate;
 import scheduler.requirements.Requirement;
 import scheduler.requirements.RequirementType;
@@ -87,7 +87,7 @@ public class XRayScan extends MedicalTest
 
 	@Override
 	public ResultFactory get() {
-		return new XRayScanResultBuilder();
+		return new XRayScanResultFactory();
 	}
 
 	@Override
