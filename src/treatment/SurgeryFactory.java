@@ -10,8 +10,7 @@ public class SurgeryFactory extends TreatmentFactory
 	private String description_;
 
 	/**
-	 * Default constructor. Package visible since it should only be used by
-	 * Treatments.
+	 * Default constructor.
 	 */
 	public SurgeryFactory() {
 		;

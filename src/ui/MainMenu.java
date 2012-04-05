@@ -2,16 +2,14 @@ package ui;
 
 import java.util.Collection;
 import java.util.Stack;
-import exceptions.InvalidHospitalException;
-import exceptions.InvalidLoginControllerException;
 import ui.usecases.AdvanceTime;
 import ui.usecases.Checkin;
-import ui.usecases.RegisterPatient;
 import ui.usecases.HospitalEquipmentUseCase;
 import ui.usecases.HospitalStaff;
 import ui.usecases.Login;
 import ui.usecases.Logout;
 import ui.usecases.Quit;
+import ui.usecases.RegisterPatient;
 import ui.usecases.Selector;
 
 public class MainMenu extends UseCase

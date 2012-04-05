@@ -16,7 +16,7 @@ public abstract class TreatmentFactory
 	protected HospitalDate creationDate_;
 	protected Diagnose diagnose_;
 	protected Warehouse warehouse_;
-
+	
 	/**
 	 * Sets the warehouse of this factory.
 	 * 

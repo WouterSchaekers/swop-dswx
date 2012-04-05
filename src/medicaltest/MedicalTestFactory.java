@@ -59,8 +59,19 @@ public abstract class MedicalTestFactory
 		return this.isValidPatientFile() && this.isValidCreationDate();
 	}
 
-	
+	/**
+	 * Creates a Medical Test built from the given information.
+	 * 
+	 * @return A Medical Test built from the given information.
+	 * @throws FactoryInstantiationException
+	 *             The factory was not ready yet.
+	 */
 	public abstract MedicalTest create() throws FactoryInstantiationException;
 
+	/**
+	 * Returns a new instance of the current factory.
+	 * 
+	 * @return A new instance of the current factory.
+	 */
 	public abstract MedicalTestFactory newInstance();
 }

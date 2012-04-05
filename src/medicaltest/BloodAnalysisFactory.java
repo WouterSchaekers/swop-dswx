@@ -2,28 +2,28 @@ package medicaltest;
 
 import exceptions.FactoryInstantiationException;
 
+/**
+ * A BloodAnalysisFactory is a factory, used to create a Blood Analysis.
+ */
 public class BloodAnalysisFactory extends MedicalTestFactory
 {
 	private String focus_;
 	private int numberOfAnalysis_;
 
 	/**
-	 * Default constructor, only visible in the package since you have to create
-	 * the factories in the MedicalTestsClass.
+	 * Default constructor.
 	 */
 	public BloodAnalysisFactory() {
+		;
 	}
 
 	/**
 	 * Method to set the focus of the bloodanalysis
 	 * 
 	 * @param focus
-	 * @throws IllegalArgumentException
-	 *             if the provided argument is null
+	 *            The focus of the blood analysis.
 	 */
 	public void setFocus(String focus) {
-		if (!isValidFocus(focus))
-			throw new IllegalArgumentException("invalid focus value");
 		this.focus_ = focus;
 	}
 
@@ -31,62 +31,60 @@ public class BloodAnalysisFactory extends MedicalTestFactory
 	 * Method to set the number of analysis that have to be executed
 	 * 
 	 * @param numberOfAnalysis
-	 * @throws if
-	 *             the provided number is invalid (<=0)
+	 *            The number of analyses.
 	 */
 	public void setNumberOfAnalysis(int numberOfAnalysis) {
-		if (!isValidNumberOfAnalysis(numberOfAnalysis))
-			throw new IllegalArgumentException("Illegal amount of analysis");
 		this.numberOfAnalysis_ = numberOfAnalysis;
 	}
 
+	/**
+	 * Creates a Blood Analysis built from the given information.
+	 * 
+	 * @return A Blood Analysis built from the given information.
+	 * @throws FactoryInstantiationException
+	 *             The factory was not ready yet.
+	 */
 	@Override
 	public MedicalTest create() throws FactoryInstantiationException {
 		if (!ready())
 			throw new FactoryInstantiationException("BloodAnalysisFactory is not properly instantiated yet.");
-		return new BloodAnalysis(this.patientFile_, this.creationDate_, numberOfAnalysis_, focus_);
+		return new BloodAnalysis(this.patientFile_, this.creationDate_, this.numberOfAnalysis_, this.focus_);
 	}
-	
 
 	/**
-	 * Checks all the set fields in this factory.
+	 * Checks whether the factory is ready for production.
 	 * 
-	 * @return false if one of the fields has not been inialized or is
-	 *         wrongfully inialized.
+	 * @return True if the focus and the numberOfAnalysis is valid.
 	 */
 	private boolean ready() {
-		boolean rv = super.isReady();
-		rv &= isValidFocus(focus_);
-		rv &= isValidNumberOfAnalysis(numberOfAnalysis_);
-		return rv;
+		return super.isReady() && isValidFocus() && isValidNumberOfAnalysis();
 	}
 
 	/**
-	 * Simple method to check if the provided focus argument is valid
+	 * Checks whether the focus is valid.
 	 * 
-	 * @param focus
-	 *            the focus of the bloodanalysis that will be created by this
-	 *            factory
-	 * @return true if the argumet is not null.
+	 * @return True if the focus is not null and not empty.
 	 */
-	private boolean isValidFocus(String focus) {
-		return !(focus == null || focus.isEmpty());
+	private boolean isValidFocus() {
+		return this.focus_ != null && !this.focus_.isEmpty();
 	}
 
 	/**
-	 * Method to check if the amount of analysis is valid ( greater then 0)
+	 * Checks whether the number of analysis is valid.
 	 * 
-	 * @param numberOfAnalysis
-	 *            the number of analysis that have to be executed
-	 * @return true if the argument is > 0
+	 * @return True if the number of analysis is strickt positive.
 	 */
-	private boolean isValidNumberOfAnalysis(int numberOfAnalysis) {
-		return numberOfAnalysis > 0;
+	private boolean isValidNumberOfAnalysis() {
+		return this.numberOfAnalysis_ > 0;
 	}
 
+	/**
+	 * Returns a new instance of the current factory.
+	 * 
+	 * @return A new instance of the current factory.
+	 */
 	@Override
 	public MedicalTestFactory newInstance() {
 		return new BloodAnalysisFactory();
 	}
-
 }

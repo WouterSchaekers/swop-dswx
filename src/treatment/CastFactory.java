@@ -8,7 +8,7 @@ import exceptions.FactoryInstantiationException;
 public class CastFactory extends TreatmentFactory
 {
 	/**
-	 * Default constructor. Package visible since it should only be used by Treatments.
+	 * Default constructor.
 	 */
 	public CastFactory() {
 		;
@@ -34,7 +34,7 @@ public class CastFactory extends TreatmentFactory
 	 * 		True if the body part is valid.
 	 */
 	private boolean isValidBodyPart() {
-		return !(bodyPart_ == null || bodyPart_.isEmpty());
+		return bodyPart_ != null && !bodyPart_.isEmpty();
 	}
 	
 	/**

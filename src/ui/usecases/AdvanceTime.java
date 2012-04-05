@@ -1,13 +1,13 @@
 package ui.usecases;
 
 import scheduler.HospitalDate;
-import scheduler.InvalidSystemTime;
 import ui.MainMenu;
 import ui.UIData;
 import ui.UseCase;
 import controllers.AdvanceTimeController;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
+import exceptions.InvalidSystemTimeException;
 
 public class AdvanceTime extends UseCase
 {
@@ -40,7 +40,7 @@ public class AdvanceTime extends UseCase
 		int seconds =new Integer(input.substring(17,19 ));
 		try {
 			controller.setNewSystemTime(new HospitalDate(year, month, day, hours, minutes, seconds));
-		} catch (InvalidSystemTime e) {
+		} catch (InvalidSystemTimeException e) {
 		printLn("New time must be after current time.");
 		}
 		}catch(Exception e){

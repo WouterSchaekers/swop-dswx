@@ -1,6 +1,5 @@
 package treatment;
 
-import warehouse.Warehouse;
 import warehouse.item.MedicationType;
 import exceptions.FactoryInstantiationException;
 
@@ -12,7 +11,6 @@ public class MedicationFactory extends TreatmentFactory
 	private String description_;
 	private boolean sensitive_;
 	private MedicationType medicationType_;
-	private Warehouse warehouse_;
 
 	/**
 	 * Default constructor.
@@ -52,16 +50,6 @@ public class MedicationFactory extends TreatmentFactory
 	}
 
 	/**
-	 * Sets the warehouse of the factory.
-	 * 
-	 * @param warehouse
-	 *            The warehouse.
-	 */
-	public void setWarehouse(Warehouse warehouse) {
-		this.warehouse_ = warehouse;
-	}
-
-	/**
 	 * Checks whether the description is valid.
 	 * 
 	 * @return True if the description is not null .
@@ -80,15 +68,6 @@ public class MedicationFactory extends TreatmentFactory
 	}
 
 	/**
-	 * Checks whether the warehouse is valid.
-	 * 
-	 * @return True if the warehouse is not null.
-	 */
-	private boolean isValidWarehouse() {
-		return this.warehouse_ != null;
-	}
-
-	/**
 	 * Checks whether the factory is ready for production.
 	 * 
 	 * @return True if the description, the medicationType and the warehouse is
@@ -96,7 +75,7 @@ public class MedicationFactory extends TreatmentFactory
 	 */
 	@Override
 	protected boolean isReady() {
-		return super.isReady() && isValidDescription() && isValidMedicationType() && isValidWarehouse();
+		return super.isReady() && isValidDescription() && isValidMedicationType();
 	}
 
 	/**
