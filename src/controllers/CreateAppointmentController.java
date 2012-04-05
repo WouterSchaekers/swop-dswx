@@ -15,7 +15,6 @@ import controllers.interfaces.DoctorIN;
 import controllers.interfaces.PatientFileIN;
 import controllers.interfaces.UserIN;
 import exceptions.CanNeverBeScheduledException;
-import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 
@@ -58,12 +57,8 @@ public class CreateAppointmentController extends NeedsLoginController
 	public HospitalDate scheduleNewAppointment(DoctorIN doctor, PatientFileIN patient)
 			throws CanNeverBeScheduledException {
 		AppointmentDescription description;
-		try {
-			description = new AppointmentDescription((Doctor) doctor, (PatientFile) patient, hospital.getTimeKeeper()
-					.getSystemTime());
-		} catch (InvalidHospitalDateException e) {
-			throw new Error(e);
-		}
+		description = new AppointmentDescription((Doctor) doctor, (PatientFile) patient, hospital.getTimeKeeper()
+				.getSystemTime());
 		Task<?> t = hospital.getTaskManager().add(description);
 
 		if (t.isScheduled())

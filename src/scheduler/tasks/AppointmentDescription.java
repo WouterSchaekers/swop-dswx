@@ -1,6 +1,5 @@
 package scheduler.tasks;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Observable;
@@ -13,8 +12,10 @@ import scheduler.requirements.Requirement;
 import scheduler.requirements.RequirementType;
 import scheduler.requirements.SpecificRequirement;
 import users.Doctor;
-import exceptions.InvalidHospitalDateException;
 
+/**
+ * This class represents an Appointment.
+ */
 public class AppointmentDescription extends TaskDescriptionWithPatientFile
 {
 	private Doctor doctor;
@@ -23,12 +24,26 @@ public class AppointmentDescription extends TaskDescriptionWithPatientFile
 	 */
 	public final static long DURATION_ = 30 * HospitalDate.ONE_MINUTE;
 
-	public AppointmentDescription(Doctor doctor, PatientFile patientFile, HospitalDate creationTime)
-			throws InvalidHospitalDateException {
-		super(patientFile, AppointmentDescription.DURATION_, HospitalDate.ONE_HOUR, creationTime);
+	/**
+	 * Default constructor.
+	 * 
+	 * @param doctor
+	 *            The doctor that participates in the Appointment.
+	 * @param patientFile
+	 *            The patientFile that has the Appointment.
+	 * @param creationDate
+	 *            The date on which this description has been created.
+	 */
+	public AppointmentDescription(Doctor doctor, PatientFile patientFile, HospitalDate creationDate) {
+		super(patientFile, AppointmentDescription.DURATION_, HospitalDate.ONE_HOUR, creationDate);
 		this.doctor = doctor;
 	}
 
+	/**
+	 * Returns all the requirements that are needed to forfill this task.
+	 * 
+	 * @return All the requirements that are needed to forfill this task.
+	 */
 	@Override
 	public Collection<Requirement> getAllRequirements() {
 		Collection<Requirement> requirements = new LinkedList<Requirement>();
@@ -37,37 +52,63 @@ public class AppointmentDescription extends TaskDescriptionWithPatientFile
 		return requirements;
 	}
 
+	/**
+	 * @return The doctor that participates in this Appointment.
+	 */
 	public Doctor getDoctor() {
 		return doctor;
 	}
 
+	/**
+	 * Initializes the Appointment. Does nothing.
+	 * 
+	 * @param task
+	 *            The task that has to be initialized.
+	 */
 	@Override
 	public <T extends TaskDescription> void initTask(Task<T> task) {
-		; // do nothing
+		;
 	}
 
+	/**
+	 * Deinitializes the Appointment. Does nothing.
+	 * 
+	 * @param task
+	 *            The task that has to be deinitialized.
+	 */
 	@Override
 	public <T extends TaskDescription> void deInit(Task<T> task) {
-		; // do nothing
+		;
 	}
 
-	@Override
+	/**
+	 * @return The result.
+	 */
 	public Result getResult() {
-		return null;
+		return this.result_;
 	}
 
+	/**
+	 * Returns the observables that observe this medical test.
+	 */
 	@Override
 	public Collection<Observable> getObservables() {
-		return new ArrayList<Observable>();
+		return new LinkedList<Observable>();
 	}
 
+	/**
+	 * @return A NoResultFactory.
+	 */
 	@Override
 	public ResultFactory get() {
 		return new NoResultFactory();
 	}
 
+	/**
+	 * Returns null. Appointments don't have a Result.
+	 */
 	@Override
-	public Result give(ResultFactory builder) {
+	public Result give(ResultFactory resultFactory) {
 		return null;
 	}
 }
