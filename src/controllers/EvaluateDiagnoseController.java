@@ -15,18 +15,33 @@ import exceptions.InvalidPatientFileOpenController;
  * Use this controller to give a second opinion on a diagnose of a patient.
  */
 @controllers.PUBLICAPI
-public class ApproveDiagnoseController extends NeedsLoginAndPatientFileController
+public class EvaluateDiagnoseController extends NeedsLoginAndPatientFileController
 {
 
 	/**
 	 * Default constructor.
 	 * 
+	 * @param lc
+	 *            The login controller of the user that wants to evaluate
+	 *            diagnosis with this new controller.
+	 * @param cpfc
+	 *            The consult patient file controller that contains the patient
+	 *            file of the patient of whom you want to evaluate diagnosis
+	 *            from.
+	 * @throws InvalidLoginControllerException
+	 *             If the user that is trying to execute method calls on this
+	 *             controller is not a doctor or if the given login controller
+	 *             is invalid in any other way.
 	 * @throws DischargePatientException
-	 *             If the patient of the patient file the doctor currently has
-	 *             opened has already been discharged.
+	 *             If the patient that's in the consult patient file controller
+	 *             is currently discharged.
+	 * @throws InvalidHospitalException
+	 * @throws InvalidPatientFileOpenController
+	 * @see HospitalController
+	 * @see NeedsLoginAndPatientFileController
 	 */
 	@controllers.PUBLICAPI
-	public ApproveDiagnoseController(LoginController lc, ConsultPatientFileController cpfc)
+	public EvaluateDiagnoseController(LoginController lc, ConsultPatientFileController cpfc)
 			throws InvalidLoginControllerException, InvalidHospitalException, InvalidPatientFileOpenController,
 			DischargePatientException {
 		super(lc, cpfc);
@@ -38,6 +53,9 @@ public class ApproveDiagnoseController extends NeedsLoginAndPatientFileControlle
 	 * Approves the selected diagnose.
 	 * 
 	 * @throws ApproveDiagnoseException
+	 *             If the selected diagnose does not require a second opinion or
+	 *             the user that's calling this method is not the given doctor
+	 *             of whom the attending doctor required a second opinion from.
 	 */
 	@controllers.PUBLICAPI
 	public void approveDiagnose(DiagnoseIN selected) throws ApproveDiagnoseException {
@@ -70,11 +88,11 @@ public class ApproveDiagnoseController extends NeedsLoginAndPatientFileControlle
 	 */
 	@controllers.PUBLICAPI
 	public Collection<DiagnoseIN> getPendingDiagnosis() {
-		return cpfc.getPatientFile().getPendingDiagnosisForIN((Doctor) lc.getUser());
+		return consultPatientFileController_.getPatientFile().getPendingDiagnosisForIN((Doctor) loginController_.getUser());
 	}
 
 	private boolean isValidDiagnose(DiagnoseIN d) {
-		return cpfc.getPatientFile().getAllDiagnosisIN().contains(d);
+		return consultPatientFileController_.getPatientFile().getAllDiagnosisIN().contains(d);
 	}
 
 	@Override

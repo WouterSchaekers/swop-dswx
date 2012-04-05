@@ -4,41 +4,66 @@ import users.User;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 
- abstract class NeedsLoginController extends HospitalController
+/**
+ * A class that should be extended by every controller that requires a
+ * login controller to work.
+ */
+abstract class NeedsLoginController extends HospitalController
 {
+	protected LoginController loginController_;
 
-	protected LoginController lc;
-
-	 NeedsLoginController(LoginController lc) throws InvalidLoginControllerException,
-			InvalidHospitalException {
-		super(lc.hospital);
-		if (isValidLoginController(lc))
-			this.lc = lc;
+	/**
+	 * Default constructor. Initialises the logincontroller and checks if it is
+	 * valid.
+	 * 
+	 * @param loginController
+	 *            The logincontroller for the newly created controller.
+	 * @throws InvalidLoginControllerException
+	 *             If the given login controller is invalid (null or has no one
+	 *             logged in).
+	 * @throws InvalidHospitalException
+	 *             If the hospital stored in the given login contoller seems to
+	 *             not be valid.
+	 */
+	NeedsLoginController(LoginController loginController) throws InvalidLoginControllerException, InvalidHospitalException {
+		super(loginController.hospital);
+		if (isValidLoginController(loginController))
+			this.loginController_ = loginController;
 		else
 			throw new InvalidLoginControllerException("This loginController is invalid.");
 	}
 
 	/**
-	 * Checks if the provided logingcontroller provides sufficient rights to
-	 * create/use this hospitalEquipementController
+	 * Checks if the calls that will happen on this controller in the future
+	 * will be authorized: is the user that's logged in authorized to use this
+	 * controller?
 	 * 
-	 * @param loginController
-	 * @return
+	 * @return True if the given login controller has all required fields
+	 *         initialised and the logged in user is authorized to use the newly
+	 *         created controller.
 	 */
 	public boolean isValidLoginController(LoginController loginController) {
-		User i = loginController.getUser();
-		if (i == null)
+		User controllerOwner = loginController.getUser();
+		if (controllerOwner == null)
 			return false;
-		if (!validUser(i))
+		if (!validUser(controllerOwner))
 			return false;
-		if (this.lc == null)
+		if (this.loginController_ == null)
 			return true;
-		else if (!this.lc.equals(loginController)) {
+		else if (!this.loginController_.equals(loginController)) {
 			return false;
 		}
 		return true;
 	}
 
+	/**
+	 * Abstract method: check if the logged in user is authorized to execute
+	 * methods in the newly created controller.
+	 * 
+	 * @param u
+	 *            The owner of the new controller.
+	 * @return True if the user is allowed to use the new controller.
+	 */
 	abstract boolean validUser(User u);
 
 }

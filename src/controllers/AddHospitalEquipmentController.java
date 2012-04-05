@@ -9,7 +9,6 @@ import users.HospitalAdmin;
 import users.User;
 import controllers.interfaces.CampusIN;
 import controllers.interfaces.LocationIN;
-import exceptions.ControllerException;
 import exceptions.InvalidCampusException;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLocationException;
@@ -23,31 +22,42 @@ import exceptions.InvalidSerialException;
 public class AddHospitalEquipmentController extends NeedsLoginController
 {
 	/**
-	 * Default constructor to add hospital equipment to the hospital.
+	 * Default constructor.
 	 * 
 	 * @param loginController
-	 * @throws ControllerException
+	 *            The logincontroller of the user trying to add hospital
+	 *            equipment.
 	 * @throws InvalidLoginControllerException
+	 *             If the use to whom the given logincontroller belongs is not a
+	 *             hospital administrator or is invalid in another way.
 	 * @throws InvalidHospitalException
+	 * @see HospitalController
+	 * @see NeedsLoginController
 	 */
 	@controllers.PUBLICAPI
-	public AddHospitalEquipmentController(LoginController lc) throws InvalidLoginControllerException,
+	public AddHospitalEquipmentController(LoginController loginController) throws InvalidLoginControllerException,
 			InvalidHospitalException {
-		super(lc);
+		super(loginController);
 	}
 
 	/**
-	 * @return All the objects that can create a kinds of different machines.
+	 * @return Objects that can create different kinds of machines.
 	 * @throws InvalidCampusException
 	 */
 	@controllers.PUBLICAPI
-	public Collection<MachineBuilder> getAllMachineBuilders() 
-	{
-
-		return getAllMachineBuilders(lc.getLocation());
+	public Collection<MachineBuilder> getAllMachineBuilders() {
+		return getAllMachineBuilders(loginController_.getLocation());
 	}
-	private Collection<MachineBuilder> getAllMachineBuilders(CampusIN campus)  {
 
+	/**
+	 * Private method to return all builders that are on the campus that the
+	 * user who has created this controller is on.
+	 * 
+	 * @param campus
+	 *            The campus the owner of this controller is on.
+	 * @return All builders present on the given campus.
+	 */
+	private Collection<MachineBuilder> getAllMachineBuilders(CampusIN campus) {
 		Campus c = (Campus) campus;
 		return c.getMachinePool().getAllBuilders();
 	}
@@ -61,16 +71,31 @@ public class AddHospitalEquipmentController extends NeedsLoginController
 	 */
 	@controllers.PUBLICAPI
 	public void createMachine(MachineBuilder b) throws InvalidLocationException, InvalidSerialException {
-		createMachine(b, lc.getLocation());
+		createMachine(b, loginController_.getLocation());
 	}
 
+	/**
+	 * Private method for adding machines to the location the owner of this
+	 * controller is at.
+	 * 
+	 * @param b
+	 *            The builder with initialised fields.
+	 * @param whereabouts
+	 *            The location of the owner of this controller.
+	 * @throws InvalidLocationException
+	 *             If the location set in the machine builder is not a valid
+	 *             one.
+	 * @throws InvalidSerialException
+	 *             If the serial set in the given machine builder is not a valid
+	 *             one.
+	 */
 	private void createMachine(MachineBuilder b, LocationIN whereabouts) throws InvalidLocationException,
 			InvalidSerialException {
 		((Campus) whereabouts).getMachinePool().addMachine(b);
 	}
 
 	/**
-	 * @return all possible locations in this hospital.
+	 * @return All existing locations in this hospital.
 	 */
 	@controllers.PUBLICAPI
 	public Collection<LocationIN> getAllLocations() {
@@ -80,6 +105,9 @@ public class AddHospitalEquipmentController extends NeedsLoginController
 		return rv;
 	}
 
+	/**
+	 * @return True if u is a hospital administrator.
+	 */
 	@Override
 	boolean validUser(User u) {
 		return u instanceof HospitalAdmin;

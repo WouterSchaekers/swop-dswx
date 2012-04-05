@@ -62,7 +62,7 @@ public class PrescribeTreatmentController extends NeedsLoginAndPatientFileContro
 	 *         to.
 	 */
 	public Collection<DiagnoseIN> getAllPossibleDiagnosis() {
-		return ((PatientFile) cpfc.getPatientFile()).getDiagnosisFrom((Doctor) lc.getUser());
+		return ((PatientFile) consultPatientFileController_.getPatientFile()).getDiagnosisFrom((Doctor) loginController_.getUser());
 	}
 
 	/**

@@ -7,6 +7,7 @@ import be.kuleuven.cs.som.annotate.Basic;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidNameException;
 import exceptions.UserAlreadyExistsException;
+
 /**
  * A class representing the collection of all the users in the hospital/campus.
  * 
@@ -14,14 +15,15 @@ import exceptions.UserAlreadyExistsException;
  */
 public class UserManager
 {
-
 	private Collection<User> users_;
 	private UserTypeManager userTypeManager = new UserTypeManager();
 
 	/**
 	 * Default constructor.
-	 * @throws InvalidNameException 
-	 * When the provided name is invalid for the hospitaladmin that must be created in this usermanager
+	 * 
+	 * @throws InvalidNameException
+	 *             When the provided name is invalid for the hospitaladmin that
+	 *             must be created in this usermanager
 	 */
 	public UserManager(String name) throws InvalidNameException {
 		users_ = new ArrayList<User>();
@@ -37,10 +39,9 @@ public class UserManager
 		return new LinkedList<User>(this.users_);
 	}
 
-	public User createUser(UserFactory factory)
-			throws UserAlreadyExistsException, InvalidNameException, InvalidLocationException {
-		
-		User u= factory.create();
+	public User createUser(UserFactory factory) throws UserAlreadyExistsException, InvalidNameException,
+			InvalidLocationException {
+		User u = factory.create();
 		addUser(u);
 		return u;
 	}

@@ -20,7 +20,7 @@ import exceptions.WarehouseOverCapacityException;
 @controllers.PUBLICAPI
 public class FillStockInWarehouseController extends NeedsLoginController
 {
-	private Campus campus = (Campus)(((WarehouseAdmin)(lc.getUser())).getLocation());
+	private Campus campus = (Campus)(((WarehouseAdmin)(loginController_.getUser())).getLocation());
 
 	@controllers.PUBLICAPI
 	public FillStockInWarehouseController(LoginController lc) throws InvalidLoginControllerException,

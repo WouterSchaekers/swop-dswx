@@ -45,7 +45,7 @@ public class DischargePatientController extends
 	public void dischargePatient() throws DischargePatientException,
 			InvalidPatientFileException {
 		hospital.getPatientFileManager().checkOut(
-				(PatientFile) cpfc.getPatientFile());
+				(PatientFile) consultPatientFileController_.getPatientFile());
 	}
 
 	@Override
