@@ -229,4 +229,8 @@ public class OrderMedicalTest extends UseCase
 		}
 		
 	}
+	public String toString()
+	{
+		return "Order medical test";
+	}
 }

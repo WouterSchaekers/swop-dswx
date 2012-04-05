@@ -165,7 +165,14 @@ public class Diagnose extends Observable implements DiagnoseIN
 		this.secopDoc = null;
 		this.notifyObservers(this);
 	}
-
+	/**
+	 * 
+	 * @param newDiagnose
+	 * @param newComplaints
+	 * @param secondOp
+	 * @return
+	 * @throws ApproveDiagnoseException
+	 */
 	/**
 	 * Disapproves this diagnose and adds a new one to the patient file that
 	 * created this one.
@@ -234,7 +241,7 @@ public class Diagnose extends Observable implements DiagnoseIN
 	@Override
 	@Basic
 	public boolean isApprovedIN() {
-		if (isMarkedForSecOpBy(null))
+		if (this.secOpFlag)
 			return this.approved;
 		else
 			return true;

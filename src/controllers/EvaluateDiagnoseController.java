@@ -1,7 +1,9 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import patient.Diagnose;
+import patient.PatientFile;
 import users.Doctor;
 import users.User;
 import controllers.interfaces.DiagnoseIN;
@@ -16,7 +18,7 @@ import exceptions.InvalidConsultPatientFileController;
  * Use this controller to give a second opinion on a diagnose of a patient.
  */
 @controllers.PUBLICAPI
-public class EvaluateDiagnoseController extends NeedsLoginAndPatientFileController
+public class EvaluateDiagnoseController extends NeedsLoginController
 {
 
 	/**
@@ -42,13 +44,11 @@ public class EvaluateDiagnoseController extends NeedsLoginAndPatientFileControll
 	 * @see NeedsLoginAndPatientFileController
 	 */
 	@controllers.PUBLICAPI
-	public EvaluateDiagnoseController(LoginController lc, ConsultPatientFileController cpfc)
+	public EvaluateDiagnoseController(LoginController lc)
 			throws InvalidLoginControllerException, InvalidHospitalException, InvalidConsultPatientFileController,
 			DischargePatientException {
-		super(lc, cpfc);
-		if (cpfc.getPatientFile().isDischarged())
-			throw new DischargePatientException("Cannot approve a diagnose of a Patient that was already discharged!");
-	}
+		super(lc);
+}
 
 	/**
 	 * Approves the selected diagnose.
@@ -59,12 +59,9 @@ public class EvaluateDiagnoseController extends NeedsLoginAndPatientFileControll
 	 *             of whom the attending doctor required a second opinion.
 	 */
 	@controllers.PUBLICAPI
-	public void approveDiagnose(DiagnoseIN selected) throws ApproveDiagnoseException {
-		if (isValidDiagnose(selected))
+	public void approveDiagnose(DiagnoseIN selected) throws ApproveDiagnoseException  {
 			((Diagnose) selected).approveBy((Doctor) loginController_.getUser());
-		else
-			throw new ApproveDiagnoseException("Trying to approve a diagnose that does not exist!");
-	}
+		}
 
 	/**
 	 * Disapproves the selected diagnose and replaces it with a new one.
@@ -89,16 +86,14 @@ public class EvaluateDiagnoseController extends NeedsLoginAndPatientFileControll
 	 */
 	@controllers.PUBLICAPI
 	public Collection<DiagnoseIN> getPendingDiagnosis() {
-		return consultPatientFileController_.getPatientFile().getPendingDiagnosisForIN(
-				(Doctor) loginController_.getUser());
+		Collection<DiagnoseIN> pending = new ArrayList<DiagnoseIN>();
+		for(PatientFile file:hospital.getPatientFileManager().getAllPatientFiles())
+		{
+			pending.addAll(file.getPendingDiagnosisForIN((DoctorIN) loginController_.getUser()));
+		}
+		return pending;
 	}
 
-	/**
-	 * @return True if the given diagnose is one that is pending.
-	 */
-	private boolean isValidDiagnose(DiagnoseIN d) {
-		return consultPatientFileController_.getPatientFile().getAllDiagnosisIN().contains(d);
-	}
 
 	/**
 	 * True if the given user is a Doctor.

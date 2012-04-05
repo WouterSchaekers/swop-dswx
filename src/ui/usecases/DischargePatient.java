@@ -31,5 +31,8 @@ public class DischargePatient extends UseCase
 		printLn("Patient "+data.getConsultPatientFileopenController().getPatientFile().getPatientIN().getName()+" sucesfully discharged.");
 		return mm();
 	}
-
+	public String toString()
+	{
+		return "Discharge patient";
+	}
 }
