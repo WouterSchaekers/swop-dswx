@@ -32,9 +32,13 @@ public class ConsultPatientFile extends UseCase
 		});
 		PatientFileIN selected = patienfileSelector.get();
 		consultPatienFileController.openPatientFile(selected);
-		print("Patient"+selected.getPatientIN().getName()+" sucesfully selected:");
+		printLn("Patient"+selected.getPatientIN().getName()+" sucesfully selected:");
 		data.setConsultPatientFileopenController(consultPatienFileController);
 		return new MainMenu(data);
 	}
-	
+	@Override
+	public String toString()
+	{
+		return "Consult patientfile";
+	}
 }

@@ -29,4 +29,8 @@ public abstract class UseCase implements Comparable<UseCase>
 	{
 		return priority.compareTo(usecase.priority);
 	}
+	protected final UseCase mm()
+	{
+		return new MainMenu(data);
+	}
 }

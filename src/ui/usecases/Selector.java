@@ -1,9 +1,11 @@
 package ui.usecases;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import controllers.interfaces.DoctorIN;
 public class Selector<T>
 {
 	public interface Displayer<T>
@@ -75,4 +77,24 @@ public class Selector<T>
 		run();
 		return selected;
 	}
+	public static final Selector<Boolean> yesNoSelector = new Selector<Boolean>(Arrays.asList(true,false), new Displayer<Boolean>()
+	{
+		
+		@Override
+		public void display(Boolean t) {
+			if(t)
+				System.out.println("True");
+			else
+				System.out.println("False");
+		}
+	});
+	public static final Displayer<DoctorIN> docdisplayer = new Displayer<DoctorIN>()
+	{
+		
+		@Override
+		public void display(DoctorIN t) {
+			System.out.print("Doctor"+t.getName());
+			
+		}
+	};
 }
