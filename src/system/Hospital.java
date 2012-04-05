@@ -10,7 +10,6 @@ import patient.PatientFile;
 import patient.PatientFileManager;
 import scheduler.Schedulable;
 import scheduler.TimeLord;
-import scheduler.tasks.TaskDescription;
 import scheduler.tasks.TaskManager;
 import treatment.TreatmentFactory;
 import users.HospitalAdmin;
@@ -178,10 +177,5 @@ public class Hospital implements HospitalIN
 			rv.add(fact.newInstance());
 		return rv;
 
-	}
-
-	public TaskDescription creatMedTest(TreatmentFactory treatmentFactory) {
-	
-		return null;
 	}
 }

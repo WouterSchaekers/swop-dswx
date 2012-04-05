@@ -14,6 +14,7 @@ import treatment.CastFactory;
 import treatment.MedicationFactory;
 import treatment.SurgeryFactory;
 import treatment.TreatmentFactory;
+import users.UserFactory;
 import exceptions.DischargePatientException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidPatientFileException;
@@ -27,32 +28,36 @@ public class TestingScenario
 	private Collection<TreatmentFactory> treatmentFactories = new LinkedList<TreatmentFactory>(
 			Arrays.asList(new TreatmentFactory[] { new MedicationFactory(), new SurgeryFactory(), new CastFactory() }));
 
-	/**
-	 * Initialises the hospital the way we want it to.
-	 * @throws InvalidPatientFileException 
-	 * @throws InvalidNameException 
-	 * @throws DischargePatientException 
-	 */
 	public TestingScenario() throws InvalidNameException, InvalidPatientFileException, DischargePatientException {
 		// build the hospital
 		StandardHospitalBuilder shb = new StandardHospitalBuilder();
 		hospital = shb.build();
-		// add medical test- and treatment factories
+		addFactories();
+		createUsers();
+		initialisePatientFiles();
+	}
+	
+	private void addFactories() {
 		for (MedicalTestFactory mtf : medicalTestFactories)
 			hospital.addMedicalTestFactory(mtf);
 		for (TreatmentFactory tf : treatmentFactories)
 			hospital.addTreatmentFactory(tf);
-		// add nurses, doctors, warehouse admins
-		// add patient files from Dieter, Stefaan and Wouter
-		PatientFile dieter = hospital.getPatientFileManager().registerPatient("Dieter", hospital.getCampus("Campus 2"));
-		PatientFile stef = hospital.getPatientFileManager().registerPatient("Stefaan", hospital.getCampus("Campus 1"));
-		PatientFile wouter = hospital.getPatientFileManager().registerPatient("Wouter", hospital.getCampus("Campus 1"));
+	}
+	
+	private void createUsers() {
+		Collection<UserFactory> facs = hospital.getUserManager().getUserFactories();
+		if(facs == null)
+			System.out.println("fok joe");
+		//this.hospital.getUserManager().createUser(factory)
+	}
+	
+	private void initialisePatientFiles() throws InvalidNameException, InvalidPatientFileException, DischargePatientException {
+		hospital.getPatientFileManager().registerPatient("Dieter", hospital.getCampus("Campus 2"));
+		hospital.getPatientFileManager().registerPatient("Stefaan", hospital.getCampus("Campus 1"));
+		hospital.getPatientFileManager().registerPatient("Wouter", hospital.getCampus("Campus 1"));
 		PatientFile thibault = hospital.getPatientFileManager().registerPatient("Thibault", hospital.getCampus("Campus 1"));
 		hospital.getPatientFileManager().checkOut(thibault);
-		thibault.createDiagnose("Coughing, difficutly breathing", "A fatal variant of pneumonia", user, secOp)
-		
-		// change the contents and states of the patient files accordingly.
-		
+		//thibault.createDiagnose("Coughing, difficutly breathing", "A fatal variant of pneumonia", user, secOp);
 	}
 
 	public static void main(String[] args) {

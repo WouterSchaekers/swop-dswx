@@ -63,7 +63,7 @@ public class AddHospitalStaffController extends NeedsLoginController
 	 */
 	@controllers.PUBLICAPI
 	public Collection<UserFactory> getFactories() {
-		return this.hospital.getUserManager().getUserFacotories();
+		return this.hospital.getUserManager().getUserFactories();
 	}
 
 	/**
