@@ -2,10 +2,6 @@ package ui;
 
 import java.util.Collection;
 import java.util.Stack;
-import exceptions.InvalidConsultPatientFileController;
-import exceptions.InvalidHospitalException;
-import exceptions.InvalidLoginControllerException;
-import exceptions.InvalidPatientFileException;
 import ui.usecases.AdvanceTime;
 import ui.usecases.Checkin;
 import ui.usecases.ConsultPatientFile;
@@ -30,7 +26,9 @@ public class MainMenu extends UseCase
 		super(data,-1);
 	}
 
-	private Collection<UseCase> getAvailable() {
+	
+private class menuBuilder{
+	 Collection<UseCase> getAvailable() {
 		Collection<UseCase> rv = new Stack<UseCase>();
 		addLogin(rv);
 		addHospitalEquipment(rv);
@@ -49,7 +47,6 @@ public class MainMenu extends UseCase
 		addOrderMedicalTest(rv);
 		return rv;
 	}
-
 	private void addOrderMedicalTest(Collection<UseCase> rv) {
 
 		try {
@@ -173,11 +170,11 @@ public class MainMenu extends UseCase
 		} catch (Exception e) {
 			;
 		}
-	}
+	}}
 	@Override
 	public UseCase execute() {
 
-		Selector<UseCase> selector = new OrderedSelector<UseCase>(getAvailable(), new Selector.Displayer<UseCase>()
+		Selector<UseCase> selector = new OrderedSelector<UseCase>(new menuBuilder().getAvailable(), new Selector.Displayer<UseCase>()
 		{
 			@Override
 			public void display(UseCase s) {

@@ -17,9 +17,9 @@ public class ReviewPendingDiagnoses extends UseCase
 {
 	private EvaluateDiagnoseController controller;
 
-	public ReviewPendingDiagnoses(UIData data) throws InvalidLoginControllerException, DischargePatientException, InvalidHospitalException, InvalidConsultPatientFileController {
+	public ReviewPendingDiagnoses(UIData data) throws InvalidLoginControllerException, InvalidHospitalException, InvalidConsultPatientFileController, DischargePatientException {
 		super(data, 12);
-		controller = new EvaluateDiagnoseController(data.getLoginController(), data.getConsultPatientFileopenController());
+		controller = new EvaluateDiagnoseController(data.getLoginController());
 	}
 
 	@Override
@@ -27,7 +27,6 @@ public class ReviewPendingDiagnoses extends UseCase
 		printLn("Reviewing diagnoses:");
 		printLn("Select one");
 		Collection<DiagnoseIN> diagnoses= controller.getPendingDiagnosis();
-		diagnoses = filterSecondOp(diagnoses);
 		Selector<DiagnoseIN> diagnoseSelector = new Selector<DiagnoseIN>(diagnoses, Selector.diagnose);
 		DiagnoseIN selected =diagnoseSelector.get();
 		printLn("Approve diagonse.");
@@ -63,16 +62,7 @@ public class ReviewPendingDiagnoses extends UseCase
 		}
 	}
 
-	private Collection<DiagnoseIN> filterSecondOp(Collection<DiagnoseIN> diagnoses) {
-		
-		return Collections.filter(diagnoses,new Filter(){
-			@Override
-			public <T> boolean allows(T arg) {
-				return ((DiagnoseIN)arg).needsSecOpFromIN()!=null;
-			}
-			
-		});
-	}
+
 	@Override
 	public String toString()
 	{
