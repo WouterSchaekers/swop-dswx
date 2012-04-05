@@ -126,7 +126,7 @@ public class TestAllTasks
 		surgeryfactory.setCreationDate(now());
 		surgeryfactory.setDescription("Thibault verwijderen van de wereld.");
 		surgeryfactory.setDiagnose(diagnose);
-		surgeryfactory.setWarehouse(location.getWarehouse());
+		//surgeryfactory.setWarehouse(location.getWarehouse());
 		Task<Treatment> surgery = hospital.getTaskManager().add(surgeryfactory.create());
 		assertTrue(surgery.isScheduled());
 		System.out.println(surgery.getTimeSlot());
@@ -157,7 +157,7 @@ public class TestAllTasks
 		surgeryfactory.setCreationDate(now());
 		surgeryfactory.setDescription("Thibault verwijderen van de wereld.");
 		surgeryfactory.setDiagnose(diagnose);
-		surgeryfactory.setWarehouse(location.getWarehouse());
+		//surgeryfactory.setWarehouse(location.getWarehouse());
 		Task<Treatment> surgery = hospital.getTaskManager().add(surgeryfactory.create());
 		diagnose.approveBy(doctorJonathan);
 		assertFalse(surgery.isScheduled());
@@ -191,7 +191,7 @@ public class TestAllTasks
 		surgeryfactory.setCreationDate(now());
 		surgeryfactory.setDescription("Thibault verwijderen van de wereld.");
 		surgeryfactory.setDiagnose(diagnose);
-		surgeryfactory.setWarehouse(location.getWarehouse());
+		//surgeryfactory.setWarehouse(location.getWarehouse());
 
 		Task<Treatment> surgery = hospital.getTaskManager().add(surgeryfactory.create());
 		assertFalse(surgery.isScheduled());

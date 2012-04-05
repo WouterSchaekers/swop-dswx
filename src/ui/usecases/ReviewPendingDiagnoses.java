@@ -5,7 +5,6 @@ import help.Filter;
 import java.util.Collection;
 import ui.UIData;
 import ui.UseCase;
-import ui.usecases.Selector.Displayer;
 import controllers.EvaluateDiagnoseController;
 import controllers.interfaces.DiagnoseIN;
 import exceptions.ApproveDiagnoseException;
@@ -16,18 +15,6 @@ import exceptions.InvalidLoginControllerException;
 
 public class ReviewPendingDiagnoses extends UseCase
 {
-	private Displayer<DiagnoseIN> diagnose = new Displayer<DiagnoseIN>()
-	{
-
-		@Override
-		public void display(DiagnoseIN t) {
-			printLn("Diagnose :"+t.getDiagnoseIN());
-			printLn("Complaints:"+t.getComplaintsIN());
-			print("By :"+t.getAttendingIN().getName());
-			
-			
-		}
-	};
 	private EvaluateDiagnoseController controller;
 
 	public ReviewPendingDiagnoses(UIData data) throws InvalidLoginControllerException, DischargePatientException, InvalidHospitalException, InvalidConsultPatientFileController {
@@ -41,7 +28,7 @@ public class ReviewPendingDiagnoses extends UseCase
 		printLn("Select one");
 		Collection<DiagnoseIN> diagnoses= controller.getPendingDiagnosis();
 		diagnoses = filterSecondOp(diagnoses);
-		Selector<DiagnoseIN> diagnoseSelector = new Selector<DiagnoseIN>(diagnoses, diagnose);
+		Selector<DiagnoseIN> diagnoseSelector = new Selector<DiagnoseIN>(diagnoses, Selector.diagnose);
 		DiagnoseIN selected =diagnoseSelector.get();
 		printLn("Approve diagonse.");
 		boolean approve = Selector.yesNoSelector.get();
@@ -71,7 +58,7 @@ public class ReviewPendingDiagnoses extends UseCase
 				return mm();
 			}
 			printLn("Diagnose is sucesfully disaproved and replaced with :");
-			diagnose.display(diag);
+			Selector.diagnose.display(diag);
 			return mm();
 		}
 	}

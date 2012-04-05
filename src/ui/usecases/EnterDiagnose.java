@@ -42,7 +42,10 @@ public class EnterDiagnose extends UseCase
 			}  catch (InvalidComplaintsException e) {
 				printLn("Complaints were invalid"+e.getMessage());
 				return mm();
-			}
+			} catch (IllegalAccessException e) {
+				printLn("Illegal acces"+e.getMessage());
+				return mm();
+		}
 			printLn("Diagnose was sucesfully entered");
 			printLn("Complaints: "+createdDiagnose.getComplaintsIN());
 			printLn("Diagnose:"+createdDiagnose.getDiagnoseIN());
@@ -68,7 +71,10 @@ public class EnterDiagnose extends UseCase
 			}  catch (InvalidComplaintsException e) {
 				printLn("Complaints were invalid"+e.getMessage());
 				return mm();
-			}
+			} catch (IllegalAccessException e) {
+				printLn("Something went wrong "+e.getMessage());
+				return mm();
+		}
 			printLn("Diagnose was sucesfully entered");
 			printLn("Complaints: "+createdDiagnose.getComplaintsIN());
 			printLn("Diagnose:"+createdDiagnose.getDiagnoseIN());
