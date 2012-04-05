@@ -34,9 +34,6 @@ public class Surgery extends Treatment
 	 *            The description of the surgery.
 	 * @param diagnose
 	 *            The diagnose of this cast.
-	 * @param warehouse
-	 *            The warehouse where the materials for this cast will come
-	 *            from.
 	 */
 	Surgery(PatientFile patientFile, HospitalDate creationDate, String description, Diagnose diagnose) {
 		super(patientFile, diagnose, DURATION_, creationDate);

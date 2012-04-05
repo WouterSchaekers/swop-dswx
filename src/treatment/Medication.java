@@ -39,12 +39,9 @@ public class Medication extends Treatment
 	 *            Boolean that says whether it is sensitive or not.
 	 * @param diagnose
 	 *            The diagnose of this cast.
-	 * @param warehouse
-	 *            The warehouse where the materials for this cast will come
-	 *            from.
-	 * @param diagnose
 	 */
-	Medication(PatientFile patientFile, HospitalDate creationDate, MedicationType medicationType, String description, boolean sensitive, Diagnose diagnose) {
+	Medication(PatientFile patientFile, HospitalDate creationDate, MedicationType medicationType, String description,
+			boolean sensitive, Diagnose diagnose) {
 		super(patientFile, diagnose, getDuration(sensitive), creationDate);
 		this.description_ = description;
 		this.sensitive_ = sensitive;
