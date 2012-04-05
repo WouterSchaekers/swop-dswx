@@ -1,7 +1,6 @@
 package scheduler;
 
 import java.util.GregorianCalendar;
-import exceptions.InvalidHospitalDateArgument;
 
 /**
  * We'll use this class as a date-class as Java's Date classes and alternatives
@@ -14,75 +13,80 @@ public class HospitalDate
 	 * The year of the starttime of the system, given in the assignment.
 	 */
 	public final static int START_YEAR = 2011;
-	
+
 	/**
 	 * The month of the starttime of the system, given in the assignment.
 	 */
 	public final static int START_MONTH = 11;
-	
+
 	/**
 	 * The day of the month of the starttime of the system, given in the
 	 * assignment.
 	 */
 	public final static int START_DAY = 8;
-	
+
 	/**
 	 * The hour of the starttime of the system, given in the assignment.
 	 */
 	public final static int START_HOUR = 8;
-	
+
 	/**
 	 * The amount of minutes of the starttime of the system, given in the
 	 * assignment.
 	 */
 	public final static int START_MINUTE = 0;
-	
+
 	/**
 	 * The amount of seconds of the starttime of the system, given in the
 	 * assignment.
 	 */
 	public final static int START_SECOND = 0;
-	
+
 	/**
 	 * This object will keep all the above fields stored in a HospitalDate.
 	 */
 	public final static HospitalDate START_OF_TIME = new HospitalDate();
-	
+
 	/**
-	 * 
+	 * This object will keep the absolute end of time.
 	 */
 	public static final HospitalDate END_OF_TIME = new HospitalDate(Long.MAX_VALUE
 			- HospitalDate.START_OF_TIME.getTotalMillis());
+
 	/**
 	 * One second in millis.
 	 */
 	public final static long ONE_SECOND = 1000;
+
 	/**
 	 * One minute in millis.
 	 */
 	public final static long ONE_MINUTE = ONE_SECOND * 60;
+
 	/**
 	 * One hour in millis.
 	 */
 	public final static long ONE_HOUR = ONE_MINUTE * 60;
+
 	/**
 	 * One day in millis.
 	 */
 	public final static long ONE_DAY = ONE_HOUR * 24;
+
 	/**
-	 * One month is always 30 days.
+	 * One month in millis.
 	 */
 	public final static long ONE_MONTH = ONE_DAY * 30;
 	/**
-	 * One year is always 365 days.
+	 * One year in millis.
 	 */
 	public static final long ONE_YEAR = ONE_DAY * 365;
+
 	private GregorianCalendar gregorianCalendar;
 
 	/**
-	 * Creates a new hospitaldate, with the default start time.
-	 * 
-	 * @throws InvalidHospitalDateArgument
+	 * Default constructor. It will initialize the HospitalDate with the
+	 * absolute beginning of time.
 	 */
 	public HospitalDate() {
 		this.gregorianCalendar = new GregorianCalendar(START_YEAR, START_MONTH, START_DAY, START_HOUR, START_MINUTE,
@@ -162,7 +166,10 @@ public class HospitalDate
 	}
 
 	/**
-	 * @return The time between this hospital date and the given one.
+	 * Returns the time between this hospitalDate and the given one.
+	 * 
+	 * @return The time between this hospitalDate and the given one. This time
+	 *         will always be positive.
 	 */
 	public long getTimeBetween(HospitalDate d) {
 		if (this.before(d))
@@ -192,16 +199,17 @@ public class HospitalDate
 	}
 
 	/**
-	 * @depricated instead use getTimeSinceStart()
+	 * @depricated Instead use getTimeSinceStart().
 	 */
+	@Deprecated
 	public long getTotalMillis() {
 		return gregorianCalendar.getTimeInMillis();
 	}
 
 	/**
 	 * @param hospitalDate
-	 *            The other hospitaldate.
-	 * @return True if this hospitaldate occurs before the other hospitaldate.
+	 *            The other HospitalDate.
+	 * @return True if this HospitalDate occurs before the other HospitalDate.
 	 */
 	public boolean before(HospitalDate hospitalDate) {
 		return this.getTotalMillis() < hospitalDate.getTotalMillis();
@@ -211,15 +219,23 @@ public class HospitalDate
 	 * @return True if this date is after the given hospital date.
 	 */
 	public boolean after(HospitalDate hospitalDate) {
-		return hospitalDate.before(this);
+		return hospitalDate.before(this) && !this.equals(hospitalDate);
 	}
 
+	/**
+	 * Returns the maximum of the two given HospitalDates.
+	 * 
+	 * @param hospitalDateOne
+	 *            The first HospitalDate.
+	 * @param hospitalDateTwo
+	 *            The second HospitalDate.
+	 * @return The maximum of hospitalDateOne and hospitalDateTwo.
+	 */
 	public static HospitalDate getMaximum(HospitalDate hospitalDateOne, HospitalDate hospitalDateTwo) {
-		if (hospitalDateOne.before(hospitalDateTwo)) {
+		if (hospitalDateOne.before(hospitalDateTwo))
 			return hospitalDateTwo;
-		} else {
+		else
 			return hospitalDateOne;
-		}
 	}
 
 	/**
@@ -233,22 +249,21 @@ public class HospitalDate
 		return this.getYear() + "-" + this.getMonth() + "-" + this.getDay() + " " + hour + ":" + minute + ":" + sec;
 	}
 
+	/**
+	 * Clones this HospitalDate.
+	 */
 	@Override
 	public HospitalDate clone() {
 		return new HospitalDate(this);
 	}
 
+	/**
+	 * Checks whether a given Object equals this HospitalDate.
+	 */
 	@Override
 	public boolean equals(Object o) {
-		if (o instanceof HospitalDate) {
+		if (o instanceof HospitalDate)
 			return this.gregorianCalendar.equals(((HospitalDate) o).gregorianCalendar);
-		}
 		return false;
-	}
-
-	public static HospitalDate getNextHour(HospitalDate hospitalDate) throws InvalidHospitalDateArgument {
-		HospitalDate roundedHospitalDate = new HospitalDate(hospitalDate.getYear(), hospitalDate.getMonth(),
-				hospitalDate.getDay(), hospitalDate.getHour(), 0, 0);
-		return new HospitalDate(roundedHospitalDate.getTimeSinceStart() + HospitalDate.ONE_HOUR);
 	}
 }

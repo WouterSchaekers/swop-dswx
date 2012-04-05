@@ -597,6 +597,7 @@ public class Scheduler
 	 *            The date that has to be checked.
 	 * @return True if the hospitalDate is at a full hour.
 	 */
+	@SuppressWarnings("deprecation")
 	private boolean isFullHour(HospitalDate hospitalDate) {
 		return hospitalDate.getTotalMillis() % HospitalDate.ONE_HOUR == 0;
 	}
@@ -608,6 +609,7 @@ public class Scheduler
 	 *            The date that has to be given the next full hour off.
 	 * @return The hospitalDate at the next full hour.
 	 */
+	@SuppressWarnings("deprecation")
 	private HospitalDate getNextHour(HospitalDate hospitalDate) {
 		return new HospitalDate(hospitalDate.getTimeSinceStart() + HospitalDate.ONE_HOUR
 				- (hospitalDate.getTotalMillis() % HospitalDate.ONE_HOUR));
