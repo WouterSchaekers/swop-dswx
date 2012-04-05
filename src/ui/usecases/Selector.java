@@ -83,9 +83,9 @@ public class Selector<T>
 		@Override
 		public void display(Boolean t) {
 			if(t)
-				System.out.println("True");
+				System.out.print("True");
 			else
-				System.out.println("False");
+				System.out.print("False");
 		}
 	});
 	public static final Displayer<DoctorIN> docdisplayer = new Displayer<DoctorIN>()

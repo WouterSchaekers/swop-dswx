@@ -46,7 +46,7 @@ public class EnterDiagnose extends UseCase
 			printLn("Diagnose was sucesfully entered");
 			printLn("Complaints: "+createdDiagnose.getComplaintsIN());
 			printLn("Diagnose:"+createdDiagnose.getDiagnoseIN());
-			printLn("Attending doctor:"+createdDiagnose.getAttendingIN());
+			printLn("Attending doctor:"+createdDiagnose.getAttendingIN().getName());
 			printLn("No second opinion required");
 			return mm();
 		}else
@@ -71,8 +71,8 @@ public class EnterDiagnose extends UseCase
 			printLn("Diagnose was sucesfully entered");
 			printLn("Complaints: "+createdDiagnose.getComplaintsIN());
 			printLn("Diagnose:"+createdDiagnose.getDiagnoseIN());
-			printLn("Attending doctor:"+createdDiagnose.getAttendingIN());
-			printLn("Second opinon doctor"+createdDiagnose.needsSecOpFromIN());
+			printLn("Attending doctor:"+createdDiagnose.getAttendingIN().getName());
+			printLn("Second opinon doctor"+createdDiagnose.needsSecOpFromIN().getName());
 			return mm();
 		}
 	}

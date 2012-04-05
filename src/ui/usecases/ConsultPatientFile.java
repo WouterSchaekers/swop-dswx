@@ -27,12 +27,12 @@ public class ConsultPatientFile extends UseCase
 			@Override
 			public void display(PatientFileIN file)
 			{
-				print("Patient :"+file.getPatientIN());
+				print("Patient :"+file.getPatientIN().getName());
 			}
 		});
 		PatientFileIN selected = patienfileSelector.get();
 		consultPatienFileController.openPatientFile(selected);
-		printLn("Patient"+selected.getPatientIN().getName()+" sucesfully selected:");
+		printLn("Patient "+selected.getPatientIN().getName()+" sucesfully selected:");
 		data.setConsultPatientFileopenController(consultPatienFileController);
 		return new MainMenu(data);
 	}
