@@ -16,30 +16,30 @@ import controllers.interfaces.CampusIN;
  * This class represents a campus that's part of a hospital. Campusses have
  * their own MachinePool, Warehouse and name. Use this name to identify them.
  */
-public class Campus implements Location,CampusIN
+public class Campus implements Location, CampusIN
 {
 	private String campusName_;
-	private MachinePool machinePool_ ;
+	private MachinePool machinePool_;
 	private WarehouseSet warehouse_;
 	private Hospital hospital_;
 
 	/**
 	 * Creates a Campus & creates the double bind to hospital.
-	 * @param warehouseBuilder TODO
+	 * 
+	 * @param warehouseBuilder
+	 *            TODO
 	 */
-	public Campus(String campusName, Hospital hospital, WarehouseBuilder warehouseBuilder,MachinePool machinePool) {
+	public Campus(String campusName, Hospital hospital, WarehouseBuilder warehouseBuilder, MachinePool machinePool) {
 		this.campusName_ = campusName;
 		this.hospital_ = hospital;
 		hospital.addCampus(this);
-		this.warehouse_ =warehouseBuilder.create(this);
-		this.machinePool_=machinePool;
+		this.warehouse_ = warehouseBuilder.create(this);
+		this.machinePool_ = machinePool;
 	}
 
 	public Hospital getHospital() {
 		return this.hospital_;
 	}
-
-	
 
 	public Warehouse getWarehouse() {
 		return this.warehouse_.warehouse;
@@ -70,16 +70,12 @@ public class Campus implements Location,CampusIN
 
 	@Override
 	public String toString() {
-		String rv = this.campusName_;
-		for (int i = rv.length(); i < 14; i++) {
-			rv += " ";
-		}
-		return rv;
+		return this.campusName_;
 	}
 
 	@Override
 	public String getName() {
-		
+
 		return campusName_;
 	}
 }
