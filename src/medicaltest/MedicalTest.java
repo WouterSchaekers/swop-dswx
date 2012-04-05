@@ -59,8 +59,6 @@ public abstract class MedicalTest extends TaskDescriptionWithPatientFile
 		return this.result_;
 	}
 
-
-
 	/**
 	 * Sets the result of the MedicalTest.
 	 * 

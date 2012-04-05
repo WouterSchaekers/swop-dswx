@@ -1,7 +1,7 @@
 package result;
+
 /**
- * Builds no result.
- *
+ * Class representing a NoResultFactory.
  */
 public class NoResultFactory implements ResultFactory
 {
@@ -12,5 +12,4 @@ public class NoResultFactory implements ResultFactory
 	public Result create() {
 		return null;
 	}
-
 }
