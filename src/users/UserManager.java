@@ -48,7 +48,7 @@ public class UserManager
 		return u;
 	}
 
-	public Collection<UserFactory> getUserFacotories() {
+	public Collection<UserFactory> getUserFactories() {
 		return userTypeManager.types();
 	}
 
