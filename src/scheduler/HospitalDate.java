@@ -14,38 +14,45 @@ public class HospitalDate
 	 * The year of the starttime of the system, given in the assignment.
 	 */
 	public final static int START_YEAR = 2011;
+	
 	/**
 	 * The month of the starttime of the system, given in the assignment.
 	 */
 	public final static int START_MONTH = 11;
+	
 	/**
 	 * The day of the month of the starttime of the system, given in the
 	 * assignment.
 	 */
 	public final static int START_DAY = 8;
+	
 	/**
 	 * The hour of the starttime of the system, given in the assignment.
 	 */
 	public final static int START_HOUR = 8;
+	
 	/**
 	 * The amount of minutes of the starttime of the system, given in the
 	 * assignment.
 	 */
 	public final static int START_MINUTE = 0;
+	
 	/**
 	 * The amount of seconds of the starttime of the system, given in the
 	 * assignment.
 	 */
 	public final static int START_SECOND = 0;
+	
 	/**
 	 * This object will keep all the above fields stored in a HospitalDate.
 	 */
 	public final static HospitalDate START_OF_TIME = new HospitalDate();
+	
 	/**
 	 * 
 	 */
-	public static final HospitalDate END_OF_TIME = new HospitalDate(
-			Long.MAX_VALUE - HospitalDate.START_OF_TIME.getTotalMillis());
+	public static final HospitalDate END_OF_TIME = new HospitalDate(Long.MAX_VALUE
+			- HospitalDate.START_OF_TIME.getTotalMillis());
 	/**
 	 * One second in millis.
 	 */
@@ -78,8 +85,8 @@ public class HospitalDate
 	 * @throws InvalidHospitalDateArgument
 	 */
 	public HospitalDate() {
-		this.gregorianCalendar = new GregorianCalendar(START_YEAR, START_MONTH,
-				START_DAY, START_HOUR, START_MINUTE, START_SECOND);
+		this.gregorianCalendar = new GregorianCalendar(START_YEAR, START_MONTH, START_DAY, START_HOUR, START_MINUTE,
+				START_SECOND);
 	}
 
 	/**
@@ -101,11 +108,9 @@ public class HospitalDate
 	 */
 	public HospitalDate(long milliseconds) {
 		if (milliseconds < 0)
-			throw new IllegalArgumentException(
-					"The provided date is before the start of time.");
+			throw new IllegalArgumentException("The provided date is before the start of time.");
 		gregorianCalendar = new GregorianCalendar();
-		gregorianCalendar.setTimeInMillis(HospitalDate.START_OF_TIME
-				.getTotalMillis() + milliseconds);
+		gregorianCalendar.setTimeInMillis(HospitalDate.START_OF_TIME.getTotalMillis() + milliseconds);
 	}
 
 	/**
@@ -124,10 +129,8 @@ public class HospitalDate
 	 * @param second
 	 *            The second of the minute.
 	 */
-	public HospitalDate(int year, int month, int day, int hour, int minute,
-			int second) {
-		gregorianCalendar = new GregorianCalendar(year, month, day, hour,
-				minute, second);
+	public HospitalDate(int year, int month, int day, int hour, int minute, int second) {
+		gregorianCalendar = new GregorianCalendar(year, month, day, hour, minute, second);
 	}
 
 	/**
@@ -185,8 +188,7 @@ public class HospitalDate
 	 * @return The amounf of UTC milliseconds from the epoch.
 	 */
 	public long getTimeSinceStart() {
-		return gregorianCalendar.getTimeInMillis()
-				- HospitalDate.START_OF_TIME.getTotalMillis();
+		return gregorianCalendar.getTimeInMillis() - HospitalDate.START_OF_TIME.getTotalMillis();
 	}
 
 	/**
@@ -211,12 +213,11 @@ public class HospitalDate
 	public boolean after(HospitalDate hospitalDate) {
 		return hospitalDate.before(this);
 	}
-	
-	public static HospitalDate getMaximum(HospitalDate hospitalDateOne, HospitalDate hospitalDateTwo){
-		if(hospitalDateOne.before(hospitalDateTwo)){
+
+	public static HospitalDate getMaximum(HospitalDate hospitalDateOne, HospitalDate hospitalDateTwo) {
+		if (hospitalDateOne.before(hospitalDateTwo)) {
 			return hospitalDateTwo;
-		}
-		else{
+		} else {
 			return hospitalDateOne;
 		}
 	}
@@ -226,14 +227,10 @@ public class HospitalDate
 	 */
 	@Override
 	public String toString() {
-		String hour = (("" + this.getHour()).length() == 1) ? "0"
-				+ this.getHour() : "" + this.getHour();
-		String minute = (("" + this.getMinute()).length() == 1) ? "0"
-				+ this.getMinute() : "" + this.getMinute();
-		String sec = (("" + this.getSecond()).length() == 1) ? "0"
-				+ this.getSecond() : "" + this.getSecond();
-		return this.getYear() + "-" + this.getMonth() + "-" + this.getDay()
-				+ " " + hour + ":" + minute + ":" + sec;
+		String hour = (("" + this.getHour()).length() == 1) ? "0" + this.getHour() : "" + this.getHour();
+		String minute = (("" + this.getMinute()).length() == 1) ? "0" + this.getMinute() : "" + this.getMinute();
+		String sec = (("" + this.getSecond()).length() == 1) ? "0" + this.getSecond() : "" + this.getSecond();
+		return this.getYear() + "-" + this.getMonth() + "-" + this.getDay() + " " + hour + ":" + minute + ":" + sec;
 	}
 
 	@Override
@@ -244,18 +241,14 @@ public class HospitalDate
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof HospitalDate) {
-			return this.gregorianCalendar
-					.equals(((HospitalDate) o).gregorianCalendar);
+			return this.gregorianCalendar.equals(((HospitalDate) o).gregorianCalendar);
 		}
 		return false;
 	}
 
-	public static HospitalDate getNextHour(HospitalDate hospitalDate)
-			throws InvalidHospitalDateArgument {
-		HospitalDate roundedHospitalDate = new HospitalDate(
-				hospitalDate.getYear(), hospitalDate.getMonth(),
+	public static HospitalDate getNextHour(HospitalDate hospitalDate) throws InvalidHospitalDateArgument {
+		HospitalDate roundedHospitalDate = new HospitalDate(hospitalDate.getYear(), hospitalDate.getMonth(),
 				hospitalDate.getDay(), hospitalDate.getHour(), 0, 0);
-		return new HospitalDate(roundedHospitalDate.getTimeSinceStart()
-				+ HospitalDate.ONE_HOUR);
+		return new HospitalDate(roundedHospitalDate.getTimeSinceStart() + HospitalDate.ONE_HOUR);
 	}
 }

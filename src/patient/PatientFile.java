@@ -111,9 +111,10 @@ public class PatientFile implements PatientFileIN
 	 * @throws InvalidDoctorException
 	 * @see Diagnose
 	 * @throws InvalidComplaintsException
+	 * @throws IllegalAccessException 
 	 */
 	public Diagnose createDiagnose(String complaints, String diag, Doctor user, Doctor secOp)
-			throws InvalidDiagnoseException, InvalidDoctorException, InvalidComplaintsException {
+			throws InvalidDiagnoseException, InvalidDoctorException, InvalidComplaintsException, IllegalAccessException {
 		Diagnose diagnose;
 		try {
 			diagnose = new Diagnose(user, complaints, diag, this);
@@ -121,9 +122,11 @@ public class PatientFile implements PatientFileIN
 			throw new Error("unexpected error, can not create diagnose for this patientfile");
 		}
 		this.addDiagnose(diagnose);
-
 		if (secOp != null) {
 			diagnose.markForSecOp(secOp);
+		}
+		else{
+			diagnose.approveSelf();
 		}
 		return diagnose;
 	}

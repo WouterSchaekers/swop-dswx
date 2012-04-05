@@ -62,10 +62,11 @@ public class EnterDiagnoseController extends NeedsLoginAndPatientFileController
 	 *             If the given diagnose was invalid.
 	 * @throws InvalidComplaintsException
 	 *             If the given complaints are invalid.
+	 * @throws IllegalAccessException 
 	 */
 	@controllers.PUBLICAPI
 	public DiagnoseIN enterDiagnose(String complaints, String diagnose) throws InvalidDiagnoseException,
-			InvalidComplaintsException {
+			InvalidComplaintsException, IllegalAccessException {
 		try {
 			return ((PatientFile) consultPatientFileController_.getPatientFile()).createDiagnose(complaints, diagnose,
 					(Doctor) loginController_.getUser(), null);
@@ -92,10 +93,11 @@ public class EnterDiagnoseController extends NeedsLoginAndPatientFileController
 	 *             If the doctor you require second opinion from is invalid.
 	 * @throws InvalidComplaintsException
 	 *             If the given complaints are invalid.
+	 * @throws IllegalAccessException 
 	 */
 	@controllers.PUBLICAPI
 	public DiagnoseIN enterDiagnoseWithSecondOpinion(String diagnose, String complaints, DoctorIN secondOpinionDoctor)
-			throws InvalidDiagnoseException, InvalidComplaintsException {
+			throws InvalidDiagnoseException, InvalidComplaintsException, IllegalAccessException {
 		try {
 			return ((PatientFile) consultPatientFileController_.getPatientFile()).createDiagnose(complaints, diagnose,
 					(Doctor) loginController_.getUser(), (Doctor) secondOpinionDoctor);
