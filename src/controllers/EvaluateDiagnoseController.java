@@ -73,12 +73,13 @@ public class EvaluateDiagnoseController extends NeedsLoginAndPatientFileControll
 	 *            The selected diagnose.
 	 * @param newDiag
 	 *            The replacement for the selected diagnose.
+	 * @return 
 	 * @throws ApproveDiagnoseException
 	 *             If the disapprove of the selected diagnose failed due to
 	 *             authorization reasons, or invalid parameters.
 	 */
-	public void disapproveDiagnose(DiagnoseIN selected, String newDiag) throws ApproveDiagnoseException {
-		((Diagnose) selected).disapproveBy(newDiag, selected.getComplaintsIN(),
+	public DiagnoseIN disapproveDiagnose(DiagnoseIN selected, String newDiag) throws ApproveDiagnoseException {
+		return ((Diagnose) selected).disapproveBy(newDiag, selected.getComplaintsIN(),
 				(DoctorIN) (this.loginController_.getUserIN()));
 	}
 

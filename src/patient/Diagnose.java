@@ -136,7 +136,7 @@ public class Diagnose extends Observable implements DiagnoseIN
 		this.notifyObservers(this);
 	}
 
-	public void disapproveBy(String newDiagnose, String newComplaints, DoctorIN secondOp)
+	public DiagnoseIN disapproveBy(String newDiagnose, String newComplaints, DoctorIN secondOp)
 			throws ApproveDiagnoseException {
 		Doctor futureSecondOp = this.getAttendingIN();
 		Doctor futureAttending = (Doctor) secondOp;
@@ -144,7 +144,7 @@ public class Diagnose extends Observable implements DiagnoseIN
 			throw new ApproveDiagnoseException("");
 		this.disapprove();
 		try {
-			this.myPatientFile.createDiagnose(newComplaints, newDiagnose, futureAttending, futureAttending);
+		return	this.myPatientFile.createDiagnose(newComplaints, newDiagnose, futureAttending, futureAttending);
 		} catch (Exception e) {
 			throw new Error(e);
 		}

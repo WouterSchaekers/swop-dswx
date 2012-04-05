@@ -1,6 +1,7 @@
 package ui.usecases;
 
 import controllers.DischargePatientController;
+import exceptions.DischargePatientException;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileException;
@@ -20,8 +21,15 @@ public class DischargePatient extends UseCase
 
 	@Override
 	public UseCase execute() {
-		System.out.println("");
-		return null;
+		System.out.println("Discharging patient.");
+		try {
+			controller.dischargePatient();
+		} catch (DischargePatientException e) {
+			printLn(e.getMessage());
+			return mm();
+		}
+		printLn("Patient "+data.getConsultPatientFileopenController().getPatientFile().getPatientIN().getName()+" sucesfully discharged.");
+		return mm();
 	}
 
 }
