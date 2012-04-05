@@ -37,7 +37,7 @@ public class ReviewPendingDiagnoses extends UseCase
 				printLn("");
 				return mm();
 			}
-			if(selected.isApprovedIN())
+			if(selected.isApproved())
 				printLn("Diagnose is now approved.");
 			else
 				printLn("Something went wrong, diagnose is not yet approved.");

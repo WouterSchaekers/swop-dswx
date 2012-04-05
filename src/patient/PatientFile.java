@@ -30,7 +30,7 @@ public class PatientFile implements PatientFileIN
 	 * All the Diagnosis for this patient.
 	 */
 	private Collection<Diagnose> diagnosis = new ArrayList<Diagnose>();
-	private boolean discharged = false;
+	private boolean discharged = true;
 	private Collection<Task<? extends TaskDescription>> medicaltests = new LinkedList<Task<? extends TaskDescription>>();
 	private Patient patient_;
 
@@ -186,7 +186,7 @@ public class PatientFile implements PatientFileIN
 	public Collection<DiagnoseIN> getPendingDiagnosisForIN(DoctorIN d) {
 		Collection<DiagnoseIN> rv = new LinkedList<DiagnoseIN>();
 		for (Diagnose diag : this.diagnosis)
-			if (diag.isMarkedForSecOpBy((Doctor)d) && !diag.isApprovedIN() )
+			if (diag.isMarkedForSecOpBy((Doctor)d) && !diag.isApproved() )
 				rv.add((DiagnoseIN) diag);
 		return rv;
 	}

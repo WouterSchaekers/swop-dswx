@@ -20,7 +20,7 @@ public interface DiagnoseIN
 	public Collection<TaskIN> getTreatmentsIN();
 
 @controllers.PUBLICAPI	
-	public boolean isApprovedIN();
+	public boolean isApproved();
 
 @controllers.PUBLICAPI	
 	public DoctorIN needsSecOpFromIN();

@@ -45,6 +45,7 @@ public class Scheduler
 		TaskData taskData = unscheduledTask.getData();
 		Collection<Location> locs = unscheduledTask.getData().getLocations();
 		Collection<Schedulable> resPool = taskData.getAllAvailableResources();
+		System.out.println();
 		Collection<Requirement> reqs = desc.getAllRequirements();
 		HospitalDate curDate = taskData.getSystemTime();
 		HospitalDate minDate = new HospitalDate(desc.getCreationTime().getTimeSinceStart() + desc.getExtraTime());

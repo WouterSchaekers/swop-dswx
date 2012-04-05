@@ -240,7 +240,7 @@ public class Diagnose extends Observable implements DiagnoseIN
 
 	@Override
 	@Basic
-	public boolean isApprovedIN() {
+	public boolean isApproved() {
 		if (this.secOpFlag)
 			return this.approved;
 		else
