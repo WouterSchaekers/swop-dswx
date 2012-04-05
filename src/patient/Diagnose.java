@@ -82,13 +82,14 @@ this.treatments = new LinkedList<Task<? extends Treatment>>();
 
 	/**
 	 * Approves this diagnosis.
+	 * @param secondop TODO
 	 * 
 	 * @throws ApproveDiagnoseException
 	 *             If this diagnose was not marked for second opinion.
 	 */
-	public void approve() throws ApproveDiagnoseException {
-		if (!isMarkedForSecOp())
-			throw new ApproveDiagnoseException("Can't approve diagnose that does not need second opinion!");
+	public void approveBy(Doctor secondop) throws ApproveDiagnoseException {
+		if (!isMarkedForSecOpBy(secondop))
+			throw new ApproveDiagnoseException("Can't approve this diagnose!");
 		this.approved = true;
 		this.unmarkForSecOp();
 		this.setChanged();
@@ -126,7 +127,7 @@ this.treatments = new LinkedList<Task<? extends Treatment>>();
 	 * @throws ApproveDiagnoseException
 	 */
 	private void disapprove() throws ApproveDiagnoseException {
-		if (!isMarkedForSecOp())
+		if (!isMarkedForSecOpBy(null))
 			throw new ApproveDiagnoseException("Can't disapprove diagnose that does not need second opinion!");
 		this.approved = false;
 		this.secOpFlag = false;
@@ -172,15 +173,15 @@ this.treatments = new LinkedList<Task<? extends Treatment>>();
 
 	@Basic
 	public boolean isApprovedIN() {
-		if(isMarkedForSecOp())	
+		if(isMarkedForSecOpBy(null))	
 			return this.approved;
 		else
 			return true;
 	}
 
 	@Basic
-	public boolean isMarkedForSecOp() {
-		return this.secOpFlag;
+	public boolean isMarkedForSecOpBy(Doctor doctor) {
+		return this.secOpFlag&&this.secopDoc.equals(doctor);
 	}
 
 	/**

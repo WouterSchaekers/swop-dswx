@@ -161,7 +161,7 @@ public class TestAllTasks
 
 		Task<Treatment> surgery = hospital.getTaskManager().add(surgeryfactory.create());
 		assertFalse(surgery.isScheduled());
-		diagnose.approve();
+		diagnose.approveBy(null);
 		assertFalse(surgery.isScheduled());
 		location.getWarehouse().add(type, HospitalDate.END_OF_TIME);
 		assertTrue(surgery.isScheduled());
@@ -197,7 +197,7 @@ public class TestAllTasks
 
 		Task<Treatment> surgery = hospital.getTaskManager().add(surgeryfactory.create());
 		assertFalse(surgery.isScheduled());
-		diagnose.approve();
+		diagnose.approveBy(null);
 		assertFalse(surgery.isScheduled());
 		location.getWarehouse().add(type, HospitalDate.END_OF_TIME);
 		assertTrue(surgery.isScheduled());
