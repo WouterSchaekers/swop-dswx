@@ -43,10 +43,10 @@ public class SelectLocationPreferenceController extends NeedsLoginController
 	 */
 	public String getCurrentPreference() {
 		String rv = null;
-		if(((Doctor) lc.getUser()).getCurrentPreference() == null)
+		if(((Doctor) loginController_.getUser()).getCurrentPreference() == null)
 			rv = "Back and forth";
 		else 
-			for(Location loc : ((Doctor) lc.getUser()).getCurrentPreference())
+			for(Location loc : ((Doctor) loginController_.getUser()).getCurrentPreference())
 				rv += " " + loc.toString() +",";
 		return rv;
 	}
@@ -56,7 +56,7 @@ public class SelectLocationPreferenceController extends NeedsLoginController
 	 * @throws InvalidPreferenceException
 	 */
 	public void setNewPreference(int index) throws InvalidPreferenceException {
-		((Doctor) lc.getUser()).changePreferenceToSelected(new LinkedList<Location>(Arrays.asList(possiblePreferences
+		((Doctor) loginController_.getUser()).changePreferenceToSelected(new LinkedList<Location>(Arrays.asList(possiblePreferences
 				.get(index))));
 	}
 

@@ -39,7 +39,7 @@ public class EnterDiagnoseController extends NeedsLoginAndPatientFileController
 	@controllers.PUBLICAPI
 	public DiagnoseIN enterDiagnose(String complaints, String diag) throws InvalidDiagnoseException,
 			InvalidDoctorException, InvalidComplaintsException {
-		return ((PatientFile) cpfc.getPatientFile()).createDiagnose(complaints, diag, (Doctor) lc.getUser(), null);
+		return ((PatientFile) consultPatientFileController_.getPatientFile()).createDiagnose(complaints, diag, (Doctor) loginController_.getUser(), null);
 	}
 
 	/**
@@ -58,7 +58,7 @@ public class EnterDiagnoseController extends NeedsLoginAndPatientFileController
 	@controllers.PUBLICAPI
 	public DiagnoseIN enterDiagnoseWithSecondOpinion(String diag, String complaints, DoctorIN choice)
 			throws InvalidDiagnoseException, InvalidDoctorException, InvalidComplaintsException {
-		return ((PatientFile) cpfc.getPatientFile()).createDiagnose(complaints, diag, (Doctor) lc.getUser(),
+		return ((PatientFile) consultPatientFileController_.getPatientFile()).createDiagnose(complaints, diag, (Doctor) loginController_.getUser(),
 				(Doctor) choice);
 	}
 

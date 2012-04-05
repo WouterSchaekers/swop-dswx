@@ -22,4 +22,9 @@ public abstract class User implements UserIN
 		return !n.equals("");
 	}
 	public abstract UserFactory getType();
+	
+	@Override
+	public boolean equals(Object o) {
+		return o instanceof User && ! ((User)o).getName().equals(this.name);
+	}
 }

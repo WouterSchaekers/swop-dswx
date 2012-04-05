@@ -17,7 +17,7 @@ import exceptions.InvalidLoginControllerException;
 @controllers.PUBLICAPI
 public class ListOrdersController extends NeedsLoginController
 {
-	private WarehouseAdmin admin = (WarehouseAdmin) (lc.getUser());
+	private WarehouseAdmin admin = (WarehouseAdmin) (loginController_.getUser());
 	private Campus campus = (Campus) (admin.getLocation());
 
 	@controllers.PUBLICAPI

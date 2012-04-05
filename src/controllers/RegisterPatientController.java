@@ -29,7 +29,7 @@ public class RegisterPatientController extends NeedsLoginController
 	 */
 	public void registerNewPatient(String name)
 			throws InvalidNameException, InvalidPatientFileException {
-		hospital.getPatientFileManager().registerPatient(name, ((Nurse)lc.getUser()).getLocationAt(hospital.getTimeKeeper().getSystemTime()));
+		hospital.getPatientFileManager().registerPatient(name, ((Nurse)loginController_.getUser()).getLocationAt(hospital.getTimeKeeper().getSystemTime()));
 	}
 
 	@Override
