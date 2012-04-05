@@ -2,8 +2,6 @@ package treatment;
 
 import java.util.Collection;
 import java.util.LinkedList;
-import exceptions.FactoryInstantiationException;
-import exceptions.InvalidResultException;
 import patient.Diagnose;
 import patient.PatientFile;
 import result.CastResultBuilder;
@@ -17,6 +15,8 @@ import scheduler.requirements.WarehouseItemCondition;
 import users.Nurse;
 import warehouse.item.PlasterType;
 import be.kuleuven.cs.som.annotate.Basic;
+import exceptions.FactoryInstantiationException;
+import exceptions.InvalidResultException;
 
 /**
  * This class represents a treatment by cast.

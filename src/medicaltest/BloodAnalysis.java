@@ -2,8 +2,6 @@ package medicaltest;
 
 import java.util.Collection;
 import java.util.LinkedList;
-import exceptions.FactoryInstantiationException;
-import exceptions.InvalidResultException;
 import machine.BloodAnalyser;
 import patient.PatientFile;
 import result.BloodAnalysisResult;
@@ -16,6 +14,8 @@ import scheduler.requirements.RequirementType;
 import scheduler.requirements.SpecificRequirement;
 import users.Nurse;
 import be.kuleuven.cs.som.annotate.Basic;
+import exceptions.FactoryInstantiationException;
+import exceptions.InvalidResultException;
 
 /**
  * This class represents a bloodanalysis test.

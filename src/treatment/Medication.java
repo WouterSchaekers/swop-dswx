@@ -2,8 +2,6 @@ package treatment;
 
 import java.util.Collection;
 import java.util.LinkedList;
-import exceptions.FactoryInstantiationException;
-import exceptions.InvalidResultException;
 import patient.Diagnose;
 import patient.PatientFile;
 import result.MedicationResultFactory;
@@ -16,6 +14,8 @@ import scheduler.requirements.SpecificRequirement;
 import scheduler.requirements.WarehouseItemCondition;
 import users.Nurse;
 import warehouse.item.MedicationType;
+import exceptions.FactoryInstantiationException;
+import exceptions.InvalidResultException;
 
 /**
  * This class represent treatment by medication.
