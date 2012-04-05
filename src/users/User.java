@@ -25,6 +25,6 @@ public abstract class User implements UserIN
 	
 	@Override
 	public boolean equals(Object o) {
-		return o instanceof User && ! ((User)o).getName().equals(this.name);
+		return o instanceof User &&  ((User)o).getName().equals(this.name);
 	}
 }
