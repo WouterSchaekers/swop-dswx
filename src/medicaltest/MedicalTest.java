@@ -9,13 +9,12 @@ import scheduler.HospitalDate;
 import scheduler.tasks.Task;
 import scheduler.tasks.TaskDescription;
 import scheduler.tasks.TaskDescriptionWithPatientFile;
-import controllers.interfaces.MedicalTestIN;
 import exceptions.InvalidReportException;
 
 /**
  * This class represents a medical test.
  */
-public abstract class MedicalTest extends TaskDescriptionWithPatientFile implements MedicalTestIN
+public abstract class MedicalTest extends TaskDescriptionWithPatientFile
 {
 	protected Result result_;
 

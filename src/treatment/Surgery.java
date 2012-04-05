@@ -14,12 +14,11 @@ import users.Nurse;
 import warehouse.Warehouse;
 import warehouse.item.MiscType;
 import be.kuleuven.cs.som.annotate.Basic;
-import controllers.interfaces.SurgeryIN;
 
 /**
  * This class represents a surgical treatment.
  */
-public class Surgery extends Treatment implements SurgeryIN
+public class Surgery extends Treatment
 {
 	private String description_;
 	public final static long DURATION_ = HospitalDate.ONE_MINUTE * 180;
