@@ -1,7 +1,5 @@
 package machine;
 
-import exceptions.InvalidLocationException;
-import exceptions.InvalidSerialException;
 
 public class UltraSoundScannerBuilder extends MachineBuilder
 {
@@ -14,8 +12,7 @@ public class UltraSoundScannerBuilder extends MachineBuilder
 
 	}
 
-	public UltraSoundScanner build()
-			throws InvalidLocationException, InvalidSerialException {
+	public UltraSoundScanner build() {
 		return new UltraSoundScanner(serial_, loc_, location_);
 	}
 

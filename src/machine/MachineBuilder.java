@@ -2,8 +2,6 @@ package machine;
 
 import system.Location;
 import exceptions.FactoryInstantiationException;
-import exceptions.InvalidLocationException;
-import exceptions.InvalidSerialException;
 
 public abstract class MachineBuilder
 {
@@ -18,7 +16,7 @@ public abstract class MachineBuilder
 	 * @throws FactoryInstantiationException
 	 *             The factory was not ready yet.
 	 */
-	abstract Machine build() throws InvalidLocationException, InvalidSerialException;
+	abstract Machine build();
 
 	/**
 	 * Creates a new builder of the same type
