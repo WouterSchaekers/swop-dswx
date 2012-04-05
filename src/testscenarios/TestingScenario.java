@@ -203,32 +203,63 @@ public class TestingScenario
 	private void fillFilesWithData() throws InvalidPatientFileException, DischargePatientException,
 			IllegalAccessException, InvalidDiagnoseException, InvalidDoctorException, InvalidComplaintsException,
 			CanNeverBeScheduledException, FactoryInstantiationException {
-		PatientFile stef = getPatientFileFrom("Stefaan");
-		PatientFile dieter = getPatientFileFrom("Dieter");
-		PatientFile wouter = getPatientFileFrom("Wouter");
-		PatientFile thibault = getPatientFileFrom("Thibault");
-
+		setThibaultHistory(getPatientFileFrom("Thibault"));
+		setStefHistory(getPatientFileFrom("Stefaan"));
+		setWouterHistory(getPatientFileFrom("Wouter"));
+		setDieterHistory(getPatientFileFrom("Dieter"));
+		// now we advance the time some so we can enter the results next.
+		advanceTime(new HospitalDate(now().getTimeSinceStart() + HospitalDate.ONE_DAY * 7));
+	}
+	
+	private void setStefHistory(PatientFile stef) throws InvalidPatientFileException, CanNeverBeScheduledException, FactoryInstantiationException, IllegalAccessException, InvalidDiagnoseException, InvalidDoctorException, InvalidComplaintsException {
 		this.pfMan.checkIn(stef);
-		this.pfMan.checkIn(dieter);
+		addMedicalTestTo(getBloodFactory("Cancerogen chemicals", 3, stef));
+		Doctor jonathan = (Doctor) (UserFilter.SpecificDoctorFilter(userMan.getAllUserINs(), "Jonathan"));
+		Doctor jennifer = (Doctor) (UserFilter.SpecificDoctorFilter(userMan.getAllUserINs(), "Jennifer"));
+		Diagnose diag = stef.createDiagnose("Patient is very sleepy", "Cancer",
+				jonathan, jennifer);
+		addTreatmentTo(getSurgeryFactory("Chemotherapy", diag));
+	}
+	
+	private void setWouterHistory(PatientFile wouter) throws InvalidPatientFileException {
 		this.pfMan.checkIn(wouter);
+	}
+	
+	private void setDieterHistory(PatientFile dieter) throws InvalidPatientFileException, CanNeverBeScheduledException, FactoryInstantiationException, IllegalAccessException, InvalidDiagnoseException, InvalidDoctorException, InvalidComplaintsException {
+		this.pfMan.checkIn(dieter);
+		addMedicalTestTo(getBloodFactory("Virusses, bacteria, anything abnormal", 10, dieter));
+		addMedicalTestTo(getXRayScanFactory("head", 10, (float) 2.9, dieter));
+		
+		Doctor joanne = (Doctor) (UserFilter.SpecificDoctorFilter(userMan.getAllUserINs(), "Joanne"));
+		dieter.createDiagnose("Feels sick ALL the time", "Hypochondria", joanne, null);
+	}
+	
+	private void setThibaultHistory(PatientFile thibault) throws CanNeverBeScheduledException, FactoryInstantiationException, DischargePatientException, InvalidPatientFileException, IllegalAccessException, InvalidDiagnoseException, InvalidDoctorException, InvalidComplaintsException {
 		this.pfMan.checkIn(thibault);
-
+		addMedicalTestTo(getBloodFactory("Virusses", 5, thibault));
+		System.out.println("Medical tests for thibault: " + thibault.getAllMedicalTests());
+		addMedicalTestTo(getUltraSoundScanFactory("Lungs", true, true, thibault));
+		addMedicalTestTo(getXRayScanFactory("Virusses", 5, (float) 1.5, thibault));
+		
 		Doctor docPneumo = (Doctor) (UserFilter.SpecificDoctorFilter(userMan.getAllUserINs(), "Jelle"));
 		Diagnose diag = thibault.createDiagnose("Coughing, difficutly breathing", "A fatal variant of pneumonia",
 				docPneumo, null);
-
-		addMedicalTestTo(getBloodFactory("Virusses", 5, thibault), thibault);
-		addMedicalTestTo(getUltraSoundScanFactory("Lungs", true, true, thibault), thibault);
-		addMedicalTestTo(getXRayScanFactory("Virusses", 5, (float) 1.5, thibault), thibault);
-
+		addTreatmentTo(getSurgeryFactory("Lung transplant", diag));
 		this.pfMan.checkOut(thibault);
 	}
 
-	private void addMedicalTestTo(MedicalTestFactory factory, PatientFile pf) throws CanNeverBeScheduledException,
+	private void advanceTime(HospitalDate newDate) {
+		
+	}
+	
+	private void addMedicalTestTo(MedicalTestFactory factory) throws CanNeverBeScheduledException,
 			FactoryInstantiationException {
-		System.out.println(hospital.getAllSchedulables());
 		this.taskMan.add(factory.create());
-		System.out.println(pf.getAllMedicalTests());
+	}
+	
+	@SuppressWarnings("deprecation")
+	private void addTreatmentTo(TreatmentFactory factory) throws CanNeverBeScheduledException, FactoryInstantiationException {
+		this.taskMan.add(factory.create());
 	}
 
 	private PatientFile getPatientFileFrom(String name) {
@@ -280,6 +311,19 @@ public class TestingScenario
 			}
 		}
 		throw new IllegalStateException("Apparently... no XRayScanFactory exists?");
+	}
+	
+	private SurgeryFactory getSurgeryFactory(String description, Diagnose diag) {
+		Collection<TreatmentFactory> facs = hospital.getTreatments();
+		for(TreatmentFactory curFac : facs) {
+			if(curFac instanceof SurgeryFactory) {
+				curFac.setDiagnose(diag);
+				curFac.setCreationDate(now());
+				((SurgeryFactory) curFac).setDescription(description);
+				return (SurgeryFactory)curFac;
+			}
+		}
+		throw new IllegalStateException("Apparently there are no SurgeryFactories?");
 	}
 
 	private HospitalDate now() {
