@@ -2,6 +2,11 @@ package ui;
 
 import java.util.Collection;
 import java.util.Stack;
+import exceptions.InvalidHospitalException;
+import exceptions.InvalidLoginControllerException;
+import ui.usecases.AdvanceTime;
+import ui.usecases.Checkin;
+import ui.usecases.RegisterPatient;
 import ui.usecases.HospitalEquipmentUseCase;
 import ui.usecases.HospitalStaff;
 import ui.usecases.Login;
@@ -23,7 +28,37 @@ public class MainMenu extends UseCase
 		addHospitalStaff(rv);
 		addQuit(rv);
 		addLougout(rv);
+		addCheckin(rv);
+		addRegisterPatient(rv);
+		addAdvanceTime(rv);
 		return rv;
+	}
+
+	private void addAdvanceTime(Collection<UseCase> rv) {
+		try {
+			rv.add(new AdvanceTime(data));
+		} catch (Exception e) {
+			;
+		}
+	}
+
+	private void addRegisterPatient(Collection<UseCase> rv) {
+		try {
+			rv.add(new RegisterPatient(data));
+		} catch (Exception e) {
+			;
+		}
+		
+	}
+
+	private void addCheckin(Collection<UseCase> rv) {
+		try {
+			rv.add(new Checkin(data));
+		
+		} catch (Exception e) {
+		;
+		
+		}
 	}
 
 	private void addLougout(Collection<UseCase> rv) {
