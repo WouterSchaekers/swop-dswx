@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
+import patient.Patient;
 import scheduler.HospitalDate;
 import scheduler.Schedulable;
 import scheduler.StartTimePoint;
@@ -45,7 +46,6 @@ public class Scheduler
 		TaskData taskData = unscheduledTask.getData();
 		Collection<Location> locs = unscheduledTask.getData().getLocations();
 		Collection<Schedulable> resPool = taskData.getAllAvailableResources();
-		System.out.println();
 		Collection<Requirement> reqs = desc.getAllRequirements();
 		HospitalDate curDate = taskData.getSystemTime();
 		HospitalDate minDate = new HospitalDate(desc.getCreationTime().getTimeSinceStart() + desc.getExtraTime());
@@ -298,7 +298,7 @@ public class Scheduler
 			Schedulable unique = keys.get(index).get(0);
 			for (int j = 0; j < keys.size(); j++) {
 				LinkedList<Schedulable> key = keys.get(j);
-				if (key.contains(unique) && i != j) {
+				if (key.contains(unique) && index != j) {
 					key.remove(unique);
 				}
 			}
