@@ -18,7 +18,6 @@ import exceptions.DischargePatientException;
 import exceptions.InvalidComplaintsException;
 import exceptions.InvalidDiagnoseException;
 import exceptions.InvalidDoctorException;
-import exceptions.InvalidNameException;
 import exceptions.InvalidPatientFileException;
 
 /**
@@ -26,42 +25,38 @@ import exceptions.InvalidPatientFileException;
  */
 public class PatientFile implements PatientFileIN
 {
-	/**
-	 * All the Diagnosis for this patient.
-	 */
-	private Collection<Diagnose> diagnosis = new ArrayList<Diagnose>();
+	private Collection<Diagnose> diagnosis = new LinkedList<Diagnose>();
 	private boolean discharged = false;
 	private Collection<Task<? extends TaskDescription>> medicaltests = new LinkedList<Task<? extends TaskDescription>>();
 	private Patient patient_;
 
 	/**
-	 * Default Constructor. Creates empty patient file with a name.
+	 * Default constructor.
 	 * 
 	 * @param patient
-	 *            The name of the patient to whom this patient file belongs to.
-	 * @throws InvalidNameException
-	 *             if(!isValidName(patientname))
+	 *            The patient to whom this patient file belongs to.
 	 */
-	PatientFile(Patient patient) throws InvalidNameException {
+	PatientFile(Patient patient) {
 		this.patient_ = patient;
 	}
 
 	/**
-	 * This method will add a Diagnose to this PatientFile.
+	 * Adds a diagnose to this patient file.
 	 * 
-	 * @param d
-	 *            The Diagnose to add.
+	 * @param diagnose
+	 *            The diagnose to add.
 	 * @throws InvalidDiagnoseException
-	 *             if(!isValidDiagnose(d))
+	 *             if the given diagnose is not a valid one.
 	 */
-	private void addDiagnose(Diagnose d) throws InvalidDiagnoseException {
-		if (!isValidDiagnose(d))
-			throw new InvalidDiagnoseException("The given Diagnose is not a valid!");
-		this.diagnosis.add(d);
+	private void addDiagnose(Diagnose diagnose) throws InvalidDiagnoseException {
+		if (!isValidDiagnose(diagnose))
+			throw new InvalidDiagnoseException("The given diagnose is not a valid!");
+		this.diagnosis.add(diagnose);
 	}
 
 	/**
 	 * USE THIS METHOD ONLY IN THE DOMAIN LAYER!!
+	 * Adds a medical test to this patient file.
 	 */
 	public void addMedicalTest(Task<? extends MedicalTest> medicalTest) {
 		if (!isValidMedicalTest(medicalTest))
@@ -70,7 +65,7 @@ public class PatientFile implements PatientFileIN
 	}
 
 	/**
-	 * @return True if this patient is ready to be discharged.
+	 * @return True if this patient is ready to be discharged. (= does not have any unfinished treatments or medical tests)
 	 */
 	private boolean canBeDischarged() {
 		for (Diagnose d : diagnosis) {
@@ -87,7 +82,7 @@ public class PatientFile implements PatientFileIN
 	}
 
 	/**
-	 * Checks this patient in in the hospital.
+	 * Checks this patient in into the hospital.
 	 */
 	void checkIn() {
 		this.discharged = false;
@@ -97,21 +92,23 @@ public class PatientFile implements PatientFileIN
 	 * Factory method for diagnose.
 	 * 
 	 * @param complaints
-	 *            The complaints of the patient
+	 *            The complaints of the patient.
 	 * @param diag
-	 *            The diagnose of the doctor
+	 *            The diagnose of the doctor.
 	 * @param user
-	 *            The Doctor that gives this diagnose
+	 *            The doctor that gives this diagnose.
 	 * @param secOp
-	 *            The Doctor that has to give a second opinion, if null is
-	 *            provided it will not be marked for second op.
-	 * @return
+	 *            The doctor that has to give a second opinion, if null is
+	 *            provided it will not be marked for second opinion.
+	 * @return The created diagnose
 	 * @throws InvalidDiagnoseException
-	 * @see Diagnose
 	 * @throws InvalidDoctorException
-	 * @see Diagnose
 	 * @throws InvalidComplaintsException
-	 * @throws IllegalAccessException 
+	 * @see Diagnose
+	 * @throws IllegalAccessException
+	 *             If there's an unauthorised approve-diagnose-function call.
+	 *             (if the diagnose is marked for second opinion but no doctor
+	 *             was provided,...)
 	 */
 	public Diagnose createDiagnose(String complaints, String diag, Doctor user, Doctor secOp)
 			throws InvalidDiagnoseException, InvalidDoctorException, InvalidComplaintsException, IllegalAccessException {
@@ -132,9 +129,11 @@ public class PatientFile implements PatientFileIN
 	}
 	
 	/**
-	 * This function discharges this patient.
+	 * Discharges this patient from the hospital.
 	 * 
 	 * @throws DischargePatientException
+	 *             If this patient cannot be discharged yet
+	 * @see PatientFile.canBeDischarged()
 	 */
 	void discharge() throws DischargePatientException {
 		if (!canBeDischarged())
@@ -148,13 +147,21 @@ public class PatientFile implements PatientFileIN
 		rv.addAll(diagnosis);
 		return rv;
 	}
-
+	
+	/**
+	 * @return All diagnosis ever made and stored in this patient file.
+	 */
+	@Basic
 	public Collection<Diagnose> getAllDiagnosis() {
 		Collection<Diagnose> rv = new ArrayList<Diagnose>();
 		rv.addAll(diagnosis);
 		return rv;
 	}
 
+	/**
+	 * @return All medical tests ever made for this patient file.
+	 */
+	@Basic
 	public Collection<Task<?>> getAllMedicalTests() {
 		return new LinkedList<Task<?>>(medicaltests);
 	}
@@ -162,11 +169,11 @@ public class PatientFile implements PatientFileIN
 	/**
 	 * @return All diagnosis kept in this patient file made by a certain doctor.
 	 */
-	public Collection<DiagnoseIN> getDiagnosisFrom(Doctor doc) {
+	public Collection<DiagnoseIN> getDiagnosisFrom(Doctor doctor) {
 		Collection<DiagnoseIN> rv = new LinkedList<DiagnoseIN>();
-		for (Diagnose d : this.diagnosis)
-			if (d.getAttendingIN().equals(doc))
-				rv.add((DiagnoseIN) d);
+		for (Diagnose diagnose : this.diagnosis)
+			if (diagnose.getAttendingIN().equals(doctor))
+				rv.add((DiagnoseIN) diagnose);
 		return rv;
 	}
 
@@ -176,31 +183,27 @@ public class PatientFile implements PatientFileIN
 
 	/**
 	 * DO NOT USE THIS METHOD ANYWHERE OUTSIDE OF THE DOMAIN LAYER!
-	 * 
 	 */
+	@Basic
 	public Patient getPatient() {
 		return this.patient_;
 	}
 
+	/**
+	 * @return All diagnosis that still need a second opinion by the given doctor before their treatments can be scheduled.
+	 */
 	@Override
-	public Collection<DiagnoseIN> getPendingDiagnosisForIN(DoctorIN d) {
+	public Collection<DiagnoseIN> getPendingDiagnosisForIN(DoctorIN doctor) {
 		Collection<DiagnoseIN> rv = new LinkedList<DiagnoseIN>();
 		for (Diagnose diag : this.diagnosis)
-			if (diag.isMarkedForSecOpBy(null) && !diag.isApprovedIN() && diag.getAttendingIN().equals((Doctor) d))
-				rv.add((DiagnoseIN) d);
+			if (diag.isMarkedForSecOpBy(null) && !diag.isApprovedIN() && diag.getAttendingIN().equals((Doctor) doctor))
+				rv.add((DiagnoseIN) diag);
 		return rv;
 	}
 
 	@Basic
 	public boolean isDischarged() {
 		return this.discharged;
-	}
-
-	/**
-	 * ONLY USE IN DOMAIN LAYER!!
-	 */
-	public void removeTest(Task<? extends MedicalTest> test) {
-		this.medicaltests.remove(test);
 	}
 
 	/**
@@ -211,17 +214,15 @@ public class PatientFile implements PatientFileIN
 	}
 
 	/**
-	 * @return True if medicalTest is a valid medical test.
+	 * @return True if medicalTest is a valid medical test for this patient file.
 	 */
-
 	private boolean isValidMedicalTest(Task<? extends MedicalTest> medicalTest) {
-		return medicalTest != null;
+		return medicalTest != null && ((PatientFile)(medicalTest.getDescription().getPatientFile())).equals(this);
 	}
 
 	@Override
 	public Collection<TaskIN> getAllMedicalTestsIN() {
-
-		return new ArrayList<TaskIN>(medicaltests);
+		return new LinkedList<TaskIN>(medicaltests);
 	}
 
 }

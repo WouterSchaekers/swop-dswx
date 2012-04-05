@@ -45,16 +45,12 @@ public abstract class MedicalTest extends TaskDescriptionWithPatientFile
 	}
 
 	/**
-	 * Deinitializes the MedicalTest. Undoes the things that have been done in
-	 * 'initTask'.
-	 * 
-	 * @param task
-	 *            The task that has to be deinitialized.
+	 * @throws IllegalStateException
+	 * when called. Medical tests should never be deinitialised.
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public <T extends TaskDescription> void deInit(Task<T> task) {
-		this.patientFile_.removeTest((Task<? extends MedicalTest>) task);
+		throw new IllegalStateException("Medical tests should NEVER be deinitialised!!");
 	}
 
 	/**

@@ -17,59 +17,35 @@ import exceptions.InvalidTimeSlotException;
 
 /**
  * This class represents a patient. Patients are linked to any number of patient
- * files depending on which hospital they go to. Patients are Schedulables which
- * means they have TimeTables.
+ * files depending on which hospital they go to. Patients have TimeTables which
+ * means they are Schedulable.
  */
-class Patient implements Schedulable,PatientIN
+class Patient implements Schedulable, PatientIN
 {
+	private LocationTimeTable locationTimeTable_;
 	private String name;
 	private TimeTable timeTable_;
-	private LocationTimeTable locationTimeTable_;
-	
+
+	/**
+	 * Default constructor. Initialises a new Patient object.
+	 * 
+	 * @param name
+	 *            The name of the patient.
+	 * @throws InvalidNameException
+	 *             If the given name is not a valid name for a new patient.
+	 */
 	Patient(String name) throws InvalidNameException {
-		if(!isValidName(name))
+		if (!isValidName(name))
 			throw new InvalidNameException("Invalid patient name given to Patient constructor!");
 		this.name = name;
 		this.timeTable_ = new TimeTable();
 		this.locationTimeTable_ = new LocationTimeTable(new LinkedList<LocationTimeSlot>());
 	}
 
-	@Basic
-	public String getName() {
-		return this.name;
-	}
-
 	@Override
-	public boolean canBeScheduledOn(HospitalDate startDate,
-			HospitalDate stopDate) throws InvalidSchedulingRequestException,
-			InvalidTimeSlotException {
+	public boolean canBeScheduledOn(HospitalDate startDate, HospitalDate stopDate)
+			throws InvalidSchedulingRequestException, InvalidTimeSlotException {
 		return timeTable_.hasFreeSlotAt(startDate, stopDate);
-	}
-
-	@Override
-	public TimeTable getTimeTable() {
-		return this.timeTable_;
-	}
-
-	@Override
-	public void scheduleAt(TimeSlot timeSlot, Location location)
-			throws InvalidSchedulingRequestException {
-		this.timeTable_.addTimeSlot(timeSlot);
-		LocationTimeSlot slot = new LocationTimeSlot(timeSlot, location);
-		this.locationTimeTable_.addLocationTimeSlot(slot);
-	}
-
-	@Override
-	public TimeSlot getFirstFreeSlotBetween(Location location,
-			HospitalDate startDate, HospitalDate stopDate, long duration)
-			throws InvalidSchedulingRequestException, InvalidTimeSlotException,
-			InvalidHospitalDateArgument {
-		return timeTable_.getFirstFreeSlotBetween(startDate, stopDate, duration);
-	}
-
-	@Override
-	public void updateTimeTable(HospitalDate newDate) {
-		timeTable_.updateTimeTable(newDate);
 	}
 
 	@Override
@@ -78,13 +54,36 @@ class Patient implements Schedulable,PatientIN
 	}
 
 	@Override
-	public boolean equals(Object o)
-	{
-		if(o instanceof Patient)
-			return ((Patient)o).name.equals(name);
+	public boolean equals(Object o) {
+		if (o instanceof Patient)
+			return ((Patient) o).name.equals(name);
 		return false;
 	}
-	
+
+	@Override
+	public TimeSlot getFirstFreeSlotBetween(Location location, HospitalDate startDate, HospitalDate stopDate,
+			long duration) throws InvalidSchedulingRequestException, InvalidTimeSlotException,
+			InvalidHospitalDateArgument {
+		return timeTable_.getFirstFreeSlotBetween(startDate, stopDate, duration);
+	}
+
+	@Override
+	public Location getLocationAt(HospitalDate hospitalDate) {
+		return locationTimeTable_.getLocationAt(hospitalDate);
+	}
+
+	@Override
+	@Basic
+	public String getName() {
+		return this.name;
+	}
+
+	@Override
+	@Basic
+	public TimeTable getTimeTable() {
+		return this.timeTable_;
+	}
+
 	/**
 	 * @return True if d is a valid name.
 	 */
@@ -93,13 +92,20 @@ class Patient implements Schedulable,PatientIN
 	}
 
 	@Override
-	public Location getLocationAt(HospitalDate hospitalDate) {
-		return locationTimeTable_.getLocationAt(hospitalDate);
-	}
-	
-	@Override
-	public boolean mustBeBackToBack(){
+	public boolean mustBeBackToBack() {
 		return false;
+	}
+
+	@Override
+	public void scheduleAt(TimeSlot timeSlot, Location location) throws InvalidSchedulingRequestException {
+		this.timeTable_.addTimeSlot(timeSlot);
+		LocationTimeSlot slot = new LocationTimeSlot(timeSlot, location);
+		this.locationTimeTable_.addLocationTimeSlot(slot);
+	}
+
+	@Override
+	public void updateTimeTable(HospitalDate newDate) {
+		timeTable_.updateTimeTable(newDate);
 	}
 
 }
