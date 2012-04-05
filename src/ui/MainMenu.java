@@ -2,9 +2,6 @@ package ui;
 
 import java.util.Collection;
 import java.util.Stack;
-import exceptions.InvalidHospitalException;
-import exceptions.InvalidLoginControllerException;
-import exceptions.InvalidPatientFileOpenController;
 import ui.usecases.AdvanceTime;
 import ui.usecases.Checkin;
 import ui.usecases.ConsultPatientFile;

@@ -1,8 +1,8 @@
 package controllers;
 
-import controllers.interfaces.PatientFileIN;
 import users.Nurse;
 import users.User;
+import controllers.interfaces.PatientFileIN;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidNameException;

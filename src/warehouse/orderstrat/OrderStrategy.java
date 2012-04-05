@@ -3,13 +3,13 @@ package warehouse.orderstrat;
 import help.Filter;
 import java.util.Observable;
 import java.util.Observer;
-import exceptions.InvalidWarehouseItemException;
 import scheduler.HospitalDate;
 import scheduler.TimeLord;
 import warehouse.Warehouse;
 import warehouse.item.WarehouseItemType;
 import warehouse.stock.StockOrder;
 import warehouse.stock.StockProvider;
+import exceptions.InvalidWarehouseItemException;
 
 /**
  * Object that manages an order strategy for a warehouse & stockprovider.
