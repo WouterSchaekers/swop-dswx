@@ -23,20 +23,16 @@ public class PrescribeTreatment extends UseCase
 
 	private PrescribeTreatmentController controller;
 
-	public PrescribeTreatment(UIData data) throws InvalidLoginControllerException, InvalidHospitalException,
-			InvalidConsultPatientFileController, InvalidPatientFileException {
+	public PrescribeTreatment(UIData data) throws Exception {
 		super(data, 123);
 		controller = new PrescribeTreatmentController(data.getLoginController(),
 				data.getConsultPatientFileopenController());
+		throw new Exception();
 	}
 
 	@Override
 	public UseCase execute() {
-		if(1==1)
-		{	printLn("NOT YET IMPLEMENTED");
 		
-		return mm();
-		}
 		print("Prescribe treatment for patient"
 				+ data.getConsultPatientFileopenController().getPatientFile().getPatientIN().getName());
 		DiagnoseIN selectedDiagnose;

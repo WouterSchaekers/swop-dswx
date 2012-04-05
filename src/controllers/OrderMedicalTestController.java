@@ -61,8 +61,7 @@ public class OrderMedicalTestController extends NeedsLoginAndPatientFileControll
 	 * @return A collection of factories that let you create medical tests.
 	 */
 	@controllers.PUBLICAPI
-	public Collection<MedicalTestFactory> getMedicalTestFactories() throws InvalidLoginControllerException,
-			InvalidPatientFileException, InvalidConsultPatientFileController {
+	public Collection<MedicalTestFactory> getMedicalTestFactories()  {
 		return hospital.getMedicalTests();
 	}
 

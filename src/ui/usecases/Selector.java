@@ -5,8 +5,10 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import ui.usecases.Selector.Displayer;
 import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.DoctorIN;
+import controllers.interfaces.PatientFileIN;
 public class Selector<T>
 {
 	public interface Displayer<T>
@@ -59,6 +61,15 @@ public class Selector<T>
 		}
 		
 	}
+	public static Displayer<PatientFileIN> patientFile = new Displayer<PatientFileIN>()
+	{
+		
+		@Override
+		public void display(PatientFileIN t) {
+			System.out.print("Patient "+t.getPatientIN().getName());
+			
+		}
+	};
 	public final Displayer<T> displayer;
 	public final Collection<T> coll;
 	private T selected = null;
