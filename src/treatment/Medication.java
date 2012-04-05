@@ -12,12 +12,11 @@ import scheduler.requirements.WarehouseItemCondition;
 import users.Nurse;
 import warehouse.Warehouse;
 import warehouse.item.MedicationType;
-import controllers.interfaces.MedicationIN;
 
 /**
  * This class represent treatment by medication.
  */
-public class Medication extends Treatment implements MedicationIN
+public class Medication extends Treatment
 {
 	private String description_;
 	private boolean sensitive_;

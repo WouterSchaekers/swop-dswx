@@ -13,12 +13,11 @@ import users.Nurse;
 import warehouse.Warehouse;
 import warehouse.item.PlasterType;
 import be.kuleuven.cs.som.annotate.Basic;
-import controllers.interfaces.CastIN;
 
 /**
  * This class represents a treatment by cast.
  */
-public class Cast extends Treatment implements CastIN
+public class Cast extends Treatment
 {
 	private String bodyPart_;
 	private int castDuration_;

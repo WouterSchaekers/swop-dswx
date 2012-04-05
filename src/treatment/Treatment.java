@@ -11,13 +11,12 @@ import scheduler.tasks.Task;
 import scheduler.tasks.TaskDescription;
 import scheduler.tasks.TaskDescriptionWithPatientFile;
 import warehouse.Warehouse;
-import controllers.interfaces.TreatmentIN;
 import exceptions.InvalidReportException;
 
 /**
  * This class is the superclass of all treatments.
  */
-public abstract class Treatment extends TaskDescriptionWithPatientFile implements TreatmentIN
+public abstract class Treatment extends TaskDescriptionWithPatientFile
 {
 
 	protected final Diagnose diagnose_;
