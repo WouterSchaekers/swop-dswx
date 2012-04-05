@@ -2,6 +2,10 @@ package ui;
 
 import java.util.Collection;
 import java.util.Stack;
+import exceptions.InvalidConsultPatientFileController;
+import exceptions.InvalidHospitalException;
+import exceptions.InvalidLoginControllerException;
+import exceptions.InvalidPatientFileException;
 import ui.usecases.AdvanceTime;
 import ui.usecases.Checkin;
 import ui.usecases.ConsultPatientFile;
@@ -12,6 +16,8 @@ import ui.usecases.HospitalEquipmentUseCase;
 import ui.usecases.HospitalStaff;
 import ui.usecases.Login;
 import ui.usecases.Logout;
+import ui.usecases.OrderMedicalTest;
+import ui.usecases.PrescribeTreatment;
 import ui.usecases.Quit;
 import ui.usecases.RegisterPatient;
 import ui.usecases.ReviewPendingDiagnoses;
@@ -39,7 +45,27 @@ public class MainMenu extends UseCase
 		addEnterDiagnose(rv);
 		addDischargePatient(rv);
 		addReviewDiagnose(rv);
+		addPrescribeTreatment(rv);
+		addOrderMedicalTest(rv);
 		return rv;
+	}
+
+	private void addOrderMedicalTest(Collection<UseCase> rv) {
+
+		try {
+			rv.add(new OrderMedicalTest(data));
+		} catch (Exception e) {;
+		}
+		
+	}
+
+	private void addPrescribeTreatment(Collection<UseCase> rv) {
+		try {
+			rv.add(new PrescribeTreatment(data));
+		} catch (Exception e) {
+			;
+		}
+		
 	}
 
 	private void addReviewDiagnose(Collection<UseCase> rv) {

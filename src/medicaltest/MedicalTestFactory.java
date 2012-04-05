@@ -1,5 +1,6 @@
 package medicaltest;
 
+import controllers.interfaces.PatientFileIN;
 import patient.PatientFile;
 import scheduler.HospitalDate;
 import exceptions.FactoryInstantiationException;
@@ -15,11 +16,11 @@ public abstract class MedicalTestFactory
 	/**
 	 * Sets the patientFile of the MedicalTest.
 	 * 
-	 * @param patientFile
+	 * @param selectedPatientFile
 	 *            The patientFile of the MedicalTest.
 	 */
-	public void setPatientFile(PatientFile patientFile) {
-		this.patientFile_ = patientFile;
+	public void setPatientFile(PatientFileIN selectedPatientFile) {
+		this.patientFile_ = (PatientFile) selectedPatientFile;
 	}
 
 	/**
