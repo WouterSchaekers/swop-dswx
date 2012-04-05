@@ -59,6 +59,8 @@ public class Hospital implements HospitalIN
 		this.patientFileManager_ = patientFileManager;
 		this.campusses_ = new LinkedList<Campus>();
 		this.taskManager_ = tsmb.create(this);
+		this.medicalTestFactories_ = new LinkedList<MedicalTestFactory>();
+		this.treatmentFactories_ = new LinkedList<TreatmentFactory>();
 	}
 
 	/**
