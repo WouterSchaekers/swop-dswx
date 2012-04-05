@@ -1,6 +1,8 @@
 package scheduler.requirements;
 
 import scheduler.HospitalDate;
+import system.Campus;
+import system.Location;
 import warehouse.Warehouse;
 import warehouse.item.WarehouseItemType;
 import exceptions.InvalidWarehouseItemException;
@@ -8,12 +10,10 @@ import exceptions.InvalidWarehouseItemException;
 public class WarehouseItemCondition implements Requirement
 {
 	private WarehouseItemType warehouseItemType_;
-	private Warehouse warehouse_;
 	private int amount_;
 	
-	public WarehouseItemCondition(WarehouseItemType warehouseItemType, Warehouse warehouse, int amount){
+	public WarehouseItemCondition(WarehouseItemType warehouseItemType, int amount){
 		this.warehouseItemType_ = warehouseItemType;
-		this.warehouse_ = warehouse;
 		this.amount_ = amount;
 	}
 	
@@ -28,14 +28,16 @@ public class WarehouseItemCondition implements Requirement
 	}
 
 	@Override
-	public boolean isMetOn(HospitalDate hospitalDate) {
-		return this.warehouse_.hasAt(this.warehouseItemType_, 1, hospitalDate);
+	public boolean isMetOn(HospitalDate hospitalDate, Location location) {
+		if(location instanceof Campus)
+			return ((Campus) location).getWarehouse().hasAt(this.warehouseItemType_, this.amount_, hospitalDate);
+		return false;
 	}
 
 	@Override
-	public void collect() {
+	public void collect(Warehouse warehouse) {
 		try {
-			this.warehouse_.take(this.warehouseItemType_);
+			warehouse.take(this.warehouseItemType_);
 		} catch (InvalidWarehouseItemException e) {
 			throw new Error(e.getMessage());
 		}

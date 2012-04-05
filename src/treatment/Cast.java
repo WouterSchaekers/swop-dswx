@@ -10,7 +10,6 @@ import scheduler.requirements.RequirementType;
 import scheduler.requirements.SpecificRequirement;
 import scheduler.requirements.WarehouseItemCondition;
 import users.Nurse;
-import warehouse.Warehouse;
 import warehouse.item.PlasterType;
 import be.kuleuven.cs.som.annotate.Basic;
 
@@ -73,7 +72,7 @@ public class Cast extends Treatment
 	public Collection<Requirement> getAllRequirements() {
 		Collection<Requirement> requirements = new LinkedList<Requirement>();
 		requirements.add(new SpecificRequirement(this.patientFile_.getPatient(), false));
-		requirements.add(new WarehouseItemCondition(new PlasterType(), warehouse_, 1));
+		requirements.add(new WarehouseItemCondition(new PlasterType(), 1));
 		requirements.add(new RequirementType<Nurse>(Nurse.class, true, 1));
 		return requirements;
 	}

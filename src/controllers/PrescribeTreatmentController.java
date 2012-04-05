@@ -11,11 +11,11 @@ import users.User;
 import controllers.interfaces.DiagnoseIN;
 import exceptions.CanNeverBeScheduledException;
 import exceptions.FactoryInstantiationException;
+import exceptions.InvalidConsultPatientFileController;
 import exceptions.InvalidDiagnoseException;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileException;
-import exceptions.InvalidConsultPatientFileController;
 
 /**
  * Use this controller to prescribe a treatment for a patient's diagnose.
@@ -80,7 +80,6 @@ public class PrescribeTreatmentController extends NeedsLoginAndPatientFileContro
 			throw new InvalidDiagnoseException("The selected diagnose is invalid!");
 		if (!getAllPossibleDiagnosis().contains(selected))
 			throw new InvalidDiagnoseException("Trying to add a treatment to a diagnose that this doctor has not made!");
-		@SuppressWarnings("deprecation")
 		Task<?> createdTreatment = hospital.getTaskManager().add(hospital.creatMedTest(treatmentFactory));
 
 		if (createdTreatment.isScheduled())

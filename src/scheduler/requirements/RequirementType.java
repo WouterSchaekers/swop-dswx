@@ -1,6 +1,8 @@
 package scheduler.requirements;
 
 import scheduler.HospitalDate;
+import system.Location;
+import warehouse.Warehouse;
 
 public class RequirementType<T extends Requirable> implements Requirement
 {
@@ -25,12 +27,13 @@ public class RequirementType<T extends Requirable> implements Requirement
 	}
 
 	@Override
-	public boolean isMetOn(HospitalDate hospitalDate) {
+	public boolean isMetOn(HospitalDate hospitalDate, Location location) {
 		return false;
 	}
 
 	@Override
-	public void collect() {
+	public void collect(Warehouse warehouse) {
+		;
 	}
 
 	@Override
