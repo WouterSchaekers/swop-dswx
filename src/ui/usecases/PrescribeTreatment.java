@@ -1,11 +1,6 @@
 package ui.usecases;
 
 import java.util.Collection;
-import controllers.PrescribeTreatmentController;
-import controllers.interfaces.DiagnoseIN;
-import exceptions.CanNeverBeScheduledException;
-import exceptions.FactoryInstantiationException;
-import exceptions.InvalidDiagnoseException;
 import treatment.CastFactory;
 import treatment.MedicationFactory;
 import treatment.SurgeryFactory;

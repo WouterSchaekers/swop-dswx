@@ -2,8 +2,6 @@ package medicaltest;
 
 import java.util.Collection;
 import java.util.LinkedList;
-import exceptions.FactoryInstantiationException;
-import exceptions.InvalidResultException;
 import machine.UltraSoundScanner;
 import patient.PatientFile;
 import result.Result;
@@ -15,6 +13,8 @@ import scheduler.requirements.Requirement;
 import scheduler.requirements.RequirementType;
 import scheduler.requirements.SpecificRequirement;
 import users.Nurse;
+import exceptions.FactoryInstantiationException;
+import exceptions.InvalidResultException;
 
 /**
  * This class represents an ultrasound scan test.
