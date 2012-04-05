@@ -18,9 +18,9 @@ import exceptions.InvalidDoctorException;
 import exceptions.InvalidPatientFileException;
 
 /**
- * This class represents a diagnosis that's given to a patient after admission
- * and examination. It keeps a collections of Treatments to keep track of which
- * Diagnosis have been treated with which Treatments.
+ * This class represents a diagnose that's given to a patient after admission
+ * and examination. It keeps a collection of Treatments to keep track of which
+ * the diagnose is to be treated with which Treatments.
  */
 public class Diagnose extends Observable implements DiagnoseIN
 {
@@ -32,25 +32,28 @@ public class Diagnose extends Observable implements DiagnoseIN
 	private final PatientFile myPatientFile;
 	private Doctor secopDoc;
 	private boolean secOpFlag;
-	/**
-	 * the treatments associated with this diagnose
-	 */
 	private Collection<Task<? extends Treatment>> treatments;
 
 	/**
 	 * Default constructor. Initialises fields.
 	 * 
 	 * @param doc
-	 *            The doctor who made the diagnose.
-	 * @param diag
-	 *            The diagnose made by the doctor.
+	 *            The doctor creating this diagnose.
 	 * @param complaints
-	 *            The complaints the patient has made that lead to this
+	 *            The complaints the patient came in with, that lead to this
 	 *            diagnose.
+	 * @param diag
+	 *            The diagnose the doctor made.
+	 * @param creator
+	 *            The patient file that keeps this diagnose stored.
 	 * @throws InvalidDoctorException
+	 *             If the given attending doctor is invalid.
 	 * @throws InvalidDiagnoseException
+	 *             If the diagnose the doctor made is invalid.
 	 * @throws InvalidComplaintsException
+	 *             If the complains given are invalid.
 	 * @throws InvalidPatientFileException
+	 *             If the patient file that keeps this diagnose is invalid.
 	 */
 	Diagnose(Doctor doc, String complaints, String diag, PatientFile creator) throws InvalidDoctorException,
 			InvalidDiagnoseException, InvalidComplaintsException, InvalidPatientFileException {
@@ -70,7 +73,8 @@ public class Diagnose extends Observable implements DiagnoseIN
 	}
 
 	/**
-	 * USE THIS METHOD ONLY IN THE DOMAIN LAYER (init method of Diagnose)!!
+	 * Adds a treatment to this diagnose. USE THIS METHOD ONLY IN THE DOMAIN
+	 * LAYER (init method of Diagnose)!!
 	 */
 	@Deprecated
 	public void addTreatmentTask(Task<? extends Treatment> treatment) {
@@ -85,7 +89,8 @@ public class Diagnose extends Observable implements DiagnoseIN
 	 * @param secondOp
 	 * 
 	 * @throws ApproveDiagnoseException
-	 *             If this diagnose was not marked for second opinion.
+	 *             If this diagnose was not marked for second opinion or if this
+	 *             diagnose wasn't marked for second opinion.
 	 */
 	public void approveBy(Doctor secondOp) throws ApproveDiagnoseException {
 		if (!isMarkedForSecOpBy(secondOp))
@@ -96,14 +101,26 @@ public class Diagnose extends Observable implements DiagnoseIN
 		this.notifyObservers();
 		this.notifyObservers(null);
 	}
-	
-	void approveSelf() throws IllegalAccessException{
-		if(this.secOpFlag)
+
+	/**
+	 * !!! USE ONLY IN PATIENT-PACKAGE !!! Approves the diagnose if it does not
+	 * to be reviewed by a second doctor. Only execute from the patient file
+	 * when you're certain the diagnose does not require second opinion!
+	 * 
+	 * @throws IllegalAccessException
+	 *             If this diagnose was already marked for second opinion, this
+	 *             method will not be allowed to execute.
+	 */
+	void approveSelf() throws IllegalAccessException {
+		if (this.secOpFlag)
 			throw new IllegalAccessException("Diagnose requires second opinion and can't be self approved.");
 		this.approved = true;
 	}
 
 	/**
+	 * Checks if the given parameters result in a second opinion's new diagnose
+	 * that can be replaced with this one.
+	 * 
 	 * @return True if this diagnose can be replaced by the given replacement.
 	 */
 	private boolean canBeReplacedWith(String newDiag, String newComplaints, Doctor newAttending, Doctor newSecOp) {
@@ -115,12 +132,21 @@ public class Diagnose extends Observable implements DiagnoseIN
 	}
 
 	/**
+	 * Checks if the given doctor can be an attending doctor for this diagnose.
+	 * 
 	 * @return True if doc is a valid doctor for this Diagnose.
 	 */
 	private boolean canHaveAsDoctor(Doctor doc) {
 		return !(doc == null || (this.secopDoc != null && this.secopDoc.equals(doc)));
 	}
 
+	/**
+	 * Checks if the given patient file can be the creator this diagnose.
+	 * 
+	 * @param creator
+	 *            The patient file that is supposedly creating this diagnose.
+	 * @return True if the given patient file can create this diagnose.
+	 */
 	private boolean canHaveAsPatientFile(PatientFile creator) {
 
 		return creator != null;
@@ -130,10 +156,9 @@ public class Diagnose extends Observable implements DiagnoseIN
 	 * Disapproves this diagnose.
 	 * 
 	 * @throws ApproveDiagnoseException
+	 *             If this diagnose is not marked for second opinion.
 	 */
 	private void disapprove() throws ApproveDiagnoseException {
-		if (!isMarkedForSecOpBy(null))
-			throw new ApproveDiagnoseException("Can't disapprove diagnose that does not need second opinion!");
 		this.approved = false;
 		this.secOpFlag = false;
 		this.attending = null;
@@ -141,15 +166,32 @@ public class Diagnose extends Observable implements DiagnoseIN
 		this.notifyObservers(this);
 	}
 
+	/**
+	 * Disapproves this diagnose and adds a new one to the patient file that
+	 * created this one.
+	 * 
+	 * @param newDiagnose
+	 *            The new diagnose.
+	 * @param newComplaints
+	 *            The new complaints.
+	 * @param secondOp
+	 *            The doctor that's giving his/her second opinion.
+	 * @return The replacement diagnose.
+	 * @throws ApproveDiagnoseException
+	 *             If this diagnose does not require a second opinion or if the
+	 *             replacement diagnose is invalid.
+	 */
 	public DiagnoseIN disapproveBy(String newDiagnose, String newComplaints, DoctorIN secondOp)
 			throws ApproveDiagnoseException {
 		Doctor futureSecondOp = this.getAttendingIN();
 		Doctor futureAttending = (Doctor) secondOp;
 		if (!canBeReplacedWith(newDiagnose, newComplaints, futureAttending, futureSecondOp))
-			throw new ApproveDiagnoseException("");
+			throw new ApproveDiagnoseException("This diagnose cannot be replaced with the given replacement!");
+		if (!this.secOpFlag)
+			throw new ApproveDiagnoseException("Trying to disapprove a diagnose that does not need second opinion!");
 		this.disapprove();
 		try {
-		return	this.myPatientFile.createDiagnose(newComplaints, newDiagnose, futureAttending, futureAttending);
+			return this.myPatientFile.createDiagnose(newComplaints, newDiagnose, futureAttending, futureAttending);
 		} catch (Exception e) {
 			throw new Error(e);
 		}
@@ -171,10 +213,25 @@ public class Diagnose extends Observable implements DiagnoseIN
 	}
 
 	@Basic
+	public PatientFile getPatientFile() {
+		return this.myPatientFile;
+	}
+
+	/**
+	 * @return All treatments that have been queued/scheduled/finished
+	 *         associated with this diagnose.
+	 */
+	public Collection<Task<? extends Treatment>> getTreatments() {
+		return new ArrayList<Task<? extends Treatment>>(treatments);
+
+	}
+
+	@Basic
 	public Collection<TaskIN> getTreatmentsIN() {
 		return new LinkedList<TaskIN>(treatments);
 	}
 
+	@Override
 	@Basic
 	public boolean isApprovedIN() {
 		if (isMarkedForSecOpBy(null))
@@ -189,30 +246,38 @@ public class Diagnose extends Observable implements DiagnoseIN
 	}
 
 	/**
-	 * @return True if diag is a valid Diagnose description for this Diagnose.
+	 * @return True if diag is a valid diagnose description for this diagnose.
 	 */
 	private boolean isValidDiagnosis(String diag) {
 		return diag != null && !diag.equals("");
 	}
 
+	/**
+	 * Checks if a treatment is a valid one for this diagnose.
+	 * 
+	 * @return True if the given treatment is a valid treatment for this
+	 *         diagnose.
+	 */
 	private boolean isValidtreatment(Task<?> treatment) {
-		return treatment != null;
+		return treatment != null && treatment.getDescription() instanceof Treatment;
 	}
 
 	/**
-	 * ONLY USE IN DOMAIN LAYER!!
+	 * Marks this diagnose's treatments for deletion. ONLY USE IN DOMAIN LAYER!!
 	 */
 	public void markForDeletion() {
 		this.mustBeDeleted = true;
 	}
 
 	/**
-	 * This function marks this Diagnose for second opinion.
+	 * Marks this Diagnose for second opinion.
 	 * 
 	 * @param from
-	 *            The doctor that needs to give the second opinion.
+	 *            The doctor that the attending wants to get a second opinion
+	 *            from.
 	 * @throws InvalidDoctorException
-	 *             if !canHaveAsDoctor(from)
+	 *             if the given doctor is not a doctor that can give second
+	 *             opinions.
 	 */
 	void markForSecOp(Doctor from) throws InvalidDoctorException {
 		if (!canHaveAsDoctor(from))
@@ -222,10 +287,16 @@ public class Diagnose extends Observable implements DiagnoseIN
 		this.secopDoc = from;
 	}
 
+	@Basic
 	public boolean mustBeDeleted() {
 		return this.mustBeDeleted;
 	}
 
+	/**
+	 * @return The doctor that has been selected to give a second opinion on
+	 *         this diagnose.
+	 */
+	@Override
 	@Basic
 	public DoctorIN needsSecOpFromIN() {
 		DoctorIN rv = (DoctorIN) (this.secopDoc);
@@ -233,7 +304,7 @@ public class Diagnose extends Observable implements DiagnoseIN
 	}
 
 	/**
-	 * ONLY USE IN TREATMENT DEINITMETHOD!!
+	 * ONLY USE IN TREATMENT DEINIT METHOD!!
 	 */
 	public void removeTreatment(Task<?> treatment) {
 		this.treatments.remove(treatment);
@@ -250,14 +321,5 @@ public class Diagnose extends Observable implements DiagnoseIN
 	private void unmarkForSecOp() {
 		this.secOpFlag = false;
 		this.secopDoc = null;
-	}
-
-	public Collection<Task<? extends Treatment>> getTreatments() {
-		return new ArrayList<Task<? extends Treatment>>(treatments);
-
-	}
-
-	public PatientFile getPatientFile() {
-		return this.myPatientFile;
 	}
 }
