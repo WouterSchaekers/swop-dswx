@@ -1,6 +1,8 @@
 package scheduler.requirements;
 
 import scheduler.HospitalDate;
+import system.Location;
+import warehouse.Warehouse;
 
 public interface Requirement
 {
@@ -13,9 +15,9 @@ public interface Requirement
 	 */
 	public boolean isCrucial();
 	
-	public boolean isMetOn(HospitalDate hospitalDate);
+	public boolean isMetOn(HospitalDate hospitalDate, Location location);
 	
-	public void collect();
+	public void collect(Warehouse warehouse);
 	
 	public boolean backToBack();
 	

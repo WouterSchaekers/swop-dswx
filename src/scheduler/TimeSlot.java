@@ -12,30 +12,41 @@ public class TimeSlot
 	private StopTimePoint stopTimePoint_;
 
 	/**
-	 * Default Constructor. Will initialise both time points.
+	 * Default constructor. It will create a timeSlot, containing the given two
+	 * TimePoints.
 	 * 
-	 * @throws illegalargumentexception
-	 *             if t1 is an endpoint or t2 is a startpoint if t2 is before or
-	 *             at the same time as t2
-	 * 
+	 * @param t1
+	 * 		The startTimePoint of this TimeSlot.
+	 * @param t2
+	 * 		The stopTimePoint of this TimeSlot.
 	 */
 	public TimeSlot(TimePoint t1, TimePoint t2) {
-		if(!isValid(t1, t2)){
+		if (!isValid(t1, t2)) {
 			throw new IllegalArgumentException("Invalid TimeSlot.");
 		}
 		this.startTimePoint_ = new StartTimePoint(t1.getHospitalDate());
 		this.stopTimePoint_ = new StopTimePoint(t2.getHospitalDate());
 	}
 
+	/**
+	 * @return The startTimePoint.
+	 */
 	@Basic
 	public StartTimePoint getStartPoint() {
-		return startTimePoint_;
+		return this.startTimePoint_;
 	}
-	
-	public HospitalDate getStartDate(){
+
+	/**
+	 * @return The HospitalDate of the startTimePoint.
+	 */
+	public HospitalDate getStartDate() {
 		return this.startTimePoint_.getHospitalDate();
 	}
 
+	/**
+	 * 
+	 * @param t1
+	 */
 	@Basic
 	public void setStartPoint(TimePoint t1) {
 		this.startTimePoint_ = new StartTimePoint(t1.getHospitalDate());
@@ -45,8 +56,8 @@ public class TimeSlot
 	public StopTimePoint getStopPoint() {
 		return stopTimePoint_;
 	}
-	
-	public HospitalDate getStopDate(){
+
+	public HospitalDate getStopDate() {
 		return this.stopTimePoint_.getHospitalDate();
 	}
 
@@ -57,8 +68,7 @@ public class TimeSlot
 
 	@Override
 	public String toString() {
-		return "[ " + startTimePoint_.toString() + ","
-				+ stopTimePoint_.toString() + " ]";
+		return "[ " + startTimePoint_.toString() + "," + stopTimePoint_.toString() + " ]";
 	}
 
 	/**
@@ -106,16 +116,14 @@ public class TimeSlot
 	}
 
 	public TimeSlot clone() {
-		return new TimeSlot(this.getStartPoint().clone(), this.getStopPoint()
-				.clone());
+		return new TimeSlot(this.getStartPoint().clone(), this.getStopPoint().clone());
 	}
 
 	public boolean equals(Object o) {
 		if (!(o instanceof TimeSlot))
 			return false;
 		TimeSlot that = (TimeSlot) o;
-		return this.startTimePoint_.equals(that.startTimePoint_)
-				&& this.stopTimePoint_.equals(that.stopTimePoint_);
+		return this.startTimePoint_.equals(that.startTimePoint_) && this.stopTimePoint_.equals(that.stopTimePoint_);
 	}
 
 	public boolean before(TimeSlot timeSlot) {

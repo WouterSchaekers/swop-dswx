@@ -10,7 +10,6 @@ import scheduler.HospitalDate;
 import scheduler.tasks.Task;
 import scheduler.tasks.TaskDescription;
 import scheduler.tasks.TaskDescriptionWithPatientFile;
-import warehouse.Warehouse;
 import exceptions.InvalidReportException;
 
 /**

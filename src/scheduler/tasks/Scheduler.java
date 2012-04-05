@@ -10,6 +10,7 @@ import scheduler.StartTimePoint;
 import scheduler.StopTimePoint;
 import scheduler.TimeSlot;
 import scheduler.requirements.Requirement;
+import system.Campus;
 import system.Location;
 import exceptions.AlreadyScheduledException;
 import exceptions.CanNeverBeScheduledException;
@@ -48,15 +49,11 @@ public class Scheduler
 		HospitalDate minDate = new HospitalDate(desc.getCreationTime().getTimeSinceStart() + desc.getExtraTime());
 		HospitalDate startDate = HospitalDate.getMaximum(curDate, minDate);
 		HospitalDate stopDate = new HospitalDate(HospitalDate.END_OF_TIME);
-		Collection<Requirement> metReqs = getMetReqs(reqs, startDate);
-		Collection<Requirement> unmetReqs = getUnmetRequirements(reqs, metReqs);
-		Map<LinkedList<Schedulable>, Integer> avRes = getAvRes(resPool, unmetReqs);
-		avRes = removeDoubleBookings(avRes);
-		LinkedList<Location> locs = getLocationsWithEnoughResources(avRes, taskData.getLocations(), curDate);
-		TaskData scheduledData = schedule(avRes, produceUsedResList(avRes), locs, desc, startDate, stopDate, taskData);
+		TaskData scheduledData = schedule(reqs, resPool, unscheduledTask.getData().getLocations(), desc, startDate,
+				stopDate, taskData);
 		if (!isBackToBack(scheduledData)) {
-			scheduledData = scheduleAtFullHour(avRes, produceUsedResList(avRes), locs, desc, startDate, stopDate,
-					taskData, scheduledData);
+			scheduledData = scheduleAtFullHour(reqs, resPool, unscheduledTask.getData().getLocations(), desc,
+					startDate, stopDate, taskData, scheduledData);
 		}
 		actuallyScheduleResources(scheduledData);
 		unscheduledTask.nextState(scheduledData);
@@ -66,11 +63,10 @@ public class Scheduler
 	 * For each location, this method will try to schedule the task. The task
 	 * that comes first will be chosen.
 	 * 
-	 * @param avRes
-	 *            HashMap that contains resources and the amount needed of them.
-	 * @param usedResList
-	 *            A mapping of the possible resources and the places of the used
-	 *            resources.
+	 * @param reqs
+	 *            The requirements that have to be forfilled.
+	 * @param resPool
+	 *            The resourcePool of all available resources.
 	 * @param posLocs
 	 *            A LinkedList of locations that are suitable for scheduling.
 	 * @param desc
@@ -84,14 +80,18 @@ public class Scheduler
 	 *             The task cannot be scheduled, because there are not enough
 	 *             resources available at this specific moment.
 	 */
-	private <T extends TaskDescription> TaskData schedule(Map<LinkedList<Schedulable>, Integer> avRes,
-			Map<LinkedList<Schedulable>, LinkedList<Integer>> usedResList, Collection<Location> posLocs, T desc,
-			HospitalDate startDate, HospitalDate stopDate, TaskData taskData) throws InvalidSchedulingRequestException {
+	private <T extends TaskDescription> TaskData schedule(Collection<Requirement> reqs,
+			Collection<Schedulable> resPool, Collection<Location> posLocs, T desc, HospitalDate startDate,
+			HospitalDate stopDate, TaskData taskData) throws InvalidSchedulingRequestException {
 		TaskData bestTaskData = null;
 		for (Location posLoc : posLocs) {
 			TaskData posTaskData = null;
 			try {
-				posTaskData = schedule(avRes, usedResList, posLoc, desc, startDate, stopDate, taskData);
+				Collection<Requirement> metReqs = getMetReqs(reqs, startDate, posLoc);
+				Collection<Requirement> unmetReqs = getUnmetRequirements(reqs, metReqs);
+				Map<LinkedList<Schedulable>, Integer> avRes = getAvRes(resPool, unmetReqs);
+				avRes = removeDoubleBookings(avRes);
+				posTaskData = schedule(avRes, produceUsedResList(avRes), posLoc, desc, startDate, stopDate, taskData);
 			} catch (InvalidSchedulingRequestException e) {
 			}
 			if (bestTaskData == null || posTaskData.before(bestTaskData))
@@ -106,11 +106,10 @@ public class Scheduler
 	 * Tries to schedule an a list of resources at a specific location, in a
 	 * specific time interval.
 	 * 
-	 * @param avRes
-	 *            HashMap that contains resources and the amount needed of them.
-	 * @param usedResList
-	 *            A mapping of the possible resources and the places of the used
-	 *            resources.
+	 * @param reqs
+	 *            The requirements that have to be forfilled.
+	 * @param resPool
+	 *            The resourcePool of all available resources.
 	 * @param loc
 	 *            The location that has to be scheduled on.
 	 * @param desc
@@ -159,13 +158,12 @@ public class Scheduler
 	 * Tries to schedule an a list of resources at a specific location, in a
 	 * specific time interval.
 	 * 
-	 * @param avRes
-	 *            HashMap that contains resources and the amount needed of them.
-	 * @param usedResList
-	 *            A mapping of the possible resources and the places of the used
-	 *            resources.
-	 * @param loc
-	 *            The location that has to be scheduled on.
+	 * @param reqs
+	 *            The requirements that have to be forfilled.
+	 * @param resPool
+	 *            The resourcePool of all available resources.
+	 * @param posLocs
+	 *            A LinkedList of locations that are suitable for scheduling.
 	 * @param desc
 	 *            The TaskDescription.
 	 * @param startDate
@@ -180,15 +178,13 @@ public class Scheduler
 	 *             resources available at this specific moment, at the specific
 	 *             location.
 	 */
-	private <T extends TaskDescription> TaskData scheduleAtFullHour(Map<LinkedList<Schedulable>, Integer> avRes,
-			Map<LinkedList<Schedulable>, LinkedList<Integer>> usedResList, Collection<Location> posLocs, T desc,
-			HospitalDate startDate, HospitalDate stopDate, TaskData taskData, TaskData scheduledData)
-			throws InvalidSchedulingRequestException {
+	private <T extends TaskDescription> TaskData scheduleAtFullHour(Collection<Requirement> reqs,
+			Collection<Schedulable> resPool, Collection<Location> posLocs, T desc, HospitalDate startDate,
+			HospitalDate stopDate, TaskData taskData, TaskData scheduledData) throws InvalidSchedulingRequestException {
 		HospitalDate curStartDate = scheduledData.getStartDate();
 		while (!isFullHour(curStartDate)) {
 			HospitalDate nextHour = getNextHour(curStartDate);
-			scheduledData = schedule(avRes, new HashMap<LinkedList<Schedulable>, LinkedList<Integer>>(usedResList),
-					posLocs, desc, nextHour, stopDate, taskData);
+			scheduledData = schedule(reqs, resPool, posLocs, desc, nextHour, stopDate, taskData);
 			curStartDate = scheduledData.getStartDate();
 		}
 		return scheduledData;
@@ -204,10 +200,10 @@ public class Scheduler
 	 * @return A collection of requirements that were satisfied on this speficic
 	 *         date.
 	 */
-	private Collection<Requirement> getMetReqs(Collection<Requirement> reqs, HospitalDate startDate) {
+	private Collection<Requirement> getMetReqs(Collection<Requirement> reqs, HospitalDate startDate, Location loc) {
 		Collection<Requirement> isAlreadyMet = new LinkedList<Requirement>();
 		for (Requirement requirement : reqs) {
-			if (requirement.isMetOn(startDate)) {
+			if (requirement.isMetOn(startDate, loc)) {
 				isAlreadyMet.add(requirement);
 			}
 		}
@@ -308,31 +304,34 @@ public class Scheduler
 	 *             Some of the requirements can never be satisfied with the
 	 *             existing resources.
 	 */
-	private LinkedList<Location> getLocationsWithEnoughResources(Map<LinkedList<Schedulable>, Integer> avRes,
-			Collection<Location> locs, HospitalDate now) throws CanNeverBeScheduledException {
-		LinkedList<Location> possibleLocations = new LinkedList<Location>();
-		for (Location loc : locs) {
-			boolean enoughResources = true;
-			for (LinkedList<Schedulable> resourcePool : avRes.keySet()) {
-				int amount = 0;
-				for (Schedulable resource : resourcePool) {
-					if (resource.canTravel() || resource.getLocationAt(now) == loc) {
-						amount++;
-					}
-				}
-				if (amount < avRes.get(resourcePool)) {
-					enoughResources = false;
-					break;
-				}
-			}
-			if (enoughResources)
-				possibleLocations.add(loc);
-		}
-		if (possibleLocations.size() == 0)
-			throw new CanNeverBeScheduledException(
-					"This task can never be scheduled in this hospital with the current amount of schedulables.");
-		return possibleLocations;
-	}
+	// private LinkedList<Location>
+	// getLocationsWithEnoughResources(Map<LinkedList<Schedulable>, Integer>
+	// avRes,
+	// Collection<Location> locs, HospitalDate now) throws
+	// CanNeverBeScheduledException {
+	// LinkedList<Location> possibleLocations = new LinkedList<Location>();
+	// for (Location loc : locs) {
+	// boolean enoughResources = true;
+	// for (LinkedList<Schedulable> resourcePool : avRes.keySet()) {
+	// int amount = 0;
+	// for (Schedulable resource : resourcePool) {
+	// if (resource.canTravel() || resource.getLocationAt(now) == loc) {
+	// amount++;
+	// }
+	// }
+	// if (amount < avRes.get(resourcePool)) {
+	// enoughResources = false;
+	// break;
+	// }
+	// }
+	// if (enoughResources)
+	// possibleLocations.add(loc);
+	// }
+	// if (possibleLocations.size() == 0)
+	// throw new CanNeverBeScheduledException(
+	// "This task can never be scheduled in this hospital with the current amount of schedulables.");
+	// return possibleLocations;
+	// }
 
 	/**
 	 * Returns an empty mapping of the possible resources and the places of the
@@ -556,13 +555,14 @@ public class Scheduler
 	 */
 	private void actuallyScheduleResources(TaskData taskData) {
 		Collection<Requirement> listOfRequirements = taskData.getDescription().getAllRequirements();
+		Location location = taskData.getLocation();
 		for (Requirement req : listOfRequirements)
-			req.collect();
+			if (location instanceof Campus)
+				req.collect(((Campus) location).getWarehouse());
 		Collection<Schedulable> listOfSchedulables = taskData.getAllAvailableResources();
 		HospitalDate startDate = taskData.getStartDate();
 		HospitalDate stopDate = taskData.getStopDate();
 		TimeSlot timeSlot = new TimeSlot(new StartTimePoint(startDate), new StopTimePoint(stopDate));
-		Location location = taskData.getLocation();
 		for (Schedulable sched : listOfSchedulables)
 			try {
 				sched.scheduleAt(timeSlot, location);

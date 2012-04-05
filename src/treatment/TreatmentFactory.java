@@ -3,7 +3,6 @@ package treatment;
 import patient.Diagnose;
 import patient.PatientFile;
 import scheduler.HospitalDate;
-import warehouse.Warehouse;
 import controllers.interfaces.DiagnoseIN;
 import exceptions.FactoryInstantiationException;
 

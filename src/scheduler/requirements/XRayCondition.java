@@ -9,6 +9,8 @@ import scheduler.StartTimePoint;
 import scheduler.StopTimePoint;
 import scheduler.TimeSlot;
 import scheduler.tasks.Task;
+import system.Location;
+import warehouse.Warehouse;
 
 public class XRayCondition implements Requirement
 {
@@ -27,8 +29,8 @@ public class XRayCondition implements Requirement
 	}
 
 	@Override
-	public void collect() {
-		; // do nothing
+	public void collect(Warehouse warehouse) {
+		;
 	}
 
 	@Override
@@ -53,15 +55,13 @@ public class XRayCondition implements Requirement
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public boolean isMetOn(HospitalDate hospitalDate) {
+	public boolean isMetOn(HospitalDate hospitalDate, Location location) {
 		Collection<Task<?>> allTests = patientFile_.getAllMedicalTests();
 		Collection<Task<XRayScan>> xrays = new LinkedList<Task<XRayScan>>();
-
 		for (Task<?> task : allTests) {
 			if (!task.isQueued() && task.getDescription() instanceof XRayScan)
 				xrays.add((Task<XRayScan>) task);
 		}
-
 		return this.isPossibleAt(hospitalDate, xrays);
 	}
 	
