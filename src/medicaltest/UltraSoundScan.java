@@ -7,7 +7,7 @@ import patient.PatientFile;
 import result.Result;
 import result.ResultFactory;
 import result.UltraSoundScanResultFactory;
-import result.UltrasoundScanResult;
+import result.UltraSoundScanResult;
 import scheduler.HospitalDate;
 import scheduler.requirements.Requirement;
 import scheduler.requirements.RequirementType;
@@ -104,6 +104,6 @@ public class UltraSoundScan extends MedicalTest
 	}
 
 	private boolean validResult(Result myresult) {
-		return myresult!=null&&myresult instanceof UltrasoundScanResult;
+		return myresult!=null&&myresult instanceof UltraSoundScanResult;
 	}
 }
