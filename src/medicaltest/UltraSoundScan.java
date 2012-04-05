@@ -24,6 +24,10 @@ public class UltraSoundScan extends MedicalTest
 	private final String focus_;
 	private final boolean recordVid_;
 	private final boolean recordImages_;
+	/**
+	 * The duration of an UltraSoundScan.
+	 */
+	public final static long DURATION_ = 30 * HospitalDate.ONE_MINUTE;
 
 	/**
 	 * The default constructor. Package visible since it should only be used by
@@ -42,7 +46,7 @@ public class UltraSoundScan extends MedicalTest
 	 */
 	UltraSoundScan(PatientFile patientFile, HospitalDate creationDate, String focus, boolean recordVid,
 			boolean recordImages) {
-		super(patientFile, 30 * HospitalDate.ONE_MINUTE, creationDate);
+		super(patientFile, UltraSoundScan.DURATION_, creationDate);
 		this.focus_ = focus;
 		this.recordVid_ = recordVid;
 		this.recordImages_ = recordImages;

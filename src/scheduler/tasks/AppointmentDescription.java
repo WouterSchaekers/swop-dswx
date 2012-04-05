@@ -18,10 +18,14 @@ import exceptions.InvalidHospitalDateException;
 public class AppointmentDescription extends TaskDescriptionWithPatientFile
 {
 	private Doctor doctor;
+	/**
+	 * The duration of an AppointmentDescription.
+	 */
+	public final static long DURATION_ = 30 * HospitalDate.ONE_MINUTE;
 
 	public AppointmentDescription(Doctor doctor, PatientFile patientFile, HospitalDate creationTime)
 			throws InvalidHospitalDateException {
-		super(patientFile, 30 * HospitalDate.ONE_MINUTE, HospitalDate.ONE_HOUR, creationTime);
+		super(patientFile, AppointmentDescription.DURATION_, HospitalDate.ONE_HOUR, creationTime);
 		this.doctor = doctor;
 	}
 
@@ -46,8 +50,6 @@ public class AppointmentDescription extends TaskDescriptionWithPatientFile
 	public <T extends TaskDescription> void deInit(Task<T> task) {
 		; // do nothing
 	}
-
-
 
 	@Override
 	public Result getResult() {

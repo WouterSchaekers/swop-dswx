@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import patient.Diagnose;
 import patient.PatientFile;
+import result.CastResult;
 import result.CastResultFactory;
 import result.Result;
 import result.ResultFactory;
@@ -25,6 +26,9 @@ public class Cast extends Treatment
 {
 	private String bodyPart_;
 	private int castDuration_;
+	/**
+	 * The duration of a cast.
+	 */
 	public final static long DURATION_ = 2 * HospitalDate.ONE_HOUR;
 
 	/**
@@ -78,21 +82,43 @@ public class Cast extends Treatment
 		return requirements;
 	}
 
+	/**
+	 * @return A CastResultFactory.
+	 */
 	@Override
 	public ResultFactory get() {
-		
+
 		return new CastResultFactory();
 	}
+
+	/**
+	 * Gives a result, based on the information of the factory.
+	 * 
+	 * @param resultFactory
+	 *            The factory the result will be based on.
+	 * @return The Result based on the ResultFactory.
+	 * @throws InvalidResultException
+	 *             The given factory is not a CastResultFactory.
+	 * @throws FactoryInstantiationException
+	 *             The Factory was not ready yet.
+	 */
 	@Override
-	public Result give(ResultFactory builder) throws InvalidResultException, FactoryInstantiationException {
-		Result myresult = builder.create();
-		if(!validResult(myresult))
-			throw new InvalidResultException("invalid result");
-		setResult(myresult);
-		return myresult;
+	public Result give(ResultFactory resultFactory) throws InvalidResultException, FactoryInstantiationException {
+		Result result = resultFactory.create();
+		if (!validResult(result))
+			throw new InvalidResultException("The given factory is not a CastResultFactory.");
+		setResult(result);
+		return result;
 	}
 
-	private boolean validResult(Result myresult) {
-		return false;
+	/**
+	 * Checks whether the given result is valid or not.
+	 * 
+	 * @param result
+	 *            The result that has to be checked.
+	 * @return True if the result is not null and is a CastResult.
+	 */
+	private boolean validResult(Result result) {
+		return result != null && result instanceof CastResult;
 	}
 }

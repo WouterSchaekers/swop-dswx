@@ -24,6 +24,10 @@ public class BloodAnalysis extends MedicalTest
 {
 	private final int amount_;
 	private final String focus_;
+	/**
+	 * The duration of a BloodAnalysis.
+	 */
+	public final static long DURATION_ = 45 * HospitalDate.ONE_MINUTE;
 
 	/**
 	 * The default constructor. Package visible since it should only be used by
@@ -39,7 +43,7 @@ public class BloodAnalysis extends MedicalTest
 	 *            The focus of this analysis.
 	 */
 	BloodAnalysis(PatientFile patientFile, HospitalDate creationDate, int amount, String focus) {
-		super(patientFile, 45 * HospitalDate.ONE_MINUTE, creationDate);
+		super(patientFile, BloodAnalysis.DURATION_, creationDate);
 		this.amount_ = amount;
 		this.focus_ = focus;
 	}

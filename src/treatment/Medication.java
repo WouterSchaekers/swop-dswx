@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import patient.Diagnose;
 import patient.PatientFile;
+import result.MedicationResult;
 import result.MedicationResultFactory;
 import result.Result;
 import result.ResultFactory;
@@ -25,7 +26,13 @@ public class Medication extends Treatment
 	private String description_;
 	private boolean sensitive_;
 	private MedicationType medicationType_;
+	/**
+	 * The duration of sensitive Medication.
+	 */
 	public final static long SENSITIVE_DURATION_ = HospitalDate.ONE_MINUTE * 20;
+	/**
+	 * The duration of nonsensitive Medication.
+	 */
 	public final static long NON_SENSITIVE_DURATION_ = HospitalDate.ONE_MINUTE * 10;
 
 	/**
@@ -105,22 +112,42 @@ public class Medication extends Treatment
 		return requirements;
 	}
 
+	/**
+	 * @return A MedicationResultFactory.
+	 */
 	@Override
 	public ResultFactory get() {
 		return new MedicationResultFactory();
 	}
 
+	/**
+	 * Gives a result, based on the information of the factory.
+	 * 
+	 * @param resultFactory
+	 *            The factory the result will be based on.
+	 * @return The Result based on the ResultFactory.
+	 * @throws InvalidResultException
+	 *             The given factory is not a MedicationResultFactory.
+	 * @throws FactoryInstantiationException
+	 *             The Factory was not ready yet.
+	 */
 	@Override
-	public Result give(ResultFactory builder) throws InvalidResultException, FactoryInstantiationException {
-		Result myresult = builder.create();
-		if(!validResult(myresult))
-			throw new InvalidResultException("invalid result");
-		setResult(myresult);
-		return myresult;
+	public Result give(ResultFactory resultFactory) throws InvalidResultException, FactoryInstantiationException {
+		Result result = resultFactory.create();
+		if (!validResult(result))
+			throw new InvalidResultException("The given factory is not a MedicationResultFactory.");
+		setResult(result);
+		return result;
 	}
 
-	private boolean validResult(Result myresult) {
-		// TODO Auto-generated method stub
-		return false;
+	/**
+	 * Checks whether the given result is valid or not.
+	 * 
+	 * @param result
+	 *            The result that has to be checked.
+	 * @return True if the result is not null and is a MedicationResult.
+	 */
+	private boolean validResult(Result result) {
+		return result != null && result instanceof MedicationResult;
 	}
 }
