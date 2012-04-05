@@ -24,6 +24,7 @@ abstract class NeedsLoginController extends HospitalController
 	 * @throws InvalidHospitalException
 	 *             If the hospital stored in the given login contoller seems to
 	 *             not be valid.
+	 * @see HospitalController
 	 */
 	NeedsLoginController(LoginController loginController) throws InvalidLoginControllerException, InvalidHospitalException {
 		super(loginController.hospital);
