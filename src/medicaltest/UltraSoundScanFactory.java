@@ -29,6 +29,7 @@ public class UltraSoundScanFactory extends MedicalTestFactory
 	 */
 	public void setRecordVid(boolean recordVid) {
 		this.recordVid_ = recordVid;
+		this.recordVidSet_ = true;
 	}
 
 	/**
@@ -39,6 +40,7 @@ public class UltraSoundScanFactory extends MedicalTestFactory
 	 */
 	public void setRecordImages(boolean recordImages) {
 		this.recordImages_ = recordImages;
+		this.recordImagesSet_ = true;
 	}
 
 	/**

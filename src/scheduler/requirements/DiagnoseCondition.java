@@ -20,7 +20,7 @@ public class DiagnoseCondition implements Requirement
 
 	@Override
 	public boolean isMetOn(HospitalDate hospitalDate, Location location) {
-		return this.diagnose_.isApprovedIN();
+		return this.diagnose_.isApproved();
 	}
 
 	@Override

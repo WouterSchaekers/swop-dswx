@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import be.kuleuven.cs.som.annotate.Basic;
+import controllers.interfaces.UserIN;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidNameException;
 import exceptions.UserAlreadyExistsException;
@@ -39,6 +40,11 @@ public class UserManager
 	@Basic
 	public LinkedList<User> getAllUsers() {
 		return new LinkedList<User>(this.users_);
+	}
+	
+	@Basic
+	public Collection<UserIN> getAllUserINs() {
+		return new LinkedList<UserIN>(this.users_);
 	}
 
 	public User createUser(UserFactory factory) throws UserAlreadyExistsException, InvalidNameException,
