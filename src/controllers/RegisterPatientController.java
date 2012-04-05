@@ -1,5 +1,6 @@
 package controllers;
 
+import controllers.interfaces.PatientFileIN;
 import users.Nurse;
 import users.User;
 import exceptions.InvalidHospitalException;
@@ -27,9 +28,12 @@ public class RegisterPatientController extends NeedsLoginController
 	 * 
 	 * @throws InvalidPatientFileException
 	 */
-	public void registerNewPatient(String name)
+	public PatientFileIN registerNewPatient(String name)
 			throws InvalidNameException, InvalidPatientFileException {
-		hospital.getPatientFileManager().registerPatient(name, ((Nurse)loginController_.getUser()).getLocationAt(hospital.getTimeKeeper().getSystemTime()));
+
+	
+		return hospital.getPatientFileManager().registerPatient(name, ((Nurse)loginController_.getUser()).getLocationAt(hospital.getTimeKeeper().getSystemTime()));
+
 	}
 
 	@Override

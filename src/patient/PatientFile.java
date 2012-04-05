@@ -74,7 +74,7 @@ public class PatientFile implements PatientFileIN
 	 */
 	private boolean canBeDischarged() {
 		for (Diagnose d : diagnosis) {
-			if (d.isMarkedForSecOp())
+			if (d.isMarkedForSecOpBy(null))
 				return false;
 			for (Task<? extends Treatment> t : d.getTreatments())
 				if (!t.isFinished())
@@ -183,7 +183,7 @@ public class PatientFile implements PatientFileIN
 	public Collection<DiagnoseIN> getPendingDiagnosisForIN(DoctorIN d) {
 		Collection<DiagnoseIN> rv = new LinkedList<DiagnoseIN>();
 		for (Diagnose diag : this.diagnosis)
-			if (diag.isMarkedForSecOp() && !diag.isApprovedIN() && diag.getAttendingIN().equals((Doctor) d))
+			if (diag.isMarkedForSecOpBy(null) && !diag.isApprovedIN() && diag.getAttendingIN().equals((Doctor) d))
 				rv.add((DiagnoseIN) d);
 		return rv;
 	}

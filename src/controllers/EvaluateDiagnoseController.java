@@ -60,7 +60,7 @@ public class EvaluateDiagnoseController extends NeedsLoginAndPatientFileControll
 	@controllers.PUBLICAPI
 	public void approveDiagnose(DiagnoseIN selected) throws ApproveDiagnoseException {
 		if (isValidDiagnose(selected))
-			((Diagnose) selected).approve();
+			((Diagnose) selected).approveBy((Doctor) loginController_.getUser());
 		else
 			throw new ApproveDiagnoseException("Trying to approve a diagnose that does not exist!");
 	}
