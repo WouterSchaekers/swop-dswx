@@ -1,12 +1,14 @@
 package machine;
 
 import system.Location;
-import exceptions.InvalidLocationException;
 
+/**
+ * This class represents a Surgical Equipment.
+ */
 public class SurgicalEquipment extends Machine
 {
 	/**
-	 * Creates an SurgicalEquipment.
+	 * Creates a Surgical Equipment.
 	 * 
 	 * @param serial
 	 *            The (unique) serial of this machine.
@@ -14,8 +16,6 @@ public class SurgicalEquipment extends Machine
 	 *            The location of this machine inside the campus.
 	 * @param campusLocation
 	 *            The campus of this machine.
-	 * @throws InvalidLocationException
-	 *             If the location provided is null or an empty string.
 	 */
 	SurgicalEquipment(int serial, String location, Location campusLocation) {
 		super(serial, location, campusLocation);
