@@ -1,11 +1,11 @@
 package controllers;
 
 import scheduler.HospitalDate;
-import scheduler.InvalidSystemTime;
 import users.HospitalAdmin;
 import users.User;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
+import exceptions.InvalidSystemTimeException;
 
 /**
  * This controller allows you to advance the time in the hospital.
@@ -45,13 +45,18 @@ public class AdvanceTimeController extends NeedsLoginController
 	 * future.
 	 * 
 	 * @param hospitalDate
+<<<<<<< .mine
+	 * @throws InvalidSystemTimeException 
+	 * If the provided hospitaldate is before the old systemtime, 
+=======
 	 *            The desired new time in the hospital.
 	 * @throws InvalidSystemTime
 	 *             If the provided hospitaldate is not in the future compared to
 	 *             the previous system time.
+>>>>>>> .r1732
 	 */
 	@controllers.PUBLICAPI
-	public void setNewSystemTime(HospitalDate hospitalDate) throws InvalidSystemTime {
+	public void setNewSystemTime(HospitalDate hospitalDate) throws InvalidSystemTimeException {
 		this.hospital.getTimeKeeper().setSystemTime(hospitalDate);
 	}
 

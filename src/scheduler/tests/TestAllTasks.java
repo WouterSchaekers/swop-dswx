@@ -11,7 +11,6 @@ import org.junit.Test;
 import patient.Diagnose;
 import patient.PatientFile;
 import scheduler.HospitalDate;
-import scheduler.InvalidSystemTime;
 import scheduler.tasks.AppointmentDescription;
 import scheduler.tasks.Task;
 import system.Campus;
@@ -36,6 +35,7 @@ import exceptions.InvalidLocationException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidPatientFileException;
 import exceptions.InvalidSerialException;
+import exceptions.InvalidSystemTimeException;
 import exceptions.UserAlreadyExistsException;
 import exceptions.WarehouseOverCapacityException;
 
@@ -172,7 +172,7 @@ public class TestAllTasks
 	public void scheduleTreatment3() throws UserAlreadyExistsException, InvalidNameException, InvalidLocationException,
 			InvalidPatientFileException, InvalidDiagnoseException, InvalidDoctorException, InvalidComplaintsException,
 			FactoryInstantiationException, CanNeverBeScheduledException, WarehouseOverCapacityException,
-			ApproveDiagnoseException, InvalidSystemTime {
+			ApproveDiagnoseException, InvalidSystemTimeException {
 		NurseFactory f = new NurseFactory();
 		f.setName("Jenny");
 		f.setLocation(location);

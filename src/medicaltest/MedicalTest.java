@@ -91,7 +91,7 @@ public abstract class MedicalTest extends TaskDescriptionWithPatientFile impleme
 	}
 
 	/**
-	 * Returns the observables that observe this treatment.
+	 * Returns the observables that observe this medical test.
 	 */
 	@Override
 	public Collection<Observable> getObservables() {

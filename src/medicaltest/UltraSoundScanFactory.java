@@ -3,82 +3,101 @@ package medicaltest;
 import exceptions.FactoryInstantiationException;
 
 /**
- * This class represents something that can create UltraSoundScans.
+ * A UltraSoundScanFactory is a factory, used to create an UltraSound Scan.
  */
 public class UltraSoundScanFactory extends MedicalTestFactory
 {
-	private String scaninfo;
-	private boolean recordVidSet = false;
-	private boolean recordImageSet = false;
-	private boolean recordVid;
-	private boolean recordImages;
+	private String focus_;
+	private boolean recordVid_;
+	private boolean recordVidSet_;
+	private boolean recordImages_;
+	private boolean recordImagesSet_;
 
+	/**
+	 * Default constructor.
+	 */
 	public UltraSoundScanFactory() {
+		this.recordVidSet_ = false;
+		this.recordImagesSet_ = false;
 	}
 
 	/**
-	 * Sets if there should be a video recoded
+	 * Method to set the fact whether there will be recorded video.
 	 * 
 	 * @param recordVid
+	 *            True if there have to be video recorded.
 	 */
 	public void setRecordVid(boolean recordVid) {
-		this.recordVidSet = true;
-		this.recordVid = recordVid;
-	}
-
-	public void setRecordImages(boolean recordImages) {
-		this.recordImageSet = true;
-		this.recordImages = recordImages;
+		this.recordVid_ = recordVid;
 	}
 
 	/**
-	 * Sets the scan info
+	 * Method to set the fact whether there will be recorded images.
 	 * 
-	 * @param scaninfo
-	 * @throws IllegalArgumentException
-	 *             if null was given as an argument
+	 * @param recordImages
+	 *            True if there have to be images recorded.
 	 */
-	public void setScanInfo(String scaninfo) throws IllegalArgumentException {
-		if (!isValidScanInfo(scaninfo))
-			throw new IllegalArgumentException("invalid scan info");
-		this.scaninfo = scaninfo;
+	public void setRecordImages(boolean recordImages) {
+		this.recordImages_ = recordImages;
 	}
 
+	/**
+	 * Sets the focus of the ultrasound scan.
+	 * 
+	 * @param focus
+	 *            The focus of this ultrasound scan.
+	 */
+	public void setFocus(String focus) throws IllegalArgumentException {
+		this.focus_ = focus;
+	}
+
+	/**
+	 * Creates a UltraSound Scan built from the given information.
+	 * 
+	 * @return A UltraSound Scan built from the given information.
+	 * @throws FactoryInstantiationException
+	 *             The factory was not ready yet.
+	 */
 	@Override
 	public MedicalTest create() throws FactoryInstantiationException {
 		if (!ready())
 			throw new FactoryInstantiationException("UltraSoundScanFactory is not properly instantiated yet.");
-		return new UltraSoundScan(patientFile_, creationDate_, scaninfo, recordVid, recordImages);
+		return new UltraSoundScan(this.patientFile_, this.creationDate_, this.focus_, this.recordVid_,
+				this.recordImages_);
 	}
 
+	/**
+	 * The textual representation of the UltraSoundScan Factory.
+	 */
 	@Override
 	public String toString() {
-		return "ultrasound scan";
+		return "UltraSound Scan Factory";
 	}
 
 	/**
-	 * checks if the ultrasound scan object is ready to be created.
+	 * Checks whether the factory is ready for production.
 	 * 
-	 * @return
+	 * @return True if the record images and the record video are set, and when
+	 *         the focus is valid.
 	 */
 	private boolean ready() {
-		boolean rv = super.isReady();
-		rv &= recordImageSet;
-		rv &= recordVidSet;
-		rv &= isValidScanInfo(scaninfo);
-		return rv;
+		return super.isReady() && this.recordImagesSet_ && this.recordVidSet_ && isValidFocus();
 	}
 
 	/**
-	 * Checks if the given argument is a valid argument for scan info.
+	 * Checks whether the focus is valid.
 	 * 
-	 * @param scaninfo
-	 * @return false if the provided scaninfo argument == null
+	 * @return True if the focus is not null and not empty.
 	 */
-	private boolean isValidScanInfo(String scaninfo) {
-		return scaninfo != null;
+	private boolean isValidFocus() {
+		return this.focus_ != null && !this.focus_.isEmpty();
 	}
 
+	/**
+	 * Returns a new instance of the current factory.
+	 * 
+	 * @return A new instance of the current factory.
+	 */
 	@Override
 	public MedicalTestFactory newInstance() {
 		return new UltraSoundScanFactory();

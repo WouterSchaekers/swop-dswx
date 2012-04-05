@@ -31,7 +31,7 @@ public abstract class TaskDescription implements DescriptionIN
 	 * @param creationDate
 	 *            The date on which this description has been created.
 	 */
-	public TaskDescription(long duration, long extraTime, HospitalDate creationDate){
+	public TaskDescription(long duration, long extraTime, HospitalDate creationDate) {
 		if (!isValidAmountOfExtraTime(extraTime))
 			throw new IllegalArgumentException(
 					"Invalid amount of extra time since system start given to Unscheduled Task");
@@ -119,11 +119,20 @@ public abstract class TaskDescription implements DescriptionIN
 	private boolean isValidSystemTime(HospitalDate systemTime) {
 		return systemTime != null;
 	}
+
+	/**
+	 * Checks whether this description is equal to the given object.
+	 * 
+	 * @param o
+	 *            The object that this description has to be compared against.
+	 */
 	@Override
-	public boolean equals(Object o)
-	{
-		return o ==this;
+	public boolean equals(Object o) {
+		return o == this;
 	}
 
+	/**
+	 * Returns the observables that observe this task description.
+	 */
 	public abstract Collection<Observable> getObservables();
 }
