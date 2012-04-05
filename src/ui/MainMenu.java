@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Stack;
 import ui.usecases.AdvanceTime;
 import ui.usecases.Checkin;
+import ui.usecases.CreateAppointment;
 import ui.usecases.HospitalEquipmentUseCase;
 import ui.usecases.HospitalStaff;
 import ui.usecases.Login;
@@ -29,7 +30,16 @@ public class MainMenu extends UseCase
 		addCheckin(rv);
 		addRegisterPatient(rv);
 		addAdvanceTime(rv);
+		addCreateAppointment(rv);
 		return rv;
+	}
+
+	private void addCreateAppointment(Collection<UseCase> rv) {
+		try {
+			rv.add(new CreateAppointment(data));
+		} catch (Exception  e) {;
+		}
+		
 	}
 
 	private void addAdvanceTime(Collection<UseCase> rv) {

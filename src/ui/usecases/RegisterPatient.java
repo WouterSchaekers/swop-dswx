@@ -1,14 +1,14 @@
 package ui.usecases;
 
+import ui.MainMenu;
+import ui.UIData;
+import ui.UseCase;
 import controllers.RegisterPatientController;
 import controllers.interfaces.PatientFileIN;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidPatientFileException;
-import ui.MainMenu;
-import ui.UIData;
-import ui.UseCase;
 
 public class RegisterPatient extends UseCase
 {

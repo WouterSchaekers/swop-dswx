@@ -1,16 +1,15 @@
 package ui.usecases;
 
 import java.util.Collection;
+import ui.MainMenu;
+import ui.UIData;
+import ui.UseCase;
+import ui.usecases.Selector.Displayer;
 import controllers.CheckinController;
 import controllers.interfaces.PatientFileIN;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileException;
-import exceptions.NoSuchPatientException;
-import ui.MainMenu;
-import ui.UIData;
-import ui.UseCase;
-import ui.usecases.Selector.Displayer;
 
 public class Checkin extends UseCase
 {
@@ -51,10 +50,7 @@ public class Checkin extends UseCase
 			printLn("Patient file for patient:"+file.getPatientIN().getName());
 			try {
 				controller.checkIn(file);
-			} catch (NoSuchPatientException e) {
-				System.out.println("Patientfile does not exist!");
-				return new MainMenu(data);
-			} catch (InvalidPatientFileException e) {
+			}  catch (InvalidPatientFileException e) {
 				printLn("Patientfile is wrong.");
 				return new MainMenu(data);
 			}
