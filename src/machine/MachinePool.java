@@ -29,11 +29,11 @@ public class MachinePool
 	public Machine addMachine(MachineBuilder builder) throws InvalidSerialException, InvalidLocationException {
 		Machine machine = builder.build();
 		if (alreadyContains(machine.getSerial()))
-			throw new InvalidSerialException();
+			throw new InvalidSerialException("Invalid serial numebr given to machine builder!");
 		if (!isValidLocation(machine.getLocationWithinCampus()))
-			throw new InvalidLocationException();
+			throw new InvalidLocationException("Invalid location given to machine builder!");
 		if (!isValidCampusLocation(machine.getCampusLocation()))
-			throw new InvalidLocationException();
+			throw new InvalidLocationException("Invalid campus given to machine builder!");
 		allMachines_.add(builder.build());
 		return machine;
 	}

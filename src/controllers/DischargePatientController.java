@@ -7,7 +7,7 @@ import exceptions.DischargePatientException;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileException;
-import exceptions.InvalidPatientFileOpenController;
+import exceptions.InvalidConsultPatientFileController;
 
 /**
  * Use this controller to discharge a patient from the hospital.
@@ -28,7 +28,7 @@ public class DischargePatientController extends NeedsLoginAndPatientFileControll
 	 * @throws InvalidLoginControllerException
 	 *             If the user to whom the given login controller belongs to is
 	 *             not a doctor or is invalid in any other way.
-	 * @throws InvalidPatientFileOpenController
+	 * @throws InvalidConsultPatientFileController
 	 *             If the given consult patient file controller is invalid in
 	 *             any way.
 	 * @throws InvalidPatientFileException
@@ -40,7 +40,7 @@ public class DischargePatientController extends NeedsLoginAndPatientFileControll
 	 */
 	@controllers.PUBLICAPI
 	public DischargePatientController(LoginController lc, ConsultPatientFileController cpfc)
-			throws InvalidLoginControllerException, InvalidHospitalException, InvalidPatientFileOpenController,
+			throws InvalidLoginControllerException, InvalidHospitalException, InvalidConsultPatientFileController,
 			InvalidPatientFileException {
 		super(lc, cpfc);
 		if (cpfc.getPatientFile().isDischarged())

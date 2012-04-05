@@ -6,9 +6,9 @@ public class InvalidCampusException extends Exception
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 5568378224278204491L;
+	private static final long serialVersionUID = 1L;
 
-	public InvalidCampusException(String message) {
-		super(message);
+	public InvalidCampusException(String arg0) {
+		super(arg0);
 	}
 }

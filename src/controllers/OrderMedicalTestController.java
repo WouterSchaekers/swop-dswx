@@ -13,7 +13,7 @@ import exceptions.FactoryInstantiationException;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPatientFileException;
-import exceptions.InvalidPatientFileOpenController;
+import exceptions.InvalidConsultPatientFileController;
 
 /**
  * Use to order medical tests for patients.
@@ -35,7 +35,7 @@ public class OrderMedicalTestController extends NeedsLoginAndPatientFileControll
 	 *             not a doctor or if the controller is invalid in any other
 	 *             way.
 	 * @throws InvalidHospitalException
-	 * @throws InvalidPatientFileOpenController
+	 * @throws InvalidConsultPatientFileController
 	 *             If the consult patient file controller given to this
 	 *             constructor is invalid in any way.
 	 * @throws InvalidPatientFileException
@@ -47,7 +47,7 @@ public class OrderMedicalTestController extends NeedsLoginAndPatientFileControll
 	@controllers.PUBLICAPI
 	public OrderMedicalTestController(LoginController loginController,
 			ConsultPatientFileController consultPatientFileController) throws InvalidLoginControllerException,
-			InvalidHospitalException, InvalidPatientFileOpenController, InvalidPatientFileException {
+			InvalidHospitalException, InvalidConsultPatientFileController, InvalidPatientFileException {
 		super(loginController, consultPatientFileController);
 		if (consultPatientFileController.getPatientFile().isDischarged())
 			throw new InvalidPatientFileException(
@@ -62,7 +62,7 @@ public class OrderMedicalTestController extends NeedsLoginAndPatientFileControll
 	 */
 	@controllers.PUBLICAPI
 	public Collection<MedicalTestFactory> getMedicalTestFactories() throws InvalidLoginControllerException,
-			InvalidPatientFileException, InvalidPatientFileOpenController {
+			InvalidPatientFileException, InvalidConsultPatientFileController {
 		return hospital.getMedicalTests();
 	}
 

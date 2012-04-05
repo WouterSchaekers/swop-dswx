@@ -28,8 +28,9 @@ public class PatientFileManager
 	 * @throws NoSuchPatientException
 	 */
 	public void checkIn(PatientFile patientFile) throws InvalidPatientFileException {
-		if (!isValidPatientFile(patientFile) || ! patientFile.isDischarged())
-			throw new InvalidPatientFileException();
+		if (!isValidPatientFile(patientFile) || !patientFile.isDischarged())
+			throw new InvalidPatientFileException(
+					"Invalid patient file was given to the checkin method in patient file manager!");
 		patientFile.checkIn();
 	}
 
@@ -47,7 +48,8 @@ public class PatientFileManager
 	 */
 	public void checkOut(PatientFile patientFile) throws DischargePatientException, InvalidPatientFileException {
 		if (!isValidPatientFile(patientFile))
-			throw new InvalidPatientFileException();
+			throw new InvalidPatientFileException(
+					"Invalid patient file was given to the checkout method in PatientFileManager!");
 		patientFile.discharge();
 	}
 

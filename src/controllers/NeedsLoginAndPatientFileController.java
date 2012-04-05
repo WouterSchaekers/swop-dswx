@@ -2,7 +2,7 @@ package controllers;
 
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
-import exceptions.InvalidPatientFileOpenController;
+import exceptions.InvalidConsultPatientFileController;
 
 /**
  * This class is to be extended by all controllers that need both a login
@@ -26,7 +26,7 @@ abstract class NeedsLoginAndPatientFileController extends NeedsLoginController
 	 *             unauthorized to call functions on the newly created
 	 *             controller.
 	 * @throws InvalidHospitalException
-	 * @throws InvalidPatientFileOpenController
+	 * @throws InvalidConsultPatientFileController
 	 *             If the given consult patient file controller seems to be
 	 *             invalid for the user that's trying to create new controller.
 	 * @see HospitalController
@@ -34,10 +34,10 @@ abstract class NeedsLoginAndPatientFileController extends NeedsLoginController
 	 */
 	NeedsLoginAndPatientFileController(LoginController loginController,
 			ConsultPatientFileController consultPatientFileController) throws InvalidLoginControllerException,
-			InvalidHospitalException, InvalidPatientFileOpenController {
+			InvalidHospitalException, InvalidConsultPatientFileController {
 		super(loginController);
 		if (!isValidPatientFileOpenController(consultPatientFileController)) {
-			throw new InvalidPatientFileOpenController("The given consult patientfile controller is invalid!");
+			throw new InvalidConsultPatientFileController("The given consult patientfile controller is invalid!");
 		}
 		this.consultPatientFileController_ = consultPatientFileController;
 	}

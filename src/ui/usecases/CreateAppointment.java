@@ -12,7 +12,7 @@ import controllers.interfaces.PatientFileIN;
 import exceptions.CanNeverBeScheduledException;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
-import exceptions.InvalidPatientFileOpenController;
+import exceptions.InvalidConsultPatientFileController;
 
 public class CreateAppointment extends UseCase
 {
@@ -35,7 +35,7 @@ public class CreateAppointment extends UseCase
 				}
 			};
 
-	public CreateAppointment(UIData data) throws InvalidLoginControllerException, InvalidHospitalException, InvalidPatientFileOpenController {
+	public CreateAppointment(UIData data) throws InvalidLoginControllerException, InvalidHospitalException, InvalidConsultPatientFileController {
 		super(data, 4);
 		controller = new CreateAppointmentController(data.getLoginController());
 		

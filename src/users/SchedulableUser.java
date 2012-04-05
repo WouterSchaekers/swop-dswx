@@ -23,7 +23,7 @@ public abstract class SchedulableUser extends User implements Schedulable
 	protected SchedulableUser(String name, Location location) throws InvalidNameException, InvalidLocationException {
 		super(name);
 		if(!validLocation(location))
-			throw new InvalidLocationException();
+			throw new InvalidLocationException("Invalid location given to schedulable user!");
 		this.timeTable_ = new TimeTable();
 		this.scheduledTasks_ = new LinkedList<Task<?>>();
 		this.location_ = location;
