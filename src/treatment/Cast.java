@@ -36,10 +36,6 @@ public class Cast extends Treatment
 	 *            The duration of this treatment.
 	 * @param diagnose
 	 *            The diagnose of this cast.
-	 * @param warehouse
-	 *            The warehouse where the materials for this cast will come
-	 *            from.
-	 * @param warehouse
 	 */
 	Cast(PatientFile patientFile, HospitalDate creationDate, String bodyPart, int castDuration, Diagnose diagnose) {
 		super(patientFile, diagnose, DURATION_, creationDate);

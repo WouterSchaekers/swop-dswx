@@ -29,10 +29,7 @@ public abstract class Treatment extends TaskDescriptionWithPatientFile
 	 * @param creationDate
 	 *            The date on which this description has been created.
 	 * @param diagnose
-	 *            The diagnose of this cast.
-	 * @param warehouse
-	 *            The warehouse where the materials for this cast will come
-	 *            from.
+	 *            The diagnose of this treatment.
 	 */
 	public Treatment(PatientFile patientFile, Diagnose diagnose, long duration, HospitalDate creationDate) {
 		super(patientFile, duration, 0, creationDate);

@@ -38,7 +38,7 @@ public class Scheduler
 	 *             The taks has already been scheduled.
 	 */
 	public <T extends TaskDescription> void schedule(Task<T> unscheduledTask) throws InvalidSchedulingRequestException,
-			CanNeverBeScheduledException, AlreadyScheduledException {
+			AlreadyScheduledException, CanNeverBeScheduledException {
 		if (!unscheduledTask.isQueued())
 			throw new AlreadyScheduledException("This task has already been scheduled.");
 		T desc = unscheduledTask.getDescription();
@@ -78,24 +78,34 @@ public class Scheduler
 	 * @throws InvalidSchedulingRequestException
 	 *             The task cannot be scheduled, because there are not enough
 	 *             resources available at this specific moment.
+	 * @throws CanNeverBeScheduledException
+	 *             The task can never be scheduled with the current amount of
+	 *             resources available right now in the hospital.
 	 */
 	private <T extends TaskDescription> TaskData schedule(Collection<Requirement> reqs,
 			Collection<Schedulable> resPool, Collection<Location> locs, T desc, HospitalDate startDate,
-			HospitalDate stopDate, TaskData taskData) throws InvalidSchedulingRequestException {
+			HospitalDate stopDate, TaskData taskData) throws InvalidSchedulingRequestException,
+			CanNeverBeScheduledException {
 		TaskData bestTaskData = null;
+		boolean canEverBeScheduled = false;
 		for (Location loc : locs) {
 			TaskData posTaskData = null;
+			Collection<Requirement> metReqs = getMetReqs(reqs, startDate, loc);
+			Collection<Requirement> unmetReqs = getUnmetRequirements(reqs, metReqs);
+			Map<LinkedList<Schedulable>, Integer> avRes = getAvRes(resPool, unmetReqs);
+			avRes = removeDoubleBookings(avRes);
+			if (canEverBeScheduledOnThisLocation(avRes, loc, startDate))
+				canEverBeScheduled = true;
 			try {
-				Collection<Requirement> metReqs = getMetReqs(reqs, startDate, loc);
-				Collection<Requirement> unmetReqs = getUnmetRequirements(reqs, metReqs);
-				Map<LinkedList<Schedulable>, Integer> avRes = getAvRes(resPool, unmetReqs);
-				avRes = removeDoubleBookings(avRes);
 				posTaskData = schedule(avRes, produceUsedResList(avRes), loc, desc, startDate, stopDate, taskData);
 			} catch (InvalidSchedulingRequestException e) {
 			}
 			if (posTaskData != null && (bestTaskData == null || posTaskData.before(bestTaskData)))
 				bestTaskData = posTaskData;
 		}
+		if (!canEverBeScheduled)
+			throw new CanNeverBeScheduledException(
+					"This task can never be scheduled in this hospital with the current amount of schedulables.");
 		if (bestTaskData == null)
 			throw new InvalidSchedulingRequestException("The task cannot be scheduled.");
 		return bestTaskData;
@@ -177,10 +187,14 @@ public class Scheduler
 	 *             The task cannot be scheduled, because there are not enough
 	 *             resources available at this specific moment, at the specific
 	 *             location.
+	 * @throws CanNeverBeScheduledException
+	 *             The task can never be scheduled with the current amount of
+	 *             resources available right now in the hospital.
 	 */
 	private <T extends TaskDescription> TaskData scheduleAtFullHour(Collection<Requirement> reqs,
 			Collection<Schedulable> resPool, Collection<Location> locs, T desc, HospitalDate startDate,
-			HospitalDate stopDate, TaskData taskData, TaskData scheduledData) throws InvalidSchedulingRequestException {
+			HospitalDate stopDate, TaskData taskData, TaskData scheduledData) throws InvalidSchedulingRequestException,
+			CanNeverBeScheduledException {
 		HospitalDate curStartDate = scheduledData.getStartDate();
 		while (!isFullHour(curStartDate)) {
 			HospitalDate nextHour = getNextHour(curStartDate);
@@ -470,6 +484,32 @@ public class Scheduler
 		if (bestOption == -1)
 			throw new InvalidSchedulingRequestException("No Schedulable of this list can be schedulabled.");
 		return bestOption;
+	}
+
+	/**
+	 * Checks if there are enough resources available in the hospital.
+	 * 
+	 * @param avRes
+	 *            HashMap that contains resources and the amount needed of them.
+	 * @param loc
+	 *            The location that has to be checked.
+	 * @param now
+	 *            The current HospitalDate.
+	 */
+	private boolean canEverBeScheduledOnThisLocation(Map<LinkedList<Schedulable>, Integer> avRes, Location loc,
+			HospitalDate now) {
+		for (LinkedList<Schedulable> resourcePool : avRes.keySet()) {
+			int amount = 0;
+			for (Schedulable resource : resourcePool) {
+				if (resource.canTravel() || resource.getLocationAt(now) == loc) {
+					amount++;
+				}
+			}
+			if (amount < avRes.get(resourcePool)) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	/**
