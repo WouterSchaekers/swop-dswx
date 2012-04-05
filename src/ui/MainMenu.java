@@ -14,6 +14,7 @@ import ui.usecases.Login;
 import ui.usecases.Logout;
 import ui.usecases.Quit;
 import ui.usecases.RegisterPatient;
+import ui.usecases.ReviewPendingDiagnoses;
 import ui.usecases.Selector;
 
 public class MainMenu extends UseCase
@@ -37,7 +38,16 @@ public class MainMenu extends UseCase
 		addConsultPatientFile(rv);
 		addEnterDiagnose(rv);
 		addDischargePatient(rv);
+		addReviewDiagnose(rv);
 		return rv;
+	}
+
+	private void addReviewDiagnose(Collection<UseCase> rv) {
+		try {
+			rv.add(new ReviewPendingDiagnoses(data));
+		} catch (Exception e) {
+			;
+		}
 	}
 
 	private void addDischargePatient(Collection<UseCase> rv) {
