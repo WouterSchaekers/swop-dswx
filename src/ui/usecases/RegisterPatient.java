@@ -39,5 +39,9 @@ public class RegisterPatient extends UseCase
 		printLn("Patient "+created.getPatientIN().getName()+" was sucesfully created.");
 		return new MainMenu(data);
 	}
-
+	@Override
+	public String toString()
+	{
+		return "Register patient";
+	}
 }

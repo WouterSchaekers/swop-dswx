@@ -51,5 +51,9 @@ public class AdvanceTime extends UseCase
 		printLn("New systemtime is:"+controller.getTime().toString());
 		return new MainMenu(data);
 	}
-
+	@Override
+	public String toString()
+	{
+		return "Advance time.";
+	}
 }
