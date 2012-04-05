@@ -17,7 +17,8 @@ public class Login extends UseCase
 
 		@Override
 		public void display(CampusIN t) {
-			System.out.print("Campus:" + t.getName());
+			System.out.print("Campus:"+t.getName());
+	System.out.print("Campus:" + t.getName());
 
 		}
 	};
