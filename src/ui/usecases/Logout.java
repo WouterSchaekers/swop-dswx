@@ -18,7 +18,7 @@ public class Logout extends UseCase
 	public UseCase execute() {
 		System.out.println();
 		UserIN user =data.getLoginController().getUserIN();
-		data.setLoginController(null);
+		data.clear();
 		printLn(user.getTypeIN().toTitle()+user.getName()+" was succesfully logged out");
 		return new MainMenu(data);
 	}

@@ -33,4 +33,8 @@ public class UIData
 	public void setConsultPatientFileopenController(ConsultPatientFileController controller) {
 		patientFileOpencontroller = controller;
 	}
+	public void clear() {
+		loginc=null;
+		patientFileOpencontroller=null;
+	}
 }

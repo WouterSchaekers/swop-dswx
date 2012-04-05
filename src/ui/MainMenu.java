@@ -6,6 +6,7 @@ import ui.usecases.AdvanceTime;
 import ui.usecases.Checkin;
 import ui.usecases.ConsultPatientFile;
 import ui.usecases.CreateAppointment;
+import ui.usecases.DischargePatient;
 import ui.usecases.EnterDiagnose;
 import ui.usecases.HospitalEquipmentUseCase;
 import ui.usecases.HospitalStaff;
@@ -35,7 +36,16 @@ public class MainMenu extends UseCase
 		addCreateAppointment(rv);
 		addConsultPatientFile(rv);
 		addEnterDiagnose(rv);
+		addDischargePatient(rv);
 		return rv;
+	}
+
+	private void addDischargePatient(Collection<UseCase> rv) {
+		try {
+			rv.add(new DischargePatient(data));
+		} catch (Exception e) {
+			;
+		}
 	}
 
 	private void addConsultPatientFile(Collection<UseCase> rv) {
