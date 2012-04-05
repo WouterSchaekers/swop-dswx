@@ -28,7 +28,7 @@ public class MachinePool
 			throw new InvalidSerialException();
 		if (!isValidLocation(machine.getLocationWithinCampus()))
 			throw new InvalidLocationException();
-		if(!isValidCampusLocation(machine.getCampusLocation()))
+		if (!isValidCampusLocation(machine.getCampusLocation()))
 			throw new InvalidLocationException();
 		allMachines.add(m.build());
 		return machine;
@@ -61,7 +61,6 @@ public class MachinePool
 	}
 
 	private boolean alreadyContains(int serial) {
-
 		for (Machine m : allMachines)
 			if (m.getSerial() == serial)
 				return true;
@@ -71,8 +70,8 @@ public class MachinePool
 	private boolean isValidLocation(String location) {
 		return location != null && !location.isEmpty();
 	}
-	
-	private boolean isValidCampusLocation(Location location){
+
+	private boolean isValidCampusLocation(Location location) {
 		return location != null;
 	}
 }

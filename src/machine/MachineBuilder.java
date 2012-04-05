@@ -52,13 +52,4 @@ public abstract class MachineBuilder
 	public final void setLocationWithinCampus(String location) {
 		this.loc_ = location;
 	}
-
-	/**
-	 * Checks whether the given builder is from the same type.
-	 * 
-	 * @param builder
-	 *            The builder that has to be checked.
-	 * @return True if the builder is from the same type.
-	 */
-	abstract boolean sameType(MachineBuilder builder);
 }
