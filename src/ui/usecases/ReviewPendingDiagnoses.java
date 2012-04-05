@@ -3,16 +3,16 @@ package ui.usecases;
 import help.Collections;
 import help.Filter;
 import java.util.Collection;
+import ui.UIData;
+import ui.UseCase;
+import ui.usecases.Selector.Displayer;
 import controllers.EvaluateDiagnoseController;
 import controllers.interfaces.DiagnoseIN;
 import exceptions.ApproveDiagnoseException;
 import exceptions.DischargePatientException;
+import exceptions.InvalidConsultPatientFileController;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
-import exceptions.InvalidPatientFileOpenController;
-import ui.UIData;
-import ui.UseCase;
-import ui.usecases.Selector.Displayer;
 
 public class ReviewPendingDiagnoses extends UseCase
 {
@@ -30,7 +30,7 @@ public class ReviewPendingDiagnoses extends UseCase
 	};
 	private EvaluateDiagnoseController controller;
 
-	public ReviewPendingDiagnoses(UIData data) throws InvalidLoginControllerException, InvalidHospitalException, InvalidPatientFileOpenController, DischargePatientException {
+	public ReviewPendingDiagnoses(UIData data) throws InvalidLoginControllerException, DischargePatientException, InvalidHospitalException, InvalidConsultPatientFileController {
 		super(data, 12);
 		controller = new EvaluateDiagnoseController(data.getLoginController(), data.getConsultPatientFileopenController());
 	}
