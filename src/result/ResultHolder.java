@@ -14,13 +14,15 @@ public interface ResultHolder
 	public ResultFactory get();
 
 	/**
-	 * Gives a result, based on the information of the builder.
+	 * Gives a result, based on the information of the factory.
 	 * 
 	 * @param resultFactory
 	 *            The builder the result will be based on.
 	 * @return The Result based on the ResultFactory.
 	 * @throws InvalidResultException
+	 * 			The given factory is from the wrong type.
 	 * @throws FactoryInstantiationException
+	 * 			The Factory was not ready yet.
 	 */
 	public Result give(ResultFactory resultFactory) throws InvalidResultException, FactoryInstantiationException;
 

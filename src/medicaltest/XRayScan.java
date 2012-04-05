@@ -6,12 +6,15 @@ import machine.XRayScanner;
 import patient.PatientFile;
 import result.Result;
 import result.ResultFactory;
+import result.XRayScanResult;
 import result.XRayScanResultFactory;
 import scheduler.HospitalDate;
 import scheduler.requirements.Requirement;
 import scheduler.requirements.RequirementType;
 import scheduler.requirements.SpecificRequirement;
 import users.Nurse;
+import exceptions.FactoryInstantiationException;
+import exceptions.InvalidResultException;
 
 /**
  * This class represents an xray scan test.
@@ -85,14 +88,42 @@ public class XRayScan extends MedicalTest
 		return requirements;
 	}
 
+	/**
+	 * @return A XRayScanResultFactory.
+	 */
 	@Override
 	public ResultFactory get() {
 		return new XRayScanResultFactory();
 	}
 
+	/**
+	 * Gives a result, based on the information of the factory.
+	 * 
+	 * @param resultFactory
+	 *            The factory the result will be based on.
+	 * @return The Result based on the ResultFactory.
+	 * @throws InvalidResultException
+	 *             The given factory is not a XRayScanFactory.
+	 * @throws FactoryInstantiationException
+	 *             The Factory was not ready yet.
+	 */
 	@Override
-	public Result give(ResultFactory builder) {
-		// TODO Auto-generated method stub
-		return null;
+	public Result give(ResultFactory resultFactory) throws FactoryInstantiationException, InvalidResultException {
+		Result result = resultFactory.create();
+		if (!validResult(result))
+			throw new InvalidResultException("The given factory is not a XRayScanFactory.");
+		setResult(result);
+		return result;
+	}
+	
+	/**
+	 * Checks whether the given result is valid or not.
+	 * 
+	 * @param result
+	 *            The result that has to be checked.
+	 * @return True if the result is not null and is a XRayScanResult.
+	 */
+	private boolean validResult(Result result) {
+		return result != null && result instanceof XRayScanResult;
 	}
 }

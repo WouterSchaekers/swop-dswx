@@ -51,7 +51,7 @@ public class BloodAnalysis extends MedicalTest
 	 */
 	@Basic
 	public int getAmount() {
-		return amount_;
+		return this.amount_;
 	}
 
 	/**
@@ -78,21 +78,42 @@ public class BloodAnalysis extends MedicalTest
 		return requirements;
 	}
 
+	/**
+	 * @return A BloodAnalysisResultFactory.
+	 */
 	@Override
 	public ResultFactory get() {
 		return new BloodAnalysisResultFactory();
 	}
 
+	/**
+	 * Gives a result, based on the information of the factory.
+	 * 
+	 * @param resultFactory
+	 *            The factory the result will be based on.
+	 * @return The Result based on the ResultFactory.
+	 * @throws InvalidResultException
+	 *             The given factory is not a BloodAnalysisResultFactory.
+	 * @throws FactoryInstantiationException
+	 *             The Factory was not ready yet.
+	 */
 	@Override
-	public Result give(ResultFactory builder) throws InvalidResultException, FactoryInstantiationException {
-		Result myresult = builder.create();
-		if(!validResult(myresult))
-			throw new InvalidResultException("invalid result");
-		setResult(myresult);
-		return myresult;
+	public Result give(ResultFactory resultFactory) throws InvalidResultException, FactoryInstantiationException {
+		Result result = resultFactory.create();
+		if (!validResult(result))
+			throw new InvalidResultException("The given factory is not a BloodAnalysisResultFactory.");
+		setResult(result);
+		return result;
 	}
 
-	private boolean validResult(Result myresult) {
-		return myresult!=null&&myresult instanceof BloodAnalysisResult;
+	/**
+	 * Checks whether the given result is valid or not.
+	 * 
+	 * @param result
+	 *            The result that has to be checked.
+	 * @return True if the result is not null and is a BloodAnalysisResult.
+	 */
+	private boolean validResult(Result result) {
+		return result != null && result instanceof BloodAnalysisResult;
 	}
 }
