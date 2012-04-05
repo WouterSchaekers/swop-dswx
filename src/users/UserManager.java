@@ -21,6 +21,8 @@ public class UserManager
 	/**
 	 * Default constructor.
 	 * 
+	 * @param name
+	 * The name of the hospital administrator.
 	 * @throws InvalidNameException
 	 *             When the provided name is invalid for the hospitaladmin that
 	 *             must be created in this usermanager
