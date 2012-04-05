@@ -1,15 +1,23 @@
 package machine;
 
 import system.Location;
+import exceptions.FactoryInstantiationException;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidSerialException;
 
 public abstract class MachineBuilder
 {
-	protected Integer serial_ = null;
-	protected Location location_ = null;
+	protected Integer serial_;
+	protected Location location_;
 	protected String loc_;
-
+	
+	/**
+	 * Creates a Machine built from the given information.
+	 * 
+	 * @return A Machine built from the given information.
+	 * @throws FactoryInstantiationException
+	 *             The factory was not ready yet.
+	 */
 	abstract Machine build() throws InvalidLocationException, InvalidSerialException;
 
 	/**
@@ -33,11 +41,11 @@ public abstract class MachineBuilder
 			throw new IllegalArgumentException("You can only set location once");
 	}
 
-	public final void setLocationWithinCampus(String location) {
-		if(location.isEmpty())
+	public final void setLocationWithinCampus(String location) throws IllegalArgumentException {
+		if (location.isEmpty())
 			throw new IllegalArgumentException("Invalid location");
 		this.loc_ = location;
 	}
-	
+
 	abstract boolean sameType(MachineBuilder builder);
 }
