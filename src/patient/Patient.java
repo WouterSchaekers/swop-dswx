@@ -20,7 +20,7 @@ import exceptions.InvalidTimeSlotException;
  * files depending on which hospital they go to. Patients have TimeTables which
  * means they are Schedulable.
  */
-class Patient implements Schedulable, PatientIN
+public class Patient implements Schedulable, PatientIN
 {
 	private LocationTimeTable locationTimeTable_;
 	private String name;
