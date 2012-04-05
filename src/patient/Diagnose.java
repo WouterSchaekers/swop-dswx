@@ -67,7 +67,6 @@ public class Diagnose extends Observable implements DiagnoseIN
 		this.attending = doc;
 		this.diag = diag;
 		this.treatments = new LinkedList<Task<? extends Treatment>>();
-
 	}
 
 	/**
@@ -96,6 +95,12 @@ public class Diagnose extends Observable implements DiagnoseIN
 		this.setChanged();
 		this.notifyObservers();
 		this.notifyObservers(null);
+	}
+	
+	void approveSelf() throws IllegalAccessException{
+		if(this.secOpFlag)
+			throw new IllegalAccessException("Diagnose requires second opinion and can't be self approved.");
+		this.approved = true;
 	}
 
 	/**
@@ -180,7 +185,7 @@ public class Diagnose extends Observable implements DiagnoseIN
 
 	@Basic
 	public boolean isMarkedForSecOpBy(Doctor doctor) {
-		return this.secOpFlag && this.secopDoc.equals(doctor);
+		return this.secOpFlag && this.secopDoc == doctor;
 	}
 
 	/**
