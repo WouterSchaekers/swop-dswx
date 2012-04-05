@@ -28,7 +28,7 @@ public class Hospital implements HospitalIN
 	private PatientFileManager patientFileManager_;
 	private TaskManager taskManager_;
 	private TimeLord systemTime_;
-	private Collection<Campus> campusses_;
+	private Collection<Campus> campuses_;
 	private Collection<MedicalTestFactory> medicalTestFactories_;
 	private Collection<TreatmentFactory> treatmentFactories_;
 
@@ -57,7 +57,7 @@ public class Hospital implements HospitalIN
 		this.systemTime_ = timeLord;
 		this.userManager_ = userManager;
 		this.patientFileManager_ = patientFileManager;
-		this.campusses_ = new LinkedList<Campus>();
+		this.campuses_ = new LinkedList<Campus>();
 		this.taskManager_ = tsmb.create(this);
 		this.medicalTestFactories_ = new LinkedList<MedicalTestFactory>();
 		this.treatmentFactories_ = new LinkedList<TreatmentFactory>();
@@ -69,7 +69,7 @@ public class Hospital implements HospitalIN
 	 * @param campus
 	 */
 	void addCampus(Campus campus) {
-		this.campusses_.add(campus);
+		this.campuses_.add(campus);
 	}
 
 	@Basic
@@ -94,7 +94,7 @@ public class Hospital implements HospitalIN
 
 	@Basic
 	public Campus getCampus(String name) {
-		for (Campus campus : campusses_) {
+		for (Campus campus : campuses_) {
 			if (campus.getCampusName().equals(name)) {
 				return campus;
 			}
@@ -103,11 +103,11 @@ public class Hospital implements HospitalIN
 	}
 
 	public Collection<Location> getAllLocations() {
-		return new LinkedList<Location>(this.campusses_);
+		return new LinkedList<Location>(this.campuses_);
 	}
 
 	public Collection<Campus> getAllCampuses() {
-		return new LinkedList<Campus>(this.campusses_);
+		return new LinkedList<Campus>(this.campuses_);
 	}
 
 	/**
@@ -115,7 +115,7 @@ public class Hospital implements HospitalIN
 	 */
 	public void removeCampus(String name) {
 		LinkedList<Campus> newCP = new LinkedList<Campus>();
-		for (Campus c : this.campusses_)
+		for (Campus c : this.campuses_)
 			if ((c.getCampusName().equals(name)))
 				newCP.add(c);
 	}
@@ -126,7 +126,7 @@ public class Hospital implements HospitalIN
 			sched.add(o);
 		for (PatientFile o : patientFileManager_.getAllPatientFiles())
 			sched.add(o.getPatient());
-		for (Campus c : campusses_)
+		for (Campus c : campuses_)
 			for (Schedulable s : c.getSchedulables())
 				sched.add(s);
 		Collection<?> c = Collections.filter(sched, schedulableFilter());
