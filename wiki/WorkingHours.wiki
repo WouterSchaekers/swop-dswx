@@ -56,9 +56,9 @@
 || 04/04/12: 11u00 -> 12u00 || 2 DW || 1 || Reviewing the visibility of methods and constructors. Checking for strange parameters,... || Stefaan lag nog te slapen! ||
 || 04/04/12: 12u00 -> 13u30 || 3 DSW || 1.5 || Refactoring some code, writing scheduling tests, making the report, making SSDs || ||
 || 04/04/12: 13u30 -> 14u30 || 2 DS || 1 || More of the above... || Wouter ging eten op kot. ||
-|| 04/04/12: 15u00 -> 19u00 || 3 DSW || 4 || Debugging scheduling algorithm, writing tests for domain layer, writing the report & creating SSDs|| ||
-|| 04/04/12: 21u00 -> 00u30 || 3 DSW || 3.5 || More of the above...|| ||
-|| 05/04/12: 10u30 -> 13u37 || 3 DSW || 3 || Writing documentation, implementing ui|| ||
+|| 04/04/12: 15u00 -> 19u00 || 3 DSW || 4 || Debugging scheduling algorithm, writing tests for domain layer, writing the report & creating SSDs || ||
+|| 04/04/12: 21u00 -> 00u30 || 3 DSW || 3.5 || More of the above... || ||
+|| 05/04/12: 10u30 -> 13u37 || 3 DSW || 3 || Writing documentation, implementing ui || ||
 
 = Iteratie 2 =
 || *Timepoint* || *Members* || *Workload* || *Purpose* || *Comments* ||
