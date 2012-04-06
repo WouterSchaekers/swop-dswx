@@ -1,7 +1,7 @@
 package scheduler;
 
 import java.util.Observable;
-import exceptions.InvalidSystemTimeException;
+import exceptions.InvalidHospitalDateException;
 
 /**
  * This class can be used to store the current system time in.
@@ -26,26 +26,31 @@ public class TimeLord extends Observable
 		systemTime = date;
 	}
 
+	/**
+	 * @return The SystemTime.
+	 */
 	public HospitalDate getSystemTime() {
 		return systemTime.clone();
 	}
 
+	/**
+	 * Adds one minute to the SystemTime. It will notify all the Observers.
+	 */
 	private void addOneMinute() {
 		this.systemTime = new HospitalDate(this.systemTime.getTimeSinceStart() + HospitalDate.ONE_MINUTE);
 		this.setChanged();
 		this.notifyObservers();
-
 	}
 
 	/**
 	 * 
-	 * @param target
+	 * @param hospitalDate
 	 * @throws InvalidSystemTimeException
 	 */
-	public void setSystemTime(HospitalDate target) throws InvalidSystemTimeException {
-		if (!isValidNewSystemTime(target))
-			throw new InvalidSystemTimeException("This is not a valid systemTime.");
-		while (getSystemTime().before(target) && getSystemTime().getTimeBetween(target) >= HospitalDate.ONE_MINUTE)
+	public void setSystemTime(HospitalDate hospitalDate) throws InvalidHospitalDateException {
+		if (!isValidNewSystemTime(hospitalDate))
+			throw new InvalidHospitalDateException("This is not a valid systemTime.");
+		while (getSystemTime().before(hospitalDate) && getSystemTime().getTimeBetween(hospitalDate) >= HospitalDate.ONE_MINUTE)
 			addOneMinute();
 	}
 

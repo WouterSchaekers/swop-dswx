@@ -40,11 +40,11 @@ import exceptions.FactoryInstantiationException;
 import exceptions.InvalidComplaintsException;
 import exceptions.InvalidDiagnoseException;
 import exceptions.InvalidDoctorException;
+import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidPatientFileException;
 import exceptions.InvalidSerialException;
-import exceptions.InvalidSystemTimeException;
 import exceptions.InvalidUserFactory;
 import exceptions.UserAlreadyExistsException;
 
@@ -197,8 +197,7 @@ public class TestingScenarioSetup
 
 	private void initialisePatientFiles() throws InvalidNameException, InvalidPatientFileException,
 			DischargePatientException, IllegalAccessException, InvalidDiagnoseException, InvalidDoctorException,
-			InvalidComplaintsException, CanNeverBeScheduledException, FactoryInstantiationException,
-			InvalidSystemTimeException {
+			InvalidComplaintsException, CanNeverBeScheduledException, FactoryInstantiationException, InvalidHospitalDateException {
 		createPatientFiles();
 		fillFilesWithData();
 	}
@@ -216,7 +215,7 @@ public class TestingScenarioSetup
 
 	private void fillFilesWithData() throws InvalidPatientFileException, DischargePatientException,
 			IllegalAccessException, InvalidDiagnoseException, InvalidDoctorException, InvalidComplaintsException,
-			CanNeverBeScheduledException, FactoryInstantiationException, InvalidSystemTimeException {
+			CanNeverBeScheduledException, FactoryInstantiationException, InvalidHospitalDateException {
 		setThibaultHistory(getPatientFileFrom("Thibault"));
 //		setStefHistory(getPatientFileFrom("Stefaan"));
 //		setWouterHistory(getPatientFileFrom("Wouter"));
@@ -279,7 +278,7 @@ public class TestingScenarioSetup
 		addTreatmentTo(getSurgeryFactory("Lung transplant", diag));
 	}
 
-	private void advanceTime(HospitalDate newDate) throws InvalidSystemTimeException {
+	private void advanceTime(HospitalDate newDate) throws InvalidHospitalDateException {
 		hospital.getTimeKeeper().setSystemTime(newDate);
 	}
 

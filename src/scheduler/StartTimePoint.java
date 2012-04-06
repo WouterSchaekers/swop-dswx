@@ -37,26 +37,42 @@ public class StartTimePoint extends TimePoint
 		super(t);
 	}
 
+	/**
+	 * Returns a copy of this TimePoint.
+	 */
 	@Override
 	public StartTimePoint clone() {
 		return new StartTimePoint(this);
 	}
 
+	/**
+	 * Returns true.
+	 */
 	@Override
 	public boolean isStart() {
 		return true;
 	}
 
+	/**
+	 * Returns false.
+	 */
 	@Override
-	public boolean isEnd() {
+	public boolean isStop() {
 		return false;
 	}
 
+	/**
+	 * Returns a textual representation of the TimePoint.
+	 */
 	@Override
 	public String toString() {
 		return "Start: " + this.getHospitalDate();
 	}
 
+	/**
+	 * Checks whether the given Object is a StartTimePoint and has the same
+	 * HospitalDate.
+	 */
 	@Override
 	public boolean equals(Object o) {
 		if (!(o instanceof StartTimePoint))

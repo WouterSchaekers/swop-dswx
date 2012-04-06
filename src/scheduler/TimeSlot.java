@@ -144,7 +144,7 @@ public class TimeSlot
 	 *         the StartTimePoint.
 	 */
 	private boolean isValid(TimePoint startTimePoint, TimePoint stopTimePoint) {
-		if (startTimePoint.isEnd())
+		if (startTimePoint.isStop())
 			return false;
 		if (stopTimePoint.isStart())
 			return false;
