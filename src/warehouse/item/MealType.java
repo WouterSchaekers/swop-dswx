@@ -14,4 +14,9 @@ public class MealType extends WarehouseItemType
 	{
 		return object instanceof MealType;
 	}
+	
+	@Override
+	public long getTimeToLive() {
+		return HospitalDate.ONE_DAY * 7;
+	}
 }

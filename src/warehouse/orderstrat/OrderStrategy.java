@@ -25,8 +25,7 @@ public abstract class OrderStrategy implements Observer
 	 *            To observe.
 	 * @throws InvalidWarehouseItemException
 	 */
-	public OrderStrategy(WarehouseItemType type, Warehouse warehouse, StockProvider provider, TimeLord timeLord)
-			 {
+	public OrderStrategy(WarehouseItemType type, Warehouse warehouse, StockProvider provider, TimeLord timeLord) {
 		if (!validType(type))
 			throw new NullPointerException("itemtype null");
 		if (!validWarehouse(warehouse))
@@ -62,9 +61,11 @@ public abstract class OrderStrategy implements Observer
 	public void update(Observable o, Object arg) {
 		int needed = this.getNeeded() - amountOfOpenOrders();
 		HospitalDate time = warehouse_.getCampus().getSystemTime().getSystemTime();
-	
-		if(needed>0)
+
+		if (needed > 0) {
+			System.out.println(needed);
 			provider_.add(new StockOrder<WarehouseItemType>(warehouse_, type_, time, needed));
+		}
 	}
 
 	private int amountOfOpenOrders() {

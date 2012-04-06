@@ -9,10 +9,15 @@ public class MiscType extends MedicationType
 	public WarehouseItem create(HospitalDate expirydate) {
 		return new Misc();
 	}
+
 	@Override
-	public boolean equals(Object object)
-	{
+	public boolean equals(Object object) {
 		return object instanceof MiscType;
+	}
+
+	@Override
+	public long getTimeToLive() {
+		return HospitalDate.ONE_YEAR * 100;
 	}
 
 }

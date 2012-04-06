@@ -40,13 +40,12 @@ import exceptions.FactoryInstantiationException;
 import exceptions.InvalidComplaintsException;
 import exceptions.InvalidDiagnoseException;
 import exceptions.InvalidDoctorException;
-import exceptions.InvalidHospitalException;
 import exceptions.InvalidLocationException;
-import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidPatientFileException;
 import exceptions.InvalidSerialException;
 import exceptions.InvalidSystemTimeException;
+import exceptions.InvalidUserFactory;
 import exceptions.UserAlreadyExistsException;
 
 public class TestingScenarioSetup
@@ -59,11 +58,7 @@ public class TestingScenarioSetup
 	private Campus campus2;
 
 	@Test
-	public void testScenario() throws InvalidNameException, InvalidPatientFileException, DischargePatientException,
-			UserAlreadyExistsException, InvalidLocationException, IllegalAccessException, InvalidDiagnoseException,
-			InvalidDoctorException, InvalidComplaintsException, CanNeverBeScheduledException,
-			FactoryInstantiationException, InvalidSerialException, InvalidSystemTimeException,
-			InvalidHospitalException, InvalidLoginControllerException {
+	public void testScenario() throws Exception {
 		System.out.print("Setting up the hospital... ");
 		// build the hospital
 		StandardHospitalBuilder shb = new StandardHospitalBuilder();
@@ -159,7 +154,7 @@ public class TestingScenarioSetup
 		throw new IllegalStateException("Apparently we're not allowed to create XRayScanners..");
 	}
 
-	private void createUsers() throws UserAlreadyExistsException, InvalidNameException, InvalidLocationException {
+	private void createUsers() throws UserAlreadyExistsException, InvalidNameException, InvalidLocationException, InvalidUserFactory {
 		addDoctor("Jonathan", campus1);
 		addDoctor("Jens", campus1);
 		addDoctor("Jelle", campus1);
@@ -175,7 +170,7 @@ public class TestingScenarioSetup
 	}
 
 	private void addDoctor(String name, Location location) throws UserAlreadyExistsException, InvalidNameException,
-			InvalidLocationException {
+			InvalidLocationException, InvalidUserFactory {
 		Collection<UserFactory> facs = hospital.getUserManager().getUserFactories();
 		for (UserFactory userFac : facs)
 			if (userFac instanceof DoctorFactory) {
@@ -188,7 +183,7 @@ public class TestingScenarioSetup
 	}
 
 	private void addNurse(String name, Location location) throws UserAlreadyExistsException, InvalidNameException,
-			InvalidLocationException {
+			InvalidLocationException, InvalidUserFactory {
 		Collection<UserFactory> facs = hospital.getUserManager().getUserFactories();
 		for (UserFactory userFac : facs)
 			if (userFac instanceof NurseFactory) {
@@ -223,19 +218,16 @@ public class TestingScenarioSetup
 			IllegalAccessException, InvalidDiagnoseException, InvalidDoctorException, InvalidComplaintsException,
 			CanNeverBeScheduledException, FactoryInstantiationException, InvalidSystemTimeException {
 		setThibaultHistory(getPatientFileFrom("Thibault"));
-		setStefHistory(getPatientFileFrom("Stefaan"));
-		setWouterHistory(getPatientFileFrom("Wouter"));
-		setDieterHistory(getPatientFileFrom("Dieter"));
+//		setStefHistory(getPatientFileFrom("Stefaan"));
+//		setWouterHistory(getPatientFileFrom("Wouter"));
+//		setDieterHistory(getPatientFileFrom("Dieter"));
 
 		// now we advance the time some so we can enter the results next.
 		advanceTime(new HospitalDate(now().getTimeSinceStart() + HospitalDate.ONE_DAY * 7));
+		// Collection<Task<?>> treatsThibault = getPatientFileFrom("Thibault").getAllMedicalTests();
+		Collection<Task<? extends Treatment>> treatsThibault = getPatientFileFrom("Thibault").getAllDiagnosis().iterator().next().getTreatments();
 
-		// Collection<Task<?>> treatsThibault =
-		// getPatientFileFrom("Thibault").getAllMedicalTests();
-		Collection<Task<? extends Treatment>> treatsThibault = getPatientFileFrom("Thibault").getAllDiagnosis()
-				.iterator().next().getTreatments();
-
-		for (Task<? extends Treatment> task : treatsThibault) {
+		for (Task<?> task : treatsThibault) {
 			System.out.println("\nTM Contains treat?" + this.taskMan.getAllTasks().contains(task));
 			System.out.println("Treatment Queued?" + task.isQueued());
 			System.out.println("Treatment Scheduled?" + task.isScheduled());

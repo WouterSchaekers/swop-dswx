@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;
 import scheduler.HospitalDate;
+import scheduler.TimeLord;
 import warehouse.item.WarehouseItemType;
 import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.StockOrderIN;
@@ -50,13 +51,18 @@ public class StockProvider implements Observer
 	 *            The expiry date for the stock orders that will be delivered.
 	 */
 	public void deliverOrders(HospitalDate expiryDate) {
+		HospitalDate expDate;
 		LinkedList<StockOrder<? extends WarehouseItemType>> updatedOrderlist = new LinkedList<StockOrder<? extends WarehouseItemType>>();
 		for (StockOrder<? extends WarehouseItemType> order : orders_) {
+			if(expiryDate == null)
+				expDate = new HospitalDate(order.getType().getTimeToLive());
+			else expDate = expiryDate;
 			try {
 				if (order.canBeDelivered())
-					order.deliver(expiryDate);
-				else
+					order.deliver(expDate);
+				else{
 					updatedOrderlist.add(order);
+				}
 			} catch (Exception e) {
 				throw new Error(e.getMessage());
 			}
@@ -69,10 +75,8 @@ public class StockProvider implements Observer
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		System.out.println("fok you bier");
-		if (!(arg instanceof HospitalDate))
-			throw new IllegalArgumentException(
-					"No HospitalDate was given to the observer that notifies the stockprovider!");
-		deliverOrders((HospitalDate) (arg));
+		if(o instanceof TimeLord) {
+			deliverOrders(null);
+		}
 	}
 }
