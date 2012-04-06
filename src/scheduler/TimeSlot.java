@@ -3,8 +3,7 @@ package scheduler;
 import be.kuleuven.cs.som.annotate.Basic;
 
 /**
- * This class will store 2 timepoints. It then represents the timeslot between
- * those 2 points.
+ * This class will store 2 timepoints.
  */
 public class TimeSlot
 {

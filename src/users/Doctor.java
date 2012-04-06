@@ -26,11 +26,11 @@ public class Doctor extends SchedulableUser implements DoctorIN
 	 * Initialises a new Doctor. Default preference state = back and forth.
 	 * 
 	 * @throws InvalidNameException
-	 * @throws InvalidLocationException 
+	 * @throws InvalidLocationException
 	 */
 	Doctor(String name, Location location) throws InvalidNameException, InvalidLocationException {
 		super(name, location);
-		prefState_ = new BackAndForthState(new LinkedList<LocationTimeSlot>());
+		prefState_ = new BackAndForthState();
 	}
 
 	@Override
@@ -48,8 +48,11 @@ public class Doctor extends SchedulableUser implements DoctorIN
 
 	/**
 	 * Changes the state of this doctor's preference to back and forth.
+	 * 
+	 * @throws InvalidTimeSlotException
+	 *             The given TimeSlots are not valid.
 	 */
-	public void changePreferenceToBackAndForth() {
+	public void changePreferenceToBackAndForth() throws InvalidTimeSlotException {
 		if (this.prefState_ instanceof BackAndForthState)
 			return;
 		PreferenceState newState = new BackAndForthState(prefState_.getSlots());
@@ -60,8 +63,11 @@ public class Doctor extends SchedulableUser implements DoctorIN
 	 * Changes the state of this doctor's preference to selected.
 	 * 
 	 * @throws InvalidPreferenceException
+	 * @throws InvalidTimeSlotException
+	 *             The given TimeSlots are not valid.
 	 */
-	public void changePreferenceToSelected(LinkedList<Location> preferences) throws InvalidPreferenceException {
+	public void changePreferenceToSelected(LinkedList<Location> preferences) throws InvalidPreferenceException,
+			InvalidTimeSlotException {
 		if (prefState_ instanceof SelectedPreferenceState)
 			return;
 		if (preferences.size() != 2)
@@ -99,11 +105,11 @@ public class Doctor extends SchedulableUser implements DoctorIN
 	public LinkedList<Location> getCurrentPreference() {
 		return this.prefState_.getCurrentPreference();
 	}
-	
+
 	@Override
 	public void scheduleAt(TimeSlot timeSlot, Location location) throws InvalidSchedulingRequestException {
 		this.timeTable_.addTimeSlot(timeSlot);
-		//XXX Dit mag en kan zo niet!!! Er moet een opsplitsing gemaakt worden
+		// XXX Dit mag en kan zo niet!!! Er moet een opsplitsing gemaakt worden
 		// tussen de states! -> Oplossing = locationTimeTable in State steken.
 		// this.locationTimeTable_.addLocationTimeSlot(new
 		// LocationTimeSlot(timeSlot, location));
@@ -112,7 +118,7 @@ public class Doctor extends SchedulableUser implements DoctorIN
 
 	@Override
 	public UserFactoryIN getTypeIN() {
-		
+
 		return getType();
 	}
 }
