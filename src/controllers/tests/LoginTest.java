@@ -1,18 +1,19 @@
 package controllers.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import java.util.Collection;
 import org.junit.Before;
 import org.junit.Test;
-import controllers.LoginController;
-import controllers.interfaces.UserIN;
-import exceptions.InvalidHospitalException;
 import system.Campus;
 import system.ExtendedStandardHospitalBuilder;
 import system.Hospital;
 import users.Doctor;
 import users.Nurse;
 import users.User;
+import controllers.LoginController;
+import controllers.interfaces.UserIN;
+import exceptions.InvalidHospitalException;
 
 public class LoginTest
 {

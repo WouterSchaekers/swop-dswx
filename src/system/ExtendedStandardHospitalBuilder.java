@@ -1,7 +1,6 @@
 package system;
 
 import machine.MachineBuilder;
-import medicaltest.BloodAnalysisFactory;
 import treatment.CastFactory;
 import treatment.MedicationFactory;
 import treatment.SurgeryFactory;

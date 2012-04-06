@@ -2,7 +2,6 @@ package ui.usecases;
 
 import java.util.Collection;
 import machine.MachineBuilder;
-import system.Location;
 import ui.MainMenu;
 import ui.UIData;
 import ui.UseCase;

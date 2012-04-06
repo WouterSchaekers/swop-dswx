@@ -34,7 +34,7 @@ public class Login extends UseCase
 
 		@Override
 		public void display(UserIN t) {
-			System.out.println("" + t.getTypeIN().toTitle() + ": " + t.getName() + ".");
+			System.out.print("" + t.getTypeIN().toTitle() + ": " + t.getName() + ".");
 
 		}
 

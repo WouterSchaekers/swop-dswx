@@ -1,11 +1,11 @@
 package users;
 
 import java.util.LinkedList;
-import exceptions.InvalidTimeSlotException;
 import scheduler.HospitalDate;
 import scheduler.LocationTimeSlot;
 import scheduler.LocationTimeTable;
 import system.Location;
+import exceptions.InvalidTimeSlotException;
 
 /**
  * Represents the choice of a Doctor to have a selected preference for campuses.

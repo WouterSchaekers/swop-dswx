@@ -1,8 +1,7 @@
 package controllers.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 import java.util.Collection;
-import machine.Machine;
 import machine.MachineBuilder;
 import org.junit.Before;
 import org.junit.Test;
