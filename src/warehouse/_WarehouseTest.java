@@ -28,6 +28,28 @@ import warehouse.item.VitaminType;
 import warehouse.item.WarehouseItem;
 import warehouse.item.WarehouseItemType;
 
+/**
+ * @author <pre>
+                     .-"""-.
+                   _/-=-.   \
+                  (_|a a/   |_
+                   / "  \   ,_)
+              _    \`=' /__/
+             / \_  .;--'  `-.
+             \___)//   I  ,  \
+              \ \/;  love  \  \
+               \_.| Coding  | |
+                .-\ '     _/_/
+              .'  _;.    (_  \
+             /  .'   `\   \\_/
+            |_ /       |  |\\
+           /  _)       /  / ||
+          /  /       _/  /  //
+          \_/       ( `-/  ||
+                    /  /   \\ .-.
+                    \_/     \'-'/
+                             `"`</pre>
+ */
 public class _WarehouseTest
 {
 	private Warehouse warehouse;
