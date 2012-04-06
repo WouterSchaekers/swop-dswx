@@ -1,0 +1,27 @@
+\contentsline {section}{\numberline {1}Preface}{1}{section.1}
+\contentsline {section}{\numberline {2}Introduction}{3}{section.2}
+\contentsline {section}{\numberline {3}Package visible constructors}{3}{section.3}
+\contentsline {section}{\numberline {4}Creational design patterns}{4}{section.4}
+\contentsline {subsection}{\numberline {4.1}User factories and user manager}{4}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Machine builder and machine pool}{5}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Medical test factories and patient files}{6}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.4}Treatment factories and diagnosis}{6}{subsection.4.4}
+\contentsline {subsection}{\numberline {4.5}Diagnosis and patient files}{6}{subsection.4.5}
+\contentsline {subsection}{\numberline {4.6}Warehouse builder and campus}{7}{subsection.4.6}
+\contentsline {section}{\numberline {5}Task}{7}{section.5}
+\contentsline {subsection}{\numberline {5.1}Generic tasks versus a hierarchy of tasks}{7}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}The state of a Task}{9}{subsection.5.2}
+\contentsline {subsection}{\numberline {5.3}The description of a Task}{9}{subsection.5.3}
+\contentsline {section}{\numberline {6}Warehouse}{9}{section.6}
+\contentsline {section}{\numberline {7}Scheduling}{10}{section.7}
+\contentsline {subsection}{\numberline {7.1}Description and Requirements}{10}{subsection.7.1}
+\contentsline {subsection}{\numberline {7.2}Scheduler and TaskManager}{11}{subsection.7.2}
+\contentsline {subsection}{\numberline {7.3}Schedulable and Requirable}{12}{subsection.7.3}
+\contentsline {subsection}{\numberline {7.4}LocationTimeTable and TimeTable}{12}{subsection.7.4}
+\contentsline {subsubsection}{\numberline {7.4.1}HospitalDate}{12}{subsubsection.7.4.1}
+\contentsline {subsection}{\numberline {7.5}Impact of having different locations}{12}{subsection.7.5}
+\contentsline {subsection}{\numberline {7.6}The location preference for doctors}{13}{subsection.7.6}
+\contentsline {subsubsection}{\numberline {7.6.1}Preference states}{13}{subsubsection.7.6.1}
+\contentsline {subsubsection}{\numberline {7.6.2}getLocationAt()-method}{13}{subsubsection.7.6.2}
+\contentsline {section}{\numberline {8}The updated testing scenario}{13}{section.8}
+\contentsline {section}{\numberline {9}Conclusion}{13}{section.9}

@@ -1,0 +1,27 @@
+\BOOKMARK [1][-]{section.1}{Preface}{}% 1
+\BOOKMARK [1][-]{section.2}{Introduction}{}% 2
+\BOOKMARK [1][-]{section.3}{Package visible constructors}{}% 3
+\BOOKMARK [1][-]{section.4}{Creational design patterns}{}% 4
+\BOOKMARK [2][-]{subsection.4.1}{User factories and user manager}{section.4}% 5
+\BOOKMARK [2][-]{subsection.4.2}{Machine builder and machine pool}{section.4}% 6
+\BOOKMARK [2][-]{subsection.4.3}{Medical test factories and patient files}{section.4}% 7
+\BOOKMARK [2][-]{subsection.4.4}{Treatment factories and diagnosis}{section.4}% 8
+\BOOKMARK [2][-]{subsection.4.5}{Diagnosis and patient files}{section.4}% 9
+\BOOKMARK [2][-]{subsection.4.6}{Warehouse builder and campus}{section.4}% 10
+\BOOKMARK [1][-]{section.5}{Task}{}% 11
+\BOOKMARK [2][-]{subsection.5.1}{Generic tasks versus a hierarchy of tasks}{section.5}% 12
+\BOOKMARK [2][-]{subsection.5.2}{The state of a Task}{section.5}% 13
+\BOOKMARK [2][-]{subsection.5.3}{The description of a Task}{section.5}% 14
+\BOOKMARK [1][-]{section.6}{Warehouse}{}% 15
+\BOOKMARK [1][-]{section.7}{Scheduling}{}% 16
+\BOOKMARK [2][-]{subsection.7.1}{Description and Requirements}{section.7}% 17
+\BOOKMARK [2][-]{subsection.7.2}{Scheduler and TaskManager}{section.7}% 18
+\BOOKMARK [2][-]{subsection.7.3}{Schedulable and Requirable}{section.7}% 19
+\BOOKMARK [2][-]{subsection.7.4}{LocationTimeTable and TimeTable}{section.7}% 20
+\BOOKMARK [3][-]{subsubsection.7.4.1}{HospitalDate}{subsection.7.4}% 21
+\BOOKMARK [2][-]{subsection.7.5}{Impact of having different locations}{section.7}% 22
+\BOOKMARK [2][-]{subsection.7.6}{The location preference for doctors}{section.7}% 23
+\BOOKMARK [3][-]{subsubsection.7.6.1}{Preference states}{subsection.7.6}% 24
+\BOOKMARK [3][-]{subsubsection.7.6.2}{getLocationAt\(\)-method}{subsection.7.6}% 25
+\BOOKMARK [1][-]{section.8}{The updated testing scenario}{}% 26
+\BOOKMARK [1][-]{section.9}{Conclusion}{}% 27
