@@ -1,6 +1,10 @@
 package system;
 
 import machine.MachineBuilder;
+import medicaltest.BloodAnalysisFactory;
+import treatment.CastFactory;
+import treatment.MedicationFactory;
+import treatment.SurgeryFactory;
 import users.DoctorFactory;
 import users.NurseFactory;
 
@@ -32,9 +36,16 @@ public class ExtendedStandardHospitalBuilder
 		addDoctor(campus,"Stefaan");
 		addPatient(campus,"daan");
 		addAllMachines(campus);
+		addMedicalTests(rv);
 		return rv;
 	}
 
+	private void addMedicalTests(Hospital rv) {
+		rv.addTreatmentFactory(new CastFactory());
+		rv.addTreatmentFactory(new MedicationFactory());
+		rv.addTreatmentFactory(new SurgeryFactory());
+		
+	}
 	private void addDoctor(Campus campus, String string) {
 		DoctorFactory factory = new DoctorFactory();
 		factory.setLocation(campus);
