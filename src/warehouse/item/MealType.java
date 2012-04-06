@@ -2,6 +2,7 @@ package warehouse.item;
 
 import scheduler.HospitalDate;
 
+@warehouse.WareHouseAPI
 public class MealType extends WarehouseItemType
 {
 

@@ -35,7 +35,7 @@ public class MedicationResultFactory implements ResultFactory
 	 * 
 	 * @param abnormalReaction
 	 *            The reaction of the Medication.
-	 */
+	 */@result.ResutlsAPI
 	public void setAbnormalReaction(boolean abnormalReaction) {
 		this.abnormalReaction_ = abnormalReaction;
 		this.abnormalReactionSet_ = true;
@@ -46,7 +46,7 @@ public class MedicationResultFactory implements ResultFactory
 	 * 
 	 * @param report
 	 *            The report of the Medication.
-	 */
+	 */@result.ResutlsAPI
 	public void setReport(String report) {
 		this.report_ = report;
 	}
@@ -72,7 +72,8 @@ public class MedicationResultFactory implements ResultFactory
 		return this.report_ != null && !this.report_.isEmpty();
 	}
 
-	public MedicationType getType() {
+@result.ResutlsAPI
+public MedicationType getType() {
 		return type_;
 	}
 }

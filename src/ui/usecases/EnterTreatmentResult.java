@@ -114,6 +114,7 @@ public class EnterTreatmentResult extends UseCase
 			fact.setAbnormalReaction(Selector.yesNoSelector.get());
 			print("Report:");
 			String report =read();
+			
 			fact.setReport(report);
 			try {
 				controller.setResult(selectedTask, fact);

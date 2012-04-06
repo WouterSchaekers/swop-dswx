@@ -69,6 +69,7 @@ public class SurgeryFactory extends TreatmentFactory
 	 * @return A new instance of the current factory.
 	 */
 	@Override
+	@treatment.TreatmentAPI
 	public TreatmentFactory newInstance() {
 		return new SurgeryFactory();
 	}
