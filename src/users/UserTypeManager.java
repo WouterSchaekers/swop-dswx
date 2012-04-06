@@ -18,5 +18,8 @@ class UserTypeManager
 		if(!factories_.contains(factory))
 			factories_.add(factory);
 	}
+	public boolean contains(UserFactory factory) {
+		return factories_.contains(factory);
+	}
 	
 }

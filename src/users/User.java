@@ -19,7 +19,7 @@ public abstract class User implements UserIN
 	}
 
 	private boolean isValidName(String n) {
-		return !n.equals("");
+		return n!=null&&!n.equals("");
 	}
 	public abstract UserFactory getType();
 	
