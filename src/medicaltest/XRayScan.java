@@ -12,6 +12,7 @@ import scheduler.HospitalDate;
 import scheduler.requirements.Requirement;
 import scheduler.requirements.RequirementType;
 import scheduler.requirements.SpecificRequirement;
+import scheduler.requirements.XRayCondition;
 import users.Nurse;
 import exceptions.FactoryInstantiationException;
 import exceptions.InvalidResultException;
@@ -89,6 +90,7 @@ public class XRayScan extends MedicalTest
 		requirements.add(new SpecificRequirement(this.patientFile_.getPatient(), false));
 		requirements.add(new RequirementType<XRayScanner>(XRayScanner.class, false, 1));
 		requirements.add(new RequirementType<Nurse>(Nurse.class, true, 1));
+		requirements.add(new XRayCondition(patientFile_));
 		return requirements;
 	}
 

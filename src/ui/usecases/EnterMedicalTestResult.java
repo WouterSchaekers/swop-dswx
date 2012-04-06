@@ -12,12 +12,13 @@ import ui.UIData;
 import ui.UseCase;
 import ui.usecases.Selector.Displayer;
 import controllers.EnterMedicaltestResultController;
+import controllers.EnterTreatmentResultController;
 import controllers.interfaces.PatientDescriptionHolderIN;
 import controllers.interfaces.TaskIN;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 
-public class AddTreatmentResult extends UseCase
+public class EnterMedicalTestResult extends UseCase
 {
 
 	private EnterMedicaltestResultController controller;
@@ -35,11 +36,11 @@ public class AddTreatmentResult extends UseCase
 			return ((PatientDescriptionHolderIN)t.getDescription()).getPatientFile().getPatientIN().getName();
 		}
 	};
-	public AddTreatmentResult(UIData data) throws Exception {
+	public EnterMedicalTestResult(UIData data) throws Exception {
 		super(data, 33);
 		controller = new EnterMedicaltestResultController(data.getLoginController());
-		if(controller.getMedicalTests().isEmpty())
-			throw new Exception();
+//		if(controller.getMedicalTests().isEmpty())
+//			throw new Exception();
 	}
 
 	@Override
@@ -250,6 +251,6 @@ public class AddTreatmentResult extends UseCase
 	}
 	public String toString()
 	{
-		return "Add treatment result";
+		return "Add medTest result";
 	}
 }
