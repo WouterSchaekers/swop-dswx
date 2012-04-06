@@ -7,6 +7,7 @@ import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.UserIN;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidNameException;
+import exceptions.InvalidUserFactory;
 import exceptions.UserAlreadyExistsException;
 
 /**
@@ -48,7 +49,9 @@ public class UserManager
 	}
 
 	public User createUser(UserFactory factory) throws UserAlreadyExistsException, InvalidNameException,
-			InvalidLocationException {
+			InvalidLocationException, InvalidUserFactory {
+		if(!userTypeManager.types().contains(factory))
+			throw new InvalidUserFactory("The user of this type can not be created in this usermanager.");
 		User u = factory.create();
 		addUser(u);
 		return u;

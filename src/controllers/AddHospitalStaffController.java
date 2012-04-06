@@ -10,6 +10,7 @@ import exceptions.InvalidHospitalException;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidNameException;
+import exceptions.InvalidUserFactory;
 import exceptions.UserAlreadyExistsException;
 
 /**
@@ -51,10 +52,11 @@ public class AddHospitalStaffController extends NeedsLoginController
 	 *             If the name you've set in the factory is an invalid one.
 	 * @throws InvalidLocationException
 	 *             If the location you've set in the factory is an invalid one.
+	 * @throws InvalidUserFactory 
 	 */
 	@controllers.PUBLICAPI
 	public void addStaff(UserFactory userFactory) throws UserAlreadyExistsException, InvalidNameException,
-			InvalidLocationException {
+			InvalidLocationException, InvalidUserFactory {
 		this.hospital.getUserManager().createUser(userFactory);
 	}
 

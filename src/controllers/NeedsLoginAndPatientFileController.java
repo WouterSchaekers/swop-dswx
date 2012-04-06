@@ -50,6 +50,8 @@ abstract class NeedsLoginAndPatientFileController extends NeedsLoginController
 	boolean isValidPatientFileOpenController(ConsultPatientFileController consultPatientFileController) {
 		if (consultPatientFileController == null)
 			return false;
+		if(!this.loginController_.equals(consultPatientFileController.loginController_))
+			return false;
 		if (this.consultPatientFileController_ != null)
 			return this.consultPatientFileController_.equals(consultPatientFileController);
 		return true;

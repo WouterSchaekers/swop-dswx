@@ -12,6 +12,7 @@ import exceptions.InvalidHospitalException;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidNameException;
+import exceptions.InvalidUserFactory;
 import exceptions.UserAlreadyExistsException;
 
 public class HospitalStaff extends UseCase
@@ -61,6 +62,9 @@ public class HospitalStaff extends UseCase
 		} catch (InvalidLocationException e) {
 			printLn("Something went wrong in setting campus");
 			return new MainMenu(data);
+		} catch (InvalidUserFactory e) {
+			printLn("This shouldnt happen..");
+			return mm();
 		}
 		System.out.println("User succesfully created!");
 		return new MainMenu(data);

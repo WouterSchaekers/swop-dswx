@@ -1,7 +1,7 @@
 package result;
 
-import exceptions.FactoryInstantiationException;
 import result.UltraSoundScanResult.ScannedMassNature;
+import exceptions.FactoryInstantiationException;
 
 /**
  * Class representing an UltraSoundScan Factory.
