@@ -23,8 +23,13 @@ public class ReviewPendingDiagnoses extends UseCase
 	@Override
 	public UseCase execute() {
 		printLn("Reviewing diagnoses:");
-		printLn("Select one");
+		
 		Collection<DiagnoseIN> diagnoses= controller.getPendingDiagnosis();
+		if(diagnoses.isEmpty()){
+			printLn("No diagnoses.");
+			return mm();
+		}
+		printLn("Select one");
 		Selector<DiagnoseIN> diagnoseSelector = new Selector<DiagnoseIN>(diagnoses, Selector.diagnose);
 		DiagnoseIN selected =diagnoseSelector.get();
 		printLn("Approve diagonse.");

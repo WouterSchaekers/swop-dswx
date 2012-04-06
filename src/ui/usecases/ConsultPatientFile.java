@@ -7,14 +7,14 @@ import ui.UseCase;
 import ui.usecases.Selector.Displayer;
 import controllers.ConsultPatientFileController;
 import controllers.interfaces.PatientFileIN;
-import exceptions.InvalidHospitalException;
-import exceptions.InvalidLoginControllerException;
 public class ConsultPatientFile extends UseCase
 {
 	ConsultPatientFileController consultPatienFileController;
 
-	public ConsultPatientFile(UIData data) throws InvalidHospitalException, InvalidLoginControllerException {
+	public ConsultPatientFile(UIData data) throws Exception {
 		super(data, 45656);
+		if(data.getConsultPatientFileopenController()!=null)
+			throw new Exception();
 		consultPatienFileController = new ConsultPatientFileController(data.getLoginController());
 	}
 

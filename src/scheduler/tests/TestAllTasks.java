@@ -7,6 +7,7 @@ import machine.BloodAnalyserBuilder;
 import machine.MachineBuilder;
 import medicaltest.BloodAnalysisFactory;
 import medicaltest.MedicalTest;
+import org.junit.Before;
 import org.junit.Test;
 import patient.Diagnose;
 import patient.PatientFile;
@@ -16,11 +17,13 @@ import scheduler.tasks.Task;
 import system.Campus;
 import system.Hospital;
 import system.StandardHospitalBuilder;
+import treatment.MedicationFactory;
 import treatment.SurgeryFactory;
 import treatment.Treatment;
 import users.Doctor;
 import users.DoctorFactory;
 import users.NurseFactory;
+import warehouse.item.AsprinType;
 import exceptions.CanNeverBeScheduledException;
 import exceptions.DischargePatientException;
 import exceptions.FactoryInstantiationException;
@@ -34,9 +37,14 @@ import exceptions.UserAlreadyExistsException;
 @SuppressWarnings("deprecation")
 public class TestAllTasks
 {
-	Hospital hospital = new StandardHospitalBuilder().build();
-	Campus location = hospital.getAllCampuses().iterator().next();
-
+	Hospital hospital ;
+	Campus location ;
+	@Before
+	public void init()
+	{
+		hospital= new StandardHospitalBuilder().build();
+		location  = hospital.getAllCampuses().iterator().next();
+	}
 	@Test
 	public void scheduleAppointment() throws Exception {
 		DoctorFactory f = new DoctorFactory();
@@ -162,6 +170,33 @@ public class TestAllTasks
 		assertFalse(surgery.isScheduled());
 		diagnose.approveBy(doctorJonathan);
 		assertTrue(surgery.isScheduled());
+	}
+	@Test
+	public void scheduleTreatment4() throws Exception {
+		NurseFactory f = new NurseFactory();
+		f.setName("Jenny");
+		f.setLocation(location);
+		hospital.getUserManager().createUser(f);
+		DoctorFactory docFactory1 = new DoctorFactory();
+		docFactory1.setName("Jasper");
+		docFactory1.setLocation(location);
+		Doctor doctorJasper = (Doctor) hospital.getUserManager().createUser(docFactory1);
+		DoctorFactory docFactory2 = new DoctorFactory();
+		docFactory2.setName("Jonathan");
+		docFactory2.setLocation(location);
+		Doctor doctorJonathan = (Doctor) hospital.getUserManager().createUser(docFactory2);
+		PatientFile file = hospital.getPatientFileManager().registerPatient("jasmine", location);
+		Diagnose diagnose = file.createDiagnose("We zijn gebuisd.", "Thibault fok of", doctorJasper, doctorJonathan);
+		MedicationFactory medicationFactory = new MedicationFactory();
+		medicationFactory.setCreationDate(now());
+		medicationFactory.setDescription("Thibault verwijderen van de wereld.");
+		medicationFactory.setDiagnose(diagnose);
+		medicationFactory.setMedicationType(new AsprinType());
+		medicationFactory.setSensitive(true);
+		Task<Treatment> medication = hospital.getTaskManager().add(medicationFactory.create());
+		assertFalse(medication.isScheduled());
+		diagnose.approveBy(doctorJonathan);
+		assertTrue(medication.isScheduled());
 	}
 
 	private HospitalDate now() {

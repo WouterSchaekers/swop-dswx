@@ -35,9 +35,11 @@ public class AddTreatmentResult extends UseCase
 			return ((PatientDescriptionHolderIN)t.getDescription()).getPatientFile().getPatientIN().getName();
 		}
 	};
-	public AddTreatmentResult(UIData data) throws InvalidLoginControllerException, InvalidHospitalException {
+	public AddTreatmentResult(UIData data) throws Exception {
 		super(data, 33);
 		controller = new EnterMedicaltestResultController(data.getLoginController());
+		if(controller.getMedicalTests().isEmpty())
+			throw new Exception();
 	}
 
 	@Override
@@ -245,5 +247,9 @@ public class AddTreatmentResult extends UseCase
 			return "noname";
 		}
 		
+	}
+	public String toString()
+	{
+		return "Add treatment result";
 	}
 }
