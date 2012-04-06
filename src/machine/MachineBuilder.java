@@ -29,6 +29,7 @@ public abstract class MachineBuilder
 	 * @param serial
 	 *            The serial of the Machine.
 	 */
+	@machine.MachineAPI
 	public final void setSerial(int serial) {
 		this.serial_ = serial;
 	}
@@ -49,6 +50,7 @@ public abstract class MachineBuilder
 	 * @param location
 	 *            The location of the Machine within the campus.
 	 */
+	@machine.MachineAPI
 	public final void setLocationWithinCampus(String location) {
 		this.loc_ = location;
 	}
