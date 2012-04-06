@@ -1,6 +1,7 @@
 package ui.usecases;
 
 import java.util.Collection;
+import scheduler.HospitalDate;
 import treatment.CastFactory;
 import treatment.MedicationFactory;
 import treatment.SurgeryFactory;
@@ -8,6 +9,11 @@ import treatment.TreatmentFactory;
 import ui.UIData;
 import ui.UseCase;
 import ui.usecases.Selector.Displayer;
+import warehouse.item.ActivatedCarbon;
+import warehouse.item.ActivatedCarbonType;
+import warehouse.item.AsprinType;
+import warehouse.item.MedicationType;
+import warehouse.item.SleepingTablets;
 import controllers.PrescribeTreatmentController;
 import controllers.interfaces.DiagnoseIN;
 import exceptions.CanNeverBeScheduledException;
@@ -19,6 +25,7 @@ public class PrescribeTreatment extends UseCase
 
 	private PrescribeTreatmentController controller;
 	DiagnoseIN selectedDiagnose;
+
 	public PrescribeTreatment(UIData data) throws Exception {
 		super(data, 123);
 		controller = new PrescribeTreatmentController(data.getLoginController(),
@@ -31,7 +38,7 @@ public class PrescribeTreatment extends UseCase
 
 		print("Prescribe treatment for patient"
 				+ data.getConsultPatientFileopenController().getPatientFile().getPatientIN().getName());
-		
+
 		Collection<DiagnoseIN> diags = controller.getAllPossibleDiagnosis();
 		Selector<DiagnoseIN> diagnoseSelector = new Selector<DiagnoseIN>(diags, Selector.diagnose);
 		selectedDiagnose = diagnoseSelector.get();
@@ -90,6 +97,15 @@ public class PrescribeTreatment extends UseCase
 	{
 
 		private MedicationFactory factory;
+		private Displayer<MedicationType> medicationTypes = new Displayer<MedicationType>()
+		{
+
+			@Override
+			public void display(MedicationType t) {
+				print(t.name());
+
+			}
+		};
 
 		public MedicationFactUsecase(UIData data, TreatmentFactory factory) {
 			super(data, 0);
@@ -98,13 +114,34 @@ public class PrescribeTreatment extends UseCase
 
 		@Override
 		public UseCase execute() {
-			printLn("Creating medication:");
+			printLn("Creating medication: ");
 			print("Description:");
 			factory.setDescription(read());
 			factory.setDiagnose(selectedDiagnose);
-			factory.setMedicationType(medicationType)
-			factory.setMedicationType(medicationType)
-			return null;
+			Collection<MedicationType> availableTypes = controller.getAvailableMedications();
+			if (availableTypes.isEmpty()) {
+				printLn("Medication can not be chosen, there is no medication in this hospital.");
+				return mm();
+			}
+			MedicationType type = new Selector<MedicationType>(availableTypes, medicationTypes).get();
+			factory.setMedicationType(type);
+			printLn("Sensitive?");
+			factory.setSensitive(Selector.yesNoSelector.get());
+			HospitalDate date;
+			try {
+				date = controller.addTreatment(selectedDiagnose, factory);
+			} catch (InvalidDiagnoseException e) {
+				printLn(e.getMessage());
+				return mm();
+			} catch (FactoryInstantiationException e) {
+				printLn("Factory insufficiently instantiated.");
+				return mm();
+			} catch (CanNeverBeScheduledException e) {
+				printLn(e.getMessage());
+				return mm();
+			}
+			printLn("Medication " + type.name() + " was succesfully scheduled at:" + date.toString());
+			return mm();
 		}
 
 		@Override
@@ -138,19 +175,15 @@ public class PrescribeTreatment extends UseCase
 			}
 			factory.setBodyPart(bodyPart);
 			factory.setDuration(duration);
+			HospitalDate date;
 			try {
-				controller.addTreatment(null, factory);
-			} catch (InvalidDiagnoseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (FactoryInstantiationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (CanNeverBeScheduledException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				date = controller.addTreatment(null, factory);
+			} catch (Exception e) {
+				printLn(e.getMessage());
+				return mm();
 			}
-			throw new Error("Not yet imlemented");
+			printLn("Cast was succesfully scheduled at:" + date.toString());
+			return mm();
 		}
 
 		@Override
@@ -198,7 +231,18 @@ public class PrescribeTreatment extends UseCase
 
 		@Override
 		public UseCase execute() {
-			throw new Error("Not yet imlemented");
+			printLn("Creating a surgery");
+			print("Description: ");
+			factory.setDescription(read());
+			HospitalDate date;
+			try {
+				date = controller.addTreatment(null, factory);
+			} catch (Exception e) {
+				printLn(e.getMessage());
+				return mm();
+			}
+			printLn("Surgery succesfully created at "+data.toString());
+			return mm();
 		}
 
 	}
