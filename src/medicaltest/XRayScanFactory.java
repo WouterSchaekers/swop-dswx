@@ -24,6 +24,7 @@ public class XRayScanFactory extends MedicalTestFactory
 	 * @param bodypart
 	 *            The bodypart that will be examined during the XRay Scan.
 	 */
+	@medicaltest.MedicalTestAPI
 	public void setBodyPart(String bodypart) {
 		this.bodyPart_ = bodypart;
 	}
@@ -34,6 +35,7 @@ public class XRayScanFactory extends MedicalTestFactory
 	 * @param zoomlevel
 	 *            The zoomlevel for the XRay Scan.
 	 */
+	@medicaltest.MedicalTestAPI
 	public void setZoomLevel(float zoomlevel) {
 		this.zoomlevel_ = zoomlevel;
 
@@ -45,6 +47,7 @@ public class XRayScanFactory extends MedicalTestFactory
 	 * @param numberOfImages
 	 *            The number of images that is required for this XRay Scan.
 	 */
+	@medicaltest.MedicalTestAPI
 	public void setNumberOfNeededImages(int numberOfImages) {
 		this.numberOfImages_ = numberOfImages;
 	}

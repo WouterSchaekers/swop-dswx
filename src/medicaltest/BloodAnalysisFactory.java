@@ -23,6 +23,7 @@ public class BloodAnalysisFactory extends MedicalTestFactory
 	 * @param focus
 	 *            The focus of the blood analysis.
 	 */
+	@medicaltest.MedicalTestAPI
 	public void setFocus(String focus) {
 		this.focus_ = focus;
 	}
@@ -33,6 +34,7 @@ public class BloodAnalysisFactory extends MedicalTestFactory
 	 * @param numberOfAnalysis
 	 *            The number of analyses.
 	 */
+	@medicaltest.MedicalTestAPI
 	public void setNumberOfAnalysis(int numberOfAnalysis) {
 		this.numberOfAnalysis_ = numberOfAnalysis;
 	}

@@ -5,6 +5,7 @@ import exceptions.FactoryInstantiationException;
 /**
  * A SurgeryFactory is a factory, used to create a surgery.
  */
+@treatment.TreatmentAPI
 public class SurgeryFactory extends TreatmentFactory
 {
 	private String description_;
@@ -22,6 +23,7 @@ public class SurgeryFactory extends TreatmentFactory
 	 * @param description
 	 *            The description of the surgery.
 	 */
+	@treatment.TreatmentAPI
 	public void setDescription(String description) {
 		this.description_ = description;
 	}

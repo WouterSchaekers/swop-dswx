@@ -5,6 +5,7 @@ import exceptions.FactoryInstantiationException;
 /**
  * A UltraSoundScanFactory is a factory, used to create an UltraSound Scan.
  */
+@medicaltest.MedicalTestAPI
 public class UltraSoundScanFactory extends MedicalTestFactory
 {
 	private String focus_;
@@ -27,6 +28,7 @@ public class UltraSoundScanFactory extends MedicalTestFactory
 	 * @param recordVid
 	 *            True if there have to be video recorded.
 	 */
+	@medicaltest.MedicalTestAPI
 	public void setRecordVid(boolean recordVid) {
 		this.recordVid_ = recordVid;
 		this.recordVidSet_ = true;
@@ -38,6 +40,7 @@ public class UltraSoundScanFactory extends MedicalTestFactory
 	 * @param recordImages
 	 *            True if there have to be images recorded.
 	 */
+	@medicaltest.MedicalTestAPI
 	public void setRecordImages(boolean recordImages) {
 		this.recordImages_ = recordImages;
 		this.recordImagesSet_ = true;
@@ -49,6 +52,7 @@ public class UltraSoundScanFactory extends MedicalTestFactory
 	 * @param focus
 	 *            The focus of this ultrasound scan.
 	 */
+	@medicaltest.MedicalTestAPI
 	public void setFocus(String focus) throws IllegalArgumentException {
 		this.focus_ = focus;
 	}

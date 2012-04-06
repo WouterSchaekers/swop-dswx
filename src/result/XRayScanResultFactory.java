@@ -5,6 +5,7 @@ import exceptions.FactoryInstantiationException;
 /**
  * Class representing a XRayScan Factory.
  */
+@result.ResutlsAPI
 public class XRayScanResultFactory implements ResultFactory
 {
 
@@ -56,6 +57,7 @@ public class XRayScanResultFactory implements ResultFactory
 	 * @param abnormalities
 	 *            The found abnormalities.
 	 */
+	@result.ResutlsAPI
 	public void setAbnormalities(String abnormalities) {
 		this.abnormalities_ = abnormalities;
 	}
@@ -66,6 +68,7 @@ public class XRayScanResultFactory implements ResultFactory
 	 * @param numberOfImages
 	 *            The number of taken images.
 	 */
+	@result.ResutlsAPI
 	public void setNumberOfImages(int numberOfImages) {
 		this.numberOfImages_ = numberOfImages;
 	}

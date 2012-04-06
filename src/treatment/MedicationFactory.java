@@ -25,6 +25,7 @@ public class MedicationFactory extends TreatmentFactory
 	 * @param description
 	 *            The description.
 	 */
+	@treatment.TreatmentAPI
 	public void setDescription(String description) {
 		this.description_ = description;
 	}
@@ -35,6 +36,7 @@ public class MedicationFactory extends TreatmentFactory
 	 * @param sensitive
 	 *            The sensitivity.
 	 */
+	@treatment.TreatmentAPI
 	public void setSensitive(boolean sensitive) {
 		this.sensitive_ = sensitive;
 	}
@@ -45,6 +47,7 @@ public class MedicationFactory extends TreatmentFactory
 	 * @param medicationType
 	 *            The medicationType.
 	 */
+	@treatment.TreatmentAPI
 	public void setMedicationType(MedicationType medicationType) {
 		this.medicationType_ = medicationType;
 	}

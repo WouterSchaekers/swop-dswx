@@ -4,9 +4,15 @@ import machine.MachineBuilder;
 import users.DoctorFactory;
 import users.NurseFactory;
 
+@system.SystemAPI
 public class ExtendedStandardHospitalBuilder
 {
-
+	@system.SystemAPI
+	public ExtendedStandardHospitalBuilder()
+	{
+		;
+	}
+	@system.SystemAPI
 	public Hospital build() {
 		Hospital rv = new StandardHospitalBuilder().build();
 		Campus campus =rv.getAllCampuses().iterator().next();

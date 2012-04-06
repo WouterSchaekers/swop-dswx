@@ -5,6 +5,7 @@ import exceptions.FactoryInstantiationException;
 /**
  * Class representing a SurgeryResult Factory.
  */
+@result.ResutlsAPI
 public class SurgeryResultFactory implements ResultFactory
 {
 	private String report_;
@@ -30,6 +31,7 @@ public class SurgeryResultFactory implements ResultFactory
 	 * @param report
 	 *            The report of the SurgeryResult.
 	 */
+	@result.ResutlsAPI
 	public void setReport(String report) {
 		this.report_ = report;
 	}
@@ -40,6 +42,7 @@ public class SurgeryResultFactory implements ResultFactory
 	 * @param afterCare
 	 *            The information about the afterCare.
 	 */
+	@result.ResutlsAPI
 	public void setAfterCare(String afterCare) {
 		this.afterCare_ = afterCare;
 	}

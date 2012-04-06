@@ -26,7 +26,9 @@ public abstract class UserFactory implements UserFactoryIN
 	 */
 	abstract UserFactory newInstance();
 
+	@users.UserAPI
 	public abstract void setName(String name);
 
+	@users.UserAPI
 	public abstract void setLocation(LocationIN name);
 }

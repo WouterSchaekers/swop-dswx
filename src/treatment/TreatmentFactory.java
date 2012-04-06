@@ -9,6 +9,7 @@ import exceptions.FactoryInstantiationException;
 /**
  * A TreatmentFactory is an abstract factory, used to create Treatments.
  */
+@treatment.TreatmentAPI
 public abstract class TreatmentFactory
 {
 
@@ -22,6 +23,7 @@ public abstract class TreatmentFactory
 	 * @param diagnose
 	 *            The diagnose.
 	 */
+	@treatment.TreatmentAPI
 	public void setDiagnose(DiagnoseIN diagnose) {
 		this.diagnose_ = (Diagnose) diagnose;
 	}
