@@ -53,7 +53,7 @@ public class Warehouse extends Observable
 			throw new InvalidWarehouseItemException(
 					"the specified item type was not found in this warehouse");
 		items_.remove(item1);
-		this.notifyObservers();
+
 		return item1;
 	}
 
@@ -82,6 +82,8 @@ public class Warehouse extends Observable
 	 *         specified type. Returns -1 if no such item was found.
 	 */
 	public int getMaxCount(WarehouseItemType type) {
+		if(type == null)
+			return -1;
 		if (maxItemsMap_.containsKey(type.getClass()))
 			return maxItemsMap_.get(type.getClass());
 		return -1;
@@ -90,10 +92,13 @@ public class Warehouse extends Observable
 	/**
 	 * Sets the maximum amount of units this warehouse can hold of a specific
 	 * item type.
+	 * 
+	 * @throws	NullPointerException
+	 * 			type == null
 	 */
 	public void setMaxCount(WarehouseItemType type, int count)
 			throws InvalidWarehouseItemException {
-		if (!maxItemsMap_.containsKey(type))
+		if (!maxItemsMap_.containsKey(type.getClass()))
 		{	maxItemsMap_.put(type.getClass(), count);
 			types.add(type);
 		}else
@@ -145,6 +150,7 @@ public class Warehouse extends Observable
 	 */
 	public void removeItem(WarehouseItem warehouseItem) {
 		this.items_.remove(warehouseItem);
+		this.setChanged();
 		this.notifyObservers();
 	}
 

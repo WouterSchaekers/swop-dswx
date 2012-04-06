@@ -8,7 +8,6 @@ import users.User;
 import users.WarehouseAdmin;
 import warehouse.item.WarehouseItem;
 import warehouse.item.WarehouseItemType;
-import warehouse.item.WarehouseItemTypes;
 import warehouse.stock.StockOrder;
 import controllers.interfaces.StockOrderIN;
 import exceptions.InvalidHospitalException;
@@ -98,7 +97,7 @@ public class FillStockInWarehouseController extends NeedsLoginController
 	 * @return All warehouse item types.
 	 */
 	public Collection<WarehouseItemType> getAllWarehouseItemTypes() {
-		return WarehouseItemTypes.itemTypes();
+		return campus.getWarehouse().getAvailableItemTypes();
 	}
 
 	/**

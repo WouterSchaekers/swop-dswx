@@ -6,7 +6,6 @@ import system.Campus;
 import users.User;
 import users.WarehouseAdmin;
 import warehouse.item.WarehouseItemType;
-import warehouse.item.WarehouseItemTypes;
 import controllers.interfaces.StockOrderIN;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
@@ -47,7 +46,7 @@ public class ListOrdersController extends NeedsLoginController
 	 */
 	@controllers.PUBLICAPI
 	public Collection<WarehouseItemType> getCategories() {
-		return WarehouseItemTypes.itemTypes();
+		return campus.getWarehouse().getAvailableItemTypes();
 	}
 
 	/**
