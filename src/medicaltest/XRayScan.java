@@ -12,7 +12,6 @@ import scheduler.HospitalDate;
 import scheduler.requirements.Requirement;
 import scheduler.requirements.RequirementType;
 import scheduler.requirements.SpecificRequirement;
-import scheduler.requirements.XRayCondition;
 import users.Nurse;
 import exceptions.FactoryInstantiationException;
 import exceptions.InvalidResultException;

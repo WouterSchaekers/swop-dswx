@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import scheduler.HospitalDate;
 import scheduler.LocationTimeSlot;
 import scheduler.LocationTimeTable;
-import scheduler.TimeSlot;
 import system.Location;
 import exceptions.InvalidTimeSlotException;
 
@@ -13,8 +12,7 @@ import exceptions.InvalidTimeSlotException;
  */
 class SelectedPreferenceState extends PreferenceState
 {
-	private long startHour_;
-	private long stopHour_;
+
 	LocationTimeTable tasks_;
 	LocationTimeTable pref_;
 

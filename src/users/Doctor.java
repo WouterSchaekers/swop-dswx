@@ -6,7 +6,6 @@ import scheduler.LocationTimeSlot;
 import scheduler.StartTimePoint;
 import scheduler.StopTimePoint;
 import scheduler.TimeSlot;
-import system.Hospital;
 import system.Location;
 import controllers.interfaces.DoctorIN;
 import controllers.interfaces.UserFactoryIN;

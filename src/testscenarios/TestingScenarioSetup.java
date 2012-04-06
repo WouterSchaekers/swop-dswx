@@ -265,6 +265,7 @@ public class TestingScenarioSetup
 		hospital.getTimeKeeper().setSystemTime(newDate);
 	}
 
+	@SuppressWarnings("deprecation")
 	private void addMedicalTestTo(MedicalTestFactory factory) throws CanNeverBeScheduledException,
 			FactoryInstantiationException {
 		this.taskMan.add(factory.create());
