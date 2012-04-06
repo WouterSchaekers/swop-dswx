@@ -6,6 +6,7 @@ import exceptions.FactoryInstantiationException;
 /**
  * A MedicationFactory is a factory, used to create a Medication.
  */
+@treatment.TreatmentAPI
 public class MedicationFactory extends TreatmentFactory
 {
 	private String description_;

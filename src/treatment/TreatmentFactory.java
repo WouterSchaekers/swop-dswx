@@ -101,5 +101,6 @@ public abstract class TreatmentFactory
 	 * 
 	 * @return A new instance of the current factory.
 	 */
+	@treatment.TreatmentAPI
 	public abstract TreatmentFactory newInstance();
 }

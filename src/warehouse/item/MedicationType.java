@@ -1,7 +1,7 @@
 package warehouse.item;
 
 import scheduler.HospitalDate;
-
+@warehouse.WareHouseAPI
 public abstract class MedicationType extends WarehouseItemType
 {
 
@@ -10,5 +10,6 @@ public abstract class MedicationType extends WarehouseItemType
 		return HospitalDate.ONE_MONTH;
 	}
 
+	@warehouse.WareHouseAPI
 	public abstract String name() ;
 }

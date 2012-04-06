@@ -2,6 +2,7 @@ package warehouse.item;
 
 import scheduler.HospitalDate;
 
+@warehouse.WareHouseAPI
 public class AsprinType extends MedicationType
 {
 
@@ -15,6 +16,7 @@ public class AsprinType extends MedicationType
 		return object instanceof AsprinType;
 	}
 	@Override
+	@warehouse.WareHouseAPI
 	public String name() {
 		return "Aspirin";
 	}

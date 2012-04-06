@@ -2,6 +2,7 @@ package warehouse.item;
 
 import scheduler.HospitalDate;
 
+@warehouse.WareHouseAPI
 public class ActivatedCarbonType extends MedicationType
 {
 
@@ -9,12 +10,14 @@ public class ActivatedCarbonType extends MedicationType
 	public WarehouseItem create(HospitalDate expirydate) {
 		return new ActivatedCarbon();
 	}
+
 	@Override
-	public boolean equals(Object object)
-	{
+	public boolean equals(Object object) {
 		return object instanceof ActivatedCarbonType;
 	}
+
 	@Override
+	@warehouse.WareHouseAPI
 	public String name() {
 		return "Activated Carbon";
 	}
