@@ -63,12 +63,14 @@ public abstract class MedicalTestFactory
 	}
 
 	/**
-	 * Creates a Medical Test built from the given information.
+	 * Creates a Medical Test built from the given information. 
+	 * <br><b>!!! DO NOT USE OUTSIDE OF DOMAIN LAYER !!!</b>
 	 * 
 	 * @return A Medical Test built from the given information.
 	 * @throws FactoryInstantiationException
 	 *             The factory was not ready yet.
 	 */
+	@Deprecated
 	public abstract MedicalTest create() throws FactoryInstantiationException;
 
 	/**
