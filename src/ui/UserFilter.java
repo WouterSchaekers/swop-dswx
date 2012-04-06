@@ -2,7 +2,9 @@ package ui;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import users.HospitalAdmin;
 import controllers.interfaces.DoctorIN;
+import controllers.interfaces.HospitalAdminIN;
 import controllers.interfaces.NurseIN;
 import controllers.interfaces.UserIN;
 
@@ -36,6 +38,13 @@ public class UserFilter
 		for (UserIN u : users)
 			if (u instanceof DoctorIN && u.getName().equals(name))
 				return (DoctorIN) u;
+		return null;
+	}
+	
+	public static HospitalAdminIN HospitalAdminFilter(Collection<UserIN> users) {
+		for (UserIN u : users)
+			if (u instanceof HospitalAdmin)
+				return (HospitalAdminIN) u;
 		return null;
 	}
 }
