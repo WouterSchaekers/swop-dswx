@@ -43,18 +43,30 @@ public class TimeLord extends Observable
 	}
 
 	/**
+	 * Sets a new SystemTime.
 	 * 
 	 * @param hospitalDate
+	 *            The new SystemTime.
 	 * @throws InvalidSystemTimeException
+	 *             The given HospitalDate is not valid.
 	 */
 	public void setSystemTime(HospitalDate hospitalDate) throws InvalidHospitalDateException {
 		if (!isValidNewSystemTime(hospitalDate))
 			throw new InvalidHospitalDateException("This is not a valid systemTime.");
-		while (getSystemTime().before(hospitalDate) && getSystemTime().getTimeBetween(hospitalDate) >= HospitalDate.ONE_MINUTE)
+		while (getSystemTime().before(hospitalDate)
+				&& getSystemTime().getTimeBetween(hospitalDate) >= HospitalDate.ONE_MINUTE)
 			addOneMinute();
 	}
 
-	private boolean isValidNewSystemTime(HospitalDate target) {
-		return target != null && systemTime.before(target);
+	/**
+	 * Checks whether the given HospitalDate is a valid HospitalDate.
+	 * 
+	 * @param hospitalDate
+	 *            The HospitalDate that has to be checked.
+	 * @return True if the given HospitalDate is not null and after the old
+	 *         SystemTime.
+	 */
+	private boolean isValidNewSystemTime(HospitalDate hospitalDate) {
+		return hospitalDate != null && systemTime.before(hospitalDate);
 	}
 }
