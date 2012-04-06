@@ -18,7 +18,7 @@ import exceptions.InvalidResultException;
 /**
  * Represents a task that can be scheduled, completed or queued.
  */
-public final class Task<T extends TaskDescription> extends Observable implements TaskIN, Observer,ResultHolder
+public final class Task<T extends TaskDescription> extends Observable implements TaskIN, Observer
 {
 	private TaskState myState_;
 

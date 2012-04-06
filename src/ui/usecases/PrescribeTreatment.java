@@ -105,7 +105,6 @@ public class PrescribeTreatment extends UseCase
 		@Override
 		public void display() {
 			print("Medication.");
-
 		}
 
 	}

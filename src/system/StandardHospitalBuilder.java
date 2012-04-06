@@ -17,7 +17,12 @@ public class StandardHospitalBuilder
 				return (HospitalAdmin) u;
 		return null;
 	}
-
+	/**
+	 * Creates a standard hospital.
+	 * With "Campus 1" and "Campus 2"
+	 * and a hospital admin with the name: "Thibault Leemans"
+	 * @return
+	 */
 	public Hospital build() {
 		TimeLord timeKeeper = new TimeLord();
 		StandarUserManagerBuilder sum = new StandarUserManagerBuilder();

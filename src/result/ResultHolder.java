@@ -11,6 +11,7 @@ public interface ResultHolder
 	/**
 	 * @return A ResultFactory of the correct type.
 	 */
+	@controllers.PUBLICAPI
 	public ResultFactory get();
 
 	/**
@@ -29,5 +30,6 @@ public interface ResultHolder
 	/**
 	 * @return The Result of the ResultHolder.
 	 */
+	@controllers.PUBLICAPI
 	public Result getResult();
 }

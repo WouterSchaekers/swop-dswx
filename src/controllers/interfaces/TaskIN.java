@@ -1,12 +1,13 @@
 package controllers.interfaces;
 
 import java.util.Collection;
+import result.ResultHolder;
 import scheduler.Schedulable;
 import scheduler.tasks.TaskDescription;
 import system.Location;
 
 @controllers.PUBLICAPI
-public interface TaskIN
+public interface TaskIN extends ResultHolder
 {
 
 @controllers.PUBLICAPI

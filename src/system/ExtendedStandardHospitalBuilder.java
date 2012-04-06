@@ -7,6 +7,16 @@ import users.NurseFactory;
 @system.SystemAPI
 public class ExtendedStandardHospitalBuilder
 {
+	/**
+	 * Creates a hospital with :
+	 * With "Campus 1" and "Campus 2"
+	 * and a hospital admin with the name: "Thibault Leemans"
+	 * nurse jenny </br>
+	 * nurse jasmine</br>
+	 * doctor jonathan</br>
+	 * doctor stefaan</br>
+	 * patient daan</br>
+	 */
 	@system.SystemAPI
 	public ExtendedStandardHospitalBuilder()
 	{
@@ -16,7 +26,7 @@ public class ExtendedStandardHospitalBuilder
 	public Hospital build() {
 		Hospital rv = new StandardHospitalBuilder().build();
 		Campus campus =rv.getAllCampuses().iterator().next();
-		addNurse(campus,"Jenny");
+		addNurse(campus,"jenny");
 		addNurse(campus,"Jasmine");
 		addDoctor(campus,"jonathan");
 		addDoctor(campus,"Stefaan");

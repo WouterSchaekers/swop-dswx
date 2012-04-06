@@ -1,5 +1,6 @@
 package machine;
 
+import controllers.interfaces.MachineIN;
 import scheduler.HospitalDate;
 import scheduler.Schedulable;
 import scheduler.TimeSlot;
@@ -15,7 +16,7 @@ import exceptions.InvalidTimeSlotException;
  * @Invar The serial is unique for every machine object
  */
 
-public abstract class Machine implements Schedulable
+public abstract class Machine implements Schedulable, MachineIN
 {
 
 	protected final int serial_;
@@ -45,6 +46,7 @@ public abstract class Machine implements Schedulable
 	/**
 	 * @return The serial of this machine.
 	 */
+	@Override
 	public final int getSerial() {
 		return this.serial_;
 	}
@@ -59,6 +61,7 @@ public abstract class Machine implements Schedulable
 	/**
 	 * The location within a campus of this machine.
 	 */
+	@Override
 	public String getLocationWithinCampus() {
 		return this.location_;
 	}
