@@ -42,40 +42,43 @@ public class EnterMedicaltestResultController extends NeedsLoginController
 		super(loginController);
 	}
 
-
-
-	private final Filter treatmentTaskFilter = new Filter()
+	private final Filter medicalTestFilter = new Filter()
 	{
-		
+
 		@Override
 		public <T> boolean allows(T arg) {
-			if(arg instanceof Task)
-				if(((Task<?>)arg).getDescription() instanceof MedicalTest)
-					if(((Task<?>)arg).getResult()==null)
+			if (arg instanceof Task)
+				if (((Task<?>) arg).getDescription() instanceof MedicalTest)
+					if (((Task<?>) arg).getResult() == null)
 						return ((Task<?>) arg).getResources().contains(loginController_.getUser());
 			return false;
 		}
 	};
+
 	/**
-	 * Returns the collection of medicaltest tasks that have no result that are for the nurse that is currently logged in.
+	 * Returns the collection of medicaltest tasks that have no result that are
+	 * for the nurse that is currently logged in.
+	 * 
 	 * @return
 	 */
-	public Collection<TaskIN> getTreatments()
-	{
-		return new ArrayList<TaskIN>(Collections.filter(hospital.getTaskManager().getAllTasks(),treatmentTaskFilter));
+	public Collection<TaskIN> getMedicalTests() {
+		return new ArrayList<TaskIN>(Collections.filter(hospital.getTaskManager().getAllTasks(), medicalTestFilter));
 	}
+
 	/**
 	 * Adds the result to the system.
+	 * 
 	 * @param task
 	 * @param factory
 	 * @return
 	 * @throws InvalidResultException
 	 * @throws FactoryInstantiationException
 	 */
-	public Result setResult(TaskIN task,ResultFactory factory) throws InvalidResultException, FactoryInstantiationException
-	{
+	public Result setResult(TaskIN task, ResultFactory factory) throws InvalidResultException,
+			FactoryInstantiationException {
 		return task.give(factory);
 	}
+
 	/**
 	 * @return True if the given user is a nurse.
 	 */
