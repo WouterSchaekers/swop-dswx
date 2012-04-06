@@ -42,6 +42,7 @@ public class PrescribeTreatmentController extends NeedsLoginAndPatientFileContro
 	 * @see HospitalController
 	 * @see NeedsLoginAndPatientFileController
 	 */
+	@controllers.PUBLICAPI
 	public PrescribeTreatmentController(LoginController loginController,
 			ConsultPatientFileController consultPatientFileController) throws InvalidLoginControllerException,
 			InvalidHospitalException, InvalidConsultPatientFileController, InvalidPatientFileException {
@@ -74,6 +75,7 @@ public class PrescribeTreatmentController extends NeedsLoginAndPatientFileContro
 	 *             occur, the system will forget you have ever tried to
 	 *             prescribe it.
 	 */
+	@controllers.PUBLICAPI
 	public HospitalDate addTreatment(DiagnoseIN selected, TreatmentFactory treatmentFactory)
 			throws InvalidDiagnoseException, FactoryInstantiationException, CanNeverBeScheduledException {
 		if (!(selected instanceof Diagnose))
@@ -92,6 +94,7 @@ public class PrescribeTreatmentController extends NeedsLoginAndPatientFileContro
 	 * @return The diagnosis made by the doctor, that created this controller,
 	 *         that are in the patient file that is currently opened.
 	 */
+	@controllers.PUBLICAPI
 	public Collection<DiagnoseIN> getAllPossibleDiagnosis() {
 		return ((PatientFile) consultPatientFileController_.getPatientFile())
 				.getDiagnosisFrom((Doctor) loginController_.getUser());
@@ -100,6 +103,7 @@ public class PrescribeTreatmentController extends NeedsLoginAndPatientFileContro
 	/**
 	 * @return All factories with which you can create new treatments
 	 */
+	@controllers.PUBLICAPI
 	public Collection<TreatmentFactory> getTreatmentFactories() {
 		return hospital.getTreatments();
 	}
