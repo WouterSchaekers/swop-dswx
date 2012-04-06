@@ -35,4 +35,8 @@ public class WarehouseAdminFactory extends UserFactory
 	public void setLocation(LocationIN name) {
 		setLocation((Location)name);
 	}
+	public boolean equals(Object o)
+	{
+		return o instanceof WarehouseAdminFactory;
+	}
 }

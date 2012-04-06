@@ -50,7 +50,7 @@ public class UserManager
 
 	public User createUser(UserFactory factory) throws UserAlreadyExistsException, InvalidNameException,
 			InvalidLocationException, InvalidUserFactory {
-		if(!userTypeManager.types().contains(factory))
+		if(!userTypeManager.contains(factory))
 			throw new InvalidUserFactory("The user of this type can not be created in this usermanager.");
 		User u = factory.create();
 		addUser(u);
