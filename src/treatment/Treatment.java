@@ -47,7 +47,7 @@ public abstract class Treatment extends TaskDescriptionWithPatientFile
 	public <T extends TaskDescription> void initTask(Task<T> task) {
 		Collection<Diagnose> diags = this.patientFile_.getAllDiagnosis();
 		for (Diagnose d : diags) {
-			if (d == diagnose_) {
+			if (d.equals(diagnose_)) {
 				d.addTreatmentTask((Task<? extends Treatment>) task);
 				return;
 			}

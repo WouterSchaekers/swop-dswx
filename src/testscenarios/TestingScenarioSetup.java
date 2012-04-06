@@ -16,6 +16,7 @@ import patient.Diagnose;
 import patient.PatientFile;
 import patient.PatientFileManager;
 import scheduler.HospitalDate;
+import scheduler.tasks.Task;
 import scheduler.tasks.TaskManager;
 import system.Campus;
 import system.Hospital;
@@ -221,6 +222,10 @@ public class TestingScenarioSetup
 
 		// now we advance the time some so we can enter the results next.
 		advanceTime(new HospitalDate(now().getTimeSinceStart() + HospitalDate.ONE_DAY * 7));
+		
+		for(Task<?> t : getPatientFileFrom("Thibault").getAllDiagnosis().iterator().next().getTreatments())
+			System.out.println(t.isScheduled());
+		
 		this.pfMan.checkOut(getPatientFileFrom("Thibault"));
 	}
 
