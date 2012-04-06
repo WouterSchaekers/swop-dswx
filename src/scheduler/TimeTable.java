@@ -199,19 +199,21 @@ public class TimeTable
 		for (TimeSlot t : invert.timeSlots_) {
 			HospitalDate startDateOfTimeSlot = t.getStartPoint().getHospitalDate();
 			HospitalDate stopDateOfTimeSlot = t.getStopPoint().getHospitalDate();
-			if (!startDateOfTimeSlot.before(startDate))
+			if (!startDateOfTimeSlot.before(startDate)) {
 				if (stopDateOfTimeSlot.before(stopDate)
 						&& stopDateOfTimeSlot.getTimeSinceStart() - startDateOfTimeSlot.getTimeSinceStart() >= duration)
 					return new TimeSlot(new StartTimePoint(startDateOfTimeSlot), new StopTimePoint(stopDateOfTimeSlot));
 				else if (!stopDateOfTimeSlot.before(stopDate)
 						&& stopDate.getTimeSinceStart() - startDateOfTimeSlot.getTimeSinceStart() >= duration)
 					return new TimeSlot(new StartTimePoint(startDateOfTimeSlot), new StopTimePoint(stopDate));
-				else if (stopDateOfTimeSlot.before(stopDate)
+			} else {
+				if (stopDateOfTimeSlot.before(stopDate)
 						&& stopDateOfTimeSlot.getTimeSinceStart() - startDate.getTimeSinceStart() >= duration)
 					return new TimeSlot(new StartTimePoint(startDate), new StopTimePoint(stopDateOfTimeSlot));
 				else if (!stopDateOfTimeSlot.before(stopDate)
 						&& stopDate.getTimeSinceStart() - startDate.getTimeSinceStart() >= duration)
 					return new TimeSlot(new StartTimePoint(startDate), new StopTimePoint(stopDate));
+			}
 		}
 		throw new IllegalStateException("No more free slots available between the given Start -and EndDate!");
 	}
