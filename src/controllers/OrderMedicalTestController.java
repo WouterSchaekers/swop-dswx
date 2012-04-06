@@ -70,6 +70,7 @@ public class OrderMedicalTestController extends NeedsLoginAndPatientFileControll
 	 * test factory that you want to use to create a medical test for the
 	 * patient file that has been opened.
 	 */
+	@controllers.PUBLICAPI
 	public Collection<PatientFileIN> getPatientFiles() {
 		return this.hospital.getPatientFileManager().getPatientFileINs();
 	}

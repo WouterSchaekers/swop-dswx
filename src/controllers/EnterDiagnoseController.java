@@ -109,6 +109,7 @@ public class EnterDiagnoseController extends NeedsLoginAndPatientFileController
 	/**
 	 * @return All doctors working in this hospital.
 	 */
+	@controllers.PUBLICAPI
 	public Collection<DoctorIN> getAllDoctors() {
 		return UserFilter.DoctorFilter(new LinkedList<UserIN>(hospital.getUserManager().getAllUsers()));
 	}

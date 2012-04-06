@@ -79,6 +79,7 @@ public class CreateAppointmentController extends NeedsLoginController
 	 * @return A collection of all patient files that are stored in this
 	 *         hospital.
 	 */
+	@controllers.PUBLICAPI
 	public Collection<PatientFileIN> getAllPatientFiles() {
 		return new ArrayList<PatientFileIN>(this.hospital.getPatientFileManager().getAllPatientFiles());
 	}

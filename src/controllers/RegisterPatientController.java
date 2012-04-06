@@ -26,6 +26,7 @@ public class RegisterPatientController extends NeedsLoginController
 	 * @see NeedsLoginController
 	 * @see HospitalController
 	 */
+	@controllers.PUBLICAPI
 	public RegisterPatientController(LoginController loginController) throws InvalidLoginControllerException,
 			InvalidHospitalException {
 		super(loginController);
@@ -43,6 +44,7 @@ public class RegisterPatientController extends NeedsLoginController
 	 *             If this hospital already contains a patient file of the given
 	 *             patient.
 	 */
+	@controllers.PUBLICAPI
 	public PatientFileIN registerNewPatient(String name) throws InvalidNameException, InvalidPatientFileException {
 		return hospital.getPatientFileManager().registerPatient(name,
 				((Nurse) loginController_.getUser()).getLocationAt(hospital.getTimeKeeper().getSystemTime()));

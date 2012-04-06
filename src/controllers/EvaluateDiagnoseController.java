@@ -75,6 +75,7 @@ public class EvaluateDiagnoseController extends NeedsLoginController
 	 *             If the disapprove of the selected diagnose failed due to
 	 *             authorization reasons, or invalid parameters.
 	 */
+	@controllers.PUBLICAPI
 	public DiagnoseIN disapproveDiagnose(DiagnoseIN selected, String newDiag) throws ApproveDiagnoseException {
 		return ((Diagnose) selected).disapproveBy(newDiag, selected.getComplaintsIN(),
 				(DoctorIN) (this.loginController_.getUserIN()));

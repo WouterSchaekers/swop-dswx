@@ -147,6 +147,7 @@ public class LoginController extends HospitalController
 	/**
 	 * @return All locations in this hospital.
 	 */
+	@controllers.PUBLICAPI
 	public Collection<CampusIN> getLocations() {
 		return new ArrayList<CampusIN>(hospital.getAllCampuses());
 	}
@@ -154,6 +155,7 @@ public class LoginController extends HospitalController
 	/**
 	 * @return The place where the user of this login controller is at.
 	 */
+	@controllers.PUBLICAPI
 	public CampusIN getLocation() {
 		return campus;
 	}
