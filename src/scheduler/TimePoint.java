@@ -5,7 +5,7 @@ import be.kuleuven.cs.som.annotate.Basic;
 
 /**
  * This class can be used to schedule appointments. It is either a start- or a
- * stop point. Useful for finding free appointments.
+ * stop point. Useful for finding free scheduling slots.
  */
 public abstract class TimePoint implements Comparable<TimePoint>
 {
@@ -19,9 +19,9 @@ public abstract class TimePoint implements Comparable<TimePoint>
 		@Override
 		public int compare(TimePoint o1, TimePoint o2) {
 			if (o1.compareTo(o2) == 0) {
-				if (o1.isStart() && o2.isEnd())
+				if (o1.isStart() && o2.isStop())
 					return 1;
-				if (o1.isEnd() && o2.isStart())
+				if (o1.isStop() && o2.isStart())
 					return -1;
 				return 0;
 			} else
@@ -36,9 +36,9 @@ public abstract class TimePoint implements Comparable<TimePoint>
 		@Override
 		public int compare(TimePoint o1, TimePoint o2) {
 			if (o1.compareTo(o2) == 0) {
-				if (o1.isStart() && o2.isEnd())
+				if (o1.isStart() && o2.isStop())
 					return -1;
-				if (o1.isEnd() && o2.isStart())
+				if (o1.isStop() && o2.isStart())
 					return 1;
 				return 0;
 			} else
@@ -55,8 +55,7 @@ public abstract class TimePoint implements Comparable<TimePoint>
 	 */
 	protected TimePoint(HospitalDate d) {
 		if (d == null)
-			throw new IllegalArgumentException(
-					"Invalid date or TimeType in constructor-call of TimePoint!");
+			throw new IllegalArgumentException("Invalid date or TimeType in constructor-call of TimePoint!");
 
 		this.hospitalDate = d;
 	}
@@ -82,39 +81,43 @@ public abstract class TimePoint implements Comparable<TimePoint>
 		this(t.getHospitalDate());
 	}
 
+	/**
+	 * @return The HospitalDate of the TimePoint.
+	 */
 	@Basic
 	public HospitalDate getHospitalDate() {
 		return this.hospitalDate;
 	}
 
-	@Basic
+	/**
+	 * @return The time of the HospitalDate.
+	 */
 	public long getTime() {
 		return this.hospitalDate.getTimeSinceStart();
 	}
 
+	/**
+	 * Compares this TimePoint with the given TimePoint.
+	 */
 	@Override
 	public int compareTo(TimePoint tp2) {
-		int before = -1;
-		int equals = 0;
-		int after = 1;
-		if (this.getTime() > tp2.getTime()) {
-			return after;
-		} else if (this.getTime() < tp2.getTime()) {
-			return before;
-		} else {
-			return equals;
-		}
+		if (this.getTime() > tp2.getTime())
+			return 1;
+		else if (this.getTime() < tp2.getTime())
+			return -1;
+		else
+			return 0;
 	}
 
 	/**
-	 * @return True if this is a start-timepoint.
+	 * @return True if this is a StartTimepoint.
 	 */
 	public abstract boolean isStart();
 
 	/**
-	 * @return True if this is an end-timepoint
+	 * @return True if this is an StopTimepoint
 	 */
-	public abstract boolean isEnd();
+	public abstract boolean isStop();
 
 	/**
 	 * @return the time between this TimePoint and t.
@@ -135,8 +138,7 @@ public abstract class TimePoint implements Comparable<TimePoint>
 	 * @return True if the first timepoint lies between the other two timepoints
 	 */
 	public boolean isBetweenExcluding(TimePoint before, TimePoint after) {
-		return (this.getTime() - before.getTime() > 0)
-				&& (after.getTime() - this.getTime() > 0);
+		return (this.getTime() - before.getTime() > 0) && (after.getTime() - this.getTime() > 0);
 	}
 
 	/**
@@ -153,14 +155,18 @@ public abstract class TimePoint implements Comparable<TimePoint>
 	 *         or on the first point
 	 */
 	public boolean isBetweenExcludingEndPoint(TimePoint before, TimePoint after) {
-		return (this.getTime() - before.getTime() >= 0)
-				&& (after.getTime() - this.getTime() > 0);
+		return (this.getTime() - before.getTime() >= 0) && (after.getTime() - this.getTime() > 0);
 	}
 
+	/**
+	 * Returns a textual representation of the TimePoint.
+	 */
 	@Override
 	public abstract String toString();
 
+	/**
+	 * Clones the TimePoint.
+	 */
 	@Override
 	public abstract TimePoint clone();
-
 }

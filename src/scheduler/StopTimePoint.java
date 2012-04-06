@@ -30,26 +30,42 @@ public class StopTimePoint extends TimePoint
 		super(t);
 	}
 
+	/**
+	 * Returns true.
+	 */
 	@Override
-	public boolean isEnd() {
+	public boolean isStop() {
 		return true;
 	}
 
+	/**
+	 * Returns false.
+	 */
 	@Override
 	public boolean isStart() {
 		return false;
 	}
 
+	/**
+	 * Returns a copy of the given TimePoint.
+	 */
 	@Override
 	public StopTimePoint clone() {
 		return new StopTimePoint(this);
 	}
 
+	/**
+	 * Returns a textual representation of this TimePoint.
+	 */
 	@Override
 	public String toString() {
 		return "End: " + this.getHospitalDate();
 	}
 
+	/**
+	 * Checks whether the given Object is a StopTimePoint and has the same
+	 * HospitalDate.
+	 */
 	@Override
 	public boolean equals(Object o) {
 		if (!(o instanceof StopTimePoint))
