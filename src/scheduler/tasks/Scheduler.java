@@ -54,6 +54,7 @@ public class Scheduler
 		if (!isBackToBack(scheduledData)) {
 			scheduledData = scheduleAtFullHour(reqs, resPool, locs, desc, startDate, stopDate, taskData, scheduledData);
 		}
+		System.out.println(scheduledData.getTimeSlot());
 		actuallyScheduleResources(scheduledData);
 		unscheduledTask.nextState(scheduledData);
 	}
@@ -297,6 +298,7 @@ public class Scheduler
 				for (Schedulable schedulable : resPool)
 					if (requirement.isMetBy(schedulable))
 						isMetBy.add(schedulable);
+				availableResources.put(isMetBy, requirement.getAmount());
 			}
 		}
 		return availableResources;
@@ -588,7 +590,7 @@ public class Scheduler
 		for (Requirement req : listOfRequirements)
 			if (location instanceof Campus)
 				req.collect(((Campus) location).getWarehouse());
-		Collection<Schedulable> listOfSchedulables = taskData.getAllAvailableResources();
+		Collection<Schedulable> listOfSchedulables = taskData.getResources();
 		HospitalDate startDate = taskData.getStartDate();
 		HospitalDate stopDate = taskData.getStopDate();
 		TimeSlot timeSlot = new TimeSlot(new StartTimePoint(startDate), new StopTimePoint(stopDate));
