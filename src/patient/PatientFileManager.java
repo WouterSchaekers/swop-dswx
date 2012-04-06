@@ -52,7 +52,7 @@ public class PatientFileManager
 	 *             not valid.
 	 */
 	public void checkIn(PatientFile patientFile) throws InvalidPatientFileException {
-		if (!isValidPatientFile(patientFile) || !patientFile.isDischarged())
+		if (!isValidPatientFile(patientFile) )
 			throw new InvalidPatientFileException(
 					"Invalid patient file was given to the checkin method in patient file manager!");
 		patientFile.checkIn();

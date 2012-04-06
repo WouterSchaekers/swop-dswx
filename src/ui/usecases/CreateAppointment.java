@@ -71,5 +71,9 @@ public class CreateAppointment extends UseCase
 		printLn("Appointment was succesfully scheduled at "+task.toString()+"");
 		return new MainMenu(data);
 	}
+	public String toString()
+	{
+		return "Create appointment";
+	}
 
 }

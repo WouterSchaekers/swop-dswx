@@ -194,10 +194,10 @@ public class TestAllTasks
 		diagnose.approveBy(doctorJonathan);
 		assertFalse(surgery.isScheduled());
 		location.getWarehouse().add(type, HospitalDate.END_OF_TIME);
-//		assertTrue(surgery.isScheduled());
-		hospital.getTimeKeeper().setSystemTime(
-				new HospitalDate(hospital.getTimeKeeper().getSystemTime().getTimeSinceStart() + HospitalDate.ONE_DAY
-						* 7));
+		assertTrue(surgery.isScheduled());
+//		hospital.getTimeKeeper().setSystemTime(
+//				new HospitalDate(hospital.getTimeKeeper().getSystemTime().getTimeSinceStart() + HospitalDate.ONE_DAY
+//						* 7));
 
 	}
 
