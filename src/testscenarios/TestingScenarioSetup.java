@@ -16,7 +16,6 @@ import patient.Diagnose;
 import patient.PatientFile;
 import patient.PatientFileManager;
 import scheduler.HospitalDate;
-import scheduler.tasks.Task;
 import scheduler.tasks.TaskManager;
 import system.Campus;
 import system.Hospital;
@@ -25,7 +24,6 @@ import system.StandardHospitalBuilder;
 import treatment.CastFactory;
 import treatment.MedicationFactory;
 import treatment.SurgeryFactory;
-import treatment.Treatment;
 import treatment.TreatmentFactory;
 import ui.UserFilter;
 import users.Doctor;
@@ -75,7 +73,7 @@ public class TestingScenarioSetup
 		initialisePatientFiles();
 		System.out.println("Initialisation of hospital state was successful!");
 		System.out.println("-------------------------------------------------\n\n");
-		System.out.print("Starting the execution of the testing scenario...");
+		System.out.println("Starting the execution of the testing scenario...");
 		new TestScenario(hospital);
 	}
 
@@ -217,23 +215,12 @@ public class TestingScenarioSetup
 			IllegalAccessException, InvalidDiagnoseException, InvalidDoctorException, InvalidComplaintsException,
 			CanNeverBeScheduledException, FactoryInstantiationException, InvalidHospitalDateException {
 		setThibaultHistory(getPatientFileFrom("Thibault"));
-//		setStefHistory(getPatientFileFrom("Stefaan"));
-//		setWouterHistory(getPatientFileFrom("Wouter"));
-//		setDieterHistory(getPatientFileFrom("Dieter"));
+		setStefHistory(getPatientFileFrom("Stefaan"));
+		setWouterHistory(getPatientFileFrom("Wouter"));
+		setDieterHistory(getPatientFileFrom("Dieter"));
 
 		// now we advance the time some so we can enter the results next.
 		advanceTime(new HospitalDate(now().getTimeSinceStart() + HospitalDate.ONE_DAY * 7));
-		// Collection<Task<?>> treatsThibault = getPatientFileFrom("Thibault").getAllMedicalTests();
-		Collection<Task<? extends Treatment>> treatsThibault = getPatientFileFrom("Thibault").getAllDiagnosis().iterator().next().getTreatments();
-
-		for (Task<?> task : treatsThibault) {
-			System.out.println("\nTM Contains treat?" + this.taskMan.getAllTasks().contains(task));
-			System.out.println("Treatment Queued?" + task.isQueued());
-			System.out.println("Treatment Scheduled?" + task.isScheduled());
-			System.out.println("Treatment Finished?" + task.isFinished());
-			System.out.println("Date = " + task.getDate());
-			System.out.println();
-		}
 		this.pfMan.checkOut(getPatientFileFrom("Thibault"));
 	}
 
