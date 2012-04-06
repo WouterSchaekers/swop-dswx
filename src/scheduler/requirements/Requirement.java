@@ -54,11 +54,6 @@ public interface Requirement
 	public void collect(Warehouse warehouse);
 
 	/**
-	 * @return True if this Requirement demands to be scheduled back to back.
-	 */
-	public boolean backToBack();
-
-	/**
 	 * @return True if the Requirement will never be able to be scheduled.
 	 */
 	public boolean isMarkedForDeletion();

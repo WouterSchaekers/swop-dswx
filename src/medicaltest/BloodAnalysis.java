@@ -76,9 +76,9 @@ public class BloodAnalysis extends MedicalTest
 	@Override
 	public Collection<Requirement> getAllRequirements() {
 		Collection<Requirement> requirements = new LinkedList<Requirement>();
-		requirements.add(new SpecificRequirement(this.patientFile_.getPatient(), false));
-		requirements.add(new RequirementType<BloodAnalyser>(BloodAnalyser.class, false, 1));
-		requirements.add(new RequirementType<Nurse>(Nurse.class, true, 1));
+		requirements.add(new SpecificRequirement(this.patientFile_.getPatient()));
+		requirements.add(new RequirementType<BloodAnalyser>(BloodAnalyser.class, 1));
+		requirements.add(new RequirementType<Nurse>(Nurse.class, 1));
 		return requirements;
 	}
 

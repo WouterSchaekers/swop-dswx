@@ -33,14 +33,6 @@ public class XRayCondition implements Requirement
 	}
 
 	/**
-	 * Returns false.
-	 */
-	@Override
-	public boolean backToBack() {
-		return false;
-	}
-
-	/**
 	 * No op.
 	 */
 	@Override

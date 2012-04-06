@@ -5,11 +5,9 @@ import scheduler.TimeSlot;
 import system.Location;
 import controllers.interfaces.NurseIN;
 import controllers.interfaces.UserFactoryIN;
-import exceptions.InvalidHospitalDateArgument;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidSchedulingRequestException;
-import exceptions.InvalidTimeSlotException;
 
 /**
  * This class represents a Nurse in the hospital.
@@ -38,14 +36,13 @@ public class Nurse extends SchedulableUser implements NurseIN
 	 * @return True if this Nurse can be scheduled in the given time interval.
 	 */
 	@Override
-	public boolean canBeScheduledOn(HospitalDate startDate, HospitalDate stopDate)
-			throws InvalidSchedulingRequestException, InvalidTimeSlotException {
+	public boolean canBeScheduledOn(HospitalDate startDate, HospitalDate stopDate){
 		return this.timeTable_.hasFreeSlotAt(startDate, stopDate);
 	}
 
 	@Override
 	public TimeSlot getFirstFreeSlotBetween(Location location, HospitalDate startDate, HospitalDate stopDate,
-			long duration) throws InvalidSchedulingRequestException, InvalidHospitalDateArgument {
+			long duration) throws InvalidSchedulingRequestException {
 		HospitalDate tmpStartWorkingHour = new HospitalDate(1, 1, 1, Nurse.STARTHOUR, 0, 0);
 		HospitalDate tmpStopWorkingHour = new HospitalDate(1, 1, 1, Nurse.STOPHOUR, 0, 0);
 		HospitalDate tmpStartDate = this.createDummyDate(startDate);
@@ -71,7 +68,7 @@ public class Nurse extends SchedulableUser implements NurseIN
 		return this.getTimeTable().getFirstFreeSlotBetween(startDate, stopDate, duration);
 	}
 
-	private HospitalDate createDummyDate(HospitalDate hospitalDate) throws InvalidHospitalDateArgument {
+	private HospitalDate createDummyDate(HospitalDate hospitalDate) {
 		return new HospitalDate(1, 1, 1, hospitalDate.getHour(), hospitalDate.getMinute(), hospitalDate.getSecond());
 	}
 

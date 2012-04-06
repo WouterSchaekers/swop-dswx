@@ -10,7 +10,6 @@ import warehouse.Warehouse;
 public class RequirementType<T extends Requirable> implements Requirement
 {
 	private Class<T> type_;
-	private boolean backToBack_;
 	private int amount_;
 
 	/**
@@ -18,15 +17,11 @@ public class RequirementType<T extends Requirable> implements Requirement
 	 * 
 	 * @param type
 	 *            The type of the Requirement.
-	 * @param backToBack
-	 *            Boolean to set whether the Requirement must be scheduled back
-	 *            to back.
 	 * @param amount
 	 *            The amount of resources of this type is needed.
 	 */
-	public RequirementType(Class<T> type, boolean backToBack, int amount) {
+	public RequirementType(Class<T> type, int amount) {
 		this.type_ = type;
-		this.backToBack_ = backToBack;
 		this.amount_ = amount;
 	}
 
@@ -71,14 +66,6 @@ public class RequirementType<T extends Requirable> implements Requirement
 	@Override
 	public void collect(Warehouse warehouse) {
 		;
-	}
-
-	/**
-	 * @return True if this Requirement demands to be scheduled back to back.
-	 */
-	@Override
-	public boolean backToBack() {
-		return this.backToBack_;
 	}
 
 	/**
