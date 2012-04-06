@@ -12,11 +12,8 @@ import ui.UIData;
 import ui.UseCase;
 import ui.usecases.Selector.Displayer;
 import controllers.EnterMedicaltestResultController;
-import controllers.EnterTreatmentResultController;
 import controllers.interfaces.PatientDescriptionHolderIN;
 import controllers.interfaces.TaskIN;
-import exceptions.InvalidHospitalException;
-import exceptions.InvalidLoginControllerException;
 
 public class EnterMedicalTestResult extends UseCase
 {
