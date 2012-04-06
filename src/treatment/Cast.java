@@ -86,7 +86,7 @@ public class Cast extends Treatment
 	 * @return A CastResultFactory.
 	 */
 	@Override
-	public ResultFactory get() {
+	public ResultFactory getResultFactory() {
 
 		return new CastResultFactory();
 	}
