@@ -5,6 +5,7 @@ import exceptions.FactoryInstantiationException;
 /**
  * A CastFactory is a factory, used to create casts.
  */
+@treatment.TreatmentAPI
 public class CastFactory extends TreatmentFactory
 {
 	/**
@@ -23,6 +24,7 @@ public class CastFactory extends TreatmentFactory
 	 * @param bodyPart
 	 * 			The body part.
 	 */
+	@treatment.TreatmentAPI
 	public void setBodyPart(String bodyPart) {
 		this.bodyPart_ = bodyPart;
 	}
@@ -43,6 +45,7 @@ public class CastFactory extends TreatmentFactory
 	 * @param castDuration
 	 * 			The duration of the cast.
 	 */
+	@treatment.TreatmentAPI
 	public void setDuration(int castDuration) {
 		this.castDuration_ = castDuration;
 	}

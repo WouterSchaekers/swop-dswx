@@ -8,6 +8,7 @@ import exceptions.FactoryInstantiationException;
 /**
  * A MedicalTestFactory is a factory, used to create MedicalTests.
  */
+@medicaltest.MedicalTestAPI
 public abstract class MedicalTestFactory
 {
 	protected PatientFile patientFile_;
@@ -19,6 +20,7 @@ public abstract class MedicalTestFactory
 	 * @param selectedPatientFile
 	 *            The patientFile of the MedicalTest.
 	 */
+	@medicaltest.MedicalTestAPI
 	public void setPatientFile(PatientFileIN selectedPatientFile) {
 		this.patientFile_ = (PatientFile) selectedPatientFile;
 	}

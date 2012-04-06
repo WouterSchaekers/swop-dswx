@@ -6,6 +6,7 @@ import exceptions.FactoryInstantiationException;
 /**
  * Class representing an UltraSoundScan Factory.
  */
+@result.ResutlsAPI
 public class UltraSoundScanResultFactory implements ResultFactory
 {
 
@@ -39,6 +40,7 @@ public class UltraSoundScanResultFactory implements ResultFactory
 	 * @param scanInfo
 	 *            The information about the UltraSoundScan.
 	 */
+	@result.ResutlsAPI
 	public void setScanInfo(String scanInfo) {
 		this.scanInfo_ = scanInfo;
 	}
@@ -49,6 +51,7 @@ public class UltraSoundScanResultFactory implements ResultFactory
 	 * @param scannedMassNature
 	 *            The nature of the scanned mass.
 	 */
+	@result.ResutlsAPI
 	public void setScannedMassNature(ScannedMassNature scannedMassNature) {
 		this.scannedMassNature_ = scannedMassNature;
 	}

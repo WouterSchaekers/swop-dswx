@@ -5,6 +5,7 @@ import exceptions.FactoryInstantiationException;
 /**
  * Class representing a BloodAnalysis Factory.
  */
+@result.ResutlsAPI
 public class BloodAnalysisResultFactory implements ResultFactory
 {
 
@@ -78,6 +79,7 @@ public class BloodAnalysisResultFactory implements ResultFactory
 	 * @param amountOfBlood
 	 *            The amount of blood that has to be set.
 	 */
+	@result.ResutlsAPI
 	public void setAmountOfBlood(Integer amountOfBlood) {
 		this.amountOfBlood_ = amountOfBlood;
 	}
@@ -88,6 +90,7 @@ public class BloodAnalysisResultFactory implements ResultFactory
 	 * @param whiteCellCount
 	 *            The white cell count that has to be set.
 	 */
+	@result.ResutlsAPI
 	public void setWhiteCellCount(Integer whiteCellCount) {
 		this.whiteCellCount_ = whiteCellCount;
 	}
@@ -98,6 +101,7 @@ public class BloodAnalysisResultFactory implements ResultFactory
 	 * @param redCellCount
 	 *            The red cell count that has to be set.
 	 */
+	@result.ResutlsAPI
 	public void setRedCellCount(Integer redCellCount) {
 		this.redCellCount_ = redCellCount;
 	}
@@ -108,6 +112,7 @@ public class BloodAnalysisResultFactory implements ResultFactory
 	 * @param plateletCount
 	 *            The palatelet count that has to be set.
 	 */
+	@result.ResutlsAPI
 	public void setPlateletCount(Integer plateletCount) {
 		this.plateletCount_ = plateletCount;
 	}

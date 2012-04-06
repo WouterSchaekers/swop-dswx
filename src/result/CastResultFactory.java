@@ -5,6 +5,7 @@ import exceptions.FactoryInstantiationException;
 /**
  * Class representing a BloodAnalysis Factory.
  */
+@result.ResutlsAPI
 public class CastResultFactory implements ResultFactory
 {
 	private String report_;
@@ -29,6 +30,7 @@ public class CastResultFactory implements ResultFactory
 	 * @param report
 	 *            The report of the CastResult.
 	 */
+	@result.ResutlsAPI
 	public void setReport(String report) {
 		this.report_ = report;
 	}

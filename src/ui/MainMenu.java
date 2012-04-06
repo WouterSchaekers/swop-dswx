@@ -2,6 +2,7 @@ package ui;
 
 import java.util.Collection;
 import java.util.Stack;
+import scheduler.requirements.XRayCondition;
 import ui.usecases.AdvanceTime;
 import ui.usecases.Checkin;
 import ui.usecases.ConsultPatientFile;
