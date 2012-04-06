@@ -24,20 +24,29 @@ public class TaskManager implements Observer
 {
 
 	private Hospital hospital_;
+
 	/**
 	 * Contains all the tasks. Use their states to categorise them.
 	 */
 	private Collection<Task<?>> tasks_;
 
+	/**
+	 * Default constructor.
+	 * 
+	 * @param hospital
+	 *            The Hospital where the TaskManager belongs to.
+	 */
 	public TaskManager(Hospital hospital) {
-		hospital_ = hospital;
-		hospital_.getTimeKeeper().addObserver(this);
-		tasks_ = new LinkedList<Task<?>>();
+		this.hospital_ = hospital;
+		this.hospital_.getTimeKeeper().addObserver(this);
+		this.tasks_ = new LinkedList<Task<?>>();
 	}
 
 	/**
 	 * Returns a Task created based on the given description.
 	 * 
+	 * @param description
+	 *            The TaskDescription
 	 * @throws InvalidSchedulingRequestException
 	 *             The requirements for this description have not yet been met
 	 *             and the description has been stored.
@@ -49,26 +58,29 @@ public class TaskManager implements Observer
 		Task<T> task = new Task<T>(description, hospital_);
 		task.addObserver(this);
 		task.init();
-		tasks_.add(task);
 		try {
 			new Scheduler().schedule(task);
 		} catch (AlreadyScheduledException e) {
 			throw new Error(e.getMessage());
 		} catch (InvalidSchedulingRequestException e) {
-			task.addObserver(this);
+			;
 		}
+		this.tasks_.add(task);
 		return task;
 	}
 
 	/**
-	 * Gets all tasks in this taskmanager.
-	 * 
-	 * @return
+	 * @return A copy of all tasks of this taskmanager.
 	 */
 	public Collection<Task<?>> getAllTasks() {
 		return new LinkedList<Task<?>>(tasks_);
 	}
 
+	/**
+	 * Returns the Hospital.
+	 * 
+	 * @return The Hospital.
+	 */
 	Hospital getHospital() {
 		return this.hospital_;
 	}
@@ -79,14 +91,18 @@ public class TaskManager implements Observer
 	 * @return The scheduled TODOs for a certain schedulable.
 	 */
 	@SuppressWarnings("unchecked")
-	public <T extends TaskDescription> Collection<Task<T>> getUnfinishedTasksFrom(SchedulableUser from) {
+	public <T extends TaskDescription> Collection<Task<T>> getUnfinishedTasksFrom(SchedulableUser user) {
 		Collection<Task<T>> rv = new LinkedList<Task<T>>();
 		for (Task<?> task : tasks_)
-			if (task.isScheduled() && task.getData().getResources().contains(from))
+			if (task.isScheduled() && task.getData().getResources().contains(user))
 				rv.add((Task<T>) task);
 		return rv;
 	}
 
+	/**
+	 * Updates the given task if the task is given. Updates the whole queue
+	 * otherwise.
+	 */
 	@Override
 	public void update(Observable o, Object arg) {
 		if (o instanceof Task<?>) {
@@ -119,8 +135,8 @@ public class TaskManager implements Observer
 	 * advances.
 	 */
 	private void updateTaskCollection() {
-		for (Task<?> t : this.tasks_) {
-			if (t.isQueued()) {
+		for (Task<?> t : this.tasks_)
+			if (t.isQueued())
 				try {
 					new Scheduler().schedule(t);
 				} catch (InvalidSchedulingRequestException e) {
@@ -130,11 +146,8 @@ public class TaskManager implements Observer
 				} catch (CanNeverBeScheduledException e) {
 					throw new Error("Fatal scheduling error while updating time... queued task can never be scheduled!");
 				}
-			} else if (t.isScheduled()) {
-				if (t.getDate().before(hospital_.getTimeKeeper().getSystemTime())) {
+			else if (t.isScheduled())
+				if (t.getDate().before(hospital_.getTimeKeeper().getSystemTime()))
 					t.nextState(t.getData().clone());
-				}
-			}
-		}
 	}
 }
