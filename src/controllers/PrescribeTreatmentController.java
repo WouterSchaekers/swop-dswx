@@ -10,7 +10,6 @@ import system.Campus;
 import treatment.TreatmentFactory;
 import users.Doctor;
 import users.User;
-import warehouse.Warehouse;
 import warehouse.item.MedicationType;
 import warehouse.item.WarehouseItemType;
 import controllers.interfaces.DiagnoseIN;
@@ -85,8 +84,10 @@ public class PrescribeTreatmentController extends NeedsLoginAndPatientFileContro
 			throws InvalidDiagnoseException, FactoryInstantiationException, CanNeverBeScheduledException {
 		if (!(selected instanceof Diagnose))
 			throw new InvalidDiagnoseException("The selected diagnose is invalid!");
-		if (!getAllPossibleDiagnosis().contains(selected))
+		if (!getAllPossibleDiagnosis().contains(selected)) {
+			System.out.println(getAllPossibleDiagnosis());
 			throw new InvalidDiagnoseException("Trying to add a treatment to a diagnose that this doctor has not made!");
+		}
 		treatmentFactory.setCreationDate(hospital.getTimeKeeper().getSystemTime());
 		@SuppressWarnings("deprecation")
 		Task<?> createdTreatment = hospital.getTaskManager().add(treatmentFactory.create());

@@ -170,8 +170,7 @@ public class TestScenario
 		EvaluateDiagnoseController edc = new EvaluateDiagnoseController(lc);
 		Diagnose d = null;
 		for (DiagnoseIN diag : edc.getPendingDiagnosis()) {
-			d = ((Diagnose) diag);
-			d.disapproveBy("Stressed out", (Doctor)lc.getUserIN());
+			d = (Diagnose) edc.disapproveDiagnose(diag, "Stressed out");
 		}
 		PrescribeTreatmentController ptc = new PrescribeTreatmentController(lc, cpfc);
 		prescribeTreatmentFor(ptc, d,
