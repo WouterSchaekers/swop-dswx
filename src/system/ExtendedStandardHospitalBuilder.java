@@ -1,9 +1,6 @@
-package ui;
+package system;
 
 import machine.MachineBuilder;
-import system.Campus;
-import system.Hospital;
-import system.StandardHospitalBuilder;
 import users.DoctorFactory;
 import users.NurseFactory;
 
