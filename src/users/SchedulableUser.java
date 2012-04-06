@@ -118,10 +118,19 @@ public abstract class SchedulableUser extends User implements Schedulable
 		return false;
 	}
 
-	private HospitalDate getNextStartWorkingHour(HospitalDate hospitalDate) {
+	protected HospitalDate getNextStartWorkingHour(HospitalDate hospitalDate) {
 		HospitalDate nextDate = new HospitalDate(hospitalDate.getTimeSinceStart() + HospitalDate.ONE_DAY);
 		return new HospitalDate(nextDate.getYear(), nextDate.getMonth(), nextDate.getDay(),
 				SchedulableUser.START_WORK_HOUR, 0, 0);
+	}
+	
+	protected HospitalDate getNextStopWorkingHour(HospitalDate startDate, HospitalDate stopDate){
+		if(!fallsInWorkingHours(stopDate)){
+			return new HospitalDate(startDate.getYear(), startDate.getMonth(), startDate.getDay(), SchedulableUser.STOP_WORK_HOUR, 0, 0);
+		}
+		else{
+			return stopDate;
+		}
 	}
 
 	private HospitalDate makeDummyDate(HospitalDate hospitalDate) {
