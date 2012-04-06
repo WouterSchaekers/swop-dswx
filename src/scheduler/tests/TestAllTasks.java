@@ -21,8 +21,6 @@ import treatment.Treatment;
 import users.Doctor;
 import users.DoctorFactory;
 import users.NurseFactory;
-import warehouse.item.MiscType;
-import warehouse.item.WarehouseItemType;
 import exceptions.CanNeverBeScheduledException;
 import exceptions.DischargePatientException;
 import exceptions.FactoryInstantiationException;
@@ -66,7 +64,6 @@ public class TestAllTasks
 		builder.setLocationWithinCampus("Randomstring");
 		builder.setSerial(123);
 		location.getMachinePool().addMachine(builder);
-		// There is a blood analyzer a nurse and a patient
 		BloodAnalysisFactory fact = new BloodAnalysisFactory();
 		fact.setCreationDate(hospital.getTimeKeeper().getSystemTime());
 		fact.setFocus("GG");
@@ -91,7 +88,7 @@ public class TestAllTasks
 	}
 
 	@Test
-	public void scheduleTreatment() throws Exception{
+	public void scheduleTreatment() throws Exception {
 
 		NurseFactory f = new NurseFactory();
 		f.setName("Jenny");
@@ -107,9 +104,6 @@ public class TestAllTasks
 		hospital.getUserManager().createUser(docFactory2);
 		PatientFile file = hospital.getPatientFileManager().registerPatient("jasmine", location);
 		Diagnose diagnose = file.createDiagnose("We zijn gebuisd.", "Thibault fok of", doctorJasper, null);
-		// add stuff to hospital.
-		WarehouseItemType type = new MiscType();
-		location.getWarehouse().add(type, HospitalDate.END_OF_TIME);
 		SurgeryFactory surgeryfactory = new SurgeryFactory();
 		surgeryfactory.setCreationDate(now());
 		surgeryfactory.setDescription("Thibault verwijderen van de wereld.");
@@ -134,8 +128,6 @@ public class TestAllTasks
 		Doctor doctorJonathan = (Doctor) hospital.getUserManager().createUser(docFactory2);
 		PatientFile file = hospital.getPatientFileManager().registerPatient("jasmine", location);
 		Diagnose diagnose = file.createDiagnose("We zijn gebuisd.", "Thibault fok of", doctorJasper, doctorJonathan);
-		// add stuff to hospital.
-		WarehouseItemType type = new MiscType();
 		SurgeryFactory surgeryfactory = new SurgeryFactory();
 		surgeryfactory.setCreationDate(now());
 		surgeryfactory.setDescription("Thibault verwijderen van de wereld.");
@@ -144,7 +136,6 @@ public class TestAllTasks
 		assertFalse(surgery.isScheduled());
 		diagnose.approveBy(doctorJonathan);
 		assertFalse(surgery.isScheduled());
-		location.getWarehouse().add(type, HospitalDate.END_OF_TIME);
 		assertTrue(surgery.isScheduled());
 	}
 
@@ -164,8 +155,6 @@ public class TestAllTasks
 		Doctor doctorJonathan = (Doctor) hospital.getUserManager().createUser(docFactory2);
 		PatientFile file = hospital.getPatientFileManager().registerPatient("jasmine", location);
 		Diagnose diagnose = file.createDiagnose("We zijn gebuisd.", "Thibault fok of", doctorJasper, doctorJonathan);
-		// add stuff to hospital.
-		WarehouseItemType type = new MiscType();
 		SurgeryFactory surgeryfactory = new SurgeryFactory();
 		surgeryfactory.setCreationDate(now());
 		surgeryfactory.setDescription("Thibault verwijderen van de wereld.");
@@ -174,7 +163,6 @@ public class TestAllTasks
 		assertFalse(surgery.isScheduled());
 		diagnose.approveBy(doctorJonathan);
 		assertFalse(surgery.isScheduled());
-		location.getWarehouse().add(type, HospitalDate.END_OF_TIME);
 		assertTrue(surgery.isScheduled());
 	}
 
