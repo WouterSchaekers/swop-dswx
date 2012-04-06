@@ -46,6 +46,8 @@ public class Scheduler
 		Collection<Location> locs = unscheduledTask.getData().getLocations();
 		Collection<Schedulable> resPool = taskData.getAllAvailableResources();
 		Collection<Requirement> reqs = desc.getAllRequirements();
+		if(checkForMarkedForRemoval(reqs))
+			throw new CanNeverBeScheduledException("One of the requirements can never be satisfied anymore.");
 		HospitalDate curDate = taskData.getSystemTime();
 		HospitalDate minDate = new HospitalDate(desc.getCreationTime().getTimeSinceStart() + desc.getExtraTime());
 		HospitalDate startDate = HospitalDate.getMaximum(curDate, minDate);
@@ -643,5 +645,20 @@ public class Scheduler
 	private HospitalDate getNextHour(HospitalDate hospitalDate) {
 		return new HospitalDate(hospitalDate.getTimeSinceStart() + HospitalDate.ONE_HOUR
 				- (hospitalDate.getTotalMillis() % HospitalDate.ONE_HOUR));
+	}
+
+	/**
+	 * Checks whether one of the given Requirements is marked for removal or
+	 * not.
+	 * 
+	 * @param requirements
+	 *            The Requirements that have to be checked.
+	 * @return True if one of the given Requirements is marked for deletion.
+	 */
+	private boolean checkForMarkedForRemoval(Collection<Requirement> requirements) {
+		for (Requirement req : requirements)
+			if (req.isMarkedForDeletion())
+				return true;
+		return false;
 	}
 }

@@ -4,6 +4,9 @@ import scheduler.HospitalDate;
 import system.Location;
 import warehouse.Warehouse;
 
+/**
+ * Class representing a DiagnoseCondition for a description.
+ */
 public class RequirementType<T extends Requirable> implements Requirement
 {
 	private Class<T> type_;
