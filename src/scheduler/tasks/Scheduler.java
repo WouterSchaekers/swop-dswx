@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
-import patient.Patient;
 import scheduler.HospitalDate;
 import scheduler.Schedulable;
 import scheduler.StartTimePoint;
@@ -52,6 +51,7 @@ public class Scheduler
 		HospitalDate startDate = HospitalDate.getMaximum(curDate, minDate);
 		HospitalDate stopDate = new HospitalDate(HospitalDate.END_OF_TIME);
 		TaskData scheduledData = schedule(reqs, resPool, locs, desc, startDate, stopDate, taskData);
+		System.out.println(scheduledData.getTimeSlot());
 		if (!isBackToBack(scheduledData)) {
 			scheduledData = scheduleAtFullHour(reqs, resPool, locs, desc, startDate, stopDate, taskData, scheduledData);
 		}
@@ -90,19 +90,25 @@ public class Scheduler
 		TaskData bestTaskData = null;
 		boolean canEverBeScheduled = false;
 		for (Location loc : locs) {
-			TaskData posTaskData = null;
+			boolean enoughNonCrucial = false;
 			Collection<Requirement> metReqs = getMetReqs(reqs, startDate, loc);
 			Collection<Requirement> unmetReqs = getUnmetRequirements(reqs, metReqs);
+			if (enoughNonCrucialResources(resPool, unmetReqs))
+				enoughNonCrucial = true;
 			Map<LinkedList<Schedulable>, Integer> avRes = getAvRes(resPool, unmetReqs);
 			avRes = removeDoubleBookings(avRes);
 			if (canEverBeScheduledOnThisLocation(avRes, loc, startDate))
 				canEverBeScheduled = true;
-			try {
-				posTaskData = schedule(avRes, produceUsedResList(avRes), loc, desc, startDate, stopDate, taskData);
-			} catch (InvalidSchedulingRequestException e) {
+			if (enoughNonCrucial && canEverBeScheduled) {
+				TaskData posTaskData = null;
+				try {
+					posTaskData = schedule(avRes, produceUsedResList(avRes), loc, desc, startDate, stopDate, taskData);
+				} catch (InvalidSchedulingRequestException e) {
+					;
+				}
+				if (posTaskData != null && (bestTaskData == null || posTaskData.before(bestTaskData)))
+					bestTaskData = posTaskData;
 			}
-			if (posTaskData != null && (bestTaskData == null || posTaskData.before(bestTaskData)))
-				bestTaskData = posTaskData;
 		}
 		if (!canEverBeScheduled)
 			throw new CanNeverBeScheduledException(
@@ -244,6 +250,28 @@ public class Scheduler
 	}
 
 	/**
+	 * Checks whether there are enough non-crucial resources available.
+	 * 
+	 * @param resPool
+	 *            All the resources of the hospital.
+	 * @param notMetYet
+	 *            The requirements that are not satisfied yet.
+	 * @return True if there are enough non-crucial resources available.
+	 */
+	private boolean enoughNonCrucialResources(Collection<Schedulable> resPool, Collection<Requirement> notMetYet)
+			throws InvalidSchedulingRequestException {
+		for (Requirement requirement : notMetYet) {
+			LinkedList<Schedulable> isMetBy = new LinkedList<Schedulable>();
+			for (Schedulable schedulable : resPool)
+				if (requirement.isMetBy(schedulable))
+					isMetBy.add(schedulable);
+			if (isMetBy.size() < requirement.getAmount() && !requirement.isCrucial())
+				return false;
+		}
+		return true;
+	}
+
+	/**
 	 * Returns the resources that are available and can be met to satisfy the
 	 * requirements.
 	 * 
@@ -253,24 +281,17 @@ public class Scheduler
 	 *            The requirements that are not satisfied yet.
 	 * @return A HashMap that maps all resources that can satisfy the
 	 *         requirements with the needed amount.
-	 * @throws InvalidSchedulingRequestException
-	 *             Some of the requirement cannot be satisfied right now.
-	 * @throws CanNeverBeScheduledException
-	 *             Some of the requirements can never be satisfied with the
-	 *             existing resources.
 	 */
-	//XXX: wat als een warehouse het wel heeft en het andre niet, dan gaat het andere exceptions throwen.
 	private Map<LinkedList<Schedulable>, Integer> getAvRes(Collection<Schedulable> resPool,
-			Collection<Requirement> notMetYet) throws InvalidSchedulingRequestException {
+			Collection<Requirement> notMetYet) {
 		Map<LinkedList<Schedulable>, Integer> availableResources = new HashMap<LinkedList<Schedulable>, Integer>();
 		for (Requirement requirement : notMetYet) {
-			LinkedList<Schedulable> isMetBy = new LinkedList<Schedulable>();
-			for (Schedulable schedulable : resPool)
-				if (requirement.isMetBy(schedulable))
-					isMetBy.add(schedulable);
-			if (isMetBy.size() < requirement.getAmount() && !requirement.isCrucial())
-				throw new InvalidSchedulingRequestException("There are not enough non-crucial resources available.");
-			availableResources.put(isMetBy, requirement.getAmount());
+			if (requirement.isCrucial()) {
+				LinkedList<Schedulable> isMetBy = new LinkedList<Schedulable>();
+				for (Schedulable schedulable : resPool)
+					if (requirement.isMetBy(schedulable))
+						isMetBy.add(schedulable);
+			}
 		}
 		return availableResources;
 	}
@@ -308,46 +329,6 @@ public class Scheduler
 		}
 		return newAvRes;
 	}
-
-	/**
-	 * Checks if there are enough resources available in the hospital.
-	 * 
-	 * @param avRes
-	 *            HashMap that contains resources and the amount needed of them.
-	 * @param locs
-	 *            All the locations of the hospital.
-	 * @throws CanNeverBeScheduledException
-	 *             Some of the requirements can never be satisfied with the
-	 *             existing resources.
-	 */
-	// private LinkedList<Location>
-	// getLocationsWithEnoughResources(Map<LinkedList<Schedulable>, Integer>
-	// avRes,
-	// Collection<Location> locs, HospitalDate now) throws
-	// CanNeverBeScheduledException {
-	// LinkedList<Location> possibleLocations = new LinkedList<Location>();
-	// for (Location loc : locs) {
-	// boolean enoughResources = true;
-	// for (LinkedList<Schedulable> resourcePool : avRes.keySet()) {
-	// int amount = 0;
-	// for (Schedulable resource : resourcePool) {
-	// if (resource.canTravel() || resource.getLocationAt(now) == loc) {
-	// amount++;
-	// }
-	// }
-	// if (amount < avRes.get(resourcePool)) {
-	// enoughResources = false;
-	// break;
-	// }
-	// }
-	// if (enoughResources)
-	// possibleLocations.add(loc);
-	// }
-	// if (possibleLocations.size() == 0)
-	// throw new CanNeverBeScheduledException(
-	// "This task can never be scheduled in this hospital with the current amount of schedulables.");
-	// return possibleLocations;
-	// }
 
 	/**
 	 * Returns an empty mapping of the possible resources and the places of the
