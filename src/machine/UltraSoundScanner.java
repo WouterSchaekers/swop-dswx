@@ -3,6 +3,9 @@ package machine;
 import system.Location;
 import exceptions.InvalidTimeSlotException;
 
+/**
+ * This class represents an UltraSound Scanner.
+ */
 public class UltraSoundScanner extends Machine
 {
 	/**
@@ -11,7 +14,7 @@ public class UltraSoundScanner extends Machine
 	 * 
 	 * @throws InvalidTimeSlotException
 	 * */
-	UltraSoundScanner(int serial, String loc, Location location){
+	UltraSoundScanner(int serial, String loc, Location location) {
 		super(serial, loc, location);
 	}
 }

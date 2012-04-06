@@ -33,7 +33,7 @@ public class ExtendedStandardHospitalBuilder
 		addDoctor(campus, "Stefaan");
 		addPatient(campus, "daan");
 		addAllMachines(campus);
-		addMedicalTests(rv);
+		addTreatmentFactories(rv);
 		return rv;
 	}
 
@@ -43,7 +43,7 @@ public class ExtendedStandardHospitalBuilder
 	 * @param rv
 	 *            The given Hospital.
 	 */
-	private void addMedicalTests(Hospital rv) {
+	private void addTreatmentFactories(Hospital rv) {
 		rv.addTreatmentFactory(new CastFactory());
 		rv.addTreatmentFactory(new MedicationFactory());
 		rv.addTreatmentFactory(new SurgeryFactory());
