@@ -115,6 +115,7 @@ public class Diagnose extends Observable implements DiagnoseIN
 		if (this.secOpFlag)
 			throw new IllegalAccessException("Diagnose requires second opinion and can't be self approved.");
 		this.approved = true;
+		this.secOpFlag = false;
 	}
 
 	/**
@@ -197,7 +198,7 @@ public class Diagnose extends Observable implements DiagnoseIN
 			throw new ApproveDiagnoseException("Trying to disapprove a diagnose that does not need second opinion!");
 		this.disapprove();
 		try {
-			return this.myPatientFile.createDiagnose(this.complaints, newDiagnose, futureAttending, futureAttending);
+			return this.myPatientFile.createDiagnose(this.complaints, newDiagnose, futureAttending, futureSecondOp);
 		} catch (Exception e) {
 			throw new Error(e);
 		}
@@ -252,7 +253,7 @@ public class Diagnose extends Observable implements DiagnoseIN
 	
 	@Basic
 	public boolean isMarkedForSecOpBy(Doctor doctor) {
-		return this.secOpFlag && this.secopDoc == doctor;
+		return this.secOpFlag && this.secopDoc.equals(doctor);
 	}
 
 	/**

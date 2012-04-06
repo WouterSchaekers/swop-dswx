@@ -6,6 +6,7 @@ import medicaltest.MedicalTestFactory;
 import patient.Diagnose;
 import patient.PatientFile;
 import result.BloodAnalysisResultFactory;
+import result.MedicationResultFactory;
 import result.SurgeryResultFactory;
 import scheduler.HospitalDate;
 import system.Hospital;
@@ -35,6 +36,85 @@ import controllers.interfaces.TaskIN;
 import controllers.interfaces.UserIN;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
+
+
+/**------------------------------------------------------------
+ * Testscenario:
+ * Wa nog moet gebeuren is:
+ * - todo-methods vanaf letJeffreyEnterStefTreatmentResult();
+ * - alles vanaf wouter die een appointment heeft geschreven.
+ * ------------------------------------------------------------
+ * Hospital:
+--------
+Admin: [HospitalAdmin]
+
+Campus 1: 
+* Nurses [Jenny, Jenna, Jeffrey]
+* Doctors [Jonathan, Jens, Jelle, Joanne]				11,B&F,B&F,12
+* Machines [3 XrayScanners, 1 UltraSoundScanner, 0 BloodAnalysers]
+* WarehouseAdministrator: [Greg]
+
+Campus 2:
+* Nurses [Joy, Janna]
+* Doctors [Joe, Jennifer]
+* Machines [0 XrayScanners, 0 UltraSoundScanner, 3 BloodAnalysers]
+* WarehouseAdministrator: [Geoff]
+
+Patient Files:
+--------------
+* Stefaan: Diagnose = "cancer" by Jonathan; needs second opinion from Jennifer; complaints = "sleepy" -> MedicalTest: BloodAnalysis (voor jonathan)
+	-> MedicalTest: BloodAnalysis (voor jennifer)
+	-> Disaprove, new diagnose = "stress"
+	-> Treatment = medication
+	-> Result = "all is well"
+	-> na medication: discharge()
+
+* Dieter: Diagnose = "Hypochondria", by doctor Joanne = approved; complaints = "Feel sick ALL the time"
+	-> Treatment = "Surgery" (brain)
+	-> Result = "alles ok"
+	-> discharge()
+
+* Wouter: was just registered in the hospital by nurse Jenna.
+	-> createAppointment with doctor Joe
+	-> MedicalTest: bloodanalysis
+	-> MedicalTest: XRayScan
+	-> Diagnose: "fractured arm", approved
+	-> treatment: cast, 100 dagen
+	-> Result = "ok"
+	-> discharge()
+
+* Thibault : discharged
+	-> MedicalTests: UltraSoundScan, XRayScan, BloodAnalysis
+	-> Diagnosis: "Fatal new variant of pneumonia"
+		-> Treatment: surgery "Lung transplant"
+------------------------------------------
+
+* Thibault has entered the hospital at campus 1
+	-> Complaints "stomach hurts, jaundice"
+	-> nurse Janna checks in thibault because he's already been at the hospital before
+	-> Appointment with Joe
+	-> MedicalTest: UltraSoundScan
+	-> MedicalTest: XRayScan
+	-> Diagnose "liver is failing"
+	-> Treatment: Surgery "liver transplant"
+
+* Jonathan wants to change his preference  to B&F
+
+* Jelle wants to change his preference to 12
+
+* Greg delivers stock orders that have arrived
+
+* Hospital administrator adds more staff and machines for teh_lulz
+
+* Geoff places some orders
+
+* 5 new patients come into campus 1 and all have the same sympthoms
+	-> "Pain in chest, difficulty breathing"
+	-> 5 XRays, 5 UltraSounds
+	-> Diagnose "Heavy metal poisoning"
+	-> Treatments = Cast AND Medication
+	-> Result: 2 overleven, 3 gaan dood
+ */
 
 /**
  * Executes our testing scenario by only using the controllers.
@@ -179,13 +259,27 @@ public class TestScenario
 	}
 	
 	private void letJonathanApproveDiagStef() throws Exception {
-		// TODO Auto-generated method stub
-		
+		LoginController lc = loginUser(UserFilter.SpecificDoctorFilter(hospital.getUserManager().getAllUserINs(), "Jonathan"),
+				hospital.getCampus("Campus 1"));
+		EvaluateDiagnoseController edc = new EvaluateDiagnoseController(lc);
+		for (DiagnoseIN diag : edc.getPendingDiagnosis()) {
+			edc.approveDiagnose(diag);
+		}
+		logoutUser(lc, null);
 	}
 	
 	private void letJeffreyEnterStefTreatmentResult() throws Exception {
-		// TODO Auto-generated method stub
-		
+		LoginController lc = loginUser(
+				UserFilter.SpecificNurseFilter(hospital.getUserManager().getAllUserINs(), "Jeffrey"),
+				hospital.getCampus("Campus 1"));
+		EnterTreatmentResultController etrc = new EnterTreatmentResultController(lc);
+		TaskIN treatment = etrc.getTreatments().iterator().next();
+		MedicationResultFactory resultFac = (MedicationResultFactory) treatment.getResultFactory();
+		resultFac.setAbnormalReaction(false);
+		resultFac
+				.setReport("Patient slept for a while and feels perfectly fine again. Is fit to work some more on his projects.");
+		etrc.setResult(treatment, resultFac);
+		logoutUser(lc, null);
 	}
 	
 	private void letJensDischargeStefAndDieter() throws Exception {
