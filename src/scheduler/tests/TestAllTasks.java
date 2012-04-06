@@ -58,7 +58,6 @@ public class TestAllTasks
 				.getSystemTime());
 		Task<AppointmentDescription> task = hospital.getTaskManager().add(appointment);
 		assertTrue(task.isScheduled());
-		System.out.println(task.getTimeSlot());
 	}
 
 	@Test
@@ -89,9 +88,7 @@ public class TestAllTasks
 		} catch (DischargePatientException e) {
 			exce = true;
 		}
-		System.out.println(task.getTimeSlot());
 		assertTrue(exce);
-
 	}
 
 	private BloodAnalyserBuilder bloodanalyzer(Collection<MachineBuilder> allBuilders) {
@@ -104,7 +101,8 @@ public class TestAllTasks
 	@Test
 	public void scheduleTreatment() throws UserAlreadyExistsException, InvalidNameException, InvalidLocationException,
 			InvalidPatientFileException, InvalidDiagnoseException, InvalidDoctorException, InvalidComplaintsException,
-			FactoryInstantiationException, CanNeverBeScheduledException, WarehouseOverCapacityException, IllegalAccessException {
+			FactoryInstantiationException, CanNeverBeScheduledException, WarehouseOverCapacityException,
+			IllegalAccessException {
 		NurseFactory f = new NurseFactory();
 		f.setName("Jenny");
 		f.setLocation(location);
@@ -128,7 +126,6 @@ public class TestAllTasks
 		surgeryfactory.setDiagnose(diagnose);
 		Task<Treatment> surgery = hospital.getTaskManager().add(surgeryfactory.create());
 		assertTrue(surgery.isScheduled());
-		System.out.println(surgery.getTimeSlot());
 	}
 
 	@Test
@@ -161,7 +158,6 @@ public class TestAllTasks
 		assertFalse(surgery.isScheduled());
 		location.getWarehouse().add(type, HospitalDate.END_OF_TIME);
 		assertTrue(surgery.isScheduled());
-//		System.out.println(surgery.getTimeSlot());
 	}
 
 	@Test
@@ -195,11 +191,9 @@ public class TestAllTasks
 		assertFalse(surgery.isScheduled());
 		location.getWarehouse().add(type, HospitalDate.END_OF_TIME);
 		assertTrue(surgery.isScheduled());
-
 	}
 
 	private HospitalDate now() {
 		return hospital.getTimeKeeper().getSystemTime();
 	}
-
 }
