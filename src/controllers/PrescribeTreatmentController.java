@@ -1,13 +1,18 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import patient.Diagnose;
 import patient.PatientFile;
 import scheduler.HospitalDate;
 import scheduler.tasks.Task;
+import system.Campus;
 import treatment.TreatmentFactory;
 import users.Doctor;
 import users.User;
+import warehouse.Warehouse;
+import warehouse.item.MedicationType;
+import warehouse.item.WarehouseItemType;
 import controllers.interfaces.DiagnoseIN;
 import exceptions.CanNeverBeScheduledException;
 import exceptions.FactoryInstantiationException;
@@ -115,5 +120,14 @@ public class PrescribeTreatmentController extends NeedsLoginAndPatientFileContro
 	@Override
 	boolean validUser(User u) {
 		return u instanceof Doctor;
+	}
+
+	public Collection<MedicationType> getAvailableMedications() {
+		Collection<MedicationType> rv = new ArrayList<MedicationType>();
+		for(Campus campus :hospital.getAllCampuses())
+			for(WarehouseItemType type:campus.getWarehouse().getAvailableItemTypes())
+				if(type instanceof MedicationType)
+					rv.add((MedicationType)type);
+		return rv;
 	}
 }

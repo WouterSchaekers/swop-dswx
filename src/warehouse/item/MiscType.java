@@ -20,4 +20,9 @@ public class MiscType extends MedicationType
 		return HospitalDate.ONE_YEAR * 100;
 	}
 
+	@Override
+	public String name() {
+		return "misc";
+	}
+
 }

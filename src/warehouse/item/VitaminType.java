@@ -14,4 +14,8 @@ public class VitaminType extends MedicationType
 	{
 		return object instanceof VitaminType;
 	}
+	@Override
+	public String name() {
+		return "vitamins";
+	}
 }

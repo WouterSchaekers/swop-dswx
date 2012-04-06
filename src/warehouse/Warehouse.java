@@ -1,5 +1,7 @@
 package warehouse;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,6 +23,7 @@ import exceptions.WarehouseOverCapacityException;
 public class Warehouse extends Observable
 {
 	private Map<Class<? extends WarehouseItemType>, Integer> maxItemsMap_=new HashMap<Class<? extends WarehouseItemType>, Integer>();
+	private Collection<WarehouseItemType> types= new ArrayList<WarehouseItemType>();
 	private List<WarehouseItem> items_;
 	private Campus campus_;
 
@@ -91,8 +94,9 @@ public class Warehouse extends Observable
 	public void setMaxCount(WarehouseItemType type, int count)
 			throws InvalidWarehouseItemException {
 		if (!maxItemsMap_.containsKey(type))
-			maxItemsMap_.put(type.getClass(), count);
-		else
+		{	maxItemsMap_.put(type.getClass(), count);
+			types.add(type);
+		}else
 			throw new InvalidWarehouseItemException(
 					"Trying to set the max count of an invalid item type!");
 	}
@@ -152,5 +156,9 @@ public class Warehouse extends Observable
 	@Basic
 	public Campus getCampus() {
 		return this.campus_;
+	}
+
+	public Collection<WarehouseItemType> getAvailableItemTypes() {
+		return new ArrayList<WarehouseItemType>(types);
 	}
 }

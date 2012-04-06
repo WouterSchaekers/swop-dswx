@@ -9,4 +9,6 @@ public abstract class MedicationType extends WarehouseItemType
 	public long getTimeToLive() {
 		return HospitalDate.ONE_MONTH;
 	}
+
+	public abstract String name() ;
 }

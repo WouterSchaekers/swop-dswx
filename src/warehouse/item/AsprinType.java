@@ -14,4 +14,8 @@ public class AsprinType extends MedicationType
 	{
 		return object instanceof AsprinType;
 	}
+	@Override
+	public String name() {
+		return "Aspirin";
+	}
 }

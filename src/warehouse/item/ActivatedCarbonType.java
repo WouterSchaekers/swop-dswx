@@ -14,4 +14,8 @@ public class ActivatedCarbonType extends MedicationType
 	{
 		return object instanceof ActivatedCarbonType;
 	}
+	@Override
+	public String name() {
+		return "Activated Carbon";
+	}
 }

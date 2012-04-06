@@ -14,4 +14,8 @@ public class SleepingTabletsType extends MedicationType
 	{
 		return object instanceof SleepingTabletsType;
 	}
+	@Override
+	public String name() {
+		return "sleeping tablets";
+	}
 }
