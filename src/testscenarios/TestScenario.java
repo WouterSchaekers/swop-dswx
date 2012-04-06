@@ -10,7 +10,6 @@ import medicaltest.XRayScanFactory;
 import patient.Diagnose;
 import patient.PatientFile;
 import patient.PatientFileManager;
-import result.BloodAnalysisResultFactory;
 import result.MedicationResultFactory;
 import result.SurgeryResultFactory;
 import scheduler.HospitalDate;
@@ -37,7 +36,6 @@ import controllers.ConsultPatientFileController;
 import controllers.CreateAppointmentController;
 import controllers.DischargePatientController;
 import controllers.EnterDiagnoseController;
-import controllers.EnterMedicaltestResultController;
 import controllers.EnterTreatmentResultController;
 import controllers.EvaluateDiagnoseController;
 import controllers.LoginController;
@@ -419,25 +417,6 @@ public class TestScenario
 		logoutUser(lc, cpfc);
 	}
 
-	private void letJeffreyEnterResults() throws Exception {
-		LoginController lc = getUser("Jeffrey");
-		EnterMedicaltestResultController emrc = new EnterMedicaltestResultController(lc);
-		EnterTreatmentResultController etrc = new EnterTreatmentResultController(lc);
-		// should be okay as there should only be one test and one treatment
-		TaskIN tests = emrc.getMedicalTests().iterator().next();
-		TaskIN treatment = etrc.getTreatments().iterator().next();
-		BloodAnalysisResultFactory bloodResultFac = (BloodAnalysisResultFactory) tests.getResultFactory();
-		bloodResultFac.setAmountOfBlood(2);
-		bloodResultFac.setPlateletCount(500);
-		bloodResultFac.setRedCellCount(1337);
-		bloodResultFac.setWhiteCellCount(9001);
-		emrc.setResult(tests, bloodResultFac);
-		SurgeryResultFactory surgeryResultFac = (SurgeryResultFactory) treatment.getResultFactory();
-		surgeryResultFac.setAfterCare("Treat with extreme caution. Do not approach without a blow torch");
-		surgeryResultFac.setReport("Everything went fine. Patient has a new frontal lobe");
-		etrc.setResult(treatment, surgeryResultFac);
-		logoutUser(lc, null);
-	}
 
 	private void letJenniferEnterDiagStef() throws Exception {
 		// disapprove cancer and create new diag
