@@ -1,5 +1,6 @@
 package warehouse.stock;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Observable;
@@ -53,7 +54,8 @@ public class StockProvider implements Observer
 	public void deliverOrders(HospitalDate expiryDate) {
 		HospitalDate expDate;
 		LinkedList<StockOrder<? extends WarehouseItemType>> updatedOrderlist = new LinkedList<StockOrder<? extends WarehouseItemType>>();
-		for (StockOrder<? extends WarehouseItemType> order : orders_) {
+		
+		for (StockOrder<? extends WarehouseItemType> order : new ArrayList<StockOrder<? extends WarehouseItemType>>(orders_)) {
 			if(expiryDate == null)
 				expDate = new HospitalDate(order.getType().getTimeToLive());
 			else expDate = expiryDate;

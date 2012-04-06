@@ -333,4 +333,11 @@ public class Diagnose extends Observable implements DiagnoseIN
 		this.secOpFlag = false;
 		this.secopDoc = null;
 	}
+	@Override
+	public boolean equals(Object o)
+	{
+		if(o instanceof Diagnose)
+			return ((Diagnose)o).diag.equals(this.diag)&&((Diagnose)o).attending.equals(this.attending)&&((Diagnose)o).complaints.equals(this.complaints);
+		return false;
+	}
 }

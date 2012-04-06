@@ -2,9 +2,11 @@ package testscenarios;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import medicaltest.BloodAnalysisFactory;
 import medicaltest.MedicalTestFactory;
 import medicaltest.UltraSoundScanFactory;
+import medicaltest.XRayScanFactory;
 import patient.Diagnose;
 import patient.PatientFile;
 import patient.PatientFileManager;
@@ -15,6 +17,7 @@ import scheduler.HospitalDate;
 import scheduler.tasks.Task;
 import system.Hospital;
 import system.Location;
+import treatment.CastFactory;
 import treatment.Medication;
 import treatment.MedicationFactory;
 import treatment.SurgeryFactory;
@@ -24,6 +27,9 @@ import ui.UserFilter;
 import users.Doctor;
 import users.Nurse;
 import users.User;
+import warehouse.item.ActivatedCarbon;
+import warehouse.item.ActivatedCarbonType;
+import warehouse.item.AsprinType;
 import warehouse.item.MedicationType;
 import warehouse.item.SleepingTabletsType;
 import controllers.AdvanceTimeController;
@@ -31,9 +37,11 @@ import controllers.CheckinController;
 import controllers.ConsultPatientFileController;
 import controllers.CreateAppointmentController;
 import controllers.DischargePatientController;
+import controllers.EnterDiagnoseController;
 import controllers.EnterMedicaltestResultController;
 import controllers.EnterTreatmentResultController;
 import controllers.EvaluateDiagnoseController;
+import controllers.FillStockInWarehouseController;
 import controllers.LoginController;
 import controllers.OrderMedicalTestController;
 import controllers.PrescribeTreatmentController;
@@ -47,7 +55,6 @@ import controllers.interfaces.UserIN;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 
-
 /**------------------------------------------------------------
  * Testscenario:
  * Wa nog moet gebeuren is:
@@ -55,75 +62,76 @@ import exceptions.InvalidLoginControllerException;
  * - alles vanaf wouter die een appointment heeft geschreven.
  * ------------------------------------------------------------
  * Hospital:
---------
-Admin: [HospitalAdmin]
+ --------
+ Admin: [HospitalAdmin]
 
-Campus 1: 
-* Nurses [Jenny, Jenna, Jeffrey]
-* Doctors [Jonathan, Jens, Jelle, Joanne]				11,B&F,B&F,12
-* Machines [3 XrayScanners, 1 UltraSoundScanner, 0 BloodAnalysers]
-* WarehouseAdministrator: [Greg]
+ Campus 1: 
+ * Nurses [Jenny, Jenna, Jeffrey]
+ * Doctors [Jonathan, Jens, Jelle, Joanne]				11,B&F,B&F,12
+ * Machines [3 XrayScanners, 1 UltraSoundScanner, 0 BloodAnalysers]
+ * WarehouseAdministrator: [Greg]
 
-Campus 2:
-* Nurses [Joy, Janna]
-* Doctors [Joe, Jennifer]
-* Machines [0 XrayScanners, 0 UltraSoundScanner, 3 BloodAnalysers]
-* WarehouseAdministrator: [Geoff]
+ Campus 2:
+ * Nurses [Joy, Janna]
+ * Doctors [Joe, Jennifer]
+ * Machines [0 XrayScanners, 0 UltraSoundScanner, 3 BloodAnalysers]
+ * WarehouseAdministrator: [Geoff]
 
-Patient Files:
---------------
-* Stefaan: Diagnose = "cancer" by Jonathan; needs second opinion from Jennifer; complaints = "sleepy" -> MedicalTest: BloodAnalysis (voor jonathan)
-	-> MedicalTest: BloodAnalysis (voor jennifer)
-	-> Disaprove, new diagnose = "stress"
-	-> Treatment = medication
-	-> Result = "all is well"
-	-> na medication: discharge()
+ Patient Files:
+ --------------
+ * Stefaan: Diagnose = "cancer" by Jonathan; needs second opinion from Jennifer; complaints = "sleepy" -> MedicalTest: BloodAnalysis (voor jonathan)
+ -> MedicalTest: BloodAnalysis (voor jennifer)
+ -> Disaprove, new diagnose = "stress"
+ -> Treatment = medication
+ -> Result = "all is well"
+ -> na medication: discharge()
 
-* Dieter: Diagnose = "Hypochondria", by doctor Joanne = approved; complaints = "Feel sick ALL the time"
-	-> Treatment = "Surgery" (brain)
-	-> Result = "alles ok"
-	-> discharge()
+ * Dieter: Diagnose = "Hypochondria", by doctor Joanne = approved; complaints = "Feel sick ALL the time"
+ -> Treatment = "Surgery" (brain)
+ -> Result = "alles ok"
+ -> discharge()
 
-* Wouter: was just registered in the hospital by nurse Jenna.
-	-> createAppointment with doctor Joe
-	-> MedicalTest: bloodanalysis
-	-> MedicalTest: XRayScan
-	-> Diagnose: "fractured arm", approved
-	-> treatment: cast, 100 dagen
-	-> Result = "ok"
-	-> discharge()
+ * Wouter: was just registered in the hospital by nurse Jenna.
+ -> createAppointment with doctor Joe
+ -> MedicalTest: bloodanalysis
+ -> MedicalTest: XRayScan
+ -> Diagnose: "fractured arm", approved
+ -> treatment: cast, 100 dagen
+ -> Result = "ok"
+ -> discharge()
 
-* Thibault : discharged
-	-> MedicalTests: UltraSoundScan, XRayScan, BloodAnalysis
-	-> Diagnosis: "Fatal new variant of pneumonia"
-		-> Treatment: surgery "Lung transplant"
-------------------------------------------
+ * Thibault : discharged
+ -> MedicalTests: UltraSoundScan, XRayScan, BloodAnalysis
+ -> Diagnosis: "Fatal new variant of pneumonia"
+ -> Treatment: surgery "Lung transplant"
+ ------------------------------------------
 
-* Thibault has entered the hospital at campus 1
-	-> Complaints "stomach hurts, jaundice"
-	-> nurse Janna checks in thibault because he's already been at the hospital before
-	-> Appointment with Joe
-	-> MedicalTest: UltraSoundScan
-	-> MedicalTest: XRayScan
-	-> Diagnose "liver is failing"
-	-> Treatment: Surgery "liver transplant"
+ * Thibault has entered the hospital at campus 1
+ -> Complaints "stomach hurts, jaundice"
+ -> nurse Janna checks in thibault because he's already been at the hospital before
+ -> Appointment with Joe
+ -> MedicalTest: UltraSoundScan
+ -> MedicalTest: XRayScan
 
-* Jonathan wants to change his preference  to B&F
+ -> Diagnose "liver is failing"
+ -> Treatment: Surgery "liver transplant"
+ //
+ //* Jonathan wants to change his preference  to B&F
+ //
+ //* Jelle wants to change his preference to 12
 
-* Jelle wants to change his preference to 12
+ //* Greg delivers stock orders that have arrived
 
-* Greg delivers stock orders that have arrived
+ * Hospital administrator adds more staff and machines for teh_lulz
 
-* Hospital administrator adds more staff and machines for teh_lulz
+ * Geoff places some orders
 
-* Geoff places some orders
-
-* 5 new patients come into campus 1 and all have the same sympthoms
-	-> "Pain in chest, difficulty breathing"
-	-> 5 XRays, 5 UltraSounds
-	-> Diagnose "Heavy metal poisoning"
-	-> Treatments = Cast AND Medication
-	-> Result: 2 overleven, 3 gaan dood
+ * 5 new patients come into campus 1 and all have the same sympthoms
+ -> "Pain in chest, difficulty breathing"
+ -> 5 XRays, 5 UltraSounds
+ -> Diagnose "Heavy metal poisoning"
+ -> Treatments = Cast AND Medication
+ -> Result: 2 overleven, 3 gaan dood
  */
 
 /**
@@ -171,8 +179,9 @@ public class TestScenario
 		advanceTime(HospitalDate.ONE_HOUR * 30);
 		System.out.println("Success! New system time is now " + hospital.getTimeKeeper().getSystemTime() + "\n");
 		UserIN user = getStefaansTreatment();
-		System.out.print("Nurse "+user.getName()+" will now attempt to enter the result for the treatment for Stefaan... ");
-		enterTreatResultForStefaansMedication(user,campus1());
+		System.out.print("Nurse " + user.getName()
+				+ " will now attempt to enter the result for the treatment for Stefaan... ");
+		enterTreatResultForStefaansMedication(user, campus1());
 		System.out.println("Success!\n");
 		System.out.print("Doctor Jens will now attempt to discharge Stefaan and Dieter... ");
 		letJensDischargeStefAndDieter();
@@ -194,18 +203,131 @@ public class TestScenario
 		letJennaRegisterThibault();
 		System.out.println("Success!\n");
 		System.out.println("Advance time 10 minutes.");
-		advanceTime(HospitalDate.ONE_HOUR*10);
+		advanceTime(HospitalDate.ONE_HOUR * 10);
 		System.out.println("Doctor joe visited thibault and decided to run some test.");
 		runThibaultsTestsByJoe();
+		System.out.println("Advance time 1 day.");
+		advanceTime(HospitalDate.ONE_DAY);
+		System.out.println("Doctor joe gives a diagnose for " + getThibault());
+		giveDiagnoseForThibaultDoctorJoe();
+		System.out.println("Five patients that had difficulty breading are now being taken care of. ");
+		fiveSickPatientsArrive();
+	}
+
+	private void fiveSickPatientsArrive() throws Exception {
+		Collection<String> patients = Arrays.asList("");
+		Collection<String> newPatients = Arrays.asList("Peter", "Paul", "Petra", "Pauline", "Paula");
+		List<String> doctors = Arrays.asList("Jonathan", "Jens", "Jelle", "Joanne");
+		int i = 0;
+		for (String patient : newPatients) {
+			String doc=doctors.get(i%4);
+			String diag="Heavy metal poisoning.";
+			String complaints = "Pain in chest, difficulty breathing";
+			DiagnoseIN diagn =addDiagnose(patient,doc,diag,complaints);
+			addCastAndCarbonMedicationTreatments(patient,doc,diagn);
+			System.out.println("");
+			System.out.println("One day later..");
+			advanceTime(HospitalDate.ONE_DAY);
+			System.out.println("");
+			i++;
+		}
+		
+	}
+
+	
+
+	private void addCastAndCarbonMedicationTreatments(String patient, String doc,DiagnoseIN diag) throws Exception {
+		LoginController lc = getUser(doc);
+		PrescribeTreatmentController c = new PrescribeTreatmentController(lc, getPatient(lc,patient));
+		DiagnoseIN selected = null;
+		for(DiagnoseIN d:c.getAllPossibleDiagnosis())
+			if(d.equals(diag))
+				selected = d;
+	CastFactory castf=get(	c.getTreatmentFactories(),CastFactory.class);
+	castf.setBodyPart("chest");
+	castf.setDuration(100);
+	HospitalDate date =c.addTreatment(selected, castf);
+	System.out.println("Succesfully added Cast for patient "+patient+ " at "+date.toString());
+	MedicationFactory medfact =  get(c.getTreatmentFactories(),MedicationFactory.class);
+	medfact.setDescription("Treating heavy metal poisoning.");
+	medfact.setMedicationType(get(c.getAvailableMedications(),ActivatedCarbonType.class));
+	medfact.setSensitive(false);
+	 date =c.addTreatment(selected, medfact);
+	System.out.println("Succesfully added Activated Carbon medication for patient "+patient+ " at "+date.toString());
+
+	}
+
+	private DiagnoseIN addDiagnose(String patient, String doc, String diag,String complaints) throws Exception {
+		LoginController lc = getUser(doc);
+		EnterDiagnoseController diagcontroller = new EnterDiagnoseController(lc, getPatient(lc,patient));
+		DiagnoseIN diagn =diagcontroller.enterDiagnose(complaints, diag);
+		System.out.println("Diagnose succesfully entered by doctor "+doc+" for patient: "+patient);
+		System.out.println("Diagnose: "+diag);
+		System.out.println("Complaint: "+complaints);
+		return diagn;
+	}
+
+	private ConsultPatientFileController getPatient(LoginController lc, String patient) throws Exception {
+	ConsultPatientFileController rv = new ConsultPatientFileController(lc);
+	for(PatientFileIN file :rv.getAllPatientFiles())
+		if(file.getPatientIN().getName().equals(patient))
+		{
+			rv.openPatientFile(file);
+			return rv;
+		}
+		return null;
+	}
+
+	private void giveDiagnoseForThibaultDoctorJoe() throws Exception {
+		LoginController joe = getUser(joe());
+		ConsultPatientFileController thibault = openPatientFile((Doctor) joe.getUserIN(), getThibault(), joe);
+		EnterDiagnoseController diagController = new EnterDiagnoseController(joe, thibault);
+		DiagnoseIN diagnose = diagController.enterDiagnose("stomach hurts, jaundice", "liver is failing");
+		System.out.println("Diagnose succesfully entered!");
+		PrescribeTreatmentController treatcontroller = new PrescribeTreatmentController(joe, thibault);
+		System.out.println("Adding treatment.");
+		SurgeryFactory fact = get(treatcontroller.getTreatmentFactories(), SurgeryFactory.class);
+		fact.setDescription("Liver transplant ");
+		HospitalDate date = treatcontroller.addTreatment(diagnose, fact);
+		System.out.println("Liver transplant surgery scheduled at:" + date.toString());
+		
+	}
+	
+	private String joe() {
+		return "Joe";
+	}
+
+	private String greg() {
+		return "Greg";
 	}
 
 	private void runThibaultsTestsByJoe() throws Exception {
 		LoginController joe = getUser("Joe");
 		ConsultPatientFileController file = openPatientFile((Doctor) joe.getUserIN(), getThibault(), joe);
-		OrderMedicalTestController medTestC=new OrderMedicalTestController(joe, file);
+		OrderMedicalTestController medTestC = new OrderMedicalTestController(joe, file);
 		System.out.println("");
-		UltraSoundScanFactory fact = get(medTestC.getMedicalTestFactories(),UltraSoundScanFactory.class);
-		
+		UltraSoundScanFactory fact = get(medTestC.getMedicalTestFactories(), UltraSoundScanFactory.class);
+		fact.setFocus("stomach");
+		fact.setRecordImages(true);
+		fact.setRecordVid(true);
+		fact.setPatientFile(file.getPatientFile());
+		HospitalDate data = medTestC.addMedicaltest(fact);
+		System.out.println("Ultrasoundscan:");
+		System.out.println("Focus: stomach");
+		System.out.println("RecordImages:true");
+		System.out.println("RecordVid:true");
+		System.out.println("Scheduled at:" + data.toString());
+		XRayScanFactory xrayfact = get(medTestC.getMedicalTestFactories(), XRayScanFactory.class);
+		xrayfact.setBodyPart("Lower body");
+		xrayfact.setNumberOfNeededImages(3);
+		xrayfact.setZoomLevel(2.12f);
+		xrayfact.setPatientFile(file.getPatientFile());
+		data = medTestC.addMedicaltest(xrayfact);
+		System.out.println("Xray:");
+		System.out.println("Bodypart: lower body");
+		System.out.println("zoomlevel: 2.12");
+		System.out.println("number of images:3");
+		System.out.println("Scheduled at:" + data.toString());
 	}
 
 	private String getThibault() {
@@ -218,14 +340,14 @@ public class TestScenario
 
 	private User getStefaansTreatment() {
 		PatientFileManager pfoc = hospital.getPatientFileManager();
-		
-		for(PatientFile file:pfoc.getAllPatientFiles())
-			if(file.getPatientIN().getName().equals(stefaan()))
-				for(Diagnose diagnose:file.getAllDiagnosis())
-					for(Task<?extends Treatment> treatment:diagnose.getTreatments())
-						if(treatment.getDescription() instanceof Medication)
-							return get(treatment.getResources(),Nurse.class);
-							
+
+		for (PatientFile file : pfoc.getAllPatientFiles())
+			if (file.getPatientIN().getName().equals(stefaan()))
+				for (Diagnose diagnose : file.getAllDiagnosis())
+					for (Task<? extends Treatment> treatment : diagnose.getTreatments())
+						if (treatment.getDescription() instanceof Medication)
+							return get(treatment.getResources(), Nurse.class);
+
 		return null;
 	}
 
@@ -289,7 +411,7 @@ public class TestScenario
 		etrc.setResult(treatment, surgeryResultFac);
 		logoutUser(lc, null);
 	}
-	
+
 	private void letJenniferEnterDiagStef() throws Exception {
 		// disapprove cancer and create new diag
 		LoginController lc = loginUser(
@@ -306,9 +428,10 @@ public class TestScenario
 				getMedicationFactory(ptc, "Sleeping pills to relax", d, new SleepingTabletsType(), false));
 		logoutUser(lc, cpfc);
 	}
-	
+
 	private void letJonathanApproveDiagStef() throws Exception {
-		LoginController lc = loginUser(UserFilter.SpecificDoctorFilter(hospital.getUserManager().getAllUserINs(), "Jonathan"),
+		LoginController lc = loginUser(
+				UserFilter.SpecificDoctorFilter(hospital.getUserManager().getAllUserINs(), "Jonathan"),
 				hospital.getCampus("Campus 1"));
 		EvaluateDiagnoseController edc = new EvaluateDiagnoseController(lc);
 		for (DiagnoseIN diag : edc.getPendingDiagnosis()) {
@@ -316,25 +439,23 @@ public class TestScenario
 		}
 		logoutUser(lc, null);
 	}
-	
-	private void enterTreatResultForStefaansMedication(UserIN nurse,CampusIN campus) throws Exception {
-		LoginController lc = loginUser(nurse,(Location) campus);
+
+	private void enterTreatResultForStefaansMedication(UserIN nurse, CampusIN campus) throws Exception {
+		LoginController lc = loginUser(nurse, (Location) campus);
 		EnterTreatmentResultController etrc = new EnterTreatmentResultController(lc);
 
-		TaskIN treatment=null;
-		for(TaskIN task:etrc.getTreatments())
-			if(task.getDescription() instanceof Medication)
-				{
-					treatment=task;
-				}
+		TaskIN treatment = null;
+		for (TaskIN task : etrc.getTreatments())
+			if (task.getDescription() instanceof Medication) {
+				treatment = task;
+			}
 		MedicationResultFactory resultFac = (MedicationResultFactory) treatment.getResultFactory();
 		resultFac.setAbnormalReaction(false);
-		resultFac.setReport("Patient slept for a while and feels perfectly fine again. Is fit to work some more on his projects.");
+		resultFac
+				.setReport("Patient slept for a while and feels perfectly fine again. Is fit to work some more on his projects.");
 		etrc.setResult(treatment, resultFac);
 		logoutUser(lc, null);
 	}
-	
-
 
 	private void letJensDischargeStefAndDieter() throws Exception {
 		LoginController lc = loginUser(
@@ -344,32 +465,31 @@ public class TestScenario
 		cpfc.openPatientFile(PatientFileFilter(cpfc.getAllPatientFiles(), "Stefaan"));
 		DischargePatientController dpc = new DischargePatientController(lc, cpfc);
 		dpc.dischargePatient();
-		cpfc=new ConsultPatientFileController(lc);
+		cpfc = new ConsultPatientFileController(lc);
 		cpfc.openPatientFile(PatientFileFilter(cpfc.getAllPatientFiles(), "Dieter"));
 		dpc = new DischargePatientController(lc, cpfc);
 		dpc.dischargePatient();
 		logoutUser(lc, cpfc);
 	}
+
 	private void letJoyRegisterPatients() throws Exception {
-		Collection<String> newPatients = Arrays.asList("Peter","Paul","Petra","Pauline","Paula");
-		for(String patient:newPatients)
-			{
-				RegisterPatientController controller = new RegisterPatientController(getJoy());
-				controller.registerNewPatient(patient);
-				
-			}
-		
+		Collection<String> newPatients = Arrays.asList("Peter", "Paul", "Petra", "Pauline", "Paula");
+		for (String patient : newPatients) {
+			RegisterPatientController controller = new RegisterPatientController(getJoy());
+			controller.registerNewPatient(patient);
+
+		}
+
 	}
 
-	private LoginController getJoy()throws Exception {
+	private LoginController getJoy() throws Exception {
 		return getUser("Joy");
 	}
 
-	private LoginController getUser(String string)throws Exception {
+	private LoginController getUser(String string) throws Exception {
 		LoginController c = new LoginController(hospital);
-		for(UserIN user:c.getAllUsers())
-			if(user.getName().equals(string))
-			{
+		for (UserIN user : c.getAllUsers())
+			if (user.getName().equals(string)) {
 				c.logIn(user, campus1());
 				return c;
 			}
@@ -382,25 +502,25 @@ public class TestScenario
 		CheckinController controller = new CheckinController(getUser("Jenna"));
 		PatientFileIN thibault = getPatient("Thibault", controller);
 		controller.checkIn(thibault);
-		String doc ="Joe";
+		String doc = "Joe";
 		System.out.println("Thibault succesfully checked in.");
 		CreateAppointmentController appointmentController = new CreateAppointmentController(getUser("Jenna"));
-		DoctorIN doctor	=selectDoctor(appointmentController.getAllDoctors(),doc);
-		HospitalDate date=	appointmentController.scheduleNewAppointment(doctor, thibault);
-		System.out.println("Appointment with doctor" + doc+" created at:"+date.toString());
-		
+		DoctorIN doctor = selectDoctor(appointmentController.getAllDoctors(), doc);
+		HospitalDate date = appointmentController.scheduleNewAppointment(doctor, thibault);
+		System.out.println("Appointment with doctor" + doc + " created at:" + date.toString());
+
 	}
 
 	private DoctorIN selectDoctor(Collection<DoctorIN> allDoctors, String string) {
-		for(DoctorIN d:allDoctors)
-			if(d.getName().equals(string))
+		for (DoctorIN d : allDoctors)
+			if (d.getName().equals(string))
 				return d;
 		return null;
 	}
 
 	private PatientFileIN getPatient(String string, CheckinController controller) {
-		for(PatientFileIN file:controller.getAllPatientFiles())
-			if(file.getPatientIN().getName().equals(string))
+		for (PatientFileIN file : controller.getAllPatientFiles())
+			if (file.getPatientIN().getName().equals(string))
 				return file;
 		return null;
 	}
@@ -479,35 +599,39 @@ public class TestScenario
 		throw new IllegalStateException("Apparently... no SurgeryFactory exists?");
 	}
 
-//	private UltraSoundScanFactory getUltraSoundScanFactory(OrderMedicalTestController omtc, String focus,
-//			boolean recVid, boolean recImg, PatientFile pf) {
-//		Collection<MedicalTestFactory> facs = omtc.getMedicalTestFactories();
-//		for (MedicalTestFactory curFac : facs) {
-//			if (curFac instanceof UltraSoundScanFactory) {
-//				((UltraSoundScanFactory) curFac).setFocus(focus);
-//				((UltraSoundScanFactory) curFac).setRecordImages(recImg);
-//				((UltraSoundScanFactory) curFac).setRecordVid(recVid);
-//				curFac.setPatientFile(pf);
-//				return (UltraSoundScanFactory) curFac;
-//			}
-//		}
-//		throw new IllegalStateException("Apparently... no UltraSoundScanFactory exists?");
-//	}
-//
-//	private XRayScanFactory getXRayScanFactory(OrderMedicalTestController omtc, String bodyPart, int number,
-//			float zoom, PatientFile pf) {
-//		Collection<MedicalTestFactory> facs = omtc.getMedicalTestFactories();
-//		for (MedicalTestFactory curFac : facs) {
-//			if (curFac instanceof XRayScanFactory) {
-//				((XRayScanFactory) curFac).setBodyPart(bodyPart);
-//				((XRayScanFactory) curFac).setNumberOfNeededImages(number);
-//				((XRayScanFactory) curFac).setZoomLevel(zoom);
-//				curFac.setPatientFile(pf);
-//				return (XRayScanFactory) curFac;
-//			}
-//		}
-//		throw new IllegalStateException("Apparently... no XRayScanFactory exists?");
-//	}
+	// private UltraSoundScanFactory
+	// getUltraSoundScanFactory(OrderMedicalTestController omtc, String focus,
+	// boolean recVid, boolean recImg, PatientFile pf) {
+	// Collection<MedicalTestFactory> facs = omtc.getMedicalTestFactories();
+	// for (MedicalTestFactory curFac : facs) {
+	// if (curFac instanceof UltraSoundScanFactory) {
+	// ((UltraSoundScanFactory) curFac).setFocus(focus);
+	// ((UltraSoundScanFactory) curFac).setRecordImages(recImg);
+	// ((UltraSoundScanFactory) curFac).setRecordVid(recVid);
+	// curFac.setPatientFile(pf);
+	// return (UltraSoundScanFactory) curFac;
+	// }
+	// }
+	// throw new
+	// IllegalStateException("Apparently... no UltraSoundScanFactory exists?");
+	// }
+	//
+	// private XRayScanFactory getXRayScanFactory(OrderMedicalTestController
+	// omtc, String bodyPart, int number,
+	// float zoom, PatientFile pf) {
+	// Collection<MedicalTestFactory> facs = omtc.getMedicalTestFactories();
+	// for (MedicalTestFactory curFac : facs) {
+	// if (curFac instanceof XRayScanFactory) {
+	// ((XRayScanFactory) curFac).setBodyPart(bodyPart);
+	// ((XRayScanFactory) curFac).setNumberOfNeededImages(number);
+	// ((XRayScanFactory) curFac).setZoomLevel(zoom);
+	// curFac.setPatientFile(pf);
+	// return (XRayScanFactory) curFac;
+	// }
+	// }
+	// throw new
+	// IllegalStateException("Apparently... no XRayScanFactory exists?");
+	// }
 
 	private void advanceTime(long amountOfTimeToAdvance) throws Exception {
 		LoginController lc = loginUser(
@@ -523,11 +647,11 @@ public class TestScenario
 				return u;
 		return null;
 	}
-	<T> T get(Collection<? extends Object> coll,Class<T> clazz)
-	{
-		for(Object t:coll)
-			if(t.getClass().equals(clazz))
-				return (T)t;
+
+	<T> T get(Collection<? extends Object> coll, Class<T> clazz) {
+		for (Object t : coll)
+			if (t.getClass().equals(clazz))
+				return (T) t;
 		return null;
 	}
 }
