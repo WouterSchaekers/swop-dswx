@@ -19,4 +19,8 @@ public class MealType extends WarehouseItemType
 	public long getTimeToLive() {
 		return HospitalDate.ONE_DAY * 7;
 	}
+	@Override
+	public String name() {
+		return "Meal";
+	}
 }

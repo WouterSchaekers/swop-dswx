@@ -86,6 +86,7 @@ public class FillStockInWarehouseController extends NeedsLoginController
 	 * @return All warehouse items in the warehouse of the warehouse admin that
 	 *         has created this controller.
 	 */
+	@controllers.PUBLICAPI
 	public Collection<WarehouseItem> getAllWarehouseItems() {
 		return new LinkedList<WarehouseItem>(campus.getWarehouse().getAllItems());
 	}
@@ -96,6 +97,7 @@ public class FillStockInWarehouseController extends NeedsLoginController
 	 * 
 	 * @return All warehouse item types.
 	 */
+	@controllers.PUBLICAPI
 	public Collection<WarehouseItemType> getAllWarehouseItemTypes() {
 		return campus.getWarehouse().getAvailableItemTypes();
 	}
@@ -106,6 +108,11 @@ public class FillStockInWarehouseController extends NeedsLoginController
 	@Override
 	boolean validUser(User u) {
 		return u instanceof WarehouseAdmin;
+	}
+
+	public void addStockOrder(WarehouseItemType selected, int i) {
+		this.campus.getStockprovider().add(new StockOrder<WarehouseItemType>(campus.getWarehouse(), selected, hospital.getTimeKeeper().getSystemTime(), i));
+		
 	}
 
 }

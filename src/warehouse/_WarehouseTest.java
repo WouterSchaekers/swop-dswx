@@ -112,6 +112,12 @@ public class _WarehouseTest
 			public long getTimeToLive() {
 				// TODO Auto-generated method stub
 				return 0;
+			}
+
+			@Override
+			public String name() {
+				// TODO Auto-generated method stub
+				return null;
 			}};
 		
 		assertEquals(-1, warehouse.getMaxCount(unknown));
