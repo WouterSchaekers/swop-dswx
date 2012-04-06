@@ -90,7 +90,6 @@ public class XRayScan extends MedicalTest
 		requirements.add(new SpecificRequirement(this.patientFile_.getPatient()));
 		requirements.add(new RequirementType<XRayScanner>(XRayScanner.class, 1));
 		requirements.add(new RequirementType<Nurse>(Nurse.class, 1));
-		requirements.add(new XRayCondition(patientFile_));
 		return requirements;
 	}
 
