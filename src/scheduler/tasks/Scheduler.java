@@ -51,7 +51,6 @@ public class Scheduler
 		HospitalDate startDate = HospitalDate.getMaximum(curDate, minDate);
 		HospitalDate stopDate = new HospitalDate(HospitalDate.END_OF_TIME);
 		TaskData scheduledData = schedule(reqs, resPool, locs, desc, startDate, stopDate, taskData);
-		System.out.println(scheduledData.getTimeSlot());
 		if (!isBackToBack(scheduledData)) {
 			scheduledData = scheduleAtFullHour(reqs, resPool, locs, desc, startDate, stopDate, taskData, scheduledData);
 		}
@@ -89,6 +88,7 @@ public class Scheduler
 			CanNeverBeScheduledException {
 		TaskData bestTaskData = null;
 		boolean canEverBeScheduled = false;
+		boolean notEnoughNonCrucialResources = true;
 		for (Location loc : locs) {
 			boolean enoughNonCrucial = false;
 			Collection<Requirement> metReqs = getMetReqs(reqs, startDate, loc);
@@ -97,8 +97,11 @@ public class Scheduler
 				enoughNonCrucial = true;
 			Map<LinkedList<Schedulable>, Integer> avRes = getAvRes(resPool, unmetReqs);
 			avRes = removeDoubleBookings(avRes);
-			if (canEverBeScheduledOnThisLocation(avRes, loc, startDate))
+			if (canEverBeScheduledOnThisLocation(avRes, loc, startDate)) {
 				canEverBeScheduled = true;
+				if (enoughNonCrucial)
+					notEnoughNonCrucialResources = false;
+			}
 			if (enoughNonCrucial && canEverBeScheduled) {
 				TaskData posTaskData = null;
 				try {
@@ -113,8 +116,11 @@ public class Scheduler
 		if (!canEverBeScheduled)
 			throw new CanNeverBeScheduledException(
 					"This task can never be scheduled in this hospital with the current amount of schedulables.");
+		if (notEnoughNonCrucialResources)
+			throw new InvalidSchedulingRequestException("There are not enough non crucial resources available.");
 		if (bestTaskData == null)
-			throw new InvalidSchedulingRequestException("The task cannot be scheduled.");
+			throw new InvalidSchedulingRequestException(
+					"The task cannot be scheduled. One of the resources has no more TimeSlots left.");
 		return bestTaskData;
 	}
 

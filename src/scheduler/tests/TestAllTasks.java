@@ -160,7 +160,7 @@ public class TestAllTasks
 		diagnose.approveBy(doctorJonathan);
 		assertFalse(surgery.isScheduled());
 		location.getWarehouse().add(type, HospitalDate.END_OF_TIME);
-//		assertTrue(surgery.isScheduled());
+		assertTrue(surgery.isScheduled());
 //		System.out.println(surgery.getTimeSlot());
 	}
 
