@@ -18,7 +18,7 @@ public class PrescribeTreatment extends UseCase
 {
 
 	private PrescribeTreatmentController controller;
-
+	DiagnoseIN selectedDiagnose;
 	public PrescribeTreatment(UIData data) throws Exception {
 		super(data, 123);
 		controller = new PrescribeTreatmentController(data.getLoginController(),
@@ -31,7 +31,7 @@ public class PrescribeTreatment extends UseCase
 
 		print("Prescribe treatment for patient"
 				+ data.getConsultPatientFileopenController().getPatientFile().getPatientIN().getName());
-		DiagnoseIN selectedDiagnose;
+		
 		Collection<DiagnoseIN> diags = controller.getAllPossibleDiagnosis();
 		Selector<DiagnoseIN> diagnoseSelector = new Selector<DiagnoseIN>(diags, Selector.diagnose);
 		selectedDiagnose = diagnoseSelector.get();
@@ -99,7 +99,12 @@ public class PrescribeTreatment extends UseCase
 		@Override
 		public UseCase execute() {
 			printLn("Creating medication:");
-			throw new Error("Not yet imlemented");
+			print("Description:");
+			factory.setDescription(read());
+			factory.setDiagnose(selectedDiagnose);
+			factory.setMedicationType(medicationType)
+			factory.setMedicationType(medicationType)
+			return null;
 		}
 
 		@Override

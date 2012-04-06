@@ -5,6 +5,7 @@ import system.Location;
 /**
  * A MachineBuilder is a builder, used to create a Machine.
  */
+@machine.MachineAPI
 public abstract class MachineBuilder
 {
 	protected Integer serial_;
