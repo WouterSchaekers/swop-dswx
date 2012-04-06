@@ -11,10 +11,12 @@ import medicaltest.BloodAnalysisFactory;
 import medicaltest.MedicalTestFactory;
 import medicaltest.UltraSoundScanFactory;
 import medicaltest.XRayScanFactory;
+import org.junit.Test;
 import patient.Diagnose;
 import patient.PatientFile;
 import patient.PatientFileManager;
 import scheduler.HospitalDate;
+import scheduler.tasks.Task;
 import scheduler.tasks.TaskManager;
 import system.Campus;
 import system.Hospital;
@@ -23,6 +25,7 @@ import system.StandardHospitalBuilder;
 import treatment.CastFactory;
 import treatment.MedicationFactory;
 import treatment.SurgeryFactory;
+import treatment.Treatment;
 import treatment.TreatmentFactory;
 import ui.UserFilter;
 import users.Doctor;
@@ -41,6 +44,7 @@ import exceptions.InvalidLocationException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidPatientFileException;
 import exceptions.InvalidSerialException;
+import exceptions.InvalidSystemTimeException;
 import exceptions.UserAlreadyExistsException;
 
 public class TestingScenario
@@ -51,16 +55,13 @@ public class TestingScenario
 	private TaskManager taskMan;
 	private Campus campus1;
 	private Campus campus2;
-	private Collection<MedicalTestFactory> medicalTestFactories = new LinkedList<MedicalTestFactory>(
-			Arrays.asList(new MedicalTestFactory[] { new BloodAnalysisFactory(), new XRayScanFactory(),
-					new UltraSoundScanFactory() }));
-	private Collection<TreatmentFactory> treatmentFactories = new LinkedList<TreatmentFactory>(
-			Arrays.asList(new TreatmentFactory[] { new MedicationFactory(), new SurgeryFactory(), new CastFactory() }));
 
-	public TestingScenario() throws InvalidNameException, InvalidPatientFileException, DischargePatientException,
+	@Test
+	public void testScenario() throws InvalidNameException, InvalidPatientFileException, DischargePatientException,
 			UserAlreadyExistsException, InvalidLocationException, IllegalAccessException, InvalidDiagnoseException,
 			InvalidDoctorException, InvalidComplaintsException, CanNeverBeScheduledException,
-			FactoryInstantiationException, InvalidSerialException {
+			FactoryInstantiationException, InvalidSerialException, InvalidSystemTimeException {
+		System.out.print("Setting up the hospital... ");
 		// build the hospital
 		StandardHospitalBuilder shb = new StandardHospitalBuilder();
 		hospital = shb.build();
@@ -74,9 +75,18 @@ public class TestingScenario
 		createMachines();
 		createUsers();
 		initialisePatientFiles();
+		System.out.println("Initialisation of hospital state was successful!");
+		System.out.println("-------------------------------------------------\n");
+		System.out.println("Starting the testing scenario...");
 	}
 
 	private void addFactories() {
+		Collection<MedicalTestFactory> medicalTestFactories = new LinkedList<MedicalTestFactory>(
+				Arrays.asList(new MedicalTestFactory[] { new BloodAnalysisFactory(), new XRayScanFactory(),
+						new UltraSoundScanFactory() }));
+		Collection<TreatmentFactory> treatmentFactories = new LinkedList<TreatmentFactory>(
+				Arrays.asList(new TreatmentFactory[] { new MedicationFactory(), new SurgeryFactory(), new CastFactory() }));
+
 		for (MedicalTestFactory mtf : medicalTestFactories)
 			hospital.addMedicalTestFactory(mtf);
 		for (TreatmentFactory tf : treatmentFactories)
@@ -188,7 +198,8 @@ public class TestingScenario
 
 	private void initialisePatientFiles() throws InvalidNameException, InvalidPatientFileException,
 			DischargePatientException, IllegalAccessException, InvalidDiagnoseException, InvalidDoctorException,
-			InvalidComplaintsException, CanNeverBeScheduledException, FactoryInstantiationException {
+			InvalidComplaintsException, CanNeverBeScheduledException, FactoryInstantiationException,
+			InvalidSystemTimeException {
 		createPatientFiles();
 		fillFilesWithData();
 	}
@@ -202,63 +213,84 @@ public class TestingScenario
 
 	private void fillFilesWithData() throws InvalidPatientFileException, DischargePatientException,
 			IllegalAccessException, InvalidDiagnoseException, InvalidDoctorException, InvalidComplaintsException,
-			CanNeverBeScheduledException, FactoryInstantiationException {
+			CanNeverBeScheduledException, FactoryInstantiationException, InvalidSystemTimeException {
 		setThibaultHistory(getPatientFileFrom("Thibault"));
 		setStefHistory(getPatientFileFrom("Stefaan"));
 		setWouterHistory(getPatientFileFrom("Wouter"));
 		setDieterHistory(getPatientFileFrom("Dieter"));
+		
 		// now we advance the time some so we can enter the results next.
 		advanceTime(new HospitalDate(now().getTimeSinceStart() + HospitalDate.ONE_DAY * 7));
+		
+		Collection<Task<?>> testsThibault = getPatientFileFrom("Thibault").getAllMedicalTests();
+		Collection<Task<? extends Treatment>> treatsThibault = getPatientFileFrom("Thibault").getAllDiagnosis().iterator().next().getTreatments();
+		
+		for(Task<? extends Treatment> task : treatsThibault) {
+			System.out.println("\nTM Contains treat?" + this.taskMan.getAllTasks().contains(task));
+			System.out.println("Treatment Queued?" + task.isQueued());
+			System.out.println("Treatment Scheduled?" + task.isScheduled());
+			System.out.println("Treatment Finished?" + task.isFinished());
+			System.out.println("Date = " + task.getDate());
+			
+			System.out.println();
+		}
+		
+		this.pfMan.checkOut(getPatientFileFrom("Thibault"));
 	}
-	
-	private void setStefHistory(PatientFile stef) throws InvalidPatientFileException, CanNeverBeScheduledException, FactoryInstantiationException, IllegalAccessException, InvalidDiagnoseException, InvalidDoctorException, InvalidComplaintsException {
+
+	private void setStefHistory(PatientFile stef) throws InvalidPatientFileException, CanNeverBeScheduledException,
+			FactoryInstantiationException, IllegalAccessException, InvalidDiagnoseException, InvalidDoctorException,
+			InvalidComplaintsException {
 		this.pfMan.checkIn(stef);
 		addMedicalTestTo(getBloodFactory("Cancerogen chemicals", 3, stef));
 		Doctor jonathan = (Doctor) (UserFilter.SpecificDoctorFilter(userMan.getAllUserINs(), "Jonathan"));
 		Doctor jennifer = (Doctor) (UserFilter.SpecificDoctorFilter(userMan.getAllUserINs(), "Jennifer"));
-		Diagnose diag = stef.createDiagnose("Patient is very sleepy", "Cancer",
-				jonathan, jennifer);
+		Diagnose diag = stef.createDiagnose("Patient is very sleepy", "Cancer", jonathan, jennifer);
 		addTreatmentTo(getSurgeryFactory("Chemotherapy", diag));
 	}
-	
+
 	private void setWouterHistory(PatientFile wouter) throws InvalidPatientFileException {
 		this.pfMan.checkIn(wouter);
 	}
-	
-	private void setDieterHistory(PatientFile dieter) throws InvalidPatientFileException, CanNeverBeScheduledException, FactoryInstantiationException, IllegalAccessException, InvalidDiagnoseException, InvalidDoctorException, InvalidComplaintsException {
+
+	private void setDieterHistory(PatientFile dieter) throws InvalidPatientFileException, CanNeverBeScheduledException,
+			FactoryInstantiationException, IllegalAccessException, InvalidDiagnoseException, InvalidDoctorException,
+			InvalidComplaintsException {
 		this.pfMan.checkIn(dieter);
 		addMedicalTestTo(getBloodFactory("Virusses, bacteria, anything abnormal", 10, dieter));
 		addMedicalTestTo(getXRayScanFactory("head", 10, (float) 2.9, dieter));
-		
+
 		Doctor joanne = (Doctor) (UserFilter.SpecificDoctorFilter(userMan.getAllUserINs(), "Joanne"));
 		dieter.createDiagnose("Feels sick ALL the time", "Hypochondria", joanne, null);
 	}
-	
-	private void setThibaultHistory(PatientFile thibault) throws CanNeverBeScheduledException, FactoryInstantiationException, DischargePatientException, InvalidPatientFileException, IllegalAccessException, InvalidDiagnoseException, InvalidDoctorException, InvalidComplaintsException {
+
+	private void setThibaultHistory(PatientFile thibault) throws CanNeverBeScheduledException,
+			FactoryInstantiationException, DischargePatientException, InvalidPatientFileException,
+			IllegalAccessException, InvalidDiagnoseException, InvalidDoctorException, InvalidComplaintsException {
 		this.pfMan.checkIn(thibault);
 		addMedicalTestTo(getBloodFactory("Virusses", 5, thibault));
-		System.out.println("Medical tests for thibault: " + thibault.getAllMedicalTests());
+
 		addMedicalTestTo(getUltraSoundScanFactory("Lungs", true, true, thibault));
 		addMedicalTestTo(getXRayScanFactory("Virusses", 5, (float) 1.5, thibault));
-		
+
 		Doctor docPneumo = (Doctor) (UserFilter.SpecificDoctorFilter(userMan.getAllUserINs(), "Jelle"));
 		Diagnose diag = thibault.createDiagnose("Coughing, difficutly breathing", "A fatal variant of pneumonia",
 				docPneumo, null);
 		addTreatmentTo(getSurgeryFactory("Lung transplant", diag));
-		this.pfMan.checkOut(thibault);
 	}
 
-	private void advanceTime(HospitalDate newDate) {
-		
+	private void advanceTime(HospitalDate newDate) throws InvalidSystemTimeException {
+		hospital.getTimeKeeper().setSystemTime(newDate);
 	}
-	
+
 	private void addMedicalTestTo(MedicalTestFactory factory) throws CanNeverBeScheduledException,
 			FactoryInstantiationException {
 		this.taskMan.add(factory.create());
 	}
-	
+
 	@SuppressWarnings("deprecation")
-	private void addTreatmentTo(TreatmentFactory factory) throws CanNeverBeScheduledException, FactoryInstantiationException {
+	private void addTreatmentTo(TreatmentFactory factory) throws CanNeverBeScheduledException,
+			FactoryInstantiationException {
 		this.taskMan.add(factory.create());
 	}
 
@@ -312,15 +344,15 @@ public class TestingScenario
 		}
 		throw new IllegalStateException("Apparently... no XRayScanFactory exists?");
 	}
-	
+
 	private SurgeryFactory getSurgeryFactory(String description, Diagnose diag) {
 		Collection<TreatmentFactory> facs = hospital.getTreatments();
-		for(TreatmentFactory curFac : facs) {
-			if(curFac instanceof SurgeryFactory) {
+		for (TreatmentFactory curFac : facs) {
+			if (curFac instanceof SurgeryFactory) {
 				curFac.setDiagnose(diag);
 				curFac.setCreationDate(now());
 				((SurgeryFactory) curFac).setDescription(description);
-				return (SurgeryFactory)curFac;
+				return (SurgeryFactory) curFac;
 			}
 		}
 		throw new IllegalStateException("Apparently there are no SurgeryFactories?");
@@ -328,14 +360,5 @@ public class TestingScenario
 
 	private HospitalDate now() {
 		return hospital.getTimeKeeper().getSystemTime();
-	}
-
-	public static void main(String[] args) {
-		try {
-			new TestingScenario();
-		} catch (Exception e) {
-			throw new Error(e);
-		}
-
 	}
 }
