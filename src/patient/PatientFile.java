@@ -75,20 +75,16 @@ public class PatientFile implements PatientFileIN
 	private boolean canBeDischarged() {
 		for (Diagnose d : diagnosis) {
 			if (d.isMarkedForSecondOp()) {
-				System.out.println("sec op");
 				return false;
 			}
-				
-				
+
 			for (Task<? extends Treatment> t : d.getTreatments())
-				if (!t.isFinished()){ 
-					System.out.println("treats");
+				if (!t.isFinished()) {
 					return false;
 				}
 		}
 		for (Task<? extends TaskDescription> m : medicaltests) {
-			if (!m.isFinished()){
-				System.out.println("pending tests!");
+			if (!m.isFinished()) {
 				return false;
 			}
 		}
@@ -120,7 +116,7 @@ public class PatientFile implements PatientFileIN
 	 * @throws InvalidDoctorException
 	 * @see Diagnose
 	 * @throws InvalidComplaintsException
-	 * @throws IllegalAccessException 
+	 * @throws IllegalAccessException
 	 */
 	public Diagnose createDiagnose(String complaints, String diag, Doctor user, Doctor secOp)
 			throws InvalidDiagnoseException, InvalidDoctorException, InvalidComplaintsException, IllegalAccessException {
@@ -133,13 +129,12 @@ public class PatientFile implements PatientFileIN
 		this.addDiagnose(diagnose);
 		if (secOp != null) {
 			diagnose.markForSecOp(secOp);
-		}
-		else{
+		} else {
 			diagnose.approveSelf();
 		}
 		return diagnose;
 	}
-	
+
 	/**
 	 * This function discharges this patient.
 	 * 
@@ -195,7 +190,7 @@ public class PatientFile implements PatientFileIN
 	public Collection<DiagnoseIN> getPendingDiagnosisForIN(DoctorIN d) {
 		Collection<DiagnoseIN> rv = new LinkedList<DiagnoseIN>();
 		for (Diagnose diag : this.diagnosis)
-			if (diag.isMarkedForSecOpBy((Doctor)d) && !diag.isApproved() )
+			if (diag.isMarkedForSecOpBy((Doctor) d) && !diag.isApproved())
 				rv.add((DiagnoseIN) diag);
 		return rv;
 	}
