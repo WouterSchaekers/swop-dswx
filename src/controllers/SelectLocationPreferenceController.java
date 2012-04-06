@@ -10,6 +10,7 @@ import users.User;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidPreferenceException;
+import exceptions.InvalidTimeSlotException;
 
 /**
  * Use this controller to select a locational preferences.
@@ -78,8 +79,12 @@ public class SelectLocationPreferenceController extends NeedsLoginController
 	 *             If the given index is invalid.
 	 */
 	public void setNewPreference(int index) throws InvalidPreferenceException {
-		((Doctor) loginController_.getUser()).changePreferenceToSelected(new LinkedList<Location>(Arrays
-				.asList(possiblePreferences.get(index))));
+		try {
+			((Doctor) loginController_.getUser()).changePreferenceToSelected(new LinkedList<Location>(Arrays
+					.asList(possiblePreferences.get(index))));
+		} catch (InvalidTimeSlotException e) {
+			throw new Error(e);
+		}
 	}
 
 	/**

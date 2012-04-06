@@ -1,6 +1,7 @@
 package users;
 
 import java.util.LinkedList;
+import exceptions.InvalidTimeSlotException;
 import scheduler.HospitalDate;
 import scheduler.LocationTimeSlot;
 import scheduler.LocationTimeTable;
@@ -16,10 +17,13 @@ class SelectedPreferenceState extends PreferenceState
 
 	/**
 	 * Constructor without tasks.
+	 * 
+	 * @throws InvalidTimeSlotException
+	 *             The given TimeSlots are not valid.
 	 */
-	public SelectedPreferenceState(LinkedList<LocationTimeSlot> preferences) {
+	public SelectedPreferenceState(LinkedList<LocationTimeSlot> preferences) throws InvalidTimeSlotException {
 		this.pref_ = new LocationTimeTable(preferences);
-		this.tasks_ = new LocationTimeTable(new LinkedList<LocationTimeSlot>());
+		this.tasks_ = new LocationTimeTable();
 	}
 
 	/**
@@ -30,8 +34,11 @@ class SelectedPreferenceState extends PreferenceState
 	 * @param slots
 	 *            Slots carried over by a change of state: from back&forth to
 	 *            this
+	 * @throws InvalidTimeSlotException
+	 *             The given TimeSlots are not valid.
 	 */
-	public SelectedPreferenceState(LinkedList<LocationTimeSlot> preferences, LinkedList<LocationTimeSlot> slots) {
+	public SelectedPreferenceState(LinkedList<LocationTimeSlot> preferences, LinkedList<LocationTimeSlot> slots)
+			throws InvalidTimeSlotException {
 		if (preferences.size() != 2)
 			throw new IllegalArgumentException("Invalid preference!");
 		this.pref_ = new LocationTimeTable(new LinkedList<LocationTimeSlot>(preferences));
@@ -59,7 +66,7 @@ class SelectedPreferenceState extends PreferenceState
 	@Override
 	public LinkedList<Location> getCurrentPreference() {
 		LinkedList<Location> rv = new LinkedList<Location>();
-		for(LocationTimeSlot tsl : pref_.getSlots())
+		for (LocationTimeSlot tsl : pref_.getSlots())
 			rv.add(tsl.getLocation());
 		return rv;
 	}

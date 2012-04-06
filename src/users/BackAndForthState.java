@@ -1,6 +1,7 @@
 package users;
 
 import java.util.LinkedList;
+import exceptions.InvalidTimeSlotException;
 import scheduler.HospitalDate;
 import scheduler.LocationTimeSlot;
 import scheduler.LocationTimeTable;
@@ -9,22 +10,25 @@ import system.Location;
 class BackAndForthState extends PreferenceState
 {
 	LocationTimeTable locationTimeTablePreference_;
-	
+
 	/**
 	 * Initialise a new BackAndForthState without any Tasks.
 	 */
 	public BackAndForthState() {
-		this.locationTimeTablePreference_ = new LocationTimeTable(new LinkedList<LocationTimeSlot>());
+		this.locationTimeTablePreference_ = new LocationTimeTable();
 	}
-	
+
 	/**
 	 * Initialise a new BackAndForthState with a set of already created slots.
+	 * 
 	 * @param tasks
+	 * @throws InvalidTimeSlotException
+	 *             The given TimeSlots are not valid.
 	 */
-	public BackAndForthState(LinkedList<LocationTimeSlot> tasks) {
+	public BackAndForthState(LinkedList<LocationTimeSlot> tasks) throws InvalidTimeSlotException {
 		this.locationTimeTablePreference_ = new LocationTimeTable(tasks);
 	}
-	
+
 	@Override
 	public Location getLocationAt(HospitalDate date) {
 		return this.locationTimeTablePreference_.getLocationAt(date);

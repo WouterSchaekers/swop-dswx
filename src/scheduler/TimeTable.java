@@ -11,12 +11,12 @@ import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidTimeSlotException;
 
 /**
- * A class consisting of timeslots that always have a start- and end moment. The
- * slots stored here represent timeslots from real life.
+ * A class consisting of timeslots that always have a start- and end moment.
  */
 public class TimeTable
 {
 	private LinkedList<TimeSlot> timeSlots_;
+	
 	/**
 	 * This will allow us to keep the TimeSlots chronologically sorted.
 	 */
@@ -41,7 +41,7 @@ public class TimeTable
 	 *             The given TimeSlots are not valid.
 	 */
 	public TimeTable(LinkedList<TimeSlot> timeSlots) throws InvalidTimeSlotException {
-		if (!TimeTable.isValidTimeSlots(timeSlots))
+		if (!isValidTimeSlots(timeSlots))
 			throw new InvalidTimeSlotException("TimeTable initialized with nullpointer.");
 		this.timeSlots_ = timeSlots;
 		this.eliminateOverlap();
@@ -448,7 +448,7 @@ public class TimeTable
 	 *            the given collection of timeslots
 	 * @return true if all timeslots are valid
 	 */
-	public static boolean isValidTimeSlots(LinkedList<TimeSlot> timeSlots) {
+	public boolean isValidTimeSlots(LinkedList<TimeSlot> timeSlots) {
 		if (timeSlots == null)
 			return false;
 		return true;

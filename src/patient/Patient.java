@@ -39,7 +39,7 @@ public class Patient implements Schedulable, PatientIN
 			throw new InvalidNameException("Invalid patient name given to Patient constructor!");
 		this.name = name;
 		this.timeTable_ = new TimeTable();
-		this.locationTimeTable_ = new LocationTimeTable(new LinkedList<LocationTimeSlot>());
+		this.locationTimeTable_ = new LocationTimeTable();
 	}
 
 	@Override
