@@ -43,6 +43,8 @@ public class Nurse extends SchedulableUser implements NurseIN
 	@Override
 	public TimeSlot getFirstFreeSlotBetween(Location location, HospitalDate startDate, HospitalDate stopDate,
 			long duration) throws InvalidSchedulingRequestException {
+		if(location != this.location_)
+			throw new InvalidSchedulingRequestException("This nurse can never be scheduled on this Location.");
 		HospitalDate tmpStartWorkingHour = new HospitalDate(1, 1, 1, Nurse.STARTHOUR, 0, 0);
 		HospitalDate tmpStopWorkingHour = new HospitalDate(1, 1, 1, Nurse.STOPHOUR, 0, 0);
 		HospitalDate tmpStartDate = this.createDummyDate(startDate);

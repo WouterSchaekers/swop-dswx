@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import scheduler.HospitalDate;
 import scheduler.LocationTimeSlot;
 import scheduler.LocationTimeTable;
+import scheduler.TimeSlot;
 import system.Location;
 import exceptions.InvalidTimeSlotException;
 
@@ -48,5 +49,4 @@ class BackAndForthState extends PreferenceState
 	public LinkedList<Location> getCurrentPreference() {
 		return null;
 	}
-
 }

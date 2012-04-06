@@ -75,19 +75,16 @@ public class PatientFile implements PatientFileIN
 	private boolean canBeDischarged() {
 		for (Diagnose d : diagnosis) {
 			if (d.isMarkedForSecondOp()) {
-				System.out.println("\nmarked for second opinion diag = " + d.getDiagnoseIN());
 				return false;
 			}
 
 			for (Task<? extends Treatment> t : d.getTreatments())
 				if (!t.isFinished()) {
-					System.out.println("treats");
 					return false;
 				}
 		}
 		for (Task<? extends TaskDescription> m : medicaltests) {
 			if (!m.isFinished()) {
-				System.out.println("tests");
 				return false;
 			}
 		}
