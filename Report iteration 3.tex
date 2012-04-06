@@ -159,10 +159,29 @@ A Description is an abstract class that \textit{describes} about a possible task
 \end{itemize}
 All these Requirements have the same interface, and thus the same methods. One of the methods is \textit{isCrucial()}. A Requirement is crucial if the Requirement needs a Machine or a SchedulableUser. This Requirement can only be met when the admin adds Machines or SchedulableUsers to the Hospital. If this Requirement is not met, the Task can never be scheduled in this Hospital with the current resources. If there are not enough resources available in the hospital to forfill this Requirement, the Task will never be able to be Scheduled and will be deleted from the system.
 \subsection{Scheduler and TaskManager}
-Due to security reasons, it is impossible to create Tasks. 
+Due to security reasons, it is impossible to create Tasks. A user can only make Descriptions. If a Description is made, the user is obliged to add this Description to the TaskManager. The TaskManager will make a Task out of it and tries to schedule it immediately after that. The scheduling happens with a scheduling algorithm in the Scheduler class. It will try to schedule this task. It is possible that the Scheduler is not able to schedule the Task. In that case, the Scheduler will throw an exception. There are two types of exceptions. Depending on the sort of the exception, the TaskManager will decide whether it will store this Task in a queue or will throw it away.\\
+During this process, the description will be initialised. During this initialisation, the DiagnoseCondition will start observing the Diagnose, in case the state of the Diagnose would ever change. The TaskManager will aslo has to observe the Task, so the Diagnose will notify the TaskManager indirectly.\\
+If the Scheduler is able to schedule the Task, it will schedule all Schedulables and collect all the WarehouseItems. The state of the Task will be changed.
 \subsection{Schedulable and Requirable}
+Schedulables are Objects that can be scheduled. They have a TimeTable.\\*
+Requirables are Objects that are needed to forfill a Requirement. This is in fact just an empty interface to generalize all the Objects that are usefull for this.
 \subsection{LocationTimeTable and TimeTable}
+A TimeTable is a class that represents the individual TimeTable that each Schedulable has. It very much resembles a real life timetable in which one can keep track of one’s appointments and todos. A TimeTable consists of a set of TimeSlots. Each TimeSlot in the TimeTable represents an interval in time during which the TimeTable in question is marked as being “occupied”. A couple of methods in TimeTable that are worth mentioning:
+\begin{itemize}
+\item{invert() : TimeTable}
+\item{getUnion(TimeTable) : TimeTable}
+\item{getIntersect(TimeTable) : TimeTable}
+\item{eliminateOverlap() : void}
+\end{itemize}
+Invert() inverts the TimeTable. This means: busy slots become free slots and the other way around. The result of this method is a new TimeTable that is the inverted one of this TimeTable. Evidently the inverted TimeTable of the inverted TimeTable of an original TimeTable, is the original TimeTable again. This method can be very useful to determine all free slots in a  TimeTable. 
+\\*getUnion() gets the union of two TimeTables. The union is defined analogous to the union of two collections in mathematics: it’s a new TimeTable that is marked as “busy” everywhere where either one or both of the original TimeTables is “busy”.
+\\*getIntersect() gets the intersection of two TimeTables. Like getUnion(), getIntersect() is defined very much like in mathematics: the intersection of two TimeTables is a new TimeTable that is marked as “busy” where both of the original TimeTables are “busy”.
+\\*eliminateOverlap() is a method that basically merges timeslots that overlap. For example: if a TimeTable contains a slot from 5AM to 8AM and another one from 7AM to 9AM, eliminateOverlap() will result the two original timeslots being reduced to only one: from 5AM to 9AM.
+LocationTimeTables are exactly the same as TimeTables. The only difference is the fact that the TimeSlots are have Locations attached to it. This is needed for Schedulables that don't have a fixed location.
+\subsubsection{HospitalDate}
+Just like in the previous iteration, we use our own HospitalDate class, since there is currently no good class in java to satisfy our needs.
 \subsection{Impact of having different locations}
+The different locations had a huge impact on the scheduling algorithm. Instead of just iteration over all the resources, the algorithm had to take into account that not all resources are available everywhere. This has been eleganlty solved, by just iterating over all the locations and then trying to schedule over there. The scheduler will chose the best timeslot amongst all the possiblities.
 \subsection{The location preference for doctors}
 \subsubsection{Preference states}
 \subsubsection{getLocationAt()-method}
