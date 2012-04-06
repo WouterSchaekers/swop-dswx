@@ -1,24 +1,33 @@
 package testscenarios;
 
+import java.util.Arrays;
 import java.util.Collection;
 import medicaltest.BloodAnalysisFactory;
 import medicaltest.MedicalTestFactory;
+import medicaltest.UltraSoundScanFactory;
 import patient.Diagnose;
 import patient.PatientFile;
+import patient.PatientFileManager;
 import result.BloodAnalysisResultFactory;
 import result.MedicationResultFactory;
 import result.SurgeryResultFactory;
 import scheduler.HospitalDate;
+import scheduler.tasks.Task;
 import system.Hospital;
 import system.Location;
+import treatment.Medication;
 import treatment.MedicationFactory;
 import treatment.SurgeryFactory;
+import treatment.Treatment;
 import treatment.TreatmentFactory;
 import ui.UserFilter;
 import users.Doctor;
+import users.Nurse;
+import users.User;
 import warehouse.item.MedicationType;
 import warehouse.item.SleepingTabletsType;
 import controllers.AdvanceTimeController;
+import controllers.CheckinController;
 import controllers.ConsultPatientFileController;
 import controllers.CreateAppointmentController;
 import controllers.DischargePatientController;
@@ -28,6 +37,7 @@ import controllers.EvaluateDiagnoseController;
 import controllers.LoginController;
 import controllers.OrderMedicalTestController;
 import controllers.PrescribeTreatmentController;
+import controllers.RegisterPatientController;
 import controllers.interfaces.CampusIN;
 import controllers.interfaces.DiagnoseIN;
 import controllers.interfaces.DoctorIN;
@@ -160,8 +170,9 @@ public class TestScenario
 		System.out.print("HospitalAdmin is trying to advance the hospital time by 30 hours... ");
 		advanceTime(HospitalDate.ONE_HOUR * 30);
 		System.out.println("Success! New system time is now " + hospital.getTimeKeeper().getSystemTime() + "\n");
-		System.out.print("Nurse Jeffrey will now attempt to enter the result for the treatment for Stefaan... ");
-		letJeffreyEnterStefTreatmentResult();
+		UserIN user = getStefaansTreatment();
+		System.out.print("Nurse "+user.getName()+" will now attempt to enter the result for the treatment for Stefaan... ");
+		enterTreatResultForStefaansMedication(user,campus1());
 		System.out.println("Success!\n");
 		System.out.print("Doctor Jens will now attempt to discharge Stefaan and Dieter... ");
 		letJensDischargeStefAndDieter();
@@ -179,9 +190,47 @@ public class TestScenario
 		System.out.println("Success! New system time is now " + hospital.getTimeKeeper().getSystemTime() + "\n");
 		System.out.println("\n Thibault has arrived on Campus 1.");
 		System.out.println("\t Complaints: stomach hurts, jaundice");
-		System.out.println("Nurse Jenna will now check in Thibault and create an appointment for him... ");
+		System.out.println("Nurse Jenna will now check in Thibault and create an appointment for him with doctor ");
 		letJennaRegisterThibault();
 		System.out.println("Success!\n");
+		System.out.println("Advance time 10 minutes.");
+		advanceTime(HospitalDate.ONE_HOUR*10);
+		System.out.println("Doctor joe visited thibault and decided to run some test.");
+		runThibaultsTestsByJoe();
+	}
+
+	private void runThibaultsTestsByJoe() throws Exception {
+		LoginController joe = getUser("Joe");
+		ConsultPatientFileController file = openPatientFile((Doctor) joe.getUserIN(), getThibault(), joe);
+		OrderMedicalTestController medTestC=new OrderMedicalTestController(joe, file);
+		System.out.println("");
+		UltraSoundScanFactory fact = get(medTestC.getMedicalTestFactories(),UltraSoundScanFactory.class);
+		
+	}
+
+	private String getThibault() {
+		return "Thibault";
+	}
+
+	private CampusIN campus1() {
+		return hospital.getCampus("Campus 1");
+	}
+
+	private User getStefaansTreatment() {
+		PatientFileManager pfoc = hospital.getPatientFileManager();
+		
+		for(PatientFile file:pfoc.getAllPatientFiles())
+			if(file.getPatientIN().getName().equals(stefaan()))
+				for(Diagnose diagnose:file.getAllDiagnosis())
+					for(Task<?extends Treatment> treatment:diagnose.getTreatments())
+						if(treatment.getDescription() instanceof Medication)
+							return get(treatment.getResources(),Nurse.class);
+							
+		return null;
+	}
+
+	private String stefaan() {
+		return "Stefaan";
 	}
 
 	private void letJenniferOrderStefTest() throws Exception {
@@ -268,20 +317,25 @@ public class TestScenario
 		logoutUser(lc, null);
 	}
 	
-	private void letJeffreyEnterStefTreatmentResult() throws Exception {
-		LoginController lc = loginUser(
-				UserFilter.SpecificNurseFilter(hospital.getUserManager().getAllUserINs(), "Jeffrey"),
-				hospital.getCampus("Campus 1"));
+	private void enterTreatResultForStefaansMedication(UserIN nurse,CampusIN campus) throws Exception {
+		LoginController lc = loginUser(nurse,(Location) campus);
 		EnterTreatmentResultController etrc = new EnterTreatmentResultController(lc);
-		TaskIN treatment = etrc.getTreatments().iterator().next();
+
+		TaskIN treatment=null;
+		for(TaskIN task:etrc.getTreatments())
+			if(task.getDescription() instanceof Medication)
+				{
+					treatment=task;
+				}
 		MedicationResultFactory resultFac = (MedicationResultFactory) treatment.getResultFactory();
 		resultFac.setAbnormalReaction(false);
-		resultFac
-				.setReport("Patient slept for a while and feels perfectly fine again. Is fit to work some more on his projects.");
+		resultFac.setReport("Patient slept for a while and feels perfectly fine again. Is fit to work some more on his projects.");
 		etrc.setResult(treatment, resultFac);
 		logoutUser(lc, null);
 	}
 	
+
+
 	private void letJensDischargeStefAndDieter() throws Exception {
 		LoginController lc = loginUser(
 				UserFilter.SpecificDoctorFilter(hospital.getUserManager().getAllUserINs(), "Jens"),
@@ -290,18 +344,65 @@ public class TestScenario
 		cpfc.openPatientFile(PatientFileFilter(cpfc.getAllPatientFiles(), "Stefaan"));
 		DischargePatientController dpc = new DischargePatientController(lc, cpfc);
 		dpc.dischargePatient();
+		cpfc=new ConsultPatientFileController(lc);
 		cpfc.openPatientFile(PatientFileFilter(cpfc.getAllPatientFiles(), "Dieter"));
 		dpc = new DischargePatientController(lc, cpfc);
 		dpc.dischargePatient();
 		logoutUser(lc, cpfc);
 	}
-
 	private void letJoyRegisterPatients() throws Exception {
-		//TODO
+		Collection<String> newPatients = Arrays.asList("Peter","Paul","Petra","Pauline","Paula");
+		for(String patient:newPatients)
+			{
+				RegisterPatientController controller = new RegisterPatientController(getJoy());
+				controller.registerNewPatient(patient);
+				
+			}
+		
+	}
+
+	private LoginController getJoy()throws Exception {
+		return getUser("Joy");
+	}
+
+	private LoginController getUser(String string)throws Exception {
+		LoginController c = new LoginController(hospital);
+		for(UserIN user:c.getAllUsers())
+			if(user.getName().equals(string))
+			{
+				c.logIn(user, campus1());
+				return c;
+			}
+		return null;
 	}
 
 	private void letJennaRegisterThibault() throws Exception {
-		//TODO
+		System.out.println("\t Complaints: stomach hurts, jaundice");
+		System.out.println("Nurse Jenna will now check in Thibault and create an appointment for him... ");
+		CheckinController controller = new CheckinController(getUser("Jenna"));
+		PatientFileIN thibault = getPatient("Thibault", controller);
+		controller.checkIn(thibault);
+		String doc ="Joe";
+		System.out.println("Thibault succesfully checked in.");
+		CreateAppointmentController appointmentController = new CreateAppointmentController(getUser("Jenna"));
+		DoctorIN doctor	=selectDoctor(appointmentController.getAllDoctors(),doc);
+		HospitalDate date=	appointmentController.scheduleNewAppointment(doctor, thibault);
+		System.out.println("Appointment with doctor" + doc+" created at:"+date.toString());
+		
+	}
+
+	private DoctorIN selectDoctor(Collection<DoctorIN> allDoctors, String string) {
+		for(DoctorIN d:allDoctors)
+			if(d.getName().equals(string))
+				return d;
+		return null;
+	}
+
+	private PatientFileIN getPatient(String string, CheckinController controller) {
+		for(PatientFileIN file:controller.getAllPatientFiles())
+			if(file.getPatientIN().getName().equals(string))
+				return file;
+		return null;
 	}
 
 	private LoginController loginUser(UserIN user, Location location) throws Exception {
@@ -422,5 +523,11 @@ public class TestScenario
 				return u;
 		return null;
 	}
-
+	<T> T get(Collection<? extends Object> coll,Class<T> clazz)
+	{
+		for(Object t:coll)
+			if(t.getClass().equals(clazz))
+				return (T)t;
+		return null;
+	}
 }
