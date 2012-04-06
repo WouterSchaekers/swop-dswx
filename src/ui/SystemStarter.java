@@ -1,5 +1,6 @@
 package ui;
 
+import system.ExtendedStandardHospitalBuilder;
 import system.Hospital;
 
 public class SystemStarter
