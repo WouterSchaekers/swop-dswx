@@ -20,6 +20,7 @@ import system.Location;
 import treatment.CastFactory;
 import treatment.Medication;
 import treatment.MedicationFactory;
+import treatment.Surgery;
 import treatment.SurgeryFactory;
 import treatment.Treatment;
 import treatment.TreatmentFactory;
@@ -161,7 +162,10 @@ public class TestScenario
 		advanceTime(HospitalDate.ONE_HOUR * 49);
 		System.out.println("Success! New system time is now " + hospital.getTimeKeeper().getSystemTime() + "\n");
 		System.out.print("Nurse Jeffrey will now enter the results of the finished treatments and tests... ");
-		letJeffreyEnterResults();
+		UserIN user = getDietersTreatment();
+		System.out.print("Nurse " + user.getName()
+				+ " will now attempt to enter the result for the treatment for Dieter... ");
+		enterTreatResultForDietersSurgery(user,campus1());
 		System.out.println("Success!\n");
 		System.out.print("HospitalAdmin is trying to advance the hospital time by 10 minutes... ");
 		advanceTime(HospitalDate.ONE_MINUTE * 10);
@@ -175,7 +179,7 @@ public class TestScenario
 		System.out.print("HospitalAdmin is trying to advance the hospital time by 30 hours... ");
 		advanceTime(HospitalDate.ONE_HOUR * 30);
 		System.out.println("Success! New system time is now " + hospital.getTimeKeeper().getSystemTime() + "\n");
-		UserIN user = getStefaansTreatment();
+		 user = getStefaansTreatment();
 		System.out.print("Nurse " + user.getName()
 				+ " will now attempt to enter the result for the treatment for Stefaan... ");
 		enterTreatResultForStefaansMedication(user, campus1());
@@ -209,6 +213,38 @@ public class TestScenario
 		giveDiagnoseForThibaultDoctorJoe();
 		System.out.println("Five patients that had difficulty breading are now being taken care of. ");
 		fiveSickPatientsArrive();
+	}
+
+	private void enterTreatResultForDietersSurgery(UserIN user, CampusIN campus) throws Exception {
+		LoginController lc = loginUser(user, (Location) campus);
+		EnterTreatmentResultController etrc = new EnterTreatmentResultController(lc);
+		TaskIN treatment = null;
+		for (TaskIN task : etrc.getTreatments())
+			if (task.getDescription() instanceof Surgery) {
+				treatment = task;
+			}
+		SurgeryResultFactory resultFac = (SurgeryResultFactory) treatment.getResultFactory();
+		resultFac.setAfterCare("none");
+		resultFac
+				.setReport("Patient slept for a while and feels perfectly fine again. Is fit to work some more on his projects.");
+		etrc.setResult(treatment, resultFac);
+		logoutUser(lc, null);
+	}
+
+	private UserIN getDietersTreatment() {
+		PatientFileManager pfoc = hospital.getPatientFileManager();
+		for (PatientFile file : pfoc.getAllPatientFiles())
+			if (file.getPatientIN().getName().equals(dieter()))
+				for (Diagnose diagnose : file.getAllDiagnosis())
+					for (Task<? extends Treatment> treatment : diagnose.getTreatments())
+						if (treatment.getDescription() instanceof Surgery)
+							return get(treatment.getResources(), Nurse.class);
+
+		return null;
+	}
+
+	private String dieter() {
+		return "Dieter";
 	}
 
 	private void fiveSickPatientsArrive() throws Exception {
@@ -384,9 +420,7 @@ public class TestScenario
 	}
 
 	private void letJeffreyEnterResults() throws Exception {
-		LoginController lc = loginUser(
-				UserFilter.SpecificNurseFilter(hospital.getUserManager().getAllUserINs(), "Jeffrey"),
-				hospital.getCampus("Campus 1"));
+		LoginController lc = getUser("Jeffrey");
 		EnterMedicaltestResultController emrc = new EnterMedicaltestResultController(lc);
 		EnterTreatmentResultController etrc = new EnterTreatmentResultController(lc);
 		// should be okay as there should only be one test and one treatment
