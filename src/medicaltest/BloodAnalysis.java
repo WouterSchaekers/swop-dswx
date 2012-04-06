@@ -86,7 +86,7 @@ public class BloodAnalysis extends MedicalTest
 	 * @return A BloodAnalysisResultFactory.
 	 */
 	@Override
-	public ResultFactory get() {
+	public ResultFactory getResultFactory() {
 		return new BloodAnalysisResultFactory();
 	}
 

@@ -76,7 +76,7 @@ public class Surgery extends Treatment
 	 * @return A SurgeryResultFactory.
 	 */
 	@Override
-	public ResultFactory get() {
+	public ResultFactory getResultFactory() {
 		return new SurgeryResultFactory();
 	}
 

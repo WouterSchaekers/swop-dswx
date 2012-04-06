@@ -97,7 +97,7 @@ public class UltraSoundScan extends MedicalTest
 	 * @return An UltraSoundScanFactory.
 	 */
 	@Override
-	public ResultFactory get() {
+	public ResultFactory getResultFactory() {
 		return new UltraSoundScanResultFactory();
 	}
 

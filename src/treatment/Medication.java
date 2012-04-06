@@ -116,7 +116,7 @@ public class Medication extends Treatment
 	 * @return A MedicationResultFactory.
 	 */
 	@Override
-	public ResultFactory get() {
+	public ResultFactory getResultFactory() {
 		return new MedicationResultFactory();
 	}
 

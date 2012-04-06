@@ -96,7 +96,7 @@ public class XRayScan extends MedicalTest
 	 * @return A XRayScanResultFactory.
 	 */
 	@Override
-	public ResultFactory get() {
+	public ResultFactory getResultFactory() {
 		return new XRayScanResultFactory();
 	}
 

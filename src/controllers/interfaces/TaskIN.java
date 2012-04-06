@@ -9,24 +9,21 @@ import system.Location;
 @controllers.PUBLICAPI
 public interface TaskIN extends ResultHolder
 {
-
-@controllers.PUBLICAPI
+	@controllers.PUBLICAPI
 	Collection<Schedulable> getResources();
 
-@controllers.PUBLICAPI
+	@controllers.PUBLICAPI
 	public <T extends TaskDescription> T getDescription();
 
-@controllers.PUBLICAPI
+	@controllers.PUBLICAPI
 	public boolean isFinished();
 
-@controllers.PUBLICAPI
+	@controllers.PUBLICAPI
 	public boolean isQueued();
 
-@controllers.PUBLICAPI
+	@controllers.PUBLICAPI
 	public boolean isScheduled();
 
-@controllers.PUBLICAPI
+	@controllers.PUBLICAPI
 	Location getLocation();
-	
-	
 }

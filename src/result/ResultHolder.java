@@ -12,7 +12,7 @@ public interface ResultHolder
 	 * @return A ResultFactory of the correct type.
 	 */
 	@controllers.PUBLICAPI
-	public ResultFactory get();
+	public ResultFactory getResultFactory();
 
 	/**
 	 * Gives a result, based on the information of the factory.

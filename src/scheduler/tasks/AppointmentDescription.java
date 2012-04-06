@@ -100,7 +100,7 @@ public class AppointmentDescription extends TaskDescriptionWithPatientFile
 	 * @return A NoResultFactory.
 	 */
 	@Override
-	public ResultFactory get() {
+	public ResultFactory getResultFactory() {
 		return new NoResultFactory();
 	}
 
