@@ -8,7 +8,8 @@ import exceptions.InvalidTimeSlotException;
 import system.Location;
 
 /**
- * A class consisting of LocationTimeSlots that always have a start- and end moment and a Location.
+ * A class consisting of LocationTimeSlots that always have a start- and end
+ * moment and a Location.
  */
 public class LocationTimeTable
 {
@@ -46,50 +47,78 @@ public class LocationTimeTable
 		}
 		sortLocationTimeSlots();
 	}
-	
+
 	/**
 	 * Constructor. Will initialise all fields.
 	 */
-	public LocationTimeTable(){
+	public LocationTimeTable() {
 		this.locationTimeSlots_ = new LinkedList<LocationTimeSlot>();
 	}
-	
+
+	/**
+	 * Creates a Dummy Date from the given HospitalDate.
+	 * 
+	 * @param hospitalDate
+	 *            The HospitalDate from which a Dummy Date has to be made from.
+	 * @return A HospitalDate based on the given HospitalDate, but without
+	 *         years, months and days.
+	 */
 	private HospitalDate createDummyDate(HospitalDate hospitalDate) {
 		return new HospitalDate(0, 0, 0, hospitalDate.getHour(), hospitalDate.getMinute(), hospitalDate.getSecond());
 	}
-	
+
+	/**
+	 * Adds a LocationTimeSlot to the set of LocationTimeSlots.
+	 * 
+	 * @param locationTimeSlot
+	 *            The LocationTimeSlot that has to be added.
+	 */
 	public void addLocationTimeSlot(LocationTimeSlot locationTimeSlot) {
 		this.locationTimeSlots_.add(locationTimeSlot);
 		sortLocationTimeSlots();
 	}
-	
+
 	/**
-	 * Use to get location of something that does not have a preference location.
+	 * Use to get location of something that does not have a preference
+	 * location.
+	 * 
+	 * @return Null if not at any location, otherwise the location.
 	 */
-	public Location getLocationAt(HospitalDate hospitalDate){
-		for(LocationTimeSlot locationTimeSlot : this.locationTimeSlots_){
-			if(locationTimeSlot.contains(hospitalDate)){
+	public Location getLocationAt(HospitalDate hospitalDate) {
+		for (LocationTimeSlot locationTimeSlot : this.locationTimeSlots_)
+			if (locationTimeSlot.contains(hospitalDate))
 				return locationTimeSlot.getLocation();
-			}
-		}
 		return null;
 	}
 
 	/**
 	 * Use for preference-location.
 	 * 
-	 * @return null if not at any location, otherwise the location.
+	 * @return Null if not at any location, otherwise the location.
 	 */
-	public Location getPreferedLocationAt(HospitalDate hospitalDate){
+	public Location getPreferedLocationAt(HospitalDate hospitalDate) {
 		HospitalDate date = createDummyDate(hospitalDate);
 		return getLocationAt(date);
 	}
 
+	/**
+	 * Creates a LocationTimeSlot with Dummy Dates.
+	 * 
+	 * @param locationTimeSlot
+	 *            The LocationTimeSlot from which a Dummy LocationTimeSlot has
+	 *            to be made from.
+	 * @return A LocationTimeSlot based on the given LocationTimeSlot, but
+	 *         without years, months and days.
+	 */
 	private LocationTimeSlot makeDummyTimeSlot(LocationTimeSlot locationTimeSlot) {
 		return new LocationTimeSlot(new StartTimePoint(createDummyDate(locationTimeSlot.getStartDate())),
 				new StopTimePoint(createDummyDate(locationTimeSlot.getStopDate())), locationTimeSlot.getLocation());
 	}
-	
+
+	/**
+	 * This method will sort the LocationTimeSlots kept in this
+	 * LocationTimeTable by starting time.
+	 */
 	private void sortLocationTimeSlots() {
 		LocationTimeSlot[] toSort = new LocationTimeSlot[locationTimeSlots_.size()];
 		Iterator<LocationTimeSlot> timeIt = locationTimeSlots_.iterator();
@@ -99,10 +128,18 @@ public class LocationTimeTable
 		this.locationTimeSlots_ = new LinkedList<LocationTimeSlot>(Arrays.asList(toSort));
 	}
 
+	/**
+	 * @return A copy of the LocationTimeSlots of this LocationTimeTable as a
+	 *         LinkedList.
+	 */
 	public LinkedList<LocationTimeSlot> getSlots() {
-		return new LinkedList<LocationTimeSlot>(this.locationTimeSlots_);
+		this.sortLocationTimeSlots();
+		LinkedList<LocationTimeSlot> rv = new LinkedList<LocationTimeSlot>();
+		for (LocationTimeSlot s : this.locationTimeSlots_)
+			rv.add(s.clone());
+		return rv;
 	}
-	
+
 	/**
 	 * Checks wether all the given collection of timeslots consists of valid
 	 * timeslots.

@@ -59,4 +59,12 @@ public class LocationTimeSlot extends TimeSlot
 		return hospitalDate.equals(this.getStartDate())
 				|| (hospitalDate.before(this.getStopDate()) && hospitalDate.after(this.getStartDate()));
 	}
+	
+	/**
+	 * Returns a copy of this LocationTimeSlot.
+	 */
+	@Override
+	public LocationTimeSlot clone() {
+		return new LocationTimeSlot(this.getStartPoint().clone(), this.getStopPoint().clone(), this.getLocation());
+	}
 }
