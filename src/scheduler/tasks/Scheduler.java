@@ -54,7 +54,6 @@ public class Scheduler
 		if (!isBackToBack(scheduledData)) {
 			scheduledData = scheduleAtFullHour(reqs, resPool, locs, desc, startDate, stopDate, taskData, scheduledData);
 		}
-		System.out.println(scheduledData.getTimeSlot());
 		actuallyScheduleResources(scheduledData);
 		unscheduledTask.nextState(scheduledData);
 	}
