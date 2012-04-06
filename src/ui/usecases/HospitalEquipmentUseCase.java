@@ -38,7 +38,6 @@ public class HospitalEquipmentUseCase extends UseCase
 		MachineBuilder builder = machineBuilderSelector.get();
 		machineBuilderDisplayer.display(builder);
 		printLn("Is going to be created.");
-		builder.setLocation((Location)data.getLoginController().getLocation());
 		int ID = selectID();
 		builder.setSerial(ID);
 		System.out.println("Set the equipments location (string):");
