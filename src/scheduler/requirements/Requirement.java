@@ -59,7 +59,7 @@ public interface Requirement
 	public boolean backToBack();
 
 	/**
-	 * @return True if the Requirement is 
+	 * @return True if the Requirement will never be able to be scheduled.
 	 */
 	public boolean isMarkedForDeletion();
 }
