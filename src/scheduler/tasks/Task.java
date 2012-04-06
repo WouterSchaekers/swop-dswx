@@ -152,22 +152,33 @@ public final class Task<T extends TaskDescription> extends Observable implements
 	}
 
 	/**
-	 * Returns the 
+	 * Returns a ResultFactory of the correct type.
 	 */
 	@Override
 	public ResultFactory getResultFactory() {
 		return getDescription().getResultFactory();
 	}
 
+	/**
+	 * Gives a result, based on the information of the factory.
+	 * 
+	 * @param resultFactory
+	 *            The factory the result will be based on.
+	 * @return The Result based on the ResultFactory.
+	 * @throws InvalidResultException
+	 *             The given factory is not a BloodAnalysisResultFactory.
+	 * @throws FactoryInstantiationException
+	 *             The Factory was not ready yet.
+	 */
 	@Override
-	public Result give(ResultFactory builder) throws InvalidResultException, FactoryInstantiationException {
-		return getDescription().give(builder);
+	public Result give(ResultFactory resultFactory) throws InvalidResultException, FactoryInstantiationException {
+		return getDescription().give(resultFactory);
 	}
 
-	@Override
+	/**
+	 * @return The result.
+	 */
 	public Result getResult() {
-		// TODO Auto-generated method stub
-		return null;
+		return getDescription().getResult();
 	}
-
 }
