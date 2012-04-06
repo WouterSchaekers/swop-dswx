@@ -17,6 +17,7 @@ import scheduler.tasks.Task;
 import system.Campus;
 import system.Hospital;
 import system.StandardHospitalBuilder;
+import treatment.CastFactory;
 import treatment.MedicationFactory;
 import treatment.SurgeryFactory;
 import treatment.Treatment;
@@ -198,7 +199,32 @@ public class TestAllTasks
 		diagnose.approveBy(doctorJonathan);
 		assertTrue(medication.isScheduled());
 	}
-
+	@Test
+	public void scheduleTreatment5() throws Exception {
+		NurseFactory f = new NurseFactory();
+		f.setName("Jenny");
+		f.setLocation(location);
+		hospital.getUserManager().createUser(f);
+		DoctorFactory docFactory1 = new DoctorFactory();
+		docFactory1.setName("Jasper");
+		docFactory1.setLocation(location);
+		Doctor doctorJasper = (Doctor) hospital.getUserManager().createUser(docFactory1);
+		DoctorFactory docFactory2 = new DoctorFactory();
+		docFactory2.setName("Jonathan");
+		docFactory2.setLocation(location);
+		Doctor doctorJonathan = (Doctor) hospital.getUserManager().createUser(docFactory2);
+		PatientFile file = hospital.getPatientFileManager().registerPatient("jasmine", location);
+		Diagnose diagnose = file.createDiagnose("We zijn gebuisd.", "Thibault fok of", doctorJasper, doctorJonathan);
+		CastFactory castfactory = new CastFactory();
+		castfactory.setCreationDate(now());
+		castfactory.setDiagnose(diagnose);
+		castfactory.setDuration(3);
+		castfactory.setBodyPart("head");
+		Task<Treatment> cast = hospital.getTaskManager().add(castfactory.create());
+		assertFalse(cast.isScheduled());
+		diagnose.approveBy(doctorJonathan);
+		assertTrue(cast.isScheduled());
+	}
 	private HospitalDate now() {
 		return hospital.getTimeKeeper().getSystemTime();
 	}
