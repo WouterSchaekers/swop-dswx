@@ -119,7 +119,7 @@ public class Medication extends Treatment
 	 */
 	@Override
 	public ResultFactory getResultFactory() {
-		return new MedicationResultFactory();
+		return new MedicationResultFactory(medicationType_);
 	}
 
 	/**

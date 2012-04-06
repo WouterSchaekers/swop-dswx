@@ -1,5 +1,6 @@
 package result;
 
+import warehouse.item.MedicationType;
 import exceptions.FactoryInstantiationException;
 
 /**
@@ -10,7 +11,11 @@ public class MedicationResultFactory implements ResultFactory
 	private boolean abnormalReaction_;
 	private boolean abnormalReactionSet_;
 	private String report_;
-
+	private MedicationType type_;
+	public MedicationResultFactory(MedicationType type)
+	{
+		this.type_=type;
+	}
 	/**
 	 * Creates and returns a Result.
 	 * 
@@ -65,5 +70,9 @@ public class MedicationResultFactory implements ResultFactory
 	 */
 	private boolean reportReady() {
 		return this.report_ != null && !this.report_.isEmpty();
+	}
+
+	public MedicationType getType() {
+		return type_;
 	}
 }

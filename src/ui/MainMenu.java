@@ -2,14 +2,14 @@ package ui;
 
 import java.util.Collection;
 import java.util.Stack;
-import ui.usecases.EnterTreatmetnResult;
-import ui.usecases.EnterMedicalTestResult;
 import ui.usecases.AdvanceTime;
 import ui.usecases.Checkin;
 import ui.usecases.ConsultPatientFile;
 import ui.usecases.CreateAppointment;
 import ui.usecases.DischargePatient;
 import ui.usecases.EnterDiagnose;
+import ui.usecases.EnterMedicalTestResult;
+import ui.usecases.EnterTreatmentResult;
 import ui.usecases.HospitalEquipmentUseCase;
 import ui.usecases.HospitalStaff;
 import ui.usecases.Login;
@@ -61,7 +61,7 @@ private class menuBuilder{
 	}
 	private void addMedicalTestResult(Collection<UseCase> rv) {
 		try {
-			rv.add(new EnterTreatmetnResult(data));
+			rv.add(new EnterTreatmentResult(data));
 		} catch (Exception e) {;
 		}
 		
