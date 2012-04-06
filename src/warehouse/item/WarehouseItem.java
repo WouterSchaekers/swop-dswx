@@ -31,6 +31,7 @@ public abstract class WarehouseItem
 	/**
 	 * @return The type of this warehouse item.
 	 */
+	@warehouse.WareHouseAPI
 	public abstract WarehouseItemType getType();
 	
 	public abstract boolean equals(WarehouseItemType warehouseItemType);
