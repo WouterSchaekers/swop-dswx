@@ -32,7 +32,7 @@ public class AddHospitalEquipmentControllerTest
 		hospital=new ExtendedStandardHospitalBuilder().build();
 		campus=hospital.getAllCampuses().iterator().next();
 		LoginController loginc = new LoginController(hospital);
-		loginc.logIn(select(loginc.getAllUsers(),HospitalAdmin.class,"Thibault Leemans"), campus);
+		loginc.logIn(select(loginc.getAllUsers(),HospitalAdmin.class,"admin"), campus);
 		controller = new AddHospitalEquipmentController(loginc);
 	}
 	@Test
