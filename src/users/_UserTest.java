@@ -1,12 +1,12 @@
 package users;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import controllers.interfaces.LocationIN;
 import system.Campus;
 import system.StandardHospitalBuilder;
+import controllers.interfaces.LocationIN;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidUserFactory;

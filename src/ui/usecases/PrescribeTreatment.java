@@ -9,11 +9,7 @@ import treatment.TreatmentFactory;
 import ui.UIData;
 import ui.UseCase;
 import ui.usecases.Selector.Displayer;
-import warehouse.item.ActivatedCarbon;
-import warehouse.item.ActivatedCarbonType;
-import warehouse.item.AsprinType;
 import warehouse.item.MedicationType;
-import warehouse.item.SleepingTablets;
 import controllers.PrescribeTreatmentController;
 import controllers.interfaces.DiagnoseIN;
 import exceptions.CanNeverBeScheduledException;
@@ -30,7 +26,7 @@ public class PrescribeTreatment extends UseCase
 		super(data, 123);
 		controller = new PrescribeTreatmentController(data.getLoginController(),
 				data.getConsultPatientFileopenController());
-		
+
 	}
 
 	@Override
@@ -140,7 +136,10 @@ public class PrescribeTreatment extends UseCase
 				printLn(e.getMessage());
 				return mm();
 			}
-			printLn("Medication " + type.name() + " was succesfully scheduled at:" + date.toString());
+			if(date==null)
+				printLn("Medication succesfully queued.");
+			else
+				printLn("Medication " + type.name() + " was succesfully scheduled at:" + date.toString());
 			return mm();
 		}
 
@@ -182,7 +181,10 @@ public class PrescribeTreatment extends UseCase
 				printLn(e.getMessage());
 				return mm();
 			}
-			printLn("Cast was succesfully scheduled at:" + date.toString());
+			if (date == null)
+				printLn("Cast was succesfully saved in the hospital.");
+			else
+				printLn("Cast was succesfully scheduled at:" + date.toString());
 			return mm();
 		}
 
@@ -241,7 +243,10 @@ public class PrescribeTreatment extends UseCase
 				printLn(e.getMessage());
 				return mm();
 			}
-			printLn("Surgery succesfully created at "+date.toString());
+			if (date == null)
+				printLn("Surgery queued");
+			else
+				printLn("Surgery succesfully created at " + date.toString());
 			return mm();
 		}
 

@@ -1,11 +1,11 @@
 package machine;
 
-import controllers.interfaces.MachineIN;
 import scheduler.HospitalDate;
 import scheduler.Schedulable;
 import scheduler.TimeSlot;
 import scheduler.TimeTable;
 import system.Location;
+import controllers.interfaces.MachineIN;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidSchedulingRequestException;
 import exceptions.InvalidTimeSlotException;

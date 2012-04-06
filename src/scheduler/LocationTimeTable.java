@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
-import exceptions.InvalidTimeSlotException;
 import system.Location;
+import exceptions.InvalidTimeSlotException;
 
 /**
  * A class consisting of LocationTimeSlots that always have a start- and end

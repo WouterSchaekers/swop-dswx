@@ -2,13 +2,14 @@ package scheduler.tasks;
 
 import patient.PatientFile;
 import scheduler.HospitalDate;
+import controllers.interfaces.PatientDescriptionHolderIN;
 import controllers.interfaces.PatientFileIN;
 
 /**
  * This class is an abstract representation of a TaskDescriptionWithPatientFile.
  * The TaskDescriptionWithPatientFile is a TaskDescription with a patientFile.
  */
-public abstract class TaskDescriptionWithPatientFile extends TaskDescription
+public abstract class TaskDescriptionWithPatientFile extends TaskDescription implements PatientDescriptionHolderIN
 {
 	protected final PatientFile patientFile_;
 
@@ -36,6 +37,8 @@ public abstract class TaskDescriptionWithPatientFile extends TaskDescription
 	 * 
 	 * @return The patientFileIN.
 	 */
+	
+	@Override
 	public PatientFileIN getPatientFile() {
 		return patientFile_;
 	}

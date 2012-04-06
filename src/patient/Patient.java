@@ -1,6 +1,5 @@
 package patient;
 
-import java.util.LinkedList;
 import scheduler.HospitalDate;
 import scheduler.LocationTimeSlot;
 import scheduler.LocationTimeTable;
