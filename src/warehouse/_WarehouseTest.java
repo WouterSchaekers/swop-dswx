@@ -3,30 +3,24 @@ package warehouse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import help.Filter;
-import java.util.ArrayList;
 import java.util.Collection;
 import org.junit.Before;
 import org.junit.Test;
-import exceptions.InvalidWarehouseItemException;
-import exceptions.WarehouseOverCapacityException;
 import scheduler.HospitalDate;
 import system.Campus;
 import system.Hospital;
 import system.StandardHospitalBuilder;
-import warehouse.item.ActivatedCarbon;
 import warehouse.item.ActivatedCarbonType;
-import warehouse.item.Asprin;
 import warehouse.item.AsprinType;
 import warehouse.item.MealType;
-import warehouse.item.Misc;
 import warehouse.item.MiscType;
-import warehouse.item.Plaster;
 import warehouse.item.PlasterType;
 import warehouse.item.SleepingTabletsType;
 import warehouse.item.VitaminType;
 import warehouse.item.WarehouseItem;
 import warehouse.item.WarehouseItemType;
+import exceptions.InvalidWarehouseItemException;
+import exceptions.WarehouseOverCapacityException;
 
 /**
  * @author <pre>

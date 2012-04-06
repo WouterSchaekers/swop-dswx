@@ -3,7 +3,6 @@ package users;
 import java.util.LinkedList;
 import scheduler.HospitalDate;
 import scheduler.LocationTimeSlot;
-import scheduler.TimeSlot;
 import system.Location;
 
 abstract class PreferenceState

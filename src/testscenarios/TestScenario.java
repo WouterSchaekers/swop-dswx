@@ -27,9 +27,7 @@ import ui.UserFilter;
 import users.Doctor;
 import users.Nurse;
 import users.User;
-import warehouse.item.ActivatedCarbon;
 import warehouse.item.ActivatedCarbonType;
-import warehouse.item.AsprinType;
 import warehouse.item.MedicationType;
 import warehouse.item.SleepingTabletsType;
 import controllers.AdvanceTimeController;
@@ -41,7 +39,6 @@ import controllers.EnterDiagnoseController;
 import controllers.EnterMedicaltestResultController;
 import controllers.EnterTreatmentResultController;
 import controllers.EvaluateDiagnoseController;
-import controllers.FillStockInWarehouseController;
 import controllers.LoginController;
 import controllers.OrderMedicalTestController;
 import controllers.PrescribeTreatmentController;
@@ -215,7 +212,6 @@ public class TestScenario
 	}
 
 	private void fiveSickPatientsArrive() throws Exception {
-		Collection<String> patients = Arrays.asList("");
 		Collection<String> newPatients = Arrays.asList("Peter", "Paul", "Petra", "Pauline", "Paula");
 		List<String> doctors = Arrays.asList("Jonathan", "Jens", "Jelle", "Joanne");
 		int i = 0;
@@ -297,10 +293,7 @@ public class TestScenario
 		return "Joe";
 	}
 
-	private String greg() {
-		return "Greg";
-	}
-
+	
 	private void runThibaultsTestsByJoe() throws Exception {
 		LoginController joe = getUser("Joe");
 		ConsultPatientFileController file = openPatientFile((Doctor) joe.getUserIN(), getThibault(), joe);
@@ -648,6 +641,7 @@ public class TestScenario
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	<T> T get(Collection<? extends Object> coll, Class<T> clazz) {
 		for (Object t : coll)
 			if (t.getClass().equals(clazz))

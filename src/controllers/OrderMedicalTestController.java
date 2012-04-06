@@ -94,7 +94,7 @@ public class OrderMedicalTestController extends NeedsLoginAndPatientFileControll
 		
 		medicalTestFactory.setCreationDate(hospital.getTimeKeeper().getSystemTime());
 		
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings({ "unchecked", "deprecation" })
 		Task<T> createdTest = (Task<T>) hospital.getTaskManager().add(medicalTestFactory.create());
 
 		if (createdTest.isScheduled())
