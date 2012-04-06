@@ -16,7 +16,7 @@ import exceptions.InvalidTimeSlotException;
 public class TimeTable
 {
 	private LinkedList<TimeSlot> timeSlots_;
-	
+
 	/**
 	 * This will allow us to keep the TimeSlots chronologically sorted.
 	 */
@@ -400,7 +400,7 @@ public class TimeTable
 	}
 
 	/**
-	 * @return The timeslots of this timetable as a LinkedList.
+	 * @return A copy of the TimeSlots of this TimeTable as a LinkedList.
 	 */
 	@Basic
 	public LinkedList<TimeSlot> getTimeSlots() {
