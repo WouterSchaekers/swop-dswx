@@ -8,10 +8,9 @@ import exceptions.InvalidNameException;
 
 public class StandarUserManagerBuilder
 {
-	private String hospitalAdmin_="Thibault Leemans";
-	
-	public UserManager create()
-	{
+	private String hospitalAdmin_ = "admin";
+
+	public UserManager create() {
 		UserManager usm;
 		try {
 			usm = new UserManager(hospitalAdmin_);
@@ -21,8 +20,8 @@ public class StandarUserManagerBuilder
 		usm.addType(new NurseFactory());
 		usm.addType(new DoctorFactory());
 		usm.addType(new WarehouseAdminFactory());
-		
+
 		return usm;
-		
+
 	}
 }
