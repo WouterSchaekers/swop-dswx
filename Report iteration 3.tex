@@ -157,13 +157,7 @@ Schedulables are Objects that can be scheduled. They have a TimeTable.\\*
 Requirables are Objects that are needed to forfill a Requirement. This is in fact just an empty interface to generalize all the Objects that are usefull for this.
 
 \subsection{HospitalDate}
-We had started implementing the system that’s in the class diagram above by using java.util.Date. We soon found out that there was something not right with this library. The methods used to get the year, date, hour,… of a Date-object are all depricated and do not work at all in combination with the not-depricated constructor and toString() of Date. After numerous frustrations about Date, we considered a number of possible alternatives.
-\\The most evident alternative would be java.sql.Date. However, this library does not vary all that much from java.util.Date and we found it just almost just as dysfunctional as the latter. The next possible solution was to work with Calendar objects from java.util.Calendar. Unfortunately using this class is not as programmer friendly as one would expect it to be. We would like to quote Joshua Bloch, Google's chief Java architect and author of “Effective Java”, from an interview in which he was asked to give some tips for Java developers. In this interview, he said the following:
-\begin{center}
-\emph{"As an extreme example of what not to do, consider the case of java.util.Calendar. Very few people understand its state-space -- I certainly don't -- and it's been a constant source of bugs for years." - \url{http://java.sun.com/developer/technicalArticles/Interviews/bloch_effective_08_qa.html} .}
-\end{center}
-We then opted to go with java.util.GregorianCalendar instead. While a significant improvement over Calendar, GregorianCalendar still proved to be rather hard to work with. Finally we decided to write our own Date class and named it HospitalDate. This class uses the GregorianCalendar to store and calculate dates, but we implemented some getters and setters so that using a HospitalDate would make our code easier to read and write. HospitalDate turned out to be exactly what we needed as it did not have any of the disadvantages of the other alternatives mentioned above.
-\newline HospitalDates have a constructor that allows you to create a Date that takes place at a certain amount of milliseconds since the system start time (8AM at Nov 8th, 2011): the so called "start of time". "End of time" is the point at which the value of long would overflow, if added one more millisecond. All methods returning milliseconds or asking milliseconds as a parameter work in this way. 
+Just like in the previous iteration, we use our own HospitalDate class, since there is currently no good class in java to satisfy our needs.
 
 \subsection{TimeTable}
 A TimeTable is a class that represents the individual TimeTable that each Schedulable has. It very much resembles a real life timetable in which one can keep track of one’s appointments and todos. A TimeTable consists of a set of TimeSlots. Each TimeSlot in the TimeTable represents an interval in time during which the TimeTable in question is marked as being “occupied”. A couple of methods in TimeTable that are worth mentioning (as they're not in the class diagram):
@@ -185,30 +179,8 @@ A TimeSlot is nothing more than a representation of an interval of time. It has 
 As a TimeSlot has a starting and stopping point, TimePoint is the abstract class that represents those points in time. Each TimePoint has a HospitalDate so as to know which point in time it really represents.
 \\*It has two child classes: StartTimePoint and StopTimePoint. At first TimePoint held on to an enumeration so that it would know whether it was a starting- or stopping point. Now however, the design is more adaptable: it's easily possible to add a new sort of TimePoint now due to the high cohesion achieved by using two separate classes.
 
-\subsection{Schedulable and SchedulableUser}
-Schedulable is an interface that is implemented by all objects that can be scheduled in the hospital (i.e.: nurses, doctors, XRay scanners, bloodanalysismachines,…). Because hospital administrators and warehouse administrators can’t be scheduled for now, there is also a distinction between User and SchedulableUser, as you can see in the class diagram.
-Schedulable objects have three methods worth mentioning: 
-\begin{itemize}
-\item{canBeScheduledOn(HospitalDate startDate, HospitalDate stopDate) : boolean}
-\item{getTimeTable() : TimeTable}
-\item{scheduleAt(TimeSlot timeslot): void}
-\end{itemize}
-These methods should do what their names suggest they do. canBeScheduledOn() will return true if the object executing the method finds that all it’s privately kept constraints have been met and that its TimeTable allows it to be scheduled at the given interval of time. getTimeTable() will get and return the TimeTable of the Schedulable in question. scheduleAt() will schedule the Schedulable at the given TimeSlot if possible.
-
-\subsection{Constraints}
-There are a lot of constraints related to time and scheduling in this assignment. I.e.: nurses only work between 8AM and 5PM, Treatments can be registered before being scheduled, everything must be scheduled at least 1 hour in advance of the current system time, a patient may only get ten XRay scans per year,\dots. Most of these constraints can be taken care of by canBeScheduled() in Schedulable. 
-\\*A constraint that has risen a problem was the fact that a Diagnose can already have a Treatment without it being scheduled if the Diagnose is not approved yet at the time of the creation of the Treatment. We'll elaborate on this in the sections below.
-
-\subsection{Task, UnscheduledTask, ScheduledTask, TaskManager}
-Task, UnscheduledTask and ScheduledTask are all abstract classes that represent things that can be (or already have been) scheduled. UnscheduledTasks are Tasks that haven't been scheduled yet. Once they can be successfully scheduled by Scheduler, they can be removed from the task queue kept by TaskManager and turned into ScheduledTasks. The ScheduledTasks get stored in the Schedulables that are to execute the ScheduledTask so that giving the user sensible output concerning todos is almost trivial.
-\\* As is, it is possible a Task can't be immediately scheduled after creation. Possible reasons for this could be: the warehouse has run out of stock of an item required by the Task that was just created or the Task that can't be scheduled is a Treatment for a Diagnose that has not been approved yet. We managed to solve both of those problems by implementing the observer pattern. We now have a couple of Observers that get notified at the right times and that then tell the TaskManager to update its queue as some changes in the system has triggered the observer watching it.
-
-\subsection{TimeLord}
-TimeLord is the class that keeps track of the current system time. We have chosen to create a seperate class for that purpose only. The alternative was to keep the current system time stored in Scheduler. However, we felt like this does not fall under the responsibilities of Scheduler. 
-\\*Let's assume one would like to keep the current system time in Scheduler. They then would have to make a choice between having the system time be static or not. A static system time is bad for the following reason: any class extending scheduler will not be able to keep their own system time should another scheduler or sub class of Scheduler already exists. Expanding the hospital into several timezones or creating a new sort of Scheduler, would then not be possible. The only option left then is to keep it as a non-static field. That would mean that any class requiring the system time would depend on Scheduler. This is bad for low coupling and high cohesion as a very high amount of classes will then depend on the Scheduler.
-
 \subsection{Impact of having different locations}
-The different locations had a huge impact on the scheduling algorithm. Instead of just iteration over all the resources, the algorithm had to take into account that not all resources are available everywhere. This has been eleganlty solved, by just iterating over all the locations and then trying to schedule over there. The scheduler will chose the best timeslot amongst all the possiblities.
+The different locations had a huge impact on the scheduling algorithm. Instead of just iteration over all the resources, the algorithm had to take into account that not all resources are available everywhere. This has been eleganlty solved, by just iterating over all the locationsand then trying to schedule over there. The scheduler will chose the best timeslot amongst all the possiblities.
 \subsection{The location preference for doctors}
 Because different campusses were introduced, doctors had the option to switch between them. In order to solve this problem, we introduced states. There are two different states. A selected preference state and a back and forth state. The purose of these two states is handling the TimeTable-calls. This is possible since every state has a LocationTimeTable. All the calls on Doctor involving the gathering of TimeSlots will be overriden and redirected to the states.
 \subsubsection{getLocationAt()-method}
