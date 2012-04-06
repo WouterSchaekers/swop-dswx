@@ -4,21 +4,34 @@ import machine.MachinePoolBuilder;
 import warehouse.NormalWarehouseBuilder;
 import warehouse.WarehouseBuilder;
 
+/**
+ * Class for building a C
+ */
 public class CampusBuilder
 {
 	private String campusName_;
 	private Hospital hospital_;
 	private WarehouseBuilder warehouseBuilder_;
-	public CampusBuilder(String string,Hospital hospital)
-	{
-		campusName_ = string;
-		hospital_=hospital;
+
+	/**
+	 * Default constructor.
+	 * 
+	 * @param string
+	 *            The name of the Campus.
+	 * @param hospital
+	 *            The Hospital where the Campus belongs too.
+	 */
+	public CampusBuilder(String string, Hospital hospital) {
+		this.campusName_ = string;
+		this.hospital_ = hospital;
 	}
-	public Campus create()
-	{
-		warehouseBuilder_ = new NormalWarehouseBuilder();
-		Campus campus = new Campus(campusName_, hospital_, warehouseBuilder_,new MachinePoolBuilder().create());
+
+	/**
+	 * @return A Campus made from the given information.
+	 */
+	public Campus create() {
+		Campus campus = new Campus(this.campusName_, this.hospital_, new NormalWarehouseBuilder(),
+				new MachinePoolBuilder().create());
 		return campus;
-		
 	}
 }
