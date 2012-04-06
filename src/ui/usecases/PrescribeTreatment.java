@@ -30,13 +30,13 @@ public class PrescribeTreatment extends UseCase
 		super(data, 123);
 		controller = new PrescribeTreatmentController(data.getLoginController(),
 				data.getConsultPatientFileopenController());
-		throw new Exception();
+		
 	}
 
 	@Override
 	public UseCase execute() {
 
-		print("Prescribe treatment for patient"
+		printLn("Prescribe treatment for patient "
 				+ data.getConsultPatientFileopenController().getPatientFile().getPatientIN().getName());
 
 		Collection<DiagnoseIN> diags = controller.getAllPossibleDiagnosis();
@@ -177,7 +177,7 @@ public class PrescribeTreatment extends UseCase
 			factory.setDuration(duration);
 			HospitalDate date;
 			try {
-				date = controller.addTreatment(null, factory);
+				date = controller.addTreatment(selectedDiagnose, factory);
 			} catch (Exception e) {
 				printLn(e.getMessage());
 				return mm();
@@ -236,12 +236,12 @@ public class PrescribeTreatment extends UseCase
 			factory.setDescription(read());
 			HospitalDate date;
 			try {
-				date = controller.addTreatment(null, factory);
+				date = controller.addTreatment(selectedDiagnose, factory);
 			} catch (Exception e) {
 				printLn(e.getMessage());
 				return mm();
 			}
-			printLn("Surgery succesfully created at "+data.toString());
+			printLn("Surgery succesfully created at "+date.toString());
 			return mm();
 		}
 
