@@ -161,10 +161,8 @@ public class Diagnose extends Observable implements DiagnoseIN
 	private void disapprove() throws ApproveDiagnoseException {
 		this.approved = false;
 		this.secOpFlag = false;
-		this.attending = null;
-		this.secopDoc = null;
-		this.notifyObservers(this);
 		this.unmarkForSecOp();
+		this.notifyObservers(this);
 	}
 	/**
 	 * 

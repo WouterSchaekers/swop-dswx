@@ -171,9 +171,11 @@ public class PatientFile implements PatientFileIN
 	 */
 	public Collection<DiagnoseIN> getDiagnosisFrom(Doctor doc) {
 		Collection<DiagnoseIN> rv = new LinkedList<DiagnoseIN>();
-		for (Diagnose d : this.diagnosis)
-			if (d.getAttendingIN().equals(doc))
-				rv.add((DiagnoseIN) d);
+		for (Diagnose d : this.diagnosis) {
+			if (d.isApproved() || d.isMarkedForSecondOp())
+				if (d.getAttendingIN().equals(doc))
+					rv.add((DiagnoseIN) d);
+		}
 		return rv;
 	}
 
