@@ -92,7 +92,7 @@ public class TaskManager implements Observer
 	public void update(Observable o, Object arg) {
 		if (o instanceof Task<?>) {
 			this.tryToScheduleOneTask((Task<?>) o);
-		} else if (o instanceof TimeLord) {
+		} else {
 			this.updateTaskCollection();
 		}
 	}
