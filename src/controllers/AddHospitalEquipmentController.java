@@ -71,6 +71,7 @@ public class AddHospitalEquipmentController extends NeedsLoginController
 	 */
 	@controllers.PUBLICAPI
 	public void createMachine(MachineBuilder b) throws InvalidLocationException, InvalidSerialException {
+		b.setLocation((Campus)loginController_.getLocation());
 		createMachine(b, loginController_.getLocation());
 	}
 
