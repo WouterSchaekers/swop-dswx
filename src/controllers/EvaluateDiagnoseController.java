@@ -77,8 +77,7 @@ public class EvaluateDiagnoseController extends NeedsLoginController
 	 */
 	@controllers.PUBLICAPI
 	public DiagnoseIN disapproveDiagnose(DiagnoseIN selected, String newDiag) throws ApproveDiagnoseException {
-		return ((Diagnose) selected).disapproveBy(newDiag, selected.getComplaintsIN(),
-				(DoctorIN) (this.loginController_.getUserIN()));
+		return ((Diagnose) selected).disapproveBy(newDiag, (DoctorIN) (this.loginController_.getUserIN()));
 	}
 
 	/**

@@ -123,11 +123,11 @@ public class Diagnose extends Observable implements DiagnoseIN
 	 * 
 	 * @return True if this diagnose can be replaced by the given replacement.
 	 */
-	private boolean canBeReplacedWith(String newDiag, String newComplaints, Doctor newAttending, Doctor newSecOp) {
+	private boolean canBeReplacedWith(String newDiag, Doctor newAttending, Doctor newSecOp) {
 		boolean rv = this.secopDoc.equals(newAttending);
-		rv &= newSecOp != null;
 		rv &= (this.attending.equals(newSecOp));
-		rv &= newComplaints.equals(this.getComplaintsIN());
+		rv &= !(newDiag == null);
+		rv &= !newDiag.isEmpty();
 		return rv;
 	}
 
@@ -164,6 +164,7 @@ public class Diagnose extends Observable implements DiagnoseIN
 		this.attending = null;
 		this.secopDoc = null;
 		this.notifyObservers(this);
+		this.unmarkForSecOp();
 	}
 	/**
 	 * 
@@ -188,17 +189,17 @@ public class Diagnose extends Observable implements DiagnoseIN
 	 *             If this diagnose does not require a second opinion or if the
 	 *             replacement diagnose is invalid.
 	 */
-	public DiagnoseIN disapproveBy(String newDiagnose, String newComplaints, DoctorIN secondOp)
+	public DiagnoseIN disapproveBy(String newDiagnose, DoctorIN secondOp)
 			throws ApproveDiagnoseException {
-		Doctor futureSecondOp = this.getAttendingIN();
+		Doctor futureSecondOp = this.attending;
 		Doctor futureAttending = (Doctor) secondOp;
-		if (!canBeReplacedWith(newDiagnose, newComplaints, futureAttending, futureSecondOp))
+		if (!canBeReplacedWith(newDiagnose, futureAttending, futureSecondOp))
 			throw new ApproveDiagnoseException("This diagnose cannot be replaced with the given replacement!");
 		if (!this.secOpFlag)
 			throw new ApproveDiagnoseException("Trying to disapprove a diagnose that does not need second opinion!");
 		this.disapprove();
 		try {
-			return this.myPatientFile.createDiagnose(newComplaints, newDiagnose, futureAttending, futureAttending);
+			return this.myPatientFile.createDiagnose(this.complaints, newDiagnose, futureAttending, futureAttending);
 		} catch (Exception e) {
 			throw new Error(e);
 		}
