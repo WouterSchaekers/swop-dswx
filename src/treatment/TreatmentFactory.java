@@ -87,7 +87,7 @@ public abstract class TreatmentFactory
 
 	/**
 	 * Creates a Treatment built from the given information. Should only be
-	 * called in a
+	 * called in a domain-class!
 	 * 
 	 * @return A Treatment built from the given information.
 	 * @throws FactoryInstantiationException
