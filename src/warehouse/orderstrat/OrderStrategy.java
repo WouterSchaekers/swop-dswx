@@ -1,6 +1,7 @@
 package warehouse.orderstrat;
 
 import help.Filter;
+import java.util.Collection;
 import java.util.Observable;
 import java.util.Observer;
 import scheduler.HospitalDate;
@@ -63,13 +64,13 @@ public abstract class OrderStrategy implements Observer
 		HospitalDate time = warehouse_.getCampus().getSystemTime().getSystemTime();
 
 		if (needed > 0) {
-			System.out.println(needed);
 			provider_.add(new StockOrder<WarehouseItemType>(warehouse_, type_, time, needed));
 		}
 	}
 
 	private int amountOfOpenOrders() {
-		int futureCount = help.Collections.filter(provider_.getOrders(), new Filter()
+		int futureCount = 0;
+		Collection<StockOrder<?>> matchedOrders = help.Collections.filter(provider_.getOrders(), new Filter()
 		{
 			@Override
 			public <T> boolean allows(T arg) {
@@ -77,7 +78,12 @@ public abstract class OrderStrategy implements Observer
 					return ((StockOrder<?>) arg).getType().equals(type_);
 				return false;
 			}
-		}).size();
+		});
+
+		for (StockOrder<?> s : matchedOrders) {
+			futureCount += s.getAmount();
+		}
+
 		return futureCount;
 	}
 

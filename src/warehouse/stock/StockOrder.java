@@ -3,6 +3,7 @@ package warehouse.stock;
 import scheduler.HospitalDate;
 import warehouse.Warehouse;
 import warehouse.item.WarehouseItemType;
+import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.StockOrderIN;
 import exceptions.InvalidOrderStateException;
 import exceptions.WarehouseOverCapacityException;
@@ -29,8 +30,7 @@ public class StockOrder<T extends WarehouseItemType> implements StockOrderIN
 	 * @param amount
 	 *            The amount of items needed of the type of this order.
 	 */
-	public StockOrder(Warehouse warehouse, T type, HospitalDate creationDate,
-			int amount) {
+	public StockOrder(Warehouse warehouse, T type, HospitalDate creationDate, int amount) {
 		type_ = type;
 		delivered_ = false;
 		warehouse_ = warehouse;
@@ -53,17 +53,14 @@ public class StockOrder<T extends WarehouseItemType> implements StockOrderIN
 	 *            The expiry date of the warehouse item to be delived by this
 	 *            stock order.
 	 */
-	public void deliver(HospitalDate expiryDate)
-			throws WarehouseOverCapacityException, InvalidOrderStateException {
+	public void deliver(HospitalDate expiryDate) throws WarehouseOverCapacityException, InvalidOrderStateException {
 		if (this.hasBeenDelivered())
-			throw new InvalidOrderStateException(
-					"This order was already delivered!");
+			throw new InvalidOrderStateException("This order was already delivered!");
 		if (!this.canBeDelivered())
-			throw new InvalidOrderStateException(
-					"This order is not ready for delivery yet!");
+			throw new InvalidOrderStateException("This order is not ready for delivery yet!");
 
 		for (int i = 0; i < amount_; i++)
-			warehouse_.add(type_,expiryDate);
+			warehouse_.add(type_, expiryDate);
 		delivered_ = true;
 	}
 
@@ -71,8 +68,7 @@ public class StockOrder<T extends WarehouseItemType> implements StockOrderIN
 	 * @return True if this order can be delivered now.
 	 */
 	public boolean canBeDelivered() {
-		return warehouse_.getCampus().getSystemTime().getSystemTime()
-				.after(this.earliestDeliveryTime())
+		return warehouse_.getCampus().getSystemTime().getSystemTime().after(this.earliestDeliveryTime())
 				&& !this.hasBeenDelivered();
 	}
 
@@ -80,18 +76,22 @@ public class StockOrder<T extends WarehouseItemType> implements StockOrderIN
 	 * @return 6AM of the 2 days after this stock order was placed.
 	 */
 	private HospitalDate earliestDeliveryTime() {
-		return new HospitalDate(creationDate_.getYear(),
-				creationDate_.getMonth(), creationDate_.getDay() + 2, 6, 0, 0);
+		return new HospitalDate(creationDate_.getYear(), creationDate_.getMonth(), creationDate_.getDay() + 2, 6, 0, 0);
 	}
 
 	@SuppressWarnings("unchecked")
 	public T getType() {
 		return type_;
 	}
-	
+
 	@Override
 	public String toString() {
-		
+
 		return "";
+	}
+
+	@Basic
+	public int getAmount() {
+		return amount_;
 	}
 }
