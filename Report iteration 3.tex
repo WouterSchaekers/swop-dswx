@@ -148,10 +148,20 @@ The stock provider is created together with the warehouse and both are stored in
 The warehouse stores 
 
 \section{Scheduling}
-\subsection{Scheduler and task manager}
-\subsection{LocationTimeTable and TimeTable}
-\subsection{Conditions and requirements}
+The Scheduling algorithm is build up that way that the Scheduler doesn't know anything about the specific classes of the domain. It only has knowledge about abstract schedulables and requirements.
+\subsection{Description and Requirements}
+A Description is an abstract class that \textit{describes} about a possible task. Such a Description can be an Appointment, a BloodTest, \dots.  It has all the information it needs to be able to build a task. This information is contained in the form of requirements. A Requirement is a class such as a Doctor, a WarehouseType, a Nurse, \dots. Requirements know what Objects are needed to forfill this Requirement. There are different Requirements, since not all Requirements are not of the same type:
+\begin{itemize}
+\item SpecificRequirement: This kind of Requirement contains one Object that needs to be forfilled. For example a Doctor during an Appointment. This Requirement will only be met by this Doctor.
+\item RequirementType: This kind of Requirement contains an ObjectType. All Objects of this type will forfill this Requirement. It is possible that there are more than one Object needed to forfill this Requirement. This information is also stored in this Requirement. An example of this kind of Requirement are Nurses during a xray scan. Since it is not important which Nurse does the scan, only some Nurse object is enough to forfill this Requirement.
+\item DiagnoseCondition: This kind of Requirement is only forfilled if the Diagnosis of the Patient is approved.
+\item WarehouseItemCondition: This kind of Requirement can only be forfilled if a Warehouse has enough items of the kind of type that is stored in this condition. To check whether this condition is met, a HospitalDate and a Location is needed to check this Condition. This Requirement has a collect method, in order to delete all the items it needs from the given Warehouse.
+\end{itemize}
+All these Requirements have the same interface, and thus the same methods. One of the methods is \textit{isCrucial()}. A Requirement is crucial if the Requirement needs a Machine or a SchedulableUser. This Requirement can only be met when the admin adds Machines or SchedulableUsers to the Hospital. If this Requirement is not met, the Task can never be scheduled in this Hospital with the current resources. If there are not enough resources available in the hospital to forfill this Requirement, the Task will never be able to be Scheduled and will be deleted from the system.
+\subsection{Scheduler and TaskManager}
+Due to security reasons, it is impossible to create Tasks. 
 \subsection{Schedulable and Requirable}
+\subsection{LocationTimeTable and TimeTable}
 \subsection{Impact of having different locations}
 \subsection{The location preference for doctors}
 \subsubsection{Preference states}
