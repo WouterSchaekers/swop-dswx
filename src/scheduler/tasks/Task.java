@@ -24,12 +24,10 @@ public final class Task<T extends TaskDescription> extends Observable implements
 	/**
 	 * Initialises a new Task and assigns it the queued-state.
 	 * 
-	 * *** ONLY CREATE IN SCHEDULER-PACKAGE OR CONTROLLERLAYER ***
-	 * 
 	 * @param description
 	 * @param hospital
 	 */
-	public Task(T description, Hospital hospital) {
+	Task(T description, Hospital hospital) {
 		TaskData data = new TaskData(hospital);
 		data.setDescription(description);
 		myState_ = new QueuedState(data);
