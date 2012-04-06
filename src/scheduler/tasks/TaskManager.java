@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;
-import scheduler.TimeLord;
 import system.Hospital;
 import users.SchedulableUser;
 import exceptions.AlreadyScheduledException;

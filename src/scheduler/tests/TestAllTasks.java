@@ -23,21 +23,15 @@ import users.DoctorFactory;
 import users.NurseFactory;
 import warehouse.item.MiscType;
 import warehouse.item.WarehouseItemType;
-import exceptions.ApproveDiagnoseException;
 import exceptions.CanNeverBeScheduledException;
 import exceptions.DischargePatientException;
 import exceptions.FactoryInstantiationException;
-import exceptions.InvalidComplaintsException;
-import exceptions.InvalidDiagnoseException;
-import exceptions.InvalidDoctorException;
-import exceptions.InvalidHospitalDateException;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidPatientFileException;
 import exceptions.InvalidSerialException;
-import exceptions.InvalidSystemTimeException;
+import exceptions.InvalidUserFactory;
 import exceptions.UserAlreadyExistsException;
-import exceptions.WarehouseOverCapacityException;
 
 @SuppressWarnings("deprecation")
 public class TestAllTasks
@@ -46,9 +40,7 @@ public class TestAllTasks
 	Campus location = hospital.getAllCampuses().iterator().next();
 
 	@Test
-	public void scheduleAppointment() throws UserAlreadyExistsException, InvalidNameException,
-			InvalidPatientFileException, InvalidHospitalDateException, CanNeverBeScheduledException,
-			InvalidLocationException {
+	public void scheduleAppointment() throws Exception {
 		DoctorFactory f = new DoctorFactory();
 		f.setLocation(location);
 		f.setName("Jonathan");
@@ -63,7 +55,7 @@ public class TestAllTasks
 	@Test
 	public void scheduleMedicalTestBlood() throws UserAlreadyExistsException, InvalidNameException,
 			InvalidLocationException, InvalidPatientFileException, InvalidSerialException,
-			CanNeverBeScheduledException, FactoryInstantiationException {
+			CanNeverBeScheduledException, FactoryInstantiationException, InvalidUserFactory {
 		NurseFactory f = new NurseFactory();
 		f.setName("Jenny");
 		f.setLocation(location);
@@ -99,10 +91,8 @@ public class TestAllTasks
 	}
 
 	@Test
-	public void scheduleTreatment() throws UserAlreadyExistsException, InvalidNameException, InvalidLocationException,
-			InvalidPatientFileException, InvalidDiagnoseException, InvalidDoctorException, InvalidComplaintsException,
-			FactoryInstantiationException, CanNeverBeScheduledException, WarehouseOverCapacityException,
-			IllegalAccessException {
+	public void scheduleTreatment() throws Exception{
+
 		NurseFactory f = new NurseFactory();
 		f.setName("Jenny");
 		f.setLocation(location);
@@ -129,10 +119,7 @@ public class TestAllTasks
 	}
 
 	@Test
-	public void scheduleTreatment2() throws UserAlreadyExistsException, InvalidNameException, InvalidLocationException,
-			InvalidPatientFileException, InvalidDiagnoseException, InvalidDoctorException, InvalidComplaintsException,
-			FactoryInstantiationException, CanNeverBeScheduledException, WarehouseOverCapacityException,
-			ApproveDiagnoseException, IllegalAccessException {
+	public void scheduleTreatment2() throws Exception {
 		NurseFactory f = new NurseFactory();
 		f.setName("Jenny");
 		f.setLocation(location);
@@ -161,10 +148,7 @@ public class TestAllTasks
 	}
 
 	@Test
-	public void scheduleTreatment3() throws UserAlreadyExistsException, InvalidNameException, InvalidLocationException,
-			InvalidPatientFileException, InvalidDiagnoseException, InvalidDoctorException, InvalidComplaintsException,
-			FactoryInstantiationException, CanNeverBeScheduledException, WarehouseOverCapacityException,
-			ApproveDiagnoseException, InvalidSystemTimeException, IllegalAccessException {
+	public void scheduleTreatment3() throws Exception {
 		NurseFactory f = new NurseFactory();
 		f.setName("Jenny");
 		f.setLocation(location);

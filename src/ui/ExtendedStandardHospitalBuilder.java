@@ -6,11 +6,6 @@ import system.Hospital;
 import system.StandardHospitalBuilder;
 import users.DoctorFactory;
 import users.NurseFactory;
-import exceptions.InvalidLocationException;
-import exceptions.InvalidNameException;
-import exceptions.InvalidPatientFileException;
-import exceptions.InvalidSerialException;
-import exceptions.UserAlreadyExistsException;
 
 public class ExtendedStandardHospitalBuilder
 {
