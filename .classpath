@@ -3,7 +3,7 @@
 	<classpathentry excluding="thrashcan/|DietersSandbox/|scheduler/Scheduler2.java|trashcan/" kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry exported="true" kind="lib" path="ogpdoc.jar"/>
-	<classpathentry kind="lib" path="capsules.jar"/>
+	<classpathentry exported="true" kind="lib" path="capsules.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

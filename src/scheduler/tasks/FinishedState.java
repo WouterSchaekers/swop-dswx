@@ -52,7 +52,6 @@ class FinishedState implements TaskState
 	@Override
 	public boolean isValidNewData(TaskData data) {
 		return data != null && !data.getResources().isEmpty() && data.getLocation() != null
-				&& data.getDescription() != null && data.getTimeSlot() != null
-				&& data.getDescription().equals(this.data_.getDescription());
+				&& data.getDescription() != null && data.getTimeSlot() != null;
 	}
 }

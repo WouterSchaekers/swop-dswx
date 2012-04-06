@@ -74,15 +74,24 @@ public class PatientFile implements PatientFileIN
 	 */
 	private boolean canBeDischarged() {
 		for (Diagnose d : diagnosis) {
-			if (d.isMarkedForSecOpBy(null))
+			if (d.isMarkedForSecondOp()) {
+				System.out.println("sec op");
 				return false;
+			}
+				
+				
 			for (Task<? extends Treatment> t : d.getTreatments())
-				if (!t.isFinished())
+				if (!t.isFinished()){ 
+					System.out.println("treats");
 					return false;
+				}
 		}
-		for (Task<? extends TaskDescription> m : medicaltests)
-			if (!m.isFinished())
+		for (Task<? extends TaskDescription> m : medicaltests) {
+			if (!m.isFinished()){
+				System.out.println("pending tests!");
 				return false;
+			}
+		}
 		return true;
 	}
 

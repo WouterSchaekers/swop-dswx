@@ -247,6 +247,10 @@ public class Diagnose extends Observable implements DiagnoseIN
 			return true;
 	}
 
+	boolean isMarkedForSecondOp() {
+		return secOpFlag;
+	}
+	
 	@Basic
 	public boolean isMarkedForSecOpBy(Doctor doctor) {
 		return this.secOpFlag && this.secopDoc == doctor;

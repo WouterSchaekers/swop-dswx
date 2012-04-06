@@ -1,10 +1,10 @@
 package scheduler.tasks;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;
+import scheduler.TimeLord;
 import system.Hospital;
 import users.SchedulableUser;
 import exceptions.AlreadyScheduledException;
@@ -29,8 +29,10 @@ public class TaskManager implements Observer
 	 * Contains all the tasks. Use their states to categorise them.
 	 */
 	private Collection<Task<?>> tasks_;
+
 	public TaskManager(Hospital hospital) {
 		hospital_ = hospital;
+		hospital_.getTimeKeeper().addObserver(this);
 		tasks_ = new LinkedList<Task<?>>();
 	}
 
@@ -60,12 +62,12 @@ public class TaskManager implements Observer
 	}
 
 	/**
-	 * Gets all the scheduled tasks in this taskmanager.
+	 * Gets all tasks in this taskmanager.
 	 * 
 	 * @return
 	 */
-	public Collection<Task<?>> getScheduledTasks() {
-		return new ArrayList<Task<?>>(tasks_);
+	public Collection<Task<?>> getAllTasks() {
+		return new LinkedList<Task<?>>(tasks_);
 	}
 
 	Hospital getHospital() {
@@ -88,14 +90,19 @@ public class TaskManager implements Observer
 
 	@Override
 	public void update(Observable o, Object arg) {
-		Task<?> task;
-		if (o instanceof Task<?>)
-			task = (Task<?>) o;
-		else
-			return;
+		if (o instanceof Task<?>) {
+			this.tryToScheduleOneTask((Task<?>) o);
+		} else if (o instanceof TimeLord) {
+			this.updateTaskCollection();
+		}
+	}
+
+	/**
+	 * Tries to schedule the given task if it's been queued.
+	 */
+	private void tryToScheduleOneTask(Task<?> task) {
 		if (!task.isQueued())
 			return;
-
 		try {
 			new Scheduler().schedule(task);
 		} catch (InvalidSchedulingRequestException e) {
@@ -104,13 +111,31 @@ public class TaskManager implements Observer
 			tasks_.remove(task);
 			task.deInitialise();
 		} catch (AlreadyScheduledException e) {
-			throw new Error("Fatal scheduling error, shutting down...");
-
+			throw new Error("Fatal scheduling error: queued task has already been scheduled?");
 		}
-
 	}
 
-
-	
-
+	/**
+	 * Updates the states of the queued and scheduled tasks when the time
+	 * advances.
+	 */
+	private void updateTaskCollection() {
+		for (Task<?> t : this.tasks_) {
+			if (t.isQueued()) {
+				try {
+					new Scheduler().schedule(t);
+				} catch (InvalidSchedulingRequestException e) {
+					;
+				} catch (AlreadyScheduledException e) {
+					throw new Error("Fatal scheduling error: queued task has already been scheduled?");
+				} catch (CanNeverBeScheduledException e) {
+					throw new Error("Fatal scheduling error while updating time... queued task can never be scheduled!");
+				}
+			} else if (t.isScheduled()) {
+				if (t.getDate().before(hospital_.getTimeKeeper().getSystemTime())) {
+					t.nextState(t.getData().clone());
+				}
+			}
+		}
+	}
 }
