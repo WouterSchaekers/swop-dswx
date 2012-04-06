@@ -58,7 +58,10 @@
 || 04/04/12: 13u30 -> 14u30 || 2 DS || 1 || More of the above... || Wouter ging eten op kot. ||
 || 04/04/12: 15u00 -> 19u00 || 3 DSW || 4 || Debugging scheduling algorithm, writing tests for domain layer, writing the report & creating SSDs || ||
 || 04/04/12: 21u00 -> 00u30 || 3 DSW || 3.5 || More of the above... || ||
-|| 05/04/12: 10u30 -> 13u37 || 3 DSW || 3 || Writing documentation, implementing ui || ||
+|| 05/04/12: 10u30 -> 13u37 || 3 DSW || 3 || Writing documentation, implementing ui, writing unit tests || ||
+|| 05/04/12: 15u00 -> 19u30 || 3 DSW || 4.5 || Writing documentation, implementing ui, writing unit tests || ||
+|| 05/04/12: 21u30 -> 00u00 || 3 DSW || 2.5 || Writing documentation, implementing ui, writing unit tests and a better test scenario || ||
+|| 06/04/12: 00u00 -> 03u00 || 2 SW || 3 || More of the above || Dieter wilde gaan slapen zodat hij morgen zeker op tijd wakker was ||
 
 = Iteratie 2 =
 || *Timepoint* || *Members* || *Workload* || *Purpose* || *Comments* ||
