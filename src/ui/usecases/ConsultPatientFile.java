@@ -22,6 +22,11 @@ public class ConsultPatientFile extends UseCase
 	public UseCase execute() {
 		System.out.println("Welcome to selecting a patient !");
 		Collection<PatientFileIN> patientfiles =consultPatienFileController.getAllPatientFiles();
+		if(patientfiles.isEmpty())
+		{
+			printLn("There are no patients in this hospital.");
+			return mm();
+		}
 		Selector<PatientFileIN> patienfileSelector = new Selector<PatientFileIN>(patientfiles, new Displayer<PatientFileIN>()
 		{
 			@Override

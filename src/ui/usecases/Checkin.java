@@ -27,7 +27,13 @@ public class Checkin extends UseCase
 		
 		{
 			Collection<PatientFileIN> patientFiles =controller.getAllPatientFiles();
-			printLn("Select a patientFile, enter with no argumenst to cancel.");
+			if(patientFiles.isEmpty())
+			{
+				printLn("There are no patients.");
+				return mm();
+			}
+			patientFiles.iterator().next().isDischarged();
+			printLn("Select a patientFile.");
 			Selector<PatientFileIN> patientFileSelector = new Selector<PatientFileIN>(patientFiles, new Displayer<PatientFileIN>()
 			{
 
@@ -51,7 +57,7 @@ public class Checkin extends UseCase
 			try {
 				controller.checkIn(file);
 			}  catch (InvalidPatientFileException e) {
-				printLn("Patientfile is wrong.");
+				printLn(" is wrong.");
 				return new MainMenu(data);
 			}
 			printLn("Sucesfully checked in!");

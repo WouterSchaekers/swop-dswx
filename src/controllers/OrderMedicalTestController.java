@@ -90,6 +90,8 @@ public class OrderMedicalTestController extends NeedsLoginAndPatientFileControll
 	@controllers.PUBLICAPI
 	public <T extends MedicalTest> HospitalDate addMedicaltest(MedicalTestFactory medicalTestFactory)
 			throws FactoryInstantiationException, CanNeverBeScheduledException {
+		
+		medicalTestFactory.setCreationDate(hospital.getTimeKeeper().getSystemTime());
 		@SuppressWarnings("unchecked")
 		Task<T> createdTest = (Task<T>) hospital.getTaskManager().add(medicalTestFactory.create());
 

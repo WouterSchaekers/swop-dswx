@@ -30,7 +30,7 @@ public class PatientFile implements PatientFileIN
 	 * All the Diagnosis for this patient.
 	 */
 	private Collection<Diagnose> diagnosis = new ArrayList<Diagnose>();
-	private boolean discharged = true;
+	private boolean discharged = false;
 	private Collection<Task<? extends TaskDescription>> medicaltests = new LinkedList<Task<? extends TaskDescription>>();
 	private Patient patient_;
 

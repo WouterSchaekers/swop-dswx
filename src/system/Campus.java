@@ -35,6 +35,7 @@ public class Campus implements Location, CampusIN
 		hospital.addCampus(this);
 		this.warehouse_ = warehouseBuilder.create(this);
 		this.machinePool_ = machinePool;
+		warehouse_.warehouse.addObserver(hospital.getTaskManager());
 	}
 
 	public Hospital getHospital() {
