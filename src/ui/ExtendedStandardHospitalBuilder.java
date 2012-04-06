@@ -33,15 +33,7 @@ public class ExtendedStandardHospitalBuilder
 		factory.setName(string);
 		try {
 			campus.getHospital().getUserManager().createUser(factory);
-		} catch (UserAlreadyExistsException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidNameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidLocationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (Exception e) {;
 		}
 		
 	}
@@ -55,12 +47,7 @@ public class ExtendedStandardHospitalBuilder
 			builder.setSerial(i++);
 			try {
 				campus.getMachinePool().addMachine(builder);
-			} catch (InvalidLocationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InvalidSerialException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} catch (Exception e) {;
 			}
 		}
 		
@@ -69,12 +56,7 @@ public class ExtendedStandardHospitalBuilder
 	private void addPatient(Campus campus, String string) {
 		try {
 			campus.getHospital().getPatientFileManager().registerPatient(string, campus);
-		} catch (InvalidNameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidPatientFileException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (Exception e) {;
 		}
 		
 	}
@@ -85,15 +67,7 @@ public class ExtendedStandardHospitalBuilder
 		factory.setName(string);
 		try {
 			campus.getHospital().getUserManager().createUser(factory);
-		} catch (UserAlreadyExistsException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidNameException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidLocationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (Exception e) {;
 		}
 		
 	}
