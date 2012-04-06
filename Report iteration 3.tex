@@ -29,28 +29,18 @@ During the feedback session of iteration two, some major (asw ell as minor) issu
 \item{There were no system sequence diagrams available;}
 \item{The UML of the domain layer did not have any relevant methods on it;}
 \item{The implementation of Warehouse was lacking in a lot of aspects: }
-\begin{itemize}
+
 \item{When an activity that required something from a warehouse got scheduled, there were no items removed from that warehouse;}
 \item{The way Warehouse kept track of it's items and their maximum capacity was hardcoded;}
 \item{The system for creating stock orders and delivering them to the warehouse wasn't implemented successfully;}
 \item{\dots}
-\end{itemize}
 \item{The unit for time (milliseconds) used in the system was nowhere documented.}
-\item{Some methods and controllers required the same set of parameters and instead of an object that groups them together, they were all mentioned explicitly;}
+\item{Some methods and controllers required the same set of parameters and instead of an object that groups them together, they were all mentioned explicitly.}
 \item{...}
 \end{itemize}
 We have taken all of the above (and more) into account while implementing iteration three to make certain that our hard work would not have been in vain.
 In this report we'll motivate the necessity of changes we have put the project through. Also, we'll try to give some other solutions for the problems we encountered that caused us to create the system as it is. We'll then draw a conclusion and leave it at that. \\
-\newline As for the amount of time we spent working on this iteration in detail, we refer to \url{http://code.google.com/p/swop-dswx/wiki/WorkingHours} . For a high level view, here's a table:
-\begin{center}
-    \begin{tabular}{ | l | l | l | p{100mm} |}
-    \hline
-    Dieter & Stefaan & Wouter\\ \hline
-    85h & 110h & 110h\\
-    \hline
-    \end{tabular}
-\end{center}
-There has been a total of 150 hours.
+\newline As for the amount of time we spent working on this iteration in detail, we refer to \url{http://code.google.com/p/swop-dswx/wiki/WorkingHours} . We have worked on this iteration for about 150 hours. Implementing accounts for a rather small percentage of this number. Most of the time we found ourselves thinking and discussing design decisions.
 
 \section{Package visible constructors}
 We decided to make as many constructors as we could package visible only. Doing this denies the creation of the affected objects by any unwanted classes/people efficiently. However, the lack of friend classes and friend packages in Java made it impossible to protect every constructor of every class in such a way. \\
@@ -148,14 +138,14 @@ The stock provider is created together with the warehouse and both are stored in
 The warehouse stores 
 
 \section{Scheduling}
-The Scheduling algorithm is build up that way that the Scheduler doesn't know anything about the specific classes of the domain. It only has knowledge about abstract schedulables and requirements.
+The Scheduling algorithm is built in such a way so that the Scheduler doesn't know anything about the specific classes that are in the the rest of the domain layer. It only knows about abstract schedulables and requirements.
 \subsection{Description and Requirements}
-A Description is an abstract class that \textit{describes} about a possible task. Such a Description can be an Appointment, a BloodTest, \dots.  It has all the information it needs to be able to build a task. This information is contained in the form of requirements. A Requirement is a class such as a Doctor, a WarehouseType, a Nurse, \dots. Requirements know what Objects are needed to forfill this Requirement. There are different Requirements, since not all Requirements are not of the same type:
+A Description is an abstract class that \textit{describes} a possible task. Such a Description can be an Appointment, a BloodTest, \dots.  It has all the information it needs to be able to build a task. This information is contained in the form of requirements. A Requirement is a class such as a Doctor, a WarehouseType, a Nurse, \dots. Requirements know what Objects are needed to forfill this Requirement. There are different Requirements, since not all Requirements are not of the same type:
 \begin{itemize}
-\item SpecificRequirement: This kind of Requirement contains one Object that needs to be forfilled. For example a Doctor during an Appointment. This Requirement will only be met by this Doctor.
-\item RequirementType: This kind of Requirement contains an ObjectType. All Objects of this type will forfill this Requirement. It is possible that there are more than one Object needed to forfill this Requirement. This information is also stored in this Requirement. An example of this kind of Requirement are Nurses during a xray scan. Since it is not important which Nurse does the scan, only some Nurse object is enough to forfill this Requirement.
-\item DiagnoseCondition: This kind of Requirement is only forfilled if the Diagnosis of the Patient is approved.
-\item WarehouseItemCondition: This kind of Requirement can only be forfilled if a Warehouse has enough items of the kind of type that is stored in this condition. To check whether this condition is met, a HospitalDate and a Location is needed to check this Condition. This Requirement has a collect method, in order to delete all the items it needs from the given Warehouse.
+\item SpecificRequirement: This kind of Requirement contains one Object that needs to be fulfilled. For example a Doctor during an Appointment. This Requirement will only be met by this Doctor.
+\item RequirementType: This kind of Requirement contains an ObjectType. All Objects of this type will fulfill this Requirement. It is possible that there are more than one Object needed to fulfill this Requirement. This information is also stored in this Requirement. An example of this kind of Requirement are Nurses during a xray scan. Since it is not important which Nurse does the scan, only some Nurse object is enough to fulfill this Requirement.
+\item DiagnoseCondition: This kind of Requirement is only fulfilled if the diagnose of the patient is approved.
+\item WarehouseItemCondition: This kind of Requirement can only be fulfilled if a Warehouse has enough items of the kind of type that is stored in this condition. To check whether this condition is met, a HospitalDate and a Location is needed to check this Condition. This Requirement has a collect method, in order to delete all the items it needs from the given Warehouse.
 \end{itemize}
 All these Requirements have the same interface, and thus the same methods. One of the methods is \textit{isCrucial()}. A Requirement is crucial if the Requirement needs a Machine or a SchedulableUser. This Requirement can only be met when the admin adds Machines or SchedulableUsers to the Hospital. If this Requirement is not met, the Task can never be scheduled in this Hospital with the current resources. If there are not enough resources available in the hospital to forfill this Requirement, the Task will never be able to be Scheduled and will be deleted from the system.
 \subsection{Scheduler and TaskManager}
@@ -165,8 +155,18 @@ If the Scheduler is able to schedule the Task, it will schedule all Schedulables
 \subsection{Schedulable and Requirable}
 Schedulables are Objects that can be scheduled. They have a TimeTable.\\*
 Requirables are Objects that are needed to forfill a Requirement. This is in fact just an empty interface to generalize all the Objects that are usefull for this.
-\subsection{LocationTimeTable and TimeTable}
-A TimeTable is a class that represents the individual TimeTable that each Schedulable has. It very much resembles a real life timetable in which one can keep track of one’s appointments and todos. A TimeTable consists of a set of TimeSlots. Each TimeSlot in the TimeTable represents an interval in time during which the TimeTable in question is marked as being “occupied”. A couple of methods in TimeTable that are worth mentioning:
+
+\subsection{HospitalDate}
+We had started implementing the system that’s in the class diagram above by using java.util.Date. We soon found out that there was something not right with this library. The methods used to get the year, date, hour,… of a Date-object are all depricated and do not work at all in combination with the not-depricated constructor and toString() of Date. After numerous frustrations about Date, we considered a number of possible alternatives.
+\\The most evident alternative would be java.sql.Date. However, this library does not vary all that much from java.util.Date and we found it just almost just as dysfunctional as the latter. The next possible solution was to work with Calendar objects from java.util.Calendar. Unfortunately using this class is not as programmer friendly as one would expect it to be. We would like to quote Joshua Bloch, Google's chief Java architect and author of “Effective Java”, from an interview in which he was asked to give some tips for Java developers. In this interview, he said the following:
+\begin{center}
+\emph{"As an extreme example of what not to do, consider the case of java.util.Calendar. Very few people understand its state-space -- I certainly don't -- and it's been a constant source of bugs for years." - \url{http://java.sun.com/developer/technicalArticles/Interviews/bloch_effective_08_qa.html} .}
+\end{center}
+We then opted to go with java.util.GregorianCalendar instead. While a significant improvement over Calendar, GregorianCalendar still proved to be rather hard to work with. Finally we decided to write our own Date class and named it HospitalDate. This class uses the GregorianCalendar to store and calculate dates, but we implemented some getters and setters so that using a HospitalDate would make our code easier to read and write. HospitalDate turned out to be exactly what we needed as it did not have any of the disadvantages of the other alternatives mentioned above.
+\newline HospitalDates have a constructor that allows you to create a Date that takes place at a certain amount of milliseconds since the system start time (8AM at Nov 8th, 2011): the so called "start of time". "End of time" is the point at which the value of long would overflow, if added one more millisecond. All methods returning milliseconds or asking milliseconds as a parameter work in this way. 
+
+\subsection{TimeTable}
+A TimeTable is a class that represents the individual TimeTable that each Schedulable has. It very much resembles a real life timetable in which one can keep track of one’s appointments and todos. A TimeTable consists of a set of TimeSlots. Each TimeSlot in the TimeTable represents an interval in time during which the TimeTable in question is marked as being “occupied”. A couple of methods in TimeTable that are worth mentioning (as they're not in the class diagram):
 \begin{itemize}
 \item{invert() : TimeTable}
 \item{getUnion(TimeTable) : TimeTable}
@@ -177,9 +177,36 @@ Invert() inverts the TimeTable. This means: busy slots become free slots and the
 \\*getUnion() gets the union of two TimeTables. The union is defined analogous to the union of two collections in mathematics: it’s a new TimeTable that is marked as “busy” everywhere where either one or both of the original TimeTables is “busy”.
 \\*getIntersect() gets the intersection of two TimeTables. Like getUnion(), getIntersect() is defined very much like in mathematics: the intersection of two TimeTables is a new TimeTable that is marked as “busy” where both of the original TimeTables are “busy”.
 \\*eliminateOverlap() is a method that basically merges timeslots that overlap. For example: if a TimeTable contains a slot from 5AM to 8AM and another one from 7AM to 9AM, eliminateOverlap() will result the two original timeslots being reduced to only one: from 5AM to 9AM.
-LocationTimeTables are exactly the same as TimeTables. The only difference is the fact that the TimeSlots are have Locations attached to it. This is needed for Schedulables that don't have a fixed location.
-\subsubsection{HospitalDate}
-Just like in the previous iteration, we use our own HospitalDate class, since there is currently no good class in java to satisfy our needs.
+
+\subsection{TimeSlot}
+A TimeSlot is nothing more than a representation of an interval of time. It has a starting- and stopping point. Its length is in milliseconds.
+
+\subsection{TimePoint}
+As a TimeSlot has a starting and stopping point, TimePoint is the abstract class that represents those points in time. Each TimePoint has a HospitalDate so as to know which point in time it really represents.
+\\*It has two child classes: StartTimePoint and StopTimePoint. At first TimePoint held on to an enumeration so that it would know whether it was a starting- or stopping point. Now however, the design is more adaptable: it's easily possible to add a new sort of TimePoint now due to the high cohesion achieved by using two separate classes.
+
+\subsection{Schedulable and SchedulableUser}
+Schedulable is an interface that is implemented by all objects that can be scheduled in the hospital (i.e.: nurses, doctors, XRay scanners, bloodanalysismachines,…). Because hospital administrators and warehouse administrators can’t be scheduled for now, there is also a distinction between User and SchedulableUser, as you can see in the class diagram.
+Schedulable objects have three methods worth mentioning: 
+\begin{itemize}
+\item{canBeScheduledOn(HospitalDate startDate, HospitalDate stopDate) : boolean}
+\item{getTimeTable() : TimeTable}
+\item{scheduleAt(TimeSlot timeslot): void}
+\end{itemize}
+These methods should do what their names suggest they do. canBeScheduledOn() will return true if the object executing the method finds that all it’s privately kept constraints have been met and that its TimeTable allows it to be scheduled at the given interval of time. getTimeTable() will get and return the TimeTable of the Schedulable in question. scheduleAt() will schedule the Schedulable at the given TimeSlot if possible.
+
+\subsection{Constraints}
+There are a lot of constraints related to time and scheduling in this assignment. I.e.: nurses only work between 8AM and 5PM, Treatments can be registered before being scheduled, everything must be scheduled at least 1 hour in advance of the current system time, a patient may only get ten XRay scans per year,\dots. Most of these constraints can be taken care of by canBeScheduled() in Schedulable. 
+\\*A constraint that has risen a problem was the fact that a Diagnose can already have a Treatment without it being scheduled if the Diagnose is not approved yet at the time of the creation of the Treatment. We'll elaborate on this in the sections below.
+
+\subsection{Task, UnscheduledTask, ScheduledTask, TaskManager}
+Task, UnscheduledTask and ScheduledTask are all abstract classes that represent things that can be (or already have been) scheduled. UnscheduledTasks are Tasks that haven't been scheduled yet. Once they can be successfully scheduled by Scheduler, they can be removed from the task queue kept by TaskManager and turned into ScheduledTasks. The ScheduledTasks get stored in the Schedulables that are to execute the ScheduledTask so that giving the user sensible output concerning todos is almost trivial.
+\\* As is, it is possible a Task can't be immediately scheduled after creation. Possible reasons for this could be: the warehouse has run out of stock of an item required by the Task that was just created or the Task that can't be scheduled is a Treatment for a Diagnose that has not been approved yet. We managed to solve both of those problems by implementing the observer pattern. We now have a couple of Observers that get notified at the right times and that then tell the TaskManager to update its queue as some changes in the system has triggered the observer watching it.
+
+\subsection{TimeLord}
+TimeLord is the class that keeps track of the current system time. We have chosen to create a seperate class for that purpose only. The alternative was to keep the current system time stored in Scheduler. However, we felt like this does not fall under the responsibilities of Scheduler. 
+\\*Let's assume one would like to keep the current system time in Scheduler. They then would have to make a choice between having the system time be static or not. A static system time is bad for the following reason: any class extending scheduler will not be able to keep their own system time should another scheduler or sub class of Scheduler already exists. Expanding the hospital into several timezones or creating a new sort of Scheduler, would then not be possible. The only option left then is to keep it as a non-static field. That would mean that any class requiring the system time would depend on Scheduler. This is bad for low coupling and high cohesion as a very high amount of classes will then depend on the Scheduler.
+
 \subsection{Impact of having different locations}
 The different locations had a huge impact on the scheduling algorithm. Instead of just iteration over all the resources, the algorithm had to take into account that not all resources are available everywhere. This has been eleganlty solved, by just iterating over all the locations and then trying to schedule over there. The scheduler will chose the best timeslot amongst all the possiblities.
 \subsection{The location preference for doctors}
@@ -189,6 +216,60 @@ Since every state contains all the information about the location of the Doctor,
 Because we were a little short in time, we didn't have the time to implement these methods.
 
 \section{The updated testing scenario}
-We have changed the testing scenario we handed in on the deadline of the refactoring report drastically.
+We have changed the testing scenario we handed in on the deadline of the refactoring report drastically. We will now give a short look into the setting of the new scenario and what it does.
+\subsection{The state of the hospital at initialisation}
+The hospital has one hospital administrator and two campuses.\\
+Campus 1 contains: 
+\begin{itemize}
+\item{Three nurses: Jenny, Jenna, Jeffrey;}
+\item{Four doctors: Jonathan, Jens, Jelle, Joanne;}
+\item{Three x-ray scanners;}
+\item{One ultra sound scanner;}
+\item{one WarehouseAdministrator: Greg.}
+\end{itemize}
+Campus 2 contains:
+\begin{itemize}
+\item{Two nurses Joy, Janna}
+\item{Two doctors Joe, Jennifer}
+\item{Three blood analysers;}
+\item{One WarehouseAdministrator: Geoff.}
+\end{itemize}
+The patient files and their history stored in the hospital:
+\begin{itemize}
+\item{Stefaan was diagnosed with "cancer" by Jonathan but the diagnose still needs a second opinion from Jennifer. Complaints are "sleepy". Patient has had a blood analysis in the past, created by Jonathan.}
+\item{Dieter was diagnosed with "Hypochondria" by doctor Joanne. The diagnose has been approved. Patient's complaints are "Feel sick ALL the time".}
+\item{Wouter was just registered in the hospital by nurse Jenna. Complaints are "arm hurts".}
+\item{Thibault is currently discharged. Has had the following MedicalTests in the past: one UltraSoundScan, one XRayScan, one BloodAnalysis. Was diagnosed with "Fatal new variant of pneumonia" and had the following treatment carried out successfully: a surgery "Lung transplant".}
+\end{itemize}
+After this hospital state has been initialised, the test scenario gets executed.
+\subsection{The events that occur}
+\begin{itemize}
+\item{Stefaan gets a new MedicalTest: BloodAnalysis. Jennifer disapproves the previous diagnose after the blood analysis has been carried out. The replacement diagnose is "stress". This diagnose gets reviewed and approved by Jonathan. The medication treatment, created by Jennifer, gets scheduled and results in nothing abnormal. Stefaan gets discharged by Jens.}
+\item{Dieter gets a brain surgery treatment. This treatment is carried out without problems. After the result of the surgery has been entered, Jens discharges Dieter.}	
+\item{Wouter gets an appointment with Joe. Joe creates a blood analysis and an x-ray scan for Wouter. After both tests have happened, Joe concludes that Wouter has a fractured arm. The diagnose is approved without needed a second opinion after which a cast gets scheduled. After the result is entered, Wouter gets discharged.}
+\item{Thibault enters the hospital at campus 1and complains: "stomach hurts, jaundice". Nurse Jenna checks him in and creates an appointment with Joe. Joe creates an ultra sound scan and an x-ray scan. From these medical tests, Joe concludes that Thibault's "liver is failling". The treatment is another surgery: "liver transplant". After the treatment has been carried out and the result has been entered, Thibault gets discharged.}
+\item{Five new patients come into campus 1 and all of them have the same symptoms "pain in chest and difficulty breathing". After they get their equal appointments, tests, diagnosis ("Heavy metal poisoning") and treatments, two out of five survive while three of them didn't make it.}
+\item{Advance time is called a multitude of times in the execution of this scenario.}
+\end{itemize}
+\section{Things that can be done better}
+\subsection{Diagnose state}
+The lack of the state pattern in Diagnose gave us many problems, we were to late to discover this and thus were unable to implement the pattern here. We think the states UNAPPROVED,APPROVED,DISMISSED would be very helpful in Diagnose objects.
+\subsection{Comments}
+We have a lack of commenting on our code, partially due to time pressure and thanks to the many overhauls in our design. The times that when an exception is thrown it is documented thoroughly is rare even in the controllers.
+\subsubsection{TimeTables \& Locations} We noticed that the timetables were very helpful when we were dealing with one campus, but when multiple campi were introduced to the domain they were not sufficient. An ideal sollution would probably be a LocationTimeTable that saves the location of a Requirable with the time or a task timetable that keeps track of which task is being executed at what time. This would mean that the interface of Requireable would change and that occupiedOn(HospitalDate):boolean would change to getTaskOn(HospitalDate):Task, all the required info could possibly be derived from that object.
+\subsection{Factories \& consistency}
+We have a lack of consistency in where the create() method of a factory can and should be used. 
+\subsection{DoctorState}
+The state pattern in Doctor is used but not yet in such a way that is sufficient, Doctors don't travel  between campi. This has high cohesion with the TimeTable location problem that we faced and did not fix.
+\subsection{Results} 
+We had little problems implementing the results for different task in the hospital, but because we introduced them (as seperate objects) too late in our system they barely had any testing.
+\section{Eclemma and unit tests}
+We reached a +- 80\%  code coverage of our domain. We did little border case testing but most of the functionality is implemented. The warehouse package together with the scheduler and task package has the most coverage, we spend a lot of time on testing the timetables since they weren't easy to implement and are one of the most important classes of our system.
+\section{Capsules}
+After we've reviewed the design completely, we made all domain layer packages friends with eachother. The public API consists of all the methods in the controller-package and the set-methods from the used factories.\\
+The controller package is a friend package of the ui package. The ui package does not have any other friend packages than the controller package.
+
 \section{Conclusion}
+After a lot of hard work with a lot of ups and downs, we feel that we now finally have a system that's designed in a very acceptable way that covers all the bases. Throughout the project several issues concerning team work surfaced and resurfaced. The main one being communication. Explaining what seems evident on the inside your head to other people who don't see things the same way you do can sometimes lead to faulty interpretations or even frustrations.\\
+Nevertheless we learned a lot about object oriented programming, team work, the limitations of Java, design patterns and refactoring.
 \end{document}
