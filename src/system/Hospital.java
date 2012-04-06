@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import medicaltest.MedicalTestFactory;
 import patient.PatientFile;
 import patient.PatientFileManager;
+import scheduler.HospitalDate;
 import scheduler.Schedulable;
 import scheduler.TimeLord;
 import scheduler.tasks.TaskManager;
@@ -30,6 +31,10 @@ public class Hospital implements HospitalIN
 	private Collection<Campus> campuses_;
 	private Collection<MedicalTestFactory> medicalTestFactories_;
 	private Collection<TreatmentFactory> treatmentFactories_;
+	/**
+	 * Represents the travel time between two campusses.
+	 */
+	public static final long TRAVEL_TIME = 15 * HospitalDate.ONE_MINUTE;
 
 	/**
 	 * Constructor that creates a new hospital with the given data as initial

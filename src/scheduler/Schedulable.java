@@ -50,7 +50,8 @@ public interface Schedulable extends Requirable
 	 *            The TimeSlot must lay before this HospitalDate.
 	 * @param duration
 	 *            The minimum duration of the TimeSlot.
-	 * @return The biggest possible TimeSlot
+	 * @return The biggest possible TimeSlot at the given Location, between the
+	 *         two given HospitalDates with a minimum duration.
 	 * @throws InvalidSchedulingRequestException
 	 *             The StopDate may not be behind the StopDate.
 	 */
