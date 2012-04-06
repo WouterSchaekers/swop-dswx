@@ -9,6 +9,7 @@ import result.CastResultFactory;
 import result.Result;
 import result.ResultFactory;
 import scheduler.HospitalDate;
+import scheduler.requirements.DiagnoseCondition;
 import scheduler.requirements.Requirement;
 import scheduler.requirements.RequirementType;
 import scheduler.requirements.SpecificRequirement;
@@ -79,6 +80,7 @@ public class Cast extends Treatment
 		requirements.add(new SpecificRequirement(this.patientFile_.getPatient(), false));
 		requirements.add(new WarehouseItemCondition(new PlasterType(), 1));
 		requirements.add(new RequirementType<Nurse>(Nurse.class, true, 1));
+		requirements.add(new DiagnoseCondition(diagnose_));
 		return requirements;
 	}
 
