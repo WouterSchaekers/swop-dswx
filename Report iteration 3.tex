@@ -183,8 +183,10 @@ Just like in the previous iteration, we use our own HospitalDate class, since th
 \subsection{Impact of having different locations}
 The different locations had a huge impact on the scheduling algorithm. Instead of just iteration over all the resources, the algorithm had to take into account that not all resources are available everywhere. This has been eleganlty solved, by just iterating over all the locations and then trying to schedule over there. The scheduler will chose the best timeslot amongst all the possiblities.
 \subsection{The location preference for doctors}
-\subsubsection{Preference states}
+Because different campusses were introduced, doctors had the option to switch between them. In order to solve this problem, we introduced states. There are two different states. A selected preference state and a back and forth state. The purose of these two states is handling the TimeTable-calls. This is possible since every state has a LocationTimeTable. All the calls on Doctor involving the gathering of TimeSlots will be overriden and redirected to the states.
 \subsubsection{getLocationAt()-method}
+Since every state contains all the information about the location of the Doctor, the state is able to know where the Doctor is at every point in time.\\*
+Because we were a little short in time, we didn't have the time to implement these methods.
 
 \section{The updated testing scenario}
 We have changed the testing scenario we handed in on the deadline of the refactoring report drastically.
