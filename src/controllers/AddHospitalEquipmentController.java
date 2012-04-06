@@ -2,7 +2,6 @@ package controllers;
 
 import java.util.Collection;
 import java.util.LinkedList;
-import machine.Machine;
 import machine.MachineBuilder;
 import system.Campus;
 import system.Location;
