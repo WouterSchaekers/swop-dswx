@@ -39,6 +39,8 @@ public class TestScenario
 		letJenniferOrderStefTest();
 		advanceTime(HospitalDate.ONE_MINUTE * 30);
 		letJoanneOrderDieterTreatment();
+		advanceTime(HospitalDate.ONE_MINUTE * 15);
+		
 	}
 
 	private void letJenniferOrderStefTest() throws Exception {
