@@ -105,7 +105,7 @@ public class TaskManager implements Observer
 		try {
 			new Scheduler().schedule(task);
 		} catch (InvalidSchedulingRequestException e) {
-			throw new Error(e.getMessage());
+			;
 		} catch (CanNeverBeScheduledException e) {
 			tasks_.remove(task);
 			task.deInitialise();

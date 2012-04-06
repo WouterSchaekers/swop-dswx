@@ -141,6 +141,7 @@ public class TestAllTasks
 		surgeryfactory.setDescription("Thibault verwijderen van de wereld.");
 		surgeryfactory.setDiagnose(diagnose);
 		Task<Treatment> surgery = hospital.getTaskManager().add(surgeryfactory.create());
+		assertFalse(surgery.isScheduled());
 		diagnose.approveBy(doctorJonathan);
 		assertFalse(surgery.isScheduled());
 		location.getWarehouse().add(type, HospitalDate.END_OF_TIME);
