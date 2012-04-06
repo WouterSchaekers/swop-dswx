@@ -153,7 +153,7 @@ public class TestingScenarioSetup
 		throw new IllegalStateException("Apparently we're not allowed to create XRayScanners..");
 	}
 
-	private void createUsers() throws UserAlreadyExistsException, InvalidNameException, InvalidLocationException, InvalidUserFactory {
+	private void createUsers() throws Exception {
 		addDoctor("Jonathan", campus1);
 		addDoctor("Jens", campus1);
 		addDoctor("Jelle", campus1);
@@ -194,9 +194,7 @@ public class TestingScenarioSetup
 		throw new IllegalStateException("Something went wrong... requested user type does not exist?");
 	}
 
-	private void initialisePatientFiles() throws InvalidNameException, InvalidPatientFileException,
-			DischargePatientException, IllegalAccessException, InvalidDiagnoseException, InvalidDoctorException,
-			InvalidComplaintsException, CanNeverBeScheduledException, FactoryInstantiationException, InvalidHospitalDateException {
+	private void initialisePatientFiles() throws Exception {
 		createPatientFiles();
 		fillFilesWithData();
 	}
@@ -212,9 +210,7 @@ public class TestingScenarioSetup
 		pfMan.registerPatient("Thibault", hospital.getCampus("Campus 1"));
 	}
 
-	private void fillFilesWithData() throws InvalidPatientFileException, DischargePatientException,
-			IllegalAccessException, InvalidDiagnoseException, InvalidDoctorException, InvalidComplaintsException,
-			CanNeverBeScheduledException, FactoryInstantiationException, InvalidHospitalDateException {
+	private void fillFilesWithData() throws Exception {
 		setThibaultHistory(getPatientFileFrom("Thibault"));
 		setStefHistory(getPatientFileFrom("Stefaan"));
 		setWouterHistory(getPatientFileFrom("Wouter"));

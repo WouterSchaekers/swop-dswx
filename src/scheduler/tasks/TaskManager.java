@@ -105,7 +105,7 @@ public class TaskManager implements Observer
 		try {
 			new Scheduler().schedule(task);
 		} catch (InvalidSchedulingRequestException e) {
-			;
+			throw new Error(e.getMessage());
 		} catch (CanNeverBeScheduledException e) {
 			tasks_.remove(task);
 			task.deInitialise();
@@ -124,7 +124,7 @@ public class TaskManager implements Observer
 				try {
 					new Scheduler().schedule(t);
 				} catch (InvalidSchedulingRequestException e) {
-					System.out.println(e.getMessage());;
+					throw new Error(e.getMessage());
 				} catch (AlreadyScheduledException e) {
 					throw new Error("Fatal scheduling error: queued task has already been scheduled?");
 				} catch (CanNeverBeScheduledException e) {
