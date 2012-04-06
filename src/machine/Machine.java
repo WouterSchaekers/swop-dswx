@@ -8,7 +8,6 @@ import system.Location;
 import controllers.interfaces.MachineIN;
 import exceptions.InvalidLocationException;
 import exceptions.InvalidSchedulingRequestException;
-import exceptions.InvalidTimeSlotException;
 
 /**
  * This class represents a machine in the hospital.
@@ -91,7 +90,7 @@ public abstract class Machine implements Schedulable, MachineIN
 	 */
 	@Override
 	public final TimeSlot getFirstFreeSlotBetween(Location location, HospitalDate startDate, HospitalDate stopDate,
-			long duration) throws InvalidSchedulingRequestException, InvalidTimeSlotException {
+			long duration) throws InvalidSchedulingRequestException {
 		if (location != this.campusLocation_)
 			throw new InvalidSchedulingRequestException("The machine is not available at this location");
 		return this.getTimeTable().getFirstFreeSlotBetween(startDate, stopDate, duration);

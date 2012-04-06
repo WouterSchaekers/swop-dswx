@@ -82,14 +82,6 @@ public class WarehouseItemCondition implements Requirement
 	}
 
 	/**
-	 * Returns false.
-	 */
-	@Override
-	public boolean backToBack() {
-		return false;
-	}
-
-	/**
 	 * @return The amount needed of this type.
 	 */
 	public int getAmount() {

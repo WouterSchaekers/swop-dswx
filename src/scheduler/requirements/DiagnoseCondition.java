@@ -54,14 +54,6 @@ public class DiagnoseCondition implements Requirement
 	}
 
 	/**
-	 * Returns false.
-	 */
-	@Override
-	public boolean backToBack() {
-		return false;
-	}
-
-	/**
 	 * @return 1.
 	 */
 	public int getAmount() {

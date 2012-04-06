@@ -193,10 +193,14 @@ public class TimeTable
 	 *            The minimal duration of the TimeSlot.
 	 * @return The first free slot between the startDate and stopDate with a
 	 *         minimal duration of duration.
+	 * @throws InvalidSchedulingRequestException 
+	 * No more free slots available between the given Start -and EndDate!
 	 */
-	public TimeSlot getFirstFreeSlotBetween(HospitalDate startDate, HospitalDate stopDate, long duration) {
+	public TimeSlot getFirstFreeSlotBetween(HospitalDate startDate, HospitalDate stopDate, long duration) throws InvalidSchedulingRequestException {
 		TimeTable invert = this.invert();
 		for (TimeSlot t : invert.timeSlots_) {
+			if(stopDate.before(t.getStartDate()))
+				break;
 			HospitalDate startDateOfTimeSlot = t.getStartPoint().getHospitalDate();
 			HospitalDate stopDateOfTimeSlot = t.getStopPoint().getHospitalDate();
 			if (!startDateOfTimeSlot.before(startDate)) {
@@ -215,7 +219,7 @@ public class TimeTable
 					return new TimeSlot(new StartTimePoint(startDate), new StopTimePoint(stopDate));
 			}
 		}
-		throw new IllegalStateException("No more free slots available between the given Start -and EndDate!");
+		throw new InvalidSchedulingRequestException("No more free slots available between the given Start -and EndDate!");
 	}
 
 	/**

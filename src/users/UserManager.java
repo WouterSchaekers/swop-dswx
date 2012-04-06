@@ -66,7 +66,7 @@ public class UserManager
 	 */
 	private void addUser(User user) throws UserAlreadyExistsException {
 		if (users_.contains(user))
-			throw new UserAlreadyExistsException(user.name);
+			throw new UserAlreadyExistsException(user.name_);
 		users_.add(user);
 	}
 

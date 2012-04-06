@@ -14,9 +14,7 @@ import system.Campus;
 import system.Location;
 import exceptions.AlreadyScheduledException;
 import exceptions.CanNeverBeScheduledException;
-import exceptions.InvalidHospitalDateArgument;
 import exceptions.InvalidSchedulingRequestException;
-import exceptions.InvalidTimeSlotException;
 
 public class Scheduler
 {
@@ -46,7 +44,7 @@ public class Scheduler
 		Collection<Location> locs = unscheduledTask.getData().getLocations();
 		Collection<Schedulable> resPool = taskData.getAllAvailableResources();
 		Collection<Requirement> reqs = desc.getAllRequirements();
-		if(checkForMarkedForRemoval(reqs))
+		if (checkForMarkedForRemoval(reqs))
 			throw new CanNeverBeScheduledException("One of the requirements can never be satisfied anymore.");
 		HospitalDate curDate = taskData.getSystemTime();
 		HospitalDate minDate = new HospitalDate(desc.getCreationTime().getTimeSinceStart() + desc.getExtraTime());
@@ -160,12 +158,8 @@ public class Scheduler
 		LinkedList<Schedulable> bestOptToFind = delAlreadyUsedRes(curResPool, usedResList.get(curResPool));
 		int bestOption = findBestOpt(bestOptToFind, loc, startDate, stopDate, desc.getDuration());
 		TimeSlot bestSlot = null;
-		try {
-			bestSlot = bestOptToFind.get(bestOption).getFirstFreeSlotBetween(loc, startDate, stopDate,
+		bestSlot = bestOptToFind.get(bestOption).getFirstFreeSlotBetween(loc, startDate, stopDate,
 					desc.getDuration());
-		} catch (Exception e) {
-			throw new Error(e.toString());
-		}
 		HospitalDate newStartDate = bestSlot.getStartPoint().getHospitalDate();
 		HospitalDate newStopDate = bestSlot.getStopPoint().getHospitalDate();
 		try {
@@ -456,9 +450,8 @@ public class Scheduler
 		int bestOption = -1;
 		TimeSlot bestSlot = null;
 		for (int i = 0; i < bestOptToFind.size(); i++) {
-			TimeSlot curSlot;
 			try {
-				curSlot = bestOptToFind.get(i).getFirstFreeSlotBetween(loc, startDate, stopDate, duration);
+				TimeSlot curSlot = bestOptToFind.get(i).getFirstFreeSlotBetween(loc, startDate, stopDate, duration);
 				if (bestSlot == null)
 					bestSlot = curSlot;
 				HospitalDate curStartDate = curSlot.getStartPoint().getHospitalDate();
@@ -532,16 +525,10 @@ public class Scheduler
 		}
 		HospitalDate nextStartDate = startDate;
 		for (Schedulable schedulable : usableSchedulables) {
-			try {
-				TimeSlot firstTimeSlot = schedulable.getFirstFreeSlotBetween(loc, startDate, stopDate, duration);
-				HospitalDate newStartDate = firstTimeSlot.getStartDate();
-				if (nextStartDate.equals(startDate) || newStartDate.before(nextStartDate))
-					nextStartDate = newStartDate;
-			} catch (InvalidTimeSlotException e) {
-				throw new Error("Scheduler, getNextStartDate");
-			} catch (InvalidHospitalDateArgument e) {
-				throw new Error("Scheduler, getNextStartDate");
-			}
+			TimeSlot firstTimeSlot = schedulable.getFirstFreeSlotBetween(loc, startDate, stopDate, duration);
+			HospitalDate newStartDate = firstTimeSlot.getStartDate();
+			if (nextStartDate.equals(startDate) || newStartDate.before(nextStartDate))
+				nextStartDate = newStartDate;
 		}
 		if (nextStartDate == startDate)
 			throw new InvalidSchedulingRequestException(

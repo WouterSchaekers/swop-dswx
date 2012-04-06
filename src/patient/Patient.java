@@ -9,10 +9,8 @@ import scheduler.TimeTable;
 import system.Location;
 import be.kuleuven.cs.som.annotate.Basic;
 import controllers.interfaces.PatientIN;
-import exceptions.InvalidHospitalDateArgument;
 import exceptions.InvalidNameException;
 import exceptions.InvalidSchedulingRequestException;
-import exceptions.InvalidTimeSlotException;
 
 /**
  * This class represents a patient. Patients are linked to any number of patient
@@ -42,8 +40,7 @@ public class Patient implements Schedulable, PatientIN
 	}
 
 	@Override
-	public boolean canBeScheduledOn(HospitalDate startDate, HospitalDate stopDate)
-			throws InvalidSchedulingRequestException, InvalidTimeSlotException {
+	public boolean canBeScheduledOn(HospitalDate startDate, HospitalDate stopDate) {
 		return timeTable_.hasFreeSlotAt(startDate, stopDate);
 	}
 
@@ -61,8 +58,7 @@ public class Patient implements Schedulable, PatientIN
 
 	@Override
 	public TimeSlot getFirstFreeSlotBetween(Location location, HospitalDate startDate, HospitalDate stopDate,
-			long duration) throws InvalidSchedulingRequestException, InvalidTimeSlotException,
-			InvalidHospitalDateArgument {
+			long duration) throws InvalidSchedulingRequestException {
 		return timeTable_.getFirstFreeSlotBetween(startDate, stopDate, duration);
 	}
 

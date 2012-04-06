@@ -10,20 +10,15 @@ import warehouse.Warehouse;
 public class SpecificRequirement implements Requirement
 {
 	private Requirable requirable_;
-	private boolean backToBack_;
 
 	/**
 	 * Default constructor.
 	 * 
 	 * @param requirable
 	 *            The Requirable that is needed to satisfy this Requirement.
-	 * @param backToBack
-	 *            Boolean to set whether the Requirement must be scheduled back
-	 *            to back.
 	 */
-	public SpecificRequirement(Requirable requirable, boolean backToBack) {
+	public SpecificRequirement(Requirable requirable) {
 		requirable_ = requirable;
-		backToBack_ = backToBack;
 	}
 
 	/**
@@ -67,14 +62,6 @@ public class SpecificRequirement implements Requirement
 	@Override
 	public void collect(Warehouse warehouse) {
 		;
-	}
-
-	/**
-	 * @return True if this Requirement demands to be scheduled back to back.
-	 */
-	@Override
-	public boolean backToBack() {
-		return this.backToBack_;
 	}
 
 	/**

@@ -65,9 +65,9 @@ public class Surgery extends Treatment
 	@Override
 	public Collection<Requirement> getAllRequirements() {
 		Collection<Requirement> requirements = new LinkedList<Requirement>();
-		requirements.add(new SpecificRequirement(this.patientFile_.getPatient(), false));
+		requirements.add(new SpecificRequirement(this.patientFile_.getPatient()));
 		requirements.add(new WarehouseItemCondition(new MiscType(), 1));
-		requirements.add(new RequirementType<Nurse>(Nurse.class, true, 1));
+		requirements.add(new RequirementType<Nurse>(Nurse.class, 1));
 		requirements.add(new DiagnoseCondition(diagnose_));
 		return requirements;
 	}
