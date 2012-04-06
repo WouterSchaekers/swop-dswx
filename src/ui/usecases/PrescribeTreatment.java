@@ -28,7 +28,7 @@ public class PrescribeTreatment extends UseCase
 
 	@Override
 	public UseCase execute() {
-		
+
 		print("Prescribe treatment for patient"
 				+ data.getConsultPatientFileopenController().getPatientFile().getPatientIN().getName());
 		DiagnoseIN selectedDiagnose;
@@ -47,7 +47,7 @@ public class PrescribeTreatment extends UseCase
 						new TreatUsecase(data).fromFact(treat).display();
 					}
 				});
-		TreatmentFactory factory =treatmentSelector.get();
+		TreatmentFactory factory = treatmentSelector.get();
 		factory.setDiagnose(selectedDiagnose);
 		return new TreatUsecase(data).fromFact(factory);
 	}
@@ -123,13 +123,12 @@ public class PrescribeTreatment extends UseCase
 		public UseCase execute() {
 			printLn("Creating a new cast ");
 			print("Give the bodypart for the cast:");
-			String bodyPart= read();
+			String bodyPart = read();
 			print("Give the time the patient has to wear the cast: ( a number in days)");
 			Integer duration;
-			try{
-			duration = new Integer(read());
-			}catch(Exception e)
-			{
+			try {
+				duration = new Integer(read());
+			} catch (Exception e) {
 				printLn("Not a number, please try again.");
 				return this;
 			}

@@ -40,14 +40,16 @@ import exceptions.FactoryInstantiationException;
 import exceptions.InvalidComplaintsException;
 import exceptions.InvalidDiagnoseException;
 import exceptions.InvalidDoctorException;
+import exceptions.InvalidHospitalException;
 import exceptions.InvalidLocationException;
+import exceptions.InvalidLoginControllerException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidPatientFileException;
 import exceptions.InvalidSerialException;
 import exceptions.InvalidSystemTimeException;
 import exceptions.UserAlreadyExistsException;
 
-public class TestingScenario
+public class TestingScenarioSetup
 {
 	private Hospital hospital;
 	private UserManager userMan;
@@ -60,11 +62,12 @@ public class TestingScenario
 	public void testScenario() throws InvalidNameException, InvalidPatientFileException, DischargePatientException,
 			UserAlreadyExistsException, InvalidLocationException, IllegalAccessException, InvalidDiagnoseException,
 			InvalidDoctorException, InvalidComplaintsException, CanNeverBeScheduledException,
-			FactoryInstantiationException, InvalidSerialException, InvalidSystemTimeException {
+			FactoryInstantiationException, InvalidSerialException, InvalidSystemTimeException,
+			InvalidHospitalException, InvalidLoginControllerException {
 		System.out.print("Setting up the hospital... ");
 		// build the hospital
 		StandardHospitalBuilder shb = new StandardHospitalBuilder();
-		hospital = shb.build();
+		this.hospital = shb.build();
 		this.userMan = hospital.getUserManager();
 		this.taskMan = hospital.getTaskManager();
 		this.pfMan = hospital.getPatientFileManager();
@@ -76,8 +79,9 @@ public class TestingScenario
 		createUsers();
 		initialisePatientFiles();
 		System.out.println("Initialisation of hospital state was successful!");
-		System.out.println("-------------------------------------------------\n");
-		System.out.println("Starting the testing scenario...");
+		System.out.println("-------------------------------------------------\n\n");
+		System.out.print("Starting the execution of the testing scenario...");
+		new TestScenario(hospital);
 	}
 
 	private void addFactories() {
@@ -204,6 +208,10 @@ public class TestingScenario
 		fillFilesWithData();
 	}
 
+	/******************
+	 * Helper methods *
+	 *****************/
+
 	private void createPatientFiles() throws InvalidNameException, InvalidPatientFileException {
 		pfMan.registerPatient("Dieter", hospital.getCampus("Campus 2"));
 		pfMan.registerPatient("Stefaan", hospital.getCampus("Campus 1"));
@@ -218,23 +226,23 @@ public class TestingScenario
 		setStefHistory(getPatientFileFrom("Stefaan"));
 		setWouterHistory(getPatientFileFrom("Wouter"));
 		setDieterHistory(getPatientFileFrom("Dieter"));
-		
+
 		// now we advance the time some so we can enter the results next.
 		advanceTime(new HospitalDate(now().getTimeSinceStart() + HospitalDate.ONE_DAY * 7));
-		
-		Collection<Task<?>> testsThibault = getPatientFileFrom("Thibault").getAllMedicalTests();
-		Collection<Task<? extends Treatment>> treatsThibault = getPatientFileFrom("Thibault").getAllDiagnosis().iterator().next().getTreatments();
-		
-		for(Task<? extends Treatment> task : treatsThibault) {
+
+		// Collection<Task<?>> treatsThibault =
+		// getPatientFileFrom("Thibault").getAllMedicalTests();
+		Collection<Task<? extends Treatment>> treatsThibault = getPatientFileFrom("Thibault").getAllDiagnosis()
+				.iterator().next().getTreatments();
+
+		for (Task<? extends Treatment> task : treatsThibault) {
 			System.out.println("\nTM Contains treat?" + this.taskMan.getAllTasks().contains(task));
 			System.out.println("Treatment Queued?" + task.isQueued());
 			System.out.println("Treatment Scheduled?" + task.isScheduled());
 			System.out.println("Treatment Finished?" + task.isFinished());
 			System.out.println("Date = " + task.getDate());
-			
 			System.out.println();
 		}
-		
 		this.pfMan.checkOut(getPatientFileFrom("Thibault"));
 	}
 
