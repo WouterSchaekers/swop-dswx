@@ -8,7 +8,6 @@ import medicaltest.MedicalTest;
 import result.Result;
 import result.ResultFactory;
 import scheduler.tasks.Task;
-import treatment.Treatment;
 import users.Nurse;
 import users.User;
 import controllers.interfaces.TaskIN;
