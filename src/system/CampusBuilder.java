@@ -2,16 +2,14 @@ package system;
 
 import machine.MachinePoolBuilder;
 import warehouse.NormalWarehouseBuilder;
-import warehouse.WarehouseBuilder;
 
 /**
- * Class for building a C
+ * Class for building a Campus.
  */
 public class CampusBuilder
 {
 	private String campusName_;
 	private Hospital hospital_;
-	private WarehouseBuilder warehouseBuilder_;
 
 	/**
 	 * Default constructor.

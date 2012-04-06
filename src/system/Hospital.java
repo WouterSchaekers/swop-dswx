@@ -39,17 +39,12 @@ public class Hospital implements HospitalIN
 	 *            The TimeLord to be associated with this hospital.
 	 * @param userManager
 	 *            The UserManager that's associated with this hospital.
-	 * @param machinePool
-	 *            The MachinePool of this hospital.
 	 * @param patientFileManager
 	 *            The PatientFileManager for this hospital.
-	 * @param scheduler
-	 *            The Scheduler for this hospital.
-	 * @param taskManager
-	 *            The TaskManager for this hospital.
-	 * @param warehouse
-	 *            The Warehouse for this hospital.
-	 * @throws
+	 * @param hospitalAdmin
+	 *            The Admin of the Hospital.
+	 * @param tsmb
+	 *            The Builder that will build the TaskManager for this Hospital.
 	 */
 	public Hospital(TimeLord timeLord, UserManager userManager, PatientFileManager patientFileManager,
 			HospitalAdmin hospitalAdmin, TaskManagerBuilder tsmb) {
@@ -63,54 +58,80 @@ public class Hospital implements HospitalIN
 	}
 
 	/**
-	 * Method for a campus to make sure the double bind is made.
+	 * Method for a campus to make sure the double bond is made.
 	 * 
 	 * @param campus
+	 *            The Campus that has to be added to the Hospital.
 	 */
 	void addCampus(Campus campus) {
 		this.campuses_.add(campus);
 	}
 
+	/**
+	 * @return The current SystemTime.
+	 */
 	@Basic
 	public TimeLord getTimeKeeper() {
-		return systemTime_;
+		return this.systemTime_;
 	}
 
+	/**
+	 * @return The UserManager.
+	 */
 	@Basic
 	public UserManager getUserManager() {
-		return userManager_;
+		return this.userManager_;
 	}
 
+	/**
+	 * @return The PatientFileManager.
+	 */
 	@Basic
 	public PatientFileManager getPatientFileManager() {
-		return patientFileManager_;
+		return this.patientFileManager_;
 	}
 
+	/**
+	 * @return The TaskManager.
+	 */
 	@Basic
 	public TaskManager getTaskManager() {
-		return taskManager_;
+		return this.taskManager_;
 	}
 
-	@Basic
+	/**
+	 * Returns the Campus that has a given name.
+	 * 
+	 * @param name
+	 *            The name of the Campus.
+	 * @return The Campus with the given name.
+	 */
 	public Campus getCampus(String name) {
-		for (Campus campus : campuses_) {
-			if (campus.getCampusName().equals(name)) {
+		for (Campus campus : this.campuses_)
+			if (campus.getCampusName().equals(name))
 				return campus;
-			}
-		}
 		throw new IllegalArgumentException("Campus does not exists");
 	}
 
+	/**
+	 * @return A collection of all Locations in this Hospital.
+	 */
 	public Collection<Location> getAllLocations() {
 		return new LinkedList<Location>(this.campuses_);
 	}
 
+	/**
+	 * @return A collection of all Campusses in this Hospital.
+	 */
 	public Collection<Campus> getAllCampuses() {
 		return new LinkedList<Campus>(this.campuses_);
 	}
 
 	/**
 	 * Removes a campus from this hospital.
+	 * 
+	 * @param name
+	 *            The Campus with the given name that has to be removed.
 	 */
 	public void removeCampus(String name) {
 		LinkedList<Campus> newCP = new LinkedList<Campus>();
@@ -119,6 +140,9 @@ public class Hospital implements HospitalIN
 				newCP.add(c);
 	}
 
+	/**
+	 * @return A collection of all the resources in this Hospital.
+	 */
 	public Collection<Schedulable> getAllSchedulables() {
 		ArrayList<Object> sched = new ArrayList<Object>();
 		for (Object o : userManager_.getAllUsers())
@@ -135,6 +159,9 @@ public class Hospital implements HospitalIN
 		return rv;
 	}
 
+	/**
+	 * @return A filter that filters Schedulables.
+	 */
 	private static final Filter schedulableFilter() {
 		return new Filter()
 		{
@@ -145,37 +172,60 @@ public class Hospital implements HospitalIN
 		};
 	}
 
+	/**
+	 * @return A collection of all MedicalTests.
+	 */
 	public Collection<MedicalTestFactory> getMedicalTests() {
 		return clonemedicalTestFactories();
 
 	}
 
+	/**
+	 * Adds a MedicalTestFactory.
+	 * 
+	 * @param fact
+	 *            The MedicalTestFactory.
+	 */
 	public void addMedicalTestFactory(MedicalTestFactory fact) {
-		medicalTestFactories_.add(fact);
+		this.medicalTestFactories_.add(fact);
 	}
 
+	/**
+	 * @return A collection of all the MedicalTestFactories.
+	 */
 	private Collection<MedicalTestFactory> clonemedicalTestFactories() {
 		Collection<MedicalTestFactory> rv = new ArrayList<MedicalTestFactory>();
-		for (MedicalTestFactory fact : medicalTestFactories_)
+		for (MedicalTestFactory fact : this.medicalTestFactories_)
 			rv.add(fact.newInstance());
 		return rv;
 
 	}
 
+	/**
+	 * @return A collection of all the TreatmentFactories.
+	 */
 	public Collection<TreatmentFactory> getTreatments() {
 		return cloneTreatmentFactories();
 
 	}
 
+	/**
+	 * Adds a TreatmentFactory to the Hospital.
+	 * 
+	 * @param fact
+	 *            The TreatmentFactory that has to be added.
+	 */
 	public void addTreatmentFactory(TreatmentFactory fact) {
-		treatmentFactories_.add(fact);
+		this.treatmentFactories_.add(fact);
 	}
 
+	/**
+	 * @return A collection of all the TreatmentFactories.
+	 */
 	private Collection<TreatmentFactory> cloneTreatmentFactories() {
 		Collection<TreatmentFactory> rv = new LinkedList<TreatmentFactory>();
 		for (TreatmentFactory fact : treatmentFactories_)
 			rv.add(fact.newInstance());
 		return rv;
-
 	}
 }
