@@ -75,6 +75,7 @@ public class EnterMedicaltestResultController extends NeedsLoginController
 	 */
 	public Result setResult(TaskIN task, ResultFactory factory) throws InvalidResultException,
 			FactoryInstantiationException {
+		
 		return task.give(factory);
 	}
 

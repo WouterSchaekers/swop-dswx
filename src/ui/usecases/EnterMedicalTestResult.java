@@ -214,7 +214,7 @@ public class EnterMedicalTestResult extends UseCase
 			try {
 				controller.setResult(task, fact);
 			} catch (Exception e) {
-				printLn(e.getMessage());
+				printLn("Result not succesfully added");
 				return mm();
 			}
 			printLn("Result succesfully added.");
