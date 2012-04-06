@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.Collection;
 import java.util.LinkedList;
+import machine.Machine;
 import machine.MachineBuilder;
 import system.Campus;
 import system.Location;
@@ -9,6 +10,7 @@ import users.HospitalAdmin;
 import users.User;
 import controllers.interfaces.CampusIN;
 import controllers.interfaces.LocationIN;
+import controllers.interfaces.MachineIN;
 import exceptions.InvalidCampusException;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLocationException;
@@ -65,14 +67,15 @@ public class AddHospitalEquipmentController extends NeedsLoginController
 	/**
 	 * Creates a new machine from the given machine builder and adds it to the
 	 * hospital.
+	 * @return 
 	 * 
 	 * @throws InvalidSerialException
 	 * @throws InvalidLocationException
 	 */
 	@controllers.PUBLICAPI
-	public void createMachine(MachineBuilder b) throws InvalidLocationException, InvalidSerialException {
+	public MachineIN createMachine(MachineBuilder b) throws InvalidLocationException, InvalidSerialException {
 		b.setLocation((Campus)loginController_.getLocation());
-		createMachine(b, loginController_.getLocation());
+		return createMachine(b, loginController_.getLocation());
 	}
 
 	/**
@@ -90,9 +93,9 @@ public class AddHospitalEquipmentController extends NeedsLoginController
 	 *             If the serial set in the given machine builder is not a valid
 	 *             one.
 	 */
-	private void createMachine(MachineBuilder b, LocationIN whereabouts) throws InvalidLocationException,
+	private MachineIN createMachine(MachineBuilder b, LocationIN whereabouts) throws InvalidLocationException,
 			InvalidSerialException {
-		((Campus) whereabouts).getMachinePool().addMachine(b);
+		return ((Campus) whereabouts).getMachinePool().addMachine(b);
 	}
 
 	/**

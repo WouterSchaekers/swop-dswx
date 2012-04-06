@@ -130,7 +130,7 @@ public class LoginController extends HospitalController
 	 */
 	@controllers.PUBLICAPI
 	public UserIN getUserIN() {
-		return user;
+		return getUser();
 	}
 
 	/**

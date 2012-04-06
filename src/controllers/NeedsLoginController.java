@@ -43,7 +43,7 @@ abstract class NeedsLoginController extends HospitalController
 	 *         initialised and the logged in user is authorized to use the newly
 	 *         created controller.
 	 */
-	public boolean isValidLoginController(LoginController loginController) {
+	 boolean isValidLoginController(LoginController loginController) {
 		User controllerOwner = loginController.getUser();
 		if (controllerOwner == null)
 			return false;

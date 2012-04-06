@@ -1,9 +1,20 @@
 package controllers;
 
+import help.Collections;
+import help.Filter;
+import java.util.ArrayList;
+import java.util.Collection;
+import controllers.interfaces.TaskIN;
+import result.Result;
+import result.ResultFactory;
+import scheduler.tasks.Task;
+import treatment.Treatment;
 import users.Nurse;
 import users.User;
+import exceptions.FactoryInstantiationException;
 import exceptions.InvalidHospitalException;
 import exceptions.InvalidLoginControllerException;
+import exceptions.InvalidResultException;
 
 /**
  * Use this controller to enter the result of a treatment that has finished.
@@ -32,27 +43,38 @@ public class EnterTreatmentResultController extends NeedsLoginController
 		super(loginController);
 	}
 
+	private final Filter treatmentTaskFilter = new Filter()
+	{
+		
+		@Override
+		public <T> boolean allows(T arg) {
+			if(arg instanceof Task)
+				if(((Task<?>)arg).getDescription() instanceof Treatment)
+					if(((Task<?>)arg).getResult()==null)
+						return ((Task<?>) arg).getResources().contains(loginController_.getUser());
+			return false;
+		}
+	};
 	/**
-	 * @return All treatments that have finished and need results.
+	 * Returns the collection of treatment tasks that have no result that are for the nurse that is currently logged in.
+	 * @return
 	 */
-//	@controllers.PUBLICAPI
-//	public Collection<TaskIN> getTreatmentsThatNeedResults() {
-//		return hospital.getTaskManager().getTreatmentsThatNeedResults();
-//	}
-
+	public Collection<TaskIN> getTreatments()
+	{
+		return new ArrayList<TaskIN>(Collections.filter(hospital.getTaskManager().getAllTasks(),treatmentTaskFilter));
+	}
 	/**
-	 * Adds the given report to the selected treatment.
-	 * 
+	 * Adds the result to the system.
+	 * @param task
+	 * @param factory
+	 * @return
 	 * @throws InvalidResultException
-	 *             If the given result is invalid.
+	 * @throws FactoryInstantiationException
 	 */
-//	@controllers.PUBLICAPI
-//	public void addResultTo(TaskIN selectedTreatment, String report) throws InvalidResultException {
-//		if (!(selectedTreatment.isFinished() || selectedTreatment.getDescription().needsResult()))
-//			throw new InvalidResultException("Selected task does not need a result!");
-//		selectedTreatment.getDescription().setResult(report);
-//	}
-
+	public Result setResult(TaskIN task,ResultFactory factory) throws InvalidResultException, FactoryInstantiationException
+	{
+		return task.give(factory);
+	}
 	/**
 	 * @return True if the given user is a nurse.
 	 */
