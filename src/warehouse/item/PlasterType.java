@@ -19,4 +19,8 @@ public class PlasterType extends WarehouseItemType
 	public long getTimeToLive() {
 		return HospitalDate.ONE_YEAR * 100;
 	}
+	@Override
+	public String name() {
+		return "meal";
+	}
 }
