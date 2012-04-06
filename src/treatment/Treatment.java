@@ -72,6 +72,9 @@ public abstract class Treatment extends TaskDescriptionWithPatientFile
 				return;
 			}
 		}
+		Collection<Observable> obs = this.getObservables();
+		for(Observable ob : obs) 
+			ob.addObserver(task);
 		throw new IllegalArgumentException(
 				"Error! PatientFile does not contain the diagnose for the treatment that's being deinitialised.!");
 	}
@@ -87,6 +90,7 @@ public abstract class Treatment extends TaskDescriptionWithPatientFile
 		observables.add(diagnose_);
 		return observables;
 	}
+	
 	protected final void setResult(Result result)
 	{
 		result_=result;
