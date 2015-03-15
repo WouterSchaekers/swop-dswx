@@ -1,0 +1,157 @@
+# Iteratie 3 #
+| **Timepoint** | **Members** | **Workload** | **Purpose** | **Comments** |
+|:--------------|:------------|:-------------|:------------|:-------------|
+| 21/02/12: 15u00 -> 16u30 | 2 SW | 1.5 | Create todo list && prioritise |  |
+| 23/02/12: 14u30 -> 15u30 | 1 D | 1 | WareHouse een beetje gefixt|  |
+| 24/02/12; 10u30 -> 12u30 | 3 DSW | 2 | Completing the todo list; creating testing scenarios, creating the new domain model, completing the missing elements in the UML of the domain layer |  |
+| 24/02/12: 13u00 -> 16u00 | 3 DSW | 3 | More of the above... | 
+
+&lt;lunch&gt;
+
+ |
+| 24/02/12: 17u10 -> 18u15 | 1 S | 1 | completing the UML further |  |
+| 25/02/12: 17u00 -> 18u00 | 1 D | 1 | Making domain model + browsing code looking for possible refactorings. |  |
+| 26/02/12: 15u45 -> 18u00 | 3 DSW |2.25 | Browsing code for more refactorings; completing the UML |  |
+| 26/02/12: 19u00 -> 20u00 | 3 DSW | 1 | More of the above... |  |
+| 29/02/12: 11u00 -> 13u00 | 3 DSW | 2 | Refactoring the warehouse and some of the controllers.|  |
+| 29/02/12: 17u00 -> 19u15 | 3 DSW | 2.25 | Refactoring the controllerlayer and continuance of the refactoring of the warehouse, discussing the updated domain model.|  |
+| 01/03/12: 11u00 -> 13u00 | 3 DSW | 2 | Refactoring the warehouse, further updating of the controller layer|  |
+| 06/03/12: 14u00 -> 18u30 | 3 DSW | 4.5 | Meeting with project advisor + working our way towards the deadline by implementing controller APIs.|  |
+| 07/03/12: 11u00 -> 12u30 | 2 DS | 1.5 | Studying the public API of the controllers and determining some smaller refactoring changes |  |
+| 07/03/12: 13u00 -> 18u00 | 3 DSW | 5 | Updating the APIs of the controllers in the code. Making system sequence diagrams of some use cases. |  |
+| 07/03/12: 21u00 -> 23u00 | 2 SW | 2 | Writing the report on refactoring changes. | dieter winabar. |
+| 08/03/12: 12u00 -> 13u30 | 2 SW | 1.5 | Finishing up the current draft of the report on refactoring changes. |  |
+| 08/03/12: 15u45 -> 19u15 | 3 DSW | 3.5 | Discussing the dependencies created by our current design, making system sequence diagrams, implementing scenarios | dieter moest weg van shana en mocht niet meer terugkomen. |
+| 08/03/12: 21u00 -> 23u30 | 2 SW | 2.5 | Making large changes to the controllers; implementing a basic scenario. |  |
+| 09/03/12: 00u00 -> 02u30 | 1 S | 2.5 | Finishing up the implementation of the basic testing scenario. |  |
+| 09/03/12: 10u00 -> 10u30 | 2 SW | 0.5 | Reviewing the basic testing scenario; initiating implementing more complex scenarios |  |
+| 09/03/12: 10u30 -> 12u30 | 3 DSW | 2.5 | More of the above... |  |
+| 09/03/12: 13u00 -> 16u00| 3 DSW | 3 | Making the final changes to both report and code before the deadline. |  |
+| 09/03/12: 16u00 -> 17u00| 1 S | 1 | Finishing writing the report. | dieter en Wouter wilden ontspannen. |
+| 13/03/12: 15u00 -> 17u00 | 3 DSW | 2 | Discussing whether or not to use multiple user managers; the responsibilities of Campus, Hospital,... |  |
+| 14/03/12: 16u00 -> 18u00 | 3 DSW | 2 | Creating a high level list of TODOs and immediately crossing off 4 design decisions. |  |
+| 14/03/12: 22u00 -> 24u00 | 2 SW | 2 | Starting the TODO list of implementations; fixing some random compile erros. | dieter winabar. |
+| 15/03/12: 21u30 -> 23u50 | 2 SW | 2.5 | Description, unscheduledTask, warehouse-admin-manager-stock (impl) |  |
+| 16/03/12: 11u00 -> 12u30 | 2 SW | 1.5 | More of the above | dieter oefenzitting |
+| 16/03/12: 13u30 -> 17u00 | 2 SW | 3.5 | More of the above | dieter kon omwille van redenen van zijn persoonlijk leven met shana niet aanwezig zijn. We stuurden hem wel een e-mail met updates van de situatie en een TODO lijstje. |
+| 18/03/12: 18u00 -> 19u30 | 1 S| 1.5 | Warehouse/StockOrder/... beetje fixen; Visual Paradigm: 4 nieuwe prentjes staan nu op de communication pagina. |  |
+| 20/03/12: 11u00 -> 19u00 | 3 DSW | 8 | Warehouse/StockOrder/ScheduledTask/Requirement/Condition/meeting with project advisor |  |
+| 21/03/12: 21u00 -> 02u30 | 2 SW | 5.5 | Warehousepackage/schedulingpackage except for scheduler are done. Starting the implementation of scheduler. | Dieter winabar |
+| 22/03/12: 15u00 -> 18u00 | 1 W | 3 | Scheduling algorithm | Stefaan had migraine en lag te QQ'en. Dieter moest met Shana leuke dingen doen. |
+| 23/03/12: 11u00 -> 14u00 | 2 SW | 3 | Scheduling algorithm, factory pattern for treatment. | Dieter oefenzitting CN |
+| 23/03/12: 14u00 -> 15u00 | 1 D | 1 | UserTypes maken |  |
+| 27/03/12: 14u00 -> 17u00 | 2 DW | 3 | Paired programming: code cleanups and discussing the design revolving around the creation of medical tests and where to store them,... | Stefaan had labo CN. |
+| 27/03/12: 17u00 -> 19u00 | 3 DSW | 2 | More of the above... |  |
+| 28/03/12: 13u30 -> 15u30 | 1 S | 2 | Implementing checkincontroller, registerpatientcontroller, patient, patientFile |  |
+| 28/03/12: 16u00 -> 18u00 | 3 DSW | 2 | Reviewing assignment for issues concerning campus preferences, implementing diagnose- related controllers, discovering the capsule-concept and experimenting with it |  |
+| 28/03/12: 18u00 -> 19u00 | 2 DS | 1 | Elaborating on the design of Tasks, unscheduled tasks, finished tasks, scheduled tasks, descriptions,... | Wouter moest eten |
+| 28/03/12: 20u30 -> 23u30 | 2 SW | 3 | Implementing some controllers, refactoring the scheduling algorithm | Dieter winabar |
+| 29/03/12: 11u00 -> 13u30 | 1 W | 2.5 | Refactoring the scheduling algorithm | Dieter moest slapen en Stefaan ging naar de oefenzitting van CN |
+| 29/03/12: 15u00 -> 16u00 | 3 DSW | 1 | Making the last design decision: use task states instead of hierarchy of task |  |
+| 29/03/12: 16u00 -> 19u00 | 2 SW | 3 | Implementing the taskstates and fixing all compile errors so that we will now be able to code on our own if needed. | Dieter had labo CN en moest daarna blijkbaar stomme dingen met Shana doen en haar lasagna gaan opeten. |
+| 30/03/12: 12u00 -> 13u00 | 2 SW | 1 | Finishing the implemention the taskstates. | Dieter had oefenzitting CN. |
+| 30/03/12: 13u00 -> 14u30 | 2 DSW | 1.5 | Considering the design around initialising and de-initialising Tasks for Treatments that have yet unapproved diagnoses. |  |
+| 30/03/12: 20u00 -> 23u30 | 2 SW | 3.5 | Discussing the design options for implementing the campus preferences of doctors and the impact on scheduling, reimplementing Diagnose and PatientFile the way we decided to with Dieter. |  |
+| 01/04/12: 19u30 -> 20u30 | 1 W | 1 | Improving Scheduler algorithm. |  |
+| 01/04/12: 21u00 -> 02u00 | 1 S | 5 | Implementing some controllers (see commit log) |  |
+| 02/04/12: 15u00 -> 16u00 | 1 S | 1 | Implementing some more controllers |  |
+| 02/04/12: 16u00 -> 19u00 | 2 SW | 3 | Finishing implementing LocationTimeTables and PreferenceStates properly. |  |
+| 03/04/12: 12u00 -> 14u00 | 2 SW | 2 | Finishing the implementation of the last controllers, debugging scheduling algorithm. |  |
+| 03/04/12: 15u00 -> 20u00 | 3 DSW | 5 | Reviewing the controller implementations with Dieter, making a new TODO list, starting the work on the report, implementing the UI, some tests,... |  |
+| 04/04/12: 11u00 -> 12u00 | 2 DW | 1 | Reviewing the visibility of methods and constructors. Checking for strange parameters,... | Stefaan lag nog te slapen! |
+| 04/04/12: 12u00 -> 13u30 | 3 DSW | 1.5 | Refactoring some code, writing scheduling tests, making the report, making SSDs |  |
+| 04/04/12: 13u30 -> 14u30 | 2 DS | 1 | More of the above... | Wouter ging eten op kot. |
+| 04/04/12: 15u00 -> 19u00 | 3 DSW | 4 | Debugging scheduling algorithm, writing tests for domain layer, writing the report & creating SSDs |  |
+| 04/04/12: 21u00 -> 00u30 | 3 DSW | 3.5 | More of the above... |  |
+| 05/04/12: 10u30 -> 13u37 | 3 DSW | 3 | Writing documentation, implementing ui, writing unit tests |  |
+| 05/04/12: 15u00 -> 19u30 | 3 DSW | 4.5 | Writing documentation, implementing ui, writing unit tests |  |
+| 05/04/12: 21u30 -> 00u00 | 3 DSW | 2.5 | Writing documentation, implementing ui, writing unit tests and a better test scenario |  |
+| 06/04/12: 00u00 -> 03u00 | 2 SW | 3 | More of the above | Dieter wilde gaan slapen zodat hij morgen zeker op tijd wakker was |
+| 06/04/12: 09u00 -> 10u30 | 1 D | 1.5 | More of the above | Dieter wilde gaan slapen zodat hij morgen zeker op tijd wakker was |
+| 06/04/12: 10u30 -> 13u00 | 3 DSW | 2.5 | More of the above |  |
+| 06/04/12: 13u30 -> 17u30 | 3 DSW | 4 | More of the above | 
+
+&lt;lunch&gt;
+
+ |
+| 06/04/12: 18u00 -> 19u30 | 3 DSW | 4 | More of the above |  |
+| 06/04/12: 20u00 -> 01u00 | 3 DSW | 5 | More of the above | 
+
+&lt;dinner&gt;
+
+ |
+| 06/04/12: 01u00 -> 02u30 | 2 DW | 1.5 | Submitting everything | Stefaan crashte compleet en ging dus slapen |
+
+# Iteratie 2 #
+| **Timepoint** | **Members** | **Workload** | **Purpose** | **Comments** |
+|:--------------|:------------|:-------------|:------------|:-------------|
+|09/11/11: 20u00 -> 01u00|4 DSWT|5 | Trying to analyse a couple of high-level problems with our current design|  |
+|11/11/11: 11u00 -> 17u00|4 DSWT|6 |Trying to bring the current system in a class diagram|  |
+|14/11/11: 14u00 -> 15u00|4 DSWT|1 |Feedbacksession|  |
+|16/11/11: 10u45 -> 14u00|3 DSW|3 |Evaluation of the feedbacksession and some more updating to the class diagram|  |
+|29/11/11: 21u30 -> 00u30|2 DS|4 |Some global high level brainstorming about scheduling, discussing different testing strategies|Wouter moest A&B doen en Thibault was een noob en heeft het vak laten vallen.|
+|01/12/11: 20u00 -> 23u00|2 SW|3 |Further discussing testing strategies and writing a report on it|dieter wilde LoL spelen.|
+|02/12/11: 10u00 -> 17u00|3 DSW|7 |specific discussions and design decisions concerning scheduling and constraint processing|  |
+|04/12/11: 11u00 -> 13u30|2 SW|2.5|Complete redesign of the Scheduler and constraintprocessing|dieter moest P&O doen.|
+|04/12/11: 15u00 -> 18u30|3 DSW|3.5|Continuance of discussion concerning the new Scheduler model and implementing the design figured out above|  |
+|04/12/11: 19u20 -> 22u00|3 DSW|2.7|Further implementing of Scheduler-design|  |
+|04/12/11: 22u00 -> 22u30|2 SW|0.5|Further implementing of Scheduler|dieter wilde LoL spelen en stopte dus wat vroeger.|
+|07/12/11: 14u30 -> 18u30 |2 SW| 4 |Testing the TimeTable class and further implementing of the Scheduler|dieter wilde P&O doen en kon op 6/12 niet omdat hij een prior commitment had om "LoL te spelen" dat hij daarna afzegde om "toffe dingen doen met shana voor haar verjaardag".|
+|07/12/11: 20u30 -> 00u30 |1 S| 4 |Further implementing the Scheduler and the TimeTable |dieter had geen zin meer omdat hij net een zware P&O dag had en Wouter moest nog P&O doen. Stefaan deed dus alleen nog wat verder.|
+| 08/12/11: 20u00 -> 23u00 | 2 SW | 3 | Finishing up the implementation of Scheduler; start of debugging TimeTable | dieter had niet tijdig zijn SMS gelezen. |
+| 09/12/11: 09u30 -> 10u00 | 1 S | 0.5 | Setting up a TODO-list; some minor code changes to the scheduler. |  |
+| 09/12/11: 10u30 -> 14u00| 3 DSW | 3.5 | More testing of the scheduler,timetable,timepoint,timeslot,.... scheduler package; writing documentation; making all classes defensive; rewriting Task and TaskManager; debugging scheduler; requirementinterface |  |
+| 09/12/11: 14u00 -> 14u50 | 2 DS | 1 | Continuance of above | Wouter took a lunchbreak. |
+| 09/12/11: 14u40 -> 16u10 | 3 DSW | 2.5 | Making everything defensive, more debugging of the scheduler package.|  |
+| 10/12/11: 11u30 -> 17u45 | 2 SW | 3 | More of the above...  | dieter moest naar huis omdat zijn nonkel overleden was en kon dus niet aanwezig zijn in het weekend. |
+| 10/12/11: 18u15 -> 19u00 | 2 SW | 1 | More of the above... | More of the above.... |
+| 10/12/11: 20u30 -> 21u30 | 1 S | 1 | Continuance of above | Wouter at en nam een korte pauze terwijl Stefaan zijn verloren tijd trachtte in te halen. |
+| 10/12/11: 21u30 -> 00u30 | 2 SW | 3.5 | Making up our minds about using util.Date, sql.Date, our own Date, Caladendar or GregorianCalendar.|  |
+| 11/12/11: 10u30 -> 14u00 | 2 SW | 3.5 | Implementing our own Date, finding weird bugs in Scheduler |  |
+| 11/12/11: 14u30 -> 16u00 | 2 SW | 1.5 |Finishing up testing and implementing the HospitalDate and applying it to the project. Making class diagrams.|  |
+| 11/12/11: 19u00 -> 21u30 | 1 S | 2.5 | Finishing up the class diagram of the scheduler system | Wouter moest A&B maken. |
+| 11/12/11: 22u00 -> 01u30 | 1 S | 3.5 | Trying to find why in some cases the Scheduler can't schedule properly and fixing 1 out of 3 problem cases. | Wouter moest A&B maken. |
+| 12/12/11: 14u00 -> 16u00 | 3 DSW | 2 | Debugging Scheduler, Task, TaskManager, TimeSlot, TimePoint, TimeTable; bringing dieter up to date	|  |
+| 12/12/11: 16u15 -> 18u30 |3 DSW | 2 | more of the above..., making class diagrams and a draft of the report. |  |
+| 12/12/11: 21u00 -> 00u00 |1 S | 3 | Finishing some class diagrams and the draft of the report. |  |
+| 13/12/11: 16u00 -> 18u30 | 3 DSW | 2.5 | Discussing some more about constraints, specifically about the ones concerning Diagnose and back-to-back scheduled.|  |
+| 14/12/11: 20u45 -> 02u30 | 2 SW | 6 | Scheduler rev 6 (recursive) due to bug in specific case in previous revision| dieter moest naar de begrafenis van zijn nonkel en moest vandaag ook de wina kelder opruimen en kon dus niet komen. |
+| 15/12/11: 17u00 -> 19u00 | 1 SW | 2 | Further implementing of Scheduler and making a pre-fab of the report about it.| We hadden met dieter afgesproken morgen te komen om 9u30.|
+| 16/12/11: 10u00 -> 12u00 | 2 DW | 2 | Further implementing and debugging of Scheduler | Stefaan had zich overslapen omdat hij Wartortle & Mew aan het grinden was |
+| 16/12/11: 12u00 -> 15u30 | 3 DSW | 3.5 | Scheduler, Task, UnscheduledTask, ScheduledTask, TaskManager, TaskTest, TimeTable, TimeTableTest, SchedulerTest,... fixen |  |
+| 16/12/11: 15u30 -> 18u00 | 1 W | 2.5 | Scheduler |  |
+| 19/12/11: 15u20 -> 19u00 | 3 DSW | 3.67 | Scheduler + TimePoint |  |
+| 20/12/11: 11u30 -> 12u30 | 2 SW | 1 | Scheduler has been completely made bugfree; writing more tests to assure it is. | dieter voelde zich wat ziek dus bleef hij thuis. |
+| 20/12/11: 13u00 -> 15u00 | 2 SW | 2 | Writing more tests for Tasks and reading up on design patterns.| See above. |
+| 20/12/11: 16u00 -> 17u00 | 3 DSW | 1 | Creating a design for iteration 2.|  |
+| 21/12/11: 11u00 -> 12u30 | 3 DSW | 1.5 | Niets | dieter moest nogmaals praten met Frédéric Vogels over C#, Common Lisp, Haskell, Haskell tutorialboeken, andere programeertalen met hun voor en nadelen en het examenrooster |
+| 21/12/11: 12u30 -> 15u30 | 3 DSW | 3 | Programming  some scheduler constrains and medicaltest factory |  |
+| 21/12/11: 16u15 ->  18u15 | 3 DSW | 2 | More of the above |  |
+| 22/12/11: 10u30 -> 12u00| 2 SW | 1.5 | implementing warehouse, advance time | dieter had gisteren winabar.|
+| 22/12/11: 13u00 -> 14u00| 3 DSW | 1 | implementing warehouse, advance time |  |
+| 22/12/11: 14u00 -> 15u00| 2 DS | 1 | usecases, advance time | Wouter moest iets gaan eten.|
+| 22/12/11: 15u00 -> 18u00 | 3 DSW | 3 | unScheduledTasks and their child classes. |  |
+| 23/12/11: 12u00 -> 13u00 | 3 DSW | 1 | new scheduling algorithm, usecases, ... |  |
+| 23/12/11: 13u00 -> 16u00 | 3 DSW | 3 | Nothing | Praten met Frédéric |
+| 27/12/11: 11u30 -> 14u00 | 3 DSW | 2.5 | UnscheduledAppointment, UnscheduledMedicalTreatment |  |
+| 27/12/11: 17u00 -> 19u00 |  3 DSW | 2 | Observer pattern for TaskManager, TimeLord, Warehouse |  |
+| 28/12/11: 10u30 -> 11u50 | 2 SW | 1.5 | updateWarehouse en canBeScheduled | dieter was te laat.|
+| 28/12/11: 11u50 -> 15u30 | 3 DSW | 3.67 | updateWarehouse, canBeScheduled en usecases |  |
+| 28/12/11: 16u15 -> 18u | 3 DSW | 1.75 | updateWarehouse, schedulerTest en diagnosis |  |
+| 28/12/11: 18u40 ->  19u00 | 2 DS | 0.5 | usecases, observers | Wouter moest eten |
+| 29/12/11: 12u00 -> 15u00| 3 DSW | 3 | Usecases, observers, scheduling |  |
+| 29/12/11: 16u00 -> 17u30| 3 DSW | 1.5 | Usecases, observers, scheduling |  |
+| 29/12/11: 18u00 -> 00u45| 3 DSW | 6.67 | Usecases, observers, report |  |
+| 30/12/11: 10u30 -> 14u00 | 3 DSW | 3.5 | Usecases, report, unit testing |  |
+| 30/12/11: 16u00 -> 18u30 | 3 DSW | 2.5 | Usecases, report, unit testing |  |
+| 31/12/11: 01u30 -> 04u15| 3 DSW | 3 | Usecases, report, stock management | dieter gaat nu tot 09u00 slapen. |
+| 31/12/11: 05u00 -> 08u00 | 2 SW | 3 | report, stock management, testing, observers | dieter is net opgestaan! |
+| 31/12/11: 08u00 -> 09u15 | 3 DSW | 1.34 | report, stock management, testing, usecases| BREAKFASTTIME!!!!!!! ^^ |
+| 31/12/11: 10u00 -> 15u50 | 3 DSW | 6 | report, usecases |  |
+
+Total: 171.8u
+
+<u>aanwezig gedurende</u> : <br>
+dieter: 115.3u - 67%<br>
+Stefaan: 167.3u - 97%<br>
+Wouter: 149.3 - 87% <br>

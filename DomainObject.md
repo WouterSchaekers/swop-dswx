@@ -1,0 +1,1 @@
+Domain Objects are an idea to protect the domain

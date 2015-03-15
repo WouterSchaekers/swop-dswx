@@ -1,0 +1,1 @@
+The type corresponding with a [WarehouseItem](WarehouseItem.md),the type is used as a key in warehouse&stockprovider to avoid .getClass() and reflection. We use this interface to make sure that all the WarehouseItems are created with the create method in WarehouseItemType

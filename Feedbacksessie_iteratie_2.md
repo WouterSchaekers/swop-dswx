@@ -1,0 +1,45 @@
+# Verslag #
+  * Interactiediagramma's missen. **H**
+  * Relevante methodes op UML missen. **H**
+  * De UML en de code stemmen op sommige plaatsen niet overeen met elkaar (vb: ScheduledTask wordt door geen enkele ander klasse geëxtend) **A**
+  * Eclemma test report: code coverage veel te laag. **A**
+
+# Design #
+  * Warehouse:
+    * reserveItem() van Medication is nog niet geïmplementeerd. **H**
+    * Ontwerp is niet echt optimaal: een aantal keer code duplicatie met MAX\_UNITS\_OF... . Gebruik een gepast design pattern. **H**
+  * PatientFile:
+    * Er zijn create()-methodes die statisch zijn. **HQ**
+    * Geen patientklasse. We zouden deze wel moeten aanmaken: **A**
+      * Stel, er komt nieuwe data over de patient bij... waar ligt de grens van data in de pf bij te houden?
+      * Indien 1 patient naar 2 verschillende ziekenhuizen gaat is hij nog steeds dezelfde patient, maar heeft dan wel verschillende patientfiles. **A**
+    * ScheduledTest-usecase: louche auto-complete constructies. **H+**
+    * PatientFile:
+      * canBeDischarged() is min of meer een heruitvinding van dynamic binding **H**
+      * Diagnose en MedicalTest zitten in aparte Collections; afgeleide informatie. **M**
+  * Read-only interfaces die overbodig zijn: schrappen of een grotere interface maken die veel 'lege' interfaces omvat. **L**
+  * Documenteren van in welke eenheid de tijd op domeinniveau e.d. wordt gebruikt. **M**
+  * Alles moet volledig defensief zijn (de eventuele genomen shortcuts door tijdsgebrek moeten dus op een degelijke manier gecode worden). **MA**
+  * set-methodes aanbieden en ze dan niet gebruiken? -> beter schrappen **MQ**
+  * Medication setten gooit een exception... **M**
+  * Machine: interne datastructuren mogen niet gelekt worden. (Collection van ScheduledTasks). **M**
+  * Een klasse Hospital zou handig zijn. Zo kan er aan de controllers het hospital doorgegeven worden in plaats van een hele racem parameters. (DataBlob) **H**
+  * PatientFileManager checkt de naam van een nieuwe PatientFile in plaats van de PatientFile dit zelf te laten doen (of in een toekomstig nieuw design: Patient?). **M**
+  * StockProvider <=> Warehouse: Zelfde-achtige problemen **H**
+  * StockItem is nog steeds leeg. Deze moet gebruikt worden om code duplicatie zoals hierboven vermeld te vermijden. **H**
+  * Result kan zonder geassociëerde MedicalTest of Treatment gecreëerd worden. Een ontwerp maken dat bepaalde Results typisch maakt aan hun respectievelijk bijhoorende ResultHaving.**M**
+  * Exceptions die nogal vreemd lijken op niveau van de domeinlaag en toch nooit kunnen voorkomen mogen gecatcht worden met de nodige error output. **L**
+  * Medication is momenteel een Treatment en een StockItem... maak er 2 verschillende klasses van. **H**
+  * De MedicalTest of -Treatment bijhouden in diens van een bijhorende Scheduled- of UnscheduledTask. **H**
+  * Diagnose heeft TaskManager als rechtstreekse listener; geen obs. **HQ**
+
+# Wat wegvalt #
+Het systeem met prioriteiten ^^
+
+
+# Afkortingen #
+**H**: High priority
+**M**: Medium priority
+**L**: Low priority
+**A**: Anders;wordt opgelost door aan de andere dingen te werken;mogelijk om nu aan te werken
+**Q**: Quick fix

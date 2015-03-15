@@ -1,0 +1,10 @@
+Beste opties voor het medicaltest probleem: factory.
+Nog steeds een mogelijk alternatief: enum.
+
+
+Scheduler: We moeten de scheduler over meer klasses verdelen en herdesignen: 1 colossale klasse die alles doet wordt enorm complex, zeker vanaf het moment dat er constraints bij komen kijken.
+
+-> Constraints op Resource niveau bijhouden.
+
+
+Read-only objecten kunnen we implementeren aan de hand van interfaces die alleen getters hebben.

@@ -1,0 +1,97 @@
+#Description of how the user interface works
+
+@Deprecated
+# Introduction #
+
+The user interface is based on the Command pattern and the State pattern. All the states implement the following interface:
+
+```
+interface state
+{
+   public state execute();
+}
+```
+
+```
+while( currentState != null )
+    {
+        currentState = currentState.execute();
+    }
+```
+An example of how this works is given in the following piece of code, it queries a user for his or her name and if the name has less then 4 characters the name will be queried again.
+```
+class MainMenu extends state
+{
+    state[] menu_options = new state[1];
+    public MainMenu()
+    {
+       state[0]=new AskName();
+       state[1]=null;
+    }
+    
+    public state execute()
+    {
+        print("Select the menu option you want to take");
+        print("Option 1, input name");
+        print("Option 2, quit");
+        int i = readInteger();// error checking ommited for breverity
+        return menu_options[i];
+    }
+}
+
+class AskName extends state
+{
+    public state execute()
+    {
+        print("Enter your name: (more then 4 letters)");
+        string name = readLine();
+        return new CheckForValidName(name);
+    }
+}
+
+class CheckForValidName extends state
+{
+    string name;
+    public CheckForValidName(string name)
+    {
+        this.name=name;
+    }
+
+    public stat execute(){
+        if(validName(name))
+        {
+            return new NameSuccesfullyEntered(name);
+        }    
+        else
+        {
+            print("invalid name please enter new name");
+            return new AskName(); 
+        }
+    }
+
+    private boolean validName(string name){
+    if(!validLength(name))
+        return false;
+    return true;
+    }
+    private boolean validLength(String name)
+    {
+        if(name.length() < 4)
+            return false;
+      return true;
+  }
+}
+class NameSuccesfllyEntered 
+// omitted for breverity
+```
+
+# Advantages #
+
+  * UI is easy to debug and write.
+  * UI has a clear flow and every state has it's own use.
+  * The user interface is well structured.
+# Disadvantages #
+
+  * User interface has a million billion classes.
+  * Not that easy to understand.
+  * Drawings are required to follow the state transitions.

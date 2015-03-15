@@ -1,0 +1,21 @@
+# Introduction #
+De controllers package dient om een scheiding te houden tussen het systeem en de UI, de controllers zijn een public api die de consistency van het systeem niet kunnen breken. Dit blijft waar zolang enkel functions van de controllers aangeroepen worden. We gebruiken deze laag ook om de authenticatie van het systeem garanderen, als je een methode mag oproepen in de controller is het onmogelijk om het systeem in een ongeldige staat te brengen. Het alternatief was in het systeem veel validatie te doen op veel niveaus, op deze manier is het systeem simpeler
+
+
+# Details #
+Aanmaken van controllers, er is een dependency tree ( sommige controllers hebben informatie van andere controllers nodig.
+[LoginController](LoginController.md)
+
+# 1 Controller per usecase #
+
+**voordelen
+Strikte aflijning van welke usecases we aanbieden en op welke manier we dit doen.**
+
+**nadelen**
+
+Code duplication, het is niet duidelijk waar een docter zijn afspraken kan checken of waar nieuwe afspraken gemaakt moeten worden.
+
+Andere verwoording:
+De manier waarop de controllers zijn geïmpelenteerd, is eigenlijk niet de manier waarop we dat willen. Op dit moment is het zo dat voor elke usecase een aparte controller is gemaakt. Dit zorgt voor codeduplicatie (bijvoorbeeld appointments die kunnen gemaakt worden op twee verschillende plaatsen.
+
+# Autenthication #

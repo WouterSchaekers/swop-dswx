@@ -1,0 +1,25 @@
+# Dingen die in het verslag gaan komen #
+
+  * Package visible dingen
+  * Factories
+  * MachinePool die niet meer gehardcode is; pool is verantwoordelijk voor het creëren van machines.
+    * zo ook: PF & Mtest; Diag & Treatment
+  * Dubbele binding: pf & Diag: diag kan zichzelf replacen.
+  * UserFactory: publieke API van createStaff is meer generisch
+  * Generische Task van Descriptions: enforcen wat het type van task is op bepaalde plaatsen in het domein (e.g.: ik wil alleen medical test tasks hebben e.d.)
+  * Descriptions
+  * Task die met state werkt
+  * Task hiërarchie
+  * States voor task en doctor's preference
+  * Requirements
+    * Conditions
+  * Nieuwe warehouse (orderstrategies,...)
+  * WarehouseBuilder
+  * Locations en LocationTimeTables, preference
+  * Diagnose state: addTreatment exception dingtjes als de diag nog niet geëvalueerd is.
+  * Controller hiërarchie
+  * We hielden eerste en patientfile per campus bij. Het is beter dat er slechts 1 patient file per hospital wordt bijgehouden aangezien verschillende campussen toch aan de patient history van dezelfde patient moeten kunnen (verslag!)
+  * In het verslag moet zeker staan waarom we getClass gebruiken en niet bijvoorbeeld een custom hashcode en equals-methode. Deze reden is: Met getClass is de identifier die je terugkrijgt een getClass-object dat in een bepaalde plaats van het geheugen opgeslagen wort. Duplicate keys zijn dus niet mogelijk aangezien er niet meer dan 1 type getClass-objecten in 1 geheugencel kunnen staan op het zelfde moment in de tijd. Ook is deze methode voldoende flexibel als oplossing van het gegeven probleem.
+  * TaskManager observeert TimeLord
+  * De builders voor machines zijn OK omdat alle machines dezelfde signatuur hebben (verslag!)
+  * TaskManager observeert conditions, geen diagnoses
